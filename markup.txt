@@ -1,0 +1,82 @@
+# Magi-Nation Script Reference
+The game runs up to 4 main script threads that run game code:
+1. **Master**
+	- Handles Scene initialization
+2. **Scroll**
+3. **System**
+	- Handles Triggers
+4. **Text**
+	- Handles the Textbox and dialogue
+
+In addition, there can be up to 10 Actors, such as NPCs, that run 2 scripts each:
+- **Script0** runs the Actor's main code
+- **Script1** runs the Actor's graphics
+
+Each script command is usually reserved for specific threads, or may only work in specific threads.
+
+# Sample Scripts
+Blahblah demonstrate general concepts
+
+# Script Commands
+
+## Actor Commands
+
+### HeroFromDoor
+
+> Used in **Scene Initialization**
+> Ends the active frame
+
+Sets the Hero's location when loading a new Scene. The location is specified by the previous Scene using [HeroToDoor](#herotodoor) or [HeroToRelativeDoor](#herotorelativedoor).
+
+The current Hotspot will be set to null.
+
+```
+Scene1_Trigger::
+    HeroToDoor 0, 0
+    LongJump Scene2_Init
+
+Scene2_Init::
+    SceneNew
+    Scene SCENE_Scene2
+    SpritePalette PAL_Hero
+    ThatActorInit wActor_Hero, AI_Hero, 5, 5, 15, 0, Hero_StandL_Anim, Dont_Talk
+    ThatActorStart wActor_Hero
+    HeroFromDoor
+    HeroSetCamera
+    SceneReady
+```
+### HeroToDoor
+
+> Usually used in a Trigger
+
+- X coordinate
+- Y coordinate
+
+Saves a location to place the Hero when loading the next Scene.
+
+Usually placed right before loading a new Scene. The location is set using [HeroFromDoor](#herofromdoor). See also [HeroToRelativeDoor](#herotorelativedoor).
+```
+Scene1_Trigger::
+    HeroToDoor 0, 0
+    LongJump Scene2_Init
+```
+
+### HeroToRelativeDoor
+
+> Usually used in a Trigger
+
+- Left-displacement (-X)
+- Right-displacement (+X)
+- Up-displacement (-Y)
+- Down-displacement (+Y)
+
+Saves a location relative to the Hero's current location to place the Hero when loading the next Scene.
+
+Usually placed right before loading a new Scene. The location is set using [HeroFromDoor](#herofromdoor). See also [HeroToDoor](#herotodoor).
+
+```
+Scene1_Trigger::
+    ;New location is 10 right and 2 down
+    HeroToRelativeDoor 1, 11, 0, 2
+    LongJump Scene2_Init
+```

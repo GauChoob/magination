@@ -1,0 +1,6 @@
+    Align[$22:$4004]
+msObjectIdle::
+    ; Magiscript that simply idles
+    ; Used as a sort of nullish pointer by Objects
+    End()
+    

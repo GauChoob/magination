@@ -1,0 +1,1 @@
+These files are unused, but they just demonstrate some of the tilesets under different palettes

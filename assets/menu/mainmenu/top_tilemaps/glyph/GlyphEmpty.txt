@@ -1,0 +1,2 @@
+Dimensions 12x8
+There are 6 extra unused bytes at the end

@@ -1,0 +1,4 @@
+Tilemaps are copied into the second row of the window
+Dimensions of all tilemaps are 20x10
+
+See Menu_MainMenu_TopTilemapTable

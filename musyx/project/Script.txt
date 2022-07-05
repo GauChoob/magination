@@ -1,0 +1,1198 @@
+; Scriptfile, written by MusyX Soundtool
+; Date: 2021-06-12
+
+Projectpath=C:\Programs\ROM\MN\musyx\project
+; ------------------
+; objectid, filename
+
+[Keymaps]
+
+[Layers]
+
+[Samples]
+2,\Samples\bass_lowduty.wav,0("None")
+3,\Samples\bass_medduty.wav,0("None")
+4,\Samples\bass_verylowduty.wav,0("None")
+1,\Samples\cursor_enemyhit.wav,0("None")
+
+[Soundmacros]
+11,\Soundmacros\ch1_bounce.mxm
+8,\Soundmacros\ch1_default_finevibrato.mxm
+6,\Soundmacros\ch2_default_coarsevibrato.mxm
+4,\Soundmacros\ch2_finevibrato.mxm
+2,\Soundmacros\ch3_bass_adsr.mxm
+5,\Soundmacros\ch3_bass_steady.mxm
+7,\Soundmacros\ch3_default_bass_veryfinevibrato.mxm
+9,\Soundmacros\ch4_default_drum_kick.mxm
+10,\Soundmacros\ch4_drum_clap.mxm
+3,\Soundmacros\ch4_echoes.mxm
+28,\Soundmacros\critical_attack.mxm
+26,\Soundmacros\dark_attack.mxm
+35,\Soundmacros\drain.mxm
+29,\Soundmacros\earthquake.mxm
+30,\Soundmacros\earthquake_end.mxm
+17,\Soundmacros\enemy_die.mxm
+18,\Soundmacros\enemy_hit.mxm
+34,\Soundmacros\error.mxm
+25,\Soundmacros\fire_attack.mxm
+21,\Soundmacros\heal.mxm
+24,\Soundmacros\ice_attack.mxm
+20,\Soundmacros\macro_020.mxm
+37,\Soundmacros\macro_037.mxm
+38,\Soundmacros\macro_038.mxm
+39,\Soundmacros\macro_039.mxm
+40,\Soundmacros\macro_040.mxm
+41,\Soundmacros\macro_041.mxm
+42,\Soundmacros\macro_042.mxm
+43,\Soundmacros\macro_043.mxm
+44,\Soundmacros\macro_044.mxm
+45,\Soundmacros\macro_045.mxm
+46,\Soundmacros\macro_046.mxm
+47,\Soundmacros\macro_047.mxm
+48,\Soundmacros\macro_048.mxm
+49,\Soundmacros\macro_049.mxm
+50,\Soundmacros\macro_050.mxm
+19,\Soundmacros\physical_attack.mxm
+15,\Soundmacros\place_holder.mxm
+27,\Soundmacros\power_up_stat.mxm
+1,\Soundmacros\samplemap.mxm
+12,\Soundmacros\sendflag0.mxm
+16,\Soundmacros\sfx_cancel.mxm
+13,\Soundmacros\sfx_cursor.mxm
+23,\Soundmacros\sfx_explosion_large.mxm
+22,\Soundmacros\sfx_explosion_small.mxm
+14,\Soundmacros\sfx_ok.mxm
+36,\Soundmacros\test.mxm
+32,\Soundmacros\thunder.mxm
+31,\Soundmacros\treasurechest.mxm
+33,\Soundmacros\vortex.mxm
+
+[Tables]
+49154,\Tables\adsr_002_formacro_002.mxt
+49153,\Tables\ice_attack.mxt
+
+[Songgroup]
+  Name=Songs
+  MidiSetup
+  {
+    Name=Final_Battle
+    Filename=magibattle.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=DreamCreature
+    Filename=dream.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Forest
+    Filename=forest.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Curio
+    Filename=secret.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Glade
+    Filename=nature.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Orwin
+    Filename=shadow.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Boss
+    Filename=boss.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Cald
+    Filename=cald.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Core_Battle
+    Filename=battle.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Arderial
+    Filename=arderial.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Mischief
+    Filename=korgzet.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Ashyn
+    Filename=caldtown.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,10,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Shadowhold
+    Filename=geyser.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Sanctuary
+    Filename=gia.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Gia
+    Filename=home.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Lesson
+    Filename=lesson.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Morag
+    Filename=morag.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Evu
+    Filename=random.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Shop
+    Filename=shop.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Bogrom
+    Filename=underneath.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Descent
+    Filename=tunnel.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Agram
+    Filename=agramtheme.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Shadow_Geyser
+    Filename=maze.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Weave
+    Filename=orothe.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,85,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Orlon
+    Filename=carnival.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Vash_Naroom
+    Filename=naroom.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=The_Deep
+    Filename=ocean.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Wasteland
+    Filename=destruction.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,7,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Danger
+    Filename=caldhunt.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Parathin
+    Filename=turtleride.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Mushroom_Farm
+    Filename=mushroom.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Villainy
+    Filename=whimsical.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Rescue
+    Filename=song_032_rescue.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Quest
+    Filename=song_033_quest.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Overture_Pt_1
+    Filename=song_034_overture_pt_1.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Overture_Pt_2
+    Filename=song_035_overture_pt_2.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=Overture_Pt_3
+    Filename=song_036_overture_pt_3.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  ; ????PageEntry=Index,ObjectID,Priority,MaxVoices
+  NormPageEntry=0,8,0,255
+  NormPageEntry=1,6,0,255
+  NormPageEntry=2,7,0,255
+  NormPageEntry=3,9,0,255
+  NormPageEntry=6,10,0,255
+  NormPageEntry=7,3,0,255
+  NormPageEntry=9,5,0,255
+  NormPageEntry=10,2,0,255
+  NormPageEntry=38,7,0,255
+  NormPageEntry=39,7,0,255
+  NormPageEntry=80,8,0,255
+  NormPageEntry=81,6,0,255
+  NormPageEntry=85,4,0,255
+  NormPageEntry=121,3,0,255
+  NormPageEntry=124,11,0,255
+  NormPageEntry=126,12,0,255
+  NormPageEntry=127,1,0,255
+  ; Referencelist
+  Soundmacro=1
+  Soundmacro=2
+  Soundmacro=3
+  Soundmacro=4
+  Soundmacro=5
+  Soundmacro=6
+  Soundmacro=7
+  Soundmacro=8
+  Soundmacro=9
+  Soundmacro=10
+  Soundmacro=11
+  Soundmacro=12
+  Table=49154
+  Sample=1
+  Sample=2
+  Sample=3
+  Sample=4
+  ; -----------------------
+  ; Summary:
+  ; Soundmacro=    1		; (samplemap.mxm)
+  ; Soundmacro=    2		; (ch3_bass_adsr.mxm)
+  ; Soundmacro=    3		; (ch4_echoes.mxm)
+  ; Soundmacro=    4		; (ch2_finevibrato.mxm)
+  ; Soundmacro=    5		; (ch3_bass_steady.mxm)
+  ; Soundmacro=    6		; (ch2_default_coarsevibrato.mxm)
+  ; Soundmacro=    7		; (ch3_default_bass_veryfinevibrato.mxm)
+  ; Soundmacro=    8		; (ch1_default_finevibrato.mxm)
+  ; Soundmacro=    9		; (ch4_default_drum_kick.mxm)
+  ; Soundmacro=   10		; (ch4_drum_clap.mxm)
+  ; Soundmacro=   11		; (ch1_bounce.mxm)
+  ; Soundmacro=   12		; (sendflag0.mxm)
+  ; Table     =    2		; (adsr_002_formacro_002.mxt)
+  ; Sample    =    1		; (cursor_enemyhit.wav)
+  ; Sample    =    2		; (bass_lowduty.wav)
+  ; Sample    =    3		; (bass_medduty.wav)
+  ; Sample    =    4		; (bass_verylowduty.wav)
+  ; -----------------------
+
+[Songgroup]
+  Name=Jingles
+  MidiSetup
+  {
+    Name=BuildBridge
+    Filename=fanfare_buildbridge.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,124,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=GetItem
+    Filename=fanfare_getitem.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=LevelUp1
+    Filename=fanfare_levelup1.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  MidiSetup
+  {
+    Name=End
+    Filename=fanfare_end.mid
+    ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
+    Channelsetup=1,0,127,64,0,0
+    Channelsetup=2,1,127,64,0,0
+    Channelsetup=3,2,127,64,0,0
+    Channelsetup=4,3,127,64,0,0
+    Channelsetup=5,0,127,64,0,0
+    Channelsetup=6,0,127,64,0,0
+    Channelsetup=7,0,127,64,0,0
+    Channelsetup=8,0,127,64,0,0
+    Channelsetup=9,0,127,64,0,0
+    Channelsetup=10,0,127,64,0,0
+    Channelsetup=11,0,127,64,0,0
+    Channelsetup=12,0,127,64,0,0
+    Channelsetup=13,0,127,64,0,0
+    Channelsetup=14,0,127,64,0,0
+    Channelsetup=15,0,127,64,0,0
+    Channelsetup=16,0,127,64,0,0
+  }
+  ; ????PageEntry=Index,ObjectID,Priority,MaxVoices
+  NormPageEntry=0,8,0,255
+  NormPageEntry=1,6,0,255
+  NormPageEntry=2,7,0,255
+  NormPageEntry=3,9,0,255
+  NormPageEntry=6,10,0,255
+  NormPageEntry=38,7,0,255
+  NormPageEntry=39,7,0,255
+  NormPageEntry=80,8,0,255
+  NormPageEntry=81,6,0,255
+  NormPageEntry=124,11,0,255
+  NormPageEntry=126,12,0,255
+  ; Referencelist
+  Soundmacro=6
+  Soundmacro=7
+  Soundmacro=8
+  Soundmacro=9
+  Soundmacro=10
+  Soundmacro=11
+  Soundmacro=12
+  Sample=2
+  ; -----------------------
+  ; Summary:
+  ; Soundmacro=    6		; (ch2_default_coarsevibrato.mxm)
+  ; Soundmacro=    7		; (ch3_default_bass_veryfinevibrato.mxm)
+  ; Soundmacro=    8		; (ch1_default_finevibrato.mxm)
+  ; Soundmacro=    9		; (ch4_default_drum_kick.mxm)
+  ; Soundmacro=   10		; (ch4_drum_clap.mxm)
+  ; Soundmacro=   11		; (ch1_bounce.mxm)
+  ; Soundmacro=   12		; (sendflag0.mxm)
+  ; Sample    =    2		; (bass_lowduty.wav)
+  ; -----------------------
+
+[SFXgroup]
+  Name=SFXs
+  ; SFXEntry=ID,Soundmacro,Priority,MaxVoices,DefVel,DefPan,DefKey,Label
+  SFXEntry=1,13,10,255,127,64,60,SfxCursor
+  SFXEntry=2,14,10,255,127,64,60,SfxOK
+  SFXEntry=3,16,10,255,127,64,60,SfxCancel
+  SFXEntry=4,22,10,255,127,64,60,SfxExplosionSmall
+  SFXEntry=5,23,10,255,127,64,60,SfxExplosionLarge
+  SFXEntry=6,17,10,255,127,64,60,EnemyDie
+  SFXEntry=7,24,10,255,127,64,60,IceAttack
+  SFXEntry=8,25,10,255,127,64,60,FireAttack
+  SFXEntry=9,26,10,255,127,64,60,DarkAttack
+  SFXEntry=10,19,10,255,127,64,60,PhysicalAttack
+  SFXEntry=11,21,10,255,127,64,60,Heal
+  SFXEntry=12,18,11,255,127,64,60,EnemyHit
+  SFXEntry=13,15,10,255,127,64,60,PlaceHolder
+  SFXEntry=14,27,10,255,127,64,60,PowerUpStat
+  SFXEntry=15,28,10,255,127,64,60,CriticalAttack
+  SFXEntry=16,29,10,255,127,64,60,Earthquake
+  SFXEntry=17,30,10,255,127,64,60,EarthquakeEnd
+  SFXEntry=18,31,10,255,127,64,60,TreasureChest
+  SFXEntry=19,32,10,255,127,64,60,Thunder
+  SFXEntry=20,33,10,255,127,64,60,Vortex
+  SFXEntry=21,34,10,255,127,64,60,Error
+  SFXEntry=22,35,10,255,127,64,60,Drain
+  SFXEntry=23,36,10,255,127,64,60,Test
+  SFXEntry=24,38,10,255,127,64,60,sfx_24
+  SFXEntry=25,39,10,255,127,64,60,sfx_25
+  SFXEntry=26,40,10,255,127,64,60,sfx_26
+  SFXEntry=27,41,10,255,127,64,60,sfx_27
+  SFXEntry=28,42,10,255,127,64,60,sfx_28
+  SFXEntry=29,43,10,255,127,64,60,sfx_29
+  SFXEntry=30,45,11,255,127,64,60,sfx_30
+  SFXEntry=31,44,11,255,127,64,60,sfx_31
+  SFXEntry=32,46,10,255,127,64,60,sfx_32
+  SFXEntry=33,47,10,255,127,64,60,sfx_33
+  SFXEntry=34,48,10,255,127,64,60,sfx_34
+  SFXEntry=35,20,10,255,127,64,60,sfx_35
+  SFXEntry=36,37,10,255,127,64,60,sfx_36
+  SFXEntry=37,37,10,255,127,64,60,sfx_37
+  SFXEntry=38,37,10,255,127,64,60,sfx_38
+  SFXEntry=39,49,10,255,127,64,60,sfx_39
+  SFXEntry=40,50,10,255,127,64,60,sfx_40
+  ; Referencelist
+  Soundmacro=13
+  Soundmacro=14
+  Soundmacro=15
+  Soundmacro=16
+  Soundmacro=17
+  Soundmacro=18
+  Soundmacro=19
+  Soundmacro=20
+  Soundmacro=21
+  Soundmacro=22
+  Soundmacro=23
+  Soundmacro=24
+  Soundmacro=25
+  Soundmacro=26
+  Soundmacro=27
+  Soundmacro=28
+  Soundmacro=29
+  Soundmacro=30
+  Soundmacro=31
+  Soundmacro=32
+  Soundmacro=33
+  Soundmacro=34
+  Soundmacro=35
+  Soundmacro=36
+  Soundmacro=37
+  Soundmacro=38
+  Soundmacro=39
+  Soundmacro=40
+  Soundmacro=41
+  Soundmacro=42
+  Soundmacro=43
+  Soundmacro=44
+  Soundmacro=45
+  Soundmacro=46
+  Soundmacro=47
+  Soundmacro=48
+  Soundmacro=49
+  Soundmacro=50
+  Table=49153
+  Sample=1
+  ; -----------------------
+  ; Summary:
+  ; Soundmacro=   13		; (sfx_cursor.mxm)
+  ; Soundmacro=   14		; (sfx_ok.mxm)
+  ; Soundmacro=   15		; (place_holder.mxm)
+  ; Soundmacro=   16		; (sfx_cancel.mxm)
+  ; Soundmacro=   17		; (enemy_die.mxm)
+  ; Soundmacro=   18		; (enemy_hit.mxm)
+  ; Soundmacro=   19		; (physical_attack.mxm)
+  ; Soundmacro=   20		; (macro_020.mxm)
+  ; Soundmacro=   21		; (heal.mxm)
+  ; Soundmacro=   22		; (sfx_explosion_small.mxm)
+  ; Soundmacro=   23		; (sfx_explosion_large.mxm)
+  ; Soundmacro=   24		; (ice_attack.mxm)
+  ; Soundmacro=   25		; (fire_attack.mxm)
+  ; Soundmacro=   26		; (dark_attack.mxm)
+  ; Soundmacro=   27		; (power_up_stat.mxm)
+  ; Soundmacro=   28		; (critical_attack.mxm)
+  ; Soundmacro=   29		; (earthquake.mxm)
+  ; Soundmacro=   30		; (earthquake_end.mxm)
+  ; Soundmacro=   31		; (treasurechest.mxm)
+  ; Soundmacro=   32		; (thunder.mxm)
+  ; Soundmacro=   33		; (vortex.mxm)
+  ; Soundmacro=   34		; (error.mxm)
+  ; Soundmacro=   35		; (drain.mxm)
+  ; Soundmacro=   36		; (test.mxm)
+  ; Soundmacro=   37		; (macro_037.mxm)
+  ; Soundmacro=   38		; (macro_038.mxm)
+  ; Soundmacro=   39		; (macro_039.mxm)
+  ; Soundmacro=   40		; (macro_040.mxm)
+  ; Soundmacro=   41		; (macro_041.mxm)
+  ; Soundmacro=   42		; (macro_042.mxm)
+  ; Soundmacro=   43		; (macro_043.mxm)
+  ; Soundmacro=   44		; (macro_044.mxm)
+  ; Soundmacro=   45		; (macro_045.mxm)
+  ; Soundmacro=   46		; (macro_046.mxm)
+  ; Soundmacro=   47		; (macro_047.mxm)
+  ; Soundmacro=   48		; (macro_048.mxm)
+  ; Soundmacro=   49		; (macro_049.mxm)
+  ; Soundmacro=   50		; (macro_050.mxm)
+  ; Table     =    1		; (ice_attack.mxt)
+  ; Sample    =    1		; (cursor_enemyhit.wav)
+  ; -----------------------
+
+; That's it!

@@ -1,0 +1,603 @@
+; MusyX - SMaL Command-definitionfile
+;
+; Last changed by: Jens Petersam
+; Date / Time    :  August/13/99 / 5:37 PM
+;
+; !!!! Please do not change here anything unless you exactly know what you´re doing !!!!
+;
+[Soundmacro.Commanddef]
+System = Gameboy
+Name = Gamboy command definition
+
+;
+; Sample_Compression_Types:
+;
+[AudioCompressionTypes]
+
+0=None
+1=Raw
+2=ADPCM
+3=mu-Law
+4=M.O.R.T.
+
+[CommandTypes]
+CMD_Structure
+CMD_Voice/Sample
+CMD_Volume/Panning
+CMD_Pitch
+CMD_Special
+
+;
+; possible references=
+;
+; - none
+; - Sample
+; - Soundmacro
+; - Soundmacrostep
+; - Table
+; - Keymap
+;
+
+;-------------------------------------------------------------------------------------
+; Templates: PlaySample
+;-------------------------------------------------------------------------------------
+
+; Play oneshot sample
+[Template_begin]
+Name=?_Sample_Oneshot
+Macrostep=$0D,$7F,$00,$00,$00,$00,$00,$00
+Macrostep=$10,$00,$00,$00,$00,$00,$00,$00
+Macrostep=$00,$00,$00,$00,$00,$00,$00,$00
+[Template_end]
+
+; Play wave sample
+[Template_begin]
+Name=?_Looped_Wave
+Macrostep=$0D,$7F,$00,$00,$00,$00,$00,$00
+Macrostep=$26,$00,$00,$00,$00,$00,$00,$00
+Macrostep=$07,$01,$00,$00,$00,$00,$FF,$FF
+Macrostep=$11,$00,$00,$00,$00,$00,$00,$00
+MacroStep=$00,$00,$00,$00,$00,$00,$00,$00
+[Template_end]
+
+;
+; **************************************************************************************
+;
+
+;-------------------------------------------------------------------------------------
+[$00]
+Type = Structure
+Name = END
+Icon =stop.ico
+
+MainHint=This always is the last macro command. It can not be deleted from the macro. It terminates the macro permanently
+
+ShortHint=End of the macro
+
+;------------------------------------------------------------------------------------
+[$01]
+Type = Structure
+Name = STOP
+Icon =stop.ico
+
+MainHint=This macro command has the same functionality as END, but in contrast to END it can be placed anywhere in the macro.
+
+ShortHint=Same like end
+
+;-------------------------------------------------------------------------------------
+[$02]
+Type = Structure
+Name = SPLITKEY
+Icon =branch.ico
+
+MainHint=This command is used to conditionally change the flow of execution in the current macro. The macro program will jump to the given macrostep inside the specified macro if the current key is higher or same the key parameter.
+
+ShortHint=Splits the macro flow depending on the midikey
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=60, Type=VAL_Key, Reference=None, Hint=Key Nr.
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro, Hint=SoundMacro ID
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroStep, Hint=SoundMacro step
+
+;-------------------------------------------------------------------------------------
+[$03]
+Type = Structure
+Name = SPLITVEL
+Icon =branch.ico
+
+MainHint=This command is used to conditionally change the flow of execution in the current macro. The macro program will jump to the given macrostep inside the specified macro if the current velocity is higher or same the velocity parameter.
+
+ShortHint=Splits the macro flow depending on the velocity
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=100, Type=VAL_Normal, Reference=None, Hint= Velocity
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro, Hint=SoundMacro ID
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroStep, Hint=SoundMacro step
+
+;-------------------------------------------------------------------------------------
+[$04]
+Type = Pitch
+Name = RESET_MOD
+Icon =note.ico
+
+Mainhint=Stop AND reset pitch modulation on the current voice channel. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Reset pitch mod.
+
+;-------------------------------------------------------------------------------------
+[$05]
+Type = Structure
+Name = LOOP
+Icon =loop.ico
+
+MainHint=Loop to the specified location within the current macro n-times.
+
+ShortHint=Loop back to a macrostep
+
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroLoopStep, Hint=SoundMacro step
+Value = 8bit@byte6, MinValue=0, MaxValue=255, PresetValue=15, Type=VAL_Normal, Reference=None, Hint=Times
+
+;-------------------------------------------------------------------------------------
+[$06]
+Type = Structure
+Name = GOTO
+Icon =branch.ico
+
+MainHint=Performs an unconditional jump to the specified location.
+
+ShortHint=Jump to another macro
+
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro, Hint=SoundMacro ID
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroStep, Hint=SoundMacro step
+
+;-------------------------------------------------------------------------------------
+[$07]
+Type = Structure
+Name = WAIT
+Icon =wait.ico
+
+MainHint=The execution of the current macro will be suspended until the given time is over. The time is specified in milliseconds. A value of 65535 will cause an endless wait. Key Release - Wait until a keyoff is send to the macro OR the given wait time has elapsed.
+
+ShortHint=Wait
+
+Value = 8bit@byte1, MinValue=0, MaxValue=1, PresetValue=1, Type=VAL_Switch, Reference=None, Hint=Keyoff
+Value = 8bit@byte2, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=RandomTime
+Value = 16bit@byte6, MinValue=1, MaxValue=65535, PresetValue=65535, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$08]
+Type = Structure
+Name = PLAYMACRO
+Icon =play.ico
+
+Mainhint=Starts another macro on the specified voice. Can be used to start 2 or more macros at the same time from a single note.
+
+Shorthint=Send macro on another voice
+
+Value = 8bit@byte1, MinValue=0, MaxValue=255, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Voice Nr.
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro, Hint=SoundMacro ID
+Value = 8bit@byte4, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Don't reset
+
+;-------------------------------------------------------------------------------------
+[$09]
+Type = Voice/Sample
+Name = PLAYKEYSAMPLE
+Icon =sample.ico
+
+Mainhint=Start a sample on voice 3 using the midikey as a pointer to an index table called "sample-map". This index table can be defined with one single macro using the SAMPLEMAP command. This "sample-map" macro must be placed in the Songgroup on the first Drumlist entry. There can be only one index table per project. - See also command SAMPLEMAP.
+
+Shorthint=Start sample on key index
+
+;-------------------------------------------------------------------------------------
+[$0a]
+Type = Pitch
+Name = STOP_MOD
+Icon =note.ico
+
+Mainhint=Stops pitch modulation on the current voice channel. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Stop pitch mod.
+
+;-------------------------------------------------------------------------------------
+[$0b]
+Type = Voice/Sample
+Name = SETVOICE
+Icon =note.ico
+
+Mainhint=Selects a new voice channel for the current macro.
+
+Shorthint=Select voice
+
+Value = 8bit@byte1, MinValue=0, MaxValue=255, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=VoiceNr.
+Value = 8bit@byte4, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Don't reset
+Value = 8bit@byte5, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=S1/2 toggle
+
+;-------------------------------------------------------------------------------------
+[$0c]
+Type = Volume/Panning
+Name = SETADSR
+Icon =adsr.ico
+
+MainHint=The data from the specified curve will be used to select a software ADSR. Since the realization of the ADSR differs from platform to platform see the appendix for details.
+
+ShortHint=Software ADSR Envelope
+
+Value = 16bit@byte1, MinValue=0, MaxValue=16383, PresetValue=0, Type=VAL_TableID, Reference=Table, Hint=Table-ID (ADSR)
+
+;-------------------------------------------------------------------------------------
+[$0d]
+Type = Volume/Panning
+Name = SETVOLUME
+Icon =volume.ico
+
+MainHint=Sets a fixed volume to the current channel
+
+ShortHint=Set volume
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=127, Type=VAL_Volume, Reference=None, Hint=Volume
+
+;-------------------------------------------------------------------------------------
+[$0e]
+Type = Volume/Panning
+Name = PANNING
+Icon =pan.ico
+
+MainHint=Sets the panning for the current voice channel. The panning parameter specifies the position (0=Left, 64=Center, 127=Right).
+
+ShortHint=Panning
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=64, Type=VAL_Panning, Reference=None, Hint=Pan position
+
+;-------------------------------------------------------------------------------------
+[$0f]
+Type = Volume/Panning
+Name = ENVELOPE
+Icon =adsr.ico
+
+MainHint=Start a software envelope. The volume will be fade out in the time specified by the milliseconds parameter. The volume sweep may be of lower quality than the hardware envelope.
+
+ShortHint=Software envelope
+
+Value = 8bit@byte1, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Envelope/FadeIn
+Value = 16bit@byte6, MinValue=0, MaxValue=65535, PresetValue=100, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$10]
+Type = Voice/Sample
+Name = STARTSAMPLE
+Icon =sample.ico
+
+Mainhint=Play the specified sample.
+
+Shorthint=Play a sample
+
+Value = 16bit@byte1, Minvalue=0, Maxvalue=$ffff, Type=VAL_SAMPLEID, Reference=Sample, Hint=Sample-ID
+
+;-------------------------------------------------------------------------------------
+[$11]
+Type = Voice/Sample
+Name = VOICE_OFF
+Icon =stop.ico
+
+Mainhint=Stops sound.
+
+Shorthint=Stop sound on the current voice.
+
+;-------------------------------------------------------------------------------------
+[$12]
+Type = Structure
+Name = KEYOFF
+Icon =switch.ico
+
+MainHint=Send a keyoff to the specified voice. Specify 255 to send a keyoff to the current voice.
+
+Shorthint=Send keyoff to voice
+
+Value = 8bit@byte1, MinValue=0, MaxValue=255, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Voice Nr.
+
+;-------------------------------------------------------------------------------------
+[$13]
+Type = Structure
+Name = SPLITRND
+Icon =branch.ico
+
+MainHint=This command is used to conditionally change the flow of execution in the current macro. The macro program will jump to the given macrostep inside the specified macro if the generated random value is higher or same than the one specified.
+
+ShortHint=Splits the macro flow depending on random
+
+Value = 8bit@byte1, MinValue=0, MaxValue=255, PresetValue=128, Type=VAL_Normal, Reference=None, Hint=RND
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro, Hint=SoundMacro ID
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroStep, Hint=SoundMacro step
+
+;-------------------------------------------------------------------------------------
+[$14]
+Type = Voice/Sample
+Name = VOICE_ON
+Icon =sample.ico
+
+Mainhint=This command actually starts a sound after all initial setups are done. The DutyCycle parameter is used for the Pulse-oscillator (voice 1/2) with values from 0-3 representing 12.5, 25, 50 and 75 percent pulse-width. A duty-cycle of 255 on voice 1/2 can be used to have the velocity influence the pulse-width. Using sound 3 the DutyCycle MUST be set to 255. The Use_smp parameter is for voice 3 only and refers to the 1blockSMP parameter which can be used to play a single cycle (32 samplesteps) waveform. For voice 4 the parameters are all unimportant.
+
+Shorthint=Start sound
+
+Value = 8bit@byte1, MinValue=0, MaxValue=255, PresetValue=255, Type=VAL_Normal, Reference=None, Hint=DutyCycle
+
+;-------------------------------------------------------------------------------------
+[$15]
+Type = Voice/Sample
+Name = SETNOISE
+Icon =sample.ico
+
+Mainhint=Setup the noise channel (voice 4). This must be followed by a VOICE_ON in order to start the sound.
+
+Shorthint=Setup noise
+
+Value = 8bit@byte1, MinValue=0, MaxValue=13, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Poly.Clock
+Value = 8bit@byte2, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Poly.Step
+Value = 8bit@byte3, MinValue=0, MaxValue=7, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Freq.Ratio
+
+;-------------------------------------------------------------------------------------
+
+[$16]
+Type = Pitch
+Name = PORTLAST
+Icon =note.ico
+
+Mainhint=Adds a portamento effect to the current voice channel using the previous pitch as a start. Portamento means that the old pitch is sliding to the new pitch as calculated by the transpose and detune parameters in the specified time (milliseconds). Note that this doesn't work on voice 4.
+
+Shorthint=Start portamento based on the last note
+;?
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=2, Type=VAL_Signed, Reference=None, Hint=Keys
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=Cents
+Value = 16bit@byte6, MinValue=0, MaxValue=65535, PresetValue=80, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$17]
+Type = Pitch
+Name = RNDNOTE
+Icon =note.ico
+
+Mainhint=Sets random pitch. Note lo is the lower end of the range, note hi the upper one. The detune value will added after the random pitch is calculated. It is specified in cents. If the fixed/free flag is set the pitch will be generated freely inside the range without respect to any key steps. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Random pitch
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=48, Type=VAL_Normal, Reference=None, Hint=Note Lo
+Value = 8bit@byte2, MinValue=0, MaxValue=99, PresetValue=0, Type=VAL_Detune, Reference=None, Hint=Detune
+Value = 8bit@byte3, MinValue=0, MaxValue=127, PresetValue=72, Type=VAL_Normal, Reference=None, Hint=Note Hi
+Value = 8bit@byte4, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Fixed/Free
+Value = 8bit@byte5, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Abs/Rel
+
+;-------------------------------------------------------------------------------------
+[$18]
+Type = Pitch
+Name = ADDNOTE
+Icon =note.ico
+
+Mainhint=Recalculates the current pitch by adding ADD keysteps to the current midikey and applying the detune value in cents. Add is a signed value. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Add note.
+
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=0, Type=VAL_Signed, Reference=None , Hint=Add
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None , Hint=Detune
+Value = 8bit@byte3, MinValue=0, MaxValue=1, PresetValue=1, Type=VAL_Switch, Reference=None, Hint=org key
+
+;-------------------------------------------------------------------------------------
+[$19]
+Type = Pitch
+Name = SETNOTE
+Icon =note.ico
+
+Mainhint=Sets the pitch to a fixed note and cents. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Set note to a fixed key.
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=36, Type=VAL_Key, Reference=None , Hint=Key
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None , Hint=Detune
+
+;-------------------------------------------------------------------------------------
+[$1a]
+Type = Pitch
+Name = LASTNOTE
+Icon =note.ico
+
+Mainhint=Recalculates the current key by adding add keysteps and detune to the last key played on this voice. Note that voice 4 doesn't support any pitch command.
+
+Shorthint=Set last note of the current voice.
+
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=Add
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=Detune
+
+;-------------------------------------------------------------------------------------
+[$1b]
+Type = Pitch
+Name = PORTAMENTO
+Icon =note.ico
+
+Mainhint=Adds a portamento effect to the current voice channel. Portamento means that the pitch is sliding to a new pitch as set by the range parameter in the specified time (millisec.). Note that this doesn't work on voice 4.
+
+Shorthint=Start a portamento
+;?
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=2, Type=VAL_Signed, Reference=None, Hint=Keys
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=Cents
+Value = 8bit@byte3, MinValue=0, MaxValue=1, PresetValue=1, Type=VAL_Switch, Reference=None, Hint=Abs/Rel
+Value = 16bit@byte6, MinValue=0, MaxValue=65535, PresetValue=500, Type=VAL_Normal, Reference=None,Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$1c]
+Type = Pitch
+Name = VIBRATO
+Icon =note.ico
+
+Mainhint=Add a vibrato to the current voice. Note that this doesn't work on voice 4.
+
+Shorthint=Add a vibrato
+
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=Level note
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=15, Type=VAL_Signed, Reference=None, Hint=Level fine
+Value = 16bit@byte6, MinValue=0, MaxValue=4266, PresetValue=250, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$1d]
+Type = Pitch
+Name = PITCHSWEEP
+Icon =note.ico
+
+Mainhint=Adds a sliding effect to the current pitch. After reaching the limit it starts again. There are 2 independent modulators selectable by the "Sweep0/1" parameter. Note that the sweeps are only working on voice 1 & 2.
+
+;Note that the second sweep modulator is not available on voice 3. Voice 4 doesn't support pitch modulators at all.
+
+Shorthint=Add a sweep effect to the pitch
+
+Value = 8bit@byte1, MinValue=-127, MaxValue=127, PresetValue=60, Type=VAL_Signed, Reference=None, Hint=NoteLIMIT
+Value = 8bit@byte2, MinValue=-99, MaxValue=99, PresetValue=0, Type=VAL_Signed, Reference=None, Hint=CentLIMIT
+Value = 8bit@byte5, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Sweep0/1
+Value = 16bit@byte6, MinValue=0, MaxValue=65535, PresetValue=1000, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$1e]
+Type = Volume/Panning
+Name = HARDENVELOPE
+Icon =adsr.ico
+
+MainHint=Start a hardware envelope. The volume will be fade out in the time specified by the milliseconds parameter. The length and accuracy is limited by the Gameboy hardware. Note that after or during a hardware fade the actual volume in the register of the soundchip is unknown to the soundroutine, so there is a special command CURRENTVOL that can be used to set the internal volume variable to a certain value.
+
+ShortHint=Start hardware envelope
+
+Value = 8bit@byte1, MinValue=0, MaxValue=1, PresetValue=0, Type=VAL_Switch, Reference=None, Hint=Envelope/FadeIn
+Value = 16bit@byte6, MinValue=0, MaxValue=1640, PresetValue=100, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$1f]
+Type = Voice/Sample
+Name = PWM_START
+Icon =sample.ico
+
+Mainhint=Starts a software generated pulse-width effect on voice 3.
+
+Shorthint=Start PWM effect
+
+Value = 8bit@byte1, MinValue=0, MaxValue=15, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Low limit
+Value = 8bit@byte2, MinValue=0, MaxValue=15, PresetValue=15, Type=VAL_Normal, Reference=None, Hint=High limit
+Value = 16bit@byte3, MinValue=0, MaxValue=65535, PresetValue=20000, Type=VAL_Normal, Reference=None, Hint=Speed
+
+;-------------------------------------------------------------------------------------
+[$20]
+Type = Voice/Sample
+Name = PWM_UPDATE
+Icon =sample.ico
+
+Mainhint=Updates a pulse-width effect on voice 3 without reseting the PWM position.
+
+Shorthint=Update PWM effect
+
+Value = 8bit@byte1, MinValue=0, MaxValue=15, PresetValue=0, Type=VAL_Normal, Reference=None, Hint=Low limit
+Value = 8bit@byte2, MinValue=0, MaxValue=15, PresetValue=15, Type=VAL_Normal, Reference=None, Hint=High limit
+Value = 16bit@byte3, MinValue=0, MaxValue=65535, PresetValue=20000, Type=VAL_Normal, Reference=None, Hint=Milliseconds
+
+;-------------------------------------------------------------------------------------
+[$21]
+Type = Voice/Sample
+Name = PWM_FIXED
+Icon =sample.ico
+
+Mainhint=Starts a fixed generated pulse wave on voice 3. The duty parameter specifies the pulse-width from 0-15 which is equivalent to 0-50%.
+
+Shorthint=Start generated pulse wave
+
+Value = 8bit@byte1, MinValue=0, MaxValue=15, PresetValue=1, Type=VAL_Normal, Reference=None, Hint=Duty
+
+;-------------------------------------------------------------------------------------
+[$22]
+Type = Voice/Sample
+Name = PWM_VELOCITY
+Icon =sample.ico
+
+Mainhint=Starts a fixed generated pulse wave on voice 3. The pulse-width is set by the velocity of each note.
+
+Shorthint=Start generated pulse wave scaled by velocity
+
+;-------------------------------------------------------------------------------------
+[$23]
+Type = Special
+Name = SENDFLAG
+Icon =special.ico
+
+Mainhint=Sends a flag to the game program. This feature is mainly used to signal certain events to the game program. After startup the 8 bits are all zero. Reset of the bits can be done by the game program.
+
+Shorthint=Send flag to the game.
+
+Value = 8bit@byte1, MinValue=0, MaxValue=7, PresetValue=0, Type=VAL_Normal, Reference=None , Hint=FlagBit
+
+;-------------------------------------------------------------------------------------
+[$24]
+Type = Special
+Name = SAMPLEMAP
+Icon =special.ico
+
+Mainhint=This uses a single macro to define the order of the samples that can be used with the PLAYKEYSAMPLE command. Each entry references a sample to next midikey starting at key 0, key 1, key 2 etc. There can be only one macro building the sample-map per project.
+
+Shorthint=Build sample map
+
+Value = 16bit@byte1, Minvalue=0, Maxvalue=$ffff, Type=VAL_SAMPLEID, Reference=Sample, Hint=SMPID
+
+;-------------------------------------------------------------------------------------
+[$25]
+Type = Special
+Name = CURRENTVOL
+Icon =special.ico
+
+Mainhint=Sets the internal volume variable. This command is used to tell the system the actual volume after a hardware fade.
+
+Shorthint=Set internal volume variable
+
+Value = 8bit@byte1, MinValue=0, MaxValue=127, PresetValue=127, Type=VAL_Volume, Reference=None, Hint=Volume
+
+;-------------------------------------------------------------------------------------
+[$26]
+Type = Voice/Sample
+Name = WAVE_ON
+Icon =sample.ico
+
+Mainhint=This command actually starts a sound after all initial setups are done. The DutyCycle parameter is used for the Pulse-oscillator (voice 1/2) with values from 0-3 representing 12.5, 25, 50 and 75 percent pulse-width. A duty-cycle of 255 on voice 1/2 can be used to have the velocity influence the pulse-width. Using sound 3 the DutyCycle MUST be set to 255. The Use_smp parameter is for voice 3 only and refers to the 1blockSMP parameter which can be used to play a single cycle (32 samplesteps) waveform. For voice 4 the parameters are all unimportant.
+
+Shorthint=Start sound
+
+Value = 16bit@byte1, Minvalue=0, Maxvalue=$ffff, Type=VAL_SAMPLEID, Reference=Sample, Hint=1Block_SMPID
+
+;-------------------------------------------------------------------------------------
+[$27]
+Type = Special
+Name = ADD_SET_PRIO
+Icon =special.ico
+
+Mainhint=Add a value or set the FX priority.
+
+Shorthint=Change FX priority
+
+Value = 8bit@byte1, MinValue=-128, MaxValue=127, PresetValue=0,Type=VAL_Signed, Reference=None, Hint=Prio
+Value = 8bit@byte2, MinValue=0, MaxValue=1, PresetValue=1,Type=VAL_Switch, Reference=None, Hint=Add/Set
+
+;-------------------------------------------------------------------------------------
+[$28]
+Type = Structure
+Name = TRAP_KEYOFF
+Icon =branch.ico
+
+Mainhint=Sets a trap to a desired macro and step if a keyoff is send to the macro. The macro can go on proceeding and at the time the keyoff is received it jumps directly to the new macro and step.
+
+Shorthint=Sets a trap on keyoff
+
+Value = 16bit@byte2, MinValue=0, MaxValue=65535, PresetValue=1, Type=VAL_SoundMacroID, Reference=SoundMacro , Hint=SoundMacro ID
+Value = 16bit@byte4, MinValue=0, MaxValue=65535, PresetValue=0, Type=VAL_Normal, Reference=SoundMacroStep , Hint=SoundMacro step
+
+;-------------------------------------------------------------------------------------
+[$29]
+Type = Structure
+Name = UNTRAP_KEYOFF
+Icon =branch.ico
+
+Mainhint=Remove a previously set TRAP_KEYOFF.
+
+Shorthint=Remove a trap on keyoff
+
+;-------------------------------------------------------------------------------------
+
+
+;end <------ do not delete this comment
