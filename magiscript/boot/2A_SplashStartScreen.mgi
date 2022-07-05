@@ -1,0 +1,133 @@
+    Align[$2A:$7247]
+msSplashStartScreen::
+    ; This script is called by msInitialize
+    ; This is the first substantial piece of code that runs
+    ; It displays the I2 logo, the MusyX logo
+    ; Then starts StartMenu and Delays for you to press Start
+
+    ResetThenSingleThreadMode()
+        LoadBitmapSet(BITSET_SplashScreen,PAL_InteractiveImaginationLogo)
+        LoadFullTilemap(ATTRTILE_InteractiveImaginationLogoRLE)
+        PalClearAnim(0,8,WHITE_A)
+        SetCamera($00, $00)
+    ExitSingleThreadMode()
+
+    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8) ;Fade q3cycles x $20
+
+    Delay(90)
+
+    PalClearBase(0,8,WHITE_A)
+    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+
+    ResetThenSingleThreadMode()
+        LoadBitmapSet(BITSET_SplashScreen,PAL_MusyX)
+        LoadFullTilemap(ATTRTILE_MusyXRLE)
+        PalClearAnim(0,8,WHITE_A)
+        SetCamera($00, $00)
+    ExitSingleThreadMode()
+
+    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+
+    Delay(90)
+
+    PalClearBase(0,8,WHITE_A)
+    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+
+    ResetThenSingleThreadMode()
+        LoadSpritePalette(PAL_AllSprites)
+        LoadBitmapSet(BITSET_PressStartScreen,PAL_StartScreen)
+        LoadFullTilemap(ATTRTILE_MagiNationLogoRLE)
+        
+        Switch(#GAMECOUNT#){
+            Case($0000,.SwitchNaroom)
+            Case($0001,.SwitchNaroom)
+            Case($0002,.SwitchNaroom)
+            Case($0003,.SwitchNaroom)
+            Case($0004,.SwitchNaroom)
+            Case($0005,.SwitchNaroom)
+            Case($0006,.SwitchNaroom)
+            Case($0007,.SwitchUnderneath)
+            Case($0008,.SwitchUnderneath)
+            Case($0009,.SwitchUnderneath)
+            Case($000A,.SwitchUnderneath)
+            Case($000B,.SwitchCald)
+            Case($000C,.SwitchCald)
+            Case($000D,.SwitchCald)
+            Case($000E,.SwitchCald)
+            Case($000F,.SwitchCald)
+            Case($0010,.SwitchCald)
+            Case($0011,.SwitchOrothe)
+            Case($0012,.SwitchOrothe)
+            Case($0013,.SwitchOrothe)
+        }
+
+                ; $73FE
+            .SwitchArderial:
+                ; Do this by default if nothing is found on the switch
+                LoadSideScroller(SCROLLER_Arderial)
+                Jump(.StartScreen)
+                ; $7303
+            .SwitchNaroom:
+                LoadSideScroller(SCROLLER_Naroom)
+                Jump(.StartScreen)
+                ; $7308
+            .SwitchUnderneath:
+                LoadSideScroller(SCROLLER_Underneath)
+                Jump(.StartScreen)
+                ; $730D
+            .SwitchCald:
+                LoadSideScroller(SCROLLER_Cald)
+                Jump(.StartScreen)
+                ; $7312
+            .SwitchOrothe:
+                LoadSideScroller(SCROLLER_Orothe)
+
+        ; $7314
+    .StartScreen:
+        ; Dummy Object for horizontal scrolling effect
+        ThatInit($02,AI_HorizontalScroller,
+                      $00,$00,$D000,$00,
+                      msObjectIdle,msObjectIdle)
+        ; PressStart Object
+        ThatInit($03,AI_Anim,
+                      $05,$06,$D041,$00,   ;Width seems to be $0A
+                      msObjectPressStart.Main, msObjectIdle)
+        ; Set the PressStart Object's subtiles for greater precision for proper centering
+        ThatLoc($03,$00,$07,
+                      $05,$06,$D041)
+        ThatStart($02)
+        PalClearAnim(0,8,WHITE_A)
+        SetCamera($00,$00)
+        StartSong(SONGID_DreamCreature)
+
+    ExitSingleThreadMode()
+
+    FadeBackgroundPalettesTowardsBuffer(2,$20,0,8)
+    
+    ThatStart($03)
+
+.StartScreenDelayLoop:
+    LongJumpIf(#bitmatch(c[wCntDown],c%00001000)#,.StartScreenFadeOut) ;Start button
+    Jump(.StartScreenDelayLoop)
+    
+    ; $7356
+.StartScreenFadeOutUnused:
+    ; This code is unused. Supposedly the Press Start text would remain highlighted and would not blink
+    ; while the screen was fading out after the user pressed Start
+    ThatScript($03,msObjectPressStart.FadeOutUnused)
+    
+    ; $735B
+.StartScreenFadeOut:
+    ; Activated when the player presses Start
+    PalClearBase(0,16,WHITE_A)
+    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+    FadeBackgroundPalettesTowardsBuffer(2,$20,8,8)
+    Jump(msGameEntrance)
+
+    ; $7368
+msGameEntrance::
+    ; This script loads the game entrance where you can select New/Continue game
+    SongFadeOut($07)
+    SceneNew()
+        SetByte(wMenu_MainMenu_FadeEffect,$01)
+        

@@ -1,0 +1,6 @@
+"Hello. Nice day, isn't it? "
+"What kind of ring would you like? "
+"Here is your ",$FC," If you are trying to train your new creature, the area outside the garage is great! "
+"Your Ring Bank is full. "
+"Come back anytime! Fossik's Ring Shop is always open! "
+"Your Ring Bank is full. "

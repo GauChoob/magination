@@ -1,0 +1,6 @@
+"Get out. Thieves have no business with me. "
+"Welcome to Magam's Ring Shop. "
+"What ring shall I make? "
+"There. Your ",$FC," is ready. "
+"Valkan was here looking for you a moment ago. You should go see him. "
+"Come again. "

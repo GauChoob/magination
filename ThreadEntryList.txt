@@ -1,0 +1,12 @@
+StartMenu_PressSave
+StartMenu_SaveOverworld
+Thread2
+22,4127
+
+StartMenu_PressSave
+StartMenu_EldritchAwl_Unused
+Thread2
+12,79D3
+
+Thread2
+All the items and spells overworld options

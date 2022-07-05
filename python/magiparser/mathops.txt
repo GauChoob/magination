@@ -1,0 +1,130 @@
+MathOps:
+
+Magi-Nation has a limited number of math commands that can be combined in an infinite number of ways.
+
+A math section is defined by enclosing the section with number signs.
+
+Here are some sample math sections:
+    #w($100) > w[sAnimite]#
+    #c[sTonyLevel]++ <= c($10)#
+
+Numbers:
+    All numbers are 16-bit unsigned integers.
+    8-bit numbers are immediately converted to 16-bit as soon as they are referenced
+    
+    True = $FFFF
+    False = $0000
+    
+Basic Commands:
+
+    Char c(NUMBER)
+        Returns an 8-bit unsigned NUMBER (0-255)
+        e.g.
+            c($10) returns $0010
+            c(2*4) returns $0008
+        If the number is a simple number in base 2, 10 or 16, you can skip the brackets
+        e.g.
+            c$10 is equivalent to c($10)
+            c16 is equivalent to c(16)
+            c%00010000 is equivalent to c(%00010000)
+        
+    Word w(NUMBER)
+        Returns a 16-bit unsigned NUMBER (0-65535)
+        Valid examples:
+            w($10) returns $0010
+            w$100 returns $0100
+            w65535 returns 65535
+            w(%0101 + 2000) returns 2005
+    
+    CharAddress c[ADDRESS]
+        Returns an 8-bit unsigned number from address ADDRESS
+        e.g.
+            c[sTonyLevel] could return $0003 if Tony's level was 3
+            c[sItemsQuantities+1] would return the number of Baloo Leafs (e.g. $0005)
+            
+    WordAddress w[ADDRESS]
+        Returns a 16-bit unsigned number from address ADDRESS
+        e.g.
+            w[sAnimite] would return Tony's animite (e.g. 999)
+
+Arithmatic Operators:
+    Add +
+    Subtract -
+        Self-explanatory
+        e.g.
+            w100 + c50 returns 100
+            w1000 - c200 returns 800
+        
+    Inc ++
+    Dec --
+        Changes the value by 1
+        e.g.
+            w100++ returns 101
+            c50-- returns 49
+        
+    BitAnd &
+        Does a bitwise &
+        e.g.
+            c%11110000 & c%01010101 returns %01010000
+            
+Comparison Operators:
+    Equals ==
+    NotEquals !=
+    Greater >
+    GreaterEquals >=
+    Smaller <
+    SmallerEquals <=
+        Returns True or False
+        e.g.
+            w100 > w[sAnimite] returns $FFFF if True, or $0000 if False
+    
+    And and
+        Returns False if either parameter is equal to zero, otherwise returns True
+        e.g.
+            c0 and c0 returns False ($0000)
+            c100 and c0 returns False ($0000)
+            c100 and c100 returns True ($FFFF)
+            
+    Or or
+        Returns True if either parameter is non-zero, otherwise returns False
+        e.g.
+            c0 or c0 returns False ($0000)
+            c100 or c0 returns True ($FFFF)
+            c100 or c100 returns True ($FFFF)
+    
+    Not not
+        Returns True if 0, otherwise returns False
+        e.g.
+            not c0 returns True ($FFFF)
+            not c10 returns False ($0000)
+            not (c10 == c0) returns True ($FFFF)
+            not (c10 == c10) returns False ($0000)
+            
+Special Commands:
+    Bitmatch bitmatch(c[ADDRESS],c(NUMBER))
+        Returns True if the 8-bit value at ADDRESS bitwise& with NUMBER is non-zero.
+        The input parameters MUST be c[ADDRESS] and c(NUMBER)
+        e.g.
+            bitmatch(c[wHeldDownButtons],c%00000001) returns True if button A is held down
+            
+    GetHeroDirection
+        Returns an unknown special value.
+        e.g.
+            DIRECTION == c3
+            
+    GetGameCount GAMECOUNT
+        Equivalent to w[sGameCount]
+        e.g.
+            GAMECOUNT == c1
+            
+    Rand16 RAND16
+        Returns a random number from 0-15
+        e.g.
+            RAND16 < c8 returns True 50% of the time
+            
+    MathBank bank(cNUMBER,math)
+        Does math with a different WRAM bank loaded. Used to access far variables
+        e.g.
+            bank(c2,w[$C000] - w[$C010] <= c5)
+    
+

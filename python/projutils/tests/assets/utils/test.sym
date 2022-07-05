@@ -1,0 +1,12 @@
+; Test file
+00:0000 RST_00
+00:0040 Interrupt_VBlank
+00:0048 Interrupt_HBlank
+00:0050 Interrupt_Timer
+00:0058 Interrupt_Serial
+00:0060 Interrupt_Joypad
+00:a000 FakeVarBit_1
+00:a000 FakeVarBit_2
+00:a001 FakeVarBit2_1
+07:d1ec wBattle_Creature_Ally2.Team
+07:d1ec wBattle_Creature_Ally2

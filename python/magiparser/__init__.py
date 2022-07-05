@@ -1,0 +1,1 @@
+from magiparser.magiparser import convert, getObject

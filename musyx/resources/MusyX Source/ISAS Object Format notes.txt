@@ -1,0 +1,37 @@
+This is the format of the ISAS files musyx.o, musyxb0.o, musyxbank00.o
+
+All strings are terminated with a $00 byte
+
+-----
+
+The file starts with a header. For these 3 files, the header is always:
+
+	ISOBJECTVer 1.08 960821 N.Nakano (null-terminated)
+
+	for a total of $21 bytes
+
+-----
+
+Then you reach the main file. The file is divided into chunks:
+
+ID
+LENGTH
+DATA
+
+ID identifies what the chunk is used for (1 byte)
+LENGTH is the number of bytes of DATA. It does not include the length of ID or LENGTH
+	Usually this is 1 byte, however sometimes it is 2 bytes long
+	If I'm not mistaken, bits 0-6 is length, and bit 7 is a flag saying whether LENGTH is 2 bytes long
+	If bit 7 is set, then the second byte is also part of the length, and the length becomes
+	LENGTH = BYTE1*128 + BYTE2
+	(to be confirmed)
+DATA is information based on the ID
+
+Here are the known IDs:
+
+00: Filename, or null string
+02: Global label name, used for linking. Name of label is provided
+05: DATA contains raw hex code
+06: Transforms into a 16-byte address (refers to a global or local label)
+08: Local label (no name is provided)
+13: Bank name

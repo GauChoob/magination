@@ -1,0 +1,51 @@
+MagiOp $105B loads the scrolling press start screen
+	There are 14 loading screens, even though only 5 are used
+	The NaroomGeyser one has the top and bottom scrolling at the same speed of 1. All the others scroll at top=1 and bottom=2
+7:5C52
+On the scrolling start screen, the black background can be "transparent" and use the background of the loading screen instead. To do this, change the palette of the background (pStartScreen) to RGB 000F0F for palettes 3 and/or 6
+
+If the game has never been saved before, everything is initialized to 0. This means that in the starting zone, Tony has 1 Abaquist Dream Creature with all stats at 0. Checking the Abilities will cause an error and display a glitched Monochrome Gameboy error message and hang
+
+In the Start Menu, the "Relics" screen was possibly previously labelled as "Blat". Maybe it stands for something? - no placeholder
+
+The Start Menu's Glyph tab has a bugged border
+
+Items can have an Energy cost just like spells to use
+
+Maximum number of dream creatures: 208. Tony is index 0 (making a total of 209)
+
+Tony's stats are Strength 50, Skill 50, Defence 25, Resist 25, Speed 50, Luck 01
+His Defence and Resist stats actually affect damage received
+Luck does not affect spell damage
+
+Max number of dream creatures: 240 (past this number, the dc's card is automatically set to null)
+
+There are a few unused cards in banks 44 and 45. They don't have any combat sprite unfortunately
+    Cyclone_Vashp
+    Sea_Barl
+    Pack_Korrit
+    Carillion
+    Fire_Chogo
+    Yarothis
+    Stagadan (?modified version)
+    Wudge
+    Wellisk
+    Arboll_Stalker
+    Malevolent_Corf
+    Balamant
+    Fire_Grag
+    Vrill
+    Husp (?modified version)
+
+In bank 4A, there's an uncompressed identical second copy of the sprite image for Abaquist that is included by accident. It doesn't serve any use.
+
+The Glyph used to have selectable Core stones, and 2 unknown menu items you could select.
+In addition the 4 first stones were arranged in a square around the middle 5th core stone
+
+tmStartMenuTopUnused is an unused start menu screen. See the image for an example. It lists 5 entries - possibly spells
+
+The PressStart Object $03 has unused code where it would stop blinking when you pressed Start
+
+To enter debug mode, jump to 2A:5123 (you can jump from address 8818E -> 45 2A 23 51)
+
+We could change Text_Speed from $02 to $01 - would be a nice QOL

@@ -1,0 +1,933 @@
+; -----------------------------------------------------------------------
+;
+; INFORMATION
+;
+; Program : MusyX Soundtool
+; Version : 1.01 --- Date: Fri, 07/09/1999   Built: 121 (F5)
+; Filetype: Projectfile
+;
+; -----------------------------------------------------------------------
+;
+; THIS IS AN AUTO-GENERATED FILE!!! DO NOT MODIFY!!!
+;
+; -----------------------------------------------------------------------
+;
+; Description:
+;
+;   Tree=VID,ParentVID,Typ,SubTyp
+;   NormpageEntry=Position,Soundmacro,Priority,Maxvoices,DefMidi,PrioOffset
+;   DrumpageEntry=Position,Soundmacro,Priority,Maxvoices,DefMidi,PrioOffset
+;   SFXEntry=ID,Soundmacro,Priority,Maxvoices,DefVel,DefPan,DefKey
+;
+; -----------------------------------------------------------------------
+;
+[options]
+MacroDefinitionFile=gameboy_macrodef.mxd
+ResolveSamplecompressionNames=0
+CurrentMidiSetup=65,Parathin
+ObjectlistSortType=2
+ObjectlistViewStyle=Report
+ObjectlistViewStyle_Samplefolder=Report
+[end]
+;
+[windows]
+MainformPos=0,0,1604,689,1
+MainformOptions=185,-2,-2,-2,1
+CommandpoolTree=11111
+[end]
+
+; ----------------
+; Groups...
+; ----------------
+[object_begin]
+  Tree=1,0,100,105
+  Name=Groups
+  Flags=3
+[object_end]
+[object_begin]
+  Tree=2,0,100,0
+  Name=Object Pool
+  Flags=3
+[object_end]
+[object_begin]
+  Tree=65,1,100,106
+  Name=Songs
+  NormpageEntry=0,8,0,255,0,0
+  NormpageEntry=1,6,0,255,0,0
+  NormpageEntry=2,7,0,255,0,0
+  NormpageEntry=3,9,0,255,0,0
+  NormpageEntry=6,10,0,255,0,0
+  NormpageEntry=7,3,0,255,0,0
+  NormpageEntry=9,5,0,255,0,0
+  NormpageEntry=10,2,0,255,0,0
+  NormpageEntry=38,7,0,255,0,0
+  NormpageEntry=39,7,0,255,0,0
+  NormpageEntry=80,8,0,255,0,0
+  NormpageEntry=81,6,0,255,0,0
+  NormpageEntry=85,4,0,255,0,0
+  NormpageEntry=121,3,0,255,0,0
+  NormpageEntry=124,11,0,255,0,0
+  NormpageEntry=126,12,0,255,0,0
+  NormpageEntry=127,1,0,255,0,0
+  [arrangementmidisetup_begin]
+    MidiSetupName=Final_Battle
+    Filename=magibattle.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=DreamCreature
+    Filename=dream.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Forest
+    Filename=forest.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Curio
+    Filename=secret.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Glade
+    Filename=nature.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Orwin
+    Filename=shadow.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Boss
+    Filename=boss.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Cald
+    Filename=cald.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Core_Battle
+    Filename=battle.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Arderial
+    Filename=arderial.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Mischief
+    Filename=korgzet.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Ashyn
+    Filename=caldtown.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,10,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Shadowhold
+    Filename=geyser.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Sanctuary
+    Filename=gia.mid
+    Comment=Not an error - gia became Sanctuary
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Gia
+    Filename=home.mid
+    Comment=Not an error - home became Gia
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Lesson
+    Filename=lesson.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Morag
+    Filename=morag.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Evu
+    Filename=random.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Shop
+    Filename=shop.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Bogrom
+    Filename=underneath.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Descent
+    Filename=tunnel.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Agram
+    Filename=agramtheme.mid
+    Comment=magi.mid in the alpha version
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Shadow_Geyser
+    Filename=maze.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Weave
+    Filename=orothe.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,85,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Orlon
+    Filename=carnival.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Vash_Naroom
+    Filename=naroom.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=The_Deep
+    Filename=ocean.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Wasteland
+    Filename=destruction.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,7,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Danger
+    Filename=caldhunt.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Parathin
+    Filename=turtleride.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Mushroom_Farm
+    Filename=mushroom.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Villainy
+    Filename=whimsical.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Rescue
+    Filename=song_032_rescue.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Quest
+    Filename=song_033_quest.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Overture_Pt_1
+    Filename=song_034_overture_pt_1.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Overture_Pt_2
+    Filename=song_035_overture_pt_2.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=Overture_Pt_3
+    Filename=song_036_overture_pt_3.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=66,1,100,106
+  Name=Jingles
+  NormpageEntry=0,8,0,255,0,0
+  NormpageEntry=1,6,0,255,0,0
+  NormpageEntry=2,7,0,255,0,0
+  NormpageEntry=3,9,0,255,0,0
+  NormpageEntry=6,10,0,255,0,0
+  NormpageEntry=38,7,0,255,0,0
+  NormpageEntry=39,7,0,255,0,0
+  NormpageEntry=80,8,0,255,0,0
+  NormpageEntry=81,6,0,255,0,0
+  NormpageEntry=124,11,0,255,0,0
+  NormpageEntry=126,12,0,255,0,0
+  [arrangementmidisetup_begin]
+    MidiSetupName=BuildBridge
+    Filename=fanfare_buildbridge.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,124,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=GetItem
+    Filename=fanfare_getitem.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=LevelUp1
+    Filename=fanfare_levelup1.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  [arrangementmidisetup_begin]
+    MidiSetupName=End
+    Filename=fanfare_end.mid
+    BPM=120000
+    Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
+    Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
+    Reverb=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Chorus=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    Program=0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0
+  [arrangementmidisetup_end]
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=67,1,100,107
+  Name=SFXs
+  SFXEntry=1,13,10,255,127,64,60,"SfxCursor",""
+  SFXEntry=2,14,10,255,127,64,60,"SfxOK",""
+  SFXEntry=3,16,10,255,127,64,60,"SfxCancel",""
+  SFXEntry=4,22,10,255,127,64,60,"SfxExplosionSmall",""
+  SFXEntry=5,23,10,255,127,64,60,"SfxExplosionLarge",""
+  SFXEntry=6,17,10,255,127,64,60,"EnemyDie",""
+  SFXEntry=7,24,10,255,127,64,60,"IceAttack",""
+  SFXEntry=8,25,10,255,127,64,60,"FireAttack",""
+  SFXEntry=9,26,10,255,127,64,60,"DarkAttack",""
+  SFXEntry=10,19,10,255,127,64,60,"PhysicalAttack",""
+  SFXEntry=11,21,10,255,127,64,60,"Heal",""
+  SFXEntry=12,18,11,255,127,64,60,"EnemyHit",""
+  SFXEntry=13,15,10,255,127,64,60,"PlaceHolder",""
+  SFXEntry=14,27,10,255,127,64,60,"PowerUpStat",""
+  SFXEntry=15,28,10,255,127,64,60,"CriticalAttack",""
+  SFXEntry=16,29,10,255,127,64,60,"Earthquake",""
+  SFXEntry=17,30,10,255,127,64,60,"EarthquakeEnd",""
+  SFXEntry=18,31,10,255,127,64,60,"TreasureChest",""
+  SFXEntry=19,32,10,255,127,64,60,"Thunder",""
+  SFXEntry=20,33,10,255,127,64,60,"Vortex",""
+  SFXEntry=21,34,10,255,127,64,60,"Error","Triggered when trying to open the Relics tab in the StartMenu, but you don't have any relics. Plays a buzzing rejection sound"
+  SFXEntry=22,35,10,255,127,64,60,"Drain",""
+  SFXEntry=23,36,10,255,127,64,60,"Test",""
+  SFXEntry=24,38,10,255,127,64,60,"sfx_24",""
+  SFXEntry=25,39,10,255,127,64,60,"sfx_25",""
+  SFXEntry=26,40,10,255,127,64,60,"sfx_26",""
+  SFXEntry=27,41,10,255,127,64,60,"sfx_27",""
+  SFXEntry=28,42,10,255,127,64,60,"sfx_28",""
+  SFXEntry=29,43,10,255,127,64,60,"sfx_29",""
+  SFXEntry=30,45,11,255,127,64,60,"sfx_30",""
+  SFXEntry=31,44,11,255,127,64,60,"sfx_31",""
+  SFXEntry=32,46,10,255,127,64,60,"sfx_32",""
+  SFXEntry=33,47,10,255,127,64,60,"sfx_33",""
+  SFXEntry=34,48,10,255,127,64,60,"sfx_34",""
+  SFXEntry=35,20,10,255,127,64,60,"sfx_35",""
+  SFXEntry=36,37,10,255,127,64,60,"sfx_36",""
+  SFXEntry=37,37,10,255,127,64,60,"sfx_37",""
+  SFXEntry=38,37,10,255,127,64,60,"sfx_38",""
+  SFXEntry=39,49,10,255,127,64,60,"sfx_39",""
+  SFXEntry=40,50,10,255,127,64,60,"sfx_40",""
+  Flags=1
+[object_end]
+
+; ----------------
+; Folders...
+; ----------------
+[object_begin]
+  Tree=3,2,400,206
+  Name=Sounds
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=4,2,400,205
+  Name=Layers
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=5,2,400,203
+  Name=Keymaps
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=6,2,400,202
+  Name=Soundmacros
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=7,2,400,204
+  Name=Tables
+  Flags=1
+[object_end]
+[object_begin]
+  Tree=8,2,400,201
+  Name=Samples
+  Flags=1
+[object_end]
+
+; ----------------
+; Entries...
+; ----------------
+[object_begin]
+  Tree=9,8,200,201
+  Name=cursor_enemyhit.wav
+  ObjectID=1
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=10,8,200,201
+  Name=bass_lowduty.wav
+  ObjectID=2
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=13,6,200,202
+  Name=samplemap.mxm
+  ObjectID=1
+  Comment=Unused
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=14,6,200,202
+  Name=ch3_bass_adsr.mxm
+  ObjectID=2
+  Comment=Used in Ashyn and Wasteland
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=15,6,200,202
+  Name=ch4_echoes.mxm
+  ObjectID=3
+  Comment=Used in Wasteland
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=16,6,200,202
+  Name=ch2_finevibrato.mxm
+  ObjectID=4
+  Comment=Used in Weave
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=17,6,200,202
+  Name=ch3_bass_steady.mxm
+  ObjectID=5
+  Comment=Used in DreamCreature and Shadowhold
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=18,6,200,202
+  Name=ch2_default_coarsevibrato.mxm
+  ObjectID=6
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=19,6,200,202
+  Name=ch3_default_bass_veryfinevibrato.mxm
+  ObjectID=7
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=20,6,200,202
+  Name=ch1_default_finevibrato.mxm
+  ObjectID=8
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=21,6,200,202
+  Name=ch4_default_drum_kick.mxm
+  ObjectID=9
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=22,6,200,202
+  Name=ch4_drum_clap.mxm
+  ObjectID=10
+  Comment=Used in Weave, Vash Naroom, Danger, Ouverture Pt 2
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=23,6,200,202
+  Name=ch1_bounce.mxm
+  ObjectID=11
+  Comment=Used in Bouncy
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=24,6,200,202
+  Name=sendflag0.mxm
+  ObjectID=12
+  Comment=Unused
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=25,6,200,202
+  Name=sfx_cursor.mxm
+  ObjectID=13
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=26,6,200,202
+  Name=sfx_ok.mxm
+  ObjectID=14
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=27,6,200,202
+  Name=place_holder.mxm
+  ObjectID=15
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=28,6,200,202
+  Name=sfx_cancel.mxm
+  ObjectID=16
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=29,6,200,202
+  Name=enemy_die.mxm
+  ObjectID=17
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=30,6,200,202
+  Name=enemy_hit.mxm
+  ObjectID=18
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=31,6,200,202
+  Name=physical_attack.mxm
+  ObjectID=19
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=32,6,200,202
+  Name=macro_020.mxm
+  ObjectID=20
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=33,6,200,202
+  Name=heal.mxm
+  ObjectID=21
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=34,6,200,202
+  Name=sfx_explosion_small.mxm
+  ObjectID=22
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=35,6,200,202
+  Name=sfx_explosion_large.mxm
+  ObjectID=23
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=36,6,200,202
+  Name=ice_attack.mxm
+  ObjectID=24
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=37,6,200,202
+  Name=fire_attack.mxm
+  ObjectID=25
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=38,6,200,202
+  Name=dark_attack.mxm
+  ObjectID=26
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=39,6,200,202
+  Name=power_up_stat.mxm
+  ObjectID=27
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=40,6,200,202
+  Name=critical_attack.mxm
+  ObjectID=28
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=41,6,200,202
+  Name=earthquake.mxm
+  ObjectID=29
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=42,6,200,202
+  Name=earthquake_end.mxm
+  ObjectID=30
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=43,6,200,202
+  Name=treasurechest.mxm
+  ObjectID=31
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=44,6,200,202
+  Name=thunder.mxm
+  ObjectID=32
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=45,6,200,202
+  Name=vortex.mxm
+  ObjectID=33
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=46,6,200,202
+  Name=error.mxm
+  ObjectID=34
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=47,6,200,202
+  Name=drain.mxm
+  ObjectID=35
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=48,6,200,202
+  Name=test.mxm
+  ObjectID=36
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=49,6,200,202
+  Name=macro_037.mxm
+  ObjectID=37
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=50,6,200,202
+  Name=macro_038.mxm
+  ObjectID=38
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=51,6,200,202
+  Name=macro_039.mxm
+  ObjectID=39
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=52,6,200,202
+  Name=macro_040.mxm
+  ObjectID=40
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=53,6,200,202
+  Name=macro_041.mxm
+  ObjectID=41
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=54,6,200,202
+  Name=macro_042.mxm
+  ObjectID=42
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=55,6,200,202
+  Name=macro_043.mxm
+  ObjectID=43
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=56,6,200,202
+  Name=macro_044.mxm
+  ObjectID=44
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=57,6,200,202
+  Name=macro_045.mxm
+  ObjectID=45
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=58,6,200,202
+  Name=macro_046.mxm
+  ObjectID=46
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=59,6,200,202
+  Name=macro_047.mxm
+  ObjectID=47
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=60,6,200,202
+  Name=macro_048.mxm
+  ObjectID=48
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=61,6,200,202
+  Name=macro_049.mxm
+  ObjectID=49
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=62,6,200,202
+  Name=macro_050.mxm
+  ObjectID=50
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=63,7,200,204
+  Name=ice_attack.mxt
+  ObjectID=1
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=64,7,200,204
+  Name=adsr_002_formacro_002.mxt
+  ObjectID=2
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=11,8,200,201
+  Name=bass_medduty.wav
+  ObjectID=3
+  Description=0,0,0,0,0,0,0
+[object_end]
+[object_begin]
+  Tree=12,8,200,201
+  Name=bass_verylowduty.wav
+  ObjectID=4
+  Description=0,0,0,0,0,0,0
+[object_end]
+
+; ----------------
+; References...
+; ----------------

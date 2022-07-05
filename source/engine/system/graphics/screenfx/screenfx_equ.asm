@@ -1,0 +1,4 @@
+
+; White tile:
+GRAPHICS_SCREENFX_TILEID = $FF ; Blank tile
+GRAPHICS_SCREENFX_TILEATTR = $8F ; Palette 7

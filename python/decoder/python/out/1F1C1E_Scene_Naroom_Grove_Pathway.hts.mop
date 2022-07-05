@@ -1,0 +1,13 @@
+    Align[$7C:$5C1E]
+    HeaderTileset(){
+        HeaderTilesetEntry($9000,ts1B4800_1F1C1E_Scene_Naroom_Grove_Pathway_0000,$10,$04)
+        HeaderTilesetEntry($9400,ts1D1F57_1F1C1E_Scene_Naroom_Grove_Pathway_0001,$10,$02)
+        HeaderTilesetEntry($9600,ts1D2357_1F1C1E_Scene_Naroom_Grove_Pathway_0002,$10,$02)
+        HeaderTilesetEntry($8C00,ts1B4400_1F1C1E_Scene_Naroom_Grove_Pathway_0003,$10,$04)
+    }
+    HeaderTileset(){
+        HeaderTilesetEntry($9000,ts155000_1F1C1E_Scene_Naroom_Grove_Pathway_0004,$10,$08)
+        HeaderTilesetEntry($8EB0,ts1EF29F_1F1C1E_Scene_Naroom_Grove_Pathway_0005,$03,$02)
+        HeaderTilesetEntry($8000,ts183000_1F1C1E_Scene_Naroom_Grove_Pathway_0006,$10,$08)
+        HeaderTilesetEntry($8EE0,ts1F11BC_1F1C1E_Scene_Naroom_Grove_Pathway_0007,$02,$02)
+    }

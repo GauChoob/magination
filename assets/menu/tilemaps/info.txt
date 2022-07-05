@@ -1,0 +1,1 @@
+All tilemaps have a width of 20 and a height of 18 (i.e. one full screen)
