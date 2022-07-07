@@ -31,6 +31,7 @@ jobs:
           Expand-Archive -Path rgbds-0.5.1-win64.zip -DestinationPath rgbds/
 
       - name: Cache Python Pip
+        id: cache-pip
         uses: actions/cache@v3
         with:
           path: ~\AppData\Local\pip\Cache
@@ -39,15 +40,15 @@ jobs:
             ${{ runner.os }}-pip-
             
       - name: Python Pip Install
+        if: steps.cache-pip.outputs.cache-hit != 'true'
         shell: cmd
         run: |
           pip install -r python/requirements.txt
-          pip freeze
 
       - name: Tests
         shell: pwsh
         run: |
-          PATH %PATH%;%CD%\rgbds
+          $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
           make extras
           make tests
           make
