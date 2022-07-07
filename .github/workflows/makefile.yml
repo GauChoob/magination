@@ -40,7 +40,6 @@ jobs:
             ${{ runner.os }}-pip-
             
       - name: Python Pip Install
-        if: steps.cache-pip.outputs.cache-hit != 'true'
         shell: cmd
         run: |
           pip install -r python/requirements.txt
