@@ -28,8 +28,8 @@ with open(r"musyx\project\Output\magination.pool", "rb") as f:
 FRAGMENTS = [
     [0x4200, "needs_windows.exe.dat"],
     [0x4400, "background_task.exe.dat"],
-    [0x5400, "everquest_update.txt"],
-    [0x7A00, "muconv_output.txt"],
+    [0x5400, "everquest_update.txt.dat"],
+    [0x7A00, "muconv_output.txt.dat"],
 ]
 
 
