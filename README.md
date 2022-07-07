@@ -14,12 +14,15 @@ This explains how to get the tools required to build Magi-Nation.
 
 4. Install [Python](https://www.python.org/downloads/) (version 3.9.2 was used).
 
-5. Open the console and navigate to the Magi-Nation folder:
+5. Install the required Python packages:
 
         cd C:/MagiNationFolder/
+        cd python
+        pip install -r requirements.txt
 
 6. Build the ROM:
 
+        cd C:/MagiNationFolder/
         make extras
         make
 
