@@ -32,12 +32,6 @@ jobs:
           Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v0.5.1/rgbds-0.5.1-win64.zip -OutFile rgbds-0.5.1-win64.zip
           Expand-Archive -Path rgbds-0.5.1-win64.zip -DestinationPath rgbds/
 
-      - name: Test RGBDS
-        shell: cmd
-        run: |
-          PATH %PATH%;%CD%\rgbds
-          rgbasm -V
-
       - name: Cache Python Pip
         uses: actions/cache@v3
         with:
@@ -52,6 +46,10 @@ jobs:
           pip install -r python/requirements.txt
           pip freeze
 
-      - name: Python Tests
+      - name: Tests
         shell: cmd
-        run: make tests
+        run: |
+          PATH %PATH%;%CD%\rgbds
+          make extras
+          make tests
+          make
