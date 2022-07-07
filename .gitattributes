@@ -1,0 +1,11 @@
+# text
+*.config text
+*.asm text
+*.inc text
+*.txt text
+
+# binary
+*.tilemap binary
+*.attrmap binary
+*.png binary
+*.dat binary
