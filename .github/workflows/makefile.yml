@@ -45,9 +45,14 @@ jobs:
           pip freeze
 
       - name: Tests
-        shell: cmd
+        shell: pwsh
         run: |
           PATH %PATH%;%CD%\rgbds
           make extras
           make tests
           make
+          $md5 = md5sum game.gbc
+          if($md5 -ne "1624f857098ca278b15629914f48352b *game.gbc") {
+              Write-Output "ROM Checksum Incorrect!"
+              exit 1
+          }
