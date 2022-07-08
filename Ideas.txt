@@ -1,9 +1,0 @@
-MusyX: To improve sound quality, in function _snd_SetLowQSampleFrequency; change $2A7B and $2A88 to $2E87
-Also ctrl+f and fix the relevant bugs
-
-Increase typing speed
-
-In Interrupt_Timer_Init, change rTMA to $89
-
-Add a new region
-START from a different region?
