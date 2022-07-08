@@ -14,8 +14,9 @@ __pycache__/
 /python/projutils/tests/tmp/
 .venv/
 
+# VS code
+*.code-workspace
+.vscode/
+
 # Misc
 ~$VRAM Coord calculator.xlsx
-
-# VS code
-.vscode/
