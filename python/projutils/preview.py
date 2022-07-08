@@ -8,6 +8,7 @@ import projutils.rle as rle
 import projutils.utils as utils
 import projutils.png as png
 import projutils.config as config
+import projutils.autopack as autopack
 
 
 PROJFILES = os.path.dirname(__file__)
@@ -20,7 +21,7 @@ PREVIEW_PATTERN_MINI = PREVIEW_FOLDER + "pattern_mini/"
 PREVIEW_COLLISION = PREVIEW_FOLDER + "collision/"
 PREVIEW_VRAM = PREVIEW_FOLDER + "vram/"
 SCENE_ASM = "source/banks/bank_04f.asm"
-AUTOPACKED_LIST = "assets/autopack.config"
+AUTOPACKED_LIST = autopack.DEFAULT_SOURCE
 
 
 def GetCollisionDataPixel(collid: int, xoffset: int, yoffset: int, rgboffset: int) -> int:
