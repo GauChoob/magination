@@ -100,7 +100,7 @@ class AutopackFile:
         """Writes a .asm file that contains all the packed assets into the specified banks"""
 
         os.makedirs(DEFAULT_OUT, exist_ok=True)
-        
+
         outfile = folder + ASMFILE
         symfile = folder + SYMFILE
 
