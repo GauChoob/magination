@@ -49,6 +49,7 @@ tests:
 	python -m unittest python\\projutils\\tests\\test_color.py
 	python -m unittest python\\projutils\\tests\\test_encoding.py
 	python -m unittest python\\projutils\\tests\\test_hotspot.py
+	python -m unittest python\\projutils\\tests\\test_lbm.py
 	python -m unittest python\\projutils\\tests\\test_magireader.py
 	python -m unittest python\\projutils\\tests\\test_pattern.py
 	python -m unittest python\\projutils\\tests\\test_preview.py
