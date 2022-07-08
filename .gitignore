@@ -12,6 +12,10 @@ notes/
 __pycache__/
 /python/out/
 /python/projutils/tests/tmp/
+.venv/
 
 # Misc
 ~$VRAM Coord calculator.xlsx
+
+# VS code
+.vscode/
