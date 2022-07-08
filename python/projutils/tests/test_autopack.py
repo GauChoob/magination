@@ -37,6 +37,7 @@ class TestAutopack(unittest.TestCase):
 
         # Check if the .sym files are identical
         self.assertTrue(filecmp.cmp(source_folder + "autopack.sym", DESTINATION + "autopack.sym"))
+        self.assertTrue(False)
 
     def test_AutopackNormal(self):
         """The real autopacked file"""

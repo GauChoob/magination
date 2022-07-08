@@ -44,13 +44,26 @@ jobs:
         run: |
           pip install -r python/requirements.txt
 
-      - name: Tests
+      - name: Test make extras
         shell: pwsh
         run: |
           $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
           make extras
+
+      - name: Test make tests
+        shell: pwsh
+        run: |
           make tests
+
+      - name: Test make file
+        shell: pwsh
+        run: |
+          $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
           make
+  
+      - name: Verify checksum
+        shell: pwsh
+        run: |
           $md5 = md5sum game.gbc
           if($md5 -ne "1624f857098ca278b15629914f48352b *game.gbc") {
               Write-Output "ROM Checksum Incorrect!"
