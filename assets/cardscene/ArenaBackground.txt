@@ -1,2 +1,0 @@
-Width: 20
-Height: 14
