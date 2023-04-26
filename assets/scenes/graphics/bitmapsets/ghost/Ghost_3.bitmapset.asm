@@ -1,6 +1,6 @@
 ; Equivalent to either BITSET_Misc_Fort_Outside, BITSET_Core_Shadowhold_Marina or BITSET_Arderial_Palace_Throneroom with old pointer locations
 ; It's not possible to distinguish these 3 bitmapsets
-
+;FORT
     db 1         ;VRAM0 entries
 
     ; BITMAP_Misc_Fort_Main, BITMAP_Core_Shadowhold_Marina_Walls, or BITMAP_Arderial_Palace_ThroneroomSky
