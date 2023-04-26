@@ -44,7 +44,10 @@ xLoad_HeroYTile::
     ;ds $A017 - @
     ; UNKNOWN TODO
     ds 1
-
+    ;ds $A018 - @
+xStartScreenDoorState::
+    ; 2 -> NewGame+ door is open
+    ds 1
 
 
 ; NEW GAME PLUS PRESERVED ;

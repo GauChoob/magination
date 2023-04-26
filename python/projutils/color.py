@@ -30,7 +30,7 @@ class Color:
         else:
             assert 3 <= len(arg) <= 4, "If passing a list, must pass 3 or 4 params: r, g, b, Optional[a]"
             for i in range(3):
-                assert arg[0] % 8 == 0, "r, g, b values must be multiples of 8!"
+                assert arg[i] % 8 == 0, "r, g, b values must be multiples of 8!"
             self.r = arg[0]//8
             self.g = arg[1]//8
             self.b = arg[2]//8

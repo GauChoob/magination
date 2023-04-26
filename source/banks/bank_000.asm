@@ -2049,7 +2049,7 @@ Cmd_Battle_Swirl::
     Set16FF hScript.State, Script_Start
     XJump Graphics_ScreenFX_Do
 
-
+    ; $0FDF
     SwitchRAMBank BANK("WRAM BATTLE")
     ld hl, $D3CD
     LdHLIBCI
