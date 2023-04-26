@@ -11,6 +11,7 @@
 
     db 3         ;VRAM1 entries
 
+    	; Pointer is surprisingly preserved
         LoadBitmap $9000,BITMAP_Misc_StartScreen_Bottom,$10,$07
 
     ; BITMAP_Misc_BlankTiles
