@@ -22,6 +22,12 @@ class TestColor(unittest.TestCase):
         self.assertEqual(0xCF5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 1).get_word(permit_transparency=True))
         with(self.assertRaises(ValueError)):
             color.Color(0x1F*8, 0x1A*8, 0x13*8, 1).get_word(permit_transparency=False)
+        with(self.assertRaises(AssertionError)):
+            color.Color(0x10*8 + 1, 0x10*8, 0x10*8, 0)
+        with(self.assertRaises(AssertionError)):
+            color.Color(0x10*8, 0x10*8 + 1, 0x10*8, 0)
+        with(self.assertRaises(AssertionError)):
+            color.Color(0x10*8, 0x10*8, 0x10*8 + 1, 0)
 
 
 class TestPalette(unittest.TestCase):
