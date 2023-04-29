@@ -875,3 +875,17 @@ def buildTriggers() -> None:
         if(label[:8] == "TRIGGERX"):  # Unlabelled trigger to process
             hotspot.Trigger.rom_to_file(rom, address, label[9:], sym)
             # TODO: rom_replace the trigger files?
+
+
+def buildSprites() -> None:
+    """Prints out a list of all the new triggers identified.
+    Creates files for all the new triggers."""
+    print("\n"*3)
+    print("BUILD SPRITES")
+    for address in sprites:
+        label = "_".join(sym.getSymbol(address.getBank(), address.getAddress(), "OAMX"))
+        print(label)
+        if(label[:4] == "OAMX"):  # Unlabelled trigger to process
+            spr = sprite.Sprite(rom, address)
+            spr.save(label)
+            # TODO: rom_replace the sprite files?
