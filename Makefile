@@ -54,6 +54,7 @@ tests:
 	python -m unittest python\\projutils\\tests\\test_pattern.py
 	python -m unittest python\\projutils\\tests\\test_preview.py
 	python -m unittest python\\projutils\\tests\\test_rle.py
+	python -m unittest python\\projutils\\tests\\test_sprite.py
 	python -m unittest python\\projutils\\tests\\test_textreplace.py
 	python -m unittest python\\projutils\\tests\\test_tileset.py
 	python -m unittest python\\projutils\\tests\\test_utils.py

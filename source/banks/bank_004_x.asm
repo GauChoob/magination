@@ -251,7 +251,7 @@ Creature_Table_MagiMakeCreatureStruct::
     LdHLIBCI
     LdHLIBCI
 
-    ; .Strength/.Skill/.Speed/.Defence/.Resist/.Luck/.EnergyUpElem/.ElementResist/.ElementWeak/.StatusImmune
+    ; .Strength/.Skill/.Speed/.Defence/.Resist/.Luck/.EnergyUpElem/.ElementResist/.ElementWeak/.StatusImmune <- 10
     ld d, $0A
     .CopyLoop:
         LdHLIBCI

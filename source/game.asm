@@ -1,9 +1,6 @@
 
 ; PARAMS
 
-; Some banks contain unused data that relate to previously compiled versions of the ROM or even external files
-; Set 1 to include this data. Set 0 to exclude
-; Note that you must modify python/make/musyx_make.py to exclude the ghost data fragments included in the musyx data
 DEF GHOST_DATA EQU 1 ; Set to 1 to include unused data that was copied from the developer's computer into the final producted, likely from uninitialized memory in RAM
 DEF TEST EQU 0 ;set to 1 when testing, otherwise 0
 DEF DEBUG_TEXTBOX_CURSOR EQU 0 ;set to 1 when enabling the disabled feature
@@ -48,6 +45,7 @@ INCLUDE "source/engine/trigger/trigger_include.asm"
 INCLUDE "source/engine/actor/actor_include.asm"
 INCLUDE "source/engine/collision/collision_include.asm"
 INCLUDE "source/engine/system/graphics/tilemap/tilemap_include.asm"
+INCLUDE "source/engine/system/graphics/frame/frame_include.asm"
 INCLUDE "source/game/menu/menu_include.asm"
 INCLUDE "source/game/menu/mainmenu_include.asm"
 INCLUDE "source/game/battle/battle_equ.asm"

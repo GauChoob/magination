@@ -275,6 +275,11 @@ wBattle_Menu_CommandCostString::
         ds 3
     .End:
 
+    ds $D06D - @
+wBattle_TurnsElapsed::
+    ; Number of turns elapsed from the start of the battle
+    ds 2
+
     ds $D074 - @
 wBattle_TempCounter::
     ; Generic loop counter
@@ -293,9 +298,9 @@ wBattle_DamageOverrideMagnitude::
     ; The amount of damage to deal
     ds 1
 
-
     ds $D091 - @
 wBattle_CreatureSlots::
+    ; TODO Seems to be non-zero if a person/creature exists in the corresponding slot
     .Hero:
         ds 1
     .Ally0:
@@ -382,6 +387,9 @@ wBattle_Creature_Enemy3::
     ;ds $D336 - @
 wBattle_Creature_Magi::
     Battle_Creature_Struct
+
+    ;ds $D36D - @
+    ds 1
 
     ds $D391 - @
 wBattle_MagiCreatureID::

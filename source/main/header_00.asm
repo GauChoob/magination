@@ -29,9 +29,9 @@ HeaderSGBFlag::
 HeaderCartridgeType::
     db CART_ROM_MBC5_RAM_BAT
 HeaderROMSize::
-    db CART_ROM_16M ;ROM 128x8kb
+    db CART_ROM_2048KB ;ROM 128x8kb
 HeaderRAMSize::
-    db CART_RAM_256K ;RAM 4x8kb
+    db CART_SRAM_32KB ;RAM 4x8kb
 HeaderDestinationCode::
     db $01 ; Non-Japanese
 HeaderOldLicenseeCode::

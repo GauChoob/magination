@@ -74,3 +74,17 @@ MACRO Battle_TextboxOpen
     Battle_SetScriptText SCRIPT_Battle_TextboxOpen
     Battle_AwaitTextbox OPEN
 ENDM
+
+MACRO Battle_Set_MagiAnim
+    ; Arguments
+    ;   \1  Magi's dream creature id
+    ;   \2  Lookup table's nth entry
+    ;   \3  Target actor id
+    ld a, \1
+    ld [$D0C2], a
+    ld a, \2
+    ld [$D0C0], a
+    ld a, \3
+    ld [$D0C1], a
+    Do_CallForeign Call_005_57BA
+ENDM

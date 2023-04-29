@@ -696,7 +696,7 @@ Script_Table::
     dw Cmd_Sound_FadeInSong        ; $23
     dw Cmd_Sound_FadeOutSong       ; $24
 
-    dw Cmd_25_BattleNew ; $25
+    dw Cmd_Battle_New ; $25
     dw $0F31
     dw $0F39  ;BattleDoneLoading?
     dw $0F46
