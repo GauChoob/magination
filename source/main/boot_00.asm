@@ -12,7 +12,7 @@ Boot_HardReset::
     ; This code is only run once when the gameboy is turned on
     ; It checks whether the hardware is CGB-compatible or not, and then does all the soft reset stuff
     and a
-    cp HARDWARE_GBC     ;$11 = CGB
+    cp BOOTUP_A_CGB     ;$11 = CGB
     ld a, $00           ;xor a impossible since zf changes
     jr nz, .NotCGB
         inc a           ;$01 if CGB; $00 if DMG

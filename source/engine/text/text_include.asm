@@ -19,7 +19,7 @@ MACRO Text_Setup
 
     Set16_M wText_MapDest, \3
 
-    IF "\2" != "de"
+    IF STRCMP("\2", "de") != 0
         ld a, LOW((\2)/$10) ;Tileid that refers to wText_VBlankBase address
     ELSE
         Srl16 de, 4 ; divide by $10
@@ -30,7 +30,7 @@ MACRO Text_Setup
 
     Set8 wText_Attributes, %10000111 + %00001000*(\1)
 
-    IF "\2" != "de"
+    IF STRCMP("\2", "de") != 0
         Set8 wText_TileLimit, LOW((\2)/$10 + (\4)) ;The tileid indicated the end of the VRAM buffer
     ELSE
         ld a, e

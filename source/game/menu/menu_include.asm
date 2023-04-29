@@ -2,9 +2,9 @@
 MACRO Menu_TextSetup
     ; Menu_TextSetup VBK, VRAMDest, TilemapDEST, Length, String
     ; Length can either be a fixed value or ".End" (end of a string)
-    IF "\5" != "hl"
+    IF STRCMP("\5", "hl") != 0
         Set16_M wText_StringFormatFrame, wText_StringBuffer
-        IF "\4" == ".End"
+        IF STRCMP("\4", ".End") == 0
             ;String.End-String
             DEF __LENGTH\@__ EQU \5\4-\5
         ELSE
@@ -18,9 +18,9 @@ MACRO Menu_TextSetup
         Set16_M wText_HandlerFunc, TextHandler_String
     ELSE
         ; Same thing as above, but when you use registers, wText_StringFrame is moved
-        ASSERT "\2" == "de"
-        ASSERT "\3" == "bc"
-        ASSERT "\5" == "hl"
+        ASSERT STRCMP("\2", "de") == 0
+        ASSERT STRCMP("\3", "bc") == 0
+        ASSERT STRCMP("\5", "hl") == 0
         Set16_M wText_StringFrame, \5
         Set16_M wText_StringFormatFrame, wText_StringBuffer
         Text_Setup \1, \2, \3, \4
@@ -127,7 +127,7 @@ MACRO Do_Menu_Init
     FSet16 wMenu_SelectFunc, bc
 
         ;    [address]          All 8-bit registers
-    IF STRSUB("\6",1,1)=="[" || "\6"=="a" || "\6"=="b" || "\6"=="c" || "\6"=="d" || "\6"=="e" || "\6"=="h" || "\6"=="l"
+    IF STRCMP(STRSUB("\6",1,1), "[") == 0 || STRCMP("\6", "a") == 0 || STRCMP("\6", "b") == 0 || STRCMP("\6", "c") == 0 || STRCMP("\6", "d") == 0 || STRCMP("\6", "e") == 0 || STRCMP("\6", "h") == 0 || STRCMP("\6", "l") == 0
         Set8 wMenu_CursorID,\6
     ELSE
         Set8 wMenu_CursorID, Enum_\1_\6 ;Enum_{__TableName__}_\6

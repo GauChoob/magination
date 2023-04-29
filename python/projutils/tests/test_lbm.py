@@ -7,7 +7,7 @@ import projutils.tests.config as config
 
 
 ASSETSFOLDER = os.path.dirname(__file__) + "/assets/lbm/"
-IMAGES = []
+IMAGES = ['!MARTEL.LBM', 'BIT_SHRB.LBM', 'TEMP.BBM']
 
 
 class TestLBM(unittest.TestCase):

@@ -10,7 +10,7 @@ This explains how to get the tools required to build Magi-Nation.
 
 2. If using Windows, you need to install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm). You can skip this step for Linux/Mac.
 
-3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.5.1 was used).
+3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.6.1 was used).
 
 4. Install [Python](https://www.python.org/downloads/) (version 3.9.2 was used).
 

@@ -2196,33 +2196,40 @@ Call_005_579D::
 jr_005_57B9:
     ret                                           ; $57B9: $C9
 
+    ; $57BA
 Call_005_57BA::
-    ld a, [$D0C2]                                 ; $57BA: $FA $C2 $D0
-    cp $6C                                        ; $57BD: $FE $6C
-    ret nc                                        ; $57BF: $D0
+    ; Abort if index is out of range, i.e. id is higher than the last magi
+    ld a, [$D0C2]
+    cp luDreamCreatureEnd - 1
+    ret nc
 
-    sub $58                                       ; $57C0: $D6 $58
-    add a                                         ; $57C2: $87
-    ld c, a                                       ; $57C3: $4F
-    ld b, $00                                     ; $57C4: $06 $00
-    ld hl, $5CF1                                  ; $57C6: $21 $F1 $5C
-    add hl, bc                                    ; $57C9: $09
+    ; Lookup the nth entry (nth magi) from the magis' scripts' table
+    sub luDreamCreatureMAGI
+    add a
+    ld c, a
+    ld b, $00
+    ld hl, Battle_MagiAnim_Table
+    add hl, bc
     DerefHL
-    push hl                                       ; $57CD: $E5
-    ld a, [$D0C0]                                 ; $57CE: $FA $C0 $D0
-    ld b, a                                       ; $57D1: $47
-    ld c, $03                                     ; $57D2: $0E $03
-    call Math_Mult                                    ; $57D4: $CD $CA $04
-    pop bc                                        ; $57D7: $C1
-    add hl, bc                                    ; $57D8: $09
-    ld d, [hl]                                    ; $57D9: $56
-    inc hl                                        ; $57DA: $23
-    ld a, [hl+]                                   ; $57DB: $2A
-    ld b, [hl]                                    ; $57DC: $46
-    ld c, a                                       ; $57DD: $4F
-    ld a, [$D0C1]                                 ; $57DE: $FA $C1 $D0
-    call Battle00_SetActorScript                                    ; $57E1: $CD $F0 $38
-    ret                                           ; $57E4: $C9
+
+    ; Navigate to the nth entry of the scripts' table
+    push hl
+    ld a, [$D0C0]
+    ld b, a
+    ld c, $03
+    call Math_Mult
+    pop bc
+    add hl, bc
+
+    ; Update the actor's Script to the selected Script
+    ld d, [hl]
+    inc hl
+    ld a, [hl+]
+    ld b, [hl]
+    ld c, a
+    ld a, [$D0C1]
+    call Battle00_SetActorScript
+    ret
 
 
     ld a, [$D0C0]                                 ; $57E5: $FA $C0 $D0
@@ -2667,13 +2674,7 @@ Jump_005_5A4D:
     sub b                                         ; $5A5F: $90
     push af                                       ; $5A60: $F5
     call Battle00_DisableActorScript                                    ; $5A61: $CD $C7 $38
-    ld a, [$D338]                                 ; $5A64: $FA $38 $D3
-    ld [$D0C2], a                                 ; $5A67: $EA $C2 $D0
-    ld a, $00                                     ; $5A6A: $3E $00
-    ld [$D0C0], a                                 ; $5A6C: $EA $C0 $D0
-    ld a, $0C                                     ; $5A6F: $3E $0C
-    ld [$D0C1], a                                 ; $5A71: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
     pop af                                        ; $5A7C: $F1
     push af                                       ; $5A7D: $F5
     ld b, a                                       ; $5A7E: $47
@@ -3148,46 +3149,33 @@ Battle_Helpers_VBlank_DrawMenuCreatureIcon::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
+    ; $5CF1
+Battle_MagiAnim_Table::
+    ; Tony has 7 animation states
+    ; Each enemy magi has 5 animation states
+    dw $5E09 ; Tony
+    dw $5DDC ; Togoth
+    dw $5DCD ; Ogar
+    dw $5DAF ; Korremar
+    dw $5DEB ; Warrada
+    dw $5DA0 ; Korg
+    dw $5DFA ; Zet
+    dw $5DBE ; Morag
+    dw $5D91 ; Agram
+    dw $5D91 ; Agram
+    dw $5D91 ; Agram
+    dw $5D19 ; ShadowMagi
+    dw $5D28 ; ShadowMagi
+    dw $5D37 ; ShadowMagi
+    dw $5D46 ; ShadowMagi
+    dw $5D55 ; ShadowMagi
+    dw $5D64 ; ShadowMagi
+    dw $5D73 ; ShadowMagi
+    dw $5D82 ; ShadowMagi
+    dw $5E1E ; Salafy
+    .End
 
-    db $09, $5E
-
-    call c, $CD5D                                 ; $5CF3: $DC $5D $CD
-    ld e, l                                       ; $5CF6: $5D
-    xor a                                         ; $5CF7: $AF
-    ld e, l                                       ; $5CF8: $5D
-    db $EB                                        ; $5CF9: $EB
-    ld e, l                                       ; $5CFA: $5D
-    and b                                         ; $5CFB: $A0
-    ld e, l                                       ; $5CFC: $5D
-    ld a, [$BE5D]                                 ; $5CFD: $FA $5D $BE
-    ld e, l                                       ; $5D00: $5D
-    sub c                                         ; $5D01: $91
-    ld e, l                                       ; $5D02: $5D
-    sub c                                         ; $5D03: $91
-    ld e, l                                       ; $5D04: $5D
-    sub c                                         ; $5D05: $91
-    ld e, l                                       ; $5D06: $5D
-    add hl, de                                    ; $5D07: $19
-    ld e, l                                       ; $5D08: $5D
-    jr z, jr_005_5D68                             ; $5D09: $28 $5D
-
-    scf                                           ; $5D0B: $37
-    ld e, l                                       ; $5D0C: $5D
-    ld b, [hl]                                    ; $5D0D: $46
-
-jr_005_5D0E:
-    ld e, l                                       ; $5D0E: $5D
-    ld d, l                                       ; $5D0F: $55
-    ld e, l                                       ; $5D10: $5D
-    ld h, h                                       ; $5D11: $64
-    ld e, l                                       ; $5D12: $5D
-    ld [hl], e                                    ; $5D13: $73
-    ld e, l                                       ; $5D14: $5D
-    add d                                         ; $5D15: $82
-    ld e, l                                       ; $5D16: $5D
-    ld e, $5E                                     ; $5D17: $1E $5E
-    jr nz, jr_005_5D39                            ; $5D19: $20 $1E
-
+    dw $1E20
     ld [hl], b                                    ; $5D1B: $70
     jr nz, jr_005_5D55                            ; $5D1C: $20 $37
 
@@ -3204,7 +3192,7 @@ jr_005_5D0E:
     jr nz, @-$36                                  ; $5D28: $20 $C8
 
     ld [hl], h                                    ; $5D2A: $74
-    jr nz, jr_005_5D0E                            ; $5D2B: $20 $E1
+    db $20, $E1
 
     ld [hl], h                                    ; $5D2D: $74
     jr nz, jr_005_5D31                            ; $5D2E: $20 $01
@@ -3415,6 +3403,7 @@ jr_005_5E05:
     ld c, $A7                                     ; $5E06: $0E $A7
     ld a, a                                       ; $5E08: $7F
 
+    ; $5E09
     db $20, $EB, $5E
     db $20, $48
 

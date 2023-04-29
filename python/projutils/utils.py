@@ -1,9 +1,11 @@
+import functools
 import struct
 import os
 from typing import List, Union, Tuple
 import projutils.encoding as encoding
 
 
+@functools.total_ordering
 class BankAddress:
     """This object is used to more easily calculate bank/addresses.
     This object is only useable for ROM addresses (banks 0-0x7F, addresses 0x4000-0x8000)"""
@@ -60,11 +62,11 @@ class BankAddress:
         if isinstance(other, int):
             return BankAddress(self.pos - other)
         if isinstance(other, BankAddress):
-            return BankAddress(self.pos - other.getPos())
+            return self.pos - other.getPos()  # Return an integer (i.e. a size)
 
-    def __rsub__(self, other):
-        if isinstance(other, int):
-            return BankAddress(other - self.pos)
+    # def __rsub__(self, other):
+    #     if isinstance(other, int):
+    #         return BankAddress(other - self.pos)
 
     def __isub__(self, other):
         return self.__sub__(other)
@@ -81,6 +83,14 @@ class BankAddress:
         if isinstance(other, BankAddress):
             return self.getPos() == other.getPos()
         raise NotImplementedError
+
+    def __lt__(self, other):
+        if isinstance(other, BankAddress):
+            return self.getPos() < other.getPos()
+        raise NotImplementedError
+
+    def __hash__(self):
+        return hash(self.getPos())
 
     def getPos(self) -> int:
         """Returns the absolute position of the BankAddress"""
@@ -144,6 +154,14 @@ class Rom:
         if len(arg) == 2:
             return BankAddress(arg[0], arg[1]).getPos()
         raise ValueError("Invalid input to Rom class: "+str(arg))
+
+    def getSignedByte(self, pos: Union[BankAddress, int, Tuple[int, int]]) -> int:
+        """Gets the signed value of the byte located at pos."""
+        pos = Rom._determinePosition(pos) - self._offset
+        val = self._rawdata[pos]
+        if val > 127:
+            val -= 256
+        return val
 
     def getByte(self, pos: Union[BankAddress, int, Tuple[int, int]]) -> int:
         """Gets the value of the byte located at pos."""

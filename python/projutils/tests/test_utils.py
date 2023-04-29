@@ -26,6 +26,12 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(ba1.getBank(), 2)
         self.assertEqual(ba1.getAddress(), 0x5000)
 
+        # BankAddress subtraction
+        ba8 = utils.BankAddress(0x9000)
+        ba9 = utils.BankAddress(0xA000)
+        ba10 = ba9 - ba8
+        self.assertEqual(ba10, 0x1000)
+
         # Addition with another BankAddress
         ba2 = ba1 + ba1
         self.assertEqual(ba2.getPos(), 0x12000)
@@ -50,6 +56,14 @@ class TestUtils(unittest.TestCase):
         ba4 = utils.BankAddress(0x02, 0x5000)
         self.assertEqual(ba3, ba4)
 
+        # set() with BankAddress (__hash__)
+        ba5 = utils.BankAddress(0xA000)
+        ba6 = utils.BankAddress(0xA000)
+        test_set = set()
+        test_set.add(ba5)
+        test_set.add(ba6)
+        self.assertEqual(len(test_set), 1)
+
         # Bank 0
         ba5 = utils.BankAddress(0x00, 0x2000)
         self.assertEqual(ba5.getPos(), 0x2000)
@@ -73,6 +87,16 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(ba5.getPos(), 0xC000)
         self.assertEqual(ba5.getBank(end=True), 2)
         self.assertEqual(ba5.getAddress(end=True), 0x8000)
+
+        # __lt__ and other comparison operators
+        ba6 = utils.BankAddress(0x03, 0x5000)
+        ba7 = utils.BankAddress(0x03, 0x5500)
+        self.assertGreater(ba7, ba6)
+        self.assertGreaterEqual(ba7, ba6)
+        self.assertGreaterEqual(ba6, ba6)
+        self.assertLess(ba6, ba7)
+        self.assertLessEqual(ba6, ba7)
+        self.assertLessEqual(ba6, ba6)
 
     def test_Rom(self):
         # Load all 3 roms
@@ -109,6 +133,16 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(len(rom_mn), 0x200000)
 
         # Rom(bytes) is not tested, but is implicitly tested in test_rle
+
+        # Test getting words and bytes
+        self.assertEqual(rom_mn.getByte(0), 0xC3)
+        self.assertEqual(rom_mn.getByte(1), 0x5B)
+        self.assertEqual(rom_mn.getWord(0), 0x5BC3)
+        self.assertEqual(rom_mn.getSignedByte(0), -61)
+        self.assertEqual(rom_mn.getSignedByte(1), 0x5B)
+        self.assertEqual(rom_mn.getByte(0x4B6), 0x80)
+        self.assertEqual(rom_mn.getByte(1), 0x5B)
+        self.assertEqual(rom_mn.getSignedByte(0x4B6), -128)
 
     def test_AsmBytesWordsPack(self):
         # AsmBytes

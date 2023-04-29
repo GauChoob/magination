@@ -46,6 +46,7 @@ xLoad_HeroYTile::
     ds 1
     ;ds $A018 - @
 xStartScreenDoorState::
+    ; 1 -> ?
     ; 2 -> NewGame+ door is open
     ds 1
 

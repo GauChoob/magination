@@ -23,11 +23,7 @@ Game_Loop::
     ldh a, [hTicker]
     inc a
     ldh [hTicker], a
-    IF TEST == 1
-        call TESTING ;TODO
-    ELSE
     ld a, [wCntDown]
-    ENDC
     bit button_BIT_START, a    ;Start button
     jr z, .SkipMainMenu
         XCall Menu_MainMenu_Open ;Opens Tony's Main Menu
@@ -1067,7 +1063,11 @@ System_UpdateGame::
     XCall Tilemap_Ready_ColCodes
     call Call_007_5198
     xor a
+    IF TEST == 1
+        call TESTING ;TODO
+    ELSE
     ld [wTilemap_XDelta], a
+    ENDC
     ld [wTilemap_YDelta], a
     call Interpreter_Update
     Script_Do wScript_Master
@@ -1079,21 +1079,21 @@ System_UpdateGame::
     ld a, [wTextbox_Position]
     and a
     jr z, .Copy
-    xor a
-    ld hl, $C9A3
-    ld [hl+], a
-    ld [hl+], a
-    ld [hl+], a
-    jr .Clear
-.Copy:
-    ld hl, $C9A3
-    ld a, [wCnt1]
-    ld [hl+], a
-    ld a, [wCntDown]
-    ld [hl+], a
-    ld a, [wCntUp]
-    ld [hl+], a
-.Clear:
+        xor a
+        ld hl, $C9A3
+        ld [hl+], a
+        ld [hl+], a
+        ld [hl+], a
+        jr .Clear
+    .Copy:
+        ld hl, $C9A3
+        ld a, [wCnt1]
+        ld [hl+], a
+        ld a, [wCntDown]
+        ld [hl+], a
+        ld a, [wCntUp]
+        ld [hl+], a
+    .Clear:
     ld hl, $FFAA
     ld a, [hl+]
     ld [hl-], a
@@ -1928,7 +1928,14 @@ INCLUDE "source/engine/system/sound/sound_script.asm"
     ; source/engine/script/modules/script_00_battle.s
 
     ; $0EC5
-Cmd_25_BattleNew::
+Cmd_Battle_New::
+    ; Starts a battle
+    ; wScript_System - will continue running the script at the end of the battle (TODO to confirm)
+    ; Arguments:
+    ;   db          TODO - maybe Arena color?
+    ;   db          wBattle_MagiCreatureID
+    ;   db          TODO
+    ;   BankAddress TODO - probably script to setup actors for the battle?
     Mov8 wHero_DoorX, wActor_Hero.XTile
     Mov8 wHero_DoorY, wActor_Hero.YTile
 
@@ -1937,7 +1944,7 @@ Cmd_25_BattleNew::
     Script_ReadByte_V [$C9E4]
     Script_ReadByteA
     ld [wBattle_MagiCreatureID], a
-    cp $6C
+    cp luDreamCreature6C ; Hypothesis - this is a battle with no enemy magi?
     jr z, .jr_000_0EE9
         xor a
         jr .jr_000_0EEB
@@ -1946,16 +1953,13 @@ Cmd_25_BattleNew::
     .jr_000_0EEB:
     ld [$D0D3], a
     Script_ReadByte_V [$D36D]
-    ld hl, $C706
+    ld hl, wScript_Master.Bank
     LdHLIBCI
-    LdHLIBCI
+    LdHLIBCI ; wScript_Master.Frame
     LdHLIBCI
     xor a
     ld [$D0D7], a
-    ld a, LOW(Script_Start)
-    ld [$C709], a
-    ld a, HIGH(Script_Start)
-    ld [$C70A], a
+    Set16_M wScript_Master.State, Script_Start
     Set16FF_V hScript.Frame, bc
     Set16FF hScript.State, Call_000_0F59
     Set16FF hScript_CurrentAddress, wScript_System
@@ -1988,6 +1992,7 @@ Call_000_0F39:
 
     ; $0F59
 Call_000_0F59:
+    ; TODO - probably holds wScript_System until $D3C2 is set (?battle is over perhaps), and then will run wScript_System
     xor a
     ld [$D3C2], a
     Set16FF hScript.State, Call_000_0F66
@@ -2759,6 +2764,7 @@ Cmd_Frame_OverlayDraw::
         ld [wColl_XMove], a
         ld [wColl_YMove], a
 
+        ; Apply Delta X/Y
         ld h, b
         ld l, c
         ld a, [hl+]
@@ -2772,6 +2778,7 @@ Cmd_Frame_OverlayDraw::
         add b
         ldh [hActor.YTile], a
 
+        ; Get Actor Sprite data into hl
         ld a, [hl+]
         ld e, a
         ld a, [hl+]
@@ -6603,8 +6610,6 @@ BattleCmd_Stat_DecreaseCreatureEnergy::
     ld [hl], c
     ret
 
-IF TEST==0 ; todo remove
-
     ; $387E
 BattleCmd_Stat_IncreaseCreatureStat::
     ; Increases a creature's stat, up to a maximum of X
@@ -6856,13 +6861,16 @@ sBattle_Helpers_DefendArrowArrow::
     ; $3986
     ; A little bit of ghost data is here (see ghost_data.asm)
 
-ENDC
-
-IF TEST==1
-    INCLUDE "test/ace.asm"
-ENDC
-IF DEBUG_TEXTBOX_CURSOR==1
-    INCLUDE "source/engine/textbox/debug_textbox_cursor.asm"
-ENDC
     ; $3AB0
 INCLUDE "musyx/musyxb0.asm"
+
+
+IF TEST==1
+    ; Erases the HardSample function from musyx
+    SECTION "TEST", ROM0
+    INCLUDE "source/test/magianim_test.asm"
+ENDC
+IF DEBUG_TEXTBOX_CURSOR==1
+    SECTION "CURSOR", ROM0
+    INCLUDE "source/engine/textbox/debug_textbox_cursor.asm"
+ENDC

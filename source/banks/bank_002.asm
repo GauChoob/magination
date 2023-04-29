@@ -646,13 +646,7 @@ jr_002_441F:
     add hl, bc                                    ; $4458: $09
     add hl, bc                                    ; $4459: $09
     push hl                                       ; $445A: $E5
-    ld a, [$D338]                                 ; $445B: $FA $38 $D3
-    ld [$D0C2], a                                 ; $445E: $EA $C2 $D0
-    ld a, $01                                     ; $4461: $3E $01
-    ld [$D0C0], a                                 ; $4463: $EA $C0 $D0
-    ld a, $0C                                     ; $4466: $3E $0C
-    ld [$D0C1], a                                 ; $4468: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $01, $0C
     pop hl                                        ; $4473: $E1
     xor a                                         ; $4474: $AF
     ld [hl+], a                                   ; $4475: $22
@@ -844,20 +838,8 @@ jr_002_459B:
     and a                                         ; $459E: $A7
     jr nz, jr_002_45D0                            ; $459F: $20 $2F
 
-    ld a, [$D338]                                 ; $45A1: $FA $38 $D3
-    ld [$D0C2], a                                 ; $45A4: $EA $C2 $D0
-    ld a, $00                                     ; $45A7: $3E $00
-    ld [$D0C0], a                                 ; $45A9: $EA $C0 $D0
-    ld a, $0C                                     ; $45AC: $3E $0C
-    ld [$D0C1], a                                 ; $45AE: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
-    ld a, $58                                     ; $45B9: $3E $58
-    ld [$D0C2], a                                 ; $45BB: $EA $C2 $D0
-    ld a, $00                                     ; $45BE: $3E $00
-    ld [$D0C0], a                                 ; $45C0: $EA $C0 $D0
-    ld a, $0B                                     ; $45C3: $3E $0B
-    ld [$D0C1], a                                 ; $45C5: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
+    Battle_Set_MagiAnim $58, $00, $0B
 
 jr_002_45D0:
     ld a, [$D0B2]                                 ; $45D0: $FA $B2 $D0
@@ -2447,13 +2429,7 @@ jr_002_5086:
     jr jr_002_50CE                                ; $50A3: $18 $29
 
 jr_002_50A5:
-    ld a, $58                                     ; $50A5: $3E $58
-    ld [$D0C2], a                                 ; $50A7: $EA $C2 $D0
-    ld a, $05                                     ; $50AA: $3E $05
-    ld [$D0C0], a                                 ; $50AC: $EA $C0 $D0
-    ld a, $0B                                     ; $50AF: $3E $0B
-    ld [$D0C1], a                                 ; $50B1: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim $58, $05, $0B
     ld hl, $C71B                                  ; $50BC: $21 $1B $C7
     ld a, $4C                                     ; $50BF: $3E $4C
     ld [hl+], a                                   ; $50C1: $22
@@ -4506,22 +4482,23 @@ jr_002_5E63:
 
     ; $5E6D
 Battle_Flow_Begin::
-    ;BTL_BEGIN
+    ; Initializes and then starts the battle
     SwitchRAMBank BANK("WRAM BATTLE")
 
-    ; todo ?BTL_ENGINE_TURN
+    ; Reset turns elapsed to 0
     ld bc, $0000
-    FSet16 $D06D, bc
-    ; todo initialization
-    Do_MemSet $D0D9, $0294, $00
+    FSet16 wBattle_TurnsElapsed, bc
+    
+    ; Initialize all the Battle_Creature_Struct to null
+    Do_MemSet wBattle_Creature_Current, (wBattle_Creature_Magi.End - wBattle_Creature_Current), $00
 
-    ;Load the hero
+    ; Load the hero
     ld bc, xCreature_00_Hero
     ld hl, wBattle_Creature_Hero
     call Battle_Init_SummonMagi
     Set8 wBattle_CreatureSlots.Hero, $01
 
-    ; Find the opposing magi
+    ; Find the opposing magi's reference
     Get8 c, wBattle_MagiCreatureID
     ld b, Creature_Table_WIDTH
     call Math_Mult
@@ -4549,13 +4526,8 @@ Battle_Flow_Begin::
     .MagiFinally:
     ld [wBattle_CreatureSlots.Magi], a
 
-    ld a, [$D338]
-    ld [$D0C2], a
-    ld a, $00
-    ld [$D0C0], a
-    ld a, $0C
-    ld [$D0C1], a
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
+
     xor a
     ld [$D15C], a
     ld [$D34B], a
@@ -5045,20 +5017,8 @@ Battle_Flow_Exit:
     .Win:
     Sound_Request_StartSong SONGID_GetItem
 
-    ld a, [$D338]                                 ; $633B: $FA $38 $D3
-    ld [$D0C2], a                                 ; $633E: $EA $C2 $D0
-    ld a, $04                                     ; $6341: $3E $04
-    ld [$D0C0], a                                 ; $6343: $EA $C0 $D0
-    ld a, $0C                                     ; $6346: $3E $0C
-    ld [$D0C1], a                                 ; $6348: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
-    ld a, $58                                     ; $6353: $3E $58
-    ld [$D0C2], a                                 ; $6355: $EA $C2 $D0
-    ld a, $03                                     ; $6358: $3E $03
-    ld [$D0C0], a                                 ; $635A: $EA $C0 $D0
-    ld a, $0B                                     ; $635D: $3E $0B
-    ld [$D0C1], a                                 ; $635F: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $04, $0C
+    Battle_Set_MagiAnim $58, $03, $0B
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3
@@ -5160,20 +5120,8 @@ Jump_002_641DCheckLose:
     cp BATTLE_EXITCODE_LOSE                                        ; $641D: $FE $03
     jp nz, Jump_002_64EDCheckTODO                          ; $641F: $C2 $ED $64
     .Lose:
-    ld a, [$D338]                                 ; $6422: $FA $38 $D3
-    ld [$D0C2], a                                 ; $6425: $EA $C2 $D0
-    ld a, $03                                     ; $6428: $3E $03
-    ld [$D0C0], a                                 ; $642A: $EA $C0 $D0
-    ld a, $0C                                     ; $642D: $3E $0C
-    ld [$D0C1], a                                 ; $642F: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
-    ld a, $58                                     ; $643A: $3E $58
-    ld [$D0C2], a                                 ; $643C: $EA $C2 $D0
-    ld a, $04                                     ; $643F: $3E $04
-    ld [$D0C0], a                                 ; $6441: $EA $C0 $D0
-    ld a, $0B                                     ; $6444: $3E $0B
-    ld [$D0C1], a                                 ; $6446: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $03, $0C
+    Battle_Set_MagiAnim $58, $04, $0B
     ld hl, $C71B                                  ; $6451: $21 $1B $C7
     ld a, $4C                                     ; $6454: $3E $4C
     ld [hl+], a                                   ; $6456: $22
@@ -5868,7 +5816,7 @@ jr_002_69C4:
     jr z, jr_002_69C4                             ; $69CB: $28 $F7
 
 Jump_002_69CD:
-    FGet16 hl, $D06D                                  ; $69CD: $21 $6D $D0
+    FGet16 hl, wBattle_TurnsElapsed                                  ; $69CD: $21 $6D $D0
     ld a, h                                       ; $69D3: $7C
     or l                                          ; $69D4: $B5
     jr z, jr_002_69DF                             ; $69D5: $28 $08
@@ -5891,7 +5839,7 @@ jr_002_69DF:
     jp nc, Jump_002_66ED                          ; $69EB: $D2 $ED $66
 
     Do_CallForeign Call_005_5A45
-    FGet16 de, $D06D                                  ; $69F6: $21 $6D $D0                                       ; $69FB: $5F
+    FGet16 de, wBattle_TurnsElapsed                                  ; $69F6: $21 $6D $D0                                       ; $69FB: $5F
     inc de                                        ; $69FC: $13
     ld a, d                                       ; $69FD: $7A
     ld [hl-], a                                   ; $69FE: $32
@@ -6043,36 +5991,18 @@ Battle_Flow_ProcessHero:
 
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
     call Battle00_DisableActorScript
-    ld a, $58
-    ld [$D0C2], a
-    ld a, $06
-    ld [$D0C0], a
-    ld a, $0B
-    ld [$D0C1], a
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim $58, $06, $0B
     call Battle_Flow_ControlCreature
-    ld a, $58
-    ld [$D0C2], a
-    ld a, $00
-    ld [$D0C0], a
-    ld a, $0B
-    ld [$D0C1], a
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim $58, $00, $0B
     FGet16 hl, wBattle_Creature_Current.BattleCmd_Function
-    ld bc, $5272
+    ld bc, BattleCmd_5272 ; Summon
     TwosComp bc
     add hl, bc
     ld a, h
     or l
     jr nz, .jr_002_6BB0
 
-        ld a, $58
-        ld [$D0C2], a
-        ld a, $02
-        ld [$D0C0], a
-        ld a, $0B
-        ld [$D0C1], a
-        Do_CallForeign Call_005_57BA
+        Battle_Set_MagiAnim $58, $02, $0B
 
     .jr_002_6BB0:
     ; Store the hero
@@ -7599,13 +7529,7 @@ Call_002_752D::
 
 
 jr_002_7549:
-    ld a, [$D338]                                 ; $7549: $FA $38 $D3
-    ld [$D0C2], a                                 ; $754C: $EA $C2 $D0
-    ld a, $02                                     ; $754F: $3E $02
-    ld [$D0C0], a                                 ; $7551: $EA $C0 $D0
-    ld a, $0C                                     ; $7554: $3E $0C
-    ld [$D0C1], a                                 ; $7556: $EA $C1 $D0
-    Do_CallForeign Call_005_57BA
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $02, $0C
     call Call_002_4653                            ; $7561: $CD $53 $46
     FGet16 hl, $D07B                                  ; $7564: $21 $7B $D0
     ld bc, $D110                                  ; $756A: $01 $10 $D1

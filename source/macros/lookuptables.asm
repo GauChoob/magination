@@ -125,6 +125,7 @@ luDreamCreatureXyx                  EQU $54
 luDreamCreatureYvohcna              EQU $55
 luDreamCreaturePlAcEhOlDr56         EQU $56
 luDreamCreaturePlAcEhOlDr57         EQU $57
+luDreamCreatureMAGI                 EQU $58
 luDreamCreatureTony                 EQU $58
 luDreamCreatureTogoth               EQU $59
 luDreamCreatureOgar                 EQU $5A
@@ -146,6 +147,7 @@ luDreamCreatureShadowMagi69         EQU $69
 luDreamCreatureShadowMagi70         EQU $6A
 luDreamCreatureSalafy               EQU $6B
 luDreamCreature6C                   EQU $6C
+luDreamCreatureEnd                  EQU $6D
 
 
 
