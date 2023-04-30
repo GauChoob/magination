@@ -1,3 +1,4 @@
+import traceback
 from typing import List
 import projutils.utils as utils
 import projutils.color as color
@@ -77,7 +78,7 @@ rom = utils.Rom()
 rambank = 1
 
 # Load the symbol file for labels
-sym = utils.SymFile()
+# sym = utils.SymFile()
 
 # Load the sfxid and songid. This assumes that the musyx file has been compiled
 musyx = utils.MusyXIDs()
@@ -111,7 +112,7 @@ class MagiScriptLine:
 
         0x0F: CommandBuilder("func", "ThisTeleportTo", "db"),
 
-        0x12: CommandBuilder("func", "UNK_0CDD_12"),  # Jukebox? todo
+        0x12: CommandBuilder("func", "RestoreActorState"),
         0x13: CommandBuilder("func", "ThisAI", "ActorStateAddress"),
         0x14: CommandBuilder("func", "ThisSetAnimSingle", "BankAddress_ACTORSCRIPT1"),
 
@@ -344,6 +345,13 @@ class MagiScriptLine:
             elif(instruction == "$db"):
                 val = getByte()
                 return ["${:02X}".format(val)]
+            elif(instruction == "-$db"):
+                val = getByte()
+                sign = ""
+                if val >= 128:
+                    val -= 256
+                    sign = "-"
+                return ["{}${:02X}".format(sign, abs(val))]
 
             # DW
             elif(instruction == "dw"):
@@ -527,16 +535,16 @@ class MagiScriptLine:
                 if(frameN == 0x00):
                     return []  # End
                 frameN = "${:02X}".format(frameN)
-                xscroll = self._interpretInstruction("$db")[0]
-                yscroll = self._interpretInstruction("$db")[0]
+                xscroll = self._interpretInstruction("-$db")[0]
+                yscroll = self._interpretInstruction("-$db")[0]
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([frameN, xscroll, yscroll]))]
             elif(instruction == "func_OverlayDraw" or instruction == "func_SpriteDraw"):
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
                 frameN = "${:02X}".format(frameN)
-                deltaX = self._interpretInstruction("$db")[0]
-                deltaY = self._interpretInstruction("$db")[0]
+                deltaX = self._interpretInstruction("-$db")[0]
+                deltaY = self._interpretInstruction("-$db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}MoveDraw({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY, sprite_data]))]
             elif(instruction == "func_SpriteInvisible"):
@@ -544,8 +552,8 @@ class MagiScriptLine:
                 if(frameN == 0x00):
                     return []  # End
                 frameN = "${:02X}".format(frameN)
-                deltaX = self._interpretInstruction("$db")[0]
-                deltaY = self._interpretInstruction("$db")[0]
+                deltaX = self._interpretInstruction("-$db")[0]
+                deltaY = self._interpretInstruction("-$db")[0]
                 return ["{}Move({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY]))]
             elif(instruction == "func_SpriteBlock"):
                 if self.param < 0:
@@ -650,10 +658,15 @@ class MagiScriptMath(MagiScriptLine):
         return self.getOutput()
 
 
-def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress) -> None:
+def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: utils.SymFile = None) -> str:
     """Interprets raw bytecode of Magi Nation's scripting engine.
     Prints out the pre-processed code."""
     global curpos
+    global sym
+    if _sym is None:
+        sym = utils.SymFile()
+    else:
+        sym = _sym
     curpos = startpos
     lines = []
     print("\n"*3)
@@ -661,9 +674,10 @@ def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress) -> None:
         while curpos != endpos:
             lines.append(MagiScriptLine())
             # out += " "*defaultdepth + x.command_out + "\n\n"
+    except:
+        traceback.print_exc()
     finally:
-        for line in lines:
-            print(line.getOutput())
+        return '\n'.join(line.getOutput() for line in lines)
 
 
 def buildHotspots() -> None:

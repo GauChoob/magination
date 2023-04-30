@@ -74,6 +74,9 @@ class BankAddress:
     def __str__(self):
         return "{:02X}:{:04X} ({:06X})".format(self.getBank(), self.getAddress(), self.getPos())
 
+    def __repr__(self):
+        return self.__str__()
+
     def __index__(self):
         return self.pos
 
@@ -305,10 +308,16 @@ class SymFile:
                 bank = int(line[0:2], 16)
                 address = int(line[3:7], 16)
                 label = line[8:-1]
-                if address in self.symbols[bank]:
-                    self.symbols[bank][address].append(label)
-                else:
-                    self.symbols[bank][address] = [label]
+                self.addSymbol(bank, address, label)
+
+    def addSymbol(self, bank: int, address: int, label: str) -> bool:
+        """Adds a label to the specified address. Returns True if there is no other label at that address."""
+        if address in self.symbols[bank]:
+            self.symbols[bank][address].append(label)
+            return False
+        else:
+            self.symbols[bank][address] = [label]
+            return True
 
     def getSymbol(self, bank: int, address: int, defaultlabel: str) -> List[str]:
         """Get the labels for a bankaddress

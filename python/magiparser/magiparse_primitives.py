@@ -43,7 +43,7 @@ class LabelHandler(ResultsHandler):
         return adc
     def getOutput(self):
         return "\n\n"+self.tokens[0]
-label = Regex(r"[\.]?[a-zA-Z_]\w*:(:)?")
+label = Regex(r"\.?[a-zA-Z_][\w.]*:(:)?")
 Label = label.setParseAction(LabelHandler)
 
 class ExplicitRawHandler(ResultsHandler):

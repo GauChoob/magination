@@ -183,6 +183,8 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(sym.getSymbol(5, 0xC000, "DONTEXIST"), ["DONTEXIST_05_C000"])
         self.assertEqual(sym.getVarbit(0xA000, 1), ["FakeVarBit_1"])
         self.assertEqual(sym.getVarbit(0xA000, 3), ["xBIT_00_A000_3"])
+        sym.addSymbol(3, 0x5678, "TEST_LABEL")
+        self.assertEqual(sym.getSymbol(3, 0x5678, "X"), ["TEST_LABEL"])
 
     def test_MusyXIDs(self):
         musyx = utils.MusyXIDs(ASSETSFOLDER + "SoundIDs.asm")

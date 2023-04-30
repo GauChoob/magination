@@ -1,16 +1,18 @@
 
 from dataclasses import dataclass
-from projutils.utils import BankAddress, Rom
+from projutils.utils import BankAddress, Rom, SymFile
+import projutils.magireader as magireader
 
 
 rom = Rom()
+sym = SymFile()
 
 
 class MagiTable:
 
     ANIM_NAMES = [
         "Idle",
-        "Focus"
+        "Focus",
         "Summon",
         "Victory",
         "Defeat",
@@ -18,12 +20,20 @@ class MagiTable:
         "Choose", # Tony exclusive
     ]
 
+    END_ADDRESSES = {
+        'ShadowMagi1': BankAddress(0x20, 0x711E)
+    }
+
     def __init__(self, row):
         self.animcount = 7 if row.row == 0 else 5  # Tony has 7 anims exceptionally
         self.name = row.name
-        self.address = row.data
+        self.address: BankAddress = row.data
 
         self.anims = [rom.getBankAddress(self.address + i*3, getobj=True) for i in range(self.animcount)]
+        self.symbols = [self.getSymbol(i) for i in range(self.animcount)]
+        self.updateSymFile()
+
+        assert(self.anims[0] == min(self.anims))
 
     def __eq__(self, other):
         return self.address == other.address
@@ -32,7 +42,22 @@ class MagiTable:
         return self.address.getPos()
 
     def getOutput(self):
-        return '    ; ${:04X}\nBattle_MagiAnim_{}::\n{}'.format(self.address.getAddress(), self.name, '\n'.join(['    dw SCRIPT_BATTLE_MAGIANIM_' + str(anim) for anim in self.anims]))
+        return '    ; ${:04X}\nBattle_MagiAnim_{}::\n{}'.format(
+                self.address.getAddress(),
+                self.name,
+                '\n'.join(['    dw ' + symbol for symbol in self.symbols])
+            )
+
+    def getSymbol(self, anim_i):
+        return 'SCRIPT_Actor_Battle_{}_{}'.format(self.name, MagiTable.ANIM_NAMES[anim_i])
+
+    def getAddress(self, anim_i):
+        return self.anims[anim_i]
+
+    def updateSymFile(self):
+        # Don't run this twice
+        for data in zip(self.anims, self.symbols):
+            sym.addSymbol(data[0].getBank(), data[0].getAddress(), data[1])
 
     def __repr__(self):
         return self.getOutput()
@@ -76,3 +101,15 @@ class MainTable:
 
 table = MainTable(rom)
 print(table.getOutput())
+
+print(sym.getSymbol(0x20, 0x74C8, 'X'))
+
+for magitable in table.magitables:
+    print(magitable.anims)
+    start = magitable.anims[0]
+    if magitable.name in MagiTable.END_ADDRESSES:
+        end = MagiTable.END_ADDRESSES[magitable.name]
+    else:
+        end = start + 0x200
+    print(magireader.interpret(magitable.anims[0], end, sym))
+    input()

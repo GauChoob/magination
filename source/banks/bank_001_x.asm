@@ -5,53 +5,65 @@ SECTION "ROM Bank $001", ROMX[$4000], BANK[$1]
 ; Some extra Cmd code
 ; AI
 
+    ; Actor_Activate.s
+
     ; $4000
 Actor_CheckRestore::
-    ; Seems to be a special function ?ACTOR_CHECK_RESTORE
-    ; Copies Object $01 to the location specified in $C174
-    ; I think this handles Loading a game - to verify
-    ld a, [$C188]                                 ; $4000: $FA $88 $C1
-    cp $03                                        ; $4003: $FE $03
-    ret nz                                        ; $4005: $C0
+    ; Restores an actor from the wActor_Save if it was requested via Cmd_Actor_RestoreActorState
+    ; Inputs:
+    ;   wActor_SaveFlag - restore if  = Actor_SaveFlag_REQUEST_RESTORE
 
-    xor a                                         ; $4006: $AF
-    ld [$C188], a                                 ; $4007: $EA $88 $C1
-    ld a, [$C175]                                 ; $400A: $FA $75 $C1
-    ld h, a                                       ; $400D: $67
-    ld a, [$C174]                                 ; $400E: $FA $74 $C1
-    ld l, a                                       ; $4011: $6F
-    ld bc, $C1A4                                  ; $4012: $01 $A4 $C1
-    ld e, $1B                                     ; $4015: $1E $1B
+    ; Only restore if requested
+    ld a, [wActor_SaveFlag]
+    cp Actor_SaveFlag_REQUEST_RESTORE
+    ret nz
 
-jr_001_4017:
-    LdHLIBCI_V
-    dec e                                         ; $401A: $1D
-    jr nz, jr_001_4017                            ; $401B: $20 $FA
+    ; Mark wActor_Save as empty
+    xor a  ; Actor_SaveFlag_EMPTY
+    ld [wActor_SaveFlag], a
 
-    ret                                           ; $401D: $C9
+    ; Copy from wActor_Save to the Actor_Struct pointed to by wActor_SavedActor
+    Get16 hl, wActor_SavedActor
+    ld bc, wActor_Save
+    ld e, Actor_SIZE
+
+    .CopyLoop:
+        LdHLIBCI_V
+        dec e
+        jr nz, .CopyLoop
+
+    ret
 
     ; $401E
-Call_001_401E::
-    ; ?ACTOR_SAVE_STATE
-    ld a, $01                                     ; $401E: $3E $01
-    ld [$C188], a                                 ; $4020: $EA $88 $C1
-    ldh a, [hActor_CurrentAddress]                                  ; $4023: $F0 $8A
-    ld l, a                                       ; $4025: $6F
-    ld [$C174], a                                 ; $4026: $EA $74 $C1
-    ldh a, [hActor_CurrentAddress+1]                                  ; $4029: $F0 $8B
-    ld h, a                                       ; $402B: $67
-    ld [$C175], a                                 ; $402C: $EA $75 $C1
-    push hl                                       ; $402F: $E5
-    ld bc, $C1A4                                  ; $4030: $01 $A4 $C1
-    ld e, $1B                                     ; $4033: $1E $1B
+Actor_StoreCopy::
+    ; Saves a copy of the current actor into wActor_Save so that it can later be restored
+    ; Returns:
+    ;   hl = hActor_CurrentAddress
 
-jr_001_4035:
-    LdBCIHLI                                        ; $4037: $03
-    dec e                                         ; $4038: $1D
-    jr nz, jr_001_4035                            ; $4039: $20 $FA
+    ; Mark the wActor_SaveFlag as full
+    Set8 wActor_SaveFlag, Actor_SaveFlag_FULL
 
-    pop hl                                        ; $403B: $E1
-    ret                                           ; $403C: $C9
+    ; Save the location of the current Actor_Struct so that the correct actor can be restored
+    ldh a, [hActor_CurrentAddress]
+    ld l, a
+    ld [wActor_SavedActor], a
+    ldh a, [hActor_CurrentAddress+1]
+    ld h, a
+    ld [wActor_SavedActor + 1], a
+    push hl
+
+    ; Copies the current actor's Actor_Struct into wActor_Save
+    ld bc, wActor_Save
+    ld e, Actor_SIZE
+    .CopyLoop:
+        LdBCIHLI
+        dec e
+        jr nz, .CopyLoop
+
+    pop hl
+    ret
+
+    ; Actorlist.s
 
     ; $403D
 Actor_AddActor::
@@ -675,7 +687,7 @@ Script_Table::
 
     dw $0C6D            ; ;$10
     dw $0C7E
-    dw $0CDD
+    dw Cmd_Actor_RestoreActorState ; $12
     dw Cmd_Actor_ThisActorSetAI ; $13
     dw Cmd_Actor_ThisActorSetAnimSingle ; $14
     dw Cmd_Actor_ThisActorSetAnimDelay ; $15
@@ -5204,11 +5216,11 @@ Call_001_63CE::
     and a                                         ; $63F3: $A7
     ret z                                         ; $63F4: $C8
 
-    ld a, [$C188]                                 ; $63F5: $FA $88 $C1
-    and a                                         ; $63F8: $A7
-    ret nz                                        ; $63F9: $C0
+    ld a, [wActor_SaveFlag]
+    and a
+    ret nz ; Not Actor_SaveFlag_EMPTY
 
-    call Call_001_401E                            ; $63FA: $CD $1E $40
+    call Actor_StoreCopy                            ; $63FA: $CD $1E $40
     inc hl                                        ; $63FD: $23
     ld a, $D1                                     ; $63FE: $3E $D1
     ld [hl+], a                                   ; $6400: $22
@@ -5239,9 +5251,9 @@ Call_001_641D:
     bit 2, a                                      ; $641F: $CB $57
     jp z, Jump_001_64CF                           ; $6421: $CA $CF $64
 
-    ld a, [$C188]                                 ; $6424: $FA $88 $C1
-    cp $00                                        ; $6427: $FE $00
-    jp nz, Jump_001_64CF                          ; $6429: $C2 $CF $64
+    ld a, [wActor_SaveFlag]
+    cp Actor_SaveFlag_EMPTY
+    jp nz, Jump_001_64CF
 
     ld a, [wTextbox_Position]                                 ; $642C: $FA $EE $C6
     cp $00                                        ; $642F: $FE $00
