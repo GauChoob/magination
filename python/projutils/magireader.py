@@ -341,6 +341,12 @@ class MagiScriptLine:
             curpos += 1
             return val
 
+        def getSignedByte() -> int:
+            global curpos
+            val = rom.getSignedByte(curpos)
+            curpos += 1
+            return val
+
         def getWord() -> int:
             global curpos
             val = rom.getWord(curpos)
@@ -352,6 +358,9 @@ class MagiScriptLine:
             if(instruction == "db"):
                 val = getByte()
                 return [str(val)]
+            elif(instruction == "-db"):
+                val = getSignedByte()
+                return [str(val)]
             elif(instruction == "%db"):
                 val = getByte()
                 return ["%{:08b}".format(val)]
@@ -359,10 +368,9 @@ class MagiScriptLine:
                 val = getByte()
                 return ["${:02X}".format(val)]
             elif(instruction == "-$db"):
-                val = getByte()
-                sign = ""
-                if val >= 128:
-                    val -= 256
+                val = getSignedByte()
+                sign = " "
+                if val < 0:
                     sign = "-"
                 return ["{}${:02X}".format(sign, abs(val))]
 
@@ -562,7 +570,8 @@ class MagiScriptLine:
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                frameN = "${:02X}".format(frameN)
+                #frameN = "${:02X}".format(frameN)
+                frameN = str(frameN)
                 deltaX = self._interpretInstruction("-$db")[0]
                 deltaY = self._interpretInstruction("-$db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
@@ -571,7 +580,8 @@ class MagiScriptLine:
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                frameN = "${:02X}".format(frameN)
+                #frameN = "${:02X}".format(frameN)
+                frameN = str(frameN)
                 deltaX = self._interpretInstruction("-$db")[0]
                 deltaY = self._interpretInstruction("-$db")[0]
                 return ["{}Move({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY]))]
@@ -579,7 +589,7 @@ class MagiScriptLine:
                 if self.param < 0:
                     raise ValueError('Size is an odd number')
                 if self.param == 0:
-                    return [] # End
+                    return []  # End
                 self.param -= 2
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}Draw({})".format(depthtracker.getWhitespace(), sprite_data)]

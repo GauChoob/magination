@@ -310,6 +310,14 @@ class SymFile:
                 label = line[8:-1]
                 self.addSymbol(bank, address, label)
 
+    def delSymbol(self, bank: int, address: int) -> None:
+        """Deletes any labels that may exist at a specified address"""
+        self.symbols[bank].pop(address, None)
+
+    def replaceSymbol(self, bank: int, address: int, label: str) -> None:
+        """Deletes all previous labels at a specified address (if present) and replaces it with a new label"""
+        self.symbols[bank][address] = [label]
+
     def addSymbol(self, bank: int, address: int, label: str) -> bool:
         """Adds a label to the specified address. Returns True if there is no other label at that address."""
         if address in self.symbols[bank]:
