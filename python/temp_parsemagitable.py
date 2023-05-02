@@ -21,10 +21,6 @@ class MagiTable:
         "Choose", # Tony exclusive
     ]
 
-    END_ADDRESSES = {
-        'ShadowMagi1': BankAddress(0x20, 0x711E)
-    }
-
     def __init__(self, row):
         self.animcount = 7 if row.row == 0 else 5  # Tony has 7 anims exceptionally
         self.name = row.name
