@@ -5,6 +5,7 @@ import projutils.color as color
 import projutils.hotspot as hotspot
 import projutils.encoding as encoding
 import projutils.sprite as sprite
+import projutils as config
 
 
 # Reads the rom file to interpret the script
@@ -14,6 +15,8 @@ import projutils.sprite as sprite
 # magireader.buildHotspots()
 # magireader.buildTriggers()
 # magireader.buildSprites()
+
+MAGIREADER_FOLDER = config.outdir + "sprite/"
 
 # Keep track of identified hotspots and triggers
 hotspots = set()
@@ -757,11 +760,12 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
         while curpos < endpos:
             if spriteMode:
                 curbyte = rom.getSignedByte(curpos)
-                if abs(curbyte) > 32:
+                if abs(curbyte) > 32: # heuristic to distinguish script from sprite
                     spriteMode = False
                     continue
                 lines.append(SpriteLine())
             else:
+                # heuristic to distinguish script from sprite
                 curbyte = rom.getSignedByte(curpos)
                 if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
                     restore_actor_state_count += 1
@@ -772,6 +776,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
                     spriteMode = True
                     continue
                 elif lines[-1].isEnd():
+                    # Force a label here
                     sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
                 lines.append(MagiScriptLine())
     except Exception:
