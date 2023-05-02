@@ -65,6 +65,10 @@ MACRO ThisTeleportTo
     db \1       ;Object ID
 ENDM
 
+MACRO RestoreActorState
+    db $12
+ENDM
+
 MACRO ThisAI
     db $13
     dw \1       ; Object_ManagerFunction
@@ -235,10 +239,14 @@ MACRO EndCurObjMoveDraw
     db $00
 ENDM
 
+MACRO WaitEventText
+    db $62
+    db \1 ; Desired EventID
+ENDM
 
 MACRO LoadFullTilemap
     db $63
-    AddressBank \1 ;RLE-compressed .attrmap and .tilemap (32x32)
+    AddressBank \1 ; RLE-compressed .attrmap and .tilemap (32x32)
 ENDM
 
 MACRO LoadScene

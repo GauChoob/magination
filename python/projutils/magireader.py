@@ -99,7 +99,7 @@ class MagiScriptLine:
     commands = {
         0x00: CommandBuilder("func", "HeroFromDoor"),
         0x01: CommandBuilder("func", "HeroToDoor", "$db", "$db"),
-        0x02: CommandBuilder("func", "HeroToRelativeDoor", "$db", "$db", "$db", "$db"),
+        0x02: CommandBuilder("func", "HeroToRelativeDoor", "-$db", "-$db", "-$db", "-$db"),
 
         0x05: CommandBuilder("func", "ThatInit", "db", "ActorStateAddress", "$db", "$db", "$dw", "$db", "BankAddress_ACTORSCRIPT0", "BankAddress_ACTORSCRIPT1"),
         0x06: CommandBuilder("func", "ThatTeleportTo", "db", "db"),
@@ -143,15 +143,16 @@ class MagiScriptLine:
         0x45: CommandBuilder("func", "LongJump", "BankAddress_SCRIPT"),
         0x46: CommandBuilder("func", "Jump", "LocalAddress"),
         0x47: CommandBuilder("func", "RandLongJump", "RANDLONGJUMP"),
+        0x48: CommandBuilder("func", "Pass"),
+
+        0x4B: CommandBuilder("block", "Switch", "MATH"),
 
         0x4C: CommandBuilder("block", "SpriteDraw"),
-        0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "$db", "$db"),
+        0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "-$db", "-$db"),
         0x4E: CommandBuilder("block", "SpriteInvisible"),
         0x4F: CommandBuilder("block", "OverlayDraw"),
         0x50: CommandBuilder("func", "OverlayInit", "RAMAddress", "$db", "$db", "$db", "BankAddress_SCRIPT_ACTORSCRIPT0"),
         0x51: CommandBuilder("func", "OverlayInvisible"),
-
-        0x4B: CommandBuilder("block", "Switch", "MATH"),
 
         0x52: CommandBuilder("func", "ClearSync", "db"),
         0x53: CommandBuilder("func", "SetAnyEventMaster"),
@@ -235,6 +236,18 @@ class MagiScriptLine:
         0xAE: CommandBuilder("func", "AndByte", "RAMAddress", "%db"),
         0xAF: CommandBuilder("func", "OrByte", "RAMAddress", "%db"),
     }
+
+    def isEnd(self):
+        """Returns True if the name of the function """
+        return self.name in [
+            "End",
+            "Reset",
+            "NewGame",
+            "RestoreActorState",
+            "LongJump",
+            "Jump",
+            "RandLongJump"
+        ]
 
     def __init__(self):
         """Interprets main engine script commands"""
@@ -527,7 +540,14 @@ class MagiScriptLine:
                 bank = getByte()
                 if(bank == 0xFF):
                     return []  # End
-                val = self._interpretInstruction("dw")[0]
+
+                val = getWord()
+                if self.args[0] == '#{}#'.format(MagiScriptMath.GETHERODIRECTION):
+                    # Special case where the Switch is to check the direction the hero is facing
+                    val = ['Expr_DIRECTION_UP', 'Expr_DIRECTION_LEFT', 'Expr_DIRECTION_RIGHT', 'Expr_DIRECTION_DOWN'][val]
+                else:
+                    val = str(val)
+
                 address = getWord()
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([val, interpretBankAddress(bank, address, "SCRIPT")]))]
             elif(instruction == "func_ScrollMap"):
@@ -570,13 +590,37 @@ class MagiScriptLine:
             raise
 
 
+class SpriteLine(MagiScriptLine):
+    
+    def __init__(self):
+        """Interprets main engine script commands"""
+        global curpos
+
+        self.pos = curpos
+        self.whitespace = DepthTracker.getWhitespace(depthtracker)
+
+        self.type = "oam"
+        self.name = "oam"
+        
+        self.sprite = sprite.Sprite(rom, curpos)
+        self.size = self.sprite.size()
+
+        curpos = self.sprite.end
+
+    def oam(self):
+        return str(self.sprite)
+
+
 class MagiScriptMath(MagiScriptLine):
     """Expr (i.e. Math) engine script commands"""
+
+    GETHERODIRECTION = "DIRECTION"
+
     commands = {
         0x00: CommandBuilder("bitmatch", None, "math_address", "%db"),
         0x01: CommandBuilder("pointer", "c", "math_address"),
         0x02: CommandBuilder("pointer", "w", "math_address"),
-        0x03: CommandBuilder("const", "DIRECTION"),
+        0x03: CommandBuilder("const", GETHERODIRECTION),
         0x04: CommandBuilder("const", "GAMECOUNT"),
         0x05: CommandBuilder("value", "c", "db"),
         0x06: CommandBuilder("value", "w", "dw"),
@@ -672,11 +716,58 @@ def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: util
     print("\n"*3)
     try:
         while curpos != endpos:
+            if lines[-1].isEnd():
+                # Add a label to the beginning of sections
+                sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
             lines.append(MagiScriptLine())
             # out += " "*defaultdepth + x.command_out + "\n\n"
     except:
         traceback.print_exc()
     finally:
+        return '\n'.join(line.getOutput() for line in lines)
+
+
+def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: utils.SymFile = None) -> str:
+    """Interprets raw bytecode of Magi Nation's scripting engine.
+    Returns the pre-processed code.
+    Some banks are a collection of sprites + scripts containing animation
+    (e.g. Bank 0x0E, 0x0F, ?0x10, ?0x11, 0x20). Specifically seek to parse these ones"""
+    global curpos
+    global sym
+    if _sym is None:
+        sym = utils.SymFile()
+    else:
+        sym = _sym
+    curpos = startpos
+    lines = []
+    print("\n"*3)
+    try:
+        spriteMode = True
+        restore_actor_state_count = 0
+        while curpos < endpos:
+            if spriteMode:
+                curbyte = rom.getSignedByte(curpos)
+                if abs(curbyte) > 32:
+                    spriteMode = False
+                    continue
+                lines.append(SpriteLine())
+            else:
+                curbyte = rom.getSignedByte(curpos)
+                if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
+                    restore_actor_state_count += 1
+                    if restore_actor_state_count % 4 == 0:
+                        spriteMode = True
+                        continue
+                elif lines[-1].isEnd() and curbyte <= 32:
+                    spriteMode = True
+                    continue
+                elif lines[-1].isEnd():
+                    sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
+                lines.append(MagiScriptLine())
+    except Exception:
+        traceback.print_exc()
+    finally:
+        print(curpos)
         return '\n'.join(line.getOutput() for line in lines)
 
 

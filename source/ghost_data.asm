@@ -14,6 +14,11 @@ SECTION "Ghost Data $00", ROM0
     ret
     db "Defend🡆🡇"
 
+; SECTION "Ghost Data $0E", ROMX, BANK[$0E]
+;     ; Ghost data of the last Script
+;     db HIGH(SCRIPT_0E_7EA0) ; Truncated ThisSetAnimSingle(SCRIPT_0E_7EA0)
+;     WaitEventText 1
+;     RestoreActorState
 
 SECTION "Ghost Data $74", ROMX, BANK[$74]
 GHOST__COLLMAP_Underneath_Tunnels_IntersectionFort::

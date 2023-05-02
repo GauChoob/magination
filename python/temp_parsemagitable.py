@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from projutils.utils import BankAddress, Rom, SymFile
 import projutils.magireader as magireader
+import projutils.config as config
 
 
 rom = Rom()
@@ -49,7 +50,7 @@ class MagiTable:
             )
 
     def getSymbol(self, anim_i):
-        return 'SCRIPT_Actor_Battle_{}_{}'.format(self.name, MagiTable.ANIM_NAMES[anim_i])
+        return 'SCRIPT_ANIM_{}_{}'.format(self.name, MagiTable.ANIM_NAMES[anim_i])
 
     def getAddress(self, anim_i):
         return self.anims[anim_i]
@@ -100,16 +101,18 @@ class MainTable:
 
 
 table = MainTable(rom)
-print(table.getOutput())
+with open(config.outdir + 'temp.mgi', 'w') as f:
+    f.write(table.getOutput())
+    f.write(magireader.interpretSpriteAnim(BankAddress(0x0E, 0x4000), BankAddress(0x0E, 0x7FEF), sym))
 
-print(sym.getSymbol(0x20, 0x74C8, 'X'))
+# print(sym.getSymbol(0x20, 0x74C8, 'X'))
 
-for magitable in table.magitables:
-    print(magitable.anims)
-    start = magitable.anims[0]
-    if magitable.name in MagiTable.END_ADDRESSES:
-        end = MagiTable.END_ADDRESSES[magitable.name]
-    else:
-        end = start + 0x200
-    print(magireader.interpret(magitable.anims[0], end, sym))
-    input()
+# for magitable in table.magitables:
+#     print(magitable.anims)
+#     start = magitable.anims[0]
+#     if magitable.name in MagiTable.END_ADDRESSES:
+#         end = MagiTable.END_ADDRESSES[magitable.name]
+#     else:
+#         end = start + 0x200
+#     print(magireader.interpret(magitable.anims[0], end, sym))
+#     input()

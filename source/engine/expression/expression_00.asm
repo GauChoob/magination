@@ -92,18 +92,15 @@ Expr_WordAddress::
 
     ; $128B
 Expr_GetHeroDirection::
-    ; Returns the direction Tony is facing (?complemented)
+    ; Returns the direction an Actor must face to look at the Hero
+    ; i.e. returns the complement of the hero's direction
     ; Inputs:
     ;   None
     ; Outputs:
-    ;   de = Tony direction
-    ;       0 = North
-    ;       1 = West
-    ;       2 = East
-    ;       3 = South
+    ;   de = complement of Hero direction (see Expr_DIRECTION_UP and others in expression_include.asm)
     ld a, [wActor_Hero.Flags]
     cpl
-    and $03
+    and %00000011
     ld e, a
     ld d, $00
     ret
