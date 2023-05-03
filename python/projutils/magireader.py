@@ -605,27 +605,6 @@ class MagiScriptLine:
             raise
 
 
-class SpriteLine(MagiScriptLine):
-    
-    def __init__(self):
-        """Interprets main engine script commands"""
-        global curpos
-
-        self.pos = curpos
-        self.whitespace = DepthTracker.getWhitespace(depthtracker)
-
-        self.type = "oam"
-        self.name = "oam"
-        
-        self.sprite = sprite.Sprite(rom, curpos)
-        self.size = self.sprite.size()
-
-        curpos = self.sprite.end
-
-    def oam(self):
-        return str(self.sprite)
-
-
 class MagiScriptMath(MagiScriptLine):
     """Expr (i.e. Math) engine script commands"""
 
