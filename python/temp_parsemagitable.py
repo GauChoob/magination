@@ -860,7 +860,7 @@ sprite_anim_params[0x0E] = {
 }
 
 
-def setupSpriteAnim(bank):
+def setupSpriteAnim(bank, debug):
     params = sprite_anim_params[bank]
     start = BankAddress(bank, params['START'])
     end = BankAddress(bank, params['END'])
@@ -870,14 +870,13 @@ def setupSpriteAnim(bank):
         sym.replaceSymbol(bank, addr, label)
     for addr in params['DELETELABELS']:
         sym.delSymbol(bank, addr)
-    return magireader.interpretSpriteAnim(start, end, sym)
+    return magireader.interpretSpriteAnim(start, end, sym, debug)
 
 
 table = MainTable(rom)
-with open(config.outdir + 'temp.mgi', 'w') as f:
+with open(config.outdir + 'tempbattle.asm', 'w') as f:
     f.write(table.getOutput())
-    f.write('\n'*5)
-    f.write(setupSpriteAnim(0x0E))
+setupSpriteAnim(0x0E, False)
 
 # print(sym.getSymbol(0x20, 0x74C8, 'X'))
 

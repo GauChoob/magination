@@ -1,3 +1,6 @@
+import dataclasses
+import os
+import re
 import traceback
 from typing import List
 import projutils.utils as utils
@@ -5,7 +8,7 @@ import projutils.color as color
 import projutils.hotspot as hotspot
 import projutils.encoding as encoding
 import projutils.sprite as sprite
-import projutils as config
+import projutils.config as config
 
 
 # Reads the rom file to interpret the script
@@ -16,7 +19,7 @@ import projutils as config
 # magireader.buildTriggers()
 # magireader.buildSprites()
 
-MAGIREADER_FOLDER = config.outdir + "sprite/"
+MAGIREADER_FOLDER = config.outdir + "magireader/"
 
 # Keep track of identified hotspots and triggers
 hotspots = set()
@@ -151,7 +154,7 @@ class MagiScriptLine:
         0x4B: CommandBuilder("block", "Switch", "MATH"),
 
         0x4C: CommandBuilder("block", "SpriteDraw"),
-        0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "-$db", "-$db"),
+        0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "-db", "-db"),
         0x4E: CommandBuilder("block", "SpriteInvisible"),
         0x4F: CommandBuilder("block", "OverlayDraw"),
         0x50: CommandBuilder("func", "OverlayInit", "RAMAddress", "$db", "$db", "$db", "BankAddress_SCRIPT_ACTORSCRIPT0"),
@@ -566,8 +569,8 @@ class MagiScriptLine:
                 if(frameN == 0x00):
                     return []  # End
                 frameN = "${:02X}".format(frameN)
-                xscroll = self._interpretInstruction("-$db")[0]
-                yscroll = self._interpretInstruction("-$db")[0]
+                xscroll = self._interpretInstruction("-db")[0]
+                yscroll = self._interpretInstruction("-db")[0]
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([frameN, xscroll, yscroll]))]
             elif(instruction == "func_OverlayDraw" or instruction == "func_SpriteDraw"):
                 frameN = getByte()
@@ -575,8 +578,8 @@ class MagiScriptLine:
                     return []  # End
                 #frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
-                deltaX = self._interpretInstruction("-$db")[0]
-                deltaY = self._interpretInstruction("-$db")[0]
+                deltaX = self._interpretInstruction("-db")[0]
+                deltaY = self._interpretInstruction("-db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}MoveDraw({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY, sprite_data]))]
             elif(instruction == "func_SpriteInvisible"):
@@ -585,8 +588,8 @@ class MagiScriptLine:
                     return []  # End
                 #frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
-                deltaX = self._interpretInstruction("-$db")[0]
-                deltaY = self._interpretInstruction("-$db")[0]
+                deltaX = self._interpretInstruction("-db")[0]
+                deltaY = self._interpretInstruction("-db")[0]
                 return ["{}Move({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY]))]
             elif(instruction == "func_SpriteBlock"):
                 if self.param < 0:
@@ -601,27 +604,6 @@ class MagiScriptLine:
         except Exception:
             print("An exception occured interpreting: " + instruction)
             raise
-
-
-class SpriteLine(MagiScriptLine):
-    
-    def __init__(self):
-        """Interprets main engine script commands"""
-        global curpos
-
-        self.pos = curpos
-        self.whitespace = DepthTracker.getWhitespace(depthtracker)
-
-        self.type = "oam"
-        self.name = "oam"
-        
-        self.sprite = sprite.Sprite(rom, curpos)
-        self.size = self.sprite.size()
-
-        curpos = self.sprite.end
-
-    def oam(self):
-        return str(self.sprite)
 
 
 class MagiScriptMath(MagiScriptLine):
@@ -715,6 +697,43 @@ class MagiScriptMath(MagiScriptLine):
         return self.getOutput()
 
 
+class SpriteLine(MagiScriptLine):
+    """.spr file"""
+
+    def __init__(self, folder):
+        
+        global curpos, rambank
+        
+        # Get the filename of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet_WalkLeft1)
+        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "ERROR")[0]
+        match = re.search(r'SPRITE_(.*)', symbol)
+        self.name = match.group(1)
+        self.folder = folder
+        self.shortpath = self.name + '.spr'
+        self.longpath = sprite.SPRITE_FOLDER + self.folder.lower() + '/' + self.shortpath
+        self.type = 'spr'
+
+        self.pos = curpos
+        self.whitespace = DepthTracker.getWhitespace(depthtracker)
+
+        self.sprite = sprite.Sprite(rom, curpos)
+        curpos = self.sprite.end
+
+    def save(self):
+        self.sprite.save(self.longpath)
+
+    def debug(self):
+        """Debug getOutput()"""
+        return str(self.sprite)[4:]
+
+    def spr(self):
+        """Via getOutput()"""
+        return 'INCSPRITE("{}")\n'.format(self.shortpath)
+
+    def __str__(self):
+        return self.getOutput()
+
+
 def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: utils.SymFile = None) -> str:
     """Interprets raw bytecode of Magi Nation's scripting engine.
     Prints out the pre-processed code."""
@@ -734,56 +753,100 @@ def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: util
                 sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
             lines.append(MagiScriptLine())
             # out += " "*defaultdepth + x.command_out + "\n\n"
-    except:
+    except Exception:
         traceback.print_exc()
     finally:
         return '\n'.join(line.getOutput() for line in lines)
 
 
-def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: utils.SymFile = None) -> str:
+def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: utils.SymFile = None, debug: bool = True) -> str:
     """Interprets raw bytecode of Magi Nation's scripting engine.
     Returns the pre-processed code.
     Some banks are a collection of sprites + scripts containing animation
-    (e.g. Bank 0x0E, 0x0F, ?0x10, ?0x11, 0x20). Specifically seek to parse these ones"""
+    (e.g. Bank 0x0E, 0x0F, ?0x10, ?0x11, 0x20). Specifically seek to parse these ones
+    
+    debug = True to write output to a single file
+    debug = False to generate the files for importation into the main project"""
     global curpos
     global sym
+
+    def getFolder():
+        """Gets the folder of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet)"""
+        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "ERROR")[0]
+        match = re.search(r'SPRITE_([^_]*).*', symbol)
+        return match.group(1)
+
+    def setupBlock():
+        """Setup the start of a _SPRITE + SCRIPT_ANIM_ block"""
+        nonlocal lines, spriteMode, folder
+        if not debug:
+            lines = []
+        spriteMode = True
+        folder = getFolder()
+    
+    def endBlock():
+        """Finish a SPRITE_ + SCRIPT_ANIM_ block by saving the .mgi file"""
+        nonlocal lines, folder, includes
+        includes.append('INCLUDE "autogenerated/sprite/' + folder.lower() + '.mgi.asm"')
+        if debug:
+            return
+        with open(sprite.SPRITE_FOLDER + folder + '/' + folder.lower() + '.mgi', 'w') as f:
+            f.write('\n'.join(line.getOutput() for line in lines))
+
     if _sym is None:
         sym = utils.SymFile()
     else:
         sym = _sym
-    curpos = startpos
+
+    includes = []
     lines = []
-    print("\n"*3)
+    folder = None
+    spriteMode = True
     try:
-        spriteMode = True
+        curpos = startpos
+        setupBlock()
         restore_actor_state_count = 0
         while curpos < endpos:
             if spriteMode:
                 curbyte = rom.getSignedByte(curpos)
-                if abs(curbyte) > 32: # heuristic to distinguish script from sprite
+                if abs(curbyte) > 32:  # heuristic to distinguish script from sprite
                     spriteMode = False
                     continue
-                lines.append(SpriteLine())
+                lines.append(SpriteLine(folder))
+                print(lines[-1].shortpath)
+                if debug:
+                    lines[-1].type = 'debug'
+                else:
+                    lines[-1].save()  # Save the .spr file
+
             else:
                 # heuristic to distinguish script from sprite
                 curbyte = rom.getSignedByte(curpos)
                 if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
                     restore_actor_state_count += 1
                     if restore_actor_state_count % 4 == 0:
-                        spriteMode = True
+                        endBlock()
+                        setupBlock()
                         continue
                 elif lines[-1].isEnd() and curbyte <= 32:
-                    spriteMode = True
+                    endBlock()
+                    setupBlock()
                     continue
                 elif lines[-1].isEnd():
                     # Force a label here
                     sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
                 lines.append(MagiScriptLine())
+        endBlock()
     except Exception:
         traceback.print_exc()
     finally:
-        print(curpos)
-        return '\n'.join(line.getOutput() for line in lines)
+        with open(config.outdir + 'sprites.asm', 'w') as f:
+            bank = startpos.getBank()
+            f.write('SECTION "Sprites ${:02X}", ROMX[$4000], BANK[${:02X}]\n\n'.format(bank, bank) + '\n'.join(includes))
+        if debug:
+            print(curpos)
+            with open(config.outdir + 'temp.mgi', 'w') as f:
+                f.write('\n'.join([line.getOutput() for line in lines]))
 
 
 def buildHotspots() -> None:

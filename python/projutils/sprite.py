@@ -23,7 +23,9 @@ class Sprite:
             return struct.pack('bbBB', self.y, self.x, self.tileid, self.attr)
         
         def __str__(self):
-            return '{:02X} {:02X} {:02X} {:02X}'.format(self.y, self.x, self.tileid, self.attr)
+            ysign = '-' if self.y < 0 else ' '
+            xsign = '-' if self.y < 0 else ' '
+            return '    db {}${:02X}, {}${:02X}, ${:02X}, ${:02X}'.format(ysign, abs(self.y), xsign, abs(self.x), self.tileid, self.attr)
 
     EOF_BYTE = -0x80  # Negative because y is signed
 
@@ -81,7 +83,7 @@ class Sprite:
             raise NotImplementedError()
 
     def __str__(self):
-        return '\n'.join(str(entry) for entry in self.entries)
+        return '\n'.join(str(entry) for entry in self.entries) + '\n    db $80'
 
     def getBinary(self):
         return b''.join([entry.getBinary() for entry in self.entries])
