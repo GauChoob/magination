@@ -1,0 +1,6 @@
+    Align[$22:$418E]
+msMain::
+    ; When the gameboy is turned on, Magiscript starts here.
+    ; The only thing the script does is it jumps to msSplashStartScreen, where it loads the splash screens
+    LongJump(msSplashStartScreen)
+    

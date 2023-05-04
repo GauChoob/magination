@@ -1,6 +1,6 @@
-from pyparsing import *
-import sys, re
-from magiparser.magiparse_primitives import *
+from pyparsing import Literal, MatchFirst, Regex
+from magiparser.primitives import ResultsHandler, Number
+
 
 class AlignHandler(ResultsHandler):
     # Align[ADDRESS]
@@ -10,20 +10,23 @@ class AlignHandler(ResultsHandler):
     # It has no impact on the processed code except to update the commented address
     # The BANK is unused at the moment
     def post_init(self):
-        if(len(self.tokens)==1):
+        if len(self.tokens) == 1:
             self.address = self.tokens[0].value
         else:
             self.bank = self.tokens[0].value
             self.address = self.tokens[1].value
         self.text = ""
         self.type = "align"
-    def updateAddress(self,adc):
-        adc.address = self.address
-        self.depth = adc.depth
-        return adc #overwrite address with the align address value
+        self.indentation = 0
+
+    def updateAddress(self, address: int, indentation: int) -> int:
+        return self.address  # overwrite address with the align address value
+
     def getOutput(self):
         # Silent
         return ""
+
+
 Align = MatchFirst([
                 Literal("Align").suppress()+Literal("[").suppress() + Number + Literal("]").suppress(),
                 Literal("Align").suppress()+Literal("[").suppress() + Number + Literal(":").suppress() + Number + Literal("]").suppress(),
@@ -38,14 +41,15 @@ class RawAsmHandler(ResultsHandler):
         self.size = self.tokens[0].value
         self.text = self.tokens[1]
         self.type = "rawasm"
-    def updateAddress(self,adc):
-        self.address = adc.address
-        self.depth = adc.depth
-        adc.address += self.size
-        return adc
+
+    def updateAddress(self, address: int, indentation: int) -> int:
+        self.address = address
+        self.indentation = indentation
+        address += self.size
+        return address
+
     def getOutput(self):
-        commentspacing = config.commentoffset - len(self.text)
-        return "\n\n" + self.text + " "*commentspacing + "; ${:04X}".format(self.address)
+        return "\n\n" + self.formatAddAddressAsComment(self.text)
+
+
 RawAsm = (Literal("RawAsm").suppress()+Literal("#").suppress() + Number + Literal("##").suppress() + Regex(r"[^#]*") + Literal("#").suppress()).setParseAction(RawAsmHandler)
-
-

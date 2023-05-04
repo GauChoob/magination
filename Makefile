@@ -58,6 +58,7 @@ tests:
 	python -m unittest python\\projutils\\tests\\test_textreplace.py
 	python -m unittest python\\projutils\\tests\\test_tileset.py
 	python -m unittest python\\projutils\\tests\\test_utils.py
+	python -m unittest python\\magiparser\\tests\\test_magiparser.py
 
 help:
 	$(info -> generate game files)

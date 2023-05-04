@@ -1,5 +1,3 @@
-import dataclasses
-import os
 import re
 import traceback
 from typing import List
@@ -576,7 +574,7 @@ class MagiScriptLine:
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                #frameN = "${:02X}".format(frameN)
+                # frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]
@@ -586,7 +584,7 @@ class MagiScriptLine:
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                #frameN = "${:02X}".format(frameN)
+                # frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]
@@ -701,9 +699,9 @@ class SpriteLine(MagiScriptLine):
     """.spr file"""
 
     def __init__(self, folder):
-        
+
         global curpos, rambank
-        
+
         # Get the filename of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet_WalkLeft1)
         symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "ERROR")[0]
         match = re.search(r'SPRITE_(.*)', symbol)
@@ -764,7 +762,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
     Returns the pre-processed code.
     Some banks are a collection of sprites + scripts containing animation
     (e.g. Bank 0x0E, 0x0F, ?0x10, ?0x11, 0x20). Specifically seek to parse these ones
-    
+
     debug = True to write output to a single file
     debug = False to generate the files for importation into the main project"""
     global curpos
@@ -783,7 +781,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
             lines = []
         spriteMode = True
         folder = getFolder()
-    
+
     def endBlock():
         """Finish a SPRITE_ + SCRIPT_ANIM_ block by saving the .mgi file"""
         nonlocal lines, folder, includes

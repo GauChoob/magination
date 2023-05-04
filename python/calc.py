@@ -18,7 +18,7 @@ def main():
 
     if args[1] == 'hex':
         print('${:X}'.format(int(args[2], 0)))
-      
+
     if args[1] == 'bin':
         print('%{:b}'.format(int(args[2], 0)))
 

@@ -1,0 +1,7 @@
+    Align[$2A:$4247]    Switch(#c1+c2+c3 or not (c1 + c3) + bank(c3, w1 + w2)#){
+        Case($0000,.End)
+        Case($0000,.End)
+    }
+.End:
+    ;SetByte(wMenu_MainMenu_FadeEffect,$01)
+    
