@@ -1,28 +1,21 @@
-from pyparsing import *
-from magiparser.magiparse_lines import *
-import magiparser.magiparse_config as config
+import pathlib
+import re
+from typing import Union
+from magiparser.lines import Lines
 
 
-def convert(filein,fileout):
-    with open(filein,"r") as f:
+def getObject(filein: Union[str, pathlib.PurePath]):
+    with open(filein, "r") as f:
         f = f.read()
         commentparse = re.compile(";.*\n")
-        f = commentparse.sub("",f)
-    
-    a = Lines.parseString(f)[0]
-    adc = AddressCounter(0x4000,config.defaultdepth)
-    a.updateAddress(adc) # Update the address location and indentation
-    with open(fileout,"w") as f:
-        f.write(a.getOutput())
+        f = commentparse.sub("", f)
 
-        
-def getObject(filein):
-    with open(filein,"r") as f:
-        f = f.read()
-        commentparse = re.compile(";.*\n")
-        f = commentparse.sub("",f)
-    
-    a = Lines.parseString(f)[0]
-    adc = AddressCounter(0x4000,config.defaultdepth)
-    a.updateAddress(adc)
-    return a
+    lines = Lines.parseString(f)[0]
+    return lines
+
+
+def convert(filein: Union[str, pathlib.PurePath], fileout: Union[str, pathlib.PurePath]):
+    lines = getObject(filein)
+
+    with open(fileout, "w") as f:
+        f.write(lines.getOutput())

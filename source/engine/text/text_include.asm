@@ -1,4 +1,4 @@
-; Also see: source/includes/charmap.asm
+; Also see: source/includes/charmap/charmap.asm
 
 ; Frames per character on the screen
 DEF Text_SPEED EQU $02

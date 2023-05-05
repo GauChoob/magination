@@ -23,13 +23,13 @@ DEF Actor_ENUM_YTile                 EQU $06 ;  /
 DEF Actor_ENUM_TileAddress           EQU $07 ; /
 DEF Actor_ENUM_SpriteBase            EQU $09 ;/
 
-DEF Actor_ENUM_Script0               EQU $0A ;TODO - change Script0 to main?
+DEF Actor_ENUM_Script0               EQU $0A ;TODO - change Script0 to anim?
 DEF Actor_ENUM_Script0_Bank          EQU $0A
 DEF Actor_ENUM_Script0_Frame         EQU $0B
 DEF Actor_ENUM_Script0_State         EQU $0D
 DEF Actor_ENUM_Script0_SmallCounter  EQU $0F
 DEF Actor_ENUM_Script0_BigCounter    EQU $10
-DEF Actor_ENUM_Script1               EQU $11 ;TODO - change Script1 to anim?
+DEF Actor_ENUM_Script1               EQU $11 ;TODO - change Script1 to ?
 DEF Actor_ENUM_Script1_Bank          EQU $11
 DEF Actor_ENUM_Script1_Frame         EQU $12
 DEF Actor_ENUM_Script1_State         EQU $14

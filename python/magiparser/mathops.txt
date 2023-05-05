@@ -107,8 +107,8 @@ Special Commands:
         e.g.
             bitmatch(c[wHeldDownButtons],c%00000001) returns True if button A is held down
             
-    GetHeroDirection
-        Returns an unknown special value.
+    GetHeroDirection DIRECTION
+        Returns the direction an Actor needs to face to look at the hero. See Expr_DIRECTION_UP and others
         e.g.
             DIRECTION == c3
             

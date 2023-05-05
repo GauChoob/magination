@@ -9,8 +9,9 @@ DEF FIX_BUGS EQU 0 ; Set to 1 to fix a few bugs that I found in the code
 ; Universal hardware constant file
 INCLUDE "source/includes/hardware_constants.asm"
 
-; Personalized charmap
-INCLUDE "source/includes/charmap.asm"
+; Personalized charmaps
+INCLUDE "source/includes/charmap/varbit.asm"
+INCLUDE "source/includes/charmap/charmap.asm"
 
 ; General-purpose equs
 INCLUDE "source/includes/equ.asm"
@@ -29,6 +30,7 @@ INCLUDE "source/game/cardscene/cardscene_equ.asm"
 INCLUDE "source/game/cardscene/cardscene_macro.asm"
 INCLUDE "source/engine/system/graphics/graphics_macro.asm"
 INCLUDE "source/engine/system/graphics/screenfx/screenfx_equ.asm"
+INCLUDE "source/engine/system/graphics/palette/palette_include.asm"
 INCLUDE "source/engine/system/sound/sound_macro.asm"
 INCLUDE "source/engine/system/sound/sound_equ.asm"
 INCLUDE "source/engine/interrupt/interrupt_equ.asm"
@@ -110,7 +112,11 @@ INCLUDE "source/banks/bank_00a.asm"
 INCLUDE "source/banks/bank_00b.asm"
 INCLUDE "source/banks/bank_00c.asm"
 INCLUDE "source/banks/bank_00d.asm"
-INCLUDE "source/banks/bank_00e.asm"
+
+    ; Sprites - Bank 0E - essentially full
+;INCLUDE "source/banks/bank_00e.asm"
+INCLUDE "source/assets/sprites.asm"
+
 INCLUDE "source/banks/bank_00f.asm"
 INCLUDE "source/banks/bank_010.asm"
 INCLUDE "source/banks/bank_011.asm"

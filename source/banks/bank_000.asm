@@ -41,7 +41,7 @@ Actor_Table::
     ; All these are spaced apart in order by Actor_SIZE
     ; 50 entries total
     dw wActor_Hero
-    dw wActor_Save
+    dw wActor_Save ; Temporary slot used to store/restore an actor
     dw wActor_00
     dw wActor_01
     dw wActor_02
@@ -1043,7 +1043,7 @@ System_Init::
     xor a
     ld [wRAMBank], a
     ld [wROMBank], a
-    ld [$C188], a
+    ld [wActor_SaveFlag], a
     ld [$C6D8], a
     ld [wMenu_MainMenu_FadeEffect], a
     ld [$C6F3], a
@@ -1688,9 +1688,15 @@ jr_000_0CD4:
     ret
 
     ; $0CDD
-    ; TODO
-    Set8 $C188, $03        ; TODO
-    Set16_M wActor_Hero.State, $5E10
+Cmd_Actor_RestoreActorState::
+    ; Restores the Actor's state after it was saved
+    ; The Actor is saved when Tony tries to talk to the Actor, so that the Actor
+    ; can go back to doing exactly what it was doing before Tony tried to talk to it
+    
+    ; Although it is originally known as ThisActorRestoreState, technically the actor
+    ; that was saved will be restored, be it This actor or a different actor
+    Set8 wActor_SaveFlag, Actor_SaveFlag_REQUEST_RESTORE
+    Set16_M wActor_Hero.State, $5E10 ; TODO
     jp Cmd_Flow_End
 
     ; $0CEF
@@ -2193,7 +2199,7 @@ jr_000_10FC:
     ret
 
     ;$1141
-    ; Identical to bcExitSingleThreadMode, but not an opcode
+    ; Identical to SceneReady, but not an opcode
     ld a, $01
     ld [wScript_SceneReady], a
     Set16_M hScript.State, Script_Start
@@ -3372,7 +3378,7 @@ Cmd_Palette_ClearBase::
     ;
     ; Arguments:
     ;   db      wTemp_8.Palette_PackedInterval - Represents the palettes that should be modified
-    ;   dw      Color - The 16th bit signifies transparency (wArena_Color is used instead)
+    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wArena_Color is used instead)
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearBaseBuffer
     Set16_M hScript.State, Script_Start
@@ -3383,8 +3389,8 @@ Cmd_Palette_ClearAnim::
     ; Replaces the specified palettes in wPalette_AnimBuffers with a single Color
     ;
     ; Arguments:
-    ;   [wTemp_8.Palette_PackedInterval]
-    ;   [wTemp_A.Unknown]
+    ;   db  [wTemp_8.Palette_PackedInterval]
+    ;   dw  [wTemp_A.Palette_SetColor]
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearAnimBuffer
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
@@ -3543,7 +3549,7 @@ Cmd_Palette_Cycle::
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   db  Palette_PackedInterval
-    ;   db  wTemp_9.Palette_CyclePattern
+    ;   db  wTemp_9.Palette_CyclePattern -> Number of Colors to cycle in each Palette (2 to 4, starting from the right)
     .Init:
         ; First iteration of the command
         Set8 wMenu_MainMenu_FadeEffect, $01

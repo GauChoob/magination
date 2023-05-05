@@ -412,7 +412,7 @@ jr_007_4450:
 ;above is source/engine/system/graphics/palette/palette_fx.s
 
     ; $445F
-INCLUDE "source/engine/palette_vb_xx.asm"
+INCLUDE "source/engine/system/graphics/palette/palette_vb_xx.asm"
 
 ; This palette module contains general use functions for manipulating colors
 
@@ -1026,10 +1026,10 @@ Palette_PaletteBufferSwapRGB::
     ;   hl = Palette buffer address (e.g. wPalette_AnimBuffers)
     ;   bc = Number of sequential Colors to which to apply the effect
     ;   e = Type of Color swap
-    ;       1 -> Swap R<->B
-    ;       2 -> Swap B<->G
-    ;       3 -> BUGGED. Supposed to do Swap R<->G, but actually does Rotate R->G->B->R
-    ;       Other -> Rotate R<-G<-B<-R
+    ;       PALETTE_SWAP_RB -> Swap R<->B
+    ;       PALETTE_SWAP_BG -> Swap B<->G
+    ;       PALETTE_SWAP_RG_Bugged -> BUGGED. Supposed to do Swap R<->G, but actually does Rotate R->G->B->R
+    ;       PALETTE_SWAP_RGB/Undefined -> Rotate R<-G<-B<-R
     ; Outputs:
     ;   As described
     push bc ; loop counter
@@ -1040,12 +1040,14 @@ Palette_PaletteBufferSwapRGB::
     push hl ; Palette buffer
     push de ; Type of Color swap
     ld a, e
-    cp $01
+    cp PALETTE_SWAP_RB
     jr z, .SwapRB
-    cp $02
+    cp PALETTE_SWAP_BG
     jr z, .SwapBG
-    cp $03
+    cp PALETTE_SWAP_RG_Bugged
     jr z, .SwapRG_BUGGED ; Bugged, see comments
+    ;cp PALETTE_SWAP_RGB
+    ;jr z, .RotateRGB
     .RotateRGB:
         call Palette_ColorToRGB ; aed -> RGB
         ld b, a                 ; RGB -> GBR
@@ -1061,7 +1063,6 @@ Palette_PaletteBufferSwapRGB::
         ld d, b
         call Palette_RGBToColor
         jr .DoneSwap
-
     .SwapRG_BUGGED:
         call Palette_ColorToRGB ; aed -> RGB
         ld b, e                 ; RGB -> GRB ---------------------
@@ -1078,15 +1079,15 @@ Palette_PaletteBufferSwapRGB::
         call Palette_RGBToColor
 
     .DoneSwap:
-        ; Increment the buffer to the next Color and loop if not done
-        pop de ; Type of Color swap
-        pop hl ; Palette buffer
-        ld a, c
-        ld [hl+], a
-        ld a, b
-        ld [hl+], a
-        pop bc ; loop counter
-        Dec16Loop bc, Palette_PaletteBufferSwapRGB
+    ; Increment the buffer to the next Color and loop if not done
+    pop de ; Type of Color swap
+    pop hl ; Palette buffer
+    ld a, c
+    ld [hl+], a
+    ld a, b
+    ld [hl+], a
+    pop bc ; loop counter
+    Dec16Loop bc, Palette_PaletteBufferSwapRGB
     ret
 
     ; $47D1

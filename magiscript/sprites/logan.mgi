@@ -1,0 +1,196 @@
+
+SPRITE_Logan_FaceDownRight::
+    INCSPRITE("assets/sprites/logan/Logan_FaceDownRight.spr")
+
+SPRITE_Logan_FaceDownLeft::
+    INCSPRITE("assets/sprites/logan/Logan_FaceDownLeft.spr")
+
+SPRITE_Logan_FaceUpRight::
+    INCSPRITE("assets/sprites/logan/Logan_FaceUpRight.spr")
+
+SPRITE_Logan_FaceUpLeft::
+    INCSPRITE("assets/sprites/logan/Logan_FaceUpLeft.spr")
+
+SPRITE_Logan_WalkDown1::
+    INCSPRITE("assets/sprites/logan/Logan_WalkDown1.spr")
+
+SPRITE_Logan_FaceDown::
+    INCSPRITE("assets/sprites/logan/Logan_FaceDown.spr")
+
+SPRITE_Logan_WalkDown2::
+    INCSPRITE("assets/sprites/logan/Logan_WalkDown2.spr")
+
+SPRITE_Logan_WalkUp1::
+    INCSPRITE("assets/sprites/logan/Logan_WalkUp1.spr")
+
+SPRITE_Logan_FaceUp::
+    INCSPRITE("assets/sprites/logan/Logan_FaceUp.spr")
+
+SPRITE_Logan_WalkUp2::
+    INCSPRITE("assets/sprites/logan/Logan_WalkUp2.spr")
+
+SPRITE_Logan_WalkRight1::
+    INCSPRITE("assets/sprites/logan/Logan_WalkRight1.spr")
+
+SPRITE_Logan_FaceRight::
+    INCSPRITE("assets/sprites/logan/Logan_FaceRight.spr")
+
+SPRITE_Logan_WalkRight2::
+    INCSPRITE("assets/sprites/logan/Logan_WalkRight2.spr")
+
+SPRITE_Logan_WalkLeft1::
+    INCSPRITE("assets/sprites/logan/Logan_WalkLeft1.spr")
+
+SPRITE_Logan_FaceLeft::
+    INCSPRITE("assets/sprites/logan/Logan_FaceLeft.spr")
+
+SPRITE_Logan_WalkLeft2::
+    INCSPRITE("assets/sprites/logan/Logan_WalkLeft2.spr")
+
+SCRIPT_ANIM_Logan_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Logan_WalkUp1)
+        Draw(SPRITE_Logan_FaceUp)
+        Draw(SPRITE_Logan_WalkUp2)
+        Draw(SPRITE_Logan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Logan_WalkUp)
+
+SCRIPT_ANIM_Logan_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Logan_WalkDown1)
+        Draw(SPRITE_Logan_FaceDown)
+        Draw(SPRITE_Logan_WalkDown2)
+        Draw(SPRITE_Logan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Logan_WalkDown)
+
+SCRIPT_ANIM_Logan_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Logan_WalkLeft1)
+        Draw(SPRITE_Logan_FaceLeft)
+        Draw(SPRITE_Logan_WalkLeft2)
+        Draw(SPRITE_Logan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Logan_WalkLeft)
+
+SCRIPT_ANIM_Logan_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Logan_WalkRight1)
+        Draw(SPRITE_Logan_FaceRight)
+        Draw(SPRITE_Logan_WalkRight2)
+        Draw(SPRITE_Logan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Logan_WalkRight)
+
+SCRIPT_ANIM_Logan_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Logan_WalkUp1)
+        Draw(SPRITE_Logan_FaceUp)
+        Draw(SPRITE_Logan_WalkUp2)
+        Draw(SPRITE_Logan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Logan_RunUp)
+
+SCRIPT_ANIM_Logan_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Logan_WalkDown1)
+        Draw(SPRITE_Logan_FaceDown)
+        Draw(SPRITE_Logan_WalkDown2)
+        Draw(SPRITE_Logan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Logan_RunDown)
+
+SCRIPT_ANIM_Logan_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Logan_WalkLeft1)
+        Draw(SPRITE_Logan_FaceLeft)
+        Draw(SPRITE_Logan_WalkLeft2)
+        Draw(SPRITE_Logan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Logan_RunLeft)
+
+SCRIPT_ANIM_Logan_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Logan_WalkRight1)
+        Draw(SPRITE_Logan_FaceRight)
+        Draw(SPRITE_Logan_WalkRight2)
+        Draw(SPRITE_Logan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Logan_RunRight)
+
+SCRIPT_ANIM_Logan_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceUp)
+
+SCRIPT_ANIM_Logan_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceDown)
+
+SCRIPT_ANIM_Logan_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceLeft)
+
+SCRIPT_ANIM_Logan_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceRight)
+
+SCRIPT_ANIM_Logan_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceUpLeft)
+
+SCRIPT_ANIM_Logan_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceUpRight)
+
+SCRIPT_ANIM_Logan_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceDownLeft)
+
+SCRIPT_ANIM_Logan_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Logan_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Logan_FaceDownRight)
+
+SCRIPT_ANIM_Logan_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Logan_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Logan_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Logan_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Logan_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

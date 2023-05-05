@@ -27,3 +27,9 @@ This explains how to get the tools required to build Magi-Nation.
         make
 
 7. The checksum should be displayed and evaluate to `1624f857098ca278b15629914f48352b`.
+
+8. Optional: If using VS Code, you can install the MagiScript highlighting template
+    1. Download the latest [MagiScript Release](https://github.com/GauChoob/magiscript/releases) into your repository.
+    2. Open up VS Code, and run the following in the command line:
+
+            code --install-extension magiscript-1.0.0.vsix

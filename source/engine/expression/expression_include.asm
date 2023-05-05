@@ -1,6 +1,13 @@
 ; 16-bit True and False objects used in expression.s
-Expr_TRUE   EQU $FFFF
-Expr_FALSE  EQU $0000
+DEF Expr_TRUE   EQU $FFFF
+DEF Expr_FALSE  EQU $0000
+
+; 
+DEF Expr_DIRECTION_UP EQU 0
+DEF Expr_DIRECTION_LEFT EQU 1
+DEF Expr_DIRECTION_RIGHT EQU 2
+DEF Expr_DIRECTION_DOWN EQU 3
+
 
 ; Enum and macros to support .mgi files:
 

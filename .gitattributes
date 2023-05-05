@@ -3,6 +3,7 @@
 *.asm text
 *.inc text
 *.txt text
+*.mgi text
 
 # binary
 *.tilemap binary

@@ -18,14 +18,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: rgbds/**
-          key: ${{ runner.os }}-rgbds
+          key: ${{ runner.os }}-0.6.1-rgbds
 
       - name: Setup RGBDS
         if: steps.cache-rgbds.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v0.5.1/rgbds-0.5.1-win64.zip -OutFile rgbds-0.5.1-win64.zip
-          Expand-Archive -Path rgbds-0.5.1-win64.zip -DestinationPath rgbds/
+          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v0.6.1/rgbds-0.6.1-win64.zip -OutFile rgbds-0.6.1-win64.zip
+          Expand-Archive -Path rgbds-0.6.1-win64.zip -DestinationPath rgbds/
 
       - name: Cache Python Pip
         id: cache-pip

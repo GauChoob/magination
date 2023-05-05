@@ -1,0 +1,274 @@
+
+SPRITE_Fossik_FaceDownRight::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceDownRight.spr")
+
+SPRITE_Fossik_FaceDownLeft::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceDownLeft.spr")
+
+SPRITE_Fossik_FaceUpRight::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceUpRight.spr")
+
+SPRITE_Fossik_FaceUpLeft::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceUpLeft.spr")
+
+SPRITE_Fossik_WalkDown1::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkDown1.spr")
+
+SPRITE_Fossik_FaceDown::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceDown.spr")
+
+SPRITE_Fossik_WalkDown2::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkDown2.spr")
+
+SPRITE_Fossik_WalkUp1::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkUp1.spr")
+
+SPRITE_Fossik_FaceUp::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceUp.spr")
+
+SPRITE_Fossik_WalkUp2::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkUp2.spr")
+
+SPRITE_Fossik_WalkRight1::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkRight1.spr")
+
+SPRITE_Fossik_FaceRight::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceRight.spr")
+
+SPRITE_Fossik_WalkRight2::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkRight2.spr")
+
+SPRITE_Fossik_WalkLeft1::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkLeft1.spr")
+
+SPRITE_Fossik_FaceLeft::
+    INCSPRITE("assets/sprites/fossik/Fossik_FaceLeft.spr")
+
+SPRITE_Fossik_WalkLeft2::
+    INCSPRITE("assets/sprites/fossik/Fossik_WalkLeft2.spr")
+
+SPRITE_FossikRing_01::
+    INCSPRITE("assets/sprites/fossik/FossikRing_01.spr")
+
+SPRITE_FossikRing_02::
+    INCSPRITE("assets/sprites/fossik/FossikRing_02.spr")
+
+SPRITE_FossikRing_03::
+    INCSPRITE("assets/sprites/fossik/FossikRing_03.spr")
+
+SPRITE_FossikRing_04::
+    INCSPRITE("assets/sprites/fossik/FossikRing_04.spr")
+
+SPRITE_FossikRing_05::
+    INCSPRITE("assets/sprites/fossik/FossikRing_05.spr")
+
+SPRITE_FossikRing_06::
+    INCSPRITE("assets/sprites/fossik/FossikRing_06.spr")
+
+SPRITE_FossikRing_07::
+    INCSPRITE("assets/sprites/fossik/FossikRing_07.spr")
+
+SPRITE_FossikRing_08::
+    INCSPRITE("assets/sprites/fossik/FossikRing_08.spr")
+
+SPRITE_FossikRing_09::
+    INCSPRITE("assets/sprites/fossik/FossikRing_09.spr")
+
+SPRITE_FossikRing_10::
+    INCSPRITE("assets/sprites/fossik/FossikRing_10.spr")
+
+SPRITE_FossikRing_11::
+    INCSPRITE("assets/sprites/fossik/FossikRing_11.spr")
+
+SPRITE_FossikRing_Idle::
+    INCSPRITE("assets/sprites/fossik/FossikRing_Idle.spr")
+
+SCRIPT_ANIM_Fossik_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Fossik_WalkUp1)
+        Draw(SPRITE_Fossik_FaceUp)
+        Draw(SPRITE_Fossik_WalkUp2)
+        Draw(SPRITE_Fossik_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Fossik_WalkUp)
+
+SCRIPT_ANIM_Fossik_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Fossik_WalkDown1)
+        Draw(SPRITE_Fossik_FaceDown)
+        Draw(SPRITE_Fossik_WalkDown2)
+        Draw(SPRITE_Fossik_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Fossik_WalkDown)
+
+SCRIPT_ANIM_Fossik_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Fossik_WalkLeft1)
+        Draw(SPRITE_Fossik_FaceLeft)
+        Draw(SPRITE_Fossik_WalkLeft2)
+        Draw(SPRITE_Fossik_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Fossik_WalkLeft)
+
+SCRIPT_ANIM_Fossik_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Fossik_WalkRight1)
+        Draw(SPRITE_Fossik_FaceRight)
+        Draw(SPRITE_Fossik_WalkRight2)
+        Draw(SPRITE_Fossik_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Fossik_WalkRight)
+
+SCRIPT_ANIM_Fossik_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Fossik_WalkUp1)
+        Draw(SPRITE_Fossik_FaceUp)
+        Draw(SPRITE_Fossik_WalkUp2)
+        Draw(SPRITE_Fossik_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Fossik_RunUp)
+
+SCRIPT_ANIM_Fossik_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Fossik_WalkDown1)
+        Draw(SPRITE_Fossik_FaceDown)
+        Draw(SPRITE_Fossik_WalkDown2)
+        Draw(SPRITE_Fossik_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Fossik_RunDown)
+
+SCRIPT_ANIM_Fossik_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Fossik_WalkLeft1)
+        Draw(SPRITE_Fossik_FaceLeft)
+        Draw(SPRITE_Fossik_WalkLeft2)
+        Draw(SPRITE_Fossik_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Fossik_RunLeft)
+
+SCRIPT_ANIM_Fossik_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Fossik_WalkRight1)
+        Draw(SPRITE_Fossik_FaceRight)
+        Draw(SPRITE_Fossik_WalkRight2)
+        Draw(SPRITE_Fossik_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Fossik_RunRight)
+
+SCRIPT_ANIM_Fossik_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceUp)
+
+SCRIPT_ANIM_Fossik_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceDown)
+
+SCRIPT_ANIM_Fossik_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceLeft)
+
+SCRIPT_ANIM_Fossik_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceRight)
+
+SCRIPT_ANIM_Fossik_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceUpLeft)
+
+SCRIPT_ANIM_Fossik_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceUpRight)
+
+SCRIPT_ANIM_Fossik_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceDownLeft)
+
+SCRIPT_ANIM_Fossik_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Fossik_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Fossik_FaceDownRight)
+
+SCRIPT_ANIM_FossikRing_MakeRing::
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_FossikRing_Idle)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_01)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_02)
+        MoveDraw(16, 0, 0, SPRITE_FossikRing_03)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_04)
+        MoveDraw(16, 0, 0, SPRITE_FossikRing_05)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_06)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_07)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_08)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_10)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(2, 0, 0, SPRITE_FossikRing_10)
+        MoveDraw(2, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(2, 0, 0, SPRITE_FossikRing_10)
+        MoveDraw(2, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(2, 0, 0, SPRITE_FossikRing_10)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_10)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_09)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_08)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_07)
+        MoveDraw(4, 0, 0, SPRITE_FossikRing_06)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_05)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_04)
+        MoveDraw(8, 0, 0, SPRITE_FossikRing_03)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_FossikRing_11)
+    }
+    LongJump(.Loop)
+
+SCRIPT_ANIM_FossikRing_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_FossikRing_Idle)
+    }
+    LongJump(SCRIPT_ANIM_FossikRing_Idle)
+
+SCRIPT_ANIM_Fossik_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Fossik_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Fossik_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Fossik_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Fossik_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

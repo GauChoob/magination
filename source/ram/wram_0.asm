@@ -50,25 +50,37 @@ wActorlist_Table::
     ; The WRAM address of an entry from Actor_Table is placed here
     ds 2*Actorlist_SIZE
     .End
+
     ;ds $C174 - @
-;Address to which one should copy Object $01
+wActor_SavedActor::
+    ; Contains a reference to the location of the Actor_Struct that was saved in wActor_Save
     ds 2
-
-
-    ds $C186 - @
+    ;ds $C176 - @
+wActor_Unused::
+    ; This was originally used in an older iteration of saving and restoring an actor, but
+    ; it only saved the Actor's State and the Actor's two scripts. This was deprecated in favour
+    ; of saving everything using wActor_Save instead
+    ds 16
+    ;ds $C186 - @
+    ; ACTOR_NEWSTATE
     ds 2
     ;ds $C188 - @
-;?
+wActor_SaveFlag::
+    ; Used to determine whether wActor_Save already contains saved data or not
+    DEF Actor_SaveFlag_EMPTY EQU $00 ; No saved actor - able to save
+    DEF Actor_SaveFlag_FULL EQU $01 ; Actor has been saved
+    DEF Actor_SaveFlag_REQUEST_SAVE EQU $02 ; Unused and unimplemented, but theoretically this flag is intended to request to save the current actor
+    DEF Actor_SaveFlag_REQUEST_RESTORE EQU $03 ; Set to request to request saved data to current actor
     ds 1
 
-
-    ds $C189 - @
+    ;ds $C189 - @
 wActor_RAM::
 wActor_Hero::
     ; Actor representing Tony in-game
     Actor_Struct
     ;ds $C1A4 - @
 wActor_Save::
+    ; Temporary actor slot to store an entire Actor_Struct and then restore it
     Actor_Struct
     ;ds $C1BF - @
 wActor_00::

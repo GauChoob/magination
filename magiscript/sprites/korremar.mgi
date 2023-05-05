@@ -1,0 +1,283 @@
+
+SPRITE_Korremar_FaceDownRight::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceDownRight.spr")
+
+SPRITE_Korremar_FaceDownLeft::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceDownLeft.spr")
+
+SPRITE_Korremar_FaceUpRight::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceUpRight.spr")
+
+SPRITE_Korremar_FaceUpLeft::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceUpLeft.spr")
+
+SPRITE_Korremar_WalkDown1::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkDown1.spr")
+
+SPRITE_Korremar_FaceDown::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceDown.spr")
+
+SPRITE_Korremar_WalkDown2::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkDown2.spr")
+
+SPRITE_Korremar_WalkUp1::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkUp1.spr")
+
+SPRITE_Korremar_FaceUp::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceUp.spr")
+
+SPRITE_Korremar_WalkUp2::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkUp2.spr")
+
+SPRITE_Korremar_WalkRight1::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkRight1.spr")
+
+SPRITE_Korremar_FaceRight::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceRight.spr")
+
+SPRITE_Korremar_WalkRight2::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkRight2.spr")
+
+SPRITE_Korremar_WalkLeft1::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkLeft1.spr")
+
+SPRITE_Korremar_FaceLeft::
+    INCSPRITE("assets/sprites/korremar/Korremar_FaceLeft.spr")
+
+SPRITE_Korremar_WalkLeft2::
+    INCSPRITE("assets/sprites/korremar/Korremar_WalkLeft2.spr")
+
+SPRITE_KorremarBattle_IdleDownRight::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_IdleDownRight.spr")
+
+SPRITE_KorremarBattle_IdleDownLeft::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_IdleDownLeft.spr")
+
+SPRITE_KorremarBattle_IdleDown::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_IdleDown.spr")
+
+SPRITE_KorremarBattle_Taunt1::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Taunt1.spr")
+
+SPRITE_KorremarBattle_Taunt2::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Taunt2.spr")
+
+SPRITE_KorremarBattle_Taunt3::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Taunt3.spr")
+
+SPRITE_KorremarBattle_Victory::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Victory.spr")
+
+SPRITE_KorremarBattle_Defeat::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Defeat.spr")
+
+SPRITE_KorremarBattle_Summon1::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Summon1.spr")
+
+SPRITE_KorremarBattle_Summon2::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Summon2.spr")
+
+SPRITE_KorremarBattle_Summon3::
+    INCSPRITE("assets/sprites/korremar/KorremarBattle_Summon3.spr")
+
+SCRIPT_ANIM_Korremar_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Korremar_WalkUp1)
+        Draw(SPRITE_Korremar_FaceUp)
+        Draw(SPRITE_Korremar_WalkUp2)
+        Draw(SPRITE_Korremar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korremar_WalkUp)
+
+SCRIPT_ANIM_Korremar_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Korremar_WalkDown1)
+        Draw(SPRITE_Korremar_FaceDown)
+        Draw(SPRITE_Korremar_WalkDown2)
+        Draw(SPRITE_Korremar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korremar_WalkDown)
+
+SCRIPT_ANIM_Korremar_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Korremar_WalkLeft1)
+        Draw(SPRITE_Korremar_FaceLeft)
+        Draw(SPRITE_Korremar_WalkLeft2)
+        Draw(SPRITE_Korremar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korremar_WalkLeft)
+
+SCRIPT_ANIM_Korremar_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Korremar_WalkRight1)
+        Draw(SPRITE_Korremar_FaceRight)
+        Draw(SPRITE_Korremar_WalkRight2)
+        Draw(SPRITE_Korremar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korremar_WalkRight)
+
+SCRIPT_ANIM_Korremar_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Korremar_WalkUp1)
+        Draw(SPRITE_Korremar_FaceUp)
+        Draw(SPRITE_Korremar_WalkUp2)
+        Draw(SPRITE_Korremar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korremar_RunUp)
+
+SCRIPT_ANIM_Korremar_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Korremar_WalkDown1)
+        Draw(SPRITE_Korremar_FaceDown)
+        Draw(SPRITE_Korremar_WalkDown2)
+        Draw(SPRITE_Korremar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korremar_RunDown)
+
+SCRIPT_ANIM_Korremar_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Korremar_WalkLeft1)
+        Draw(SPRITE_Korremar_FaceLeft)
+        Draw(SPRITE_Korremar_WalkLeft2)
+        Draw(SPRITE_Korremar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korremar_RunLeft)
+
+SCRIPT_ANIM_Korremar_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Korremar_WalkRight1)
+        Draw(SPRITE_Korremar_FaceRight)
+        Draw(SPRITE_Korremar_WalkRight2)
+        Draw(SPRITE_Korremar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korremar_RunRight)
+
+SCRIPT_ANIM_Korremar_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceUp)
+
+SCRIPT_ANIM_Korremar_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceDown)
+
+SCRIPT_ANIM_Korremar_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceLeft)
+
+SCRIPT_ANIM_Korremar_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceRight)
+
+SCRIPT_ANIM_Korremar_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceUpLeft)
+
+SCRIPT_ANIM_Korremar_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceUpRight)
+
+SCRIPT_ANIM_Korremar_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceDownLeft)
+
+SCRIPT_ANIM_Korremar_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korremar_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Korremar_FaceDownRight)
+
+SCRIPT_ANIM_KorremarBattle_Idle::
+    SpriteDraw() {
+        MoveDraw(96, 0, 0, SPRITE_KorremarBattle_IdleDown)
+        MoveDraw(128, 0, 0, SPRITE_KorremarBattle_IdleDownRight)
+        MoveDraw(96, 0, 0, SPRITE_KorremarBattle_IdleDown)
+        MoveDraw(128, 0, 0, SPRITE_KorremarBattle_IdleDownLeft)
+    }
+    Jump(SCRIPT_ANIM_KorremarBattle_Idle)
+
+SCRIPT_ANIM_KorremarBattle_Taunt::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_KorremarBattle_IdleDown)
+        Draw(SPRITE_KorremarBattle_Taunt1)
+        Draw(SPRITE_KorremarBattle_Taunt2)
+        Draw(SPRITE_KorremarBattle_Taunt3)
+    }
+    Jump(SCRIPT_ANIM_KorremarBattle_Taunt)
+
+SCRIPT_ANIM_KorremarBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_KorremarBattle_Summon1)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon3)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon1)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon3)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon1)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon3)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon1)
+        Draw(SPRITE_KorremarBattle_Summon2)
+        Draw(SPRITE_KorremarBattle_Summon3)
+        Draw(SPRITE_KorremarBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_KorremarBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_KorremarBattle_Idle)
+
+SCRIPT_ANIM_KorremarBattle_Victory::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KorremarBattle_Victory)
+    }
+    Jump(SCRIPT_ANIM_KorremarBattle_Victory)
+
+SCRIPT_ANIM_KorremarBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KorremarBattle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_KorremarBattle_Defeat)
+
+SCRIPT_ANIM_Korremar_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korremar_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korremar_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korremar_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korremar_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
