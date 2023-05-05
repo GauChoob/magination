@@ -7,7 +7,7 @@ import projutils.config as config
 
 # Snippets containing data to put into the Sprite Attribute Table (OAM)
 
-SPRITE_FOLDER = config.outdir + "sprite/"
+SPRITE_FOLDER = config.outdir + "sprites/"
 
 
 class Sprite:

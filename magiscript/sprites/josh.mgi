@@ -1,0 +1,203 @@
+
+SPRITE_Josh_FaceDownRight::
+    INCSPRITE("assets/sprites/josh/Josh_FaceDownRight.spr")
+
+SPRITE_Josh_FaceDownLeft::
+    INCSPRITE("assets/sprites/josh/Josh_FaceDownLeft.spr")
+
+SPRITE_Josh_FaceUpRight::
+    INCSPRITE("assets/sprites/josh/Josh_FaceUpRight.spr")
+
+SPRITE_Josh_FaceUpLeft::
+    INCSPRITE("assets/sprites/josh/Josh_FaceUpLeft.spr")
+
+SPRITE_Josh_WalkDown1::
+    INCSPRITE("assets/sprites/josh/Josh_WalkDown1.spr")
+
+SPRITE_Josh_FaceDown::
+    INCSPRITE("assets/sprites/josh/Josh_FaceDown.spr")
+
+SPRITE_Josh_WalkDown2::
+    INCSPRITE("assets/sprites/josh/Josh_WalkDown2.spr")
+
+SPRITE_Josh_WalkUp1::
+    INCSPRITE("assets/sprites/josh/Josh_WalkUp1.spr")
+
+SPRITE_Josh_FaceUp::
+    INCSPRITE("assets/sprites/josh/Josh_FaceUp.spr")
+
+SPRITE_Josh_WalkUp2::
+    INCSPRITE("assets/sprites/josh/Josh_WalkUp2.spr")
+
+SPRITE_Josh_WalkRight1::
+    INCSPRITE("assets/sprites/josh/Josh_WalkRight1.spr")
+
+SPRITE_Josh_FaceRight::
+    INCSPRITE("assets/sprites/josh/Josh_FaceRight.spr")
+
+SPRITE_Josh_WalkRight2::
+    INCSPRITE("assets/sprites/josh/Josh_WalkRight2.spr")
+
+SPRITE_Josh_WalkLeft1::
+    INCSPRITE("assets/sprites/josh/Josh_WalkLeft1.spr")
+
+SPRITE_Josh_FaceLeft::
+    INCSPRITE("assets/sprites/josh/Josh_FaceLeft.spr")
+
+SPRITE_Josh_WalkLeft2::
+    INCSPRITE("assets/sprites/josh/Josh_WalkLeft2.spr")
+
+SCRIPT_ANIM_Josh_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Josh_WalkUp1)
+        Draw(SPRITE_Josh_FaceUp)
+        Draw(SPRITE_Josh_WalkUp2)
+        Draw(SPRITE_Josh_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Josh_WalkUp)
+
+SCRIPT_ANIM_Josh_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Josh_WalkDown1)
+        Draw(SPRITE_Josh_FaceDown)
+        Draw(SPRITE_Josh_WalkDown2)
+        Draw(SPRITE_Josh_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Josh_WalkDown)
+
+SCRIPT_ANIM_Josh_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Josh_WalkLeft1)
+        Draw(SPRITE_Josh_FaceLeft)
+        Draw(SPRITE_Josh_WalkLeft2)
+        Draw(SPRITE_Josh_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Josh_WalkLeft)
+
+SCRIPT_ANIM_Josh_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Josh_WalkRight1)
+        Draw(SPRITE_Josh_FaceRight)
+        Draw(SPRITE_Josh_WalkRight2)
+        Draw(SPRITE_Josh_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Josh_WalkRight)
+
+SCRIPT_ANIM_Josh_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Josh_WalkUp1)
+        Draw(SPRITE_Josh_FaceUp)
+        Draw(SPRITE_Josh_WalkUp2)
+        Draw(SPRITE_Josh_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Josh_RunUp)
+
+SCRIPT_ANIM_Josh_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Josh_WalkDown1)
+        Draw(SPRITE_Josh_FaceDown)
+        Draw(SPRITE_Josh_WalkDown2)
+        Draw(SPRITE_Josh_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Josh_RunDown)
+
+SCRIPT_ANIM_Josh_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Josh_WalkLeft1)
+        Draw(SPRITE_Josh_FaceLeft)
+        Draw(SPRITE_Josh_WalkLeft2)
+        Draw(SPRITE_Josh_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Josh_RunLeft)
+
+SCRIPT_ANIM_Josh_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Josh_WalkRight1)
+        Draw(SPRITE_Josh_FaceRight)
+        Draw(SPRITE_Josh_WalkRight2)
+        Draw(SPRITE_Josh_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Josh_RunRight)
+
+SCRIPT_ANIM_Josh_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceUp)
+
+SCRIPT_ANIM_Josh_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceDown)
+
+SCRIPT_ANIM_Josh_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceLeft)
+
+SCRIPT_ANIM_Josh_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceRight)
+
+SCRIPT_ANIM_Josh_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceUpLeft)
+
+SCRIPT_ANIM_Josh_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceUpRight)
+
+SCRIPT_ANIM_Josh_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceDownLeft)
+
+SCRIPT_ANIM_Josh_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Josh_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Josh_FaceDownRight)
+
+SCRIPT_ANIM_Josh_GlideBackwardsDown::
+    SpriteDraw() {
+        MoveDraw(1, 0, 1, SPRITE_Josh_FaceUp)
+        MoveDraw(3, 0, 0, SPRITE_Josh_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Josh_GlideBackwardsDown)
+
+SCRIPT_ANIM_Josh_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Josh_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Josh_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Josh_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Josh_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

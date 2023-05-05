@@ -499,9 +499,10 @@ MACRO SpriteBlock
     ;   Draw ObjectSpriteData
     ;   Draw ObjectSpriteData
     db Enum_Cmd_Frame_SpriteBlock
-    db \1       ; Number of frames per sprite
-    db \2       ; DeltaX per frame
-    db \3       ; DeltaY per frame
+    db \1       ; Number of sprites*2
+    db \2       ; Number of frames per sprite
+    db \3       ; DeltaX per frame
+    db \4       ; DeltaY per frame
 ENDM
 MACRO Draw
     ; Used for SpriteBlock

@@ -876,7 +876,7 @@ def setupSpriteAnim(bank, debug):
 table = MainTable(rom)
 with open(config.outdir + 'tempbattle.asm', 'w') as f:
     f.write(table.getOutput())
-setupSpriteAnim(0x0E, False)
+setupSpriteAnim(0x0E, True)
 
 # print(sym.getSymbol(0x20, 0x74C8, 'X'))
 

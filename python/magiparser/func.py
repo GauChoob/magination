@@ -1,3 +1,4 @@
+import os
 from pyparsing import ParserElement, MatchFirst, Group, delimitedList, Literal, Optional
 import sys
 from magiparser.primitives import ExplicitRaw, Text, ImplicitRaw, ResultsHandler, FuncName
@@ -177,7 +178,7 @@ class FuncHandler(ResultsHandler):
 
     def ThisSetAnimSingle(self):            # 0x14
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(0)
 
     # 0x15
     # 0x16
@@ -363,15 +364,15 @@ class FuncHandler(ResultsHandler):
 
     def WaitEventMaster(self):              # 0x60
         self.size = 2
-        return self.GenerateOutput()
+        return self.GenerateOutput(*range(1))
 
     def WaitEventScroll(self):              # 0x61
         self.size = 2
-        return self.GenerateOutput()
+        return self.GenerateOutput(*range(1))
 
     def WaitEventText(self):                # 0x62
         self.size = 2
-        return self.GenerateOutput()
+        return self.GenerateOutput(*range(1))
 
     def LoadFullTilemap(self):              # 0x63
         self.size = 4
@@ -656,6 +657,11 @@ class FuncHandler(ResultsHandler):
     def Move(self):                         # null
         self.size = 3
         return self.GenerateOutput(0, 1, 2)
+
+    def INCSPRITE(self):
+        filesize = os.path.getsize(self.params[0].raw.strip('"'))
+        self.size = 1 + filesize
+        return self.GenerateOutput(0)
 
     def HeaderSceneData(self):
         self.size = 3*5

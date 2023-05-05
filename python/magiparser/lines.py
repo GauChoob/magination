@@ -30,8 +30,8 @@ class BlockHandler(FuncHandler):
 
     def SpriteBlock(self):                  # 0x4D
         self.size = 4
-        entries = sum(1 for line in self.lines if line.name == 'Draw')
-        return self.GenerateOutput(("val", entries), 0, 1, 2)
+        blocksize = 2*sum(1 for line in self.lines if line.name == 'Draw')
+        return self.GenerateOutput(("val", blocksize), 0, 1, 2)
 
     def EndSpriteBlock(self):               # null - no end
         return ""

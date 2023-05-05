@@ -1,0 +1,350 @@
+
+SPRITE_Korg_FaceDownRight::
+    INCSPRITE("assets/sprites/korg/Korg_FaceDownRight.spr")
+
+SPRITE_Korg_FaceDownLeft::
+    INCSPRITE("assets/sprites/korg/Korg_FaceDownLeft.spr")
+
+SPRITE_Korg_FaceUpRight::
+    INCSPRITE("assets/sprites/korg/Korg_FaceUpRight.spr")
+
+SPRITE_Korg_FaceUpLeft::
+    INCSPRITE("assets/sprites/korg/Korg_FaceUpLeft.spr")
+
+SPRITE_Korg_WalkDown1::
+    INCSPRITE("assets/sprites/korg/Korg_WalkDown1.spr")
+
+SPRITE_Korg_FaceDown::
+    INCSPRITE("assets/sprites/korg/Korg_FaceDown.spr")
+
+SPRITE_Korg_WalkDown2::
+    INCSPRITE("assets/sprites/korg/Korg_WalkDown2.spr")
+
+SPRITE_Korg_WalkUp1::
+    INCSPRITE("assets/sprites/korg/Korg_WalkUp1.spr")
+
+SPRITE_Korg_FaceUp::
+    INCSPRITE("assets/sprites/korg/Korg_FaceUp.spr")
+
+SPRITE_Korg_WalkUp2::
+    INCSPRITE("assets/sprites/korg/Korg_WalkUp2.spr")
+
+SPRITE_Korg_WalkRight1::
+    INCSPRITE("assets/sprites/korg/Korg_WalkRight1.spr")
+
+SPRITE_Korg_FaceRight::
+    INCSPRITE("assets/sprites/korg/Korg_FaceRight.spr")
+
+SPRITE_Korg_WalkRight2::
+    INCSPRITE("assets/sprites/korg/Korg_WalkRight2.spr")
+
+SPRITE_Korg_WalkLeft1::
+    INCSPRITE("assets/sprites/korg/Korg_WalkLeft1.spr")
+
+SPRITE_Korg_FaceLeft::
+    INCSPRITE("assets/sprites/korg/Korg_FaceLeft.spr")
+
+SPRITE_Korg_WalkLeft2::
+    INCSPRITE("assets/sprites/korg/Korg_WalkLeft2.spr")
+
+SPRITE_Korg_OuchRight::
+    INCSPRITE("assets/sprites/korg/Korg_OuchRight.spr")
+
+SPRITE_Korg_OuchLeft::
+    INCSPRITE("assets/sprites/korg/Korg_OuchLeft.spr")
+
+SPRITE_KorgSwim_FloatRight1::
+    INCSPRITE("assets/sprites/korg/KorgSwim_FloatRight1.spr")
+
+SPRITE_KorgSwim_FloatRight2::
+    INCSPRITE("assets/sprites/korg/KorgSwim_FloatRight2.spr")
+
+SPRITE_KorgSwim_FloatLeft1::
+    INCSPRITE("assets/sprites/korg/KorgSwim_FloatLeft1.spr")
+
+SPRITE_KorgSwim_FloatLeft2::
+    INCSPRITE("assets/sprites/korg/KorgSwim_FloatLeft2.spr")
+
+SPRITE_KorgBattle_IdleDownRight::
+    INCSPRITE("assets/sprites/korg/KorgBattle_IdleDownRight.spr")
+
+SPRITE_KorgBattle_IdleDownLeft::
+    INCSPRITE("assets/sprites/korg/KorgBattle_IdleDownLeft.spr")
+
+SPRITE_KorgBattle_Victory::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Victory.spr")
+
+SPRITE_KorgBattle_Defeat::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Defeat.spr")
+
+SPRITE_KorgBattle_Taunt1::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Taunt1.spr")
+
+SPRITE_KorgBattle_Taunt4::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Taunt4.spr")
+
+SPRITE_KorgBattle_Taunt3::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Taunt3.spr")
+
+SPRITE_KorgBattle_Taunt2::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Taunt2.spr")
+
+SPRITE_KorgBattle_Summon1::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Summon1.spr")
+
+SPRITE_KorgBattle_Summon2::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Summon2.spr")
+
+SPRITE_KorgBattle_Summon3::
+    INCSPRITE("assets/sprites/korg/KorgBattle_Summon3.spr")
+
+SPRITE_KorgBattle_IdleDown::
+    INCSPRITE("assets/sprites/korg/KorgBattle_IdleDown.spr")
+
+SCRIPT_ANIM_Korg_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Korg_WalkUp1)
+        Draw(SPRITE_Korg_FaceUp)
+        Draw(SPRITE_Korg_WalkUp2)
+        Draw(SPRITE_Korg_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korg_WalkUp)
+
+SCRIPT_ANIM_Korg_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Korg_WalkDown1)
+        Draw(SPRITE_Korg_FaceDown)
+        Draw(SPRITE_Korg_WalkDown2)
+        Draw(SPRITE_Korg_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korg_WalkDown)
+
+SCRIPT_ANIM_Korg_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Korg_WalkLeft1)
+        Draw(SPRITE_Korg_FaceLeft)
+        Draw(SPRITE_Korg_WalkLeft2)
+        Draw(SPRITE_Korg_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_WalkLeft)
+
+SCRIPT_ANIM_Korg_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Korg_WalkRight1)
+        Draw(SPRITE_Korg_FaceRight)
+        Draw(SPRITE_Korg_WalkRight2)
+        Draw(SPRITE_Korg_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_WalkRight)
+
+SCRIPT_ANIM_Korg_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Korg_WalkUp1)
+        Draw(SPRITE_Korg_FaceUp)
+        Draw(SPRITE_Korg_WalkUp2)
+        Draw(SPRITE_Korg_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korg_RunUp)
+
+SCRIPT_ANIM_Korg_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Korg_WalkDown1)
+        Draw(SPRITE_Korg_FaceDown)
+        Draw(SPRITE_Korg_WalkDown2)
+        Draw(SPRITE_Korg_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korg_RunDown)
+
+SCRIPT_ANIM_Korg_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Korg_WalkLeft1)
+        Draw(SPRITE_Korg_FaceLeft)
+        Draw(SPRITE_Korg_WalkLeft2)
+        Draw(SPRITE_Korg_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_RunLeft)
+
+SCRIPT_ANIM_Korg_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Korg_WalkRight1)
+        Draw(SPRITE_Korg_FaceRight)
+        Draw(SPRITE_Korg_WalkRight2)
+        Draw(SPRITE_Korg_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_RunRight)
+
+SCRIPT_ANIM_Korg_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceUp)
+
+SCRIPT_ANIM_Korg_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceDown)
+
+SCRIPT_ANIM_Korg_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceLeft)
+
+SCRIPT_ANIM_Korg_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceRight)
+
+SCRIPT_ANIM_Korg_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceUpLeft)
+
+SCRIPT_ANIM_Korg_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceUpRight)
+
+SCRIPT_ANIM_Korg_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceDownLeft)
+
+SCRIPT_ANIM_Korg_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_FaceDownRight)
+
+SCRIPT_ANIM_Korg_BeatLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_OuchLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_BeatLeft)
+
+SCRIPT_ANIM_Korg_BeatRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Korg_OuchRight)
+    }
+    Jump(SCRIPT_ANIM_Korg_BeatRight)
+
+SCRIPT_ANIM_Korg_FlyAway::
+    SpriteBlock(4, 1, -4) {
+        Draw(SPRITE_Korg_OuchRight)
+        Draw(SPRITE_Korg_OuchLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_FlyAway)
+
+SCRIPT_ANIM_Korg_FallDown::
+    SpriteBlock(4, 0, 4) {
+        Draw(SPRITE_Korg_OuchRight)
+        Draw(SPRITE_Korg_OuchLeft)
+    }
+    Jump(SCRIPT_ANIM_Korg_FallDown)
+
+SCRIPT_ANIM_KorgSwim_FloatLeft::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_KorgSwim_FloatLeft1)
+        Draw(SPRITE_KorgSwim_FloatLeft2)
+    }
+    Jump(SCRIPT_ANIM_KorgSwim_FloatLeft)
+
+SCRIPT_ANIM_KorgSwim_FloatRight::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_KorgSwim_FloatRight1)
+        Draw(SPRITE_KorgSwim_FloatRight2)
+    }
+    Jump(SCRIPT_ANIM_KorgSwim_FloatRight)
+
+SCRIPT_ANIM_KorgBattle_Idle::
+    SpriteDraw() {
+        MoveDraw(128, 0, 0, SPRITE_KorgBattle_IdleDown)
+        MoveDraw(96, 0, 0, SPRITE_KorgBattle_IdleDownLeft)
+        MoveDraw(128, 0, 0, SPRITE_KorgBattle_IdleDown)
+        MoveDraw(96, 0, 0, SPRITE_KorgBattle_IdleDownRight)
+    }
+    Jump(SCRIPT_ANIM_KorgBattle_Idle)
+
+SCRIPT_ANIM_KorgBattle_Taunt::
+    SpriteDraw() {
+        MoveDraw(16, 0, 0, SPRITE_KorgBattle_Taunt1)
+        MoveDraw(32, 0, 0, SPRITE_KorgBattle_Taunt2)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_KorgBattle_Taunt3)
+        MoveDraw(4, 0, 0, SPRITE_KorgBattle_Taunt4)
+        MoveDraw(16, 0, 0, SPRITE_KorgBattle_Taunt3)
+        MoveDraw(16, 0, 0, SPRITE_KorgBattle_Taunt2)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_KorgBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_KorgBattle_Summon1)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon3)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon1)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon3)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon1)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon3)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon1)
+        Draw(SPRITE_KorgBattle_Summon2)
+        Draw(SPRITE_KorgBattle_Summon3)
+        Draw(SPRITE_KorgBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_KorgBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_KorgBattle_Idle)
+
+SCRIPT_ANIM_KorgBattle_Victory::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KorgBattle_Victory)
+    }
+    Jump(SCRIPT_ANIM_KorgBattle_Defeat)
+
+SCRIPT_ANIM_KorgBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KorgBattle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_KorgBattle_Defeat)
+
+SCRIPT_ANIM_Korg_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korg_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korg_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korg_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Korg_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
