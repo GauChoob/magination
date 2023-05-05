@@ -10,28 +10,28 @@ msSplashStartScreen::
         LoadFullTilemap(ATTRTILE_InteractiveImaginationLogoRLE)
         PalClearAnim(0,8,WHITE_A)
         SetCamera($00, $00)
-    ExitSingleThreadMode()
+    SceneReady()
 
-    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8) ;Fade q3cycles x $20
+    PalFadeAnimToBase(3,$20,0,8) ;Fade q3cycles x $20
 
     Delay(90)
 
     PalClearBase(0,8,WHITE_A)
-    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+    PalFadeAnimToBase(3,$20,0,8)
 
     ResetThenSingleThreadMode()
         LoadBitmapSet(BITSET_SplashScreen,PAL_MusyX)
         LoadFullTilemap(ATTRTILE_MusyXRLE)
         PalClearAnim(0,8,WHITE_A)
         SetCamera($00, $00)
-    ExitSingleThreadMode()
+    SceneReady()
 
-    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+    PalFadeAnimToBase(3,$20,0,8)
 
     Delay(90)
 
     PalClearBase(0,8,WHITE_A)
-    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
+    PalFadeAnimToBase(3,$20,0,8)
 
     ResetThenSingleThreadMode()
         LoadSpritePalette(PAL_AllSprites)
@@ -100,9 +100,9 @@ msSplashStartScreen::
         SetCamera($00,$00)
         StartSong(SONGID_DreamCreature)
 
-    ExitSingleThreadMode()
+    SceneReady()
 
-    FadeBackgroundPalettesTowardsBuffer(2,$20,0,8)
+    PalFadeAnimToBase(2,$20,0,8)
     
     ThatStart($03)
 
@@ -120,8 +120,8 @@ msSplashStartScreen::
 .StartScreenFadeOut:
     ; Activated when the player presses Start
     PalClearBase(0,16,WHITE_A)
-    FadeBackgroundPalettesTowardsBuffer(3,$20,0,8)
-    FadeBackgroundPalettesTowardsBuffer(2,$20,8,8)
+    PalFadeAnimToBase(3,$20,0,8)
+    PalFadeAnimToBase(2,$20,8,8)
     Jump(msGameEntrance)
 
     ; $7368

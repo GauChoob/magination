@@ -150,14 +150,12 @@ class MagiScriptLine:
         0x48: CommandBuilder("func", "Pass"),
 
         0x4B: CommandBuilder("block", "Switch", "MATH"),
-
         0x4C: CommandBuilder("block", "SpriteDraw"),
         0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "-db", "-db"),
         0x4E: CommandBuilder("block", "SpriteInvisible"),
         0x4F: CommandBuilder("block", "OverlayDraw"),
         0x50: CommandBuilder("func", "OverlayInit", "RAMAddress", "$db", "$db", "$db", "BankAddress_SCRIPT_ACTORSCRIPT0"),
         0x51: CommandBuilder("func", "OverlayInvisible"),
-
         0x52: CommandBuilder("func", "ClearSync", "db"),
         0x53: CommandBuilder("func", "SetAnyEventMaster"),
         0x54: CommandBuilder("func", "SetAnyEventScroll"),
@@ -175,24 +173,30 @@ class MagiScriptLine:
         0x60: CommandBuilder("func", "WaitEventMaster", "db"),
         0x61: CommandBuilder("func", "WaitEventScroll", "db"),
         0x62: CommandBuilder("func", "WaitEventText", "db"),
-
         0x63: CommandBuilder("func", "LoadFullTilemap", "AddressBank_ATTRTILE_RLE"),
         0x64: CommandBuilder("func", "LoadHotspots", "HotspotTableAddress"),
-
         0x65: CommandBuilder("func", "LoadScene", "AddressBank_SCENE"),
         0x66: CommandBuilder("func", "LoadSpritePalette", "AddressBank_PAL8"),
-
+        0x67: CommandBuilder("func", "LoadMap", "AddressBank_METAMAP", "AddressBank_COLLMAP"),
         0x68: CommandBuilder("func", "LoadMapMask", "AddressBank_METAMAP_MASK", "AddressBank_COLLMAP_MASK"),
         0x69: CommandBuilder("func", "LoadTriggers", "TriggerTableAddress"),
         0x6A: CommandBuilder("func", "LoadBitmapSet", "AddressBank_BITSET", "AddressBank_PAL"),
-        0x6B: CommandBuilder("func", "LoadBitmap", "$db", "BankAddress_BITMAP", "$dw", "$db"),
+        0x6B: CommandBuilder("func", "LoadSingleBitmap", "$db", "BankAddress_BITMAP", "$dw", "$db"),
 
         0x6E: CommandBuilder("func", "PalClearBase", "Palette_PackedInterval", "Color"),
         0x6F: CommandBuilder("func", "PalClearAnim", "Palette_PackedInterval", "Color"),
-
+        0x70: CommandBuilder("func", "PalCreatureCycle", "Palette_PackedLoop", "CreatureSide"),
+        0x71: CommandBuilder("func", "PalCreatureFadeUniColor", "Palette_PackedLoop", "Color", "CreatureSide"),
+        0x72: CommandBuilder("func", "PalCreatureFadeMultiColor", "Palette_PackedLoop", "CreatureSide"),
         0x73: CommandBuilder("func", "PalCreatureLoad", "AddressBank_PALCREATURE", "CreatureSide"),
-
-        0x76: CommandBuilder("func", "FadeBackgroundPalettesTowardsBuffer", "SmallBigLoop", "Palette_PackedInterval"),
+        0x74: CommandBuilder("func", "PalCreatureFlash", "Palette_PackedLoop", "Palette_SwapType", "CreatureSide"),
+        0x75: CommandBuilder("func", "PalCreatureInvert", "CreatureSide"),
+        0x76: CommandBuilder("func", "PalFadeAnimToBase", "Palette_PackedLoop", "Palette_PackedInterval"),
+        0x77: CommandBuilder("func", "PalFadeAnimToColor", "Palette_PackedLoop", "Palette_PackedInterval", "Color"),
+        0x78: CommandBuilder("func", "PalLoad", "AddressBank_PAL", "Palette_PackedInterval"),
+        0x79: CommandBuilder("func", "PalRefresh", "Palette_PackedInterval"),
+        0x7A: CommandBuilder("func", "PalCycle", "Palette_PackedLoop", "Palette_PackedInterval", "Palette_CyclePattern"),
+        0x7B: CommandBuilder("func", "PalInvert", "Palette_PackedInterval"),
 
         0x7E: CommandBuilder("func", "TransplantMap", "$dw", "$db", "$db", "$dw", "$db", "$db"),
         0x7F: CommandBuilder("func", "TransplantMapMask", "$dw", "$db", "$db", "$dw", "$db", "$db"),
@@ -207,13 +211,14 @@ class MagiScriptLine:
         0x89: CommandBuilder("func", "LoadGame"),
         0x8A: CommandBuilder("func", "CopyLoadGame"),
 
-        0x8C: CommandBuilder("func", "MusicMenu", "MusicMenu"),
+        0x8C: CommandBuilder("func", "MusicMenu", "MusicMenu"),  # TODO finalize
 
         0x91: CommandBuilder("func", "NewGame", "db"),  # TODO boolean how?
         0x92: CommandBuilder("func", "SaveGame", "SaveGameTODO ?boolean 1,0 or other?"),
         0x93: CommandBuilder("func", "SceneNew"),
-        0x94: CommandBuilder("func", "ExitSingleThreadMode"),
-
+        0x94: CommandBuilder("func", "SceneReady"),
+        0x95: CommandBuilder("func", "SetItemSpellMapError", "BankAddress_SCRIPT_ITEMSPELLMAPERROR"),
+        0x96: CommandBuilder("func", "SaveLocation", "BankAddress_SCRIPT_SCENELOADER"),
         0x97: CommandBuilder("func", "Reset"),
         0x98: CommandBuilder("func", "FormatChar", "Address_VARDB"),
         0x99: CommandBuilder("func", "Clear"),
@@ -228,13 +233,13 @@ class MagiScriptLine:
         0xA2: CommandBuilder("func", "TriggerAlways", "Varbit", "BankAddress_SCRIPT_TRIGGERALREADYON", "$db", "$dw"),
         0xA3: CommandBuilder("func", "TriggerOnce", "Varbit", "BankAddress_SCRIPT_TRIGGERALREADYON", "$db", "$dw"),
         0xA4: CommandBuilder("func", "Treasure", "Varbit", "$db", "$db", "$dw"),
-        0xA5: CommandBuilder("func", "VarBit", "Varbit", "MATH"),
+        0xA5: CommandBuilder("func", "VarBitExpr", "Varbit", "MATH"),
         0xA6: CommandBuilder("func", "VarByteExpr", "Address_xVARBYTE", "MATH"),
         0xA7: CommandBuilder("func", "VarWordExpr", "Address_xVARWORD", "MATH"),
         0xA8: CommandBuilder("func", "NextGameCount"),
         0xA9: CommandBuilder("func", "SetGameCount", "db"),
-        0xAA: CommandBuilder("func", "SetFarByte", "AddressBank_WRAM", "$db"),
-        0xAB: CommandBuilder("func", "SetFarWord", "AddressBank_WRAM", "$dw"),
+        0xAA: CommandBuilder("func", "SetWramByte", "AddressBank_WRAM", "$db"),
+        0xAB: CommandBuilder("func", "SetWramWord", "AddressBank_WRAM", "$dw"),
         0xAC: CommandBuilder("func", "SetByte", "RAMAddress", "$db"),
         0xAD: CommandBuilder("func", "SetWord", "RAMAddress", "$dw"),
         0xAE: CommandBuilder("func", "AndByte", "RAMAddress", "%db"),
@@ -242,7 +247,7 @@ class MagiScriptLine:
     }
 
     def isEnd(self):
-        """Returns True if the name of the function """
+        """Returns True if the function always changes the reading frame"""
         return self.name in [
             "End",
             "Reset",
@@ -456,7 +461,7 @@ class MagiScriptLine:
                 assert 2**bit == mask  # Make sure the mask only refers to a single bit
                 return["/".join(sym.getVarbit(address, bit))]
 
-            # Packed Objects: Palette, Color, SmallBigLoop, SongFadeInterval, PortraitAddressBank
+            # Packed Objects: Palette, Color, Palette_PackedLoop, SongFadeInterval, PortraitAddressBank
             elif(instruction == "Palette_PackedInterval"):
                 packed = getByte()
                 index = (packed & 0b11110000) >> 4
@@ -469,7 +474,7 @@ class MagiScriptLine:
                 else:
                     r, g, b, a = color.Color(packed).get_RGBA()
                     return ["${:02X}".format(r), "${:02X}".format(g), "${:02X}".format(b), str(a)]
-            elif(instruction == "SmallBigLoop"):
+            elif(instruction == "Palette_PackedLoop"):
                 packed = getByte()
                 framedelay = ((packed & (0b11000000)) >> 6) + 1
                 totaliterations = packed & (0b00111111)
@@ -513,6 +518,11 @@ class MagiScriptLine:
             elif(instruction == "CreatureSide"):
                 val = getByte()
                 return [["LEFT", "RIGHT"][val]]
+            elif(instruction == "Palette_SwapType"):
+                val = getByte()
+                if val == 0:
+                    raise NotImplementedError  # 0 ->"RGB" but it's supposed to be accessed as 4 instead
+                return [[None, "RB", "BG", "RG_Bugged", "RGB"][val]]
 
             # Special Objects
             elif(instruction == "TextMenu"):
@@ -520,7 +530,7 @@ class MagiScriptLine:
                 assert 4 >= size >= 2
 
                 out = []
-                for i in range(size):
+                for _ in range(size):
                     out.extend(self._interpretInstruction("BankAddress_SCRIPT"))
                 return out
             elif(instruction == "MusicMenu"):
@@ -528,7 +538,7 @@ class MagiScriptLine:
                 songcount = getByte()
                 assert size == 1 + songcount*0x0E
                 songlist = []
-                for i in range(songcount):
+                for _ in range(songcount):
                     songid = self._interpretInstruction("SONGID")[0]
                     name = getString(0x0D)
                     songlist.extend([songid, name])
@@ -537,13 +547,13 @@ class MagiScriptLine:
             elif(instruction == "RANDLONGJUMP"):
                 size = getByte()
                 addresslist = []
-                for i in range(size):
+                for _ in range(size):
                     bank = getByte()
                     address = getWord()
                     addresslist.append(interpretBankAddress(bank, address, "SCRIPT"))
                 return addresslist
             elif(instruction == "silent_byte"):
-                # Save the value but don't add it to args
+                # Save the value but don't add it to args, so it can be modified by functions within a block
                 self.param = getByte()
                 return []
 
@@ -555,36 +565,26 @@ class MagiScriptLine:
 
                 val = getWord()
                 if self.args[0] == '#{}#'.format(MagiScriptMath.GETHERODIRECTION):
-                    # Special case where the Switch is to check the direction the hero is facing
+                    # Special case where the Switch is #DIRECTION# to check the direction the hero is facing
                     val = ['Expr_DIRECTION_UP', 'Expr_DIRECTION_LEFT', 'Expr_DIRECTION_RIGHT', 'Expr_DIRECTION_DOWN'][val]
                 else:
                     val = str(val)
 
                 address = getWord()
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([val, interpretBankAddress(bank, address, "SCRIPT")]))]
-            elif(instruction == "func_ScrollMap"):
+            elif(instruction in ["func_OverlayDraw", "func_SpriteDraw"]):
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                frameN = "${:02X}".format(frameN)
-                xscroll = self._interpretInstruction("-db")[0]
-                yscroll = self._interpretInstruction("-db")[0]
-                return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([frameN, xscroll, yscroll]))]
-            elif(instruction == "func_OverlayDraw" or instruction == "func_SpriteDraw"):
-                frameN = getByte()
-                if(frameN == 0x00):
-                    return []  # End
-                # frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}MoveDraw({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY, sprite_data]))]
-            elif(instruction == "func_SpriteInvisible"):
+            elif(instruction in ["func_SpriteInvisible", "func_ScrollMap"]):
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
-                # frameN = "${:02X}".format(frameN)
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]

@@ -13,18 +13,50 @@ Lines = Forward()
 
 class BlockHandler(FuncHandler):
     def Switch(self):                       # 0x4B
-        self.size = 1  # +math
+        self.size = 1  # + math
         return self.GenerateOutput(0)
 
     def EndSwitch(self):                    # 0xFF
         self.post_size = 1
         return self.GenerateEndOutput()
 
-    def CurObjMoveDraw(self):               # 0x4C
+    def SpriteDraw(self):                   # 0x4C
         self.size = 1
         return self.GenerateOutput()
 
-    def EndCurObjMoveDraw(self):            # 0x00
+    def EndSpriteDraw(self):                # 0x00
+        self.post_size = 1
+        return self.GenerateEndOutput()
+
+    def SpriteBlock(self):                  # 0x4D
+        self.size = 4
+        entries = sum(1 for line in self.lines if line.name == 'Draw')
+        return self.GenerateOutput(("val", entries), 0, 1, 2)
+
+    def EndSpriteBlock(self):               # null - no end
+        return ""
+
+    def SpriteInvisible(self):              # 0x4E
+        self.size = 1
+        return self.GenerateOutput()
+
+    def EndSpriteInvisible(self):           # 0x00
+        self.post_size = 1
+        return self.GenerateOutput()
+
+    def OverlayDraw(self):                  # 0x4F
+        self.size = 1
+        return self.GenerateOutput()
+
+    def EndOverlayDraw(self):               # 0x00
+        self.post_size = 1
+        return self.GenerateEndOutput()
+
+    def ScrollMap(self):                    # 0x83
+        self.size = 1
+        return self.GenerateOutput()
+
+    def EndScrollMap(self):                 # 0x00
         self.post_size = 1
         return self.GenerateEndOutput()
 
@@ -52,7 +84,7 @@ class BlockHandler(FuncHandler):
         self.lines = getattr(self.tokens, 'lines', {"lines": []}).lines
         self.name = self.tokens.name.text
         self.text = self.name + "(" + ', '.join([a.text for a in self.params]) + "){" + "\n".join([a.text for a in self.lines]) + "\n}"
-        self.post_size = 1
+        self.post_size = 0
         self.addressend = 0
         self.type = "block"
         self.getOutput()  # Updates the size parameter

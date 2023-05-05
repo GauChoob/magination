@@ -8,27 +8,19 @@ msSplashStartScreen::
 
     LoadFullTilemap ATTRTILE_InteractiveImaginationLogoRLE  ; $724F
 
-    PalClearAnim                                            ; $7253
-        Palette_PackedInterval 0, 8
-        RGBA $1F, $1F, $1F, 0
+    PalClearAnim 0, 8, $1F, $1F, $1F, 0                     ; $7253
 
     SetCamera $00, $00                                      ; $7257
 
-    ExitSingleThreadMode                                    ; $725A
+    SceneReady                                              ; $725A
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $725B
-        Palette_PackedLoop 3, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 3, $20, 0, 8                          ; $725B
 
     Delay 90                                                ; $725E
 
-    PalClearBase                                            ; $7260
-        Palette_PackedInterval 0, 8
-        RGBA $1F, $1F, $1F, 0
+    PalClearBase 0, 8, $1F, $1F, $1F, 0                     ; $7260
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $7264
-        Palette_PackedLoop 3, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 3, $20, 0, 8                          ; $7264
 
     ResetThenSingleThreadMode                               ; $7267
 
@@ -36,27 +28,19 @@ msSplashStartScreen::
 
     LoadFullTilemap ATTRTILE_MusyXRLE                       ; $726F
 
-    PalClearAnim                                            ; $7273
-        Palette_PackedInterval 0, 8
-        RGBA $1F, $1F, $1F, 0
+    PalClearAnim 0, 8, $1F, $1F, $1F, 0                     ; $7273
 
     SetCamera $00, $00                                      ; $7277
 
-    ExitSingleThreadMode                                    ; $727A
+    SceneReady                                              ; $727A
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $727B
-        Palette_PackedLoop 3, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 3, $20, 0, 8                          ; $727B
 
     Delay 90                                                ; $727E
 
-    PalClearBase                                            ; $7280
-        Palette_PackedInterval 0, 8
-        RGBA $1F, $1F, $1F, 0
+    PalClearBase 0, 8, $1F, $1F, $1F, 0                     ; $7280
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $7284
-        Palette_PackedLoop 3, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 3, $20, 0, 8                          ; $7284
 
     ResetThenSingleThreadMode                               ; $7287
 
@@ -128,19 +112,15 @@ msSplashStartScreen::
 
     ThatStart $02                                           ; $733A
 
-    PalClearAnim                                            ; $733C
-        Palette_PackedInterval 0, 8
-        RGBA $1F, $1F, $1F, 0
+    PalClearAnim 0, 8, $1F, $1F, $1F, 0                     ; $733C
 
     SetCamera $00, $00                                      ; $7340
 
     StartSong SONGID_DreamCreature                          ; $7343
 
-    ExitSingleThreadMode                                    ; $7345
+    SceneReady                                              ; $7345
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $7346
-        Palette_PackedLoop 2, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 2, $20, 0, 8                          ; $7346
 
     ThatStart $03                                           ; $7349
 
@@ -158,17 +138,11 @@ msSplashStartScreen::
 
 .StartScreenFadeOut:
 
-    PalClearBase                                            ; $735B
-        Palette_PackedInterval 0, 16
-        RGBA $1F, $1F, $1F, 0
+    PalClearBase 0, 16, $1F, $1F, $1F, 0                    ; $735B
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $735F
-        Palette_PackedLoop 3, $20
-        Palette_PackedInterval 0, 8
+    PalFadeAnimToBase 3, $20, 0, 8                          ; $735F
 
-    FadeBackgroundPalettesTowardsBuffer                     ; $7362
-        Palette_PackedLoop 2, $20
-        Palette_PackedInterval 8, 8
+    PalFadeAnimToBase 2, $20, 8, 8                          ; $7362
 
     Jump msGameEntrance                                     ; $7365
 

@@ -13,12 +13,22 @@ ENDM
 MACRO SongFadeInterval
     ; Used in SongFadeIn and SongFadeOut
     ; \1 = Number of cycles between each delta volume tick
-    ;      stored in the upper 4 nibbles for some reason
+    ;      stored in the upper 4 nibbles because this is how MusyX handles it internally
     ;      I think this is because the song volume is stored in the lower nibble,
     ;           even though both are never used at the same time nor in the same byte
     ASSERT \1 >= 1,"SongFadeInterval must be $01-$10"
     ASSERT \1 <= $10,"SongFadeInterval must be $01-$10"
     db ((\1)-1)*$10
+ENDM
+
+MACRO VarBit
+    ; Gets a label varbit's address and mask
+    ; e.g. LABEL_3 -> %00001000
+    PUSHC
+    SETCHARMAP VARBIT ; Casts a string "0" - "7" into a mask e.g. "3" -> %00001000
+    dw \1
+    db STRSUB("\1", -1)
+    POPC
 ENDM
 
 MACRO dcm_Energy

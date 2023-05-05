@@ -2199,7 +2199,7 @@ jr_000_10FC:
     ret
 
     ;$1141
-    ; Identical to bcExitSingleThreadMode, but not an opcode
+    ; Identical to SceneReady, but not an opcode
     ld a, $01
     ld [wScript_SceneReady], a
     Set16_M hScript.State, Script_Start
@@ -3378,7 +3378,7 @@ Cmd_Palette_ClearBase::
     ;
     ; Arguments:
     ;   db      wTemp_8.Palette_PackedInterval - Represents the palettes that should be modified
-    ;   dw      Color - The 16th bit signifies transparency (wArena_Color is used instead)
+    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wArena_Color is used instead)
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearBaseBuffer
     Set16_M hScript.State, Script_Start
@@ -3389,8 +3389,8 @@ Cmd_Palette_ClearAnim::
     ; Replaces the specified palettes in wPalette_AnimBuffers with a single Color
     ;
     ; Arguments:
-    ;   [wTemp_8.Palette_PackedInterval]
-    ;   [wTemp_A.Unknown]
+    ;   db  [wTemp_8.Palette_PackedInterval]
+    ;   dw  [wTemp_A.Palette_SetColor]
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearAnimBuffer
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
@@ -3549,7 +3549,7 @@ Cmd_Palette_Cycle::
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   db  Palette_PackedInterval
-    ;   db  wTemp_9.Palette_CyclePattern
+    ;   db  wTemp_9.Palette_CyclePattern -> Number of Colors to cycle in each Palette (2 to 4, starting from the right)
     .Init:
         ; First iteration of the command
         Set8 wMenu_MainMenu_FadeEffect, $01

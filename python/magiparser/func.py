@@ -22,7 +22,11 @@ class FuncHandler(ResultsHandler):
 
     parentmap = {
         "Switch": ["Case"],
-        "CurObjMoveDraw": ["MoveDraw"],
+        "SpriteDraw": ["MoveDraw"],
+        "SpriteBlock": ["Draw"],
+        "SpriteInvisible": ["Move"],
+        "OverlayDraw": ["MoveDraw"],
+        "ScrollMap": ["Move"],
     }
 
     def checkValidParent(self):
@@ -72,7 +76,7 @@ class FuncHandler(ResultsHandler):
         for arg in args:
             if isinstance(arg, tuple):
                 if arg[0] == "val":
-                    out += comma + arg[1]
+                    out += comma + str(arg[1])
                     comma = ", "
                     continue
                 raise KeyError
@@ -107,6 +111,20 @@ class FuncHandler(ResultsHandler):
         out = "\n"*linebreaks + self.formatAddAddressAsComment(out)
         return out
 
+    def HeroFromDoor(self):                 # 0x00
+        self.size = 1
+        return self.GenerateOutput()
+
+    def HeroToDoor(self):                   # 0x01
+        self.size = 3
+        return self.GenerateOutput(0, 1)
+
+    def HeroToRelativeDoor(self):           # 0x02
+        self.size = 5
+        return self.GenerateOutput(0, 1, 2, 3)
+    
+    # 0x04
+
     def ThatInit(self):                     # 0x05
         self.size = 15
         return self.GenerateOutput(0, 1, 2, 3, 4, 5, 6, 7)
@@ -139,9 +157,19 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(0)
 
+    # 0x0D
+    # 0x0E
+
     def ThisTeleportTo(self):               # 0x0F
         self.size = 2
         return self.GenerateOutput(0)
+
+    # 0x10
+    # 0x11
+
+    def RestoreActorState(self):            # 0x12
+        self.size = 1
+        return self.GenerateOutput()
 
     def ThisAI(self):                       # 0x13
         self.size = 3
@@ -150,6 +178,9 @@ class FuncHandler(ResultsHandler):
     def ThisSetAnimSingle(self):            # 0x14
         self.size = 4
         return self.GenerateOutput(0, 1)
+
+    # 0x15
+    # 0x16
 
     def ThisLoc(self):                      # 0x17
         self.size = 7
@@ -162,6 +193,10 @@ class FuncHandler(ResultsHandler):
     def ThisDelete(self):                   # 0x19
         self.size = 1
         return self.GenerateOutput()
+
+    def ThisWaitTile(self):                 # 0x1A
+        self.size = 2
+        return self.GenerateOutput(0)
 
     def StartSFX1(self):                    # 0x1B
         self.size = 2
@@ -203,12 +238,26 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(0)
 
+    # 0x25 - 0x2F
+
+    def BattleSwirl(self):                  # 0x30
+        self.size = 4
+        return self.GenerateOutput(0, 1)
+
+    # 0x31 - 0x33
+
     def LoadSideScroller(self):             # 0x34
         self.size = 2
         return self.GenerateOutput(0)
 
+    # 0x35 - 0x3F
+
     def Delay(self):                        # 0x40
         self.size = 2
+        return self.GenerateOutput(0)
+
+    def RandDelay(self):                    # 0x41
+        self.size = 3
         return self.GenerateOutput(0)
 
     def End(self):                          # 0x42
@@ -232,7 +281,107 @@ class FuncHandler(ResultsHandler):
         self.size = 3
         return self.GenerateOutput(0)
 
+    def RandLongJump(self):                 # 0x47
+        entries = len(self.params) - 1
+        assert 1 <= entries <= 16
+        self.size = 2 + 3*entries
+        return self.GenerateOutput(*range(entries))
+
+    def Pass(self):                         # 0x48
+        self.size = 1
+        return self.GenerateOutput()
+
+    # def Switch BLOCK                      # 0x4B
+    # def SpriteDraw BLOCK                  # 0x4C
+    # def SpriteBlock BLOCK                 # 0x4D
+    # def SpriteInvisible BLOCK             # 0x4E
+    # def OverlayDraw BLOCK                 # 0x4F
+
+    def OverlayInit(self):                  # 0x50
+        self.size = 9
+        return self.GenerateOutput(0, 1, 2, 3, 4)
+
+    def OverlayInvisible(self):             # 0x51
+        self.size = 1
+        return self.GenerateOutput()
+
+    def ClearSync(self):                    # 0x52
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SetAnyEventMaster(self):            # 0x53
+        self.size = 1
+        return self.GenerateOutput()
+
+    def SetAnyEventScroll(self):            # 0x54
+        self.size = 1
+        return self.GenerateOutput()
+
+    def SetAnyEventText(self):              # 0x55
+        self.size = 1
+        return self.GenerateOutput()
+
+    def SetEventMaster(self):               # 0x56
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SetEventScroll(self):               # 0x57
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SetEventText(self):                 # 0x58
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SetScriptMaster(self):              # 0x59
+        self.size = 4
+        return self.GenerateOutput(0)
+
+    def SetScriptScroll(self):              # 0x5A
+        self.size = 4
+        return self.GenerateOutput(0)
+
+    def SetScriptText(self):                # 0x5B
+        self.size = 4
+        return self.GenerateOutput(0)
+
+    def Sync(self):                         # 0x5C
+        self.size = 3
+        return self.GenerateOutput(0, 1)
+
+    def WaitAnyEventMaster(self):           # 0x5D
+        self.size = 1
+        return self.GenerateOutput()
+
+    def WaitAnyEventScroll(self):           # 0x5E
+        self.size = 1
+        return self.GenerateOutput()
+
+    def WaitAnyEventText(self):             # 0x5F
+        self.size = 1
+        return self.GenerateOutput()
+
+    def WaitEventMaster(self):              # 0x60
+        self.size = 2
+        return self.GenerateOutput()
+
+    def WaitEventScroll(self):              # 0x61
+        self.size = 2
+        return self.GenerateOutput()
+
+    def WaitEventText(self):                # 0x62
+        self.size = 2
+        return self.GenerateOutput()
+
     def LoadFullTilemap(self):              # 0x63
+        self.size = 4
+        return self.GenerateOutput(0)
+
+    def LoadHotspots(self):                 # 0x64
+        self.size = 3
+        return self.GenerateOutput(0)
+
+    def LoadScene(self):                    # 0x65
         self.size = 4
         return self.GenerateOutput(0)
 
@@ -240,69 +389,273 @@ class FuncHandler(ResultsHandler):
         self.size = 4
         return self.GenerateOutput(0)
 
+    def LoadMap(self):                  # 0x67
+        self.size = 7
+        return self.GenerateOutput(0, 1)
+
+    def LoadMapMask(self):                  # 0x68
+        self.size = 7
+        return self.GenerateOutput(0, 1)
+
+    def LoadTriggers(self):                 # 0x69
+        self.size = 3
+        return self.GenerateOutput(0)
+
     def LoadBitmapSet(self):                # 0x6A
         self.size = 7
         return self.GenerateOutput(0, 1)
 
+    def LoadSingleBitmap(self):             # 0x6B
+        self.size = 8
+        return self.GenerateOutput(0, 1, 2, 3)
+
+    # 0x6B
+    # 0x6C
+    # 0x6D
+
     def PalClearBase(self):                 # 0x6E
         self.size = 4
-        return self.GenerateOutput("Palette_PackedInterval", 0, 1, "RGBA", 2, 3, 4, 5)
+        return self.GenerateOutput(0, 1, 2, 3, 4, 5)
 
     def PalClearAnim(self):                 # 0x6F
         self.size = 4
-        return self.GenerateOutput("Palette_PackedInterval", 0, 1, "RGBA", 2, 3, 4, 5)
+        return self.GenerateOutput(0, 1, 2, 3, 4, 5)
 
-    def FadeBackgroundPalettesTowardsBuffer(self):  # 0x76
+    def PalCreatureCycle(self):             # 0x70
         self.size = 3
-        return self.GenerateOutput("Palette_PackedLoop", 0, 1, "Palette_PackedInterval", 2, 3)
+        return self.GenerateOutput(0, 1, 2)
+
+    def PalCreatureFadeUniColor(self):      # 0x71
+        self.size = 5
+        return self.GenerateOutput(0, 1, 2, 3, 4, 5, 6)
+
+    def PalCreatureFadeMultiColor(self):    # 0x72
+        self.size = 3
+        return self.GenerateOutput(0, 1, 2)
+
+    def PalCreatureLoad(self):              # 0x73
+        self.size = 5
+        return self.GenerateOutput(0, 1)
+
+    def PalCreatureFlash(self):             # 0x74
+        self.size = 4
+        return self.GenerateOutput(0, 1, 2, 3)
+
+    def PalCreatureInvert(self):            # 0x75
+        self.size = 4
+        return self.GenerateOutput(0)
+
+    def PalFadeAnimToBase(self):            # 0x76
+        self.size = 3
+        return self.GenerateOutput(*range(4))
+
+    def PalFadeAnimToColor(self):           # 0x77
+        self.size = 5
+        return self.GenerateOutput(*range(8))
+
+    def PalLoad(self):                      # 0x78
+        self.size = 5
+        return self.GenerateOutput(*range(3))
+
+    def PalRefresh(self):                   # 0x79
+        self.size = 2
+        return self.GenerateOutput(*range(2))
+
+    def PalCycle(self):                     # 0x7A
+        self.size = 4
+        return self.GenerateOutput(*range(5))
+
+    def PalInvert(self):                     # 0x7B
+        self.size = 2
+        return self.GenerateOutput(*range(2))
+
+    # 0x7C - 0x7D
+
+    def TransplantMap(self):                # 0x7E
+        self.size = 9
+        return self.GenerateOutput(*range(6))
+
+    def TransplantMapMask(self):            # 0x7F
+        self.size = 9
+        return self.GenerateOutput(*range(6))
+
+    def TransplantTile(self):               # 0x80
+        self.size = 7
+        return self.GenerateOutput(*range(5))
+
+    # 0x81
+
+    def HeroSetCamera(self):                # 0x82
+        self.size = 1
+        return self.GenerateOutput()
+
+    # def ScrollMap BLOCK                   # 0x83
 
     def SetCamera(self):                    # 0x84
         self.size = 3
         return self.GenerateOutput(0, 1)
 
+    # 0x85
+
     def ResetThenSingleThreadMode(self):    # 0x86
         self.size = 1
         return self.GenerateOutput()
+
+    # 0x87
+    # 0x88
+
+    def LoadGame(self):                     # 0x89
+        self.size = 1
+        return self.GenerateOutput()
+
+    def CopyLoadGame(self):                 # 0x8A
+        self.size = 1
+        return self.GenerateOutput()
+
+    # 0x8B - 0x90
+
+    def NewGame(self):                      # 0x91
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SaveGame(self):                     # 0x92
+        self.size = 2
+        return self.GenerateOutput(0)
 
     def SceneNew(self):                     # 0x93
         self.size = 1
         return self.GenerateOutput()
 
-    def ExitSingleThreadMode(self):         # 0x94
+    def SceneReady(self):         # 0x94
         self.size = 1
         return self.GenerateOutput()
 
-    def SetFarByte(self):                   # 0xAA
-        self.size = 5
-        return self.GenerateOutput(0, 1)
+    def SetItemSpellMapError(self):         # 0x95
+        self.size = 4
+        return self.GenerateOutput(*range(1))
 
-    def SetFarWord(self):                   # 0xAB
+    def SaveLocation(self):                 # 0x96
+        self.size = 4
+        return self.GenerateOutput(*range(1))
+
+    def Reset(self):                        # 0x97
+        self.size = 1
+        return self.GenerateOutput()
+
+    def FormatChar(self):                   # 0x98
+        self.size = 3
+        return self.GenerateOutput(0)
+
+    def Clear(self):                        # 0x99
+        self.size = 1
+        return self.GenerateOutput()
+
+    def Close(self):                        # 0x9A
+        self.size = 1
+        return self.GenerateOutput()
+
+    def Icon(self):                         # 0x9B
+        self.size = 3
+        return self.GenerateOutput(*range(1))
+
+    def Menu(self):                         # 0x9C
+        entries = len(self.params)
+        assert 2 <= entries <= 4
+        self.size = 2 + 3*entries
+        return self.GenerateOutput(*range(entries))
+
+    def Open(self):                         # 0x9D
+        self.size = 1
+        return self.GenerateOutput()
+
+    def FormatWord(self):                   # 0x9E
+        self.size = 3
+        return self.GenerateOutput(*range(1))
+
+    def Write(self):                        # 0x9F
+        assert "🛑" not in self.params[0]
+        self.size = 2 + len(self.params[0])
+        return self.GenerateOutput(*range(1))
+
+    def ToggleAlways(self):                 # 0xA0
+        self.size = 11
+        return self.GenerateOutput(*range(5))
+
+    def ToggleOnce(self):                   # 0xA1
+        self.size = 11
+        return self.GenerateOutput(*range(5))
+
+    def TriggerAlways(self):                # 0xA2
+        self.size = 10
+        return self.GenerateOutput(*range(4))
+
+    def TriggerOnce(self):                  # 0xA3
+        self.size = 10
+        return self.GenerateOutput(*range(4))
+
+    def Treasure(self):                     # 0xA4
+        self.size = 8
+        return self.GenerateOutput(*range(4))
+
+    def VarBitExpr(self):                   # 0xA5
+        self.size = 4  # + math
+        return self.GenerateOutput(*range(2))
+
+    def VarByteExpr(self):                  # 0xA6
+        self.size = 3  # + math
+        return self.GenerateOutput(*range(2))
+
+    def VarWordExpr(self):                  # 0xA7
+        self.size = 3  # + math
+        return self.GenerateOutput(*range(2))
+
+    def NextGameCount(self):                # 0xA8
+        self.size = 1
+        return self.GenerateOutput()
+
+    def SetGameCount(self):                 # 0xA9
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def SetWramByte(self):                   # 0xAA
+        self.size = 5
+        return self.GenerateOutput(*range(2))
+
+    def SetWramWord(self):                   # 0xAB
         self.size = 6
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def SetByte(self):                      # 0xAC
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def SetWord(self):                      # 0xAD
         self.size = 5
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def AndByte(self):                      # 0xAE
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def OrByte(self):                       # 0xAF
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def Case(self):                         # null
         self.size = 5
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def MoveDraw(self):                     # null
         self.size = 5
         return self.GenerateOutput(0, 1, 2, 3)
+
+    def Draw(self):                         # null
+        self.size = 2
+        return self.GenerateOutput(0)
+
+    def Move(self):                         # null
+        self.size = 3
+        return self.GenerateOutput(0, 1, 2)
 
     def HeaderSceneData(self):
         self.size = 3*5
