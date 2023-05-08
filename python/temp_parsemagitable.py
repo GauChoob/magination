@@ -859,33 +859,223 @@ sprite_anim_params[0x0E] = {
     ]
 }
 
+sprite_anim_params[0x0F] = {
+    'START': 0x4000,
+    'END': 0x7F2C,
+    'SPRITE': [
+        (0x4000, 'Mobis_FaceDownRight'),
+        (0x4019, 'Mobis_FaceDownLeft'),
+        (0x4032, 'Mobis_FaceUpRight'),
+        (0x404B, 'Mobis_FaceUpLeft'),
+        (0x4064, 'Mobis_WalkDown1'),
+        (0x407D, 'Mobis_FaceDown'),
+        (0x4096, 'Mobis_WalkDown2'),
+        (0x40AF, 'Mobis_WalkUp1'),
+        (0x40C8, 'Mobis_FaceUp'),
+        (0x40E1, 'Mobis_WalkUp2'),
+        (0x40FA, 'Mobis_WalkRight1'),
+        (0x4113, 'Mobis_FaceRight'),
+        (0x412C, 'Mobis_WalkRight2'),
+        (0x4145, 'Mobis_WalkLeft1'),
+        (0x415E, 'Mobis_FaceLeft'),
+        (0x4177, 'Mobis_WalkLeft2'),
+
+        (0x4293, 'Morag_FloatDown1'),
+        (0x42B4, 'Morag_FloatDown2'),
+        (0x42D5, 'Morag_FloatDown3'),
+        (0x42F6, 'Morag_FloatRight1'),
+        (0x4317, 'Morag_FloatRight2'),
+        (0x4338, 'Morag_FloatRight3'),
+        (0x4359, 'Morag_FloatLeft1'),
+        (0x437A, 'Morag_FloatLeft2'),
+        (0x439B, 'Morag_FloatLeft3'),
+        (0x43BC, 'Morag_FloatUpRight1'),
+        (0x43DD, 'Morag_FloatUpRight2'),
+        (0x43FE, 'Morag_FloatUpRight3'),
+        (0x441F, 'Morag_FloatUpLeft1'),
+        (0x4440, 'Morag_FloatUpLeft2'),
+        (0x4461, 'Morag_FloatUpLeft3'),
+        (0x4482, 'Morag_FloatUp1'),
+        (0x44A3, 'Morag_FloatUp2'),
+        (0x44C4, 'Morag_FloatUp3'),
+        (0x44E5, 'MoragThrow_Throw1_1'),
+        (0x4506, 'MoragThrow_Throw1_2'),
+        (0x4527, 'MoragThrow_Throw1_3'),
+        (0x4548, 'MoragThrow_Throw2_1'),
+        (0x4569, 'MoragThrow_Throw2_2'),
+        (0x458A, 'MoragThrow_Throw2_3'),
+        (0x45AB, 'MoragThrow_Throw3'),
+        (0x45CC, 'MoragHurt_HurtRight'),
+        (0x45ED, 'MoragHurt_HurtLeft'),
+        (0x460E, 'MoragBattle_IdleDown1'),
+        (0x462F, 'MoragBattle_Taunt1'),
+        (0x4650, 'MoragBattle_Taunt2'),
+        (0x4671, 'MoragBattle_Taunt3'),
+        (0x4692, 'MoragBattle_Defeat'),
+        (0x46A7, 'MoragBattle_IdleDownLEFTORRIGHT_2_1'),
+        (0x46C8, 'MoragBattle_IdleDownLEFTORRIGHT_2_2'),
+        (0x46E9, 'MoragBattle_IdleDownLEFTORRIGHT_2_3'),
+        (0x470A, 'MoragBattle_IdleDownLEFTORRIGHT_1_1'),
+        (0x472B, 'MoragBattle_IdleDownLEFTORRIGHT_1_2'),
+        (0x474C, 'MoragBattle_IdleDownLEFTORRIGHT_1_3'),
+        (0x476D, 'MoragBattle_Summon1'),
+        (0x478E, 'MoragBattle_Summon2'),
+        (0x47B3, 'MoragBattle_Summon3'),
+        (0x47F9, 'MoragBattle_Victory1'),
+        (0x47D8, 'MoragBattle_Victory2'),
+        (0x481A, 'MoragBattle_Victory3'),
+        (0x483B, 'MoragBattle_IdleDown2'),
+        (0x485C, 'MoragBattle_IdleDown3'),
+
+        (0x4B49, 'Ogar_FaceDownRight'),
+        (0x4B62, 'Ogar_FaceDownLeft'),
+        (0x4B7B, 'Ogar_FaceUpRight'),
+        (0x4B90, 'Ogar_FaceUpLeft'),
+        (0x4BA5, 'Ogar_WalkDown1'),
+        (0x4BBA, 'Ogar_FaceDown'),
+        (0x4BD3, 'Ogar_WalkDown2'),
+        (0x4BE8, 'Ogar_WalkUp1'),
+        (0x4BFD, 'Ogar_FaceUp'),
+        (0x4C16, 'Ogar_WalkUp2'),
+        (0x4C2B, 'Ogar_WalkRight1'),
+        (0x4C44, 'Ogar_FaceRight'),
+        (0x4C59, 'Ogar_WalkRight2'),
+        (0x4C72, 'Ogar_WalkLeft1'),
+        (0x4C8B, 'Ogar_FaceLeft'),
+        (0x4CA0, 'Ogar_WalkLeft2'),
+        (0x4CB9, 'OgarBattle_Idle1'),
+        (0x4CD2, 'OgarBattle_Idle2'),
+        (0x4CEB, 'OgarBattle_Victory'),
+        (0x4D00, 'OgarBattle_Defeat'),
+        (0x4D1D, 'OgarBattle_Taunt1'),
+        (0x4D32, 'OgarBattle_Taunt2'),
+        (0x4D47, 'OgarBattle_Taunt3'),
+        (0x4D71, 'OgarBattle_Summon1'),
+        (0x4D8A, 'OgarBattle_Summon2'),
+        (0x4DA7, 'OgarBattle_Summon3'),
+        (0x4D5C, 'OgarBattle_Idle3'),
+    ],
+    'SCRIPT': [
+        (0x4190, 'SCRIPT_ANIM_Mobis_WalkUp'),
+        (0x41A0, 'SCRIPT_ANIM_Mobis_WalkDown'),
+        (0x41B0, 'SCRIPT_ANIM_Mobis_WalkLeft'),
+        (0x41C0, 'SCRIPT_ANIM_Mobis_WalkRight'),
+        (0x41D0, 'SCRIPT_ANIM_Mobis_RunUp'),
+        (0x41E0, 'SCRIPT_ANIM_Mobis_RunDown'),
+        (0x41F0, 'SCRIPT_ANIM_Mobis_RunLeft'),
+        (0x4200, 'SCRIPT_ANIM_Mobis_RunRight'),
+        (0x4210, 'SCRIPT_ANIM_Mobis_FaceUp'),
+        (0x421A, 'SCRIPT_ANIM_Mobis_FaceDown'),
+        (0x4224, 'SCRIPT_ANIM_Mobis_FaceLeft'),
+        (0x422E, 'SCRIPT_ANIM_Mobis_FaceRight'),
+        (0x4238, 'SCRIPT_ANIM_Mobis_FaceUpLeft'),
+        (0x4242, 'SCRIPT_ANIM_Mobis_FaceUpRight'),
+        (0x424C, 'SCRIPT_ANIM_Mobis_FaceDownLeft'),
+        (0x4256, 'SCRIPT_ANIM_Mobis_FaceDownRight'),
+        (0x4260, 'SCRIPT_ANIM_Mobis_FaceHero'),
+        (0x4277, '.FaceUp'),
+        (0x427E, '.FaceDown'),
+        (0x4285, '.FaceLeft'),
+        (0x428C, '.FaceRight'),
+
+        (0x487D, 'SCRIPT_ANIM_Morag_FaceDown'),
+        (0x488D, 'SCRIPT_ANIM_Morag_UNKNOWN_FrozenDown'),
+        (0x4897, 'SCRIPT_ANIM_Morag_FaceUp'),
+        (0x48A7, 'SCRIPT_ANIM_Morag_FaceDownLeft'),
+        (0x48B7, 'SCRIPT_ANIM_Morag_FaceDownRight'),
+        (0x48C7, 'SCRIPT_ANIM_Morag_FaceUpLeft'),
+        (0x48D7, 'SCRIPT_ANIM_Morag_FaceUpRight'),
+        (0x48E7, 'SCRIPT_ANIM_Morag_WalkUp'),
+        (0x48F7, 'SCRIPT_ANIM_Morag_WalkDown'),
+        (0x4907, 'SCRIPT_ANIM_Morag_WalkRight'),
+        (0x4917, 'SCRIPT_ANIM_Morag_WalkLeft'),
+        (0x4927, 'SCRIPT_ANIM_Morag_WalkDownLeft'),
+        (0x4937, 'SCRIPT_ANIM_Morag_WalkDownRight'),
+        (0x4947, 'SCRIPT_ANIM_Morag_WalkUpLeft'),
+        (0x4957, 'SCRIPT_ANIM_Morag_WalkUpRight'),
+        (0x4967, 'SCRIPT_ANIM_MoragThrow_Throw1_Still'),
+        (0x4977, 'SCRIPT_ANIM_MoragThrow_Throw1_Up'),
+        (0x4987, 'SCRIPT_ANIM_MoragThrow_Throw2'),
+        (0x4997, 'SCRIPT_ANIM_MoragThrow_Throw2_UNKNOWN'),
+        (0x49A1, 'SCRIPT_ANIM_MoragThrow_Throw3'),
+        (0x49AB, 'SCRIPT_ANIM_MoragHurt_Flicker'),
+        (0x49B6, 'SCRIPT_ANIM_MoragHurt_HurtLeft'),
+        (0x49E0, '.Loop'),
+        (0x49EA, 'SCRIPT_ANIM_MoragHurt_HurtRight'),
+        (0x4A14, '.Loop'),
+        (0x4A43, '.DownLEFTORRIGHT_1'),
+        (0x4A63, '.DownLEFTORRIGHT_2'),
+        (0x4AF5, '.Loop'),
+
+        (0x4DC4, 'SCRIPT_ANIM_Ogar_WalkUp'),
+        (0x4DD4, 'SCRIPT_ANIM_Ogar_WalkDown'),
+        (0x4DE4, 'SCRIPT_ANIM_Ogar_WalkLeft'),
+        (0x4DF4, 'SCRIPT_ANIM_Ogar_WalkRight'),
+        (0x4E04, 'SCRIPT_ANIM_Ogar_RunUp'),
+        (0x4E14, 'SCRIPT_ANIM_Ogar_RunDown'),
+        (0x4E24, 'SCRIPT_ANIM_Ogar_RunLeft'),
+        (0x4E34, 'SCRIPT_ANIM_Ogar_RunRight'),
+        (0x4E44, 'SCRIPT_ANIM_Ogar_FaceUp'),
+        (0x4E4E, 'SCRIPT_ANIM_Ogar_FaceDown'),
+        (0x4E58, 'SCRIPT_ANIM_Ogar_FaceLeft'),
+        (0x4E62, 'SCRIPT_ANIM_Ogar_FaceRight'),
+        (0x4E6C, 'SCRIPT_ANIM_Ogar_FaceUpLeft'),
+        (0x4E76, 'SCRIPT_ANIM_Ogar_FaceUpRight'),
+        (0x4E80, 'SCRIPT_ANIM_Ogar_FaceDownLeft'),
+        (0x4E8A, 'SCRIPT_ANIM_Ogar_FaceDownRight'),
+        (0x4F56, '.Loop'),
+        (0x4F60, 'SCRIPT_ANIM_Ogar_FaceHero'),
+        (0x4F77, '.FaceUp'),
+        (0x4F7E, '.FaceDown'),
+        (0x4F85, '.FaceLeft'),
+        (0x4F8C, '.FaceRight'),
+
+        (0x524E, 'SCRIPT_ANIM_Orlon_WalkUp'),
+        (0x525E, 'SCRIPT_ANIM_Orlon_WalkDown'),
+        (0x526E, 'SCRIPT_ANIM_Orlon_WalkLeft'),
+        (0x527E, 'SCRIPT_ANIM_Orlon_WalkRight'),
+        (0x528E, 'SCRIPT_ANIM_Orlon_RunUp'),
+        (0x529E, 'SCRIPT_ANIM_Orlon_RunDown'),
+        (0x52AE, 'SCRIPT_ANIM_Orlon_RunLeft'),
+        (0x52BE, 'SCRIPT_ANIM_Orlon_RunRight'),
+        (0x52CE, 'SCRIPT_ANIM_Orlon_FaceUp'),
+        (0x52D8, 'SCRIPT_ANIM_Orlon_FaceDown'),
+        (0x52E2, 'SCRIPT_ANIM_Orlon_FaceLeft'),
+        (0x52EC, 'SCRIPT_ANIM_Orlon_FaceRight'),
+        (0x52F6, 'SCRIPT_ANIM_Orlon_FaceUpLeft'),
+        (0x5300, 'SCRIPT_ANIM_Orlon_FaceUpRight'),
+        (0x530A, 'SCRIPT_ANIM_Orlon_FaceDownLeft'),
+        (0x5314, 'SCRIPT_ANIM_Orlon_FaceDownRight'),
+        (0x531E, 'SCRIPT_ANIM_OrlonRing_MakeRing'),
+        (0x53A0, '.Loop'),
+        (0x53AA, 'SCRIPT_ANIM_OrlonRing_Idle'),
+        (0x53B4, 'SCRIPT_ANIM_OrlonRing_ScreenShake'),
+        (0x53ED, 'SCRIPT_ANIM_Orlon_FaceHero'),
+        (0x5404, '.FaceUp'),
+        (0x540B, '.FaceDown'),
+        (0x5412, '.FaceLeft'),
+        (0x5419, '.FaceRight'),
+    ],
+    'DELETELABELS': [
+        0x4548,
+    ]
+}
+
 
 def setupSpriteAnim(bank, debug):
     params = sprite_anim_params[bank]
     start = BankAddress(bank, params['START'])
     end = BankAddress(bank, params['END'])
+    for addr in params['DELETELABELS']:
+        sym.delSymbol(bank, addr)
     for addr, label in params['SPRITE']:
         sym.replaceSymbol(bank, addr, 'SPRITE_' + label)
     for addr, label in params['SCRIPT']:
         sym.replaceSymbol(bank, addr, label)
-    for addr in params['DELETELABELS']:
-        sym.delSymbol(bank, addr)
     return magireader.interpretSpriteAnim(start, end, sym, debug)
 
 
 table = MainTable(rom)
 with open(config.outdir + 'tempbattle.asm', 'w') as f:
     f.write(table.getOutput())
-setupSpriteAnim(0x0E, True)
-
-# print(sym.getSymbol(0x20, 0x74C8, 'X'))
-
-# for magitable in table.magitables:
-#     print(magitable.anims)
-#     start = magitable.anims[0]
-#     if magitable.name in MagiTable.END_ADDRESSES:
-#         end = MagiTable.END_ADDRESSES[magitable.name]
-#     else:
-#         end = start + 0x200
-#     print(magireader.interpret(magitable.anims[0], end, sym))
-#     input()
+setupSpriteAnim(0x0F, True)
