@@ -21,11 +21,16 @@ class Sprite:
 
         def getBinary(self):
             return struct.pack('bbBB', self.y, self.x, self.tileid, self.attr)
-        
+
         def __str__(self):
-            ysign = '-' if self.y < 0 else ' '
-            xsign = '-' if self.y < 0 else ' '
-            return '    db {}${:02X}, {}${:02X}, ${:02X}, ${:02X}'.format(ysign, abs(self.y), xsign, abs(self.x), self.tileid, self.attr)
+            if True:  # TODO
+                yunsign = self.y + 256 if self.y < 0 else self.y
+                xunsign = self.x + 256 if self.x < 0 else self.x
+                return '    db ${:02X}, ${:02X}, ${:02X}, ${:02X}'.format(yunsign, xunsign, self.tileid, self.attr)
+            else:
+                ysign = '-' if self.y < 0 else ' '
+                xsign = '-' if self.x < 0 else ' '
+                return '    db {}${:02X}, {}${:02X}, ${:02X}, ${:02X}'.format(ysign, abs(self.y), xsign, abs(self.x), self.tileid, self.attr)
 
     EOF_BYTE = -0x80  # Negative because y is signed
 

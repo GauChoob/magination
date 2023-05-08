@@ -295,6 +295,7 @@ class MagiScriptLine:
             print("An error in command {} at {}".format(self.name, curpos))
             raise
 
+        #print(self.name, self.args, curpos)
         self.size = curpos - self.pos
 
     # getOutput functions
@@ -657,8 +658,6 @@ class MagiScriptMath(MagiScriptLine):
             self.args.extend(self._interpretInstruction(instruction))
         rambank = temp_rambank  # Pop the wram bank
 
-        # print(self.getOutput())
-
     # getOutput functions
     def bitmatch(self):
         # TODO - use direction constants?
@@ -704,8 +703,10 @@ class SpriteLine(MagiScriptLine):
         global curpos, rambank
 
         # Get the filename of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet_WalkLeft1)
-        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "ERROR")[0]
+        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SPRITE")[0]
         match = re.search(r'SPRITE_(.*)', symbol)
+        if match is None:
+            raise ValueError('Invalid Label at {}: {}'.format(curpos, symbol))
         self.name = match.group(1)
         self.folder = folder
         self.shortpath = self.name + '.spr'
@@ -745,7 +746,6 @@ def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: util
         sym = _sym
     curpos = startpos
     lines = []
-    print("\n"*3)
     try:
         while curpos != endpos:
             if lines[-1].isEnd():
@@ -772,7 +772,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
 
     def getFolder():
         """Gets the folder of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet)"""
-        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "ERROR")[0]
+        symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SPRITE")[0]
         match = re.search(r'SPRITE_([^_]*).*', symbol)
         return match.group(1)
 
@@ -795,6 +795,13 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
         with open(sprite_mgi_dir + folder.lower() + '.mgi', 'w') as f:
             f.write('\n'.join(line.getOutput() for line in lines))
 
+    def isLikelySprite(val):
+        if val > 0xAF:  # Out of range command
+            return True
+        if val <= 32:  # Heuristic
+            return True
+        return False
+
     if _sym is None:
         sym = utils.SymFile()
     else:
@@ -811,26 +818,26 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
         while curpos < endpos:
             if spriteMode:
                 curbyte = rom.getSignedByte(curpos)
-                if abs(curbyte) > 32:  # heuristic to distinguish script from sprite
+                if not isLikelySprite(curbyte):  # heuristic to distinguish script from sprite
                     spriteMode = False
                     continue
                 lines.append(SpriteLine(folder))
-                print(lines[-1].shortpath)
                 if debug:
                     lines[-1].type = 'debug'
+                    # print(lines[-1].shortpath)
                 else:
                     lines[-1].save()  # Save the .spr file
 
             else:
                 # heuristic to distinguish script from sprite
-                curbyte = rom.getSignedByte(curpos)
+                curbyte = rom.getByte(curpos)
                 if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
                     restore_actor_state_count += 1
                     if restore_actor_state_count % 4 == 0:
                         endBlock()
                         setupBlock()
                         continue
-                elif lines[-1].isEnd() and curbyte <= 32:
+                elif lines[-1].isEnd() and isLikelySprite(curbyte):
                     endBlock()
                     setupBlock()
                     continue
@@ -846,7 +853,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
             bank = startpos.getBank()
             f.write('SECTION "Sprites ${:02X}", ROMX[$4000], BANK[${:02X}]\n\n'.format(bank, bank) + '\n'.join(includes))
         if debug:
-            print(curpos)
+            #print(curpos)
             with open(config.outdir + 'temp.mgi', 'w') as f:
                 f.write('\n'.join([line.getOutput() for line in lines]))
 
