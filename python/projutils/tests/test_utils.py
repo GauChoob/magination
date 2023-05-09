@@ -187,9 +187,6 @@ class TestUtils(unittest.TestCase):
         sym.addSymbol(3, 0x5678, "TEST_LABEL")
         self.assertEqual(sym.getSymbol(3, 0x5678, "X"), ["TEST_LABEL"])
 
-        sym.addSymbol(3, 0x5678, "TEST_LABEL")
-        self.assertEqual(sym.getSymbol(3, 0x5678, "X"), ["TEST_LABEL"])
-
         sym.replaceSymbol(3, 0x5000, 'NewLabel')
         self.assertEqual(sym.getSymbol(3, 0x5000, 'X'), ["NewLabel"])
 
