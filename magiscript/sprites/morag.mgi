@@ -1,0 +1,493 @@
+
+SPRITE_Morag_FloatDown1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatDown1.spr")
+
+SPRITE_Morag_FloatDown2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatDown2.spr")
+
+SPRITE_Morag_FloatDown3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatDown3.spr")
+
+SPRITE_Morag_FloatRight1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatRight1.spr")
+
+SPRITE_Morag_FloatRight2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatRight2.spr")
+
+SPRITE_Morag_FloatRight3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatRight3.spr")
+
+SPRITE_Morag_FloatLeft1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatLeft1.spr")
+
+SPRITE_Morag_FloatLeft2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatLeft2.spr")
+
+SPRITE_Morag_FloatLeft3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatLeft3.spr")
+
+SPRITE_Morag_FloatUpRight1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpRight1.spr")
+
+SPRITE_Morag_FloatUpRight2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpRight2.spr")
+
+SPRITE_Morag_FloatUpRight3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpRight3.spr")
+
+SPRITE_Morag_FloatUpLeft1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpLeft1.spr")
+
+SPRITE_Morag_FloatUpLeft2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpLeft2.spr")
+
+SPRITE_Morag_FloatUpLeft3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUpLeft3.spr")
+
+SPRITE_Morag_FloatUp1::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUp1.spr")
+
+SPRITE_Morag_FloatUp2::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUp2.spr")
+
+SPRITE_Morag_FloatUp3::
+    INCSPRITE("assets/sprites/morag/Morag_FloatUp3.spr")
+
+SPRITE_MoragThrow_Throw1_1::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_1.spr")
+
+SPRITE_MoragThrow_Throw1_2::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_2.spr")
+
+SPRITE_MoragThrow_Throw1_3::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_3.spr")
+
+SPRITE_MoragThrow_Throw2_1::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_1.spr")
+
+SPRITE_MoragThrow_Throw2_2::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_2.spr")
+
+SPRITE_MoragThrow_Throw2_3::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_3.spr")
+
+SPRITE_MoragThrow_Throw3::
+    INCSPRITE("assets/sprites/morag/MoragThrow_Throw3.spr")
+
+SPRITE_MoragHurt_HurtRight::
+    INCSPRITE("assets/sprites/morag/MoragHurt_HurtRight.spr")
+
+SPRITE_MoragHurt_HurtLeft::
+    INCSPRITE("assets/sprites/morag/MoragHurt_HurtLeft.spr")
+
+SPRITE_MoragBattle_IdleDown1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDown1.spr")
+
+SPRITE_MoragBattle_Taunt1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Taunt1.spr")
+
+SPRITE_MoragBattle_Taunt2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Taunt2.spr")
+
+SPRITE_MoragBattle_Taunt3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Taunt3.spr")
+
+SPRITE_MoragBattle_Defeat::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Defeat.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_1.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_2.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_3.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_1.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_2.spr")
+
+SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_3.spr")
+
+SPRITE_MoragBattle_Summon1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Summon1.spr")
+
+SPRITE_MoragBattle_Summon2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Summon2.spr")
+
+SPRITE_MoragBattle_Summon3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Summon3.spr")
+
+SPRITE_MoragBattle_Victory2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Victory2.spr")
+
+SPRITE_MoragBattle_Victory1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Victory1.spr")
+
+SPRITE_MoragBattle_Victory3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_Victory3.spr")
+
+SPRITE_MoragBattle_IdleDown2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDown2.spr")
+
+SPRITE_MoragBattle_IdleDown3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDown3.spr")
+
+SCRIPT_ANIM_Morag_FaceDown::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatDown1)
+        Draw(SPRITE_Morag_FloatDown2)
+        Draw(SPRITE_Morag_FloatDown3)
+        Draw(SPRITE_Morag_FloatDown2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceDown)
+
+SCRIPT_ANIM_Morag_UNKNOWN_FrozenDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Morag_FloatDown1)
+    }
+    Jump(SCRIPT_ANIM_Morag_UNKNOWN_FrozenDown)
+
+SCRIPT_ANIM_Morag_FaceUp::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatUp1)
+        Draw(SPRITE_Morag_FloatUp2)
+        Draw(SPRITE_Morag_FloatUp3)
+        Draw(SPRITE_Morag_FloatUp2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceUp)
+
+SCRIPT_ANIM_Morag_FaceDownLeft::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatLeft1)
+        Draw(SPRITE_Morag_FloatLeft2)
+        Draw(SPRITE_Morag_FloatLeft3)
+        Draw(SPRITE_Morag_FloatLeft2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceDownLeft)
+
+SCRIPT_ANIM_Morag_FaceDownRight::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatRight1)
+        Draw(SPRITE_Morag_FloatRight2)
+        Draw(SPRITE_Morag_FloatRight3)
+        Draw(SPRITE_Morag_FloatRight2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceDownRight)
+
+SCRIPT_ANIM_Morag_FaceUpLeft::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatUpLeft1)
+        Draw(SPRITE_Morag_FloatUpLeft2)
+        Draw(SPRITE_Morag_FloatUpLeft3)
+        Draw(SPRITE_Morag_FloatUpLeft2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceUpLeft)
+
+SCRIPT_ANIM_Morag_FaceUpRight::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Morag_FloatUpRight1)
+        Draw(SPRITE_Morag_FloatUpRight2)
+        Draw(SPRITE_Morag_FloatUpRight3)
+        Draw(SPRITE_Morag_FloatUpRight2)
+    }
+    Jump(SCRIPT_ANIM_Morag_FaceUpRight)
+
+SCRIPT_ANIM_Morag_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Morag_FloatUp1)
+        Draw(SPRITE_Morag_FloatUp2)
+        Draw(SPRITE_Morag_FloatUp3)
+        Draw(SPRITE_Morag_FloatUp2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkUp)
+
+SCRIPT_ANIM_Morag_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Morag_FloatDown1)
+        Draw(SPRITE_Morag_FloatDown2)
+        Draw(SPRITE_Morag_FloatDown3)
+        Draw(SPRITE_Morag_FloatDown2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkDown)
+
+SCRIPT_ANIM_Morag_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Morag_FloatRight1)
+        Draw(SPRITE_Morag_FloatRight2)
+        Draw(SPRITE_Morag_FloatRight3)
+        Draw(SPRITE_Morag_FloatRight2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkRight)
+
+SCRIPT_ANIM_Morag_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Morag_FloatLeft1)
+        Draw(SPRITE_Morag_FloatLeft2)
+        Draw(SPRITE_Morag_FloatLeft3)
+        Draw(SPRITE_Morag_FloatLeft2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkLeft)
+
+SCRIPT_ANIM_Morag_WalkDownLeft::
+    SpriteBlock(8, -1, 1) {
+        Draw(SPRITE_Morag_FloatLeft1)
+        Draw(SPRITE_Morag_FloatLeft2)
+        Draw(SPRITE_Morag_FloatLeft3)
+        Draw(SPRITE_Morag_FloatLeft2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkDownLeft)
+
+SCRIPT_ANIM_Morag_WalkDownRight::
+    SpriteBlock(8, 1, 1) {
+        Draw(SPRITE_Morag_FloatRight1)
+        Draw(SPRITE_Morag_FloatRight2)
+        Draw(SPRITE_Morag_FloatRight3)
+        Draw(SPRITE_Morag_FloatRight2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkDownRight)
+
+SCRIPT_ANIM_Morag_WalkUpLeft::
+    SpriteBlock(8, -1, -1) {
+        Draw(SPRITE_Morag_FloatUpLeft1)
+        Draw(SPRITE_Morag_FloatUpLeft2)
+        Draw(SPRITE_Morag_FloatUpLeft3)
+        Draw(SPRITE_Morag_FloatUpLeft2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkUpLeft)
+
+SCRIPT_ANIM_Morag_WalkUpRight::
+    SpriteBlock(8, 1, -1) {
+        Draw(SPRITE_Morag_FloatUpRight1)
+        Draw(SPRITE_Morag_FloatUpRight2)
+        Draw(SPRITE_Morag_FloatUpRight3)
+        Draw(SPRITE_Morag_FloatUpRight2)
+    }
+    Jump(SCRIPT_ANIM_Morag_WalkUpRight)
+
+SCRIPT_ANIM_MoragThrow_Throw1_Still::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragThrow_Throw1_1)
+        Draw(SPRITE_MoragThrow_Throw1_2)
+        Draw(SPRITE_MoragThrow_Throw1_3)
+        Draw(SPRITE_MoragThrow_Throw1_2)
+    }
+    Jump(SCRIPT_ANIM_MoragThrow_Throw1_Still)
+
+SCRIPT_ANIM_MoragThrow_Throw1_Up::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_MoragThrow_Throw1_1)
+        Draw(SPRITE_MoragThrow_Throw1_2)
+        Draw(SPRITE_MoragThrow_Throw1_3)
+        Draw(SPRITE_MoragThrow_Throw1_2)
+    }
+    Jump(SCRIPT_ANIM_MoragThrow_Throw1_Up)
+
+SCRIPT_ANIM_MoragThrow_Throw2::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragThrow_Throw2_1)
+        Draw(SPRITE_MoragThrow_Throw2_2)
+        Draw(SPRITE_MoragThrow_Throw2_3)
+        Draw(SPRITE_MoragThrow_Throw2_2)
+    }
+    Jump(SCRIPT_ANIM_MoragThrow_Throw2)
+
+SCRIPT_ANIM_MoragThrow_Throw2_UNKNOWN::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_MoragThrow_Throw2_2)
+    }
+    Jump(SCRIPT_ANIM_MoragThrow_Throw2_UNKNOWN)
+
+SCRIPT_ANIM_MoragThrow_Throw3::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_MoragThrow_Throw3)
+    }
+    Jump(SCRIPT_ANIM_MoragThrow_Throw3)
+
+SCRIPT_ANIM_MoragHurt_Flicker::
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_Morag_FloatDown2)
+    }
+    Pass()
+    Jump(SCRIPT_ANIM_MoragHurt_Flicker)
+
+SCRIPT_ANIM_MoragHurt_HurtLeft::
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, -1, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, -1, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtLeft)
+        MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtLeft)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_MoragHurt_HurtLeft)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_MoragHurt_HurtRight::
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, -1, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, -1, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtRight)
+        MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtRight)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_MoragHurt_HurtRight)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_MoragBattle_Idle::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragBattle_IdleDown3)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+        Draw(SPRITE_MoragBattle_IdleDown1)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+        Draw(SPRITE_MoragBattle_IdleDown3)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+        Draw(SPRITE_MoragBattle_IdleDown1)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+        Draw(SPRITE_MoragBattle_IdleDown3)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+        Draw(SPRITE_MoragBattle_IdleDown1)
+        Draw(SPRITE_MoragBattle_IdleDown2)
+    }
+    RandLongJump(.DownLEFTORRIGHT_1, .DownLEFTORRIGHT_2)
+
+.DownLEFTORRIGHT_1::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
+    }
+    Jump(SCRIPT_ANIM_MoragBattle_Idle)
+
+.DownLEFTORRIGHT_2::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
+        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
+    }
+    Jump(SCRIPT_ANIM_MoragBattle_Idle)
+
+SCRIPT_ANIM_MoragBattle_Taunt::
+    SpriteDraw() {
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_IdleDown1)
+        MoveDraw(32, 0, 0, SPRITE_MoragBattle_Taunt1)
+        MoveDraw(32, 0, 0, SPRITE_MoragBattle_Taunt2)
+        MoveDraw(32, 0, 0, SPRITE_MoragBattle_Taunt3)
+    }
+    Jump(SCRIPT_ANIM_MoragBattle_Idle)
+
+SCRIPT_ANIM_MoragBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_MoragBattle_Summon1)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon3)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon1)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon3)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon1)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon3)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon1)
+        Draw(SPRITE_MoragBattle_Summon2)
+        Draw(SPRITE_MoragBattle_Summon3)
+        Draw(SPRITE_MoragBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_MoragBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_MoragBattle_Idle)
+
+SCRIPT_ANIM_MoragBattle_Victory::
+    SpriteDraw() {
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_IdleDown1)
+        MoveDraw(32, 0, 0, SPRITE_MoragBattle_Victory1)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory2)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory1)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory2)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory1)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory2)
+        MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory1)
+    }
+
+.Loop::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_MoragBattle_Victory3)
+        Draw(SPRITE_MoragBattle_Victory1)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_MoragBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(64, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_MoragBattle_Defeat)
+    }
+    End()

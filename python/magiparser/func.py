@@ -283,7 +283,7 @@ class FuncHandler(ResultsHandler):
         return self.GenerateOutput(0)
 
     def RandLongJump(self):                 # 0x47
-        entries = len(self.params) - 1
+        entries = len(self.params)
         assert 1 <= entries <= 16
         self.size = 2 + 3*entries
         return self.GenerateOutput(*range(entries))

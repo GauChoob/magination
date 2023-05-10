@@ -1,0 +1,196 @@
+
+SPRITE_YoungMan_FaceDownRight::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceDownRight.spr")
+
+SPRITE_YoungMan_FaceDownLeft::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceDownLeft.spr")
+
+SPRITE_YoungMan_FaceUpRight::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceUpRight.spr")
+
+SPRITE_YoungMan_FaceUpLeft::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceUpLeft.spr")
+
+SPRITE_YoungMan_WalkDown1::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkDown1.spr")
+
+SPRITE_YoungMan_FaceDown::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceDown.spr")
+
+SPRITE_YoungMan_WalkDown2::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkDown2.spr")
+
+SPRITE_YoungMan_WalkUp1::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkUp1.spr")
+
+SPRITE_YoungMan_FaceUp::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceUp.spr")
+
+SPRITE_YoungMan_WalkUp2::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkUp2.spr")
+
+SPRITE_YoungMan_WalkRight1::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkRight1.spr")
+
+SPRITE_YoungMan_FaceRight::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceRight.spr")
+
+SPRITE_YoungMan_WalkRight2::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkRight2.spr")
+
+SPRITE_YoungMan_WalkLeft1::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkLeft1.spr")
+
+SPRITE_YoungMan_FaceLeft::
+    INCSPRITE("assets/sprites/youngman/YoungMan_FaceLeft.spr")
+
+SPRITE_YoungMan_WalkLeft2::
+    INCSPRITE("assets/sprites/youngman/YoungMan_WalkLeft2.spr")
+
+SCRIPT_ANIM_YoungMan_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_YoungMan_WalkUp1)
+        Draw(SPRITE_YoungMan_FaceUp)
+        Draw(SPRITE_YoungMan_WalkUp2)
+        Draw(SPRITE_YoungMan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_WalkUp)
+
+SCRIPT_ANIM_YoungMan_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_YoungMan_WalkDown1)
+        Draw(SPRITE_YoungMan_FaceDown)
+        Draw(SPRITE_YoungMan_WalkDown2)
+        Draw(SPRITE_YoungMan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_WalkDown)
+
+SCRIPT_ANIM_YoungMan_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_YoungMan_WalkLeft1)
+        Draw(SPRITE_YoungMan_FaceLeft)
+        Draw(SPRITE_YoungMan_WalkLeft2)
+        Draw(SPRITE_YoungMan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_WalkLeft)
+
+SCRIPT_ANIM_YoungMan_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_YoungMan_WalkRight1)
+        Draw(SPRITE_YoungMan_FaceRight)
+        Draw(SPRITE_YoungMan_WalkRight2)
+        Draw(SPRITE_YoungMan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_WalkRight)
+
+SCRIPT_ANIM_YoungMan_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_YoungMan_WalkUp1)
+        Draw(SPRITE_YoungMan_FaceUp)
+        Draw(SPRITE_YoungMan_WalkUp2)
+        Draw(SPRITE_YoungMan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_RunUp)
+
+SCRIPT_ANIM_YoungMan_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_YoungMan_WalkDown1)
+        Draw(SPRITE_YoungMan_FaceDown)
+        Draw(SPRITE_YoungMan_WalkDown2)
+        Draw(SPRITE_YoungMan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_RunDown)
+
+SCRIPT_ANIM_YoungMan_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_YoungMan_WalkLeft1)
+        Draw(SPRITE_YoungMan_FaceLeft)
+        Draw(SPRITE_YoungMan_WalkLeft2)
+        Draw(SPRITE_YoungMan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_RunLeft)
+
+SCRIPT_ANIM_YoungMan_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_YoungMan_WalkRight1)
+        Draw(SPRITE_YoungMan_FaceRight)
+        Draw(SPRITE_YoungMan_WalkRight2)
+        Draw(SPRITE_YoungMan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_RunRight)
+
+SCRIPT_ANIM_YoungMan_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceUp)
+
+SCRIPT_ANIM_YoungMan_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceDown)
+
+SCRIPT_ANIM_YoungMan_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceLeft)
+
+SCRIPT_ANIM_YoungMan_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceRight)
+
+SCRIPT_ANIM_YoungMan_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceUpLeft)
+
+SCRIPT_ANIM_YoungMan_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceUpRight)
+
+SCRIPT_ANIM_YoungMan_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceDownLeft)
+
+SCRIPT_ANIM_YoungMan_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_YoungMan_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_YoungMan_FaceDownRight)
+
+SCRIPT_ANIM_YoungMan_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_YoungMan_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_YoungMan_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_YoungMan_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_YoungMan_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

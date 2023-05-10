@@ -1,0 +1,288 @@
+
+SPRITE_Pruitt_FaceDownRight::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceDownRight.spr")
+
+SPRITE_Pruitt_FaceDownLeft::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceDownLeft.spr")
+
+SPRITE_Pruitt_FaceUpRight::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceUpRight.spr")
+
+SPRITE_Pruitt_FaceUpLeft::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceUpLeft.spr")
+
+SPRITE_Pruitt_WalkDown1::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkDown1.spr")
+
+SPRITE_Pruitt_FaceDown::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceDown.spr")
+
+SPRITE_Pruitt_WalkDown2::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkDown2.spr")
+
+SPRITE_Pruitt_WalkUp1::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkUp1.spr")
+
+SPRITE_Pruitt_FaceUp::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceUp.spr")
+
+SPRITE_Pruitt_WalkUp2::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkUp2.spr")
+
+SPRITE_Pruitt_WalkRight1::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkRight1.spr")
+
+SPRITE_Pruitt_FaceRight::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceRight.spr")
+
+SPRITE_Pruitt_WalkRight2::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkRight2.spr")
+
+SPRITE_Pruitt_WalkLeft1::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkLeft1.spr")
+
+SPRITE_Pruitt_FaceLeft::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_FaceLeft.spr")
+
+SPRITE_Pruitt_WalkLeft2::
+    INCSPRITE("assets/sprites/pruitt/Pruitt_WalkLeft2.spr")
+
+SPRITE_PruittRing_01::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_01.spr")
+
+SPRITE_PruittRing_02::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_02.spr")
+
+SPRITE_PruittRing_03::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_03.spr")
+
+SPRITE_PruittRing_04::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_04.spr")
+
+SPRITE_PruittRing_05::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_05.spr")
+
+SPRITE_PruittRing_06::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_06.spr")
+
+SPRITE_PruittRing_07::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_07.spr")
+
+SPRITE_PruittRing_08::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_08.spr")
+
+SPRITE_PruittRing_09::
+    INCSPRITE("assets/sprites/pruitt/PruittRing_09.spr")
+
+SCRIPT_ANIM_Pruitt_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Pruitt_WalkUp1)
+        Draw(SPRITE_Pruitt_FaceUp)
+        Draw(SPRITE_Pruitt_WalkUp2)
+        Draw(SPRITE_Pruitt_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_WalkUp)
+
+SCRIPT_ANIM_Pruitt_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Pruitt_WalkDown1)
+        Draw(SPRITE_Pruitt_FaceDown)
+        Draw(SPRITE_Pruitt_WalkDown2)
+        Draw(SPRITE_Pruitt_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_WalkDown)
+
+SCRIPT_ANIM_Pruitt_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Pruitt_WalkLeft1)
+        Draw(SPRITE_Pruitt_FaceLeft)
+        Draw(SPRITE_Pruitt_WalkLeft2)
+        Draw(SPRITE_Pruitt_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_WalkLeft)
+
+SCRIPT_ANIM_Pruitt_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Pruitt_WalkRight1)
+        Draw(SPRITE_Pruitt_FaceRight)
+        Draw(SPRITE_Pruitt_WalkRight2)
+        Draw(SPRITE_Pruitt_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_WalkRight)
+
+SCRIPT_ANIM_Pruitt_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Pruitt_WalkUp1)
+        Draw(SPRITE_Pruitt_FaceUp)
+        Draw(SPRITE_Pruitt_WalkUp2)
+        Draw(SPRITE_Pruitt_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_RunUp)
+
+SCRIPT_ANIM_Pruitt_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Pruitt_WalkDown1)
+        Draw(SPRITE_Pruitt_FaceDown)
+        Draw(SPRITE_Pruitt_WalkDown2)
+        Draw(SPRITE_Pruitt_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_RunDown)
+
+SCRIPT_ANIM_Pruitt_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Pruitt_WalkLeft1)
+        Draw(SPRITE_Pruitt_FaceLeft)
+        Draw(SPRITE_Pruitt_WalkLeft2)
+        Draw(SPRITE_Pruitt_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_RunLeft)
+
+SCRIPT_ANIM_Pruitt_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Pruitt_WalkRight1)
+        Draw(SPRITE_Pruitt_FaceRight)
+        Draw(SPRITE_Pruitt_WalkRight2)
+        Draw(SPRITE_Pruitt_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_RunRight)
+
+SCRIPT_ANIM_Pruitt_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceUp)
+
+SCRIPT_ANIM_Pruitt_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceDown)
+
+SCRIPT_ANIM_Pruitt_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceLeft)
+
+SCRIPT_ANIM_Pruitt_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceRight)
+
+SCRIPT_ANIM_Pruitt_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceUpLeft)
+
+SCRIPT_ANIM_Pruitt_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceUpRight)
+
+SCRIPT_ANIM_Pruitt_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceDownLeft)
+
+SCRIPT_ANIM_Pruitt_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Pruitt_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Pruitt_FaceDownRight)
+
+SCRIPT_ANIM_PruittRing_MakeRing::
+    SpriteDraw() {
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_02)
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_01)
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_02)
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_01)
+        MoveDraw(16, 0, 0, SPRITE_PruittRing_02)
+        MoveDraw(16, 0, 0, SPRITE_PruittRing_03)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_04)
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_05)
+        MoveDraw(32, 0, 0, SPRITE_PruittRing_06)
+        MoveDraw(16, 0, 0, SPRITE_PruittRing_07)
+    }
+    SetScriptScroll(SCRIPT_ANIM_PruittRing_ScreenShake)
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_09)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_08)
+    }
+    SetScriptScroll(SCRIPT_ANIM_PruittRing_ScreenStopShake)
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_07)
+        MoveDraw(4, 0, 0, SPRITE_PruittRing_06)
+        MoveDraw(8, 0, 0, SPRITE_PruittRing_04)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(16, 0, 0, SPRITE_PruittRing_01)
+        MoveDraw(16, 0, 0, SPRITE_PruittRing_02)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_PruittRing_UNKNOWN1::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_PruittRing_08)
+    }
+    Jump(SCRIPT_ANIM_PruittRing_UNKNOWN1)
+
+SCRIPT_ANIM_PruittRing_UNKNOWN2::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_PruittRing_01)
+    }
+    Jump(SCRIPT_ANIM_PruittRing_UNKNOWN2)
+
+SCRIPT_ANIM_PruittRing_ScreenShake::
+    ScrollMap() {
+        Move(1, 0, 2)
+        Move(1, 0, -2)
+    }
+    Jump(SCRIPT_ANIM_PruittRing_ScreenShake)
+
+SCRIPT_ANIM_PruittRing_ScreenStopShake::
+    End()
+
+SCRIPT_ANIM_Pruitt_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
