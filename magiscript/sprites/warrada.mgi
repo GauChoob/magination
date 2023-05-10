@@ -1,0 +1,281 @@
+
+SPRITE_Warrada_FaceDownRight::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceDownRight.spr")
+
+SPRITE_Warrada_FaceDownLeft::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceDownLeft.spr")
+
+SPRITE_Warrada_FaceUpRight::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceUpRight.spr")
+
+SPRITE_Warrada_FaceUpLeft::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceUpLeft.spr")
+
+SPRITE_Warrada_WalkDown1::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkDown1.spr")
+
+SPRITE_Warrada_FaceDown::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceDown.spr")
+
+SPRITE_Warrada_WalkDown2::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkDown2.spr")
+
+SPRITE_Warrada_WalkUp1::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkUp1.spr")
+
+SPRITE_Warrada_FaceUp::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceUp.spr")
+
+SPRITE_Warrada_WalkUp2::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkUp2.spr")
+
+SPRITE_Warrada_WalkRight1::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkRight1.spr")
+
+SPRITE_Warrada_FaceRight::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceRight.spr")
+
+SPRITE_Warrada_WalkRight2::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkRight2.spr")
+
+SPRITE_Warrada_WalkLeft1::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkLeft1.spr")
+
+SPRITE_Warrada_FaceLeft::
+    INCSPRITE("assets/sprites/warrada/Warrada_FaceLeft.spr")
+
+SPRITE_Warrada_WalkLeft2::
+    INCSPRITE("assets/sprites/warrada/Warrada_WalkLeft2.spr")
+
+SPRITE_WarradaBattle_Idle::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Idle.spr")
+
+SPRITE_WarradaBattle_UNUSED::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_UNUSED.spr")
+
+SPRITE_WarradaBattle_Taunt1::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Taunt1.spr")
+
+SPRITE_WarradaBattle_Taunt2::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Taunt2.spr")
+
+SPRITE_WarradaBattle_Defeat::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Defeat.spr")
+
+SPRITE_WarradaBattle_Summon1::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Summon1.spr")
+
+SPRITE_WarradaBattle_Summon2::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Summon2.spr")
+
+SPRITE_WarradaBattle_Summon3::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_Summon3.spr")
+
+SCRIPT_ANIM_Warrada_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Warrada_WalkUp1)
+        Draw(SPRITE_Warrada_FaceUp)
+        Draw(SPRITE_Warrada_WalkUp2)
+        Draw(SPRITE_Warrada_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Warrada_WalkUp)
+
+SCRIPT_ANIM_Warrada_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Warrada_WalkDown1)
+        Draw(SPRITE_Warrada_FaceDown)
+        Draw(SPRITE_Warrada_WalkDown2)
+        Draw(SPRITE_Warrada_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Warrada_WalkDown)
+
+SCRIPT_ANIM_Warrada_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Warrada_WalkLeft1)
+        Draw(SPRITE_Warrada_FaceLeft)
+        Draw(SPRITE_Warrada_WalkLeft2)
+        Draw(SPRITE_Warrada_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Warrada_WalkLeft)
+
+SCRIPT_ANIM_Warrada_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Warrada_WalkRight1)
+        Draw(SPRITE_Warrada_FaceRight)
+        Draw(SPRITE_Warrada_WalkRight2)
+        Draw(SPRITE_Warrada_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Warrada_WalkRight)
+
+SCRIPT_ANIM_Warrada_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Warrada_WalkUp1)
+        Draw(SPRITE_Warrada_FaceUp)
+        Draw(SPRITE_Warrada_WalkUp2)
+        Draw(SPRITE_Warrada_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Warrada_RunUp)
+
+SCRIPT_ANIM_Warrada_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Warrada_WalkDown1)
+        Draw(SPRITE_Warrada_FaceDown)
+        Draw(SPRITE_Warrada_WalkDown2)
+        Draw(SPRITE_Warrada_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Warrada_RunDown)
+
+SCRIPT_ANIM_Warrada_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Warrada_WalkLeft1)
+        Draw(SPRITE_Warrada_FaceLeft)
+        Draw(SPRITE_Warrada_WalkLeft2)
+        Draw(SPRITE_Warrada_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Warrada_RunLeft)
+
+SCRIPT_ANIM_Warrada_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Warrada_WalkRight1)
+        Draw(SPRITE_Warrada_FaceRight)
+        Draw(SPRITE_Warrada_WalkRight2)
+        Draw(SPRITE_Warrada_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Warrada_RunRight)
+
+SCRIPT_ANIM_Warrada_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceUp)
+
+SCRIPT_ANIM_Warrada_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceDown)
+
+SCRIPT_ANIM_Warrada_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceLeft)
+
+SCRIPT_ANIM_Warrada_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceRight)
+
+SCRIPT_ANIM_Warrada_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceUpLeft)
+
+SCRIPT_ANIM_Warrada_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceUpRight)
+
+SCRIPT_ANIM_Warrada_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceDownLeft)
+
+SCRIPT_ANIM_Warrada_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Warrada_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Warrada_FaceDownRight)
+
+SCRIPT_ANIM_WarradaBattle_Idle::
+    SpriteDraw() {
+        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_Idle)
+        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_Idle)
+    }
+    Jump(SCRIPT_ANIM_WarradaBattle_Idle)
+
+SCRIPT_ANIM_WarradaBattle_Taunt::
+    SpriteBlock(16, 0, 0) {
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+    }
+    Jump(SCRIPT_ANIM_WarradaBattle_Taunt)
+
+SCRIPT_ANIM_WarradaBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_WarradaBattle_Summon1)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon3)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon1)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon3)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon1)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon3)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon1)
+        Draw(SPRITE_WarradaBattle_Summon2)
+        Draw(SPRITE_WarradaBattle_Summon3)
+        Draw(SPRITE_WarradaBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_WarradaBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_WarradaBattle_Idle)
+
+SCRIPT_ANIM_WarradaBattle_Victory::
+    SpriteBlock(32, 0, 0) {
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+    }
+    SpriteBlock(16, 0, 0) {
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+        Draw(SPRITE_WarradaBattle_Taunt1)
+        Draw(SPRITE_WarradaBattle_Taunt2)
+    }
+    Jump(SCRIPT_ANIM_WarradaBattle_Victory)
+
+SCRIPT_ANIM_WarradaBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_WarradaBattle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_WarradaBattle_Defeat)
+
+SCRIPT_ANIM_Warrada_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
