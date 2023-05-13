@@ -1,0 +1,196 @@
+
+SPRITE_Girl4_FaceDownRight::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceDownRight.spr")
+
+SPRITE_Girl4_FaceDownLeft::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceDownLeft.spr")
+
+SPRITE_Girl4_FaceUpRight::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceUpRight.spr")
+
+SPRITE_Girl4_FaceUpLeft::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceUpLeft.spr")
+
+SPRITE_Girl4_WalkDown1::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkDown1.spr")
+
+SPRITE_Girl4_FaceDown::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceDown.spr")
+
+SPRITE_Girl4_WalkDown2::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkDown2.spr")
+
+SPRITE_Girl4_WalkUp1::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkUp1.spr")
+
+SPRITE_Girl4_FaceUp::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceUp.spr")
+
+SPRITE_Girl4_WalkUp2::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkUp2.spr")
+
+SPRITE_Girl4_WalkRight1::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkRight1.spr")
+
+SPRITE_Girl4_FaceRight::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceRight.spr")
+
+SPRITE_Girl4_WalkRight2::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkRight2.spr")
+
+SPRITE_Girl4_WalkLeft1::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkLeft1.spr")
+
+SPRITE_Girl4_FaceLeft::
+    INCSPRITE("assets/sprites/girl4/Girl4_FaceLeft.spr")
+
+SPRITE_Girl4_WalkLeft2::
+    INCSPRITE("assets/sprites/girl4/Girl4_WalkLeft2.spr")
+
+SCRIPT_ANIM_Girl4_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Girl4_WalkUp1)
+        Draw(SPRITE_Girl4_FaceUp)
+        Draw(SPRITE_Girl4_WalkUp2)
+        Draw(SPRITE_Girl4_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Girl4_WalkUp)
+
+SCRIPT_ANIM_Girl4_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Girl4_WalkDown1)
+        Draw(SPRITE_Girl4_FaceDown)
+        Draw(SPRITE_Girl4_WalkDown2)
+        Draw(SPRITE_Girl4_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Girl4_WalkDown)
+
+SCRIPT_ANIM_Girl4_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Girl4_WalkLeft1)
+        Draw(SPRITE_Girl4_FaceLeft)
+        Draw(SPRITE_Girl4_WalkLeft2)
+        Draw(SPRITE_Girl4_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Girl4_WalkLeft)
+
+SCRIPT_ANIM_Girl4_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Girl4_WalkRight1)
+        Draw(SPRITE_Girl4_FaceRight)
+        Draw(SPRITE_Girl4_WalkRight2)
+        Draw(SPRITE_Girl4_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Girl4_WalkRight)
+
+SCRIPT_ANIM_Girl4_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Girl4_WalkUp1)
+        Draw(SPRITE_Girl4_FaceUp)
+        Draw(SPRITE_Girl4_WalkUp2)
+        Draw(SPRITE_Girl4_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Girl4_RunUp)
+
+SCRIPT_ANIM_Girl4_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Girl4_WalkDown1)
+        Draw(SPRITE_Girl4_FaceDown)
+        Draw(SPRITE_Girl4_WalkDown2)
+        Draw(SPRITE_Girl4_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Girl4_RunDown)
+
+SCRIPT_ANIM_Girl4_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Girl4_WalkLeft1)
+        Draw(SPRITE_Girl4_FaceLeft)
+        Draw(SPRITE_Girl4_WalkLeft2)
+        Draw(SPRITE_Girl4_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Girl4_RunLeft)
+
+SCRIPT_ANIM_Girl4_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Girl4_WalkRight1)
+        Draw(SPRITE_Girl4_FaceRight)
+        Draw(SPRITE_Girl4_WalkRight2)
+        Draw(SPRITE_Girl4_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Girl4_RunRight)
+
+SCRIPT_ANIM_Girl4_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceUp)
+
+SCRIPT_ANIM_Girl4_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceDown)
+
+SCRIPT_ANIM_Girl4_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceLeft)
+
+SCRIPT_ANIM_Girl4_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceRight)
+
+SCRIPT_ANIM_Girl4_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceUpLeft)
+
+SCRIPT_ANIM_Girl4_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceUpRight)
+
+SCRIPT_ANIM_Girl4_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceDownLeft)
+
+SCRIPT_ANIM_Girl4_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Girl4_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Girl4_FaceDownRight)
+
+SCRIPT_ANIM_Girl4_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Girl4_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Girl4_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Girl4_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Girl4_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
