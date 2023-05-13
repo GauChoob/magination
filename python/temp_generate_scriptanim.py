@@ -1,7 +1,8 @@
 import sys
+import projutils.utils as utils
+import projutils.sprite as sprite
 
-lines = []
-lines.append([
+script_anims = [
     (0x58D5 - 0x58D5, "SCRIPT_ANIM_{}_WalkUp"),
     (0x58E5 - 0x58D5, "SCRIPT_ANIM_{}_WalkDown"),
     (0x58F5 - 0x58D5, "SCRIPT_ANIM_{}_WalkLeft"),
@@ -23,34 +24,62 @@ lines.append([
     (0x59C3 - 0x58D5, ".FaceDown"),
     (0x59CA - 0x58D5, ".FaceLeft"),
     (0x59D1 - 0x58D5, ".FaceRight"),
-])
-lines.append([
-    (0x574D - 0x574D, '{}_FaceDownRight'),
-    (0x5766 - 0x574D, '{}_FaceDownLeft'),
-    (0x577F - 0x574D, '{}_FaceUpRight'),
-    (0x5798 - 0x574D, '{}_FaceUpLeft'),
-    (0x57B1 - 0x574D, '{}_WalkDown1'),
-    (0x57CA - 0x574D, '{}_FaceDown'),
-    (0x57E3 - 0x574D, '{}_WalkDown2'),
-    (0x57FC - 0x574D, '{}_WalkUp1'),
-    (0x5815 - 0x574D, '{}_FaceUp'),
-    (0x582E - 0x574D, '{}_WalkUp2'),
-    (0x5847 - 0x574D, '{}_WalkRight1'),
-    (0x5860 - 0x574D, '{}_FaceRight'),
-    (0x5875 - 0x574D, '{}_WalkRight2'),
-    (0x588E - 0x574D, '{}_WalkLeft1'),
-    (0x58A7 - 0x574D, '{}_FaceLeft'),
-    (0x58BC - 0x574D, '{}_WalkLeft2'),
-])
+]
+spritelines = [
+    'SPRITE_{}_FaceDownRight',
+    'SPRITE_{}_FaceDownLeft',
+    'SPRITE_{}_FaceUpRight',
+    'SPRITE_{}_FaceUpLeft',
+    'SPRITE_{}_WalkDown1',
+    'SPRITE_{}_FaceDown',
+    'SPRITE_{}_WalkDown2',
+    'SPRITE_{}_WalkUp1',
+    'SPRITE_{}_FaceUp',
+    'SPRITE_{}_WalkUp2',
+    'SPRITE_{}_WalkRight1',
+    'SPRITE_{}_FaceRight',
+    'SPRITE_{}_WalkRight2',
+    'SPRITE_{}_WalkLeft1',
+    'SPRITE_{}_FaceLeft',
+    'SPRITE_{}_WalkLeft2',
+]
+
+
+def SPRITE(bank, addr, name):
+    rom = utils.Rom()
+    curpos = utils.BankAddress(bank, addr)
+
+    for spriteline in spritelines:
+        print("        (0x{:04X}, '{}'),".format(curpos.getAddress(), spriteline.format(name)))
+        spr = sprite.Sprite(rom, curpos)
+        curpos = spr.end
+    
+    return curpos
+
+
+def SCRIPT(bank, addr, name):
+    for script_anim in script_anims:
+        print("        (0x{:04X}, '{}'),".format(script_anim[0] + addr, script_anim[1].format(name)))
+
+
+def BOTH(bank, addr, name):
+    curpos = funcs['sprite'](bank, addr, name)
+    funcs['script'](bank, curpos.getAddress(), name)
+
+
+funcs = {
+    'script': SCRIPT,
+    'sprite': SPRITE,
+    'both': BOTH
+}
 
 
 def main():
     args = sys.argv
-    lineset = 0 if args[1] == 'SCRIPT' else 1
-    addr = int(args[2], 0)
-    name = args[3]
-    for line in lines[lineset]:
-        print("        (0x{:04X}, '{}'),".format(line[0] + addr, line[1].format(name)))
+    bank = int(args[2], 0)
+    addr = int(args[3], 0)
+    name = args[4]
+    funcs[args[1].lower()](bank, addr, name)
 
 
 if __name__ == "__main__":

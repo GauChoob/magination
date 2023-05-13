@@ -1,0 +1,196 @@
+
+SPRITE_OldLady1_FaceDownRight::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceDownRight.spr")
+
+SPRITE_OldLady1_FaceDownLeft::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceDownLeft.spr")
+
+SPRITE_OldLady1_FaceUpRight::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceUpRight.spr")
+
+SPRITE_OldLady1_FaceUpLeft::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceUpLeft.spr")
+
+SPRITE_OldLady1_WalkDown1::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkDown1.spr")
+
+SPRITE_OldLady1_FaceDown::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceDown.spr")
+
+SPRITE_OldLady1_WalkDown2::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkDown2.spr")
+
+SPRITE_OldLady1_WalkUp1::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkUp1.spr")
+
+SPRITE_OldLady1_FaceUp::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceUp.spr")
+
+SPRITE_OldLady1_WalkUp2::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkUp2.spr")
+
+SPRITE_OldLady1_WalkRight1::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkRight1.spr")
+
+SPRITE_OldLady1_FaceRight::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceRight.spr")
+
+SPRITE_OldLady1_WalkRight2::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkRight2.spr")
+
+SPRITE_OldLady1_WalkLeft1::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkLeft1.spr")
+
+SPRITE_OldLady1_FaceLeft::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_FaceLeft.spr")
+
+SPRITE_OldLady1_WalkLeft2::
+    INCSPRITE("assets/sprites/oldlady1/OldLady1_WalkLeft2.spr")
+
+SCRIPT_ANIM_OldLady1_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_OldLady1_WalkUp1)
+        Draw(SPRITE_OldLady1_FaceUp)
+        Draw(SPRITE_OldLady1_WalkUp2)
+        Draw(SPRITE_OldLady1_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_WalkUp)
+
+SCRIPT_ANIM_OldLady1_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_OldLady1_WalkDown1)
+        Draw(SPRITE_OldLady1_FaceDown)
+        Draw(SPRITE_OldLady1_WalkDown2)
+        Draw(SPRITE_OldLady1_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_WalkDown)
+
+SCRIPT_ANIM_OldLady1_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_OldLady1_WalkLeft1)
+        Draw(SPRITE_OldLady1_FaceLeft)
+        Draw(SPRITE_OldLady1_WalkLeft2)
+        Draw(SPRITE_OldLady1_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_WalkLeft)
+
+SCRIPT_ANIM_OldLady1_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_OldLady1_WalkRight1)
+        Draw(SPRITE_OldLady1_FaceRight)
+        Draw(SPRITE_OldLady1_WalkRight2)
+        Draw(SPRITE_OldLady1_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_WalkRight)
+
+SCRIPT_ANIM_OldLady1_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_OldLady1_WalkUp1)
+        Draw(SPRITE_OldLady1_FaceUp)
+        Draw(SPRITE_OldLady1_WalkUp2)
+        Draw(SPRITE_OldLady1_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_RunUp)
+
+SCRIPT_ANIM_OldLady1_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_OldLady1_WalkDown1)
+        Draw(SPRITE_OldLady1_FaceDown)
+        Draw(SPRITE_OldLady1_WalkDown2)
+        Draw(SPRITE_OldLady1_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_RunDown)
+
+SCRIPT_ANIM_OldLady1_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_OldLady1_WalkLeft1)
+        Draw(SPRITE_OldLady1_FaceLeft)
+        Draw(SPRITE_OldLady1_WalkLeft2)
+        Draw(SPRITE_OldLady1_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_RunLeft)
+
+SCRIPT_ANIM_OldLady1_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_OldLady1_WalkRight1)
+        Draw(SPRITE_OldLady1_FaceRight)
+        Draw(SPRITE_OldLady1_WalkRight2)
+        Draw(SPRITE_OldLady1_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_RunRight)
+
+SCRIPT_ANIM_OldLady1_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceUp)
+
+SCRIPT_ANIM_OldLady1_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceDown)
+
+SCRIPT_ANIM_OldLady1_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceLeft)
+
+SCRIPT_ANIM_OldLady1_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceRight)
+
+SCRIPT_ANIM_OldLady1_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceUpLeft)
+
+SCRIPT_ANIM_OldLady1_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceUpRight)
+
+SCRIPT_ANIM_OldLady1_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceDownLeft)
+
+SCRIPT_ANIM_OldLady1_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OldLady1_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_OldLady1_FaceDownRight)
+
+SCRIPT_ANIM_OldLady1_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_OldLady1_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_OldLady1_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_OldLady1_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_OldLady1_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

@@ -1,0 +1,196 @@
+
+SPRITE_Boy2_FaceDownRight::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceDownRight.spr")
+
+SPRITE_Boy2_FaceDownLeft::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceDownLeft.spr")
+
+SPRITE_Boy2_FaceUpRight::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceUpRight.spr")
+
+SPRITE_Boy2_FaceUpLeft::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceUpLeft.spr")
+
+SPRITE_Boy2_WalkDown1::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkDown1.spr")
+
+SPRITE_Boy2_FaceDown::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceDown.spr")
+
+SPRITE_Boy2_WalkDown2::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkDown2.spr")
+
+SPRITE_Boy2_WalkUp1::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkUp1.spr")
+
+SPRITE_Boy2_FaceUp::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceUp.spr")
+
+SPRITE_Boy2_WalkUp2::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkUp2.spr")
+
+SPRITE_Boy2_WalkRight1::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkRight1.spr")
+
+SPRITE_Boy2_FaceRight::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceRight.spr")
+
+SPRITE_Boy2_WalkRight2::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkRight2.spr")
+
+SPRITE_Boy2_WalkLeft1::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkLeft1.spr")
+
+SPRITE_Boy2_FaceLeft::
+    INCSPRITE("assets/sprites/boy2/Boy2_FaceLeft.spr")
+
+SPRITE_Boy2_WalkLeft2::
+    INCSPRITE("assets/sprites/boy2/Boy2_WalkLeft2.spr")
+
+SCRIPT_ANIM_Boy2_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Boy2_WalkUp1)
+        Draw(SPRITE_Boy2_FaceUp)
+        Draw(SPRITE_Boy2_WalkUp2)
+        Draw(SPRITE_Boy2_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Boy2_WalkUp)
+
+SCRIPT_ANIM_Boy2_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Boy2_WalkDown1)
+        Draw(SPRITE_Boy2_FaceDown)
+        Draw(SPRITE_Boy2_WalkDown2)
+        Draw(SPRITE_Boy2_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Boy2_WalkDown)
+
+SCRIPT_ANIM_Boy2_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Boy2_WalkLeft1)
+        Draw(SPRITE_Boy2_FaceLeft)
+        Draw(SPRITE_Boy2_WalkLeft2)
+        Draw(SPRITE_Boy2_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Boy2_WalkLeft)
+
+SCRIPT_ANIM_Boy2_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Boy2_WalkRight1)
+        Draw(SPRITE_Boy2_FaceRight)
+        Draw(SPRITE_Boy2_WalkRight2)
+        Draw(SPRITE_Boy2_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Boy2_WalkRight)
+
+SCRIPT_ANIM_Boy2_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Boy2_WalkUp1)
+        Draw(SPRITE_Boy2_FaceUp)
+        Draw(SPRITE_Boy2_WalkUp2)
+        Draw(SPRITE_Boy2_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Boy2_RunUp)
+
+SCRIPT_ANIM_Boy2_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Boy2_WalkDown1)
+        Draw(SPRITE_Boy2_FaceDown)
+        Draw(SPRITE_Boy2_WalkDown2)
+        Draw(SPRITE_Boy2_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Boy2_RunDown)
+
+SCRIPT_ANIM_Boy2_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Boy2_WalkLeft1)
+        Draw(SPRITE_Boy2_FaceLeft)
+        Draw(SPRITE_Boy2_WalkLeft2)
+        Draw(SPRITE_Boy2_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Boy2_RunLeft)
+
+SCRIPT_ANIM_Boy2_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Boy2_WalkRight1)
+        Draw(SPRITE_Boy2_FaceRight)
+        Draw(SPRITE_Boy2_WalkRight2)
+        Draw(SPRITE_Boy2_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Boy2_RunRight)
+
+SCRIPT_ANIM_Boy2_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceUp)
+
+SCRIPT_ANIM_Boy2_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceDown)
+
+SCRIPT_ANIM_Boy2_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceLeft)
+
+SCRIPT_ANIM_Boy2_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceRight)
+
+SCRIPT_ANIM_Boy2_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceUpLeft)
+
+SCRIPT_ANIM_Boy2_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceUpRight)
+
+SCRIPT_ANIM_Boy2_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceDownLeft)
+
+SCRIPT_ANIM_Boy2_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Boy2_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Boy2_FaceDownRight)
+
+SCRIPT_ANIM_Boy2_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Boy2_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Boy2_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Boy2_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Boy2_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

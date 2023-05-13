@@ -1,0 +1,90 @@
+
+SPRITE_Worveline_WalkRight1::
+    INCSPRITE("assets/sprites/worveline/Worveline_WalkRight1.spr")
+
+SPRITE_Worveline_WalkRight2::
+    INCSPRITE("assets/sprites/worveline/Worveline_WalkRight2.spr")
+
+SPRITE_Worveline_WalkLeft1::
+    INCSPRITE("assets/sprites/worveline/Worveline_WalkLeft1.spr")
+
+SPRITE_Worveline_WalkLeft2::
+    INCSPRITE("assets/sprites/worveline/Worveline_WalkLeft2.spr")
+
+SCRIPT_ANIM_Worveline_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Worveline_WalkLeft1)
+    }
+    Jump(SCRIPT_ANIM_Worveline_FaceLeft)
+
+SCRIPT_ANIM_Worveline_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Worveline_WalkRight1)
+    }
+    Jump(SCRIPT_ANIM_Worveline_FaceRight)
+
+SCRIPT_ANIM_Worveline_SuckItLeft::
+    SpriteBlock(16, 0, 0) {
+        Draw(SPRITE_Worveline_WalkLeft2)
+        Draw(SPRITE_Worveline_WalkLeft1)
+    }
+    Jump(SCRIPT_ANIM_Worveline_SuckItLeft)
+
+SCRIPT_ANIM_Worveline_SuckItRight::
+    SpriteBlock(16, 0, 0) {
+        Draw(SPRITE_Worveline_WalkRight2)
+        Draw(SPRITE_Worveline_WalkRight1)
+    }
+    Jump(SCRIPT_ANIM_Worveline_SuckItRight)
+
+SCRIPT_ANIM_Worveline_WalkLeft::
+    SpriteBlock(2, -2, 0) {
+        Draw(SPRITE_Worveline_WalkLeft1)
+        Draw(SPRITE_Worveline_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_WalkLeft)
+
+SCRIPT_ANIM_Worveline_WalkRight::
+    SpriteBlock(2, 2, 0) {
+        Draw(SPRITE_Worveline_WalkRight1)
+        Draw(SPRITE_Worveline_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_WalkRight)
+
+SCRIPT_ANIM_Worveline_WalkUp::
+    SpriteBlock(2, 0, -2) {
+        Draw(SPRITE_Worveline_WalkLeft2)
+        Draw(SPRITE_Worveline_WalkRight1)
+        Draw(SPRITE_Worveline_WalkLeft1)
+        Draw(SPRITE_Worveline_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_WalkUp)
+
+SCRIPT_ANIM_Worveline_WalkDown::
+    SpriteBlock(2, 0, 2) {
+        Draw(SPRITE_Worveline_WalkLeft2)
+        Draw(SPRITE_Worveline_WalkRight1)
+        Draw(SPRITE_Worveline_WalkLeft1)
+        Draw(SPRITE_Worveline_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_WalkDown)
+
+SCRIPT_ANIM_Worveline_HopUp::
+    SpriteDraw() {
+        MoveDraw(1, 1, -4, SPRITE_Worveline_WalkRight2)
+        MoveDraw(2, 1, -3, SPRITE_Worveline_WalkRight2)
+        MoveDraw(2, 1, -2, SPRITE_Worveline_WalkRight2)
+        MoveDraw(2, 1, -1, SPRITE_Worveline_WalkRight2)
+        MoveDraw(2, 2, 0, SPRITE_Worveline_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_FaceRight)
+
+SCRIPT_ANIM_Worveline_HopDown::
+    SpriteDraw() {
+        MoveDraw(2, -2, 0, SPRITE_Worveline_WalkLeft2)
+        MoveDraw(2, -1, 1, SPRITE_Worveline_WalkLeft2)
+        MoveDraw(2, -1, 2, SPRITE_Worveline_WalkLeft2)
+        MoveDraw(2, -1, 3, SPRITE_Worveline_WalkLeft2)
+        MoveDraw(1, -1, 4, SPRITE_Worveline_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Worveline_FaceLeft)
