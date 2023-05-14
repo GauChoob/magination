@@ -396,3 +396,23 @@ wBattle_MagiCreatureID::
     ; The creature ID of the enemy magi
     ds 1
 
+    ds $D392 - @
+UNION
+wBattle_Buffer::
+    ; Data copied from a script frame into a temporary buffer
+    ; At least 5 bytes long
+    ds 5
+.End
+NEXTU
+    ;ds $D392 - @
+wBattle_CreatureSlot::
+    ;0-9 (Hero, Ally1-4, Enemy1-4, EnemyMagi)
+    ds 1
+    ;ds $D393 - @
+wBattle_ItemSpellAddress::
+    ds 2
+    ;ds $D395 - @
+    ; Some sort of offset to a table of function
+    ds 1
+ENDU
+

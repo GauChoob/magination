@@ -7367,13 +7367,14 @@ jr_002_73A7:
     ret                                           ; $73DC: $C9
 
 
+Call_002_73DD::
     call Call_002_762B                            ; $73DD: $CD $2B $76
     ld bc, $5EFE                                  ; $73E0: $01 $FE $5E
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $73E8: $70
     ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $73E9: $01 $00 $D1
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $73F1: $70
     Do_CallForeign BattleCmd_GetDataFromAddress
-    FGet16 bc, $D393                                  ; $73FA: $21 $93 $D3                                       ; $73FF: $4F
+    FGet16 bc, wBattle_ItemSpellAddress                                  ; $73FA: $21 $93 $D3                                       ; $73FF: $4F
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7405: $70
     FSet16 $D107, bc                                    ; $740B: $70
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $740C: $01 $91 $CD
@@ -7604,7 +7605,7 @@ Call_002_7607:
     ECallHL                                    ; $761B: $CD $89 $07
 
 jr_002_761E:
-    ld a, [$D392]                                 ; $761E: $FA $92 $D3
+    ld a, [wBattle_CreatureSlot]                                 ; $761E: $FA $92 $D3
     call Call_002_75FC                            ; $7621: $CD $FC $75
     ld bc, $D0D9                                  ; $7624: $01 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $7627: $CD $DC $5B

@@ -5,7 +5,7 @@ msObjectPressStart::
 .FadeOutUnused:
     ; This code is unused. But in theory, it would potentially run while the screen was fading out after the user pressed Start
     SpriteDraw(){
-        MoveDraw($FF,$00,$00,sPressStart) ;No movement, but displays the sprite
+        MoveDraw($FF,$00,$00,SPRITE_PressStart) ;No movement, but displays the sprite
     }
     Jump(.FadeOutUnused)
     
@@ -13,7 +13,7 @@ msObjectPressStart::
 .Main:
     ; Code for the Press Start blinking icon while idling in the Start Screen interface
     SpriteDraw(){
-        MoveDraw(12,$00,$00,sPressStart) ;No movement, but displays the sprite
+        MoveDraw(12,$00,$00,SPRITE_PressStart) ;No movement, but displays the sprite
     }
     Delay(10)
     Jump(msObjectPressStart.Main)
