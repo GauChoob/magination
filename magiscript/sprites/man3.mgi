@@ -1,0 +1,196 @@
+
+SPRITE_Man3_FaceDownRight::
+    INCSPRITE("assets/sprites/man3/Man3_FaceDownRight.spr")
+
+SPRITE_Man3_FaceDownLeft::
+    INCSPRITE("assets/sprites/man3/Man3_FaceDownLeft.spr")
+
+SPRITE_Man3_FaceUpRight::
+    INCSPRITE("assets/sprites/man3/Man3_FaceUpRight.spr")
+
+SPRITE_Man3_FaceUpLeft::
+    INCSPRITE("assets/sprites/man3/Man3_FaceUpLeft.spr")
+
+SPRITE_Man3_WalkDown1::
+    INCSPRITE("assets/sprites/man3/Man3_WalkDown1.spr")
+
+SPRITE_Man3_FaceDown::
+    INCSPRITE("assets/sprites/man3/Man3_FaceDown.spr")
+
+SPRITE_Man3_WalkDown2::
+    INCSPRITE("assets/sprites/man3/Man3_WalkDown2.spr")
+
+SPRITE_Man3_WalkUp1::
+    INCSPRITE("assets/sprites/man3/Man3_WalkUp1.spr")
+
+SPRITE_Man3_FaceUp::
+    INCSPRITE("assets/sprites/man3/Man3_FaceUp.spr")
+
+SPRITE_Man3_WalkUp2::
+    INCSPRITE("assets/sprites/man3/Man3_WalkUp2.spr")
+
+SPRITE_Man3_WalkRight1::
+    INCSPRITE("assets/sprites/man3/Man3_WalkRight1.spr")
+
+SPRITE_Man3_FaceRight::
+    INCSPRITE("assets/sprites/man3/Man3_FaceRight.spr")
+
+SPRITE_Man3_WalkRight2::
+    INCSPRITE("assets/sprites/man3/Man3_WalkRight2.spr")
+
+SPRITE_Man3_WalkLeft1::
+    INCSPRITE("assets/sprites/man3/Man3_WalkLeft1.spr")
+
+SPRITE_Man3_FaceLeft::
+    INCSPRITE("assets/sprites/man3/Man3_FaceLeft.spr")
+
+SPRITE_Man3_WalkLeft2::
+    INCSPRITE("assets/sprites/man3/Man3_WalkLeft2.spr")
+
+SCRIPT_ANIM_Man3_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Man3_WalkUp1)
+        Draw(SPRITE_Man3_FaceUp)
+        Draw(SPRITE_Man3_WalkUp2)
+        Draw(SPRITE_Man3_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man3_WalkUp)
+
+SCRIPT_ANIM_Man3_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Man3_WalkDown1)
+        Draw(SPRITE_Man3_FaceDown)
+        Draw(SPRITE_Man3_WalkDown2)
+        Draw(SPRITE_Man3_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man3_WalkDown)
+
+SCRIPT_ANIM_Man3_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Man3_WalkLeft1)
+        Draw(SPRITE_Man3_FaceLeft)
+        Draw(SPRITE_Man3_WalkLeft2)
+        Draw(SPRITE_Man3_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man3_WalkLeft)
+
+SCRIPT_ANIM_Man3_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Man3_WalkRight1)
+        Draw(SPRITE_Man3_FaceRight)
+        Draw(SPRITE_Man3_WalkRight2)
+        Draw(SPRITE_Man3_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man3_WalkRight)
+
+SCRIPT_ANIM_Man3_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Man3_WalkUp1)
+        Draw(SPRITE_Man3_FaceUp)
+        Draw(SPRITE_Man3_WalkUp2)
+        Draw(SPRITE_Man3_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man3_RunUp)
+
+SCRIPT_ANIM_Man3_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Man3_WalkDown1)
+        Draw(SPRITE_Man3_FaceDown)
+        Draw(SPRITE_Man3_WalkDown2)
+        Draw(SPRITE_Man3_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man3_RunDown)
+
+SCRIPT_ANIM_Man3_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Man3_WalkLeft1)
+        Draw(SPRITE_Man3_FaceLeft)
+        Draw(SPRITE_Man3_WalkLeft2)
+        Draw(SPRITE_Man3_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man3_RunLeft)
+
+SCRIPT_ANIM_Man3_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Man3_WalkRight1)
+        Draw(SPRITE_Man3_FaceRight)
+        Draw(SPRITE_Man3_WalkRight2)
+        Draw(SPRITE_Man3_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man3_RunRight)
+
+SCRIPT_ANIM_Man3_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceUp)
+
+SCRIPT_ANIM_Man3_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceDown)
+
+SCRIPT_ANIM_Man3_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceLeft)
+
+SCRIPT_ANIM_Man3_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceRight)
+
+SCRIPT_ANIM_Man3_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceUpLeft)
+
+SCRIPT_ANIM_Man3_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceUpRight)
+
+SCRIPT_ANIM_Man3_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceDownLeft)
+
+SCRIPT_ANIM_Man3_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man3_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Man3_FaceDownRight)
+
+SCRIPT_ANIM_Man3_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Man3_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Man3_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Man3_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Man3_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

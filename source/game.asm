@@ -113,13 +113,13 @@ INCLUDE "source/banks/bank_00b.asm"
 INCLUDE "source/banks/bank_00c.asm"
 INCLUDE "source/banks/bank_00d.asm"
 
-    ; Sprites - Bank 0E-10 - essentially full
+    ; Sprites - Bank 0E-11 - essentially full
 ; INCLUDE "source/banks/bank_00e.asm"
 ; INCLUDE "source/banks/bank_00f.asm"
 ; INCLUDE "source/banks/bank_010.asm"
+; INCLUDE "source/banks/bank_011.asm"
 INCLUDE "source/assets/sprites.asm"
 
-INCLUDE "source/banks/bank_011.asm"
 INCLUDE "source/banks/bank_012.asm"
 INCLUDE "source/banks/bank_013.asm"
 INCLUDE "source/banks/bank_014.asm"

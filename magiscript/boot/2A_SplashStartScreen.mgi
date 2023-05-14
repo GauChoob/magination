@@ -91,7 +91,7 @@ msSplashStartScreen::
         ; PressStart Object
         ThatInit($03,AI_Anim,
                       $05,$06,$D041,$00,   ;Width seems to be $0A
-                      msObjectPressStart.Main, msObjectIdle)
+                      SCRIPT_ANIM_PressStart_Blink, msObjectIdle)
         ; Set the PressStart Object's subtiles for greater precision for proper centering
         ThatLoc($03,$00,$07,
                       $05,$06,$D041)
@@ -114,7 +114,7 @@ msSplashStartScreen::
 .StartScreenFadeOutUnused:
     ; This code is unused. Supposedly the Press Start text would remain highlighted and would not blink
     ; while the screen was fading out after the user pressed Start
-    ThatScript($03,msObjectPressStart.FadeOutUnused)
+    ThatScript($03,SCRIPT_ANIM_PressStart_Solid)
     
     ; $735B
 .StartScreenFadeOut:

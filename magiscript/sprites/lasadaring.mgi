@@ -1,0 +1,65 @@
+
+SPRITE_LasadaRing_1::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_1.spr")
+
+SPRITE_LasadaRing_2::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_2.spr")
+
+SPRITE_LasadaRing_3::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_3.spr")
+
+SPRITE_LasadaRing_4::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_4.spr")
+
+SPRITE_LasadaRing_5::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_5.spr")
+
+SPRITE_LasadaRing_6::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_6.spr")
+
+SPRITE_LasadaRing_7::
+    INCSPRITE("assets/sprites/lasadaring/LasadaRing_7.spr")
+
+SCRIPT_ANIM_LasadaRing_MakeRing::
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_1)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_2)
+        MoveDraw(32, 0, 0, SPRITE_LasadaRing_3)
+        MoveDraw(32, 0, 0, SPRITE_LasadaRing_4)
+        MoveDraw(16, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(16, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(8, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(8, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(8, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(8, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_5)
+        MoveDraw(2, 0, 0, SPRITE_LasadaRing_6)
+        MoveDraw(24, 0, 0, SPRITE_LasadaRing_4)
+        MoveDraw(4, 0, 0, SPRITE_LasadaRing_3)
+    }
+
+.Loop::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_LasadaRing_7)
+    }
+    Jump(.Loop)
+
+SCRIPT_ANIM_LasadaRing_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_LasadaRing_1)
+    }
+    Jump(SCRIPT_ANIM_LasadaRing_Idle)
