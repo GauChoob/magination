@@ -1974,7 +1974,7 @@ Cmd_Battle_New::
 
 
     ld a, $04
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     jp $73AC
 
 Call_000_0F39:
@@ -1983,17 +1983,17 @@ Call_000_0F39:
     ld [$D3C2], a
     ret
 
-
+    ; $0F46
     ld a, $04
-    call Call_000_1020
-    jp $73DD
+    call Battle02_00_CopyFromFrame
+    jp Call_002_73DD
 
 
     jp $7449
 
     ; $0F51
     ld a, $01
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     jp $744A
 
     ; $0F59
@@ -2014,24 +2014,24 @@ Call_000_0F66:
 
 
     ld a, $02
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     jp $7477
 
 
     ld a, $04
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     xor a
     ld [$D396], a
     jp $752D
 
     ; $0F82
     ld a, $05
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     jp $752D
 
 
     ld a, $04
-    call Call_000_1020
+    call Battle02_00_CopyFromFrame
     jp $7595
 
     ; $0F92
@@ -2086,20 +2086,22 @@ Cmd_Battle_Swirl::
     jp Script_Start
 
 
-Call_000_1020:
+Battle02_00_CopyFromFrame:
+    ; Copies a bytes from the reading frame into the buffer
+    ; Then saves the updated frame
+    ; Arguments:
+    ;   a = number of bytes to copy
+    ;   bc = reading frame
     ld l, c
     ld h, b
-    ld de, $D392
+    ld de, wBattle_Buffer
     ld c, a
     ld b, $00
     SwitchRAMBank BANK("WRAM BATTLE")
     call MemMov
-    ld a, h
-    ldh [hScript.Frame+1], a
-    ld a, l
-    ldh [hScript.Frame], a
+    Set16FF_V hScript.Frame, hl
     Set16FF hScript.State, Script_Start
-    SwitchROMBank $02
+    SwitchROMBank BANK(Battle_Attack_Table) ; TODO change to file
     ret
 
 
@@ -2531,7 +2533,7 @@ Cmd_Flow_SwitchRange::
         jp Script_Start
 
     ; $1504
-Cmd_Flow_SegmentEnd::
+Cmd_Flow_ResetScript::
     ; TODO - clarify what this is used for
     ; Hypothesis is that it marks the end of a script segment (hence Done), but jumps
     ; Or else it's an internal function for BattleFX for example
@@ -2638,17 +2640,14 @@ Cmd_Frame_SpriteDraw::
             Set16_M hScript.State, Cmd_Frame_SpriteDraw
             ret
 
-    ;$15AB
+    ; $15AB
 Cmd_Frame_SpriteInvisible::
     ; Moves the current Actor and but draws no sprite (invisible)
     ; This opcode takes a list of 3-byte commands
     ; Arguments:
-    ;   {
-    ;       db  Number of frames to do the movement
-    ;       db  DeltaX per frame
-    ;       db  DeltaY per frame
-    ;   } x N
-    ;   db $00 to terminate list of movement commands
+    ;   db  Number of frames to do the movement (0 is ignored)
+    ;   db  DeltaX per frame
+    ;   db  DeltaY per frame
     .Init:
         Script_ReadByteA
         and a
@@ -4249,8 +4248,8 @@ Cmd_System_SaveLocation::
     jp Script_Start
 
     ; $2200
-Cmd_System_Reset::
-    ; Resets the game
+Cmd_System_Reboot::
+    ; Reboots the game
     ; Arguments:
     ;   None
     jp Boot_SoftReset

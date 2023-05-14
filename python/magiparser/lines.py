@@ -12,6 +12,14 @@ Lines = Forward()
 
 
 class BlockHandler(FuncHandler):
+    def SwitchRange(self):                  # 0x4B
+        self.size = 1  # + math
+        return self.GenerateOutput(0)
+
+    def EndSwitchRange(self):               # 0xFF
+        self.post_size = 1
+        return self.GenerateEndOutput()
+
     def Switch(self):                       # 0x4B
         self.size = 1  # + math
         return self.GenerateOutput(0)
@@ -35,14 +43,6 @@ class BlockHandler(FuncHandler):
 
     def EndSpriteBlock(self):               # null - no end
         return ""
-
-    def SpriteInvisible(self):              # 0x4E
-        self.size = 1
-        return self.GenerateOutput()
-
-    def EndSpriteInvisible(self):           # 0x00
-        self.post_size = 1
-        return self.GenerateOutput()
 
     def OverlayDraw(self):                  # 0x4F
         self.size = 1

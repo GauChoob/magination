@@ -747,7 +747,7 @@ Script_Table::
     dw Cmd_Flow_RandLongJump  ; $47
     dw Cmd_Flow_Pass          ; $48
     dw Cmd_Flow_SwitchRange   ; $49
-    dw Cmd_Flow_SegmentEnd    ; $4A
+    dw Cmd_Flow_ResetScript    ; $4A
     dw Cmd_Flow_Switch        ; $4B
 
     dw Cmd_Frame_SpriteDraw  ; $4C
@@ -832,7 +832,7 @@ Script_Table::
     dw Cmd_System_SceneReady ; $94
     dw Cmd_System_SetItemSpellMapError ; $95
     dw Cmd_System_SaveLocation ; $96
-    dw Cmd_System_Reset ; $97
+    dw Cmd_System_Reboot ; $97
 
     dw Cmd_Textbox_FormatChar ; $98
     dw Cmd_Textbox_Clear ; $99

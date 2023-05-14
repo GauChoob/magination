@@ -6946,7 +6946,7 @@ jr_011_647E:
     add b                                         ; $64A8: $80
 
     ; $64A9
-sPressStart::
+SPRITE_PressStart::
     db $00, $10, $06, $07
     db $00, $08, $04, $07
     db $00, $00, $01, $07

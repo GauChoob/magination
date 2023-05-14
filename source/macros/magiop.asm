@@ -79,7 +79,7 @@ DEF Enum_Cmd_Flow_LocalJump                     RB 1 ; $46
 DEF Enum_Cmd_Flow_RandLongJump                  RB 1 ; $47
 DEF Enum_Cmd_Flow_Pass                          RB 1 ; $48
 DEF Enum_Cmd_Flow_SwitchRange                   RB 1 ; $49
-DEF Enum_Cmd_Flow_SegmentEnd                    RB 1 ; $4A
+DEF Enum_Cmd_Flow_ResetScript                   RB 1 ; $4A
 DEF Enum_Cmd_Flow_Switch                        RB 1 ; $4B
 
 DEF Enum_Cmd_Frame_SpriteDraw                   RB 1 ; $4C
@@ -163,7 +163,7 @@ DEF Enum_Cmd_System_SceneNew                    RB 1 ; $93
 DEF Enum_Cmd_System_SceneReady                  RB 1 ; $94
 DEF Enum_Cmd_System_SetItemSpellMapError        RB 1 ; $95
 DEF Enum_Cmd_System_SaveLocation                RB 1 ; $96
-DEF Enum_Cmd_System_Reset                       RB 1 ; $97
+DEF Enum_Cmd_System_Reboot                      RB 1 ; $97
 
 DEF Enum_Cmd_Textbox_FormatChar                 RB 1 ; $98
 DEF Enum_Cmd_Textbox_Clear                      RB 1 ; $99
@@ -434,6 +434,7 @@ MACRO LongJump
 ENDM
 
 MACRO Jump
+    ASSERT BANK(@) == BANK(\1)
     db Enum_Cmd_Flow_LocalJump
     dw \1 ; Jump to here, within the same bank
 ENDM
@@ -451,8 +452,31 @@ MACRO Pass
     db Enum_Cmd_Flow_Pass
 ENDM
 
-; 49
-; 4A
+MACRO SwitchRange
+    ; Switch Math
+    ;   CaseRange inclusivelow,inclusivehigh,LongJumpDestination
+    ;   CaseRange inclusivelow,inclusivehigh,LongJumpDestination
+    ;   ...
+    ; EndSwitchRange
+    db Enum_Cmd_Flow_SwitchRange
+    ;\1      ;Math
+ENDM
+MACRO CaseRange
+    ; Used for Switch. If the obtained value is between \1 and \2 (inclusive)
+    ; then LongJump to \3
+    db BANK(\3) ;LongJump destination
+    dw \1       ;inclusive low value
+    dw \2       ;inclusive high value
+    dw \3       ;LongJump destination
+ENDM
+MACRO EndSwitchRange
+    db $FF
+ENDM
+
+MACRO ResetScript
+    db Enum_Cmd_Flow_ResetScript
+    BankAddress \1 ;Jump to here
+ENDM
 
 MACRO Switch
     ; Switch Math
@@ -510,20 +534,10 @@ MACRO Draw
 ENDM
 
 MACRO SpriteInvisible
-    ; SpriteInvisible
-    ;   Move Frames, DeltaX, DeltaY
-    ;   Move Frames, DeltaX, DeltaY
-    ; EndSpriteInvisible
     db Enum_Cmd_Frame_SpriteInvisible
-ENDM
-MACRO Move
-    ; Used for SpriteInvisible and ScrollMap
     db \1       ; Number of frames of movement
     db \2       ; DeltaX per frame
     db \3       ; DeltaY per frame
-ENDM
-MACRO EndSpriteInvisible
-    db $00
 ENDM
 
 MACRO OverlayDraw
@@ -819,7 +833,12 @@ ENDM
 MACRO ScrollMap
     db Enum_Cmd_Scroll_ScrollMap
 ENDM
-;MACRO Move -> See SpriteInvisible
+MACRO Move
+    ; Used for ScrollMap
+    db \1       ; Number of frames of movement
+    db \2       ; DeltaX per frame
+    db \3       ; DeltaY per frame
+ENDM
 MACRO EndScrollMap
     db $00
 ENDM
@@ -874,9 +893,8 @@ MACRO SaveLocation
     BankAddress \1      ; Script to reload location
 ENDM
 
-MACRO Reset
-    db Enum_Cmd_System_Reset
-    BankAddress \1      ; Script to reload location
+MACRO Reboot
+    db Enum_Cmd_System_Reboot
 ENDM
 
 MACRO FormatChar

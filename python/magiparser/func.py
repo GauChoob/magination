@@ -22,10 +22,10 @@ class FuncHandler(ResultsHandler):
         return True
 
     parentmap = {
+        "SwitchRange": ["CaseRange"],
         "Switch": ["Case"],
         "SpriteDraw": ["MoveDraw"],
         "SpriteBlock": ["Draw"],
-        "SpriteInvisible": ["Move"],
         "OverlayDraw": ["MoveDraw"],
         "ScrollMap": ["Move"],
     }
@@ -292,10 +292,20 @@ class FuncHandler(ResultsHandler):
         self.size = 1
         return self.GenerateOutput()
 
+    # def SwitchRange BLOCK                      # 0x49
+
+    def ResetScript(self):                   # 0x4A
+        self.size = 4
+        return self.GenerateOutput(*range(1))
+
     # def Switch BLOCK                      # 0x4B
     # def SpriteDraw BLOCK                  # 0x4C
     # def SpriteBlock BLOCK                 # 0x4D
-    # def SpriteInvisible BLOCK             # 0x4E
+
+    def SpriteInvisible(self):              # 0x4E
+        self.size = 4
+        return self.GenerateOutput(*range(3))
+
     # def OverlayDraw BLOCK                 # 0x4F
 
     def OverlayInit(self):                  # 0x50
@@ -539,7 +549,7 @@ class FuncHandler(ResultsHandler):
         self.size = 4
         return self.GenerateOutput(*range(1))
 
-    def Reset(self):                        # 0x97
+    def Reboot(self):                        # 0x97
         self.size = 1
         return self.GenerateOutput()
 
@@ -641,6 +651,10 @@ class FuncHandler(ResultsHandler):
     def OrByte(self):                       # 0xAF
         self.size = 4
         return self.GenerateOutput(*range(2))
+
+    def CaseRange(self):                    # null
+        self.size = 7
+        return self.GenerateOutput(*range(3))
 
     def Case(self):                         # null
         self.size = 5

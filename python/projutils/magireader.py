@@ -135,6 +135,8 @@ class MagiScriptLine:
         0x22: CommandBuilder("func", "SetSongVolume", "$db"),
         0x23: CommandBuilder("func", "SongFadeIn", "SongFadeInterval"),
         0x24: CommandBuilder("func", "SongFadeOut", "SongFadeInterval"),
+        
+        0x28: CommandBuilder("func", "BATTLE_UNK", "db", "$dw", "$db"),
 
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
 
@@ -149,11 +151,12 @@ class MagiScriptLine:
         0x46: CommandBuilder("func", "Jump", "LocalAddress"),
         0x47: CommandBuilder("func", "RandLongJump", "RANDLONGJUMP"),
         0x48: CommandBuilder("func", "Pass"),
-
+        0x49: CommandBuilder("block", "SwitchRange", "MATH"),
+        0x4A: CommandBuilder("func", "ResetScript", "BankAddress_SCRIPT"),
         0x4B: CommandBuilder("block", "Switch", "MATH"),
         0x4C: CommandBuilder("block", "SpriteDraw"),
         0x4D: CommandBuilder("block", "SpriteBlock", "silent_byte", "db", "-db", "-db"),
-        0x4E: CommandBuilder("block", "SpriteInvisible"),
+        0x4E: CommandBuilder("func", "SpriteInvisible", "db", "-db", "-db"),
         0x4F: CommandBuilder("block", "OverlayDraw"),
         0x50: CommandBuilder("func", "OverlayInit", "RAMAddress", "$db", "$db", "$db", "BankAddress_SCRIPT_ACTORSCRIPT0"),
         0x51: CommandBuilder("func", "OverlayInvisible"),
@@ -220,7 +223,7 @@ class MagiScriptLine:
         0x94: CommandBuilder("func", "SceneReady"),
         0x95: CommandBuilder("func", "SetItemSpellMapError", "BankAddress_SCRIPT_ITEMSPELLMAPERROR"),
         0x96: CommandBuilder("func", "SaveLocation", "BankAddress_SCRIPT_SCENELOADER"),
-        0x97: CommandBuilder("func", "Reset"),
+        0x97: CommandBuilder("func", "Reboot"),
         0x98: CommandBuilder("func", "FormatChar", "Address_VARDB"),
         0x99: CommandBuilder("func", "Clear"),
         0x9A: CommandBuilder("func", "Close"),
@@ -251,7 +254,8 @@ class MagiScriptLine:
         """Returns True if the function always changes the reading frame"""
         return self.name in [
             "End",
-            "Reset",
+            "ResetScript",
+            "Reboot",
             "NewGame",
             "RestoreActorState",
             "LongJump",
@@ -574,6 +578,16 @@ class MagiScriptLine:
 
                 address = getWord()
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([val, interpretBankAddress(bank, address, "SCRIPT")]))]
+            elif(instruction == "func_SwitchRange"):
+                bank = getByte()
+                if(bank == 0xFF):
+                    return []  # End
+
+                low = str(getWord())
+                high = str(getWord())
+                address = getWord()
+
+                return ["{}CaseRange({})".format(depthtracker.getWhitespace(), ", ".join([low, high, interpretBankAddress(bank, address, "SCRIPT")]))]
             elif(instruction in ["func_OverlayDraw", "func_SpriteDraw"]):
                 frameN = getByte()
                 if(frameN == 0x00):
@@ -583,7 +597,7 @@ class MagiScriptLine:
                 deltaY = self._interpretInstruction("-db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}MoveDraw({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY, sprite_data]))]
-            elif(instruction in ["func_SpriteInvisible", "func_ScrollMap"]):
+            elif(instruction in ["func_ScrollMap"]):
                 frameN = getByte()
                 if(frameN == 0x00):
                     return []  # End
@@ -798,7 +812,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
     def isLikelySprite(val):
         if val > 0xAF:  # Out of range command
             return True
-        if val <= 32:  # Heuristic
+        if val <= 0x32:  # Heuristic
             return True
         return False
 
@@ -820,6 +834,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
                 curbyte = rom.getSignedByte(curpos)
                 if not isLikelySprite(curbyte):  # heuristic to distinguish script from sprite
                     spriteMode = False
+                    sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
                     continue
                 lines.append(SpriteLine(folder))
                 if debug:
@@ -831,6 +846,8 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
             else:
                 # heuristic to distinguish script from sprite
                 curbyte = rom.getByte(curpos)
+                if curpos == utils.BankAddress(0x11, 0x74F4):  # Special exception where a Switch only has two RestoreActorState
+                    restore_actor_state_count = 0
                 if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
                     restore_actor_state_count += 1
                     if restore_actor_state_count % 4 == 0:
@@ -853,7 +870,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
             bank = startpos.getBank()
             f.write('SECTION "Sprites ${:02X}", ROMX[$4000], BANK[${:02X}]\n\n'.format(bank, bank) + '\n'.join(includes))
         if debug:
-            #print(curpos)
+            # print(curpos)
             with open(config.outdir + 'temp.mgi', 'w') as f:
                 f.write('\n'.join([line.getOutput() for line in lines]))
 
