@@ -722,7 +722,11 @@ class SpriteLine(MagiScriptLine):
         if match is None:
             raise ValueError('Invalid Label at {}: {}'.format(curpos, symbol))
         self.name = match.group(1)
-        self.folder = folder
+        if folder in ['Objects', 'Effects']:
+            match = re.search(r'SPRITE_([^_]*)(_.*)?', symbol)
+            self.folder = folder + '/' + match.group(1)
+        else:
+            self.folder = folder
         self.shortpath = self.name + '.spr'
         self.longpath = sprite.SPRITE_FOLDER + self.folder.lower() + '/' + self.shortpath
         self.rompath = 'assets/sprites/' + self.folder.lower() + '/' + self.shortpath
@@ -786,6 +790,10 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
 
     def getFolder():
         """Gets the folder of a Sprite (e.g. SPRITE_Zet_WalkLeft1 -> Zet)"""
+        if curpos == utils.BankAddress(0x11, 0x4D99):
+            return 'Objects'  # Special case
+        if curpos == utils.BankAddress(0x11, 0x7a6e):
+            return 'Effects'  # Special case
         symbol = sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SPRITE")[0]
         match = re.search(r'SPRITE_([^_]*).*', symbol)
         return match.group(1)
