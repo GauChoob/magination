@@ -3390,7 +3390,6 @@ sprite_anim_params[0x11] = {
     ]
 }
 
-
 sprite_anim_params[0x20] = {
     'START': 0x4000,
     'END': 0x7da8,
@@ -3403,6 +3402,7 @@ sprite_anim_params[0x20] = {
         0x79e4,
     ]
 }
+
 
 def setupSpriteAnim(bank, debug):
     params = sprite_anim_params[bank]
