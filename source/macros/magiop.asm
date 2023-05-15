@@ -280,7 +280,8 @@ ENDM
 MACRO ThisNewState
     db Enum_Cmd_Actor_ThisActorNewState
     dw \1       ; State
-; 10
+ENDM
+
 ; 11
 
 MACRO RestoreActorState
