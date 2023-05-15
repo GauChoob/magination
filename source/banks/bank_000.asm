@@ -1637,12 +1637,12 @@ Cmd_Actor_ThisActorTeleportToThatActor::
     jp Script_Start
 
     ; $0C6D
-    ; TODO ?CMD_THISACTORNEWSTATE
+Cmd_Actor_ThisActorNewState::
+    ; Stores a new state for the actor to load
+    ; TODO - only works for wActor_Hero?
+    ; TODO - what's the difference compared to Cmd_Actor_ThisActorSetAI?
     Script_ReadWord de
-    ld a, d
-    ld [$C187], a
-    ld a, e
-    ld [$C186], a
+    Set16 wActor_NewState, de
     jp Script_Start
 
     ; $0C7E
@@ -1706,10 +1706,8 @@ Cmd_Actor_ThisActorSetAI::
     ;   dw      Address
     ; Output:
     ;   hActor.State set to Address (always in bank 1)
-    Script_ReadByteA
-    ld [hActor.State], a
-    Script_ReadByteA
-    ld [hActor.State+1], a
+    Script_ReadByte_V [hActor.State]
+    Script_ReadByte_V [hActor.State+1]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     ret

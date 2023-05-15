@@ -3391,6 +3391,19 @@ sprite_anim_params[0x11] = {
 }
 
 
+sprite_anim_params[0x20] = {
+    'START': 0x4000,
+    'END': 0x7da8,
+    'SPRITE': [],
+    'SCRIPT': [
+
+    ],
+    'DELETELABELS': [
+        0x6a3f,
+        0x79e4,
+    ]
+}
+
 def setupSpriteAnim(bank, debug):
     params = sprite_anim_params[bank]
     start = BankAddress(bank, params['START'])
@@ -3407,4 +3420,4 @@ def setupSpriteAnim(bank, debug):
 table = MainTable(rom)
 with open(config.outdir + 'tempbattle.asm', 'w') as f:
     f.write(table.getOutput())
-setupSpriteAnim(0x11, False)
+setupSpriteAnim(0x20, True)

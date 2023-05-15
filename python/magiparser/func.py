@@ -165,6 +165,10 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(0)
 
+    def ThisNewState(self):                 # 0x10
+        self.size = 3
+        return self.GenerateOutput(0)
+
     # 0x10
     # 0x11
 

@@ -685,7 +685,7 @@ Script_Table::
     dw $0C49
     dw Cmd_Actor_ThisActorTeleportToThatActor ; $0F
 
-    dw $0C6D            ; ;$10
+    dw Cmd_Actor_ThisActorNewState ;$10
     dw $0C7E
     dw Cmd_Actor_RestoreActorState ; $12
     dw Cmd_Actor_ThisActorSetAI ; $13

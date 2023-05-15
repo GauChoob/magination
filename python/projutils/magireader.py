@@ -116,6 +116,7 @@ class MagiScriptLine:
         0x0C: CommandBuilder("func", "ThatDelete", "db"),
 
         0x0F: CommandBuilder("func", "ThisTeleportTo", "db"),
+        0x10: CommandBuilder("func", "ThisNewState", "ActorStateAddress"),
 
         0x12: CommandBuilder("func", "RestoreActorState"),
         0x13: CommandBuilder("func", "ThisAI", "ActorStateAddress"),
@@ -858,7 +859,10 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
                     restore_actor_state_count = 0
                 if lines[-1].isEnd() and lines[-1].name == 'RestoreActorState':
                     restore_actor_state_count += 1
-                    if restore_actor_state_count % 4 == 0:
+                    if (
+                        restore_actor_state_count % 4 == 0
+                        and curpos != utils.BankAddress(0x20, 0x6a49)  # Special exception
+                       ):
                         endBlock()
                         setupBlock()
                         continue
