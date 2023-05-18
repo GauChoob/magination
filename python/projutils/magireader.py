@@ -409,7 +409,7 @@ class MagiScriptLine:
                     looping = rom.getRawSection(end, 1) != endchar
                     end += 1
 
-                text = getString((end-start).getPos()-1)  # Remove the EOF 🛑 character since by definition the string is EOF-terminated
+                text = getString((end-start)-1)  # Remove the EOF 🛑 character since by definition the string is EOF-terminated
                 curpos = end
                 return[text]
 
@@ -767,7 +767,7 @@ def interpret(startpos: utils.BankAddress, endpos: utils.BankAddress, _sym: util
     lines = []
     try:
         while curpos != endpos:
-            if lines[-1].isEnd():
+            if len(lines) == 0 or lines[-1].isEnd():
                 # Add a label to the beginning of sections
                 sym.getSymbol(curpos.getBank(), curpos.getAddress(), "SCRIPT")
             lines.append(MagiScriptLine())
