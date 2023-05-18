@@ -685,7 +685,7 @@ Script_Table::
     dw $0C49
     dw Cmd_Actor_ThisActorTeleportToThatActor ; $0F
 
-    dw $0C6D            ; ;$10
+    dw Cmd_Actor_ThisActorNewState ;$10
     dw $0C7E
     dw Cmd_Actor_RestoreActorState ; $12
     dw Cmd_Actor_ThisActorSetAI ; $13
@@ -1915,7 +1915,8 @@ Jump_001_4D3C:
     set 3, [hl]                                   ; $4DAF: $CB $DE
     jp Jump_001_5D9B                              ; $4DB1: $C3 $9B $5D
 
-
+    ; $4DB4
+AI_Hero_BoxxleDown::
     call Call_001_5DE1                            ; $4DB4: $CD $E1 $5D
     Do_CallForeign Call_005_682D
     call Call_001_4AF0                            ; $4DBF: $CD $F0 $4A
@@ -1947,6 +1948,8 @@ Jump_001_4D3C:
     jp Jump_001_4D3C                              ; $4DF7: $C3 $3C $4D
 
 
+    ; $4DFA
+AI_Hero_BoxxleLeft::
     call Call_001_5DE1                            ; $4DFA: $CD $E1 $5D
     Do_CallForeign Call_005_682D
     call Call_001_4AF0                            ; $4E05: $CD $F0 $4A
@@ -1975,6 +1978,8 @@ Jump_001_4D3C:
     jp Jump_001_4D3C                              ; $4E37: $C3 $3C $4D
 
 
+    ; $4E3A
+AI_Hero_BoxxleRight::
     call Call_001_5DE1                            ; $4E3A: $CD $E1 $5D
     Do_CallForeign Call_005_682D
     call Call_001_4AF0                            ; $4E45: $CD $F0 $4A
@@ -2003,6 +2008,8 @@ Jump_001_4D3C:
     jp Jump_001_4D3C                              ; $4E77: $C3 $3C $4D
 
 
+    ; $4E7A
+AI_Hero_BoxxleUp::
     call Call_001_5DE1                            ; $4E7A: $CD $E1 $5D
     Do_CallForeign Call_005_682D
     call Call_001_4AF0                            ; $4E85: $CD $F0 $4A
@@ -3276,6 +3283,8 @@ Jump_001_56C9:
     jp Jump_001_5D9B                              ; $56D9: $C3 $9B $5D
 
 
+    ; $56DC
+AI_Hero_Floating::
     call Call_001_5DE1                            ; $56DC: $CD $E1 $5D
     call Call_001_56C0                            ; $56DF: $CD $C0 $56
     ld a, [$C9A3]                                 ; $56E2: $FA $A3 $C9
@@ -4252,7 +4261,7 @@ jr_001_5D66:
     call z, Call_001_4C6E                         ; $5D7B: $CC $6E $4C
     jp Jump_001_5D9B                              ; $5D7E: $C3 $9B $5D
 
-Call_001_5D81:
+AI_Hero_Main:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     ld a, [$A3A3]                                 ; $5D8E: $FA $A3 $A3

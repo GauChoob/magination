@@ -62,7 +62,9 @@ wActor_Unused::
     ; of saving everything using wActor_Save instead
     ds 16
     ;ds $C186 - @
-    ; ACTOR_NEWSTATE
+wActor_NewState::
+    ; Stores the address of the new State for an actor
+    ; TODO - only applies to wActor_Hero? To verify
     ds 2
     ;ds $C188 - @
 wActor_SaveFlag::

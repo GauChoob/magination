@@ -17,7 +17,7 @@ DEF Enum_Cmd_0D                 RB 1 ; $0D
 DEF Enum_Cmd_0E                 RB 1 ; $0E
 DEF Enum_Cmd_Actor_ThisActorTeleportToThatActor RB 1 ; $0F
 
-DEF Enum_Cmd_10                 RB 1 ; $10
+DEF Enum_Cmd_Actor_ThisActorNewState            RB 1 ; $10
 DEF Enum_Cmd_11                 RB 1 ; $11
 DEF Enum_Cmd_Actor_RestoreActorState            RB 1 ; $12
 DEF Enum_Cmd_Actor_ThisActorSetAI               RB 1 ; $13
@@ -227,19 +227,19 @@ ENDM
 
 MACRO ThatTeleportTo
     db Enum_Cmd_Actor_ThatActorTeleportToThatActor
-    db \1       ; Object ID1
-    db \2       ; Object ID2
+    db \1       ; Actor ID1
+    db \2       ; Actor ID2
 ENDM
 
 MACRO ThatAI
     db Enum_Cmd_Actor_ThatActorSetAI
-    db \1       ; Object ID
-    dw \2       ; Object_ManagerFunction
+    db \1       ; Actor ID
+    dw \2       ; State
 ENDM
 
 MACRO ThatLoc
     db Enum_Cmd_Actor_ThatActorSetLoc
-    db \1       ; Object ID
+    db \1       ; Actor ID
     db \2       ; XSubtile
     db \3       ; YSubtile
     db \4       ; XTile
@@ -249,24 +249,24 @@ ENDM
 
 MACRO ThatScript
     db Enum_Cmd_Actor_ThatActorSetScript
-    db \1           ; Object ID
+    db \1           ; Actor ID
     BankAddress \2  ; Thread0 InstructionBankAddress
 ENDM
 
 MACRO ThatSpriteBase
     db Enum_Cmd_Actor_ThatActorSetSpriteBase
-    db \1       ; Object ID
-    db \2       ; Object_TileNumberOffset
+    db \1       ; Actor ID
+    db \2       ; Actor TileNumberOffset
 ENDM
 
 MACRO ThatStart
     db Enum_Cmd_Actor_ThatActorStart
-    db \1       ;Object ID
+    db \1       ; Actor ID
 ENDM
 
 MACRO ThatDelete
     db Enum_Cmd_Actor_ThatActorDelete
-    db \1       ;Object ID
+    db \1       ; Actor ID
 ENDM
 
 ; 0D
@@ -274,10 +274,14 @@ ENDM
 
 MACRO ThisTeleportTo
     db Enum_Cmd_Actor_ThisActorTeleportToThatActor
-    db \1       ;Object ID
+    db \1       ; Actor ID
 ENDM
 
-; 10
+MACRO ThisNewState
+    db Enum_Cmd_Actor_ThisActorNewState
+    dw \1       ; State
+ENDM
+
 ; 11
 
 MACRO RestoreActorState
@@ -286,7 +290,7 @@ ENDM
 
 MACRO ThisAI
     db Enum_Cmd_Actor_ThisActorSetAI
-    dw \1       ; Object_ManagerFunction
+    dw \1       ; State
 ENDM
 
 MACRO ThisSetAnimSingle
