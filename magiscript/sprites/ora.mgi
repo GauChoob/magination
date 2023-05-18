@@ -1,0 +1,196 @@
+
+SPRITE_Ora_FaceDownRight::
+    INCSPRITE("assets/sprites/ora/Ora_FaceDownRight.spr")
+
+SPRITE_Ora_FaceDownLeft::
+    INCSPRITE("assets/sprites/ora/Ora_FaceDownLeft.spr")
+
+SPRITE_Ora_FaceUpRight::
+    INCSPRITE("assets/sprites/ora/Ora_FaceUpRight.spr")
+
+SPRITE_Ora_FaceUpLeft::
+    INCSPRITE("assets/sprites/ora/Ora_FaceUpLeft.spr")
+
+SPRITE_Ora_WalkDown1::
+    INCSPRITE("assets/sprites/ora/Ora_WalkDown1.spr")
+
+SPRITE_Ora_FaceDown::
+    INCSPRITE("assets/sprites/ora/Ora_FaceDown.spr")
+
+SPRITE_Ora_WalkDown2::
+    INCSPRITE("assets/sprites/ora/Ora_WalkDown2.spr")
+
+SPRITE_Ora_WalkUp1::
+    INCSPRITE("assets/sprites/ora/Ora_WalkUp1.spr")
+
+SPRITE_Ora_FaceUp::
+    INCSPRITE("assets/sprites/ora/Ora_FaceUp.spr")
+
+SPRITE_Ora_WalkUp2::
+    INCSPRITE("assets/sprites/ora/Ora_WalkUp2.spr")
+
+SPRITE_Ora_WalkRight1::
+    INCSPRITE("assets/sprites/ora/Ora_WalkRight1.spr")
+
+SPRITE_Ora_FaceRight::
+    INCSPRITE("assets/sprites/ora/Ora_FaceRight.spr")
+
+SPRITE_Ora_WalkRight2::
+    INCSPRITE("assets/sprites/ora/Ora_WalkRight2.spr")
+
+SPRITE_Ora_WalkLeft1::
+    INCSPRITE("assets/sprites/ora/Ora_WalkLeft1.spr")
+
+SPRITE_Ora_FaceLeft::
+    INCSPRITE("assets/sprites/ora/Ora_FaceLeft.spr")
+
+SPRITE_Ora_WalkLeft2::
+    INCSPRITE("assets/sprites/ora/Ora_WalkLeft2.spr")
+
+SCRIPT_ANIM_Ora_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Ora_WalkUp1)
+        Draw(SPRITE_Ora_FaceUp)
+        Draw(SPRITE_Ora_WalkUp2)
+        Draw(SPRITE_Ora_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ora_WalkUp)
+
+SCRIPT_ANIM_Ora_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Ora_WalkDown1)
+        Draw(SPRITE_Ora_FaceDown)
+        Draw(SPRITE_Ora_WalkDown2)
+        Draw(SPRITE_Ora_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ora_WalkDown)
+
+SCRIPT_ANIM_Ora_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Ora_WalkLeft1)
+        Draw(SPRITE_Ora_FaceLeft)
+        Draw(SPRITE_Ora_WalkLeft2)
+        Draw(SPRITE_Ora_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ora_WalkLeft)
+
+SCRIPT_ANIM_Ora_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Ora_WalkRight1)
+        Draw(SPRITE_Ora_FaceRight)
+        Draw(SPRITE_Ora_WalkRight2)
+        Draw(SPRITE_Ora_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ora_WalkRight)
+
+SCRIPT_ANIM_Ora_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Ora_WalkUp1)
+        Draw(SPRITE_Ora_FaceUp)
+        Draw(SPRITE_Ora_WalkUp2)
+        Draw(SPRITE_Ora_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ora_RunUp)
+
+SCRIPT_ANIM_Ora_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Ora_WalkDown1)
+        Draw(SPRITE_Ora_FaceDown)
+        Draw(SPRITE_Ora_WalkDown2)
+        Draw(SPRITE_Ora_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ora_RunDown)
+
+SCRIPT_ANIM_Ora_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Ora_WalkLeft1)
+        Draw(SPRITE_Ora_FaceLeft)
+        Draw(SPRITE_Ora_WalkLeft2)
+        Draw(SPRITE_Ora_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ora_RunLeft)
+
+SCRIPT_ANIM_Ora_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Ora_WalkRight1)
+        Draw(SPRITE_Ora_FaceRight)
+        Draw(SPRITE_Ora_WalkRight2)
+        Draw(SPRITE_Ora_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ora_RunRight)
+
+SCRIPT_ANIM_Ora_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceUp)
+
+SCRIPT_ANIM_Ora_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceDown)
+
+SCRIPT_ANIM_Ora_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceLeft)
+
+SCRIPT_ANIM_Ora_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceRight)
+
+SCRIPT_ANIM_Ora_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceUpLeft)
+
+SCRIPT_ANIM_Ora_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceUpRight)
+
+SCRIPT_ANIM_Ora_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceDownLeft)
+
+SCRIPT_ANIM_Ora_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ora_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Ora_FaceDownRight)
+
+SCRIPT_ANIM_Ora_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Expr_DIRECTION_UP, .FaceUp)
+        Case(Expr_DIRECTION_DOWN, .FaceDown)
+        Case(Expr_DIRECTION_RIGHT, .FaceRight)
+        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_Ora_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_Ora_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_Ora_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_Ora_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()

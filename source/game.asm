@@ -118,7 +118,7 @@ INCLUDE "source/banks/bank_00d.asm"
 ; INCLUDE "source/banks/bank_00f.asm"
 ; INCLUDE "source/banks/bank_010.asm"
 ; INCLUDE "source/banks/bank_011.asm"
-INCLUDE "source/banks/bank_020.asm"
+; INCLUDE "source/banks/bank_020.asm"
 INCLUDE "source/assets/sprites.asm"
 
 INCLUDE "source/banks/bank_012.asm"
