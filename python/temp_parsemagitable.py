@@ -4431,7 +4431,7 @@ def setupSpriteAnim(bank, debug):
 table = MainTable(rom)
 with open(config.outdir + 'tempbattle.asm', 'w') as f:
     f.write(table.getOutput())
-setupSpriteAnim(0x25, True)
+setupSpriteAnim(0x25, False)
 
 #with open('python/out/tempscript.mgi', 'w', encoding='utf-8') as f:
 #    f.write(magireader.interpret(BankAddress(0x25, 0x5e2e), BankAddress(0x25, 0x8000), sym))
