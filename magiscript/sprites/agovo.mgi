@@ -1,0 +1,164 @@
+
+SPRITE_Agovo_WalkLeft1::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkLeft1.spr")
+
+SPRITE_Agovo_WalkLeft2::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkLeft2.spr")
+
+SPRITE_Agovo_WalkLeft3::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkLeft3.spr")
+
+SPRITE_Agovo_WalkRight1::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkRight1.spr")
+
+SPRITE_Agovo_WalkRight2::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkRight2.spr")
+
+SPRITE_Agovo_WalkRight3::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkRight3.spr")
+
+SPRITE_Agovo_WalkExplodeLeft1::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeLeft1.spr")
+
+SPRITE_Agovo_WalkExplodeLeft2::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeLeft2.spr")
+
+SPRITE_Agovo_WalkExplodeLeft3::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeLeft3.spr")
+
+SPRITE_Agovo_WalkExplodeLeft4::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeLeft4.spr")
+
+SPRITE_Agovo_WalkExplodeLeft5::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeLeft5.spr")
+
+SPRITE_Agovo_WalkExplodeRight1::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeRight1.spr")
+
+SPRITE_Agovo_WalkExplodeRight2::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeRight2.spr")
+
+SPRITE_Agovo_WalkExplodeRight3::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeRight3.spr")
+
+SPRITE_Agovo_WalkExplodeRight4::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeRight4.spr")
+
+SPRITE_Agovo_WalkExplodeRight5::
+    INCSPRITE("assets/sprites/agovo/Agovo_WalkExplodeRight5.spr")
+
+SCRIPT_ANIM_Agovo_FaceLeft::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Agovo_WalkLeft1)
+        Draw(SPRITE_Agovo_WalkLeft2)
+        Draw(SPRITE_Agovo_WalkLeft3)
+        Draw(SPRITE_Agovo_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_FaceLeft)
+
+SCRIPT_ANIM_Agovo_FrozenFaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agovo_WalkLeft1)
+    }
+    Jump(SCRIPT_ANIM_Agovo_FrozenFaceLeft)
+
+SCRIPT_ANIM_Agovo_FaceRight::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Agovo_WalkRight1)
+        Draw(SPRITE_Agovo_WalkRight2)
+        Draw(SPRITE_Agovo_WalkRight3)
+        Draw(SPRITE_Agovo_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_FaceRight)
+
+SCRIPT_ANIM_Agovo_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Agovo_WalkLeft1)
+        Draw(SPRITE_Agovo_WalkLeft2)
+        Draw(SPRITE_Agovo_WalkLeft3)
+        Draw(SPRITE_Agovo_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkUp)
+
+SCRIPT_ANIM_Agovo_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Agovo_WalkRight1)
+        Draw(SPRITE_Agovo_WalkRight2)
+        Draw(SPRITE_Agovo_WalkRight3)
+        Draw(SPRITE_Agovo_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkDown)
+
+SCRIPT_ANIM_Agovo_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Agovo_WalkLeft1)
+        Draw(SPRITE_Agovo_WalkLeft2)
+        Draw(SPRITE_Agovo_WalkLeft3)
+        Draw(SPRITE_Agovo_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkLeft)
+
+SCRIPT_ANIM_Agovo_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Agovo_WalkRight1)
+        Draw(SPRITE_Agovo_WalkRight2)
+        Draw(SPRITE_Agovo_WalkRight3)
+        Draw(SPRITE_Agovo_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkRight)
+
+SCRIPT_ANIM_Agovo_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Agovo_WalkLeft1)
+        Draw(SPRITE_Agovo_WalkLeft2)
+        Draw(SPRITE_Agovo_WalkLeft3)
+        Draw(SPRITE_Agovo_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkUp)
+
+SCRIPT_ANIM_Agovo_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Agovo_WalkRight1)
+        Draw(SPRITE_Agovo_WalkRight2)
+        Draw(SPRITE_Agovo_WalkRight3)
+        Draw(SPRITE_Agovo_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkDown)
+
+SCRIPT_ANIM_Agovo_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Agovo_WalkLeft1)
+        Draw(SPRITE_Agovo_WalkLeft2)
+        Draw(SPRITE_Agovo_WalkLeft3)
+        Draw(SPRITE_Agovo_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkLeft)
+
+SCRIPT_ANIM_Agovo_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Agovo_WalkRight1)
+        Draw(SPRITE_Agovo_WalkRight2)
+        Draw(SPRITE_Agovo_WalkRight3)
+        Draw(SPRITE_Agovo_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_Agovo_WalkRight)
+
+SCRIPT_ANIM_Agovo_ExplodeLeft::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Agovo_WalkExplodeLeft1)
+        Draw(SPRITE_Agovo_WalkExplodeLeft2)
+        Draw(SPRITE_Agovo_WalkExplodeLeft3)
+        Draw(SPRITE_Agovo_WalkExplodeLeft4)
+        Draw(SPRITE_Agovo_WalkExplodeLeft5)
+    }
+    End()
+
+SCRIPT_ANIM_Agovo_ExplodeRight::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Agovo_WalkExplodeRight1)
+        Draw(SPRITE_Agovo_WalkExplodeRight2)
+        Draw(SPRITE_Agovo_WalkExplodeRight3)
+        Draw(SPRITE_Agovo_WalkExplodeRight4)
+        Draw(SPRITE_Agovo_WalkExplodeRight5)
+    }
+    End()
