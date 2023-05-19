@@ -2208,7 +2208,7 @@ Call_005_57BA::
     add a
     ld c, a
     ld b, $00
-    ld hl, Battle_MagiAnim_Table
+    ld hl, Battle_MagiAnimTable
     add hl, bc
     DerefHL
 
@@ -3150,293 +3150,156 @@ Battle_Helpers_VBlank_DrawMenuCreatureIcon::
     ret
 
     ; $5CF1
-Battle_MagiAnim_Table::
-    ; Tony has 7 animation states
-    ; Each enemy magi has 5 animation states
-    dw $5E09 ; Tony
-    dw $5DDC ; Togoth
-    dw $5DCD ; Ogar
-    dw $5DAF ; Korremar
-    dw $5DEB ; Warrada
-    dw $5DA0 ; Korg
-    dw $5DFA ; Zet
-    dw $5DBE ; Morag
-    dw $5D91 ; Agram
-    dw $5D91 ; Agram
-    dw $5D91 ; Agram
-    dw $5D19 ; ShadowMagi
-    dw $5D28 ; ShadowMagi
-    dw $5D37 ; ShadowMagi
-    dw $5D46 ; ShadowMagi
-    dw $5D55 ; ShadowMagi
-    dw $5D64 ; ShadowMagi
-    dw $5D73 ; ShadowMagi
-    dw $5D82 ; ShadowMagi
-    dw $5E1E ; Salafy
-    .End
+Battle_MagiAnimTable::
+    dw .Tony
+    dw .Togoth
+    dw .Ogar
+    dw .Korremar
+    dw .Warrada
+    dw .Korg
+    dw .Zet
+    dw .Morag
+    dw .Agram
+    dw .Agram
+    dw .Agram
+    dw .ShadowMagi1
+    dw .ShadowMagi2
+    dw .ShadowMagi3
+    dw .ShadowMagi4
+    dw .ShadowMagi5
+    dw .ShadowMagi6
+    dw .ShadowMagi7
+    dw .ShadowMagi8
+    dw .Salafy
 
-    dw $1E20
-    ld [hl], b                                    ; $5D1B: $70
-    jr nz, jr_005_5D55                            ; $5D1C: $20 $37
+    .ShadowMagi1::
+        BankAddress SCRIPT_ANIM_ShadowMagi1Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi1Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi1Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi1Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi1Battle_Defeat
 
-    ld [hl], b                                    ; $5D1E: $70
-    jr nz, jr_005_5D7D                            ; $5D1F: $20 $5C
+    .ShadowMagi2::
+        BankAddress SCRIPT_ANIM_ShadowMagi2Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi2Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi2Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi2Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi2Battle_Defeat
 
-    ld [hl], b                                    ; $5D21: $70
-    db $20, $8B
+    .ShadowMagi3::
+        BankAddress SCRIPT_ANIM_ShadowMagi3Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi3Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi3Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi3Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi3Battle_Defeat
 
-    ld [hl], b                                    ; $5D24: $70
-    jr nz, @-$3C                                  ; $5D25: $20 $C2
+    .ShadowMagi4::
+        BankAddress SCRIPT_ANIM_ShadowMagi4Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi4Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi4Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi4Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi4Battle_Defeat
 
-    ld [hl], b                                    ; $5D27: $70
-    jr nz, @-$36                                  ; $5D28: $20 $C8
+    .ShadowMagi5::
+        BankAddress SCRIPT_ANIM_ShadowMagi5Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi5Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi5Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi5Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi5Battle_Defeat
 
-    ld [hl], h                                    ; $5D2A: $74
-    db $20, $E1
+    .ShadowMagi6::
+        BankAddress SCRIPT_ANIM_ShadowMagi6Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi6Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi6Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi6Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi6Battle_Defeat
 
-    ld [hl], h                                    ; $5D2D: $74
-    jr nz, jr_005_5D31                            ; $5D2E: $20 $01
+    .ShadowMagi7::
+        BankAddress SCRIPT_ANIM_ShadowMagi7Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi7Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi7Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi7Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi7Battle_Defeat
 
-    ld [hl], l                                    ; $5D30: $75
+    .ShadowMagi8::
+        BankAddress SCRIPT_ANIM_ShadowMagi8Battle_Idle
+        BankAddress SCRIPT_ANIM_ShadowMagi8Battle_Taunt
+        BankAddress SCRIPT_ANIM_ShadowMagi8Battle_Summon
+        BankAddress SCRIPT_ANIM_ShadowMagi8Battle_Victory
+        BankAddress SCRIPT_ANIM_ShadowMagi8Battle_Defeat
 
-jr_005_5D31:
-    jr nz, jr_005_5D63                            ; $5D31: $20 $30
+    .Agram::
+        BankAddress SCRIPT_ANIM_AgramBattle_Idle
+        BankAddress SCRIPT_ANIM_AgramBattle_Taunt
+        BankAddress SCRIPT_ANIM_AgramBattle_Summon
+        BankAddress SCRIPT_ANIM_AgramBattle_Victory
+        BankAddress SCRIPT_ANIM_AgramBattle_Defeat
 
-    ld [hl], l                                    ; $5D33: $75
-    jr nz, @+$61                                  ; $5D34: $20 $5F
+    .Korg::
+        BankAddress SCRIPT_ANIM_KorgBattle_Idle
+        BankAddress SCRIPT_ANIM_KorgBattle_Taunt
+        BankAddress SCRIPT_ANIM_KorgBattle_Summon
+        BankAddress SCRIPT_ANIM_KorgBattle_Victory
+        BankAddress SCRIPT_ANIM_KorgBattle_Defeat
 
-    ld [hl], l                                    ; $5D36: $75
-    jr nz, jr_005_5D61                            ; $5D37: $20 $28
+    .Korremar::
+        BankAddress SCRIPT_ANIM_KorremarBattle_Idle
+        BankAddress SCRIPT_ANIM_KorremarBattle_Taunt
+        BankAddress SCRIPT_ANIM_KorremarBattle_Summon
+        BankAddress SCRIPT_ANIM_KorremarBattle_Victory
+        BankAddress SCRIPT_ANIM_KorremarBattle_Defeat
 
-jr_005_5D39:
-    ld a, c                                       ; $5D39: $79
-    jr nz, jr_005_5D6E                            ; $5D3A: $20 $32
+    .Morag::
+        BankAddress SCRIPT_ANIM_MoragBattle_Idle
+        BankAddress SCRIPT_ANIM_MoragBattle_Taunt
+        BankAddress SCRIPT_ANIM_MoragBattle_Summon
+        BankAddress SCRIPT_ANIM_MoragBattle_Victory
+        BankAddress SCRIPT_ANIM_MoragBattle_Defeat
 
-    ld a, c                                       ; $5D3C: $79
-    jr nz, jr_005_5D7B                            ; $5D3D: $20 $3C
+    .Ogar::
+        BankAddress SCRIPT_ANIM_OgarBattle_Idle
+        BankAddress SCRIPT_ANIM_OgarBattle_Taunt
+        BankAddress SCRIPT_ANIM_OgarBattle_Summon
+        BankAddress SCRIPT_ANIM_OgarBattle_Victory
+        BankAddress SCRIPT_ANIM_OgarBattle_Defeat
 
-    ld a, c                                       ; $5D3F: $79
-    jr nz, @+$6D                                  ; $5D40: $20 $6B
+    .Togoth::
+        BankAddress SCRIPT_ANIM_TogothBattle_Idle
+        BankAddress SCRIPT_ANIM_TogothBattle_Taunt
+        BankAddress SCRIPT_ANIM_TogothBattle_Summon
+        BankAddress SCRIPT_ANIM_TogothBattle_Victory
+        BankAddress SCRIPT_ANIM_TogothBattle_Defeat
 
-    ld a, c                                       ; $5D42: $79
-    jr nz, jr_005_5DBA                            ; $5D43: $20 $75
+    .Warrada::
+        BankAddress SCRIPT_ANIM_WarradaBattle_Idle
+        BankAddress SCRIPT_ANIM_WarradaBattle_Taunt
+        BankAddress SCRIPT_ANIM_WarradaBattle_Summon
+        BankAddress SCRIPT_ANIM_WarradaBattle_Victory
+        BankAddress SCRIPT_ANIM_WarradaBattle_Defeat
 
-    ld a, c                                       ; $5D45: $79
-    db $10                                        ; $5D46: $10
-    xor h                                         ; $5D47: $AC
-    ld b, e                                       ; $5D48: $43
-    db $10                                        ; $5D49: $10
-    or [hl]                                       ; $5D4A: $B6
-    ld b, e                                       ; $5D4B: $43
-    db $10                                        ; $5D4C: $10
-    add $43                                       ; $5D4D: $C6 $43
-    db $10                                        ; $5D4F: $10
-    xor $43                                       ; $5D50: $EE $43
-    db $10                                        ; $5D52: $10
-    ld hl, sp+$43                                 ; $5D53: $F8 $43
+    .Zet::
+        BankAddress SCRIPT_ANIM_ZetBattle_Idle
+        BankAddress SCRIPT_ANIM_ZetBattle_Taunt
+        BankAddress SCRIPT_ANIM_ZetBattle_Summon
+        BankAddress SCRIPT_ANIM_ZetBattle_Victory
+        BankAddress SCRIPT_ANIM_ZetBattle_Defeat
 
-jr_005_5D55:
-    db $10                                        ; $5D55: $10
-    scf                                           ; $5D56: $37
-    ld b, a                                       ; $5D57: $47
-    db $10                                        ; $5D58: $10
-    ld b, c                                       ; $5D59: $41
-    ld b, a                                       ; $5D5A: $47
-    db $10                                        ; $5D5B: $10
-    ld e, a                                       ; $5D5C: $5F
-    ld b, a                                       ; $5D5D: $47
-    db $10                                        ; $5D5E: $10
-    adc [hl]                                      ; $5D5F: $8E
-    ld b, a                                       ; $5D60: $47
+    .Tony::
+        BankAddress SCRIPT_ANIM_TonyBattle_Idle
+        BankAddress SCRIPT_ANIM_TonyBattle_Taunt
+        BankAddress SCRIPT_ANIM_TonyBattle_Summon
+        BankAddress SCRIPT_ANIM_TonyBattle_Victory
+        BankAddress SCRIPT_ANIM_TonyBattle_Defeat
+        BankAddress SCRIPT_ANIM_TonyBattle_Focus
+        BankAddress SCRIPT_ANIM_TonyBattle_Choose
 
-jr_005_5D61:
-    db $10                                        ; $5D61: $10
-    sbc b                                         ; $5D62: $98
+    .Salafy::
+        BankAddress SCRIPT_ANIM_SalafyBattle_Idle
+        BankAddress SCRIPT_ANIM_SalafyBattle_Taunt
+        BankAddress SCRIPT_ANIM_SalafyBattle_Summon
+        BankAddress SCRIPT_ANIM_SalafyBattle_Victory
+        BankAddress SCRIPT_ANIM_SalafyBattle_Defeat
 
-jr_005_5D63:
-    ld b, a                                       ; $5D63: $47
-    db $10                                        ; $5D64: $10
-    dec c                                         ; $5D65: $0D
-    ld c, e                                       ; $5D66: $4B
-    db $10                                        ; $5D67: $10
-
-jr_005_5D68:
-    rla                                           ; $5D68: $17
-    ld c, e                                       ; $5D69: $4B
-    db $10                                        ; $5D6A: $10
-    dec h                                         ; $5D6B: $25
-    ld c, e                                       ; $5D6C: $4B
-    db $10                                        ; $5D6D: $10
-
-jr_005_5D6E:
-    ld d, h                                       ; $5D6E: $54
-    ld c, e                                       ; $5D6F: $4B
-    db $10                                        ; $5D70: $10
-    adc a                                         ; $5D71: $8F
-    ld c, e                                       ; $5D72: $4B
-    db $10                                        ; $5D73: $10
-    adc b                                         ; $5D74: $88
-    ld c, a                                       ; $5D75: $4F
-    db $10                                        ; $5D76: $10
-    sub d                                         ; $5D77: $92
-    ld c, a                                       ; $5D78: $4F
-    db $10                                        ; $5D79: $10
-    sbc [hl]                                      ; $5D7A: $9E
-
-jr_005_5D7B:
-    ld c, a                                       ; $5D7B: $4F
-    db $10                                        ; $5D7C: $10
-
-jr_005_5D7D:
-    add $4F                                       ; $5D7D: $C6 $4F
-    db $10                                        ; $5D7F: $10
-    sub $4F                                       ; $5D80: $D6 $4F
-    db $10                                        ; $5D82: $10
-    ld [hl-], a                                   ; $5D83: $32
-    ld d, e                                       ; $5D84: $53
-    db $10                                        ; $5D85: $10
-    inc a                                         ; $5D86: $3C
-    ld d, e                                       ; $5D87: $53
-    db $10                                        ; $5D88: $10
-    ld c, h                                       ; $5D89: $4C
-    ld d, e                                       ; $5D8A: $53
-    db $10                                        ; $5D8B: $10
-    ld a, e                                       ; $5D8C: $7B
-    ld d, e                                       ; $5D8D: $53
-    db $10                                        ; $5D8E: $10
-    add a                                         ; $5D8F: $87
-    ld d, e                                       ; $5D90: $53
-    ld c, $FD                                     ; $5D91: $0E $FD
-    ld b, a                                       ; $5D93: $47
-    ld c, $07                                     ; $5D94: $0E $07
-    ld c, b                                       ; $5D96: $48
-    ld c, $2D                                     ; $5D97: $0E $2D
-    ld c, b                                       ; $5D99: $48
-    ld c, $5C                                     ; $5D9A: $0E $5C
-    ld c, b                                       ; $5D9C: $48
-    ld c, $74                                     ; $5D9D: $0E $74
-    ld c, b                                       ; $5D9F: $48
-    ld c, $D7                                     ; $5DA0: $0E $D7
-    ld [hl], d                                    ; $5DA2: $72
-    ld c, $F0                                     ; $5DA3: $0E $F0
-    ld [hl], d                                    ; $5DA5: $72
-    ld c, $15                                     ; $5DA6: $0E $15
-    ld [hl], e                                    ; $5DA8: $73
-    ld c, $44                                     ; $5DA9: $0E $44
-    ld [hl], e                                    ; $5DAB: $73
-    ld c, $4E                                     ; $5DAC: $0E $4E
-    ld [hl], e                                    ; $5DAE: $73
-    ld c, $0E                                     ; $5DAF: $0E $0E
-    ld [hl], a                                    ; $5DB1: $77
-    ld c, $27                                     ; $5DB2: $0E $27
-    ld [hl], a                                    ; $5DB4: $77
-    ld c, $37                                     ; $5DB5: $0E $37
-    ld [hl], a                                    ; $5DB7: $77
-    ld c, $66                                     ; $5DB8: $0E $66
-
-jr_005_5DBA:
-    ld [hl], a                                    ; $5DBA: $77
-    ld c, $70                                     ; $5DBB: $0E $70
-    ld [hl], a                                    ; $5DBD: $77
-    rrca                                          ; $5DBE: $0F
-    ld e, $4A                                     ; $5DBF: $1E $4A
-    rrca                                          ; $5DC1: $0F
-    add e                                         ; $5DC2: $83
-    ld c, d                                       ; $5DC3: $4A
-    rrca                                          ; $5DC4: $0F
-    sbc h                                         ; $5DC5: $9C
-    ld c, d                                       ; $5DC6: $4A
-    rrca                                          ; $5DC7: $0F
-    bit 1, d                                      ; $5DC8: $CB $4A
-    rrca                                          ; $5DCA: $0F
-    ld bc, $0F4B                                  ; $5DCB: $01 $4B $0F
-    sub h                                         ; $5DCE: $94
-    ld c, [hl]                                    ; $5DCF: $4E
-    rrca                                          ; $5DD0: $0F
-    xor l                                         ; $5DD1: $AD
-    ld c, [hl]                                    ; $5DD2: $4E
-    rrca                                          ; $5DD3: $0F
-    bit 1, [hl]                                   ; $5DD4: $CB $4E
-    rrca                                          ; $5DD6: $0F
-    ld a, [$0F4E]                                 ; $5DD7: $FA $4E $0F
-    inc b                                         ; $5DDA: $04
-    ld c, a                                       ; $5DDB: $4F
-    jr nz, @+$0D                                  ; $5DDC: $20 $0B
-
-    ld a, l                                       ; $5DDE: $7D
-    jr nz, jr_005_5E05                            ; $5DDF: $20 $24
-
-    ld a, l                                       ; $5DE1: $7D
-    jr nz, jr_005_5E14                            ; $5DE2: $20 $30
-
-    ld a, l                                       ; $5DE4: $7D
-    jr nz, @+$61                                  ; $5DE5: $20 $5F
-
-    ld a, l                                       ; $5DE7: $7D
-    jr nz, @+$6D                                  ; $5DE8: $20 $6B
-
-    ld a, l                                       ; $5DEA: $7D
-    rrca                                          ; $5DEB: $0F
-    jp nc, $0F70                                  ; $5DEC: $D2 $70 $0F
-
-    pop hl                                        ; $5DEF: $E1
-    ld [hl], b                                    ; $5DF0: $70
-    rrca                                          ; $5DF1: $0F
-    db $ED                                        ; $5DF2: $ED
-    ld [hl], b                                    ; $5DF3: $70
-    rrca                                          ; $5DF4: $0F
-    inc e                                         ; $5DF5: $1C
-    ld [hl], c                                    ; $5DF6: $71
-    rrca                                          ; $5DF7: $0F
-    dec a                                         ; $5DF8: $3D
-    ld [hl], c                                    ; $5DF9: $71
-    ld c, $42                                     ; $5DFA: $0E $42
-    ld a, a                                       ; $5DFC: $7F
-    ld c, $5B                                     ; $5DFD: $0E $5B
-    ld a, a                                       ; $5DFF: $7F
-    ld c, $6E                                     ; $5E00: $0E $6E
-    ld a, a                                       ; $5E02: $7F
-    ld c, $9D                                     ; $5E03: $0E $9D
-
-jr_005_5E05:
-    ld a, a                                       ; $5E05: $7F
-    ld c, $A7                                     ; $5E06: $0E $A7
-    ld a, a                                       ; $5E08: $7F
-
-    ; $5E09
-    db $20, $EB, $5E
-    db $20, $48
-
-    ld e, a                                       ; $5E0E: $5F
-
-    db $20, $0D, $5F
-    db $20, $71
-
-jr_005_5E14:
-    ld e, a                                       ; $5E14: $5F
-    db $20, $7B
-
-    ld e, a                                       ; $5E17: $5F
-    db $20, $48
-
-    ld e, a                                       ; $5E1A: $5F
-
-    db $20, $F5, $5E
-
-    rrca                                          ; $5E1E: $0F
-    rst $28                                       ; $5E1F: $EF
-    ld h, b                                       ; $5E20: $60
-    rrca                                          ; $5E21: $0F
-    ld sp, hl                                     ; $5E22: $F9
-    ld h, b                                       ; $5E23: $60
-    rrca                                          ; $5E24: $0F
-    dec b                                         ; $5E25: $05
-    ld h, c                                       ; $5E26: $61
-    rrca                                          ; $5E27: $0F
-    inc [hl]                                      ; $5E28: $34
-    ld h, c                                       ; $5E29: $61
-    rrca                                          ; $5E2A: $0F
-    ld a, $61                                     ; $5E2B: $3E $61
     ld b, c                                       ; $5E2D: $41
     adc c                                         ; $5E2E: $89
     ld [hl], b                                    ; $5E2F: $70
