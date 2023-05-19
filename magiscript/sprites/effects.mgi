@@ -1,30 +1,30 @@
 
-SPRITE_AgoveSmoke_1::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_1.spr")
+SPRITE_AgovoSmoke_1::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_1.spr")
 
-SPRITE_AgoveSmoke_2::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_2.spr")
+SPRITE_AgovoSmoke_2::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_2.spr")
 
-SPRITE_AgoveSmoke_3::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_3.spr")
+SPRITE_AgovoSmoke_3::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_3.spr")
 
-SPRITE_AgoveSmoke_4::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_4.spr")
+SPRITE_AgovoSmoke_4::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_4.spr")
 
-SPRITE_AgoveSmoke_5::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_5.spr")
+SPRITE_AgovoSmoke_5::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_5.spr")
 
-SPRITE_AgoveSmoke_6::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_6.spr")
+SPRITE_AgovoSmoke_6::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_6.spr")
 
-SPRITE_AgoveSmoke_7::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_7.spr")
+SPRITE_AgovoSmoke_7::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_7.spr")
 
-SPRITE_AgoveSmoke_8::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_8.spr")
+SPRITE_AgovoSmoke_8::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_8.spr")
 
-SPRITE_AgoveSmoke_9::
-    INCSPRITE("assets/sprites/effects/agovesmoke/AgoveSmoke_9.spr")
+SPRITE_AgovoSmoke_9::
+    INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_9.spr")
 
 SPRITE_EffectUNKNOWN_1::
     INCSPRITE("assets/sprites/effects/effectunknown/EffectUNKNOWN_1.spr")
@@ -165,17 +165,17 @@ SCRIPT_ANIM_Smoke_2::
     }
     End()
 
-SCRIPT_ANIM_AgoveSmoke_Anim::
+SCRIPT_ANIM_AgovoSmoke_Anim::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_AgoveSmoke_1)
-        Draw(SPRITE_AgoveSmoke_2)
-        Draw(SPRITE_AgoveSmoke_3)
-        Draw(SPRITE_AgoveSmoke_4)
-        Draw(SPRITE_AgoveSmoke_5)
-        Draw(SPRITE_AgoveSmoke_6)
-        Draw(SPRITE_AgoveSmoke_7)
-        Draw(SPRITE_AgoveSmoke_8)
-        Draw(SPRITE_AgoveSmoke_9)
+        Draw(SPRITE_AgovoSmoke_1)
+        Draw(SPRITE_AgovoSmoke_2)
+        Draw(SPRITE_AgovoSmoke_3)
+        Draw(SPRITE_AgovoSmoke_4)
+        Draw(SPRITE_AgovoSmoke_5)
+        Draw(SPRITE_AgovoSmoke_6)
+        Draw(SPRITE_AgovoSmoke_7)
+        Draw(SPRITE_AgovoSmoke_8)
+        Draw(SPRITE_AgovoSmoke_9)
     }
     End()
 
