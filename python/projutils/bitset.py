@@ -10,18 +10,16 @@ import projutils.asm as asm
 
 SPRITE_FOLDER = config.outdir + "sprites/"
 
+class TilesetEntry:
+    def __init__(self, vals: str, sym: utils.SymFile):
+        """Builds a TilesetEntry object by reading the corresponding filedata"""
+        vals = vals.split(",")
+        self.dest = asm.castNumber(vals[0])
+        self.source = vals[1]
+        self.width = asm.castNumber(vals[2])
+        self.height = asm.castNumber(vals[3])
 
-class BitmapSet:
-
-    class TilesetEntry:
-        def __init__(self, vals: str, sym: utils.SymFile):
-            """Builds a TilesetEntry object by reading the corresponding filedata"""
-            vals = vals.split(",")
-            self.dest = asm.castNumber(vals[0])
-            self.source = vals[1]
-            self.width = asm.castNumber(vals[2])
-            self.height = asm.castNumber(vals[3])
-
+class BitSet:
     def __init__(self):
         self.bitmaps = [[], []]
         self.path = None

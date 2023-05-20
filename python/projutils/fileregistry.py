@@ -32,9 +32,20 @@ def remove_rle(path: str) -> str:
     search = dirname + '/' + basename_no_ext + 'RLE?' + basename_ext + '*'
 
     matches = glob.glob(search)
-    if len(matches) != 1:
+    # We only accept a single match, except in the special case of patterns
+    if len(matches) > 2 or len(matches) == 0:
         raise KeyError(matches)
-    match = matches[0].replace('\\', '/')  # Coerce all slashes to forward slashes
+    if len(matches) == 2:
+        # Handle pattern special case
+        def findPattern(matches: str):
+            for match in matches:
+                if match.endswith('pattern.tilemap'):
+                    return match
+            raise KeyError(matches)
+        match = findPattern(matches)
+    if len(matches) == 1:
+        match = matches[0]
+    match = match.replace('\\', '/')  # Coerce all slashes to forward slashes
 
     return match
 
@@ -94,13 +105,17 @@ filepath_reverser.register_reverser(reverse_pattern)
 class FilePaths:
     """Contains a filename, both pre-processed and post-processed
     """
+    label_name: str
     original_path: Union[str, pathlib.PurePath]
     processed_path: Union[str, pathlib.PurePath]
+
+    def __str__(self):
+        return '{}: {}, {}'.format(self.label_name, self.original_path, self.processed_path)
 
 
 class LabelFileRegister:
     def __init__(self):
-        self.files = {}
+        self.files: dict[str, FilePaths] = {}
 
     def registerFromAsm(self, path: Union[str, pathlib.PurePath]) -> None:
         """Adds all the INCBIN and INCLUDE files' labels and paths from a .asm file
@@ -116,4 +131,8 @@ class LabelFileRegister:
                 compare_line = asmfile.lines[i]
                 if not isinstance(compare_line, asm.LabelLine):
                     continue
-                self.files[compare_line.label_name] = FilePaths(original_filename, processed_filename)
+                label_name = compare_line.label_name
+                self.files[label_name] = FilePaths(label_name, original_filename, processed_filename)
+
+    def __str__(self):
+        return '\n'.join([str(self.files[file]) for file in self.files])

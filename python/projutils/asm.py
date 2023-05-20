@@ -27,7 +27,7 @@ def remove_comments(line: str) -> str:
 
 class AsmLine:
 
-    UNKNOWN_SIZE = 0x8000
+    UNKNOWN_SIZE = 0x10000
 
     def __init__(self, address: int, size: int, raw: str):
         """Metadata about a line of text in the .asm file"""
@@ -99,11 +99,7 @@ class LabelLine(AsmLine):
         return re.match(r'(\s*(\.[a-zA-Z_][\w.]*):{0,2}|([a-zA-Z_][\w.]*)::?)', line)
 
 
-class CommentLine(AsmLine):
-    pass
-
-
-class AutoCommentLine(CommentLine):
+class AutoCommentLine(AsmLine):
     """
     An automatically generated comment
     ld a, 3 ; $4000: $AF $BC $54
@@ -124,6 +120,11 @@ class AutoCommentLine(CommentLine):
     @staticmethod
     def validate(line: str) -> bool:
         return re.search(r'; (\$[\dA-F][\dA-F][\dA-F][\dA-F]):(( \$[\dA-F][\dA-F])+)\n$', line)
+
+
+class CommentLine(AsmLine):
+    """A comment line with no size"""
+    pass
 
 
 class ManualAddressCommentLine(CommentLine):

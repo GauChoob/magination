@@ -33,6 +33,8 @@ class TestReverserRLE(unittest.TestCase):
             shutil.rmtree(config.TEMPFOLDER)
         os.makedirs(config.TEMPFOLDER, exist_ok=True)
         open(config.TEMPFOLDER + 'testRLE5.tileset.png', 'a').close()
+        open(config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.attrmap', 'a').close()
+        open(config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap', 'a').close()
         with open(ASSETSFOLDER + 'test.asm', 'r') as f:
             with open(config.TEMPFOLDER + 'test.asm', 'w') as g:
                 g.writelines(f.readlines())
@@ -45,6 +47,10 @@ class TestReverserRLE(unittest.TestCase):
     def test_rle(self):
         self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'test.tileset.rle'), config.TEMPFOLDER + 'testRLE5.tileset.png')
         self.assertEqual(fileregistry.filepath_reverser.reverse(config.TEMPFOLDER + 'test.tileset.rle'), config.TEMPFOLDER + 'testRLE5.tileset.png')
+
+        # Special pattern case
+        self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'Cald_Indoors.pattern.rle'), config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap')
+        self.assertEqual(fileregistry.filepath_reverser.reverse(config.TEMPFOLDER + 'Cald_Indoors.pattern.rle'), config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap')
 
     def test_labelfileregister(self):
         labelfileregister = fileregistry.LabelFileRegister()
