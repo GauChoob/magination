@@ -1939,30 +1939,39 @@ Cmd_Battle_New::
     ;   db          TODO - maybe Arena color?
     ;   db          wBattle_MagiCreatureID
     ;   db          TODO
-    ;   BankAddress TODO - probably script to setup actors for the battle?
+    ;   BankAddress Script that sets up or runs the battle - TODO
     Mov8 wHero_DoorX, wActor_Hero.XTile
     Mov8 wHero_DoorY, wActor_Hero.YTile
 
     SwitchRAMBank BANK("WRAM BATTLE")
 
     Script_ReadByte_V [$C9E4]
+
+    ; Store the enemy magi ID
     Script_ReadByteA
     ld [wBattle_MagiCreatureID], a
-    cp luDreamCreature6C ; Hypothesis - this is a battle with no enemy magi?
-    jr z, .jr_000_0EE9
+    ; Set whether Tony can run from the battle (yes if no enemy magi)
+    cp luDreamCreature6C
+    jr z, .NoMagi
+    .HasMagi:
         xor a
-        jr .jr_000_0EEB
-    .jr_000_0EE9:
+        jr .Finally
+    .NoMagi:
         ld a, $01
-    .jr_000_0EEB:
-    ld [$D0D3], a
+    .Finally:
+    ld [wBattle_RunEnabled], a
+
     Script_ReadByte_V [$D36D]
+
     ld hl, wScript_Master.Bank
     LdHLIBCI
     LdHLIBCI ; wScript_Master.Frame
     LdHLIBCI
+
     xor a
     ld [$D0D7], a
+
+    ; TODO
     Set16_M wScript_Master.State, Script_Start
     Set16FF_V hScript.Frame, bc
     Set16FF hScript.State, Call_000_0F59
@@ -2198,7 +2207,7 @@ jr_000_10FC:
     XCall Call_004_711C
     ret
 
-    ;$1141
+    ; $1141
     ; Identical to SceneReady, but not an opcode
     ld a, $01
     ld [wScript_SceneReady], a

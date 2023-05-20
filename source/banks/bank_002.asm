@@ -4807,8 +4807,8 @@ Battle_Flow_CreatureCommandMenu:
         xor a
         ld [hl], a
 
-        ; Disable run if TODO
-        ld a, [$D0D3]
+        ; Disable run if it is disabled (when there is an enemy magi)
+        ld a, [wBattle_RunEnabled]
         and a
         jr nz, .SkipDisableRun
         .DisableRun:

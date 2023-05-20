@@ -19,7 +19,7 @@ class Sprite:
             self.tileid = tileid
             self.attr = attr
 
-        def getBinary(self):
+        def __bytes__(self):
             return struct.pack('bbBB', self.y, self.x, self.tileid, self.attr)
 
         def __str__(self):
@@ -90,14 +90,14 @@ class Sprite:
     def __str__(self):
         return '\n'.join(str(entry) for entry in self.entries) + '\n    db $80'
 
-    def getBinary(self):
-        return b''.join([entry.getBinary() for entry in self.entries])
+    def __bytes__(self):
+        return b''.join([bytes(entry) for entry in self.entries])
 
     def save(self, filename: Union[str, pathlib.PurePath]):
         """Saves the sprite as a .spr file. The EOF byte is not included"""
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(os.path.join(filename), 'wb') as f:
-            f.write(self.getBinary())
+            f.write(bytes(self))
 
     def size(self):
         """Returns the size in bytesof the sprite oam data. Includes the EOF byte as part of the size"""

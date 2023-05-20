@@ -36,7 +36,7 @@ class TestSprite(unittest.TestCase):
                 self.assertTrue(filecmp.cmp(sprite.SPRITE_FOLDER + test['filename'], ASSETSFOLDER + test['filename'], shallow=False))
 
                 spr2 = sprite.Sprite(ASSETSFOLDER + test['filename'])
-                self.assertEqual(spr.getBinary(), spr2.getBinary())
+                self.assertEqual(bytes(spr), bytes(spr2))
 
 
 if __name__ == '__main__':

@@ -87,7 +87,7 @@ Cmd_Sound_FanfareStart::
     ; the command jp Script_Start, causing the pc to instead goto Cmd_Sound_SongStop
     Sound_Request_StartFanfare_Bugged a
     
-    jp Script_Start      ;$0EBA = $C3, $66, $0A
+    jp Script_Start      ; $0EBA = $C3, $66, $0A
     ; If a fanfare is already playing:
     ; ld h,[hl]   ; $66 ;luckily these 2 bytes don't crash anything
     ; ld a,[bc]   ; $0A

@@ -44,6 +44,7 @@ preview:
 	python python\\make\\preview_make.py
 
 tests:
+	python -m unittest python\\projutils\\tests\\test_asm.py
 	python -m unittest python\\projutils\\tests\\test_autopack.py
 	python -m unittest python\\projutils\\tests\\test_battle.py
 	python -m unittest python\\projutils\\tests\\test_color.py
