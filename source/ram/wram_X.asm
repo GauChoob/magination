@@ -341,7 +341,8 @@ wBattle_CurCreature_CardTileID::
     ; The tileid of the creature's card in the tileset
     ; Used for allied creatures only to draw the card in the cmd menu
     ds 1
-    ;ds $D0D3 - @
+
+    ds $D0D3 - @
 wBattle_RunEnabled::
     ; Set to 1 if Tony is allowed to run from the battle (i.e. there is no enemy magi), else set to 0
     ds 1

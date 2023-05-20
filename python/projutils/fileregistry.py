@@ -34,8 +34,9 @@ def remove_rle(path: str) -> str:
     matches = glob.glob(search)
     if len(matches) != 1:
         raise KeyError(matches)
+    match = matches[0].replace('\\', '/')  # Coerce all slashes to forward slashes
 
-    return matches[0]
+    return match
 
 
 def reverse_tileset(path: str) -> str:
