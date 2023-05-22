@@ -5,6 +5,17 @@ from typing import List, Union, Tuple
 import projutils.encoding as encoding
 
 
+def signed_byte(val):
+    if val > 127:
+        val -= 256
+    return val
+
+
+def unsigned_byte(val):
+    if val < 0:
+        val += 256
+    return val
+
 @functools.total_ordering
 class BankAddress:
     """This object is used to more easily calculate bank/addresses.

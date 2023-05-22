@@ -29,13 +29,13 @@ class TestSprite(unittest.TestCase):
         for test in TESTS:
             with self.subTest(filename=test['filename']):
                 rom = utils.Rom(utils.Rom.MN)
-                spr = sprite.Sprite(rom, test['address'])
-                spr.save(sprite.SPRITE_FOLDER + test['filename'])
+                spr = sprite.Sprite.init_from_rom(rom, test['address'])
+                spr.save_original_file(sprite.SPRITE_FOLDER + test['filename'])
 
                 self.assertEqual(spr.size(), test['size'])
                 self.assertTrue(filecmp.cmp(sprite.SPRITE_FOLDER + test['filename'], ASSETSFOLDER + test['filename'], shallow=False))
 
-                spr2 = sprite.Sprite(ASSETSFOLDER + test['filename'])
+                spr2 = sprite.Sprite.init_from_original_file(ASSETSFOLDER + test['filename'])
                 self.assertEqual(bytes(spr), bytes(spr2))
 
 

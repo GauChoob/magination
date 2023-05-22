@@ -51,7 +51,7 @@ def SPRITE(bank, addr, name):
 
     for spriteline in spritelines:
         print("        (0x{:04X}, '{}'),".format(curpos.getAddress(), spriteline.format(name)))
-        spr = sprite.Sprite(rom, curpos)
+        spr = sprite.Sprite.init_from_rom(rom, curpos)
         curpos = spr.end
     
     return curpos
