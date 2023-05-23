@@ -1872,6 +1872,7 @@ SCRIPT_ANIM_TonyBattle_Summon::
     }
     Jump(SCRIPT_ANIM_TonyBattle_Idle)
 
+SCRIPT_ANIM_TonyBattle_Taunt::
 SCRIPT_ANIM_TonyBattle_Focus::
     SpriteBlock(8, 0, 0) {
         Draw(SPRITE_TonyBattle_Focus1)

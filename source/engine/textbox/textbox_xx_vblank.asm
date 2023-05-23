@@ -212,7 +212,7 @@ TextboxXX_VBlank_Icon::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-    ;$4864
+    ; $4864
 TextboxXX_VBlank_Scroll1::
     ; Erases the top line of the textbox
     xor a

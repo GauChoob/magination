@@ -736,11 +736,11 @@ class SpriteLine(MagiScriptLine):
         self.pos = curpos
         self.whitespace = DepthTracker.getWhitespace(depthtracker)
 
-        self.sprite = sprite.Sprite(rom, curpos)
+        self.sprite = sprite.Sprite.init_from_rom(rom, curpos)
         curpos = self.sprite.end
 
     def save(self):
-        self.sprite.save(self.longpath)
+        self.sprite.save_original_file(self.longpath)
 
     def debug(self):
         """Debug getOutput()"""

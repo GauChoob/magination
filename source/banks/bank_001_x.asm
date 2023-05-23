@@ -670,7 +670,7 @@ Script_Table::
     ; $42C3
     dw Cmd_Actor_HeroFromDoor            ; $00
     dw Cmd_Actor_HeroToDoor ; $01
-    dw Cmd_Actor_HeroToRelativeDoor            ;$02
+    dw Cmd_Actor_HeroToRelativeDoor            ; $02
     dw $0B22
     dw $0B72
     dw Cmd_Actor_ThatActorInit ; $05
@@ -738,7 +738,7 @@ Script_Table::
     dw $11CA
 
     dw Cmd_Flow_Delay     ; $40
-    dw Cmd_Flow_RandDelay                         ;$41
+    dw Cmd_Flow_RandDelay                         ; $41
     dw Cmd_Flow_End       ; $42
     dw Cmd_Flow_LongJumpIf  ; $43
     dw Cmd_Flow_InitSkip         ; $44
@@ -754,7 +754,7 @@ Script_Table::
     dw Cmd_Frame_SpriteBlock ; $4D
     dw Cmd_Frame_SpriteInvisible  ; $4E
     dw Cmd_Frame_OverlayDraw  ; $4F
-    dw Cmd_Frame_OverlayInit            ;$50
+    dw Cmd_Frame_OverlayInit            ; $50
     dw Cmd_Frame_OverlayInvisible    ; $51
 
     dw Cmd_Global_ClearSync   ; $52
@@ -771,7 +771,7 @@ Script_Table::
     dw Cmd_Global_WaitAnyEventMaster ; $5D
     dw Cmd_Global_WaitAnyEventScroll ; $5E
     dw Cmd_Global_WaitAnyEventText ; $5F
-    dw Cmd_Global_WaitEventMaster            ;$60
+    dw Cmd_Global_WaitEventMaster            ; $60
     dw Cmd_Global_WaitEventScroll  ; $61
     dw Cmd_Global_WaitEventText  ; $62
 
@@ -787,20 +787,20 @@ Script_Table::
     dw $1A16 ; $6C
     dw $1A44 ; $6D
 
-    dw Cmd_Palette_ClearBase        ;$6E
-    dw Cmd_Palette_ClearAnim        ;$6F
-    dw Cmd_Palette_CreatureCycle    ;$70
-    dw Cmd_Palette_CreatureFadeUniColor ;$71
-    dw Cmd_Palette_CreatureFadeMultiColor ;$72
-    dw Cmd_Palette_CreatureLoad     ;$73
-    dw Cmd_Palette_CreatureFlash    ;$74
-    dw Cmd_Palette_CreatureInvert   ;$75
-    dw Cmd_Palette_FadeAnimToBase   ;$76
-    dw Cmd_Palette_FadeAnimToColor  ;$77
-    dw Cmd_Palette_Load             ;$78
-    dw Cmd_Palette_Refresh          ;$79
-    dw Cmd_Palette_Cycle            ;$7A
-    dw Cmd_Palette_Invert           ;$7B
+    dw Cmd_Palette_ClearBase        ; $6E
+    dw Cmd_Palette_ClearAnim        ; $6F
+    dw Cmd_Palette_CreatureCycle    ; $70
+    dw Cmd_Palette_CreatureFadeUniColor ; $71
+    dw Cmd_Palette_CreatureFadeMultiColor ; $72
+    dw Cmd_Palette_CreatureLoad     ; $73
+    dw Cmd_Palette_CreatureFlash    ; $74
+    dw Cmd_Palette_CreatureInvert   ; $75
+    dw Cmd_Palette_FadeAnimToBase   ; $76
+    dw Cmd_Palette_FadeAnimToColor  ; $77
+    dw Cmd_Palette_Load             ; $78
+    dw Cmd_Palette_Refresh          ; $79
+    dw Cmd_Palette_Cycle            ; $7A
+    dw Cmd_Palette_Invert           ; $7B
 
     dw Cmd_Scroll_CameraSeekPos         ; $7C
     dw Cmd_Scroll_CameraSeekActor ; $7D

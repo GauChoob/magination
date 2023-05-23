@@ -22,7 +22,7 @@ DEF Textbox_VRAM_FRAME   EQU $8800  ; The first few tiles are icons*
 DEF Textbox_VRAM_TEXT    EQU $8860  ; The next tiles contain the text that a character is saying
 DEF Textbox_VRAM_ICON0   EQU $8A40  ; Two icons are stored in VRAM.
 DEF Textbox_VRAM_ICON1   EQU $8BD0
-                        ;$8D60
+                        ; $8D60
 
 ; TILEIDs
 

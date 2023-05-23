@@ -46,7 +46,7 @@ class MagiTable:
         return '    ; ${:04X}\nBattle_MagiAnim_{}::\n{}'.format(
                 self.address.getAddress(),
                 self.name,
-                '\n'.join(['    dw ' + symbol for symbol in self.symbols])
+                '\n'.join(['    BankAddress ' + symbol for symbol in self.symbols])
             )
 
     def getSymbol(self, anim_i):

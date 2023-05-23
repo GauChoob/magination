@@ -664,7 +664,7 @@ Jump_006_5A4D:
 
     ret                                           ; $5A5F: $C9
 
-    ;$5A60
+    ; $5A60
 CopyDreamCreatureNameToBuffer::
     ; Given a dream creature index, the creature's name will be stored in
     ; the buffer indicated by [wBattle_CopyBuffer_Destination]

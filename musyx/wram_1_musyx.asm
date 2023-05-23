@@ -259,7 +259,7 @@ wSnd_Voice_TrapKeyOffAddress::
 wSnd_Voice_LoopIndex::
     ; LOOP
     ds 1*4
-    ;$DF92 - @
+    ;ds $DF92 - @
 wSnd_Voice_WaitIndex::
     ; WAIT
     ; Set to N and then ticks down until 0. Pass once it hits 0
@@ -378,7 +378,7 @@ wSnd_sss_Track_NoteEndTimer::
     ; 24-bit little-endian timer
     ; Once a note has started playing, time until it should be sent a KeyOff
     ds 3*4
-    ;$DFF4 - @
+    ;ds $DFF4 - @
 wSnd_Voice_Velocity::
     ;0-F for each voice
     ds 1*4

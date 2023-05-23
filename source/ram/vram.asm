@@ -1,15 +1,15 @@
 SECTION UNION "VRAM0", VRAM[$8000]
 
     ; Todo - get rid of these
-        ;$8000
+        ; $8000
 vChars0:: ds $800
-        ;$8800
+        ; $8800
 vChars1:: ds $800
-        ;$9000
+        ; $9000
 vChars2:: ds $800
-        ;$9800
+        ; $9800
 vBGMap0:: ds $400
-        ;$9C00
+        ; $9C00
 vBGMap1:: ds $400
 
 SECTION UNION "VRAM0", VRAM[$8000]
