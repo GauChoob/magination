@@ -2056,7 +2056,9 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         assert rlemode == True
         
         romreplacetext = name.getMakedFile(True)
-        pattern.data_to_file(name.getSaveFile(),data)
+        pat = pattern.Pattern()
+        pat._load_processed(data)
+        pat.save_original_file(name.getSaveFile())
         
     if(parsetype == "Metatilemap"):
         if("scenefolder" not in args):
