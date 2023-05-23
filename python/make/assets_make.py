@@ -60,7 +60,8 @@ for folder in folders:
             # Include .pattern.tilemap (which also processes .pattern.attrmap) -> .pattern
             elif(re.match(r"^.*\.pattern\.tilemap$", file)):
                 print("Pattern   "+relpath)
-                pattern.file_to_pattern(relpath, os.path.join(outfolder, os.path.splitext(relpath)[0]))
+                pat = pattern.Pattern.init_from_original_file(relpath)
+                pat.save_processed_file(os.path.join(outfolder, os.path.splitext(relpath)[0]))
             # Include *.tilemap, (including collision.tilemap and metatile.tile)
             elif(re.match(r"^.*\.tilemap$", file)):
                 print("Tilemap   "+relpath)

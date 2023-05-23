@@ -1,5 +1,5 @@
 import pathlib
-from typing import List, Union
+from typing import List, Tuple, Union
 import projutils.filecontents as filecontents
 import projutils.utils as utils
 
@@ -56,21 +56,23 @@ class Pattern(filecontents.FileContentsSerializer):
         self.tilemap: List[List[int]] = []
         self.attrmap: List[List[int]] = []
 
-    def _load_raw(self, data: bytes):
+    def _load_processed(self, data: bytes):
         assert len(data) == 0x800
         for i in range(0, 0x400, 4):
             self.tilemap.append([tile for tile in data[i:i+4]])
         for i in range(0x400, 0x800, 4):
             self.attrmap.append([tile for tile in data[i:i+4]])
 
-    def _load_original(self, filename: Union[str, pathlib.PurePath]):
-        """converts .pattern.tilemap and .pattern.attrmap to .pattern"""
+    @staticmethod
+    def _get_original_filenames(tilefile: Union[str, pathlib.PurePath]) -> Tuple[str, str]:
         ext = "pattern.tilemap"
-        assert filename[-len(ext):] == ext
+        assert tilefile[-len(ext):] == ext
         # Use tilemap and not attrmap
+        attrfile = tilefile[:-7] + "attrmap"
+        return tilefile, attrfile
 
-        tilefile = filename
-        attrfile = filename[:-7] + "attrmap"
+    def _load_original(self, filename: Union[str, pathlib.PurePath]):
+        tilefile, attrfile = self._get_original_filenames(filename)
 
         with open(tilefile, "rb") as f:
             tiledata = f.read()
@@ -96,16 +98,41 @@ class Pattern(filecontents.FileContentsSerializer):
             byte4 = attrdata[coord + 0x21]
             self.attrmap.append([byte1, byte2, byte3, byte4])
 
+    def _to_original_data(self) -> Tuple[bytes, bytes]:
+        tiledata = []
+        for row in range(0x10):  # 0x10 metarows
+            for tilerow in range(2):  # 2 rows in each metarow
+                for column in range(0x10):  # 0x10 entries in each row
+                    patternid = row*0x10 + column
+                    tileid = 2*tilerow
+                    tiledata.extend(self.tilemap[patternid][tileid:tileid + 2])
+
+        attrdata = []
+        for row in range(0x10):  # 0x10 metarows
+            for tilerow in range(2):  # 2 rows in each metarow
+                for column in range(0x10):  # 0x10 entries in each row
+                    patternid = row*0x10 + column
+                    tileid = 2*tilerow
+                    attrdata.extend(self.attrmap[patternid][tileid:tileid + 2])
+
+        return bytes(tiledata), bytes(attrdata)
+
+    def _to_processed_data(self) -> Tuple[bytes, bytes]:
+        tiledata = [self.tilemap[i//4][i % 4] for i in range(0x400)]
+        attrdata = [self.attrmap[i//4][i % 4] for i in range(0x400)]
+        return bytes(tiledata + attrdata)
+
     @classmethod
     def init_from_rom(cls, rom: utils.Rom, address: utils.BankAddress, compressed: bool):
         self = cls()
         data = self._handle_rle_from_rom(rom, address, compressed, 0x800)
-        self._load_raw(data)
+        self._load_processed(data)
         return self
 
     @classmethod
     def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]):
         self = cls()
+        self._handle_rle_from_original_file(filename)
         self._load_original(filename)
         return self
 
@@ -113,14 +140,24 @@ class Pattern(filecontents.FileContentsSerializer):
     def init_from_processed_file(cls, filename: Union[str, pathlib.PurePath]):
         self = cls()
         data = self._handle_rle_from_processed_file(filename)
-        self._load_raw(data)
+        self._load_processed(data)
         return self
 
     def save_original_file(self, filename: Union[str, pathlib.PurePath]) -> None:
-        raise NotImplementedError
+        tilefile, attrfile = self._get_original_filenames(filename)
+        tilefile = self._handle_rle_save_original_file(tilefile)
+        attrfile = self._handle_rle_save_original_file(attrfile)
+        tiledata, attrdata = self._to_original_data()
+        with open(tilefile, 'wb') as f:
+            f.write(tiledata)
+        with open(attrfile, 'wb') as f:
+            f.write(attrdata)
 
     def save_processed_file(self, filename: Union[str, pathlib.PurePath]) -> None:
-        raise NotImplementedError
+        data = self._to_processed_data()
+        filename, data = self._handle_rle_save_processed_file(filename, data)
+        with open(filename, 'wb') as f:
+            f.write(data)
 
     def generate_include(self, filename: Union[str, pathlib.PurePath]) -> str:
-        raise NotImplementedError
+        return '    INCBIN "{}"'.format(filename)
