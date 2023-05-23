@@ -736,7 +736,7 @@ class SpriteLine(MagiScriptLine):
         self.pos = curpos
         self.whitespace = DepthTracker.getWhitespace(depthtracker)
 
-        self.sprite = sprite.Sprite.init_from_rom(rom, curpos)
+        self.sprite = sprite.Sprite.init_from_rom(sym, rom, curpos)
         curpos = self.sprite.end
 
     def save(self):

@@ -42,7 +42,7 @@ class Sprite(filecontents.FileContentsSerializer):
         self.entries = []
 
     @classmethod
-    def init_from_rom(cls, rom: utils.Rom, address: utils.BankAddress):
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress):
         """Given a ROM, will read the OAM data for 1 "sprite", which is a collection of 4-byte OAM entries that collectively make up a single image"""
         self = cls()
         self.start = address

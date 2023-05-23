@@ -44,6 +44,7 @@ spritelines = [
     'SPRITE_{}_WalkLeft2',
 ]
 
+sym = utils.SymFile()
 
 def SPRITE(bank, addr, name):
     rom = utils.Rom()
@@ -51,7 +52,7 @@ def SPRITE(bank, addr, name):
 
     for spriteline in spritelines:
         print("        (0x{:04X}, '{}'),".format(curpos.getAddress(), spriteline.format(name)))
-        spr = sprite.Sprite.init_from_rom(rom, curpos)
+        spr = sprite.Sprite.init_from_rom(sym, rom, curpos)
         curpos = spr.end
     
     return curpos

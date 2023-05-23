@@ -21,7 +21,7 @@ class TestPattern(unittest.TestCase):
 
     def test_pattern(self):
         rom = utils.Rom(utils.Rom.MN)
-        p1 = pattern.Pattern.init_from_rom(rom, utils.BankAddress(0x50, 0x7AC9), True)
+        p1 = pattern.Pattern.init_from_rom(None, rom, utils.BankAddress(0x50, 0x7AC9), True)
         p2 = pattern.Pattern.init_from_original_file(ASSETSFOLDER + 'Orothe_DockRLEA.pattern.tilemap')
         p3 = pattern.Pattern.init_from_processed_file(ASSETSFOLDER + 'Orothe_Dock.pattern.rle')
         self.assertListEqual(p1.tilemap, p2.tilemap)

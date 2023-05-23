@@ -29,7 +29,7 @@ class TestSprite(unittest.TestCase):
         for test in TESTS:
             with self.subTest(filename=test['filename']):
                 rom = utils.Rom(utils.Rom.MN)
-                spr = sprite.Sprite.init_from_rom(rom, test['address'])
+                spr = sprite.Sprite.init_from_rom(None, rom, test['address'])
                 spr.save_original_file(sprite.SPRITE_FOLDER + test['filename'])
 
                 self.assertEqual(spr.size(), test['size'])

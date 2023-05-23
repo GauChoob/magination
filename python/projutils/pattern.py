@@ -78,7 +78,7 @@ class Pattern(filecontents.FileContentsSerializer):
         return bytes(tiledata + attrdata)
 
     @classmethod
-    def init_from_rom(cls, rom: utils.Rom, address: utils.BankAddress, compressed: bool):
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool):
         self = cls()
         data = self._handle_rle_from_rom(rom, address, compressed, 0x800)
         self._load_processed(data)

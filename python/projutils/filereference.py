@@ -3,6 +3,7 @@ from typing import Dict, Union, Callable
 import pathlib
 import projutils.utils as utils
 import projutils.sprite as sprite
+import projutils.pattern as pattern
 import projutils.filecontents as filecontents
 
 
@@ -16,6 +17,7 @@ class FileContentsFactory:
 
 file_contents_factory = FileContentsFactory()
 file_contents_factory.register_identity('SPRITE', sprite.Sprite)
+file_contents_factory.register_identity('PATTERN', pattern.Pattern)
 
 
 class FileReference:
@@ -32,7 +34,7 @@ class FileReference:
         self.processed_path: Union[str, pathlib.PurePath] = None
         self.rom: utils.Rom = None
         self.bankaddress: utils.BankAddress = None
-        self.size: int = None
+        self.sym: utils.SymFile = None
         self.contents = None
 
     @classmethod
@@ -45,20 +47,22 @@ class FileReference:
         return self
 
     @classmethod
-    def create_from_address(cls, identity: str, rom: utils.Rom, bankaddress: utils.BankAddress):
+    def create_from_address(cls, identity: str, rom: utils.Rom, bankaddress: utils.BankAddress, sym: utils.SymFile):
         self = cls(identity)
         self.rom = rom
         self.bankaddress = bankaddress
+        self.sym = sym
+        self.label_name = sym.getSymbol(bankaddress.getBank(), bankaddress.getAddress(), identity)
         return self
 
-    def load_contents_from_rom(self):
-        self.contents = self.identity.init_from_rom(self.rom, self.bankaddress)
+    def load_contents_from_rom(self, *args):
+        self.contents = self.identity.init_from_rom(self.sym, self.rom, self.bankaddress, *args)
 
     def load_contents_from_original_file(self):
         self.contents = self.identity.init_from_original_file(self.original_path)
 
     def load_contents_from_processed_file(self):
-        self.contents = self.identity.init_from_processed_file(self.original_path)
+        self.contents = self.identity.init_from_processed_file(self.processed_path)
 
     def __str__(self):
         return '{}: {}, {}'.format(self.label_name, self.original_path, self.processed_path)
