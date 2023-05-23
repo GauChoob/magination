@@ -9,6 +9,7 @@ import projutils.utils as utils
 import projutils.png as png
 import projutils.config as config
 import projutils.fileregistry as fileregistry
+import projutils.pattern as pattern
 from projutils.asm import castNumber
 
 
@@ -64,18 +65,18 @@ class VRAMTile:
         return pixelcanvas
 
 
-def DrawMetatile(vram: List[VRAMTile], pattern: list, pixels: list, patternid: int, x: int, y: int) -> list:
+def DrawMetatile(vram: List[VRAMTile], pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
     """Paints the Metatile into the canvas "pixels"
     vram: List of VRAMTiles
-    pattern: raw pattern data
+    pat: Pattern
     pixels: canvas onto which the draw the Metatile
     patternid: id of the metatile
     x, y: destination coordinate"""
     x = x*2
     y = y*2
     for cycle in range(4):
-        querytile = pattern[patternid*4+cycle]
-        queryattr = pattern[0x400+patternid*4+cycle]
+        querytile = pat.tilemap[patternid][cycle]
+        queryattr = pat.attrmap[patternid][cycle]
         xoffset = cycle & 0b01
         yoffset = 1 if cycle & 0b10 else 0
         pixels = vram[querytile].paintImage(pixels, x+xoffset, y+yoffset, queryattr)
@@ -246,14 +247,14 @@ def _preview(scene_label: str):
         w.write(f, vram_pixels)
 
     # Load Pattern
-    pattern = rle.decompress_rle(utils.Rom(scene.pattern), 0, True)
+    pat = pattern.Pattern.init_from_processed_file(scene.pattern)
 
     # Output the Pattern
     pattern_pixels = [[0 for x in range(0x10*0x10)] for y in range(0x10*0x10)]
     for y in range(0x10):
         for x in range(0x10):
             patternid = y*0x10 + x
-            pattern_pixels = DrawMetatile(vram, pattern, pattern_pixels, patternid, x, y)
+            pattern_pixels = DrawMetatile(vram, pat, pattern_pixels, patternid, x, y)
     with open(PREVIEW_PATTERN+scene.label+".png", 'wb') as f:
         w = png.Writer(0x10*0x10, 0x10*0x10, alpha=False, bitdepth=8, palette=pal)
         w.write(f, pattern_pixels)
@@ -287,7 +288,7 @@ def _preview(scene_label: str):
     for y in range(metamap.height):
         for x in range(metamap.width):
             patternid = metamap.data[y*metamap.width + x]
-            pixels = DrawMetatile(vram, pattern, metamap_pixels, patternid, x, y)
+            pixels = DrawMetatile(vram, pat, metamap_pixels, patternid, x, y)
 
     # Output the metatilemap
     with open(PREVIEW_SCENES+scene.label+".png", 'wb') as f:
