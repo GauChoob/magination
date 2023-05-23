@@ -371,7 +371,6 @@ def _setup() -> None:
 
 def preview_all() -> None:
     """Generate a preview of all the scenes."""
-    # Run setup only once
     _setup()
     for scene_label in scenelist:
         _preview(scene_label)
