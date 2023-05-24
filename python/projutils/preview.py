@@ -222,18 +222,18 @@ def _preview(scene_label: str):
 
     # Find each bitmap in the bitset and load it into VRAM
     for bank in range(2):
-        for bitmap in bitset.bitmaps[bank]:
-            if bitmap.dest < 0x8800:  # skip sprites
+        for bitmap_ref in bitset.bitmaps[bank]:
+            if bitmap_ref.dest < 0x8800:  # skip sprites
                 continue
 
-            pixels = tileset.tileset_to_pixels(bitmap.source, bitmap.width, bitmap.height)
+            bitmap = tileset.Bitmap.init_from_processed_file(bitmap_ref.source, bitmap_ref.width, bitmap_ref.height)
 
             # Write each tile of the bitmap into vram
-            basetile = (bitmap.dest % 0x1000)//0x10
-            for y in range(bitmap.height):
-                for x in range(bitmap.width):
+            basetile = (bitmap_ref.dest % 0x1000)//0x10
+            for y in range(bitmap_ref.height):
+                for x in range(bitmap_ref.width):
                     targettile = (basetile + y*0x10 + x) % 0x100
-                    vram[targettile].storeImage(bank, pixels, x, y)
+                    vram[targettile].storeImage(bank, bitmap.pixels, x, y)
 
     # Output the VRAM
     vram_pixels = [[0 for x in range(0x20*8)] for y in range(0x10*8)]

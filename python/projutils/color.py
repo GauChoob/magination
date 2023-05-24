@@ -170,6 +170,15 @@ class Palette:
         """Gets a png palette used to colorize png files"""
         return self.palette
 
+    @staticmethod
+    def greyscale_palette():
+        return Palette([
+            (255, 255, 255),
+            (191, 191, 191),
+            (127, 127, 127),
+            (63, 63, 63),
+        ])
+
 
 class Colorize:
     def _addGreyscale(palette: Palette, addgreyscale: bool) -> list:

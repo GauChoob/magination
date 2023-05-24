@@ -1,3 +1,4 @@
+from __future__ import annotations
 import pathlib
 from typing import List, Tuple, Union
 import projutils.filecontents as filecontents
@@ -72,27 +73,27 @@ class Pattern(filecontents.FileContentsSerializer):
 
         return bytes(tiledata), bytes(attrdata)
 
-    def _to_processed_data(self) -> Tuple[bytes, bytes]:
+    def _to_processed_data(self) -> bytes:
         tiledata = [self.tilemap[i//4][i % 4] for i in range(0x400)]
         attrdata = [self.attrmap[i//4][i % 4] for i in range(0x400)]
         return bytes(tiledata + attrdata)
 
     @classmethod
-    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool):
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool) -> Pattern:
         self = cls()
         data = self._handle_rle_from_rom(rom, address, compressed, 0x800)
         self._load_processed(data)
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]):
+    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]) -> Pattern:
         self = cls()
         self._handle_rle_from_original_file(filename)
         self._load_original(filename)
         return self
 
     @classmethod
-    def init_from_processed_file(cls, filename: Union[str, pathlib.PurePath]):
+    def init_from_processed_file(cls, filename: Union[str, pathlib.PurePath]) -> Pattern:
         self = cls()
         data = self._handle_rle_from_processed_file(filename)
         self._load_processed(data)

@@ -35,7 +35,7 @@ class FileReference:
         self.rom: utils.Rom = None
         self.bankaddress: utils.BankAddress = None
         self.sym: utils.SymFile = None
-        self.contents = None
+        self.contents: filecontents.FileContentsSerializer = None
 
     @classmethod
     def create_from_label(cls, label_name: str, original_path: Union[str, pathlib.PurePath], processed_path: Union[str, pathlib.PurePath]):

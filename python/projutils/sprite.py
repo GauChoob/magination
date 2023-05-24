@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 import pathlib
 import struct
@@ -42,7 +43,7 @@ class Sprite(filecontents.FileContentsSerializer):
         self.entries = []
 
     @classmethod
-    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress):
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> Sprite:
         """Given a ROM, will read the OAM data for 1 "sprite", which is a collection of 4-byte OAM entries that collectively make up a single image"""
         self = cls()
         self.start = address
@@ -65,7 +66,7 @@ class Sprite(filecontents.FileContentsSerializer):
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]):
+    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]) -> Sprite:
         """Loads a .spr file"""
         self = cls()
 

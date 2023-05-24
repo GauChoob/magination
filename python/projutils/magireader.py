@@ -136,7 +136,7 @@ class MagiScriptLine:
         0x22: CommandBuilder("func", "SetSongVolume", "$db"),
         0x23: CommandBuilder("func", "SongFadeIn", "SongFadeInterval"),
         0x24: CommandBuilder("func", "SongFadeOut", "SongFadeInterval"),
-        
+
         0x28: CommandBuilder("func", "BATTLE_UNK", "db", "$dw", "$db"),
 
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
@@ -300,7 +300,7 @@ class MagiScriptLine:
             print("An error in command {} at {}".format(self.name, curpos))
             raise
 
-        #print(self.name, self.args, curpos)
+        # print(self.name, self.args, curpos)
         self.size = curpos - self.pos
 
     # getOutput functions

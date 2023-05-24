@@ -51,7 +51,8 @@ for folder in folders:
             # Include *.tileset.png -> *.tileset
             if(re.match(r"^.*\.tileset\.png$", file)):
                 print("2BPP      "+relpath)
-                tileset.png_to_tileset(relpath, os.path.join(outfolder, os.path.splitext(relpath)[0]))
+                bitmap = tileset.Bitmap.init_from_original_file(relpath)
+                bitmap.save_processed_file(os.path.join(outfolder, os.path.splitext(relpath)[0]))
             # Include *.pal.png -> *.pal
             elif(re.match(r"^.*\.pal\.png$", file)):
                 print("PAL       "+relpath)
