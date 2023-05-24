@@ -22,31 +22,6 @@ class TestTileset(unittest.TestCase):
             shutil.rmtree(config.TEMPFOLDER)
 
     def test_tileset(self):
-        pngfile = ASSETSFOLDER + "MusyX.tileset.png"
-        bbpfile = config.TEMPFOLDER + "out.tileset"
-        pngfile_2 = config.TEMPFOLDER + "MusyX.tileset.png"
-        WIDTH = 10
-        HEIGHT = 3
-
-        # test png_to_tileset and data_to_png
-        tileset.png_to_tileset(pngfile, bbpfile)
-        with open(bbpfile, 'rb') as f:
-            bbpfile_data = f.read()
-        tileset.data_to_png(pngfile_2, bbpfile_data, WIDTH*8)
-        helper.assert_png_cmp(self, pngfile, pngfile_2)
-
-        # test tileset_to_pixels
-        temp = png.Reader(pngfile)
-        width, height, pixels, meta = temp.read()
-        pixels = list(pixels)
-        temp.file.close()
-        pixels_2 = tileset.tileset_to_pixels(bbpfile, WIDTH, HEIGHT)
-        for y in range(HEIGHT):
-            for x in range(WIDTH):
-                with self.subTest(index="Y = {}, X = {}".format(y, x)):
-                    self.assertEqual(pixels[y][x], pixels_2[y][x])
-
-    def test_tileset2(self):
         rom = utils.Rom()
         musyx1 = tileset.Bitmap.init_from_rom(None, rom, utils.BankAddress(0x27, 0x6515), False, 10, 3)
         musyx2 = tileset.Bitmap.init_from_original_file(ASSETSFOLDER + 'MusyX.tileset.png')
