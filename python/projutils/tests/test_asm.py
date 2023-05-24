@@ -59,6 +59,12 @@ lines = [
     [asm.UnknownLine, '    db "text"', 0x4000, asm.IncludeLine.UNKNOWN_SIZE, {}],
     [asm.UnknownLine, '    db 3, "text"', 0x4000, asm.IncludeLine.UNKNOWN_SIZE, {}],
 
+    [asm.RawWordsLine, '    dw $0100, $4000, 4 ; comment', 0x4000, 6, {'raw_bytes': [0x00, 0x01, 0x00, 0x40, 0x04, 0x00]}],
+    [asm.UnknownLine, '    dw "text"', 0x4000, asm.IncludeLine.UNKNOWN_SIZE, {}],
+
+    [asm.AddressBankLine, '    AddressBank LABELHERE ; comment', 0x4000, 3, {'label_name': 'LABELHERE'}],
+    [asm.BankAddressLine, '    BankAddress LABELHERE ; comment', 0x4000, 3, {'label_name': 'LABELHERE'}],
+
     [asm.IncBinLine, '   INCBIN "{}size_100.dat"'.format(ASSETSFOLDER), 0x4000, 0x100, {'filename': '{}size_100.dat'.format(ASSETSFOLDER)}],
     [asm.IncBinLine, '   INCBIN "{}size_100.dat" ; Comment'.format(ASSETSFOLDER), 0x4000, 0x100, {'filename': '{}size_100.dat'.format(ASSETSFOLDER)}],
 

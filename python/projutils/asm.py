@@ -163,7 +163,7 @@ class GenericCommentLine(CommentLine):
 
 class RawBytesLine(AsmLine):
     """
-        db $3F, 5F
+        db $3F, $5F
     """
     @classmethod
     def create(cls, cur_address: int, line) -> AsmLine:
@@ -181,6 +181,31 @@ class RawBytesLine(AsmLine):
     def validate(line: str) -> bool:
         return (
             line.lstrip().startswith('db ') and
+            remove_comments(line).find('"') == -1  # Fail lines that contain strings (NotImplemented)
+        )
+
+
+class RawWordsLine(AsmLine):
+    """
+        dw $3F00, $5F00
+    """
+    @classmethod
+    def create(cls, cur_address: int, line) -> AsmLine:
+        line_parsed = remove_comments(line)
+        line_parsed = line_parsed[line_parsed.find('dw ') + 3:]
+        line_parsed = line_parsed.strip()
+        raw_words = line_parsed.split(',')
+        raw_words = [castNumber(val.strip()) for val in raw_words]
+        self = cls(cur_address, 2*len(raw_words), line)
+        self.raw_bytes = []
+        for word in raw_words:
+            self.raw_bytes.extend([word % 0x100, word//0x100])
+        return self
+
+    @staticmethod
+    def validate(line: str) -> bool:
+        return (
+            line.lstrip().startswith('dw ') and
             remove_comments(line).find('"') == -1  # Fail lines that contain strings (NotImplemented)
         )
 
@@ -226,6 +251,44 @@ class IncludeLine(ImportFileLine):
     @staticmethod
     def validate(line: str) -> bool:
         return remove_comments(line).find('INCLUDE') != -1
+
+
+class ReferenceLine(AsmLine):
+    pass
+
+
+class AddressBankLine(ReferenceLine):
+    """
+        AddressBank Location
+    """
+    @classmethod
+    def create(cls, cur_address: int, line) -> AsmLine:
+        line_parsed = remove_comments(line).strip()
+        label_name = line_parsed.split(' ')[1]
+        self = cls(cur_address, 3, line)
+        self.label_name = label_name
+        return self
+
+    @staticmethod
+    def validate(line: str) -> bool:
+        return remove_comments(line).find('AddressBank') != -1
+
+
+class BankAddressLine(ReferenceLine):
+    """
+        BankAddress Location
+    """
+    @classmethod
+    def create(cls, cur_address: int, line) -> AsmLine:
+        line_parsed = remove_comments(line).strip()
+        label_name = line_parsed.split(' ')[1]
+        self = cls(cur_address, 3, line)
+        self.label_name = label_name
+        return self
+
+    @staticmethod
+    def validate(line: str) -> bool:
+        return remove_comments(line).find('BankAddress') != -1
 
 
 class UnknownLine(AsmLine):
@@ -275,8 +338,11 @@ line_factory.register_linetype(AutoCommentLine)
 line_factory.register_linetype(ManualAddressCommentLine)
 line_factory.register_linetype(GenericCommentLine)
 line_factory.register_linetype(RawBytesLine)
+line_factory.register_linetype(RawWordsLine)
 line_factory.register_linetype(IncBinLine)
 line_factory.register_linetype(IncludeLine)
+line_factory.register_linetype(AddressBankLine)
+line_factory.register_linetype(BankAddressLine)
 line_factory.register_linetype(UnknownLine)
 
 

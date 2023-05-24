@@ -22,7 +22,7 @@ class FileContentsSerializer:
         return data
 
     @classmethod
-    def init_from_rom(cls, rom: utils.Rom, address: utils.BankAddress) -> FileContentsSerializer:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> FileContentsSerializer:
         raise NotImplementedError
 
     def _handle_rle_from_original_file(self, filename: Union[str, pathlib.PurePath]):
