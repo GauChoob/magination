@@ -291,6 +291,27 @@ class BankAddressLine(ReferenceLine):
         return remove_comments(line).find('BankAddress') != -1
 
 
+class LoadBitmapLine(AsmLine):
+    """
+        LoadBitmap $9000,BITMAP_Cald_Ashyn_Building,$10,$08
+    """
+    @classmethod
+    def create(cls, cur_address: int, line) -> AsmLine:
+        line_parsed = remove_comments(line).strip()
+        params = line_parsed.split(' ', 1)[1].split(',')
+        destination, source_label, width, height = (param.strip() for param in params)
+        self = cls(cur_address, 7, line)
+        self.destination = castNumber(destination)
+        self.source_label = source_label
+        self.width = castNumber(width)
+        self.height = castNumber(height)
+        return self
+
+    @staticmethod
+    def validate(line: str) -> bool:
+        return remove_comments(line).find('LoadBitmap') != -1
+
+
 class UnknownLine(AsmLine):
     """
         Anything else; fallback
@@ -343,6 +364,7 @@ line_factory.register_linetype(IncBinLine)
 line_factory.register_linetype(IncludeLine)
 line_factory.register_linetype(AddressBankLine)
 line_factory.register_linetype(BankAddressLine)
+line_factory.register_linetype(LoadBitmapLine)
 line_factory.register_linetype(UnknownLine)
 
 

@@ -20,6 +20,7 @@ class Scene(FileContentsSerializer):
     @classmethod
     def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> FileContentsSerializer:
         self = cls()
+        self.sym = sym
         self.palette = FileReference.create_from_address('PAL', rom, rom.getAddressBank(address + 0, True), sym)
         self.bitset = FileReference.create_from_address('BITSET', rom, rom.getAddressBank(address + 3, True), sym)
         self.pattern = FileReference.create_from_address('PATTERN', rom, rom.getAddressBank(address + 6, True), sym)

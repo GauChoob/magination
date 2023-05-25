@@ -10,6 +10,7 @@ class FileContentsSerializer:
     def __init__(self):
         self.compression_mode: str = None
         self._size: int = None
+        self.sym: utils.SymFile = None
 
     def _handle_rle_from_rom(self, rom: utils.Rom, address: utils.BankAddress, compressed: bool, default_size: int):
         if compressed:
@@ -78,4 +79,13 @@ class FileContentsSerializer:
         raise NotImplementedError
 
     def generate_include(self, filename: Union[str, pathlib.PurePath]) -> str:
+        raise NotImplementedError
+
+    def load_references_from_rom(self) -> None:
+        raise NotImplementedError
+
+    def load_references_from_original_file(self) -> None:
+        raise NotImplementedError
+
+    def load_references_from_processed_file(self) -> None:
         raise NotImplementedError

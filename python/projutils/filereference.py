@@ -1,9 +1,11 @@
 from __future__ import annotations
+import types
 from typing import Dict, Union, Callable
 import pathlib
 import projutils.utils as utils
 import projutils.sprite as sprite
 import projutils.pattern as pattern
+import projutils.tileset as tileset
 import projutils.filecontents as filecontents
 
 
@@ -11,13 +13,23 @@ class FileContentsFactory:
     def __init__(self):
         self.identities: Dict[str, Callable] = {}
 
-    def register_identity(self, identity: str, classobj: filecontents.FileContentsSerializer):
-        self.identities[identity] = classobj
+    def register_identity(self, identity: str, module: types.ModuleType, classname: str):
+        self.identities[identity] = {'module': module, 'classname': classname}
+
+    def load_identity(self, identity: str) -> Union[None, filecontents.FileContentsSerializer]:
+        if identity not in self.identities:
+            return None
+        match = self.identities[identity]
+        obj = getattr(match['module'], match['classname'])
+        assert issubclass(obj, filecontents.FileContentsSerializer)
+        return obj
 
 
+# We refer to the classes by string name and use getattr during runtime to avoid circular imports
 file_contents_factory = FileContentsFactory()
-file_contents_factory.register_identity('SPRITE', sprite.Sprite)
-file_contents_factory.register_identity('PATTERN', pattern.Pattern)
+file_contents_factory.register_identity('SPRITE', sprite, 'Sprite')
+file_contents_factory.register_identity('PATTERN', pattern, 'Pattern')
+file_contents_factory.register_identity('BITMAP', tileset, 'Bitmap')
 
 
 class FileReference:
@@ -26,9 +38,7 @@ class FileReference:
     """
 
     def __init__(self, identity: str):
-        self.identity = None
-        if identity in file_contents_factory.identities:
-            self.identity: filecontents.FileContentsSerializer = file_contents_factory.identities[identity]
+        self.identity = file_contents_factory.load_identity(identity)
         self.label_name: str = None
         self.original_path: Union[str, pathlib.PurePath] = None
         self.processed_path: Union[str, pathlib.PurePath] = None
@@ -52,7 +62,10 @@ class FileReference:
         self.rom = rom
         self.bankaddress = bankaddress
         self.sym = sym
-        self.label_name = sym.getSymbol(bankaddress.getBank(), bankaddress.getAddress(), identity)
+        label_name = sym.getSymbol(bankaddress.getBank(), bankaddress.getAddress(), identity)
+        if len(label_name) != 1:
+            raise NotImplementedError  # TODO - handle if multiple labels
+        self.label_name = label_name[0]
         return self
 
     def load_contents_from_rom(self, *args):
@@ -65,4 +78,4 @@ class FileReference:
         self.contents = self.identity.init_from_processed_file(self.processed_path)
 
     def __str__(self):
-        return '{}: {}, {}'.format(self.label_name, self.original_path, self.processed_path)
+        return '{}: {}, {}, {}'.format(self.label_name, self.original_path, self.processed_path, self.bankaddress)
