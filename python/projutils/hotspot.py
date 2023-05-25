@@ -1,5 +1,4 @@
 import os
-from typing import Union
 import projutils.utils as utils
 import projutils.config as config
 
@@ -38,7 +37,7 @@ class Hotspot:
                 "\n".join(["    db HOTSPOT_TRIGGER_{}\n    BankAddress {}".format(condition, label) for condition, label in params])
             )
 
-    def data_to_file(savefile: str, data: Union[bytes, bytearray], sym: utils.SymFile) -> None:
+    def data_to_file(savefile: str, data: bytes | bytearray, sym: utils.SymFile) -> None:
         """Given raw data and a SymFile, creates a file named savefile."""
         assert savefile[-3:] == ".hs"
 
@@ -93,7 +92,7 @@ class Trigger:
                 "\n".join(["    db TRIGGER_{}\n    BankAddress {}".format(condition, label) for condition, label in params])
             )
 
-    def data_to_file(savefile: str, data: Union[bytes, bytearray], sym: utils.SymFile) -> None:
+    def data_to_file(savefile: str, data: bytes | bytearray, sym: utils.SymFile) -> None:
         """Given raw data and a SymFile, creates a file named savefile."""
         assert savefile[-5:] == ".trig"
 

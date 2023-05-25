@@ -1,7 +1,7 @@
 import os
 import io
 import re
-from typing import Tuple, Union
+from typing import Tuple
 import projutils.utils as utils
 
 
@@ -14,7 +14,7 @@ modePriority = ["A", "B", "C", "D", "2"]
 # mode "X" means unknown mode
 
 
-def decompress_rle(data: Union[bytes, utils.Rom], start: int, only_get_decompressed: bool = False) -> Tuple[bytearray, str, bytes, int]:
+def decompress_rle(data: bytes | utils.Rom, start: int, only_get_decompressed: bool = False) -> Tuple[bytearray, str, bytes, int]:
     """Decompresses a file, then determines which compression algorithm was used to compress it.
     Returns (uncompressed_file, compression_algorithm, compressed_file, end_of_file_position)
     You can also pass only_get_decompressed to only return the decompressed bytearray"""
@@ -60,7 +60,7 @@ def decompress_rle(data: Union[bytes, utils.Rom], start: int, only_get_decompres
     return uncompressed, "X", original_compressed, end
 
 
-def compress_rle(f: Union[io.IOBase, bytes, bytearray], mode: str) -> bytearray:
+def compress_rle(f: io.IOBase | bytes | bytearray, mode: str) -> bytearray:
     """Given a file object or bytes data, compress according to algorithm "mode"
     Returns a bytearray that contains the compressed data"""
     def header(length: int, compress: bool):

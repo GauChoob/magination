@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw
-from typing import Union, Tuple
+from typing import Tuple
 import pathlib
 import projutils.utils as u
 import projutils.png as png
@@ -18,7 +18,7 @@ class Color:
         if (not permit_transparency) and self.a:
             raise ValueError("Color has transparency! Set permit_transparency to True to allow this!")
 
-    def __init__(self, *arg: Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]):
+    def __init__(self, *arg: int | Tuple[int, int, int] | Tuple[int, int, int, int]):
         """RGBA Color object (5-bit r, g, b values and 1-bit a value). Takes as input:
         int (16-bit GBC Color) or
         r (0-248), g (0-248), b (0-248), Optional[a (0-1)]"""
@@ -73,7 +73,7 @@ class Color:
 
 
 class Palette:
-    def __init__(self, arg: Union[bytes, bytearray, list, str, pathlib.PurePath]):
+    def __init__(self, arg: bytes | bytearray | list | str | pathlib.PurePath):
         '''Accepts the following inputs:
         1) Raw data from .pal file (bytes or bytearray)
         2) A raw palette list (list containing tuples of (r, g, b) or (r, g, b, a))

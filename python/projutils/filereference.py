@@ -1,6 +1,6 @@
 from __future__ import annotations
 import types
-from typing import Dict, Union, Callable
+from typing import Dict, Callable
 import pathlib
 import projutils.utils as utils
 import projutils.sprite as sprite
@@ -16,7 +16,7 @@ class FileContentsFactory:
     def register_identity(self, identity: str, module: types.ModuleType, classname: str):
         self.identities[identity] = {'module': module, 'classname': classname}
 
-    def load_identity(self, identity: str) -> Union[None, filecontents.FileContentsSerializer]:
+    def load_identity(self, identity: str) -> None | filecontents.FileContentsSerializer:
         if identity not in self.identities:
             return None
         match = self.identities[identity]
@@ -30,6 +30,7 @@ file_contents_factory = FileContentsFactory()
 file_contents_factory.register_identity('SPRITE', sprite, 'Sprite')
 file_contents_factory.register_identity('PATTERN', pattern, 'Pattern')
 file_contents_factory.register_identity('BITMAP', tileset, 'Bitmap')
+file_contents_factory.register_identity('BITSET', tileset, 'BitSet')
 
 
 class FileReference:
@@ -40,15 +41,15 @@ class FileReference:
     def __init__(self, identity: str):
         self.identity = file_contents_factory.load_identity(identity)
         self.label_name: str = None
-        self.original_path: Union[str, pathlib.PurePath] = None
-        self.processed_path: Union[str, pathlib.PurePath] = None
+        self.original_path: str | pathlib.PurePath = None
+        self.processed_path: str | pathlib.PurePath = None
         self.rom: utils.Rom = None
         self.bankaddress: utils.BankAddress = None
         self.sym: utils.SymFile = None
         self.contents: filecontents.FileContentsSerializer = None
 
     @classmethod
-    def create_from_label(cls, label_name: str, original_path: Union[str, pathlib.PurePath], processed_path: Union[str, pathlib.PurePath]):
+    def create_from_label(cls, label_name: str, original_path: str | pathlib.PurePath, processed_path: str | pathlib.PurePath):
         identity = label_name[label_name.find('_')]  # e.g. SPRITE_Filename -> SPRITE
         self = cls(identity)
         self.label_name = label_name

@@ -2,7 +2,7 @@ import glob
 import os
 import pathlib
 import re
-from typing import Callable, Tuple, Union
+from typing import Callable, Tuple
 import projutils.asm as asm
 import projutils.filereference as filereference
 
@@ -113,7 +113,7 @@ class LabelFileRegister:
     def __init__(self):
         self.files: dict[str, filereference.FileReference] = {}
 
-    def registerFromAsm(self, path: Union[str, pathlib.PurePath]) -> None:
+    def registerFromAsm(self, path: str | pathlib.PurePath) -> None:
         """Adds all the INCBIN and INCLUDE files' labels and paths from a .asm file
         """
         asmfile = asm.AsmFile(path)

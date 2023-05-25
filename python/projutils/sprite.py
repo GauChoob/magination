@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 import pathlib
 import struct
-from typing import Union
+from typing import Self
 import projutils.utils as utils
 import projutils.config as config
 import projutils.filecontents as filecontents
@@ -43,7 +43,7 @@ class Sprite(filecontents.FileContentsSerializer):
         self.entries = []
 
     @classmethod
-    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> Sprite:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> Self:
         """Given a ROM, will read the OAM data for 1 "sprite", which is a collection of 4-byte OAM entries that collectively make up a single image"""
         self = cls()
         self.start = address
@@ -66,7 +66,7 @@ class Sprite(filecontents.FileContentsSerializer):
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]) -> Sprite:
+    def init_from_original_file(cls, filename: str | pathlib.PurePath) -> Self:
         """Loads a .spr file"""
         self = cls()
 
@@ -90,13 +90,13 @@ class Sprite(filecontents.FileContentsSerializer):
         """Returns the size in bytesof the sprite oam data. Includes the EOF byte as part of the size"""
         return self.end - self.start
 
-    def save_original_file(self, filename: Union[str, pathlib.PurePath]) -> None:
+    def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         """Saves the sprite as a .spr file. The EOF byte is not included"""
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(os.path.join(filename), 'wb') as f:
             f.write(bytes(self))
 
-    def generate_include(self, filename: Union[str, pathlib.PurePath]) -> str:
+    def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCSPRITE "{}"'.format(filename)
 
     def __str__(self):

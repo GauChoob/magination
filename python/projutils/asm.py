@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 import pathlib
 import re
-from typing import List, Tuple, Union
+from typing import List, Tuple
 
 
 def castNumber(input: str) -> int:
@@ -369,7 +369,7 @@ line_factory.register_linetype(UnknownLine)
 
 
 class AsmFile:
-    def __init__(self, path: Union[str, pathlib.PurePath]):
+    def __init__(self, path: str | pathlib.PurePath):
         self.path = path
         self.lines: List[AsmLine] = []
 

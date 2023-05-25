@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math
 import pathlib
-from typing import List, Tuple, Union
+from typing import List, Self, Tuple
 import projutils.png as png
 import projutils.asm as asm
 from projutils.filecontents import FileContentsSerializer
@@ -69,7 +69,7 @@ class Bitmap(FileContentsSerializer):
                 row.append(color)
             self.pixels.append(row)
 
-    def _load_original(self, filename: Union[str, pathlib.PurePath]):
+    def _load_original(self, filename: str | pathlib.PurePath):
         """Converts a .png file into pixel data
         Automatically removes any colorizing data"""
         png_reader = png.Reader(filename)
@@ -104,7 +104,7 @@ class Bitmap(FileContentsSerializer):
         return bytes(data)
 
     @classmethod
-    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress, compressed: bool, tilewidth: Union[int, None], tileheight: Union[int, None]) -> Bitmap:
+    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
         self = cls()
         if compressed:
             data = self._handle_rle_from_rom(rom, address, compressed, None)
@@ -115,26 +115,26 @@ class Bitmap(FileContentsSerializer):
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath]) -> Bitmap:
+    def init_from_original_file(cls, filename: str | pathlib.PurePath) -> Self:
         self = cls()
         self._handle_rle_from_original_file(filename)
         self._load_original(filename)
         return self
 
     @classmethod
-    def init_from_processed_file(cls, filename: Union[str, pathlib.PurePath], tilewidth: Union[int, None], tileheight: Union[int, None]) -> Bitmap:
+    def init_from_processed_file(cls, filename: str | pathlib.PurePath, tilewidth: int | None, tileheight: int | None) -> Self:
         self = cls()
         data = self._handle_rle_from_processed_file(filename)
         self._load_processed(data, tilewidth, tileheight)
         return self
 
-    def save_original_file(self, filename: Union[str, pathlib.PurePath]) -> None:
+    def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         filename = self._handle_rle_save_original_file(filename)
         with open(filename, 'wb') as f:
             w = png.Writer(self.width, self.height, alpha=False, bitdepth=2, palette=self.palette.get_png_palette())
             w.write(f, self.pixels)
 
-    def save_processed_file(self, filename: Union[str, pathlib.PurePath]) -> None:
+    def save_processed_file(self, filename: str | pathlib.PurePath) -> None:
         data = self._to_processed_data()
         filename, data = self._handle_rle_save_processed_file(filename, data)
         with open(filename, 'wb') as f:
@@ -150,7 +150,7 @@ class BitSet(FileContentsSerializer):
         self.end: BankAddress = None
 
     @classmethod
-    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> BitSet:
+    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> Self:
         self = cls()
         self.sym = sym
         self.start = address
@@ -175,7 +175,7 @@ class BitSet(FileContentsSerializer):
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath], fileregistry: fileregistry.LabelFileRegister) -> BitSet:
+    def init_from_original_file(cls, filename: str | pathlib.PurePath, fileregistry: fileregistry.LabelFileRegister) -> Self:
         self = cls()
         asmfile = asm.AsmFile(filename)
         asm_iter = iter(asmfile.lines)
@@ -216,11 +216,11 @@ class BitSet(FileContentsSerializer):
             ret.append('')
         return '\n'.join(ret)
 
-    def save_original_file(self, filename: Union[str, pathlib.PurePath]) -> None:
+    def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         with open(filename, 'w') as f:
             f.write(str(self))
 
-    def generate_include(self, filename: Union[str, pathlib.PurePath]) -> str:
+    def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCLUDE "{}"'.format(filename)
 
     def load_references_from_rom(self) -> None:

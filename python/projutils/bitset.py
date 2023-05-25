@@ -1,7 +1,6 @@
 import os
 import pathlib
 import re
-from typing import Union
 import projutils.utils as utils
 import projutils.config as config
 import projutils.asm as asm
@@ -26,7 +25,7 @@ class BitSet:
         self.sym = None
 
     @classmethod
-    def _init_from_file(cls, path: Union[str, pathlib.PurePath], sym=None):
+    def _init_from_file(cls, path: str | pathlib.PurePath, sym=None):
         """Builds a BitmapSet object by reading the corresponding filedata"""
         self = cls.__init__()
         if sym is None:
@@ -61,7 +60,7 @@ class BitmapSet:
     def __str__(self):
         pass
 
-    def _initFromBitmapFile(self, filename: Union[str, pathlib.PurePath]):
+    def _initFromBitmapFile(self, filename: str | pathlib.PurePath):
         """Loads a .spr file"""
 
         raise NotImplementedError()
@@ -119,7 +118,7 @@ class BitmapSet:
 
     EOF_BYTE = -0x80  # Negative because y is signed
 
-    def _initFromSpriteFile(self, filename: Union[str, pathlib.PurePath]):
+    def _initFromSpriteFile(self, filename: str | pathlib.PurePath):
         """Loads a .spr file"""
 
         def signed(val):
@@ -178,7 +177,7 @@ class BitmapSet:
     def __bytes__(self):
         return b''.join([bytes(entry) for entry in self.entries])
 
-    def save(self, filename: Union[str, pathlib.PurePath]):
+    def save(self, filename: str | pathlib.PurePath):
         """Saves the sprite as a .spr file. The EOF byte is not included"""
         os.makedirs(os.path.dirname(filename), exist_ok=True)
         with open(os.path.join(filename), 'wb') as f:

@@ -1,7 +1,7 @@
 import functools
 import struct
 import os
-from typing import List, Union, Tuple
+from typing import List, Tuple
 import projutils.encoding as encoding
 
 
@@ -138,7 +138,7 @@ class Rom:
     KQ = os.path.dirname(__file__) + "/data/kq.gbc"
     """Keeper's Quest ROM file"""
 
-    def __init__(self, *args: Union[None, str, Union[bytes, bytearray], Tuple[Union[bytes, bytearray], int]]):
+    def __init__(self, *args: None | str | bytes | bytearray | Tuple[bytes | bytearray, int]):
         """Initialize the Rom object.
         If no arguments are passed, mn.gbc will be loaded
         Otherwise, pass a string pointing to the file you wish to load.
@@ -159,7 +159,7 @@ class Rom:
             else:
                 self._offset = 0
 
-    def _determinePosition(arg: Union[BankAddress, int, Tuple[int, int]]) -> int:
+    def _determinePosition(arg: BankAddress | int | Tuple[int, int]) -> int:
         """Gets the position of the argument, be it an int, BankAddress or a bank and address"""
         # Valid: BankAddress, int(pos), (int(bank),int(address))
         if isinstance(arg, int):
@@ -170,7 +170,7 @@ class Rom:
             return BankAddress(arg[0], arg[1]).getPos()
         raise ValueError("Invalid input to Rom class: "+str(arg))
 
-    def getSignedByte(self, pos: Union[BankAddress, int, Tuple[int, int]]) -> int:
+    def getSignedByte(self, pos: BankAddress | int | Tuple[int, int]) -> int:
         """Gets the signed value of the byte located at pos."""
         pos = Rom._determinePosition(pos) - self._offset
         val = self._rawdata[pos]
@@ -178,23 +178,23 @@ class Rom:
             val -= 256
         return val
 
-    def getByte(self, pos: Union[BankAddress, int, Tuple[int, int]]) -> int:
+    def getByte(self, pos: BankAddress | int | Tuple[int, int]) -> int:
         """Gets the value of the byte located at pos."""
         pos = Rom._determinePosition(pos) - self._offset
         return self._rawdata[pos]
 
-    def getWord(self, pos: Union[BankAddress, int, Tuple[int, int]]) -> int:
+    def getWord(self, pos: BankAddress | int | Tuple[int, int]) -> int:
         """Gets the value of the word located at pos."""
         pos = Rom._determinePosition(pos) - self._offset
         return self._rawdata[pos]+self._rawdata[pos+1]*256
 
-    def _retBankAddress(bank: int, address: int, getobj: bool) -> Union[Tuple[int, int], BankAddress]:
+    def _retBankAddress(bank: int, address: int, getobj: bool) -> Tuple[int, int] | BankAddress:
         if getobj:
             return BankAddress(bank, address)
         else:
             return (bank, address)
 
-    def getAddressBank(self, pos: Union[BankAddress, int, Tuple[int, int]], getobj: bool = False) -> Union[Tuple[int, int], BankAddress]:
+    def getAddressBank(self, pos: BankAddress | int | Tuple[int, int], getobj: bool = False) -> Tuple[int, int] | BankAddress:
         """Gets the AddressBank located at pos.
         Returns a tuple (bank, address), unless getobj=True,
         in which case a BankAddress object is returned."""
@@ -203,7 +203,7 @@ class Rom:
         bank = self.getByte(pos+2)
         return Rom._retBankAddress(bank, address, getobj)
 
-    def getBankAddress(self, pos: Union[BankAddress, int, Tuple[int, int]], getobj: bool = False) -> Union[Tuple[int, int], BankAddress]:
+    def getBankAddress(self, pos: BankAddress | int | Tuple[int, int], getobj: bool = False) -> Tuple[int, int] | BankAddress:
         """Gets the BanAddress located at pos.
         Returns a tuple (bank, address), unless getobj=True,
         in which case a BankAddress object is returned."""
@@ -212,13 +212,13 @@ class Rom:
         address = self.getWord(pos + 1)
         return Rom._retBankAddress(bank, address, getobj)
 
-    def getString(self, pos: Union[BankAddress, int, Tuple[int, int]], length: int) -> str:
+    def getString(self, pos: BankAddress | int | Tuple[int, int], length: int) -> str:
         """Decodes a string of length "length" located at pos"""
         pos = Rom._determinePosition(pos)
         raw = self.getRawSection(pos, length)
         return encoding.decode(raw)
 
-    def getRawSection(self, pos: Union[BankAddress, int, Tuple[int, int]], length: int) -> bytes:
+    def getRawSection(self, pos: BankAddress | int | Tuple[int, int], length: int) -> bytes:
         """Returns raw bytes of length "length" at pos"""
         pos = Rom._determinePosition(pos) - self._offset
         return self._rawdata[pos:pos+length]
@@ -231,7 +231,7 @@ class Rom:
         return len(self._rawdata)
 
 
-def AsmBytes(bytearr: Union[int, list, bytes, bytearray], split: int = 16) -> str:
+def AsmBytes(bytearr: int | list | bytes | bytearray, split: int = 16) -> str:
     """Given a bytearray, bytes, list or int, returns the text format that you would add to an asm file
     If split > 0, then it will write entire lines with maximum "split" entries per lines
     If split == 0, then it will just write the raw bytes without any line data"""
@@ -253,7 +253,7 @@ def AsmBytes(bytearr: Union[int, list, bytes, bytearray], split: int = 16) -> st
         return ", ".join(["${:02X}".format(j) for j in bytearr])
 
 
-def AsmWords(bytearr: Union[int, list, bytes, bytearray], split: int) -> str:
+def AsmWords(bytearr: int | list | bytes | bytearray, split: int) -> str:
     """Given a bytearray, bytes, list or int, returns the text format that you would add to an asm file
     Assumes each list entry contains a 16-bit number. For bytearray/bytes, it will automatically convert 2 bytes into 1 word
     If split > 0, then it will write entire lines with maximum "split" entries per lines
@@ -282,7 +282,7 @@ def AsmWords(bytearr: Union[int, list, bytes, bytearray], split: int) -> str:
         return ", ".join(["${:04X}".format(j) for j in bytearr2])
 
 
-def PackWords(data: Union[List[int], int]) -> bytes:
+def PackWords(data: List[int] | int) -> bytes:
     """Pack a single 16-bit integer, or a list of 16-bit integers."""
     if isinstance(data, list):
         return struct.pack('<'+'H'*len(data), *data)
@@ -291,7 +291,7 @@ def PackWords(data: Union[List[int], int]) -> bytes:
     raise TypeError
 
 
-def PackBytes(data: Union[List[int], int]) -> bytes:
+def PackBytes(data: List[int] | int) -> bytes:
     """Pack a single 8-bit integer, or a list of 8-bit integers."""
     if isinstance(data, list):
         return struct.pack('B'*len(data), *bytes(data))

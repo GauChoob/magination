@@ -1,5 +1,5 @@
 import pathlib
-from typing import Union
+from typing import Self
 from projutils.filecontents import FileContentsSerializer
 from projutils.filereference import FileReference
 from projutils.fileregistry import LabelFileRegister
@@ -18,7 +18,7 @@ class Scene(FileContentsSerializer):
         self.labelfileregister: LabelFileRegister = None
 
     @classmethod
-    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> FileContentsSerializer:
+    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> Self:
         self = cls()
         self.sym = sym
         self.palette = FileReference.create_from_address('PAL', rom, rom.getAddressBank(address + 0, True), sym)
@@ -29,7 +29,7 @@ class Scene(FileContentsSerializer):
         return self
 
     @classmethod
-    def init_from_original_file(cls, filename: Union[str, pathlib.PurePath], labelfileregister: LabelFileRegister):
+    def init_from_original_file(cls, filename: str | pathlib.PurePath, labelfileregister: LabelFileRegister) -> Self:
         self = cls()
         self.labelfileregister = labelfileregister
         asmfile = asm.AsmFile(filename)
@@ -45,7 +45,7 @@ class Scene(FileContentsSerializer):
     def size(self) -> int:
         return 15
 
-    def save_original_file(self, filename: Union[str, pathlib.PurePath]) -> None:
+    def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         with open(filename, 'w') as f:
             f.write('\n'.join([
                 '    AddressBank {}'.format(ref.label_name)
@@ -57,5 +57,5 @@ class Scene(FileContentsSerializer):
                     self.collmap
                     ]]))
 
-    def generate_include(self, filename: Union[str, pathlib.PurePath]) -> str:
+    def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCLUDE "{}"'.format(filename)

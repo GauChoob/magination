@@ -1,10 +1,9 @@
 import pathlib
 import re
-from typing import Union
 from magiparser.lines import Lines
 
 
-def getObject(filein: Union[str, pathlib.PurePath]):
+def getObject(filein: str | pathlib.PurePath):
     with open(filein, "r") as f:
         f = f.read()
         commentparse = re.compile(";.*\n")
@@ -14,7 +13,7 @@ def getObject(filein: Union[str, pathlib.PurePath]):
     return lines
 
 
-def convert(filein: Union[str, pathlib.PurePath], fileout: Union[str, pathlib.PurePath]):
+def convert(filein: str | pathlib.PurePath, fileout: str | pathlib.PurePath):
     lines = getObject(filein)
 
     with open(fileout, "w") as f:
