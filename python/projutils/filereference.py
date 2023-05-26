@@ -50,7 +50,7 @@ class FileReference:
 
     @classmethod
     def create_from_label(cls, label_name: str, original_path: str | pathlib.PurePath, processed_path: str | pathlib.PurePath):
-        identity = label_name[label_name.find('_')]  # e.g. SPRITE_Filename -> SPRITE
+        identity = label_name.split('_', 1)[0]  # e.g. SPRITE_Filename -> SPRITE
         self = cls(identity)
         self.label_name = label_name
         self.original_path = original_path

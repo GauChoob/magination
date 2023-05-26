@@ -5,7 +5,6 @@ import shutil
 import projutils.tileset as tileset
 import projutils.utils as utils
 import projutils.fileregistry as fileregistry
-import projutils.png as png
 import projutils.tests.config as config
 import projutils.tests.helper as helper
 
@@ -91,7 +90,11 @@ class TestTileset(unittest.TestCase):
         self.assertTrue(filecmp.cmp(ASSETSFOLDER + 'bitset/Core_End_Bridge.bitmapset.asm', DESTINATION + 'bitset1.bitmapset.asm', shallow=False))
         self.assertTrue(filecmp.cmp(ASSETSFOLDER + 'bitset/Core_End_Bridge.bitmapset.asm', DESTINATION + 'bitset2.bitmapset.asm', shallow=False))
 
-        # load tilesets
+        bitset1.load_references_from_rom()
+        bitset2.load_references_from_original_file()
+        for vram in range(2):
+            for bitmap_i in range(len(bitset1.bitmaps[vram])):
+                self.assertEqual(bitset1.bitmaps[vram][bitmap_i].contents._to_processed_data(), bitset2.bitmaps[vram][bitmap_i].contents._to_processed_data())
 
 
 if __name__ == '__main__':
