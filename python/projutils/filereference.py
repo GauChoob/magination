@@ -1,17 +1,18 @@
 from __future__ import annotations
 import types
-from typing import Dict, Callable
+from typing import Callable
 import pathlib
 import projutils.utils as utils
 import projutils.sprite as sprite
 import projutils.pattern as pattern
 import projutils.tileset as tileset
 import projutils.filecontents as filecontents
+import projutils.textreplace as textreplace
 
 
 class FileContentsFactory:
     def __init__(self):
-        self.identities: Dict[str, Callable] = {}
+        self.identities: dict[str, Callable] = {}
 
     def register_identity(self, identity: str, module: types.ModuleType, classname: str):
         self.identities[identity] = {'module': module, 'classname': classname}
@@ -77,6 +78,12 @@ class FileReference:
 
     def load_contents_from_processed_file(self):
         self.contents = self.identity.init_from_processed_file(self.processed_path)
+
+    def replace_rom_text(self):
+        start = self.bankaddress
+        end = start + self.contents.size()
+        textreplace.reset_files([start.getBank()])
+        textreplace.replace_rom_text(start, end, self.label_name + '::', self.contents.generate_include())
 
     def __str__(self):
         return '{}: {}, {}, {}'.format(self.label_name, self.original_path, self.processed_path, self.bankaddress)

@@ -1,7 +1,7 @@
 from __future__ import annotations
 import re
 import projutils.utils as utils
-from typing import Self, Tuple
+from typing import Self
 import projutils.rle as rle
 import pathlib
 
@@ -67,7 +67,7 @@ class FileContentsSerializer:
     def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         raise NotImplementedError
 
-    def _handle_rle_save_processed_file(self, filename: str | pathlib.PurePath, data: bytes) -> Tuple[str, bytes]:
+    def _handle_rle_save_processed_file(self, filename: str | pathlib.PurePath, data: bytes) -> tuple[str, bytes]:
         filename = self._remove_RLE_from_filename(filename)
         if self.compression_mode is None:
             return (filename, data)

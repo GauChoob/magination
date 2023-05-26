@@ -1,7 +1,6 @@
 import math
 import re
 import os
-from typing import List
 import projutils.color as color
 import projutils.tileset as tileset
 import projutils.rle as rle
@@ -65,7 +64,7 @@ class VRAMTile:
         return pixelcanvas
 
 
-def DrawMetatile(vram: List[VRAMTile], pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
+def DrawMetatile(vram: list[VRAMTile], pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
     """Paints the Metatile into the canvas "pixels"
     vram: List of VRAMTiles
     pat: Pattern

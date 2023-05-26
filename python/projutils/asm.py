@@ -2,7 +2,6 @@ from __future__ import annotations
 import os
 import pathlib
 import re
-from typing import List, Tuple
 
 
 def castNumber(input: str) -> int:
@@ -328,13 +327,13 @@ class UnknownLine(AsmLine):
 
 class LineFactory:
     def __init__(self):
-        self.linetypes: Tuple[AsmLine] = []
+        self.linetypes: tuple[AsmLine] = []
 
     def register_linetype(self, lineclass: AsmLine) -> None:
         """Adds a potential new AsmLine validatory and class. The order matters (highest to lowest priority)"""
         self.linetypes.append(lineclass)
 
-    def parse_line(self, cur_address: int, line: str) -> Tuple[int, AsmLine]:
+    def parse_line(self, cur_address: int, line: str) -> tuple[int, AsmLine]:
         """Given an unknown line in a .asm file, determine the line type and build the corresponding AsmLine class
 
         Args:
@@ -342,7 +341,7 @@ class LineFactory:
             line (str): Unknown line
 
         Returns:
-            Tuple[int, AsmLine]: new address, line object
+            tuple[int, AsmLine]: new address, line object
         """
         for linetype in self.linetypes:
             if linetype.validate(line):
@@ -371,7 +370,7 @@ line_factory.register_linetype(UnknownLine)
 class AsmFile:
     def __init__(self, path: str | pathlib.PurePath):
         self.path = path
-        self.lines: List[AsmLine] = []
+        self.lines: list[AsmLine] = []
 
         with open(path, 'r') as f:
             address = 0x4000

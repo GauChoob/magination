@@ -1,6 +1,6 @@
 from __future__ import annotations
 import pathlib
-from typing import List, Self, Tuple
+from typing import Self
 import projutils.filecontents as filecontents
 import projutils.utils as utils
 
@@ -9,8 +9,8 @@ class Pattern(filecontents.FileContentsSerializer):
 
     def __init__(self):
         super().__init__()
-        self.tilemap: List[List[int]] = []
-        self.attrmap: List[List[int]] = []
+        self.tilemap: list[list[int]] = []
+        self.attrmap: list[list[int]] = []
 
     def _load_processed(self, data: bytes):
         assert len(data) == 0x800
@@ -20,7 +20,7 @@ class Pattern(filecontents.FileContentsSerializer):
             self.attrmap.append([tile for tile in data[i:i+4]])
 
     @staticmethod
-    def _get_original_filenames(tilefile: str | pathlib.PurePath) -> Tuple[str, str]:
+    def _get_original_filenames(tilefile: str | pathlib.PurePath) -> tuple[str, str]:
         ext = "pattern.tilemap"
         assert tilefile[-len(ext):] == ext
         # Use tilemap and not attrmap
@@ -54,7 +54,7 @@ class Pattern(filecontents.FileContentsSerializer):
             byte4 = attrdata[coord + 0x21]
             self.attrmap.append([byte1, byte2, byte3, byte4])
 
-    def _to_original_data(self) -> Tuple[bytes, bytes]:
+    def _to_original_data(self) -> tuple[bytes, bytes]:
         tiledata = []
         for row in range(0x10):  # 0x10 metarows
             for tilerow in range(2):  # 2 rows in each metarow

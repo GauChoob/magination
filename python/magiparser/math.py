@@ -1,4 +1,3 @@
-from typing import List
 from pyparsing import ParserElement, Forward, Literal, MatchFirst, infixNotation, oneOf, opAssoc, ParseResults
 import sys
 from magiparser.primitives import ResultsHandler, Address, ImplicitRaw, ExplicitRaw, Number
@@ -258,7 +257,7 @@ class MathGroupHandler(MathOperandHandler):
         def __repr__(self):
             return self.text
 
-    def buildStack(self, tokens: List) -> MathOperandHandler:
+    def buildStack(self, tokens: list) -> MathOperandHandler:
         """This function will convert the token list into a binary tree of MathOperandHandler,
         where the children are in param1 and param2"""
         OneRight = ["not"]

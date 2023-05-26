@@ -1,12 +1,11 @@
 from PIL import Image, ImageDraw
-from typing import Tuple
 import pathlib
 import projutils.utils as u
 import projutils.png as png
 
 
 class Color:
-    def _word_to_rgba(x: int) -> Tuple[int, int, int, int]:
+    def _word_to_rgba(x: int) -> tuple[int, int, int, int]:
         """Convert a 16-bit integer into r, g, b, a values (0 - 31)"""
         r = x & 0b11111
         g = (x & 0b1111100000) >> 5
@@ -18,7 +17,7 @@ class Color:
         if (not permit_transparency) and self.a:
             raise ValueError("Color has transparency! Set permit_transparency to True to allow this!")
 
-    def __init__(self, *arg: int | Tuple[int, int, int] | Tuple[int, int, int, int]):
+    def __init__(self, *arg: int | tuple[int, int, int] | tuple[int, int, int, int]):
         """RGBA Color object (5-bit r, g, b values and 1-bit a value). Takes as input:
         int (16-bit GBC Color) or
         r (0-248), g (0-248), b (0-248), Optional[a (0-1)]"""

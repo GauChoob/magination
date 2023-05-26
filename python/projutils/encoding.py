@@ -1,6 +1,5 @@
 import codecs
 import string
-from typing import Tuple
 
 # Inspired from https://stackoverflow.com/questions/38777818/how-do-i-properly-create-custom-text-codecs
 
@@ -24,11 +23,11 @@ _encode_table = dict(
 _decode_table = {ord(v): k for k, v in _encode_table.items()}
 
 
-def _magichar_encode(text: str) -> Tuple[bytes, int]:
+def _magichar_encode(text: str) -> tuple[bytes, int]:
     return b''.join(_encode_table[x] for x in text), len(text)
 
 
-def _magichar_decode(binary: bytes) -> Tuple[str, int]:
+def _magichar_decode(binary: bytes) -> tuple[str, int]:
     return ''.join(_decode_table[x] for x in binary), len(binary)
 
 

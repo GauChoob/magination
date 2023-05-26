@@ -1,7 +1,7 @@
 from __future__ import annotations
 import math
 import pathlib
-from typing import List, Self, Tuple
+from typing import Self
 import projutils.png as png
 import projutils.asm as asm
 from projutils.filecontents import FileContentsSerializer
@@ -16,10 +16,10 @@ class Bitmap(FileContentsSerializer):
     def __init__(self):
         super().__init__()
         self.palette: Palette = Palette.greyscale_palette()
-        self.pixels: List[List[int]] = None
+        self.pixels: list[list[int]] = None
 
     @staticmethod
-    def _optimize_tilewidth_tileheight(data: bytes, tilewidth: int, tileheight: int) -> Tuple[int, int]:
+    def _optimize_tilewidth_tileheight(data: bytes, tilewidth: int, tileheight: int) -> tuple[int, int]:
         tilecount = len(data)//0x10
 
         # If width and height are defined, then we are already done
@@ -145,7 +145,7 @@ class BitSet(FileContentsSerializer):
 
     def __init__(self):
         super().__init__()
-        self.bitmaps: List[List[filereference.FileReference]] = [[], []]
+        self.bitmaps: list[list[filereference.FileReference]] = [[], []]
         self.start: BankAddress = None
         self.end: BankAddress = None
 

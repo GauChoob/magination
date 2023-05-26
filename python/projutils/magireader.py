@@ -1,7 +1,6 @@
 import os
 import re
 import traceback
-from typing import List
 import projutils.utils as utils
 import projutils.color as color
 import projutils.hotspot as hotspot
@@ -319,7 +318,7 @@ class MagiScriptLine:
             out = "\n" + "\n".join([(label+"::") for label in sym.symbols[bank][address]])+"\n"
         return out + self.whitespace + getattr(self, self.type)()
 
-    def _interpretInstruction(self, instruction: str) -> List[str]:
+    def _interpretInstruction(self, instruction: str) -> list[str]:
 
         global curpos, rambank
 

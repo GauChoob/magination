@@ -2,7 +2,7 @@ import glob
 import os
 import pathlib
 import re
-from typing import Callable, Tuple
+from typing import Callable
 import projutils.asm as asm
 import projutils.filereference as filereference
 
@@ -86,7 +86,7 @@ def reverse_pattern(path: str) -> str:
 
 class FilePathReverser:
     def __init__(self):
-        self.reversers: Tuple[Callable] = []
+        self.reversers: tuple[Callable] = []
 
     def register_reverser(self, reverser: Callable) -> None:
         """Adds a potential new AsmLine validatory and class. The order matters (highest to lowest priority)"""
