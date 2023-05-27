@@ -4,6 +4,7 @@ import os
 import shutil
 import projutils.tileset as tileset
 import projutils.utils as utils
+import projutils.color as color
 import projutils.fileregistry as fileregistry
 import projutils.tests.config as config
 import projutils.tests.helper as helper
@@ -49,6 +50,35 @@ class TestTileset(unittest.TestCase):
         self.assertTrue(filecmp.cmp(ASSETSFOLDER + 'MusyX.tileset', DESTINATION + 'musyx4.tileset', shallow=False))
 
         self.assertEqual(musyx1.size(), os.path.getsize(ASSETSFOLDER + 'MusyX.tileset'))
+
+    def test_tileset_decolorize(self):
+        _ASSETSFOLDER = ASSETSFOLDER + 'colorize/'
+        logo = tileset.Bitmap.init_from_original_file(_ASSETSFOLDER + 'InteractiveImaginationLogo.tileset.png')
+        logo.decolorize()
+        logo.save_original_file(config.TEMPFOLDER + "GREY_InteractiveImaginationLogo.tileset.png")
+        helper.assert_png_cmp(self, _ASSETSFOLDER + "GREY_InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "GREY_InteractiveImaginationLogo.tileset.png")
+
+    def test_color_tileset_from_list(self):
+        _ASSETSFOLDER = ASSETSFOLDER + 'colorize/'
+        logo = tileset.Bitmap.init_from_original_file(_ASSETSFOLDER + 'GREY_InteractiveImaginationLogo.tileset.png')
+        logo.colorize_from_list(
+            [
+                0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  0,  6,  1,  1,  4,  4,  0,  0,  0,  0,  0,
+                -1, 0,  1,  1,  4,  4,  0,  0, -1,  0,  1,  1,  1,  0,  0,  0,
+                0,  0,  2,  2,  0,  0,  0,  0,  2,  2,  4,  4,  4,  0,  0,  0,
+                0,  3,  3,  3,  0,  0,  0,  0,  0,  2,  2,  3,  3,  3,  0,  0,
+                0,  0,  0,  0,  0,  0,  0,  3,  3,  7,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  0,  -1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+                0,  0,  0,  0,  -1, 1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            ],
+            color.Palette(_ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
+            0,
+            True,
+            0
+        )
+        logo.save_original_file(config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
+        helper.assert_png_cmp(self, _ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
 
     def test_bitset(self):
         rom = utils.Rom()

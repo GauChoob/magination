@@ -1,7 +1,7 @@
 ; Equivalent to either BITSET_Misc_Fort_Outside, BITSET_Core_Shadowhold_Marina or BITSET_Arderial_Palace_Throneroom with old pointer locations
 ; It's not possible to distinguish these 3 bitmapsets
 
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; BITMAP_Misc_Fort_Main, BITMAP_Core_Shadowhold_Marina_Walls, or BITMAP_Arderial_Palace_ThroneroomSky
     dw $9000
@@ -10,7 +10,7 @@
     db $08
     db $5B
 
-    db 3         ;VRAM1 entries
+    db 3         ; VRAM1 entries
 
     ; BITMAP_Misc_Fort_Diagonal, BITMAP_Core_Shadowhold_Marina_Sky, or BITMAP_Arderial_Palace_ThroneroomBase
     dw $9000

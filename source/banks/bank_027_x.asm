@@ -5605,13 +5605,13 @@ jr_027_58DD:
 
     ; $58E0
 BITSET_SplashScreen::
-    db $02         ;VRAM0 entries
+    db $02         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_InteractiveImaginationLogo,$10,$08
         LoadBitmap $8D00,BITMAP_MusyX,$0A,$03
 
-    db $02         ;VRAM1 entries
+    db $02         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_InteractiveImaginationLogoText,$10,$04
@@ -5619,12 +5619,12 @@ BITSET_SplashScreen::
 
     ; $58FE
 BITSET_PressStartScreen::
-    db $01         ;VRAM0 entries
+    db $01         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8000,BITMAP_PressStart,$07,$01
 
-    db $02         ;VRAM1 entries
+    db $02         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_MagiNationLogo,$10,$07

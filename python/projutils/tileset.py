@@ -130,8 +130,9 @@ class Bitmap(FileContentsSerializer):
 
     def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         filename = self._handle_rle_save_original_file(filename)
+        bitdepth = 2 if len(self.palette) == 4 else 8
         with open(filename, 'wb') as f:
-            w = png.Writer(self.width, self.height, alpha=False, bitdepth=2, palette=self.palette.get_png_palette())
+            w = png.Writer(self.width, self.height, bitdepth=bitdepth, palette=self.palette.get_png_palette())
             w.write(f, self.pixels)
 
     def save_processed_file(self, filename: str | pathlib.PurePath) -> None:
@@ -139,6 +140,53 @@ class Bitmap(FileContentsSerializer):
         filename, data = self._handle_rle_save_processed_file(filename, data)
         with open(filename, 'wb') as f:
             f.write(data)
+
+    def decolorize(self):
+        '''Strip out the palette id data from the pixels'''
+        assert self.width == len(self.pixels[0])
+        assert self.height == len(self.pixels)
+        for i in range(self.width):
+            for j in range(self.height):
+                self.pixels[j][i] &= 0b11
+        self.palette = Palette.greyscale_palette()
+
+    def colorize_from_list(self,
+                           palette_ids: list,
+                           palette: Palette,
+                           paletteoffset: int = 0,
+                           addgreyscale: bool = True,
+                           defaultpalette: int = 0) -> None:
+        """This function allows you to quickly colorize a tileset based on a tilemap.
+        palette_ids = list of sequential palette ids to colorize the imagefile
+        palette = Palette Object
+        paletteoffset = offset of the palette to colorize with the right colors
+        addgreyscale = whether to have greyscale for unknown colors
+        defaultpalette = palette id to use if the color is unknown. 0 will refer to greyscale if enabled"""
+        assert self.width == len(self.pixels[0])
+        assert self.height == len(self.pixels)
+
+        # Get the raw palette color data
+        if addgreyscale:
+            palette.add_greyscale()
+        self.palette = palette
+        raw_palette = palette.get_png_palette()
+        # Offset the palette ids by +1 if greyscale was added
+        paletteoffset += addgreyscale
+
+        # Make sure no palettes are out of bounds
+        assert max(palette_ids) + paletteoffset < len(raw_palette)//4
+
+        # Colorize each tile
+        for y in range(self.height//8):
+            for x in range(self.width//8):
+                targettile = (y*self.width//8 + x) % 0x100
+                if palette_ids[targettile] == -1:
+                    newpaletteid = defaultpalette
+                else:
+                    newpaletteid = palette_ids[targettile]+paletteoffset
+                for y2 in range(8):
+                    for x2 in range(8):
+                        self.pixels[y*8+y2][x*8+x2] += newpaletteid*4
 
 
 class BitSet(FileContentsSerializer):

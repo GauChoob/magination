@@ -1,10 +1,10 @@
-    db 2         ;VRAM0 entries
+    db 2         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Underneath_Mushroom_Decoration,$10,$08
         LoadBitmap $8D00,BITMAP_Underneath_Mushroom_Interactables,$10,$03
 
-    db 5         ;VRAM1 entries
+    db 5         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Underneath_Mushroom_MushFieldStalactite,$10,$08

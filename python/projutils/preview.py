@@ -102,45 +102,6 @@ class Scene:
         assert i == 5  # Scene should have 5 AddressBanks
 
 
-class BitSet:
-
-    class TilesetEntry:
-        def __init__(self, vals: str):
-            """Builds a TilesetEntry object by reading the corresponding filedata"""
-            vals = vals.split(",")
-            self.dest = castNumber(vals[0])
-            self.source = assetlist.files[vals[1]].processed_path
-            self.width = castNumber(vals[2])
-            self.height = castNumber(vals[3])
-
-    def __init__(self, path: str):
-        """Builds a BitSet object by reading the corresponding filedata"""
-        self.path = path
-        self.bitmaps = [[], []]
-        self.size = []
-        with open(path, "r") as f:
-            lines = f.readlines()
-        i = -1
-        for line in lines:
-            # Remove comment
-            rem = re.search(r";.*$", line)
-            if rem:
-                line = line[:rem.start()]
-            line = line.strip()
-            if len(line) == 0:
-                continue
-            arg, vals = line.split(" ")
-            if arg == "db":
-                self.size.append(castNumber(vals))
-                i += 1
-            elif arg == "LoadBitmap":
-                self.bitmaps[i].append(BitSet.TilesetEntry(vals))
-
-        assert i == 1  # Should have two db entries
-        assert len(self.bitmaps[0]) == self.size[0]  # assert the number of bitmaps corresponds to the number of entries
-        assert len(self.bitmaps[1]) == self.size[1]
-
-
 class MetaMap:
     paramlist = ["width", "ymappad", "unk", "vstop", "size"]
 
@@ -211,10 +172,9 @@ def _preview(scene_label: str):
     # Load Palette
     with open(scene.pal, 'rb') as f:
         pal = color.Palette(f.read()).get_png_palette()
-        pal = [col[:-1] for col in pal]  # strip the alpha color
 
     # Load Bitset (Bitmap Tileset)
-    bitset = BitSet(scene.bitset)
+    bitset = tileset.BitSet.init_from_original_file(scene.bitset, assetlist)
 
     # Set up a blank VRAM
     vram = [VRAMTile() for _ in range(0x100)]
@@ -222,13 +182,14 @@ def _preview(scene_label: str):
     # Find each bitmap in the bitset and load it into VRAM
     for bank in range(2):
         for bitmap_ref in bitset.bitmaps[bank]:
-            if bitmap_ref.dest < 0x8800:  # skip sprites
+            if bitmap_ref.destination < 0x8800:  # skip sprites
                 continue
 
-            bitmap = tileset.Bitmap.init_from_processed_file(bitmap_ref.source, bitmap_ref.width, bitmap_ref.height)
+            bitmap = tileset.Bitmap.init_from_original_file(bitmap_ref.original_path)
+            bitmap.decolorize()
 
             # Write each tile of the bitmap into vram
-            basetile = (bitmap_ref.dest % 0x1000)//0x10
+            basetile = (bitmap_ref.destination % 0x1000)//0x10
             for y in range(bitmap_ref.height):
                 for x in range(bitmap_ref.width):
                     targettile = (basetile + y*0x10 + x) % 0x100
@@ -287,7 +248,7 @@ def _preview(scene_label: str):
     for y in range(metamap.height):
         for x in range(metamap.width):
             patternid = metamap.data[y*metamap.width + x]
-            pixels = DrawMetatile(vram, pat, metamap_pixels, patternid, x, y)
+            metamap_pixels = DrawMetatile(vram, pat, metamap_pixels, patternid, x, y)
 
     # Output the metatilemap
     with open(PREVIEW_SCENES+scene.label+".png", 'wb') as f:

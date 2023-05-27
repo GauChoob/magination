@@ -1,9 +1,9 @@
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8F00,BITMAP_Overworld_Underneath_WithTown,$10,$09
 
-    db 4         ;VRAM1 entries
+    db 4         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02

@@ -12,22 +12,22 @@ ASSETSFOLDER = os.path.dirname(__file__) + "/assets/color/"
 
 class TestColor(unittest.TestCase):
     def test_Color(self):
-        self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 0), color.Color(0x4F5F).get_RGBA())
+        self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 255), color.Color(0x4F5F).get_RGBA())
         self.assertEqual((0x1F*8, 0x1A*8, 0x13*8), color.Color(0x4F5F).get_RGB())
-        self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 1), color.Color(0xCF5F).get_RGBA(permit_transparency=True))
+        self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 0), color.Color(0xCF5F).get_RGBA(permit_transparency=True))
         with(self.assertRaises(ValueError)):
             color.Color(0xCF5F).get_RGBA(permit_transparency=False)
         self.assertEqual(0x4F5F, color.Color(0x1F*8, 0x1A*8, 0x13*8).get_word())
-        self.assertEqual(0x4F5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 0).get_word())
-        self.assertEqual(0xCF5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 1).get_word(permit_transparency=True))
+        self.assertEqual(0x4F5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 255).get_word())
+        self.assertEqual(0xCF5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 0).get_word(permit_transparency=True))
         with(self.assertRaises(ValueError)):
-            color.Color(0x1F*8, 0x1A*8, 0x13*8, 1).get_word(permit_transparency=False)
+            color.Color(0x1F*8, 0x1A*8, 0x13*8, 0).get_word(permit_transparency=False)
         with(self.assertRaises(AssertionError)):
-            color.Color(0x10*8 + 1, 0x10*8, 0x10*8, 0)
+            color.Color(0x10*8 + 1, 0x10*8, 0x10*8, 255)
         with(self.assertRaises(AssertionError)):
-            color.Color(0x10*8, 0x10*8 + 1, 0x10*8, 0)
+            color.Color(0x10*8, 0x10*8 + 1, 0x10*8, 255)
         with(self.assertRaises(AssertionError)):
-            color.Color(0x10*8, 0x10*8, 0x10*8 + 1, 0)
+            color.Color(0x10*8, 0x10*8, 0x10*8 + 1, 255)
 
 
 class TestPalette(unittest.TestCase):
@@ -62,12 +62,11 @@ class TestPalette(unittest.TestCase):
         self.assertEqual(pal1.get_png_palette(), pal2.get_png_palette())
 
         # Make sure that tuples of length 3 are acceptable
-        pal2.palette = [color[:-1] for color in pal2.palette]
         pal2 = color.Palette(pal2.get_png_palette())
         self.assertEqual(pal1.get_png_palette(), pal2.get_png_palette())
 
         # Alpha error check
-        pal1.palette[0] = pal1.palette[0][:-1] + (1,)
+        pal1.palette[0] = pal1.palette[0][:-1] + (0,)
         with self.assertRaises(AssertionError):
             pal1.save_png(config.TEMPFOLDER + "AllSprites2.pal.png")
         # No error check
@@ -111,35 +110,6 @@ class TestColorize(unittest.TestCase):
             0
         )
         helper.assert_png_cmp(self, ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
-
-    def test_color_tileset_from_list(self):
-        # Colorize the same tileset as in test_color_tileset_from_tilemap, manually
-        color.Colorize.color_tileset_from_list(
-            ASSETSFOLDER + "GREY_InteractiveImaginationLogo.tileset.png",
-            config.TEMPFOLDER + "InteractiveImaginationLogo2.tileset.png",
-            [
-                0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-                0,  0,  0,  0,  0,  0,  6,  1,  1,  4,  4,  0,  0,  0,  0,  0,
-                -1, 0,  1,  1,  4,  4,  0,  0, -1,  0,  1,  1,  1,  0,  0,  0,
-                0,  0,  2,  2,  0,  0,  0,  0,  2,  2,  4,  4,  4,  0,  0,  0,
-                0,  3,  3,  3,  0,  0,  0,  0,  0,  2,  2,  3,  3,  3,  0,  0,
-                0,  0,  0,  0,  0,  0,  0,  3,  3,  7,  0,  0,  0,  0,  0,  0,
-                0,  0,  0,  0,  0,  -1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-                0,  0,  0,  0,  -1, 1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            ],
-            color.Palette(ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
-            0,
-            True,
-            0
-        )
-        helper.assert_png_cmp(self, ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo2.tileset.png")
-
-    def test_decolorize_tileset(self):
-        color.Colorize.decolorize_tileset(
-            ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png",
-            config.TEMPFOLDER + "GREY_InteractiveImaginationLogo.tileset.png",
-        )
-        helper.assert_png_cmp(self, ASSETSFOLDER + "GREY_InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "GREY_InteractiveImaginationLogo.tileset.png")
 
 
 if __name__ == '__main__':

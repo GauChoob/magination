@@ -1,10 +1,10 @@
-    db 2         ;VRAM0 entries
+    db 2         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Naroom_Vash_PipesRoom_BrickWall,$10,$08
         LoadBitmap $8B00,BITMAP_Naroom_Vash_PipesRoom_WallShadows,$10,$05
 
-    db 7         ;VRAM1 entries
+    db 7         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02

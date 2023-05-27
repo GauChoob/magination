@@ -1,10 +1,10 @@
-    db 2         ;VRAM0 entries
+    db 2         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8800,BITMAP_Naroom_Gia_House_DestroyedRoof,$10,$08
         LoadBitmap $9000,BITMAP_Naroom_Gia_House_DestroyedHouse,$10,$08
 
-    db 6         ;VRAM1 entries
+    db 6         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9200,BITMAP_Naroom_Weave_StoneWall,$10,$06

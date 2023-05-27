@@ -1,6 +1,6 @@
  ; Equivalent to BITSET_Misc_StartScreen with old pointer locations
 
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; BITMAP_Misc_StartScreen_Top
     dw $9000
@@ -9,7 +9,7 @@
     db $08
     db $5E
 
-    db 3         ;VRAM1 entries
+    db 3         ; VRAM1 entries
 
     	; Pointer is surprisingly preserved
         LoadBitmap $9000,BITMAP_Misc_StartScreen_Bottom,$10,$07

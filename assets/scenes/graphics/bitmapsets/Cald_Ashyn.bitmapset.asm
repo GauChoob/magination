@@ -1,10 +1,10 @@
-    db 2         ;VRAM0 entries
+    db 2         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Cald_Ashyn_Ground,$10,$08
         LoadBitmap $8F00,BITMAP_Cald_Ashyn_Signs,$0A,$01
 
-    db 4         ;VRAM1 entries
+    db 4         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Cald_Ashyn_Building,$10,$08

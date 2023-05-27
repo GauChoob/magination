@@ -1,9 +1,9 @@
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Naroom_Weave_Main,$10,$08
 
-    db 6         ;VRAM1 entries
+    db 6         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Naroom_Weave_Bushes,$0C,$02

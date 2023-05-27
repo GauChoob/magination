@@ -1,9 +1,9 @@
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Naroom_Windmill_House,$10,$08
 
-    db 5         ;VRAM1 entries
+    db 5         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Naroom_Windmill_Objects,$0C,$02

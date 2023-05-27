@@ -34,7 +34,7 @@ class Color:
             self.g = arg[1]//8
             self.b = arg[2]//8
             if len(arg) == 4:
-                self.a = arg[3]
+                self.a = 0 if arg[3] else 1
             else:
                 self.a = 0
             assert 0 <= self.r <= 0x1F, "Input r value must be between 0 - 248"
@@ -53,18 +53,18 @@ class Color:
         return self.r + (self.g << 5) + (self.b << 10) + (self.a << 15)
 
     def get_RGBA(self, permit_transparency: bool = False):
-        """Returns a tuple (r, g, b, a), where r, g, b are values (0 - 248) and a (0 - 1)
+        """Returns a tuple (r, g, b, a), where r, g, b are values (0 - 248) and a = (0 or 255)
         Self permit_transparency to True to allow a = 1"""
         assert 0 <= self.r <= 0x1F, "r must be between 0 - 0x1F"
         assert 0 <= self.g <= 0x1F, "g must be between 0 - 0x1F"
         assert 0 <= self.b <= 0x1F, "b must be between 0 - 0x1F"
         assert 0 <= self.a <= 1, "a must be between 0 - 1"
         self._assertTransparency(permit_transparency)
-        return self.r*8, self.g*8, self.b*8, self.a
+        return self.r*8, self.g*8, self.b*8, 0 if self.a else 255
 
     def get_RGB(self, permit_transparency: bool = False):
         """Returns a tuple (r, g, b), where r, g, b are values (0 - 248)
-        Self permit_transparency to True to allow a = 1"""
+        Self permit_transparency to True to allow a = 0"""
         return self.get_RGBA(permit_transparency)[:-1]
 
     def __repr__(self):
@@ -92,7 +92,7 @@ class Palette:
             self.palette = arg
             if depth == 3:
                 # Normalize the palette to have an alpha channel
-                self.palette = [color + (0,) for color in self.palette]
+                self.palette = [color + (255,) for color in self.palette]
             else:
                 # Make a shallow copy otherwise
                 self.palette = self.palette[:]
@@ -113,12 +113,12 @@ class Palette:
                     assert b % 8 == 0, "r,g,b must all be multiples of 8! Error with Color #"+str(y*width+x)
                     # Topleft pixel for alpha check
                     rt, gt, bt, *trash = img.getpixel((x*8, y*8))
-                    a = 1 if (rt != r or gt != g or bt != b) else 0
+                    a = 0 if (rt != r or gt != g or bt != b) else 255
                     self.palette.append((r, g, b, a))
 
     def has_no_alpha(self) -> bool:
         """Returns True if no color in the palette is transparent"""
-        return all([color[3] == 0 for color in self.palette])
+        return all([color[3] == 255 for color in self.palette])
 
     def save_pal(self, fileout: str, allowalpha: bool = False) -> None:
         """Saves the Palette object as a .pal file"""
@@ -153,7 +153,7 @@ class Palette:
                 g = color[1]
                 b = color[2]
                 a = color[3]
-                if a:
+                if a == 0:
                     ra = (r - 128) % 256
                     ga = (g - 128) % 256
                     ba = (b - 128) % 256
@@ -167,7 +167,8 @@ class Palette:
 
     def get_png_palette(self) -> list:
         """Gets a png palette used to colorize png files"""
-        return self.palette
+        # Alpha channel not supported in pngs with palette, so we strip it out
+        return [color[:-1] for color in self.palette]
 
     @staticmethod
     def greyscale_palette():
@@ -178,25 +179,27 @@ class Palette:
             (63, 63, 63),
         ])
 
+    def add_greyscale(self):
+        """Insert a greyscale palette as the first palette id"""
+        newpal = self.greyscale_palette().palette
+        newpal.extend(self.palette)
+        self.palette = newpal
+
+    def __repr__(self):
+        return str(self.palette)
+
+    def __len__(self):
+        return len(self.palette)
+
 
 class Colorize:
-    def _addGreyscale(palette: Palette, addgreyscale: bool) -> list:
-        """Modifies a palette list to add greyscale if requested"""
-        newpal = []
-        if addgreyscale:
-            newpal = [(0xFF, 0xFF, 0xFF), (0xBF, 0xBF, 0xBF), (0x7F, 0x7F, 0x7F), (0x3F, 0x3F, 0x3F)]
-        # Add the base palette, stripping out the alpha value
-        newpal.extend([color[:-1] for color in palette.get_png_palette()])
-        return newpal
-
     def color_tileset_from_tilemap(filein: str,
                                    fileout: str,
                                    tilemap: str,
                                    attrmap: str,
                                    vbk: int,
-                                   tilesetaddress:
-                                   int, palette:
-                                   Palette,
+                                   tilesetaddress: int,
+                                   palette: Palette,
                                    paletteoffset: int = 0,
                                    addgreyscale: bool = True,
                                    defaultpalette: bool = 0) -> None:
@@ -258,7 +261,9 @@ class Colorize:
         assert height % 8 == 0
 
         # Get the raw palette color data
-        newpal = Colorize._addGreyscale(palette, addgreyscale)
+        if addgreyscale:
+            palette.add_greyscale()
+        newpal = palette.get_png_palette()
         # Offset the palette ids by +1 if greyscale was added
         paletteoffset += addgreyscale
 
@@ -283,68 +288,3 @@ class Colorize:
             w = png.Writer(width, height, alpha=False, bitdepth=8, palette=newpal)
             w.write(f, pixels)
             f.close()
-
-    def color_tileset_from_list(filein: str,
-                                fileout: str,
-                                palette_ids: list,
-                                palette: Palette,
-                                paletteoffset: int = 0,
-                                addgreyscale: bool = True,
-                                defaultpalette: int = 0) -> None:
-        """This function allows you to quickly colorize a tileset.png file based on the tilemap.
-        filein = tileset.png (file to colorize)
-        fileout = tileset.png (new file)
-        palette_ids = list of sequential palette ids to colorize the imagefile
-        palette = Palette Object
-        paletteoffset = offset of the palette to colorize with the right colors
-        addgreyscale = whether to have greyscale for unknown colors
-        defaultpalette = palette id to use if the color is unknown. 0 will refer to greyscale if enabled"""
-
-        # Load the image file
-        temp = png.Reader(filein)
-        width, height, pixels, meta = temp.read()
-        pixels = list(pixels)
-        temp.file.close()
-        assert width % 8 == 0
-        assert height % 8 == 0
-
-        # Get the raw palette color data
-        newpal = Colorize._addGreyscale(palette, addgreyscale)
-        # Offset the palette ids by +1 if greyscale was added
-        paletteoffset += addgreyscale
-
-        # Make sure no palettes are out of bounds
-        assert max(palette_ids)+paletteoffset < len(newpal)//4
-
-        # Colorize each tile
-        for y in range(height//8):
-            for x in range(width//8):
-                targettile = (y*width//8 + x) % 0x100
-                if palette_ids[targettile] == -1:
-                    newpaletteid = defaultpalette
-                else:
-                    newpaletteid = palette_ids[targettile]+paletteoffset
-                for y2 in range(8):
-                    for x2 in range(8):
-                        pixels[y*8+y2][x*8+x2] += newpaletteid*4
-
-        # Save the new image
-        with open(fileout, 'wb') as f:
-            w = png.Writer(width, height, alpha=False, bitdepth=8, palette=newpal)
-            w.write(f, pixels)
-
-    def decolorize_tileset(filein: str, fileout: str) -> None:
-        """Strips out the color from a tileset, turning it back to greyscale"""
-        temp = png.Reader(filein)
-        width, height, pixels, meta = temp.read()
-        pixels = list(pixels)
-        temp.file.close()
-
-        # strip the palette
-        for i in range(width):
-            for j in range(height):
-                pixels[j][i] = pixels[j][i] & 0b11
-
-        with open(fileout, 'wb') as f:
-            w = png.Writer(width, height, alpha=False, bitdepth=2, palette=[(0xFF, 0xFF, 0xFF), (0xBF, 0xBF, 0xBF), (0x7F, 0x7F, 0x7F), (0x3F, 0x3F, 0x3F)])
-            w.write(f, pixels)
