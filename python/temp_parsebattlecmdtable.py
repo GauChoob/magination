@@ -2,7 +2,7 @@ import os
 import projutils.colorize as colorize
 import projutils.tileset as tileset
 import projutils.color as color
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.battle_targets as targets
 import projutils.elemental as elem
 import io 
@@ -24,19 +24,19 @@ skills = [
 addresses = set()
 setnames = ["ItemCombat_","ItemMap_","SpellCom_"]
 
-rom = u.Rom()
+rom = utils.Rom()
 for i in range(TABLEBASE[1]):
     table = TABLEBASE[0]
     args = [
-        rom.getWord(u.BankAddress(table+0x10*i+0)), #0 Func
-        rom.getByte(u.BankAddress(table+0x10*i+2)), #1 Cost
-        rom.getByte(u.BankAddress(table+0x10*i+3)), #2 Target
-        rom.getByte(u.BankAddress(table+0x10*i+4)), #3 MenuID
-        rom.getByte(u.BankAddress(table+0x10*i+5)), #4 Rating
-        rom.getByte(u.BankAddress(table+0x10*i+6)), #5 Elemental
-        rom.getByte(u.BankAddress(table+0x10*i+7)), #6 Multiplier
-        rom.getByte(u.BankAddress(table+0x10*i+8)), #7 Accuracy
-        rom.getString(u.BankAddress(table+0x10*i+9),0x07), #8 Name
+        rom.getWord(utils.BankAddress(table+0x10*i+0)), #0 Func
+        rom.getByte(utils.BankAddress(table+0x10*i+2)), #1 Cost
+        rom.getByte(utils.BankAddress(table+0x10*i+3)), #2 Target
+        rom.getByte(utils.BankAddress(table+0x10*i+4)), #3 MenuID
+        rom.getByte(utils.BankAddress(table+0x10*i+5)), #4 Rating
+        rom.getByte(utils.BankAddress(table+0x10*i+6)), #5 Elemental
+        rom.getByte(utils.BankAddress(table+0x10*i+7)), #6 Multiplier
+        rom.getByte(utils.BankAddress(table+0x10*i+8)), #7 Accuracy
+        rom.getString(utils.BankAddress(table+0x10*i+9),0x07), #8 Name
     ]
     args[0] = "BattleCmd_{:04X}".format(args[0])
     addresses.add(args[0])

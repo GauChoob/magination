@@ -72,7 +72,7 @@ class TestTileset(unittest.TestCase):
                 0,  0,  0,  0,  0,  -1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
                 0,  0,  0,  0,  -1, 1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             ],
-            color.Palette(_ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
+            color.Palette.init_from_original_file(_ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
             0,
             True,
             0

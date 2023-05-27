@@ -3,6 +3,7 @@ import types
 from typing import Callable
 import pathlib
 import projutils.utils as utils
+import projutils.color as color
 import projutils.sprite as sprite
 import projutils.pattern as pattern
 import projutils.tileset as tileset
@@ -32,6 +33,7 @@ file_contents_factory.register_identity('SPRITE', sprite, 'Sprite')
 file_contents_factory.register_identity('PATTERN', pattern, 'Pattern')
 file_contents_factory.register_identity('BITMAP', tileset, 'Bitmap')
 file_contents_factory.register_identity('BITSET', tileset, 'BitSet')
+file_contents_factory.register_identity('PAL', color, 'Palette')
 
 
 class FileReference:

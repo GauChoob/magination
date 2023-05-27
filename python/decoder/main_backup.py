@@ -2,7 +2,7 @@ import sys, os, re
 sys.path.append('python/')
 sys.path.append('../')
 
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.replace_rom_text as replace_rom_text
 import projutils.color as color
 import projutils.tileset as tileset
@@ -495,8 +495,8 @@ class GetParseName:
         return GetParseName.labelname[self.parsetype] + self.name + ("RLE" if self.rlename else "") + ("::" if includecolon else "")
 
 def ParseAssets(rom,bankaddress,parsetype,name,args={}):
-    assert isinstance(rom,u.Rom)
-    assert isinstance(bankaddress,u.BankAddress)
+    assert isinstance(rom,utils.Rom)
+    assert isinstance(bankaddress,utils.BankAddress)
     
     replace_rom_text.reset_files([bankaddress.getBank()])
     name = GetParseName(parsetype,name,bankaddress)
@@ -571,7 +571,7 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         
         filecontents = [
             "    Align[${:02X}:${:04X}]".format(start.getBank(),start.getAddress()),
-            "    HeaderMetacollisionmap({},{})".format(u.AsmBytes(width,0),metacollisionmapname.getMakedFile(False)),
+            "    HeaderMetacollisionmap({},{})".format(utils.AsmBytes(width,0),metacollisionmapname.getMakedFile(False)),
             ]
         filecontents = '\n'.join(filecontents)
         with open(name.getSaveFile(),"w") as f:
@@ -589,7 +589,7 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
 
         filecontents = [
             "    Align[${:02X}:${:04X}]".format(start.getBank(),start.getAddress()),
-            "    HeaderMetatilemap({},{},{},{},{})".format(u.AsmBytes(width,0),u.AsmWords(wraparoundsouth,0),u.AsmBytes(widthborder,0),u.AsmBytes(unknownval,0),metatilemapname.getMakedFile(False)),
+            "    HeaderMetatilemap({},{},{},{},{})".format(utils.AsmBytes(width,0),utils.AsmWords(wraparoundsouth,0),utils.AsmBytes(widthborder,0),utils.AsmBytes(unknownval,0),metatilemapname.getMakedFile(False)),
             ]
         filecontents = '\n'.join(filecontents)
         
@@ -611,10 +611,10 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
                 width = rom.getByte(curpos+4)
                 height = rom.getByte(curpos+5)
                 sourcebank = rom.getByte(curpos+6)
-                sourcelabel = ParseAssets(rom,u.BankAddress(sourcebank,sourceadr),"TILESET",name.getName()+"_{}",{"size":width*height*16,"pixelwidth":width*8})
+                sourcelabel = ParseAssets(rom,utils.BankAddress(sourcebank,sourceadr),"TILESET",name.getName()+"_{}",{"size":width*height*16,"pixelwidth":width*8})
                 curpos += 7
-                filecontents.append("        HeaderTilesetEntry({},{},{},{})".format(u.AsmWords(destadr,0),sourcelabel[1].getLabelName(False),u.AsmBytes(width,0),u.AsmBytes(height,0)))
-                outdata[j].append((sourcelabel,destadr,u.BankAddress(sourcebank,sourceadr)))
+                filecontents.append("        HeaderTilesetEntry({},{},{},{})".format(utils.AsmWords(destadr,0),sourcelabel[1].getLabelName(False),utils.AsmBytes(width,0),utils.AsmBytes(height,0)))
+                outdata[j].append((sourcelabel,destadr,utils.BankAddress(sourcebank,sourceadr)))
             filecontents.append("    }")
         filecontents = '\n'.join(filecontents)
         with open(name.getSaveFile(),"w") as f:
@@ -687,10 +687,10 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
     time.sleep(0.025) #sometimes there's file opening conflicts
     return end,name,outdata
         
-rom = u.Rom(c.projfiles+"MN.gbc")
-for x in range(u.BankAddress(0x4F,0x4000).getPos(),u.BankAddress(0x4F,0x559F).getPos(),15):
-    print(u.BankAddress(x))
-    ParseAssets(rom,u.BankAddress(x),"Scene","Scene_{}")
+rom = utils.Rom(c.projfiles+"MN.gbc")
+for x in range(utils.BankAddress(0x4F,0x4000).getPos(),utils.BankAddress(0x4F,0x559F).getPos(),15):
+    print(utils.BankAddress(x))
+    ParseAssets(rom,utils.BankAddress(x),"Scene","Scene_{}")
 
             
 with open(c.outdir +"validhsd.txt","w") as f:

@@ -170,8 +170,7 @@ def _preview(scene_label: str):
     scene = Scene(scene_label)
 
     # Load Palette
-    with open(scene.pal, 'rb') as f:
-        pal = color.Palette(f.read()).get_png_palette()
+    pal = color.Palette.init_from_processed_file(scene.pal)
 
     # Load Bitset (Bitmap Tileset)
     bitset = tileset.BitSet.init_from_original_file(scene.bitset, assetlist)
@@ -216,7 +215,7 @@ def _preview(scene_label: str):
             patternid = y*0x10 + x
             pattern_pixels = DrawMetatile(vram, pat, pattern_pixels, patternid, x, y)
     with open(PREVIEW_PATTERN+scene.label+".png", 'wb') as f:
-        w = png.Writer(0x10*0x10, 0x10*0x10, alpha=False, bitdepth=8, palette=pal)
+        w = png.Writer(0x10*0x10, 0x10*0x10, alpha=False, bitdepth=8, palette=pal.get_png_palette())
         w.write(f, pattern_pixels)
 
     # Output the mini Pattern based on the large one
@@ -230,7 +229,7 @@ def _preview(scene_label: str):
                 yoffset = 1 if cycle & 0b10 else 0
                 palcol = pattern_pixels[y*2+yoffset][x*2+xoffset]
                 for col in range(3):
-                    pdata[col] += pal[palcol][col]
+                    pdata[col] += pal.palette[palcol][col]
             for col in range(3):
                 pdata[col] //= 4
             patternmini_pixels[y].extend(pdata)
@@ -252,7 +251,7 @@ def _preview(scene_label: str):
 
     # Output the metatilemap
     with open(PREVIEW_SCENES+scene.label+".png", 'wb') as f:
-        w = png.Writer(0x10*metamap.width, 0x10*metamap.height, alpha=False, bitdepth=8, palette=pal)
+        w = png.Writer(0x10*metamap.width, 0x10*metamap.height, alpha=False, bitdepth=8, palette=pal.palette)
         w.write(f, metamap_pixels)
 
     # Load Collisionmap
@@ -267,7 +266,7 @@ def _preview(scene_label: str):
             collid = collmap.data[y*metamap.width + x]
             for ycur in range(0x10):
                 for xcur in range(0x10):
-                    sourcecolordata = list(pal[metamap_pixels[y*0x10+ycur][x*0x10+xcur]])
+                    sourcecolordata = list(pal.palette[metamap_pixels[y*0x10+ycur][x*0x10+xcur]])
                     outcolordata = []
                     for color_ in range(3):
                         outcolordata.append(math.floor(sourcecolordata[color_]*0.4 + GetCollisionDataPixel(collid, xcur, ycur, color_)*0.6))

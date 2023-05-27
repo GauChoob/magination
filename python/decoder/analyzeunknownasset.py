@@ -2,7 +2,7 @@ import sys, os, re
 sys.path.append('python/')
 sys.path.append('../')
 
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.replace_rom_text as replace_rom_text
 import projutils.color as color
 import projutils.tileset as tileset
@@ -162,7 +162,7 @@ mysteries = [
 def analyze(param):
     pos = param[0]
     size = param[1]
-    start = u.BankAddress(pos)
+    start = utils.BankAddress(pos)
     end = start+size
     unknownsize = (end.getAddress(end=True)==0x8000)
     
@@ -243,7 +243,7 @@ def analyze(param):
        
     return '\n'.join(ret)
        
-rom = u.Rom(c.projfiles+"MN.gbc")
+rom = utils.Rom(c.projfiles+"MN.gbc")
 
 
 os.makedirs(c.outdir+"analysis/tileset_test/", exist_ok=True)

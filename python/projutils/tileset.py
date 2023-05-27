@@ -15,7 +15,7 @@ class Bitmap(FileContentsSerializer):
 
     def __init__(self):
         super().__init__()
-        self.palette: Palette = Palette.greyscale_palette()
+        self.palette: Palette = Palette.init_greyscale_palette()
         self.pixels: list[list[int]] = None
 
     @staticmethod
@@ -77,7 +77,7 @@ class Bitmap(FileContentsSerializer):
         assert self.width % 8 == 0
         assert self.height % 8 == 0
         self.pixels = [list(row) for row in pixels]
-        self.palette = Palette(meta['palette'])
+        self.palette = Palette.init_from_list(meta['palette'])
         png_reader.file.close()
 
     def _to_processed_data(self) -> bytes:
@@ -141,6 +141,9 @@ class Bitmap(FileContentsSerializer):
         with open(filename, 'wb') as f:
             f.write(data)
 
+    def generate_include(self, filename: str | pathlib.PurePath) -> str:
+        return '    INCBIN "{}"'.format(filename)
+
     def decolorize(self):
         '''Strip out the palette id data from the pixels'''
         assert self.width == len(self.pixels[0])
@@ -148,7 +151,7 @@ class Bitmap(FileContentsSerializer):
         for i in range(self.width):
             for j in range(self.height):
                 self.pixels[j][i] &= 0b11
-        self.palette = Palette.greyscale_palette()
+        self.palette = Palette.init_greyscale_palette()
 
     def colorize_from_list(self,
                            palette_ids: list,
