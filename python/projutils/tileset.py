@@ -1,4 +1,5 @@
 from __future__ import annotations
+import copy
 import glob
 import math
 import pathlib
@@ -16,10 +17,14 @@ import projutils.sprite as sprite
 
 class Bitmap(filecontents.FileContentsSerializer):
 
+    DISCARDED_TILE = [0b01010101, 0b00110011]*8
+    DISCARDED_PIXELS_ROW = [0, 1, 2, 3]*2
+
     def __init__(self):
         super().__init__()
         self.palette: color.Palette = color.Palette.init_greyscale_palette()
         self.pixels: list[list[int]] = None
+        self.discarded_tiles: int = 0  # Number of tiles at the end of the image that are ignored
 
     @staticmethod
     def _optimize_tilewidth_tileheight(data: bytes, tilewidth: int, tileheight: int) -> tuple[int, int]:
@@ -49,6 +54,13 @@ class Bitmap(filecontents.FileContentsSerializer):
         tileheight = 1
         return tilewidth, tileheight
 
+    def _count_discarded_tiles(self):
+        while self.discarded_tiles < self.width - 1:
+            if all([self.pixels[-i][(-self.discarded_tiles-1)*8:-self.discarded_tiles*8] == self.DISCARDED_PIXELS_ROW for i in range(8)]):
+                self.discarded_tiles += 1
+            else:
+                break
+
     def _load_processed(self, data: bytes, tilewidth: int, tileheight: int):
         """Gets the 2D pixel list from raw data."""
         tilewidth, tileheight = self._optimize_tilewidth_tileheight(data, tilewidth, tileheight)
@@ -71,6 +83,7 @@ class Bitmap(filecontents.FileContentsSerializer):
 
                 row.append(color)
             self.pixels.append(row)
+        self._count_discarded_tiles()
 
     def _load_original(self, filename: str | pathlib.PurePath):
         """Converts a .png file into pixel data
@@ -82,6 +95,7 @@ class Bitmap(filecontents.FileContentsSerializer):
         self.pixels = [list(row) for row in pixels]
         self.palette = color.Palette.init_from_list(meta['palette'])
         png_reader.file.close()
+        self._count_discarded_tiles()
 
     def _to_processed_data(self) -> bytes:
         assert self.width == len(self.pixels[0])
@@ -104,7 +118,17 @@ class Bitmap(filecontents.FileContentsSerializer):
                         low = low | colorlow
                         high = high | colorhigh
                     data.extend([low, high])
+        if self.discarded_tiles:
+            data[-self.discarded_tiles*0x10:] = self.DISCARDED_TILE*self.discarded_tiles
         return bytes(data)
+
+    def _to_original_data(self) -> list[list[int]]:
+        if not self.discarded_tiles:
+            return self.pixels
+        pixels = copy.deepcopy(self.pixels)
+        for row in range(8):
+            pixels[-row][-self.discarded_tiles*8:] = self.DISCARDED_PIXELS_ROW*self.discarded_tiles
+        return pixels
 
     @classmethod
     def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
@@ -134,9 +158,10 @@ class Bitmap(filecontents.FileContentsSerializer):
     def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         filename = self._handle_rle_save_original_file(filename)
         bitdepth = 2 if len(self.palette) == 4 else 8
+        pixels = self._to_original_data()
         with open(filename, 'wb') as f:
             w = png.Writer(self.width, self.height, bitdepth=bitdepth, palette=self.palette.get_png_palette())
-            w.write(f, self.pixels)
+            w.write(f, pixels)
 
     def save_processed_file(self, filename: str | pathlib.PurePath) -> None:
         data = self._to_processed_data()

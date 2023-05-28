@@ -5018,7 +5018,7 @@ Battle_Flow_Exit:
     Sound_Request_StartSong SONGID_GetItem
 
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, $BATTLE_MAGIANIM_VICTORY, $0B
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_VICTORY, $0B
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3

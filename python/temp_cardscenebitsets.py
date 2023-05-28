@@ -28,26 +28,26 @@ sym.addSymbol(0x24, 0x53e0, 'BITMAP_Battle_ShadowMagi8')
 sym.addSymbol(0x24, 0x5F60, 'BITMAP_Battle_Salafy')
 
 names = [
-    'Togoth',
-    'Ogar',
-    'Korremar',
-    'Warrada',
-    'Korg',
-    'Zet',
-    'Morag',
-    'Agram',
-    'Agram',
-    'Agram',
-    'ShadowMagi1',
-    'ShadowMagi2',
-    'ShadowMagi3',
-    'ShadowMagi4',
-    'ShadowMagi5',
-    'ShadowMagi6',
-    'ShadowMagi7',
-    'ShadowMagi8',
-    'Salafy',
-    'Salafy',
+    ('Togoth', 0)
+    ('Ogar', 0)
+    ('Korremar', 0)
+    ('Warrada', 0)
+    ('Korg', 0)
+    ('Zet', 0)
+    ('Morag', 0)
+    ('Agram', 0)
+    ('Agram', 0)
+    ('Agram', 0)
+    ('ShadowMagi1', 0)
+    ('ShadowMagi2', 0)
+    ('ShadowMagi3', 0)
+    ('ShadowMagi4', 0)
+    ('ShadowMagi5', 0)
+    ('ShadowMagi6', 0)
+    ('ShadowMagi7', 0)
+    ('ShadowMagi8', 0)
+    ('Salafy', 0)
+    ('Salafy', 0)
 ]
 
 done_names = set()
@@ -64,7 +64,7 @@ for folder in [OUT_BITSET, OUT_BITMAP]:
     os.makedirs(folder, exist_ok=True)
 
 header = []
-for i, name in enumerate(names):
+for i, (name, discard_count) in enumerate(names):
     table_address = utils.BankAddress(BANK, START + 2*i)
     header.append('    dw BITSET_BATTLE_' + name)
     if name in done_names:
@@ -89,6 +89,7 @@ for i, name in enumerate(names):
             True,
             0
             )
+        tony.discarded_tiles = 0
         tony.save_original_file(OUT_BITMAP + 'Battle_Tony.tileset.png')
 
         summon_ref: filereference.FileReference = bitset.contents.bitmaps[0][1]
@@ -100,6 +101,7 @@ for i, name in enumerate(names):
             True,
             0
         )
+        summon.discarded_tiles = 0
         summon.save_original_file(OUT_BITMAP + 'Battle_Summon.tileset.png')
 
         effect_ref: filereference.FileReference = bitset.contents.bitmaps[0][2]
@@ -119,6 +121,7 @@ for i, name in enumerate(names):
             True,
             0
         )
+        effect.discarded_tiles = 0
         effect.save_original_file(OUT_BITMAP + 'Battle_Effects.tileset.png')
     for bitmap in bitset.contents.bitmaps[0]:
         if bitmap.label_name in ['BITMAP_Battle_Summon', 'BITMAP_Battle_Effects']:
@@ -135,6 +138,7 @@ for i, name in enumerate(names):
             True,
             0
             )
+        bitmap.contents.discarded_tiles = discard_count
         bitmap.contents.save_original_file(OUT_BITMAP + bitmap.label_name[7:] + '.tileset.png')
 
 print('\n'.join(header))
