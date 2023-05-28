@@ -4,6 +4,7 @@ import pathlib
 from typing import Self
 import projutils.png as png
 import projutils.asm as asm
+import projutils.tilemap as tilemap
 import projutils.filecontents as filecontents
 import projutils.color as color
 import projutils.utils as utils
@@ -187,6 +188,87 @@ class Bitmap(filecontents.FileContentsSerializer):
                     newpaletteid = defaultpalette
                 else:
                     newpaletteid = palette_ids[targettile]+paletteoffset
+                for y2 in range(8):
+                    for x2 in range(8):
+                        self.pixels[y*8+y2][x*8+x2] += newpaletteid*4
+
+    def colorize_from_tilemap(self,
+                              tilemap: tilemap.Tilemap,
+                              attrmap: tilemap.Tilemap,
+                              vbk: int,
+                              tilesetaddress: int,
+                              palette: color.Palette,
+                              paletteoffset: int = 0,
+                              addgreyscale: bool = True,
+                              defaultpalette: int = 0) -> None:
+        """This function allows you to quickly colorize a tileset.png file based on the tilemap.
+        tilemap = .tilemap
+        attrmap = .attrmap
+        vbk = bank of the tileset (0 or 1)
+        tilesetaddress = offset of the tilemap to map to the tileset
+        palette = Palette Object
+        paletteoffset = offset of the palette to colorize with the right colors
+        addgreyscale = whether to have greyscale for unknown colors
+        defaultpalette = palette id to use if the color is unknown. 0 will refer to greyscale if enabled
+        """
+
+        def guessPaletteID(_tilemap: tilemap.Tilemap, _attrmap: tilemap.Tilemap, vbk: int) -> list:
+            """For each tile id, determine the most commonly used palette ID
+            Returns a list of the 256 tiles' most common palette IDs"""
+
+            # tilemap and attrmap of equal size
+            # vbk is the target vram bank of the tileset
+            tilemap = _tilemap.map
+            attrmap = _attrmap.map
+            assert len(tilemap) == len(attrmap)
+
+            # Initialized the tile list
+            tiles = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(256)]
+
+            # Count the number of uses for each palette ID for each tile
+            for i in range(len(tilemap)):
+                tile = tilemap[i]
+                attr = attrmap[i]
+                if (attr & 0b1000) != vbk:
+                    continue  # wrong VRAM bank
+                tiles[tile][attr & 0b0111] += 1
+
+            # Determine the most common palette id
+            for i in range(256):
+                max_value = max(tiles[i])
+                if max_value == 0:
+                    tiles[i] = -1
+                else:
+                    tiles[i] = tiles[i].index(max_value)
+            return tiles
+
+        # Get tiles_guessedpaletteid (most common palette id for each tile id)
+        vbk = vbk*0b1000
+        tiles_guessedpaletteid = guessPaletteID(tilemap, attrmap, vbk)
+
+        assert self.width == len(self.pixels[0])
+        assert self.height == len(self.pixels)
+
+        # Get the raw palette color data
+        if addgreyscale:
+            palette.add_greyscale()
+        self.palette = palette
+        raw_palette = palette.get_png_palette()
+        # Offset the palette ids by +1 if greyscale was added
+        paletteoffset += addgreyscale
+
+        # Make sure no palettes are out of bounds
+        assert max(tiles_guessedpaletteid) + paletteoffset < len(raw_palette)//4
+
+        # basetile is used to offset the tileset location to color the right tiles
+        basetile = (tilesetaddress % 0x1000)//0x10
+        for y in range(self.height//8):
+            for x in range(self.width//8):
+                targettile = (basetile + y*0x10 + x) % 0x100
+                if tiles_guessedpaletteid[targettile] == -1:
+                    newpaletteid = defaultpalette
+                else:
+                    newpaletteid = tiles_guessedpaletteid[targettile]+paletteoffset
                 for y2 in range(8):
                     for x2 in range(8):
                         self.pixels[y*8+y2][x*8+x2] += newpaletteid*4

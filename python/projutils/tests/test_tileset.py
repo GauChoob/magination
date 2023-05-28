@@ -3,6 +3,7 @@ import unittest
 import os
 import shutil
 import projutils.tileset as tileset
+import projutils.tilemap as tilemap
 import projutils.utils as utils
 import projutils.color as color
 import projutils.fileregistry as fileregistry
@@ -72,6 +73,22 @@ class TestTileset(unittest.TestCase):
                 0,  0,  0,  0,  0,  -1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
                 0,  0,  0,  0,  -1, 1,  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             ],
+            color.Palette.init_from_original_file(_ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
+            0,
+            True,
+            0
+        )
+        logo.save_original_file(config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
+        helper.assert_png_cmp(self, _ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
+
+    def test_color_tileset_from_tilemap(self):
+        _ASSETSFOLDER = ASSETSFOLDER + 'colorize/'
+        logo = tileset.Bitmap.init_from_original_file(_ASSETSFOLDER + 'GREY_InteractiveImaginationLogo.tileset.png')
+        logo.colorize_from_tilemap(
+            tilemap.Tilemap.init_from_original_file(_ASSETSFOLDER + "InteractiveImaginationLogoRLEA.tilemap"),
+            tilemap.Tilemap.init_from_original_file(_ASSETSFOLDER + "InteractiveImaginationLogoRLEA.attrmap"),
+            0,
+            0x9000,
             color.Palette.init_from_original_file(_ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
             0,
             True,
