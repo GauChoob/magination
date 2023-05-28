@@ -196,6 +196,7 @@ class RawWordsLine(AsmLine):
         raw_words = line_parsed.split(',')
         raw_words = [castNumber(val.strip()) for val in raw_words]
         self = cls(cur_address, 2*len(raw_words), line)
+        self.raw_words = raw_words
         self.raw_bytes = []
         for word in raw_words:
             self.raw_bytes.extend([word % 0x100, word//0x100])
@@ -224,8 +225,10 @@ class IncBinLine(ImportFileLine):
         try:
             size = os.path.getsize(filename)
         except FileNotFoundError:
-            print('File not found: {}\nTry make-ing the extra files'.format(filename))
-            raise
+            size = 0  # TODO
+            pass
+            # print('File not found: {}\nTry make-ing the extra files'.format(filename))
+            # raise
         self = cls(cur_address, size, line)
         self.filename = filename
         return self

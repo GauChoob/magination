@@ -7,6 +7,7 @@ import projutils.color as color
 import projutils.sprite as sprite
 import projutils.pattern as pattern
 import projutils.tileset as tileset
+import projutils.tilemap as tilemap
 import projutils.filecontents as filecontents
 import projutils.textreplace as textreplace
 
@@ -34,6 +35,12 @@ file_contents_factory.register_identity('PATTERN', pattern, 'Pattern')
 file_contents_factory.register_identity('BITMAP', tileset, 'Bitmap')
 file_contents_factory.register_identity('BITSET', tileset, 'BitSet')
 file_contents_factory.register_identity('PAL', color, 'Palette')
+file_contents_factory.register_identity('TILE', tilemap, 'Tilemap')
+file_contents_factory.register_identity('ATTR', tilemap, 'Tilemap')
+# file_contents_factory.register_identity('ATTRTILE', tilemap, 'AttrTilemap')
+# file_contents_factory.register_identity('TILEATTR', tilemap, 'TileAttrmap')
+file_contents_factory.register_identity('COLLMAP', tilemap, 'CollMap')
+file_contents_factory.register_identity('METAMAP', tilemap, 'MetaMap')
 
 
 class FileReference:

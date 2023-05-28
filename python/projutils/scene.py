@@ -37,6 +37,7 @@ class Scene(FileContentsSerializer):
         for line in asmfile.lines:
             if not isinstance(line, asm.AddressBankLine):
                 assert line.size == 0
+                continue
             attr = attrs.pop(0)
             setattr(self, attr, self.labelfileregister.files[line.label_name])
         assert len(attrs) == 0

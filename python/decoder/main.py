@@ -2092,11 +2092,11 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         real_size = real_size["size"]
         
         object_file_buffer = [
-            "    db {: <10};wTilemap_Width".format(width),
+            "    db {: <10}; wTilemap_Width".format(width),
             ]
-        object_file_buffer.append("    dw ${:04X}     ;Uncompressed file size (excluding header)".format(unc_size))
+        object_file_buffer.append("    dw ${:04X}     ; Uncompressed file size (excluding header)".format(unc_size))
         if(unc_size != real_size):
-            object_file_buffer.append("    ;The imported file size was actually ${:04X} because 3 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
+            object_file_buffer.append("    ; The imported file size was actually ${:04X} because 3 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
         object_file_buffer.append(collisionmapname.getMakedFile(True,scenefolder=args["scenefolder"]))
             
         object_file_buffer = '\n'.join(object_file_buffer)
@@ -2118,14 +2118,14 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         real_size = real_size["size"]
 
         object_file_buffer = [
-            "    db {: <10};wTilemap_Width".format(width),
-            "    dw ${:04X}     ;wTilemap_YMapPad".format(ymappad),
+            "    db {: <10}; wTilemap_Width".format(width),
+            "    dw ${:04X}     ; wTilemap_YMapPad".format(ymappad),
             "    db {: <10};".format(hstop),
-            "    db {: <10};wTilemap_VStop".format(vstop),
+            "    db {: <10}; wTilemap_VStop".format(vstop),
         ]
-        object_file_buffer.append("    dw ${:04X}     ;Uncompressed file size (excluding header)".format(unc_size))
+        object_file_buffer.append("    dw ${:04X}     ; Uncompressed file size (excluding header)".format(unc_size))
         if(unc_size != real_size):
-            object_file_buffer.append("    ;The imported file size was actually ${:04X} because 7 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
+            object_file_buffer.append("    ; The imported file size was actually ${:04X} because 7 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
         object_file_buffer.append(metatilemapname.getMakedFile(True,scenefolder=args["scenefolder"]))
         
         object_file_buffer = '\n'.join(object_file_buffer)

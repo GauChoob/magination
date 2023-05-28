@@ -9,6 +9,7 @@ import projutils.png as png
 import projutils.config as config
 import projutils.fileregistry as fileregistry
 import projutils.pattern as pattern
+import projutils.tilemap as tilemap
 from projutils.asm import castNumber
 
 
@@ -48,18 +49,13 @@ class VRAMTile:
     def paintImage(self, pixelcanvas: list, x: int, y: int, attributes: int) -> list:
         """Paints the VRAM tile into the canvas, using the provided attributes.
         Returns the updated canvas"""
-        pal = attributes &        0b00000111            # noqa
-        vbk = 1 if  attributes &  0b00001000 else 0     # noqa
-        hflip = attributes &      0b00100000            # noqa
-        # unused = attributes &   0b00010000            # noqa
-        vflip = attributes &      0b01000000            # noqa
-        # priority = attributes & 0b10000000            # noqa
+        attr = tilemap.TileAttribute(attributes)
 
         for cury in range(8):
-            targety = y*8 + (7-cury if vflip else cury)
+            targety = y*8 + (7-cury if attr.vflip else cury)
             for curx in range(8):
-                targetx = x*8 + (7-curx if hflip else curx)
-                pixelcanvas[targety][targetx] = self.baseimage[vbk][cury][curx] + pal*4
+                targetx = x*8 + (7-curx if attr.hflip else curx)
+                pixelcanvas[targety][targetx] = self.baseimage[attr.vbk][cury][curx] + attr.pal*4
 
         return pixelcanvas
 

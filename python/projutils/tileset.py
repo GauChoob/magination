@@ -4,18 +4,18 @@ import pathlib
 from typing import Self
 import projutils.png as png
 import projutils.asm as asm
-from projutils.filecontents import FileContentsSerializer
-from projutils.color import Palette
-from projutils.utils import SymFile, Rom, BankAddress
+import projutils.filecontents as filecontents
+import projutils.color as color
+import projutils.utils as utils
 import projutils.filereference as filereference
 import projutils.fileregistry as fileregistry
 
 
-class Bitmap(FileContentsSerializer):
+class Bitmap(filecontents.FileContentsSerializer):
 
     def __init__(self):
         super().__init__()
-        self.palette: Palette = Palette.init_greyscale_palette()
+        self.palette: color.Palette = color.Palette.init_greyscale_palette()
         self.pixels: list[list[int]] = None
 
     @staticmethod
@@ -77,7 +77,7 @@ class Bitmap(FileContentsSerializer):
         assert self.width % 8 == 0
         assert self.height % 8 == 0
         self.pixels = [list(row) for row in pixels]
-        self.palette = Palette.init_from_list(meta['palette'])
+        self.palette = color.Palette.init_from_list(meta['palette'])
         png_reader.file.close()
 
     def _to_processed_data(self) -> bytes:
@@ -104,7 +104,7 @@ class Bitmap(FileContentsSerializer):
         return bytes(data)
 
     @classmethod
-    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
         self = cls()
         if compressed:
             data = self._handle_rle_from_rom(rom, address, compressed, None)
@@ -151,11 +151,11 @@ class Bitmap(FileContentsSerializer):
         for i in range(self.width):
             for j in range(self.height):
                 self.pixels[j][i] &= 0b11
-        self.palette = Palette.init_greyscale_palette()
+        self.palette = color.Palette.init_greyscale_palette()
 
     def colorize_from_list(self,
                            palette_ids: list,
-                           palette: Palette,
+                           palette: color.Palette,
                            paletteoffset: int = 0,
                            addgreyscale: bool = True,
                            defaultpalette: int = 0) -> None:
@@ -192,16 +192,16 @@ class Bitmap(FileContentsSerializer):
                         self.pixels[y*8+y2][x*8+x2] += newpaletteid*4
 
 
-class BitSet(FileContentsSerializer):
+class BitSet(filecontents.FileContentsSerializer):
 
     def __init__(self):
         super().__init__()
         self.bitmaps: list[list[filereference.FileReference]] = [[], []]
-        self.start: BankAddress = None
-        self.end: BankAddress = None
+        self.start: utils.BankAddress = None
+        self.end: utils.BankAddress = None
 
     @classmethod
-    def init_from_rom(cls, sym: SymFile, rom: Rom, address: BankAddress) -> Self:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> Self:
         self = cls()
         self.sym = sym
         self.start = address
@@ -217,7 +217,7 @@ class BitSet(FileContentsSerializer):
                 height = rom.getByte(curpos+5)
                 source_bank = rom.getByte(curpos+6)
                 curpos += 7
-                source = filereference.FileReference.create_from_address('BITMAP', rom, BankAddress(source_bank, source_addr), self.sym)
+                source = filereference.FileReference.create_from_address('BITMAP', rom, utils.BankAddress(source_bank, source_addr), self.sym)
                 source.destination = destination
                 source.width = width
                 source.height = height

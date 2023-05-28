@@ -1,4 +1,4 @@
-    db 24        ;wTilemap_Width
+    db 24        ; wTilemap_Width
     dw $00D8     ;wTilemap_YMapPad
     db 13        ;
     db 14        ;wTilemap_VStop

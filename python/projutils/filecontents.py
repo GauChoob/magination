@@ -38,7 +38,7 @@ class FileContentsSerializer:
     def _handle_rle_from_processed_file(self, filename: str | pathlib.PurePath):
         with open(filename, 'rb') as f:
             data = f.read()
-        self.size = len(data)
+        self._size = len(data)
         if filename.endswith('.rle'):
             data, self.compression_mode, ori_compressed, end = rle.decompress_rle(data, 0, False)
         return data
