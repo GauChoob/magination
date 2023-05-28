@@ -92,7 +92,7 @@ class TestTilemap(unittest.TestCase):
 
     def test_collmap(self):
         rom = utils.Rom(utils.Rom.MN)
-        sym = utils.SymFile()
+        sym = utils.SymFile(None)
         fileregister = fileregistry.LabelFileRegister()
         for test in COLLMAP_TEST:
             with self.subTest(file=test[0]):
