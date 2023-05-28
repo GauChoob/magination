@@ -69,7 +69,7 @@ class TestTilemap(unittest.TestCase):
 
     def test_metamap(self):
         rom = utils.Rom(utils.Rom.MN)
-        sym = utils.SymFile()
+        sym = utils.SymFile(None)
         fileregister = fileregistry.LabelFileRegister()
         for test in METAMAP_TEST:
             with self.subTest(file=test[0]):

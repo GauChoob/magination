@@ -312,6 +312,8 @@ class SymFile:
         self.symbols = {}  # .sym file contents
         for i in range(0x7f):
             self.symbols[i] = {}
+        if file is None:
+            return
         with open(file, "r") as f:
             for line in f.readlines():
                 if line[0] == ";":
