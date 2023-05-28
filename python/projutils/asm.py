@@ -2,7 +2,6 @@ from __future__ import annotations
 import os
 import pathlib
 import re
-from typing import List, Tuple, Union
 
 
 def castNumber(input: str) -> int:
@@ -197,6 +196,7 @@ class RawWordsLine(AsmLine):
         raw_words = line_parsed.split(',')
         raw_words = [castNumber(val.strip()) for val in raw_words]
         self = cls(cur_address, 2*len(raw_words), line)
+        self.raw_words = raw_words
         self.raw_bytes = []
         for word in raw_words:
             self.raw_bytes.extend([word % 0x100, word//0x100])
@@ -225,8 +225,10 @@ class IncBinLine(ImportFileLine):
         try:
             size = os.path.getsize(filename)
         except FileNotFoundError:
-            print('File not found: {}\nTry make-ing the extra files'.format(filename))
-            raise
+            size = 0  # TODO
+            pass
+            # print('File not found: {}\nTry make-ing the extra files'.format(filename))
+            # raise
         self = cls(cur_address, size, line)
         self.filename = filename
         return self
@@ -291,6 +293,27 @@ class BankAddressLine(ReferenceLine):
         return remove_comments(line).find('BankAddress') != -1
 
 
+class LoadBitmapLine(AsmLine):
+    """
+        LoadBitmap $9000,BITMAP_Cald_Ashyn_Building,$10,$08
+    """
+    @classmethod
+    def create(cls, cur_address: int, line) -> AsmLine:
+        line_parsed = remove_comments(line).strip()
+        params = line_parsed.split(' ', 1)[1].split(',')
+        destination, source_label, width, height = (param.strip() for param in params)
+        self = cls(cur_address, 7, line)
+        self.destination = castNumber(destination)
+        self.source_label = source_label
+        self.width = castNumber(width)
+        self.height = castNumber(height)
+        return self
+
+    @staticmethod
+    def validate(line: str) -> bool:
+        return remove_comments(line).find('LoadBitmap') != -1
+
+
 class UnknownLine(AsmLine):
     """
         Anything else; fallback
@@ -307,13 +330,13 @@ class UnknownLine(AsmLine):
 
 class LineFactory:
     def __init__(self):
-        self.linetypes: Tuple[AsmLine] = []
+        self.linetypes: tuple[AsmLine] = []
 
     def register_linetype(self, lineclass: AsmLine) -> None:
         """Adds a potential new AsmLine validatory and class. The order matters (highest to lowest priority)"""
         self.linetypes.append(lineclass)
 
-    def parse_line(self, cur_address: int, line: str) -> Tuple[int, AsmLine]:
+    def parse_line(self, cur_address: int, line: str) -> tuple[int, AsmLine]:
         """Given an unknown line in a .asm file, determine the line type and build the corresponding AsmLine class
 
         Args:
@@ -321,7 +344,7 @@ class LineFactory:
             line (str): Unknown line
 
         Returns:
-            Tuple[int, AsmLine]: new address, line object
+            tuple[int, AsmLine]: new address, line object
         """
         for linetype in self.linetypes:
             if linetype.validate(line):
@@ -343,13 +366,14 @@ line_factory.register_linetype(IncBinLine)
 line_factory.register_linetype(IncludeLine)
 line_factory.register_linetype(AddressBankLine)
 line_factory.register_linetype(BankAddressLine)
+line_factory.register_linetype(LoadBitmapLine)
 line_factory.register_linetype(UnknownLine)
 
 
 class AsmFile:
-    def __init__(self, path: Union[str, pathlib.PurePath]):
+    def __init__(self, path: str | pathlib.PurePath):
         self.path = path
-        self.lines: List[AsmLine] = []
+        self.lines: list[AsmLine] = []
 
         with open(path, 'r') as f:
             address = 0x4000

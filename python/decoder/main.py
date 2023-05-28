@@ -2,7 +2,7 @@ import sys, os, re
 sys.path.append('python/')
 sys.path.append('../')
 
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.replace_rom_text as replace_rom_text
 import projutils.color as color
 import projutils.tileset as tileset
@@ -2006,8 +2006,8 @@ class GetParseName:
 
 def ParseAssets(rom,bankaddress,parsetype,name,args={}):
     global arderial_pattern, arderial_palette
-    assert isinstance(rom,u.Rom)
-    assert isinstance(bankaddress,u.BankAddress)
+    assert isinstance(rom,utils.Rom)
+    assert isinstance(bankaddress,utils.BankAddress)
     
     replace_rom_text.reset_files([bankaddress.getBank()])
     name = GetParseName(parsetype,name,bankaddress)
@@ -2092,11 +2092,11 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         real_size = real_size["size"]
         
         object_file_buffer = [
-            "    db {: <10};wTilemap_Width".format(width),
+            "    db {: <10}; wTilemap_Width".format(width),
             ]
-        object_file_buffer.append("    dw ${:04X}     ;Uncompressed file size (excluding header)".format(unc_size))
+        object_file_buffer.append("    dw ${:04X}     ; Uncompressed file size (excluding header)".format(unc_size))
         if(unc_size != real_size):
-            object_file_buffer.append("    ;The imported file size was actually ${:04X} because 3 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
+            object_file_buffer.append("    ; The imported file size was actually ${:04X} because 3 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
         object_file_buffer.append(collisionmapname.getMakedFile(True,scenefolder=args["scenefolder"]))
             
         object_file_buffer = '\n'.join(object_file_buffer)
@@ -2118,14 +2118,14 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
         real_size = real_size["size"]
 
         object_file_buffer = [
-            "    db {: <10};wTilemap_Width".format(width),
-            "    dw ${:04X}     ;wTilemap_YMapPad".format(ymappad),
+            "    db {: <10}; wTilemap_Width".format(width),
+            "    dw ${:04X}     ; wTilemap_YMapPad".format(ymappad),
             "    db {: <10};".format(hstop),
-            "    db {: <10};wTilemap_VStop".format(vstop),
+            "    db {: <10}; wTilemap_VStop".format(vstop),
         ]
-        object_file_buffer.append("    dw ${:04X}     ;Uncompressed file size (excluding header)".format(unc_size))
+        object_file_buffer.append("    dw ${:04X}     ; Uncompressed file size (excluding header)".format(unc_size))
         if(unc_size != real_size):
-            object_file_buffer.append("    ;The imported file size was actually ${:04X} because 7 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
+            object_file_buffer.append("    ; The imported file size was actually ${:04X} because 7 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error".format(real_size))
         object_file_buffer.append(metatilemapname.getMakedFile(True,scenefolder=args["scenefolder"]))
         
         object_file_buffer = '\n'.join(object_file_buffer)
@@ -2151,10 +2151,10 @@ def ParseAssets(rom,bankaddress,parsetype,name,args={}):
                 width = rom.getByte(curpos+4)
                 height = rom.getByte(curpos+5)
                 sourcebank = rom.getByte(curpos+6)
-                sourcelabel = ParseAssets(rom,u.BankAddress(sourcebank,sourceadr),"Tileset","{}",{"size":width*height*16,"pixelwidth":width*8,"parentname":name.getName()})
+                sourcelabel = ParseAssets(rom,utils.BankAddress(sourcebank,sourceadr),"Tileset","{}",{"size":width*height*16,"pixelwidth":width*8,"parentname":name.getName()})
                 curpos += 7
-                object_file_buffer.append("        LoadBitmap {},{},{},{}".format(u.AsmWords(destadr,0),sourcelabel[1].getLabelName(False),u.AsmBytes(width,0),u.AsmBytes(height,0)))
-                outdata[j].append((sourcelabel,destadr,u.BankAddress(sourcebank,sourceadr)))
+                object_file_buffer.append("        LoadBitmap {},{},{},{}".format(utils.AsmWords(destadr,0),sourcelabel[1].getLabelName(False),utils.AsmBytes(width,0),utils.AsmBytes(height,0)))
+                outdata[j].append((sourcelabel,destadr,utils.BankAddress(sourcebank,sourceadr)))
             if(j==0):
                 object_file_buffer.append("")
         object_file_buffer = '\n'.join(object_file_buffer)
@@ -2273,14 +2273,14 @@ def writeYukList():
         assert bank >= curbank
         if(bank > curbank):
             if(curaddress != 0x8000):
-                bankdata[-1].append([u.BankAddress(curbank,curaddress),u.BankAddress(curbank,0x8000),"UNKNOWN"])
+                bankdata[-1].append([utils.BankAddress(curbank,curaddress),utils.BankAddress(curbank,0x8000),"UNKNOWN"])
             curaddress = 0x4000
             curbank = bank
             bankdata.append([])
             
         assert addressstart >= curaddress
         if(addressstart > curaddress):
-            bankdata[-1].append([u.BankAddress(curbank,curaddress),u.BankAddress(curbank,addressstart),"UNKNOWN"])
+            bankdata[-1].append([utils.BankAddress(curbank,curaddress),utils.BankAddress(curbank,addressstart),"UNKNOWN"])
             curaddress = addressstart
         
         bankdata[-1].append(item)
@@ -2288,7 +2288,7 @@ def writeYukList():
         
         #Finish last bank
     if(curaddress != 0x8000):
-        bankdata[-1].append([u.BankAddress(curbank,curaddress),u.BankAddress(curbank,0x8000),"UNKNOWN"])
+        bankdata[-1].append([utils.BankAddress(curbank,curaddress),utils.BankAddress(curbank,0x8000),"UNKNOWN"])
     
     writelines = []
             
@@ -2307,14 +2307,14 @@ def writeYukConfig():
             f.write("{:04X},{},{}\n".format(item[1].getPos()-item[0].getPos(),item[2],item[3]))
         
        
-rom = u.Rom(c.projfiles+"MN.gbc")
+rom = utils.Rom(c.projfiles+"MN.gbc")
 
 # Iterate over all the scenes, which covers about 1100/1170 of all the assets
 nameoverride = False
 print("SCENEASSETS")
-for x in range(u.BankAddress(0x4F,0x4000).getPos(),u.BankAddress(0x4F,0x559F).getPos(),15):
-    print(u.BankAddress(x))
-    ParseAssets(rom,u.BankAddress(x),"Scene","{}")
+for x in range(utils.BankAddress(0x4F,0x4000).getPos(),utils.BankAddress(0x4F,0x559F).getPos(),15):
+    print(utils.BankAddress(x))
+    ParseAssets(rom,utils.BankAddress(x),"Scene","{}")
 
 # Parse extra assets not directly referenced in the loading of scene data:
 nameoverride = True
@@ -2418,11 +2418,11 @@ straggler_assets = [
 ]
 print("STRAGGLERASSETS")
 for asset in straggler_assets:
-    print(u.BankAddress(asset[0]))
+    print(utils.BankAddress(asset[0]))
     if(len(asset)>4):
-        ParseAssets(rom,u.BankAddress(asset[0]),asset[2],asset[3],asset[4])
+        ParseAssets(rom,utils.BankAddress(asset[0]),asset[2],asset[3],asset[4])
     else:
-        ParseAssets(rom,u.BankAddress(asset[0]),asset[2],asset[3])
+        ParseAssets(rom,utils.BankAddress(asset[0]),asset[2],asset[3])
         
 
 # Generate debug info
@@ -2490,11 +2490,11 @@ ghost_assets = [
 
 print("GHOSTASSETS")
 for asset in ghost_assets:
-    print(u.BankAddress(asset[0]))
+    print(utils.BankAddress(asset[0]))
     if(len(asset)>4):
-        ParseAssets(rom,u.BankAddress(asset[0]),asset[2],asset[3],asset[4])
+        ParseAssets(rom,utils.BankAddress(asset[0]),asset[2],asset[3],asset[4])
     else:
-        ParseAssets(rom,u.BankAddress(asset[0]),asset[2],asset[3])
+        ParseAssets(rom,utils.BankAddress(asset[0]),asset[2],asset[3])
         
 # Load the pattern and palette from Arderial_Palace_Outside as reference
 #ParseAssets(rom,u.BankAddress(0x13D0A4),"Scene","{}") #"Arderial_Palace_Outside"

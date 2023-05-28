@@ -1,6 +1,6 @@
 ; Equivalent to BITSET_Arderial_Indoors with old pointer locations
 
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; BITMAP_Arderial_Indoors_Walls
     dw $9000
@@ -9,7 +9,7 @@
     db $08
     db $58
 
-    db 3         ;VRAM1 entries
+    db 3         ; VRAM1 entries
 
     ; BITMAP_Arderial_Indoors_Ceiling
     dw $9000

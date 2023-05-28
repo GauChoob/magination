@@ -1,6 +1,5 @@
 import os
 import shutil
-from typing import List
 import projutils.asm as asm
 import projutils.utils as utils
 import projutils.config as config
@@ -9,7 +8,7 @@ import projutils.config as config
 # It then excises the code/db/structures that are in the way and replaces it with custom text
 #
 # e.g. You want to replace address 0x5000-0x5100 in bank 0x54 with an image
-# replace_rom_text(0x54,0x5000,0x51000,"testImage:",'    INCBIN "testImage.2bpp"')
+# replace_rom_text(0x54,0x5000,0x5100,"testImage:",'    INCBIN "testImage.2bpp"')
 
 SOURCEDIR = "source/banks/"
 OUTDIR = config.outdir + "banks/"
@@ -171,7 +170,7 @@ def replace_rom_text(start: utils.BankAddress, end: utils.BankAddress, label: st
 already_reset_files = []
 
 
-def reset_files(banks: List[int]) -> None:
+def reset_files(banks: list[int]) -> None:
     """Copies the requested banks into OUTDIR to be modified.
     This way, the original bank files won't be accidentally modified.
     If you request the same bank twice in the same instance, it will not be reset twice."""

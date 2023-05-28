@@ -1,9 +1,9 @@
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Orothe_Ruins_Castle,$10,$08
 
-    db 4         ;VRAM1 entries
+    db 4         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Orothe_Ruins_Walls,$10,$08

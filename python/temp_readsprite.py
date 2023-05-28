@@ -1,9 +1,9 @@
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.sprite as sprite
 
-rom = u.Rom(u.Rom.MN)
-sym = u.SymFile()
+rom = utils.Rom(utils.Rom.MN)
+sym = utils.SymFile()
 
-spr = sprite.Sprite.init_from_rom(rom, sym, u.BankAddress(0x20, 0x6E97))
+spr = sprite.Sprite.init_from_rom(rom, sym, utils.BankAddress(0x20, 0x6E97))
 
 spr.save_original_file('test')

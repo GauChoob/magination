@@ -2,7 +2,7 @@ import os
 import projutils.colorize as colorize
 import projutils.tileset as tileset
 import projutils.color as color
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.replace_rom_text as replace
 import io 
 
@@ -12,9 +12,9 @@ files = [0x5F95, 0x5F95+0x104]
 width = 0x14
 height = 0x0D
 
-rom = u.Rom()
+rom = utils.Rom()
 for file in files:
-    data = rom.getRawSection(u.BankAddress(0x43,file),width*height)
+    data = rom.getRawSection(utils.BankAddress(0x43,file),width*height)
     with open("python/out/{:04X}.tilemap".format(file),"wb") as f:
         f.write(data)
     #replace.reset_files([0x03])

@@ -1,10 +1,10 @@
-    db 2         ;VRAM0 entries
+    db 2         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8F00,BITMAP_Cald_Ashyn_NorthGeyser_BridgeAndHead,$10,$09
         LoadBitmap $8B00,BITMAP_Cald_Ashyn_NorthGeyser_Spikes,$10,$04
 
-    db 4         ;VRAM1 entries
+    db 4         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Cald_Ashyn_NorthGeyser_Head,$10,$08

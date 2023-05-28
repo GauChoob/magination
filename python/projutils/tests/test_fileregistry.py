@@ -24,7 +24,7 @@ class TestReversers(unittest.TestCase):
             ori = reverser[1]
             parsed = reverser[2]
             with self.subTest(reverser=func):
-                self.assertEqual(func(ori), parsed)
+                self.assertEqual(func(ori, False), parsed)
                 self.assertEqual(fileregistry.filepath_reverser.reverse(ori), parsed)
 
 
@@ -46,11 +46,11 @@ class TestReverserRLE(unittest.TestCase):
             shutil.rmtree(config.TEMPFOLDER)
 
     def test_rle(self):
-        self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'test.tileset.rle'), config.TEMPFOLDER + 'testRLE5.tileset.png')
+        self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'test.tileset.rle', False), config.TEMPFOLDER + 'testRLE5.tileset.png')
         self.assertEqual(fileregistry.filepath_reverser.reverse(config.TEMPFOLDER + 'test.tileset.rle'), config.TEMPFOLDER + 'testRLE5.tileset.png')
 
         # Special pattern case
-        self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'Cald_Indoors.pattern.rle'), config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap')
+        self.assertEqual(fileregistry.remove_rle(config.TEMPFOLDER + 'Cald_Indoors.pattern.rle', False), config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap')
         self.assertEqual(fileregistry.filepath_reverser.reverse(config.TEMPFOLDER + 'Cald_Indoors.pattern.rle'), config.TEMPFOLDER + 'Cald_IndoorsRLEA.pattern.tilemap')
 
     def test_labelfileregister(self):

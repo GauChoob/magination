@@ -10,9 +10,9 @@ This explains how to get the tools required to build Magi-Nation.
 
 2. If using Windows, you need to install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm). You can skip this step for Linux/Mac.
 
-3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.6.1 was used).
+3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.6.1).
 
-4. Install [Python](https://www.python.org/downloads/) (version 3.9.2 was used).
+4. Install [Python](https://www.python.org/downloads/) (version 3.11.3).
 
 5. Install the required Python packages:
 
@@ -30,6 +30,6 @@ This explains how to get the tools required to build Magi-Nation.
 
 8. Optional: If using VS Code, you can install the MagiScript highlighting template
     1. Download the latest [MagiScript Release](https://github.com/GauChoob/magiscript/releases) into your repository.
-    2. Open up VS Code, and run the following in the command line:
+    2. Open up VS Code, and run the following in the command line (change the filename to the latest version):
 
-            code --install-extension magiscript-1.0.0.vsix
+            code --install-extension magiscript-1.X.X.vsix

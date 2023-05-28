@@ -56,8 +56,8 @@ for folder in folders:
             # Include *.pal.png -> *.pal
             elif(re.match(r"^.*\.pal\.png$", file)):
                 print("PAL       "+relpath)
-                pal = color.Palette(relpath)
-                pal.save_pal(os.path.join(outfolder, os.path.splitext(relpath)[0]))
+                pal = color.Palette.init_from_original_file(relpath)
+                pal.save_processed_file(os.path.join(outfolder, os.path.splitext(relpath)[0]), True)
             # Include .pattern.tilemap (which also processes .pattern.attrmap) -> .pattern
             elif(re.match(r"^.*\.pattern\.tilemap$", file)):
                 print("Pattern   "+relpath)

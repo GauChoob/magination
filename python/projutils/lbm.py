@@ -1,6 +1,5 @@
 import struct
 import math
-from typing import List
 import projutils.png as png
 
 
@@ -18,7 +17,7 @@ class Chunk:
 
 class LBM:
 
-    def decompress_rle(data: bytes, size: int) -> List[bytes]:
+    def decompress_rle(data: bytes, size: int) -> list[bytes]:
         """Decompresses RLE-encoded data with a max size of size"""
         out = b''
         position = 0
@@ -39,7 +38,7 @@ class LBM:
                 break
         return out
 
-    def parse_pixels(self, data: bytes, is_tiny: bool) -> List[List[int]]:
+    def parse_pixels(self, data: bytes, is_tiny: bool) -> list[list[int]]:
         """Given raw data from TINY or BODY, return a pixels 2D array"""
         width = self.tiny_width if is_tiny else self.image_width
         height = self.tiny_height if is_tiny else self.image_height

@@ -2,7 +2,7 @@ import os
 import projutils.colorize as colorize
 import projutils.tileset as tileset
 import projutils.color as color
-import projutils.utils as u
+import projutils.utils as utils
 import projutils.battle_targets as targets
 import projutils.elemental as elem
 import io 
@@ -30,25 +30,25 @@ usetype = [
 addresses = set()
 setnames = ["ItemCombat_","ItemMap_","SpellCom_"]
 
-rom = u.Rom()
+rom = utils.Rom()
 for data in TABLEBASE:
     for i in range(data[1]):
         table = data[0]
         args = [
-            rom.getWord(u.BankAddress(0x07,table+0x22*i+0)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+2)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+3)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+4)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+5)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+6)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+7)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+8)),
-            rom.getByte(u.BankAddress(0x07,table+0x22*i+9)),
-            rom.getWord(u.BankAddress(0x07,table+0x22*i+0x0A)),
-            rom.getString(u.BankAddress(0x07,table+0x22*i+0x0C),0x0D),
-            rom.getBankAddress(u.BankAddress(0x07,table+0x22*i+0x19)),
-            rom.getBankAddress(u.BankAddress(0x07,table+0x22*i+0x1C)),
-            rom.getBankAddress(u.BankAddress(0x07,table+0x22*i+0x1F)),
+            rom.getWord(utils.BankAddress(0x07,table+0x22*i+0)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+2)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+3)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+4)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+5)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+6)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+7)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+8)),
+            rom.getByte(utils.BankAddress(0x07,table+0x22*i+9)),
+            rom.getWord(utils.BankAddress(0x07,table+0x22*i+0x0A)),
+            rom.getString(utils.BankAddress(0x07,table+0x22*i+0x0C),0x0D),
+            rom.getBankAddress(utils.BankAddress(0x07,table+0x22*i+0x19)),
+            rom.getBankAddress(utils.BankAddress(0x07,table+0x22*i+0x1C)),
+            rom.getBankAddress(utils.BankAddress(0x07,table+0x22*i+0x1F)),
         ]
         args[0] = "ItemCmd1_{:04X}".format(args[0])
         addresses.add(args[0])

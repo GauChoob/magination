@@ -1,10 +1,10 @@
 ; Equivalent to BITSET_Overworld_Arderial with old pointer locations
 
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
         LoadBitmap $8800,BITMAP_Overworld_Arderial_Scenery,$10,$10
 
-    db 3         ;VRAM1 entries
+    db 3         ; VRAM1 entries
 
     ; BITMAP_Arderial_Indoors_Ceiling
     dw $9000

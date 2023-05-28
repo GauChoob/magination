@@ -1,11 +1,11 @@
 ; Equivalent to BITSET_Core_End_Agram with old pointer locations
 
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     	; Pointer is surprisingly preserved
         LoadBitmap $8800,BITMAP_Core_End_Agram_Wall,$10,$10
 
-    db 3         ;VRAM1 entries
+    db 3         ; VRAM1 entries
 
     ; BITMAP_Core_End_Agram_Throne
     dw $9000

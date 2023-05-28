@@ -1,9 +1,9 @@
-    db 1         ;VRAM0 entries
+    db 1         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $9000,BITMAP_Overworld_Orothe_Decoration,$10,$08
 
-    db 5         ;VRAM1 entries
+    db 5         ; VRAM1 entries
 
     ; Destination, Source, Width, Height
         LoadBitmap $8000,BITMAP_Sprite_MiniTony_Main,$10,$01
