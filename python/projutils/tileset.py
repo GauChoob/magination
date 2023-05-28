@@ -1,4 +1,5 @@
 from __future__ import annotations
+import glob
 import math
 import pathlib
 from typing import Self
@@ -10,6 +11,7 @@ import projutils.color as color
 import projutils.utils as utils
 import projutils.filereference as filereference
 import projutils.fileregistry as fileregistry
+import projutils.sprite as sprite
 
 
 class Bitmap(filecontents.FileContentsSerializer):
@@ -269,6 +271,74 @@ class Bitmap(filecontents.FileContentsSerializer):
                     newpaletteid = defaultpalette
                 else:
                     newpaletteid = tiles_guessedpaletteid[targettile]+paletteoffset
+                for y2 in range(8):
+                    for x2 in range(8):
+                        self.pixels[y*8+y2][x*8+x2] += newpaletteid*4
+
+    def colorize_from_sprite(self,
+                             glob_searchterm: str,
+                             vbk: int,
+                             tilesetaddress: int,
+                             palette: color.Palette,
+                             paletteoffset: int,
+                             addgreyscale: bool,
+                             defaultpalette: int
+                             ):
+        """This function allows you to quickly colorize a tileset.png file based on the tilemap.
+        glob_searchterm: a glob search parameter to find all relevant .spr files
+        vbk = bank of the tileset (0 or 1)
+        tilesetaddress = location of the tileset in vram
+        palette = Palette Object
+        paletteoffset = offset of the palette to colorize with the right colors
+        addgreyscale = whether to have greyscale for unknown colors
+        defaultpalette = palette id to use if the color is unknown. 0 will refer to greyscale if enabled
+        """
+        tile_pal_count = [[0, 0, 0, 0, 0, 0, 0, 0] for _ in range(0x100)]
+
+        def count_palette_id(sprite_path: str | pathlib.PurePath) -> None:
+            spr = sprite.Sprite.init_from_original_file(sprite_path)
+            for entry in spr.entries:
+                attr = tilemap.TileAttribute(entry.attr)
+                if attr.vbk != vbk:
+                    continue
+                tile_pal_count[entry.tileid][attr.pal] += 1
+
+        def collapse_tile_pal_count() -> list[int]:
+            for i in range(0x100):
+                max_value = max(tile_pal_count[i])
+                if max_value == 0:
+                    tile_pal_count[i] = -1
+                else:
+                    tile_pal_count[i] = tile_pal_count[i].index(max_value)
+            return tile_pal_count
+
+        for sprite_path in glob.glob(glob_searchterm):
+            count_palette_id(sprite_path)
+        tile_pal_count = collapse_tile_pal_count()
+
+        assert self.width == len(self.pixels[0])
+        assert self.height == len(self.pixels)
+
+        # Get the raw palette color data
+        if addgreyscale:
+            palette.add_greyscale()
+        self.palette = palette
+        raw_palette = palette.get_png_palette()
+        # Offset the palette ids by +1 if greyscale was added
+        paletteoffset += addgreyscale
+
+        # Make sure no palettes are out of bounds
+        assert max(tile_pal_count) + paletteoffset < len(raw_palette)//4
+
+        # basetile is used to offset the tileset location to color the right tiles
+        basetile = (tilesetaddress % 0x1000)//0x10
+        for y in range(self.height//8):
+            for x in range(self.width//8):
+                targettile = (basetile + y*0x10 + x) % 0x100
+                if tile_pal_count[targettile] == -1:
+                    newpaletteid = defaultpalette
+                else:
+                    newpaletteid = tile_pal_count[targettile]+paletteoffset
                 for y2 in range(8):
                     for x2 in range(8):
                         self.pixels[y*8+y2][x*8+x2] += newpaletteid*4

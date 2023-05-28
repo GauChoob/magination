@@ -2198,9 +2198,9 @@ jr_005_57B9:
 
     ; $57BA
 Call_005_57BA::
-    ; Abort if index is out of range, i.e. id is higher than the last magi
+    ; Abort if index is out of range, i.e. id is >= luDreamCreature6C
     ld a, [$D0C2]
-    cp luDreamCreatureEnd - 1
+    cp luDreamCreature6C
     ret nc
 
     ; Lookup the nth entry (nth magi) from the magis' scripts' table
@@ -2214,8 +2214,7 @@ Call_005_57BA::
 
     ; Navigate to the nth entry of the scripts' table
     push hl
-    ld a, [$D0C0]
-    ld b, a
+    Get8 b, $D0C0
     ld c, $03
     call Math_Mult
     pop bc
@@ -2674,7 +2673,7 @@ Jump_005_5A4D:
     sub b                                         ; $5A5F: $90
     push af                                       ; $5A60: $F5
     call Battle00_DisableActorScript                                    ; $5A61: $CD $C7 $38
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
     pop af                                        ; $5A7C: $F1
     push af                                       ; $5A7D: $F5
     ld b, a                                       ; $5A7E: $47

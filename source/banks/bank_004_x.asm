@@ -5566,7 +5566,7 @@ Cardscene_Open::
         jr nz, .Loop
 
     Set8 wCardscene_IsOpened, $01
-    Do_CallForeign Battle_Flow_Begin
+    Do_CallForeign Battle02_Flow_Begin
 
     jp Boot_SoftReset
 

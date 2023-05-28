@@ -18,6 +18,9 @@ DEF elementShadow       EQU $20     ;Strong vs Naroom
 DEF elementElectrical   EQU $40     ;No interactions
 DEF elementUNUSED       EQU $80     ;Unused
 
+
+
+
 ; The list starts at $0A to avoid confusion with 0-9 which refer to the hero, 8 cards and enemy magi respectively
 Battle_TARGET_START EQU $0A ; start of the list
 

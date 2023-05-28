@@ -212,10 +212,10 @@ class CollMap(filecontents.FileContentsSerializer):
 class TileAttribute:
     def __init__(self, attributes: int):
         """Loads the attributes:
-        (pal, vbk, unused, hflip, vflip, priority)"""
+        (pal, vbk, obp, hflip, vflip, priority)"""
         self.pal = (attributes & 0b00000111)
         self.vbk = (attributes & 0b00001000) >> 3
-        self.unused = (attributes & 0b00010000) >> 4
+        self.obp = (attributes & 0b00010000) >> 4
         self.hflip = (attributes & 0b00100000) >> 5
         self.vflip = (attributes & 0b01000000) >> 6
         self.priority = (attributes & 0b10000000) >> 7

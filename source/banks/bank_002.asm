@@ -646,7 +646,7 @@ jr_002_441F:
     add hl, bc                                    ; $4458: $09
     add hl, bc                                    ; $4459: $09
     push hl                                       ; $445A: $E5
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $01, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_TAUNT, $0C
     pop hl                                        ; $4473: $E1
     xor a                                         ; $4474: $AF
     ld [hl+], a                                   ; $4475: $22
@@ -838,8 +838,8 @@ jr_002_459B:
     and a                                         ; $459E: $A7
     jr nz, jr_002_45D0                            ; $459F: $20 $2F
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
-    Battle_Set_MagiAnim $58, $00, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
 
 jr_002_45D0:
     ld a, [$D0B2]                                 ; $45D0: $FA $B2 $D0
@@ -2429,7 +2429,7 @@ jr_002_5086:
     jr jr_002_50CE                                ; $50A3: $18 $29
 
 jr_002_50A5:
-    Battle_Set_MagiAnim $58, $05, $0B
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_FOCUS, $0B
     ld hl, $C71B                                  ; $50BC: $21 $1B $C7
     ld a, $4C                                     ; $50BF: $3E $4C
     ld [hl+], a                                   ; $50C1: $22
@@ -4481,7 +4481,7 @@ jr_002_5E63:
     ret                                           ; $5E6C: $C9
 
     ; $5E6D
-Battle_Flow_Begin::
+Battle02_Flow_Begin::
     ; Initializes and then starts the battle
     SwitchRAMBank BANK("WRAM BATTLE")
 
@@ -4526,7 +4526,7 @@ Battle_Flow_Begin::
     .MagiFinally:
     ld [wBattle_CreatureSlots.Magi], a
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $00, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
 
     xor a
     ld [$D15C], a
@@ -5017,8 +5017,8 @@ Battle_Flow_Exit:
     .Win:
     Sound_Request_StartSong SONGID_GetItem
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $04, $0C
-    Battle_Set_MagiAnim $58, $03, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, $0C
+    Battle_Set_MagiAnim luDreamCreatureTony, $BATTLE_MAGIANIM_VICTORY, $0B
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3
@@ -5120,8 +5120,8 @@ Jump_002_641DCheckLose:
     cp BATTLE_EXITCODE_LOSE                                        ; $641D: $FE $03
     jp nz, Jump_002_64EDCheckTODO                          ; $641F: $C2 $ED $64
     .Lose:
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $03, $0C
-    Battle_Set_MagiAnim $58, $04, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_VICTORY, $0C
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_DEFEAT, $0B
     ld hl, $C71B                                  ; $6451: $21 $1B $C7
     ld a, $4C                                     ; $6454: $3E $4C
     ld [hl+], a                                   ; $6456: $22
@@ -5991,9 +5991,9 @@ Battle_Flow_ProcessHero:
 
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
     call Battle00_DisableActorScript
-    Battle_Set_MagiAnim $58, $06, $0B
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_CHOOSE, $0B
     call Battle_Flow_ControlCreature
-    Battle_Set_MagiAnim $58, $00, $0B
+    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
     FGet16 hl, wBattle_Creature_Current.BattleCmd_Function
     ld bc, BattleCmd_5272 ; Summon
     TwosComp bc
@@ -6002,7 +6002,7 @@ Battle_Flow_ProcessHero:
     or l
     jr nz, .jr_002_6BB0
 
-        Battle_Set_MagiAnim $58, $02, $0B
+        Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_SUMMON, $0B
 
     .jr_002_6BB0:
     ; Store the hero
@@ -7530,7 +7530,7 @@ Call_002_752D::
 
 
 jr_002_7549:
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], $02, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_SUMMON, $0C
     call Call_002_4653                            ; $7561: $CD $53 $46
     FGet16 hl, $D07B                                  ; $7564: $21 $7B $D0
     ld bc, $D110                                  ; $756A: $01 $10 $D1
