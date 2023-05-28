@@ -1,3 +1,4 @@
+from __future__ import annotations
 import pathlib
 from typing import Self
 import projutils.filecontents as filecontents
