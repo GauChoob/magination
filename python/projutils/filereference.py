@@ -5,6 +5,7 @@ import pathlib
 import projutils.utils as utils
 import projutils.color as color
 import projutils.sprite as sprite
+import projutils.scene as scene
 import projutils.pattern as pattern
 import projutils.tileset as tileset
 import projutils.tilemap as tilemap
@@ -41,6 +42,7 @@ file_contents_factory.register_identity('ATTR', tilemap, 'Tilemap')
 # file_contents_factory.register_identity('TILEATTR', tilemap, 'TileAttrmap')
 file_contents_factory.register_identity('COLLMAP', tilemap, 'CollMap')
 file_contents_factory.register_identity('METAMAP', tilemap, 'MetaMap')
+file_contents_factory.register_identity('SCENE', scene, 'Scene')
 
 
 class FileReference:
@@ -82,11 +84,11 @@ class FileReference:
     def load_contents_from_rom(self, *args):
         self.contents = self.identity.init_from_rom(self.sym, self.rom, self.bankaddress, *args)
 
-    def load_contents_from_original_file(self):
-        self.contents = self.identity.init_from_original_file(self.original_path)
+    def load_contents_from_original_file(self, *args):
+        self.contents = self.identity.init_from_original_file(self.original_path, *args)
 
-    def load_contents_from_processed_file(self):
-        self.contents = self.identity.init_from_processed_file(self.processed_path)
+    def load_contents_from_processed_file(self, *args):
+        self.contents = self.identity.init_from_processed_file(self.processed_path, *args)
 
     def replace_rom_text(self):
         start = self.bankaddress
