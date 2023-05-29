@@ -16,10 +16,10 @@ class Sprite(filecontents.FileContentsSerializer):
 
     class SpriteEntry:
         def __init__(self, y, x, tileid, attr):
-            self.y = y
-            self.x = x
-            self.tileid = tileid
-            self.attr = attr
+            self.y: int = y
+            self.x: int = x
+            self.tileid: int = tileid
+            self.attr: int = attr
 
         def __bytes__(self):
             return struct.pack('bbBB', self.y, self.x, self.tileid, self.attr)
@@ -40,7 +40,7 @@ class Sprite(filecontents.FileContentsSerializer):
         super().__init__()
         self.start = 0
         self.end = None
-        self.entries = []
+        self.entries: list[Sprite.SpriteEntry] = []
 
     @classmethod
     def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress) -> Self:

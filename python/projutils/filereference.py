@@ -77,7 +77,7 @@ class FileReference:
         self.sym = sym
         label_name = sym.getSymbol(bankaddress.getBank(), bankaddress.getAddress(), identity)
         if len(label_name) != 1:
-            raise NotImplementedError  # TODO - handle if multiple labels
+            label_name = ['/'.join(label_name)]  # TODO - find a better way of handling?
         self.label_name = label_name[0]
         return self
 
@@ -91,10 +91,11 @@ class FileReference:
         self.contents = self.identity.init_from_processed_file(self.processed_path, *args)
 
     def replace_rom_text(self):
+        assert self.processed_path is not None
         start = self.bankaddress
         end = start + self.contents.size()
         textreplace.reset_files([start.getBank()])
-        textreplace.replace_rom_text(start, end, self.label_name + '::', self.contents.generate_include())
+        textreplace.replace_rom_text(start, end, self.label_name + '::', self.contents.generate_include(self.processed_path))
 
     def __str__(self):
         return '{}: {}, {}, {}'.format(self.label_name, self.original_path, self.processed_path, self.bankaddress)

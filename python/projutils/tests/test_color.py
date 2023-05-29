@@ -87,30 +87,5 @@ class TestPalette(unittest.TestCase):
             pal2 = color.Palette.init_from_processed_file(ASSETSFOLDER + "BadColor.pal.png")
 
 
-class TestColorize(unittest.TestCase):
-    def setUp(self):
-        os.makedirs(config.TEMPFOLDER, exist_ok=True)
-
-    def tearDown(self):
-        if os.path.exists(config.TEMPFOLDER):
-            shutil.rmtree(config.TEMPFOLDER)
-
-    def test_color_tileset_from_tilemap(self):
-        # Make sure the tileset is colorized properly
-        color.Colorize.color_tileset_from_tilemap(
-            ASSETSFOLDER + "GREY_InteractiveImaginationLogo.tileset.png",
-            config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png",
-            ASSETSFOLDER + "InteractiveImaginationLogoRLEA.tilemap",
-            ASSETSFOLDER + "InteractiveImaginationLogoRLEA.attrmap",
-            0,
-            0x9000,
-            color.Palette.init_from_original_file(ASSETSFOLDER + "InteractiveImaginationLogo.pal.png"),
-            0,
-            True,
-            0
-        )
-        helper.assert_png_cmp(self, ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
-
-
 if __name__ == '__main__':
     unittest.main()

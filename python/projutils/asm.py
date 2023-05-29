@@ -37,6 +37,9 @@ class AsmLine:
     def __str__(self):
         return self.raw
 
+    def __repr__(self):
+        return '${:04X}, ${:02X}, {}'.format(self.address, self.size, self.raw)
+
     @classmethod
     def create(cls, cur_address: int, line) -> AsmLine:
         raise NotImplementedError
@@ -170,10 +173,12 @@ class RawBytesLine(AsmLine):
         line_parsed = line_parsed[line_parsed.find('db ') + 3:]
         line_parsed = line_parsed.strip()
         raw_bytes = line_parsed.split(',')
-        raw_bytes = [castNumber(val.strip()) for val in raw_bytes]
-
         self = cls(cur_address, len(raw_bytes), line)
-        self.raw_bytes = raw_bytes
+        try:
+            raw_bytes = [castNumber(val.strip()) for val in raw_bytes]
+            self.raw_bytes = raw_bytes
+        except ValueError:
+            pass
         return self
 
     @staticmethod
@@ -194,12 +199,15 @@ class RawWordsLine(AsmLine):
         line_parsed = line_parsed[line_parsed.find('dw ') + 3:]
         line_parsed = line_parsed.strip()
         raw_words = line_parsed.split(',')
-        raw_words = [castNumber(val.strip()) for val in raw_words]
         self = cls(cur_address, 2*len(raw_words), line)
-        self.raw_words = raw_words
-        self.raw_bytes = []
-        for word in raw_words:
-            self.raw_bytes.extend([word % 0x100, word//0x100])
+        try:
+            raw_words = [castNumber(val.strip()) for val in raw_words]
+            self.raw_words = raw_words
+            self.raw_bytes = []
+            for word in raw_words:
+                self.raw_bytes.extend([word % 0x100, word//0x100])
+        except ValueError:
+            pass
         return self
 
     @staticmethod

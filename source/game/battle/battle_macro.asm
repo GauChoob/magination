@@ -75,10 +75,20 @@ MACRO Battle_TextboxOpen
     Battle_AwaitTextbox OPEN
 ENDM
 
+; Battle_Set_MagiAnim parameter
+RSRESET
+DEF BATTLE_MAGIANIM_IDLE RB 1
+DEF BATTLE_MAGIANIM_TAUNT RB 1
+DEF BATTLE_MAGIANIM_SUMMON RB 1
+DEF BATTLE_MAGIANIM_VICTORY RB 1
+DEF BATTLE_MAGIANIM_DEFEAT RB 1
+DEF BATTLE_MAGIANIM_FOCUS RB 1
+DEF BATTLE_MAGIANIM_CHOOSE RB 1
+
 MACRO Battle_Set_MagiAnim
     ; Arguments
     ;   \1  Magi's dream creature id
-    ;   \2  Lookup table's nth entry
+    ;   \2  BATTLE_MAGIANIM_X
     ;   \3  Target actor id
     ld a, \1
     ld [$D0C2], a
