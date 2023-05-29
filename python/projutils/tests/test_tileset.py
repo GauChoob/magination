@@ -97,6 +97,31 @@ class TestTileset(unittest.TestCase):
         logo.save_original_file(config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
         helper.assert_png_cmp(self, _ASSETSFOLDER + "InteractiveImaginationLogo.tileset.png", config.TEMPFOLDER + "InteractiveImaginationLogo.tileset.png")
 
+    def test_color_from_sprite_and_discarded_tiles(self):
+        _ASSETSFOLDER = ASSETSFOLDER + 'sprite/'
+        ALL_SPRITES = _ASSETSFOLDER + 'AllSprites.pal.png'
+        TONY_ADDR = utils.BankAddress(0x24, 0x5990)
+        tony = tileset.Bitmap.init_from_rom(utils.SymFile(None), utils.Rom(), TONY_ADDR, False, 0x10, 0x04)
+        search_term = _ASSETSFOLDER + 'TonyBattle_*.spr'
+        tony.colorize_from_sprite(
+            search_term,
+            1,
+            0x8000,
+            color.Palette.init_from_original_file(ALL_SPRITES),
+            0,
+            True,
+            0
+            )
+        tony.discarded_tiles = 8
+        tony.save_original_file(config.TEMPFOLDER + 'Battle_Tony.tileset.png')
+        tony.save_processed_file(config.TEMPFOLDER + 'Battle_Tony.tileset')
+        helper.assert_png_cmp(self, _ASSETSFOLDER + "Battle_Tony.tileset.png", config.TEMPFOLDER + "Battle_Tony.tileset.png")
+
+        tony2 = tileset.Bitmap.init_from_original_file(_ASSETSFOLDER + 'Battle_Tony.tileset.png')
+        tony3 = tileset.Bitmap.init_from_processed_file(config.TEMPFOLDER + 'Battle_Tony.tileset', 0x10, 0x04)
+        self.assertEqual(tony.discarded_tiles, tony2.discarded_tiles)
+        self.assertEqual(tony3.discarded_tiles, tony2.discarded_tiles)
+
     def test_bitset(self):
         rom = utils.Rom()
         sym = utils.SymFile(ASSETSFOLDER + 'bitset/autopack.sym')

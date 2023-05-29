@@ -17,8 +17,8 @@ import projutils.sprite as sprite
 
 class Bitmap(filecontents.FileContentsSerializer):
 
-    DISCARDED_TILE = [0b01010101, 0b00110011]*8
-    DISCARDED_PIXELS_ROW = [0, 1, 2, 3]*2
+    DISCARDED_TILE = [0b10101010, 0b11001100]*8
+    DISCARDED_PIXELS_ROW = [3, 2, 1, 0]*2
 
     def __init__(self):
         super().__init__()
@@ -56,10 +56,14 @@ class Bitmap(filecontents.FileContentsSerializer):
 
     def _count_discarded_tiles(self):
         while self.discarded_tiles < self.width - 1:
-            if all([self.pixels[-i][(-self.discarded_tiles-1)*8:-self.discarded_tiles*8] == self.DISCARDED_PIXELS_ROW for i in range(8)]):
+            left = (-self.discarded_tiles-1)*8
+            right = None if self.discarded_tiles == 0 else -self.discarded_tiles*8
+            if all([self.pixels[i][left:right] == self.DISCARDED_PIXELS_ROW for i in range(-1, -9, -1)]):
                 self.discarded_tiles += 1
             else:
                 break
+        if(self.discarded_tiles and self.compression_mode):
+            raise NotImplementedError
 
     def _load_processed(self, data: bytes, tilewidth: int, tileheight: int):
         """Gets the 2D pixel list from raw data."""
@@ -126,8 +130,8 @@ class Bitmap(filecontents.FileContentsSerializer):
         if not self.discarded_tiles:
             return self.pixels
         pixels = copy.deepcopy(self.pixels)
-        for row in range(8):
-            pixels[-row][-self.discarded_tiles*8:] = self.DISCARDED_PIXELS_ROW*self.discarded_tiles
+        for row in range(-1, -9, -1):
+            pixels[row][-self.discarded_tiles*8:] = self.DISCARDED_PIXELS_ROW*self.discarded_tiles
         return pixels
 
     @classmethod
@@ -155,6 +159,9 @@ class Bitmap(filecontents.FileContentsSerializer):
         self._load_processed(data, tilewidth, tileheight)
         return self
 
+    def size(self) -> int:
+        return self._size - self.discarded_tiles*0x10
+
     def save_original_file(self, filename: str | pathlib.PurePath) -> None:
         filename = self._handle_rle_save_original_file(filename)
         bitdepth = 2 if len(self.palette) == 4 else 8
@@ -170,6 +177,8 @@ class Bitmap(filecontents.FileContentsSerializer):
             f.write(data)
 
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
+        if(self.discarded_tiles):
+            return '    INCBIN "{}", 0, ${:04X}'.format(filename, self.size())
         return '    INCBIN "{}"'.format(filename)
 
     def decolorize(self):

@@ -5321,27 +5321,27 @@ jr_004_60C3:
 
 
     ; $61C3
-Cardscene_MagiLookupTable:: ; todo
-    dw $75D0
-    dw $7594
-    dw $7558
-    dw $75EE
-    dw $753A
-    dw $760C
-    dw $7576
-    dw $742C
-    dw $742C
-    dw $742C
-    dw $744A
-    dw $7468
-    dw $7486
-    dw $74A4
-    dw $74C2
-    dw $74E0
-    dw $74FE
-    dw $751C
-    dw $75B2
-    dw $75B2
+Cardscene_MagiBitsetTable::
+    dw BITSET_Battle_Togoth
+    dw BITSET_Battle_Ogar
+    dw BITSET_Battle_Korremar
+    dw BITSET_Battle_Warrada
+    dw BITSET_Battle_Korg
+    dw BITSET_Battle_Zet
+    dw BITSET_Battle_Morag
+    dw BITSET_Battle_Agram
+    dw BITSET_Battle_Agram
+    dw BITSET_Battle_Agram
+    dw BITSET_Battle_ShadowMagi1
+    dw BITSET_Battle_ShadowMagi2
+    dw BITSET_Battle_ShadowMagi3
+    dw BITSET_Battle_ShadowMagi4
+    dw BITSET_Battle_ShadowMagi5
+    dw BITSET_Battle_ShadowMagi6
+    dw BITSET_Battle_ShadowMagi7
+    dw BITSET_Battle_ShadowMagi8
+    dw BITSET_Battle_Salafy
+    dw BITSET_Battle_Salafy
 
     ; $61EB
 Cardscene_SpawnCreature::
@@ -5505,7 +5505,7 @@ Cardscene_Init::
     add a
     ld c, a
     ld b, $00
-    ld hl, Cardscene_MagiLookupTable
+    ld hl, Cardscene_MagiBitsetTable
     add hl, bc
     DerefHL
     ld b, h
@@ -7202,578 +7202,72 @@ AI_HorizontalScroller_Setup::
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_Idle
     ret                                           ; $742B: $C9
 
+    ; $742C
+BITSET_Battle_Agram::
+    INCLUDE "assets/sprites/agram/AgramBattle.bitmapset.asm"
 
-    inc bc                                        ; $742C: $03
-    nop                                           ; $742D: $00
-    add b                                         ; $742E: $80
-    jr nc, jr_004_7471                            ; $742F: $30 $40
+    ; $744A
+BITSET_Battle_ShadowMagi1::
+    INCLUDE "assets/sprites/shadowmagi1/ShadowMagi1Battle.bitmapset.asm"
 
-    db $10                                        ; $7431: $10
-    inc b                                         ; $7432: $04
-    inc h                                         ; $7433: $24
-    nop                                           ; $7434: $00
-    add h                                         ; $7435: $84
-    jr nc, jr_004_74A2                            ; $7436: $30 $6A
+    ; $7468
+BITSET_Battle_ShadowMagi2::
+    INCLUDE "assets/sprites/shadowmagi2/ShadowMagi2Battle.bitmapset.asm"
 
-    db $10                                        ; $7438: $10
-    inc b                                         ; $7439: $04
-    dec c                                         ; $743A: $0D
-    nop                                           ; $743B: $00
-    adc b                                         ; $743C: $88
-    ld d, b                                       ; $743D: $50
-    ld h, d                                       ; $743E: $62
-    db $10                                        ; $743F: $10
-    rlca                                          ; $7440: $07
-    ld b, c                                       ; $7441: $41
-    ld bc, $8000                                  ; $7442: $01 $00 $80
-    sub b                                         ; $7445: $90
-    ld e, c                                       ; $7446: $59
-    db $10                                        ; $7447: $10
-    inc b                                         ; $7448: $04
-    inc h                                         ; $7449: $24
-    inc bc                                        ; $744A: $03
-    nop                                           ; $744B: $00
-    add b                                         ; $744C: $80
-    ld d, b                                       ; $744D: $50
-    ld b, a                                       ; $744E: $47
-    db $10                                        ; $744F: $10
-    inc bc                                        ; $7450: $03
-    inc h                                         ; $7451: $24
-    nop                                           ; $7452: $00
-    add h                                         ; $7453: $84
-    jr nc, jr_004_74C0                            ; $7454: $30 $6A
+    ; $7486
+BITSET_Battle_ShadowMagi3::
+    INCLUDE "assets/sprites/shadowmagi3/ShadowMagi3Battle.bitmapset.asm"
 
-    db $10                                        ; $7456: $10
-    inc b                                         ; $7457: $04
-    dec c                                         ; $7458: $0D
-    nop                                           ; $7459: $00
-    adc b                                         ; $745A: $88
-    ld d, b                                       ; $745B: $50
-    ld h, d                                       ; $745C: $62
-    db $10                                        ; $745D: $10
-    rlca                                          ; $745E: $07
-    ld b, c                                       ; $745F: $41
-    ld bc, $8000                                  ; $7460: $01 $00 $80
-    sub b                                         ; $7463: $90
-    ld e, c                                       ; $7464: $59
-    db $10                                        ; $7465: $10
-    inc b                                         ; $7466: $04
-    inc h                                         ; $7467: $24
-    inc bc                                        ; $7468: $03
-    nop                                           ; $7469: $00
-    add h                                         ; $746A: $84
-    jr nc, jr_004_74D7                            ; $746B: $30 $6A
+    ; $74A4
+BITSET_Battle_ShadowMagi4::
+    INCLUDE "assets/sprites/shadowmagi4/ShadowMagi4Battle.bitmapset.asm"
 
-    db $10                                        ; $746D: $10
-    inc b                                         ; $746E: $04
-    dec c                                         ; $746F: $0D
-    nop                                           ; $7470: $00
+    ; $74C2
+BITSET_Battle_ShadowMagi5::
+    INCLUDE "assets/sprites/shadowmagi5/ShadowMagi5Battle.bitmapset.asm"
 
-jr_004_7471:
-    adc b                                         ; $7471: $88
-    ld d, b                                       ; $7472: $50
-    ld h, d                                       ; $7473: $62
-    db $10                                        ; $7474: $10
-    rlca                                          ; $7475: $07
-    ld b, c                                       ; $7476: $41
-    nop                                           ; $7477: $00
-    add b                                         ; $7478: $80
-    sub b                                         ; $7479: $90
-    ld c, c                                       ; $747A: $49
-    db $10                                        ; $747B: $10
-    inc bc                                        ; $747C: $03
-    inc h                                         ; $747D: $24
-    ld bc, $8000                                  ; $747E: $01 $00 $80
-    sub b                                         ; $7481: $90
-    ld e, c                                       ; $7482: $59
-    db $10                                        ; $7483: $10
-    inc b                                         ; $7484: $04
-    inc h                                         ; $7485: $24
-    inc bc                                        ; $7486: $03
-    nop                                           ; $7487: $00
-    add h                                         ; $7488: $84
-    jr nc, jr_004_74F5                            ; $7489: $30 $6A
+    ; $74E0
+BITSET_Battle_ShadowMagi6::
+    INCLUDE "assets/sprites/shadowmagi6/ShadowMagi6Battle.bitmapset.asm"
 
-    db $10                                        ; $748B: $10
-    inc b                                         ; $748C: $04
-    dec c                                         ; $748D: $0D
-    nop                                           ; $748E: $00
-    adc b                                         ; $748F: $88
-    ld d, b                                       ; $7490: $50
-    ld h, d                                       ; $7491: $62
-    db $10                                        ; $7492: $10
-    rlca                                          ; $7493: $07
-    ld b, c                                       ; $7494: $41
-    nop                                           ; $7495: $00
-    add b                                         ; $7496: $80
-    ret nc                                        ; $7497: $D0
+    ; $74FE
+BITSET_Battle_ShadowMagi7::
+    INCLUDE "assets/sprites/shadowmagi7/ShadowMagi7Battle.bitmapset.asm"
 
-    ld c, e                                       ; $7498: $4B
-    db $10                                        ; $7499: $10
-    ld [bc], a                                    ; $749A: $02
-    inc h                                         ; $749B: $24
-    ld bc, $8000                                  ; $749C: $01 $00 $80
-    sub b                                         ; $749F: $90
-    ld e, c                                       ; $74A0: $59
-    db $10                                        ; $74A1: $10
+    ; $751C
+BITSET_Battle_ShadowMagi8::
+    INCLUDE "assets/sprites/shadowmagi8/ShadowMagi8Battle.bitmapset.asm"
 
-jr_004_74A2:
-    inc b                                         ; $74A2: $04
-    inc h                                         ; $74A3: $24
-    inc bc                                        ; $74A4: $03
-    nop                                           ; $74A5: $00
-    add h                                         ; $74A6: $84
-    jr nc, jr_004_7513                            ; $74A7: $30 $6A
+    ; $753A
+BITSET_Battle_Korg::
+    INCLUDE "assets/sprites/korg/KorgBattle.bitmapset.asm"
 
-    db $10                                        ; $74A9: $10
-    inc b                                         ; $74AA: $04
-    dec c                                         ; $74AB: $0D
-    nop                                           ; $74AC: $00
-    adc b                                         ; $74AD: $88
-    ld d, b                                       ; $74AE: $50
-    ld h, d                                       ; $74AF: $62
-    db $10                                        ; $74B0: $10
-    rlca                                          ; $74B1: $07
-    ld b, c                                       ; $74B2: $41
-    nop                                           ; $74B3: $00
-    add b                                         ; $74B4: $80
-    db $10                                        ; $74B5: $10
-    ld c, l                                       ; $74B6: $4D
-    db $10                                        ; $74B7: $10
-    ld [bc], a                                    ; $74B8: $02
-    inc h                                         ; $74B9: $24
-    ld bc, $8000                                  ; $74BA: $01 $00 $80
-    sub b                                         ; $74BD: $90
-    ld e, c                                       ; $74BE: $59
-    db $10                                        ; $74BF: $10
+    ; $7558
+BITSET_Battle_Korremar::
+    INCLUDE "assets/sprites/korremar/KorremarBattle.bitmapset.asm"
 
-jr_004_74C0:
-    inc b                                         ; $74C0: $04
-    inc h                                         ; $74C1: $24
-    inc bc                                        ; $74C2: $03
-    nop                                           ; $74C3: $00
-    add h                                         ; $74C4: $84
-    jr nc, jr_004_7531                            ; $74C5: $30 $6A
+    ; $7576
+BITSET_Battle_Morag::
+    INCLUDE "assets/sprites/morag/MoragBattle.bitmapset.asm"
 
-    db $10                                        ; $74C7: $10
-    inc b                                         ; $74C8: $04
-    dec c                                         ; $74C9: $0D
-    nop                                           ; $74CA: $00
-    adc b                                         ; $74CB: $88
-    ld d, b                                       ; $74CC: $50
-    ld h, d                                       ; $74CD: $62
-    db $10                                        ; $74CE: $10
-    rlca                                          ; $74CF: $07
-    ld b, c                                       ; $74D0: $41
-    nop                                           ; $74D1: $00
-    add b                                         ; $74D2: $80
-    ret nz                                        ; $74D3: $C0
+    ; $7594
+BITSET_Battle_Ogar::
+    INCLUDE "assets/sprites/ogar/OgarBattle.bitmapset.asm"
 
-    ld c, [hl]                                    ; $74D4: $4E
-    db $10                                        ; $74D5: $10
-    ld [bc], a                                    ; $74D6: $02
+    ; $75B2
+BITSET_Battle_Salafy::
+    INCLUDE "assets/sprites/salafy/SalafyBattle.bitmapset.asm"
 
-jr_004_74D7:
-    inc h                                         ; $74D7: $24
-    ld bc, $8000                                  ; $74D8: $01 $00 $80
-    sub b                                         ; $74DB: $90
-    ld e, c                                       ; $74DC: $59
-    db $10                                        ; $74DD: $10
-    inc b                                         ; $74DE: $04
-    inc h                                         ; $74DF: $24
-    inc bc                                        ; $74E0: $03
-    nop                                           ; $74E1: $00
-    add h                                         ; $74E2: $84
-    jr nc, jr_004_754F                            ; $74E3: $30 $6A
+    ; $75D0
+BITSET_Battle_Togoth::
+    INCLUDE "assets/sprites/togoth/TogothBattle.bitmapset.asm"
 
-    db $10                                        ; $74E5: $10
-    inc b                                         ; $74E6: $04
-    dec c                                         ; $74E7: $0D
-    nop                                           ; $74E8: $00
-    adc b                                         ; $74E9: $88
-    ld d, b                                       ; $74EA: $50
-    ld h, d                                       ; $74EB: $62
-    db $10                                        ; $74EC: $10
-    rlca                                          ; $74ED: $07
-    ld b, c                                       ; $74EE: $41
-    nop                                           ; $74EF: $00
-    add b                                         ; $74F0: $80
-    add b                                         ; $74F1: $80
-    ld d, b                                       ; $74F2: $50
-    db $10                                        ; $74F3: $10
-    ld [bc], a                                    ; $74F4: $02
+    ; $75EE
+BITSET_Battle_Warrada::
+    INCLUDE "assets/sprites/warrada/WarradaBattle.bitmapset.asm"
 
-jr_004_74F5:
-    inc h                                         ; $74F5: $24
-    ld bc, $8000                                  ; $74F6: $01 $00 $80
-    sub b                                         ; $74F9: $90
-    ld e, c                                       ; $74FA: $59
-    db $10                                        ; $74FB: $10
-    inc b                                         ; $74FC: $04
-    inc h                                         ; $74FD: $24
-    inc bc                                        ; $74FE: $03
-    nop                                           ; $74FF: $00
-    add h                                         ; $7500: $84
-    jr nc, jr_004_756D                            ; $7501: $30 $6A
+    ; $760C
+BITSET_Battle_Zet::
+    INCLUDE "assets/sprites/zet/ZetBattle.bitmapset.asm"
 
-    db $10                                        ; $7503: $10
-    inc b                                         ; $7504: $04
-    dec c                                         ; $7505: $0D
-    nop                                           ; $7506: $00
-    adc b                                         ; $7507: $88
-    ld d, b                                       ; $7508: $50
-    ld h, d                                       ; $7509: $62
-    db $10                                        ; $750A: $10
-    rlca                                          ; $750B: $07
-    ld b, c                                       ; $750C: $41
-    nop                                           ; $750D: $00
-    add b                                         ; $750E: $80
-    jr nc, @+$54                                  ; $750F: $30 $52
-
-    db $10                                        ; $7511: $10
-    ld [bc], a                                    ; $7512: $02
-
-jr_004_7513:
-    inc h                                         ; $7513: $24
-    ld bc, $8000                                  ; $7514: $01 $00 $80
-    sub b                                         ; $7517: $90
-    ld e, c                                       ; $7518: $59
-    db $10                                        ; $7519: $10
-    inc b                                         ; $751A: $04
-    inc h                                         ; $751B: $24
-    inc bc                                        ; $751C: $03
-    nop                                           ; $751D: $00
-    add h                                         ; $751E: $84
-    jr nc, jr_004_758B                            ; $751F: $30 $6A
-
-    db $10                                        ; $7521: $10
-    inc b                                         ; $7522: $04
-    dec c                                         ; $7523: $0D
-    nop                                           ; $7524: $00
-    adc b                                         ; $7525: $88
-    ld d, b                                       ; $7526: $50
-    ld h, d                                       ; $7527: $62
-    db $10                                        ; $7528: $10
-    rlca                                          ; $7529: $07
-    ld b, c                                       ; $752A: $41
-    nop                                           ; $752B: $00
-    add b                                         ; $752C: $80
-    ldh [rHDMA3], a                               ; $752D: $E0 $53
-    db $10                                        ; $752F: $10
-    ld [bc], a                                    ; $7530: $02
-
-jr_004_7531:
-    inc h                                         ; $7531: $24
-    ld bc, $8000                                  ; $7532: $01 $00 $80
-    sub b                                         ; $7535: $90
-    ld e, c                                       ; $7536: $59
-    db $10                                        ; $7537: $10
-    inc b                                         ; $7538: $04
-    inc h                                         ; $7539: $24
-    inc bc                                        ; $753A: $03
-    nop                                           ; $753B: $00
-    add b                                         ; $753C: $80
-    ldh a, [$FF61]                                  ; $753D: $F0 $61
-    db $10                                        ; $753F: $10
-    inc bc                                        ; $7540: $03
-    ld a, [bc]                                    ; $7541: $0A
-    nop                                           ; $7542: $00
-    add h                                         ; $7543: $84
-    jr nc, jr_004_75B0                            ; $7544: $30 $6A
-
-    db $10                                        ; $7546: $10
-    inc b                                         ; $7547: $04
-    dec c                                         ; $7548: $0D
-    nop                                           ; $7549: $00
-    adc b                                         ; $754A: $88
-    ld d, b                                       ; $754B: $50
-    ld h, d                                       ; $754C: $62
-    db $10                                        ; $754D: $10
-    rlca                                          ; $754E: $07
-
-jr_004_754F:
-    ld b, c                                       ; $754F: $41
-    ld bc, $8000                                  ; $7550: $01 $00 $80
-    sub b                                         ; $7553: $90
-    ld e, c                                       ; $7554: $59
-    db $10                                        ; $7555: $10
-    inc b                                         ; $7556: $04
-    inc h                                         ; $7557: $24
-    inc bc                                        ; $7558: $03
-    nop                                           ; $7559: $00
-    add b                                         ; $755A: $80
-    ld [hl], b                                    ; $755B: $70
-    ld e, l                                       ; $755C: $5D
-    db $10                                        ; $755D: $10
-    ld [bc], a                                    ; $755E: $02
-    inc h                                         ; $755F: $24
-    nop                                           ; $7560: $00
-    add h                                         ; $7561: $84
-    jr nc, @+$6C                                  ; $7562: $30 $6A
-
-    db $10                                        ; $7564: $10
-    inc b                                         ; $7565: $04
-    dec c                                         ; $7566: $0D
-    nop                                           ; $7567: $00
-    adc b                                         ; $7568: $88
-    ld d, b                                       ; $7569: $50
-    ld h, d                                       ; $756A: $62
-    db $10                                        ; $756B: $10
-    rlca                                          ; $756C: $07
-
-jr_004_756D:
-    ld b, c                                       ; $756D: $41
-    ld bc, $8000                                  ; $756E: $01 $00 $80
-    sub b                                         ; $7571: $90
-    ld e, c                                       ; $7572: $59
-    db $10                                        ; $7573: $10
-    inc b                                         ; $7574: $04
-    inc h                                         ; $7575: $24
-    inc bc                                        ; $7576: $03
-    nop                                           ; $7577: $00
-    add b                                         ; $7578: $80
-    ldh [$FF5D], a                                  ; $7579: $E0 $5D
-    db $10                                        ; $757B: $10
-    inc bc                                        ; $757C: $03
-    dec c                                         ; $757D: $0D
-    nop                                           ; $757E: $00
-    add h                                         ; $757F: $84
-    jr nc, jr_004_75EC                            ; $7580: $30 $6A
-
-    db $10                                        ; $7582: $10
-    inc b                                         ; $7583: $04
-    dec c                                         ; $7584: $0D
-    nop                                           ; $7585: $00
-    adc b                                         ; $7586: $88
-    ld d, b                                       ; $7587: $50
-    ld h, d                                       ; $7588: $62
-    db $10                                        ; $7589: $10
-    rlca                                          ; $758A: $07
-
-jr_004_758B:
-    ld b, c                                       ; $758B: $41
-    ld bc, $8000                                  ; $758C: $01 $00 $80
-    sub b                                         ; $758F: $90
-    ld e, c                                       ; $7590: $59
-    db $10                                        ; $7591: $10
-    inc b                                         ; $7592: $04
-    inc h                                         ; $7593: $24
-    inc bc                                        ; $7594: $03
-    nop                                           ; $7595: $00
-    add b                                         ; $7596: $80
-    jr nc, @+$62                                  ; $7597: $30 $60
-
-    db $10                                        ; $7599: $10
-    ld [bc], a                                    ; $759A: $02
-    dec c                                         ; $759B: $0D
-    nop                                           ; $759C: $00
-    add h                                         ; $759D: $84
-    jr nc, jr_004_760A                            ; $759E: $30 $6A
-
-    db $10                                        ; $75A0: $10
-    inc b                                         ; $75A1: $04
-    dec c                                         ; $75A2: $0D
-    nop                                           ; $75A3: $00
-    adc b                                         ; $75A4: $88
-    ld d, b                                       ; $75A5: $50
-    ld h, d                                       ; $75A6: $62
-    db $10                                        ; $75A7: $10
-    rlca                                          ; $75A8: $07
-    ld b, c                                       ; $75A9: $41
-    ld bc, $8000                                  ; $75AA: $01 $00 $80
-    sub b                                         ; $75AD: $90
-    ld e, c                                       ; $75AE: $59
-    db $10                                        ; $75AF: $10
-
-jr_004_75B0:
-    inc b                                         ; $75B0: $04
-    inc h                                         ; $75B1: $24
-
-    db $03, $00, $80, $60, $5F, $10, $02, $24, $00, $84, $30, $6A, $10, $04, $0D, $00
-    db $88, $50, $62, $10, $07, $41, $01, $00, $80, $90, $59, $10, $04, $24
-
-    inc bc                                        ; $75D0: $03
-    nop                                           ; $75D1: $00
-    add b                                         ; $75D2: $80
-    ld b, b                                       ; $75D3: $40
-    ld h, c                                       ; $75D4: $61
-    db $10                                        ; $75D5: $10
-    ld [bc], a                                    ; $75D6: $02
-    inc h                                         ; $75D7: $24
-    nop                                           ; $75D8: $00
-    add h                                         ; $75D9: $84
-    jr nc, jr_004_7646                            ; $75DA: $30 $6A
-
-    db $10                                        ; $75DC: $10
-    inc b                                         ; $75DD: $04
-    dec c                                         ; $75DE: $0D
-    nop                                           ; $75DF: $00
-    adc b                                         ; $75E0: $88
-    ld d, b                                       ; $75E1: $50
-    ld h, d                                       ; $75E2: $62
-    db $10                                        ; $75E3: $10
-    rlca                                          ; $75E4: $07
-    ld b, c                                       ; $75E5: $41
-    ld bc, $8000                                  ; $75E6: $01 $00 $80
-    sub b                                         ; $75E9: $90
-    ld e, c                                       ; $75EA: $59
-    db $10                                        ; $75EB: $10
-
-jr_004_75EC:
-    inc b                                         ; $75EC: $04
-    inc h                                         ; $75ED: $24
-    inc bc                                        ; $75EE: $03
-    nop                                           ; $75EF: $00
-    add b                                         ; $75F0: $80
-    db $10                                        ; $75F1: $10
-    ld h, e                                       ; $75F2: $63
-    db $10                                        ; $75F3: $10
-    ld [bc], a                                    ; $75F4: $02
-    inc h                                         ; $75F5: $24
-    nop                                           ; $75F6: $00
-    add h                                         ; $75F7: $84
-    jr nc, jr_004_7664                            ; $75F8: $30 $6A
-
-    db $10                                        ; $75FA: $10
-    inc b                                         ; $75FB: $04
-    dec c                                         ; $75FC: $0D
-    nop                                           ; $75FD: $00
-    adc b                                         ; $75FE: $88
-    ld d, b                                       ; $75FF: $50
-    ld h, d                                       ; $7600: $62
-    db $10                                        ; $7601: $10
-    rlca                                          ; $7602: $07
-    ld b, c                                       ; $7603: $41
-    ld bc, $8000                                  ; $7604: $01 $00 $80
-    sub b                                         ; $7607: $90
-    ld e, c                                       ; $7608: $59
-    db $10                                        ; $7609: $10
-
-jr_004_760A:
-    inc b                                         ; $760A: $04
-    inc h                                         ; $760B: $24
-    inc bc                                        ; $760C: $03
-    nop                                           ; $760D: $00
-    add b                                         ; $760E: $80
-    ld [hl], b                                    ; $760F: $70
-    ld l, [hl]                                    ; $7610: $6E
-    db $10                                        ; $7611: $10
-    ld [bc], a                                    ; $7612: $02
-    dec c                                         ; $7613: $0D
-    nop                                           ; $7614: $00
-    add h                                         ; $7615: $84
-    jr nc, jr_004_7682                            ; $7616: $30 $6A
-
-    db $10                                        ; $7618: $10
-    inc b                                         ; $7619: $04
-    dec c                                         ; $761A: $0D
-    nop                                           ; $761B: $00
-    adc b                                         ; $761C: $88
-    ld d, b                                       ; $761D: $50
-    ld h, d                                       ; $761E: $62
-    db $10                                        ; $761F: $10
-    rlca                                          ; $7620: $07
-    ld b, c                                       ; $7621: $41
-    ld bc, $8000                                  ; $7622: $01 $00 $80
-    sub b                                         ; $7625: $90
-    ld e, c                                       ; $7626: $59
-    db $10                                        ; $7627: $10
-    inc b                                         ; $7628: $04
-    inc h                                         ; $7629: $24
-    nop                                           ; $762A: $00
-    nop                                           ; $762B: $00
-    nop                                           ; $762C: $00
-    nop                                           ; $762D: $00
-    nop                                           ; $762E: $00
-    nop                                           ; $762F: $00
-    nop                                           ; $7630: $00
-    nop                                           ; $7631: $00
-    nop                                           ; $7632: $00
-    nop                                           ; $7633: $00
-    nop                                           ; $7634: $00
-    nop                                           ; $7635: $00
-    nop                                           ; $7636: $00
-    nop                                           ; $7637: $00
-    nop                                           ; $7638: $00
-    nop                                           ; $7639: $00
-    nop                                           ; $763A: $00
-    nop                                           ; $763B: $00
-    nop                                           ; $763C: $00
-    nop                                           ; $763D: $00
-    nop                                           ; $763E: $00
-    nop                                           ; $763F: $00
-    nop                                           ; $7640: $00
-    nop                                           ; $7641: $00
-    nop                                           ; $7642: $00
-    nop                                           ; $7643: $00
-    nop                                           ; $7644: $00
-    nop                                           ; $7645: $00
-
-jr_004_7646:
-    nop                                           ; $7646: $00
-    nop                                           ; $7647: $00
-    nop                                           ; $7648: $00
-    nop                                           ; $7649: $00
-    nop                                           ; $764A: $00
-    nop                                           ; $764B: $00
-    nop                                           ; $764C: $00
-    nop                                           ; $764D: $00
-    nop                                           ; $764E: $00
-    nop                                           ; $764F: $00
-    nop                                           ; $7650: $00
-    nop                                           ; $7651: $00
-    nop                                           ; $7652: $00
-    nop                                           ; $7653: $00
-    nop                                           ; $7654: $00
-    nop                                           ; $7655: $00
-    nop                                           ; $7656: $00
-    nop                                           ; $7657: $00
-    nop                                           ; $7658: $00
-    nop                                           ; $7659: $00
-    nop                                           ; $765A: $00
-    nop                                           ; $765B: $00
-    nop                                           ; $765C: $00
-    nop                                           ; $765D: $00
-    nop                                           ; $765E: $00
-    nop                                           ; $765F: $00
-    nop                                           ; $7660: $00
-    nop                                           ; $7661: $00
-    nop                                           ; $7662: $00
-    nop                                           ; $7663: $00
-
-jr_004_7664:
-    nop                                           ; $7664: $00
-    nop                                           ; $7665: $00
-    nop                                           ; $7666: $00
-    nop                                           ; $7667: $00
-    nop                                           ; $7668: $00
-    nop                                           ; $7669: $00
-    nop                                           ; $766A: $00
-    nop                                           ; $766B: $00
-    nop                                           ; $766C: $00
-    nop                                           ; $766D: $00
-    nop                                           ; $766E: $00
-    nop                                           ; $766F: $00
-    nop                                           ; $7670: $00
-    nop                                           ; $7671: $00
-    nop                                           ; $7672: $00
-    nop                                           ; $7673: $00
-    nop                                           ; $7674: $00
-    nop                                           ; $7675: $00
-    nop                                           ; $7676: $00
-    nop                                           ; $7677: $00
-    nop                                           ; $7678: $00
-    nop                                           ; $7679: $00
-    nop                                           ; $767A: $00
-    nop                                           ; $767B: $00
-    nop                                           ; $767C: $00
-    nop                                           ; $767D: $00
-    nop                                           ; $767E: $00
-    nop                                           ; $767F: $00
-    nop                                           ; $7680: $00
-    nop                                           ; $7681: $00
-
-jr_004_7682:
-    nop                                           ; $7682: $00
-    nop                                           ; $7683: $00
-    nop                                           ; $7684: $00
+    ; $762A
