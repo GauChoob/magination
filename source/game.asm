@@ -9,8 +9,7 @@ DEF FIX_BUGS EQU 0 ; Set to 1 to fix a few bugs that I found in the code
 ; Universal hardware constant file
 INCLUDE "source/includes/hardware_constants.asm"
 
-; Personalized charmaps
-INCLUDE "source/includes/charmap/varbit.asm"
+; Personalized charmap
 INCLUDE "source/includes/charmap/charmap.asm"
 
 ; General-purpose equs

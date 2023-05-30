@@ -24,11 +24,8 @@ ENDM
 MACRO VarBit
     ; Gets a label varbit's address and mask
     ; e.g. LABEL_3 -> %00001000
-    PUSHC
-    SETCHARMAP VARBIT ; Casts a string "0" - "7" into a mask e.g. "3" -> %00001000
     dw \1
-    db STRSUB("\1", -1)
-    POPC
+    db 1 << (STRSUB("\1", -1) - "0") ; Casts a string "0" - "7" into a mask e.g. "3" -> %00001000
 ENDM
 
 MACRO dcm_Energy
