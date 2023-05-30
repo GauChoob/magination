@@ -383,23 +383,6 @@ ENDM
 
 ; 31 - 33
 
-    ;Possible values for LoadSideScroller
-    ;Names subject to change
-RSRESET
-DEF SCROLLER_Arderial            RB 1   ; $00
-DEF SCROLLER_Core                RB 1   ; $01
-DEF SCROLLER_Cald                RB 1   ; $02
-DEF SCROLLER_UnderneathTunnels   RB 1   ; $03
-DEF SCROLLER_CaldGeyser          RB 1   ; $04
-DEF SCROLLER_NaroomGeyser        RB 1   ; $05
-DEF SCROLLER_Naroom              RB 1   ; $06
-DEF SCROLLER_UnderneathGeyser    RB 1   ; $07
-DEF SCROLLER_OrotheStarfish      RB 1   ; $08
-DEF SCROLLER_OrotheGeyser        RB 1   ; $09
-DEF SCROLLER_Orothe              RB 1   ; $0A
-DEF SCROLLER_OrotheTunnels       RB 1   ; $0B
-DEF SCROLLER_Shadowhold          RB 1   ; $0C
-DEF SCROLLER_Underneath          RB 1   ; $0D
 MACRO LoadSideScroller
     db $34 ; TODO
     db \1

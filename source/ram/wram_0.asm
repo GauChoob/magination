@@ -844,7 +844,7 @@ wTemp_8::
     ; e.g. %0011 0010 -> Palettes 3-5
     .Palette_ColorSwapType:
     ; e parameter for Palette_PaletteBufferSwapRGB
-wTemp_8.Cardscene_CreatureID::
+    .Cardscene_CreatureID::
     ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CREATURE_NULL
 wStartScreenBottomTilesetBank::
     ds 1
@@ -887,7 +887,8 @@ wStartScreenBottomTilemapAddress::
 wTemp_C::
     .CreatureGraphicsPointer:
     ; Points to the graphics part of the data for a creature in the Creature_Table
-wStartScreenHeaderAddress::
+    .Fightscene_ArenaDataPointer::
+    ; Points to a Fightscene's Arena's data
     ds 2
 
 
@@ -898,10 +899,10 @@ wPalette20Transparent::
 wPalette50Transparent::
     ds 1
     ;ds $C9E4 - @
-wStartScreenIndex::
+wFightscene_ArenaIndex::
     ds 1
     ;ds $C9E5 - @
-wArena_Color::
+wFightscene_ArenaColor::
     ; This color replaces transparent colors
     ds 2
 

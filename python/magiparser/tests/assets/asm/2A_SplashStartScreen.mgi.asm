@@ -76,31 +76,31 @@ msSplashStartScreen::
 
 .SwitchArderial:
 
-    LoadSideScroller SCROLLER_Arderial                      ; $72FE
+    LoadSideScroller FIGHTSCENE_ARENA_Arderial                      ; $72FE
 
     Jump .StartScreen                                       ; $7300
 
 .SwitchNaroom:
 
-    LoadSideScroller SCROLLER_Naroom                        ; $7303
+    LoadSideScroller FIGHTSCENE_ARENA_Naroom                        ; $7303
 
     Jump .StartScreen                                       ; $7305
 
 .SwitchUnderneath:
 
-    LoadSideScroller SCROLLER_Underneath                    ; $7308
+    LoadSideScroller FIGHTSCENE_ARENA_Underneath                    ; $7308
 
     Jump .StartScreen                                       ; $730A
 
 .SwitchCald:
 
-    LoadSideScroller SCROLLER_Cald                          ; $730D
+    LoadSideScroller FIGHTSCENE_ARENA_Cald                          ; $730D
 
     Jump .StartScreen                                       ; $730F
 
 .SwitchOrothe:
 
-    LoadSideScroller SCROLLER_Orothe                        ; $7312
+    LoadSideScroller FIGHTSCENE_ARENA_Orothe                        ; $7312
 
 .StartScreen:
 

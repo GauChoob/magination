@@ -513,7 +513,7 @@ class MagiScriptLine:
             elif(instruction == "LoadSideScroller_Scene"):
                 val = getByte()
                 if(val in _shorthands_loadsidescroller_scene):
-                    return ["SCROLLER_"+_shorthands_loadsidescroller_scene[val]]
+                    return ["FIGHTSCENE_ARENA_"+_shorthands_loadsidescroller_scene[val]]
                 raise KeyError(val)
             elif(instruction == "SFXID"):
                 val = getByte()

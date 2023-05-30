@@ -3692,7 +3692,7 @@ Call_007_5C00::
     ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C0C: $EA $D8 $C9
     call PaletteFX_FadeAnimToColor                            ; $5C0F: $CD $FD $48
     FGet16 bc, $C7DB                                  ; $5C12: $21 $DB $C7
-    Set16 wArena_Color, bc
+    Set16 wFightscene_ArenaColor, bc
     call Call_007_5CE2                            ; $5C20: $CD $E2 $5C
     ld a, $01                                     ; $5C23: $3E $01
     ld [wPalette_VBlankReady], a                                 ; $5C25: $EA $31 $C8
@@ -3707,7 +3707,7 @@ Call_007_5C29::
     ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C35: $EA $D8 $C9
     call PaletteFX_FadeAnimToBase                            ; $5C38: $CD $9D $48
     FGet16 bc, $C7DB                                  ; $5C3B: $21 $DB $C7
-    Set16 wArena_Color, bc
+    Set16 wFightscene_ArenaColor, bc
     call Call_007_5CE2                            ; $5C49: $CD $E2 $5C
     ld a, $01                                     ; $5C4C: $3E $01
     ld [wPalette_VBlankReady], a                                 ; $5C4E: $EA $31 $C8
@@ -3716,15 +3716,15 @@ Call_007_5C29::
 
     ; $5C52
 PasteColorToPalette00103040And2050IfTransparent:
-    ; Pastes a Color wArena_Color into:
+    ; Pastes a Color wFightscene_ArenaColor into:
     ;   Palette 0.0, 1.0, 3.0, 4.0
     ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
     ;   Also pastes over those values
     xor a
     ld [wPalette_VBlankReady], a
-    ld a, [wArena_Color+1]
+    ld a, [wFightscene_ArenaColor+1]
     ld b, a
-    ld a, [wArena_Color]
+    ld a, [wFightscene_ArenaColor]
     ld c, a
     ld hl, wPalette_BaseBuffers
     ld e, $00       ;Palettes 0.0, 1.0
@@ -3742,15 +3742,15 @@ PasteColorToPalette00103040And2050IfTransparent:
 
 PasteColorToPalette0010304060And2050IfTransparent:
     ; $5C7E
-    ; Pastes a Color wArena_Color into:
+    ; Pastes a Color wFightscene_ArenaColor into:
     ;   Palette 0.0, 1.0, 3.0, 4.0, 6.0
     ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
     ;   Also pastes over those values
     xor a
     ld [wPalette_VBlankReady], a
-    ld a, [wArena_Color+1]
+    ld a, [wFightscene_ArenaColor+1]
     ld b, a
-    ld a, [wArena_Color]
+    ld a, [wFightscene_ArenaColor]
     ld c, a
     ld hl, wPalette_BaseBuffers
     ld e, $18               ; Palette 6.0
@@ -3764,7 +3764,7 @@ PasteColorToPalette0010304060And2050IfTransparent:
 Call_007_5C9D::
     xor a                                         ; $5C9D: $AF
     ld [wPalette_VBlankReady], a                                 ; $5C9E: $EA $31 $C8
-    Get16 bc, wArena_Color
+    Get16 bc, wFightscene_ArenaColor
     ld hl, $C7AB                                  ; $5CA9: $21 $AB $C7
     ld e, $14                                     ; $5CAC: $1E $14
     ld a, $01                                     ; $5CAE: $3E $01
@@ -3776,14 +3776,14 @@ Call_007_5C9D::
     ; $5CB9
 Fightscene_PalFX_SetCardsceneArenaColor::
     ; Set the Palette 6 - populate it with the arena colors:
-    ; Palette 6.0 <- wArena_Color
+    ; Palette 6.0 <- wFightscene_ArenaColor
     ; Palette 6.1 <- Black
     ; Palette 6.2, 6.3 - undefined (not used, not changed)
     xor a
     ld [wPalette_VBlankReady], a
 
-    ; Set Palette 6.0 to wArena_Color
-    Get16 bc, wArena_Color
+    ; Set Palette 6.0 to wFightscene_ArenaColor
+    Get16 bc, wFightscene_ArenaColor
     ld hl, wPalette_BaseBuffers.Background
     ld e, 6*4
     ld a, 1
@@ -3803,7 +3803,7 @@ Fightscene_PalFX_SetCardsceneArenaColor::
 Call_007_5CE2:
     xor a                                         ; $5CE2: $AF
     ld [wPalette_VBlankReady], a                                 ; $5CE3: $EA $31 $C8
-    Get16 bc, wArena_Color
+    Get16 bc, wFightscene_ArenaColor
     ld hl, $C7AB                                  ; $5CEE: $21 $AB $C7
     ld e, $00                                     ; $5CF1: $1E $00
     ld a, $02                                     ; $5CF3: $3E $02

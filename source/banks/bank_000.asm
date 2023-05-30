@@ -1945,7 +1945,7 @@ Cmd_Battle_New::
 
     SwitchRAMBank BANK("WRAM BATTLE")
 
-    Script_ReadByte_V [$C9E4]
+    Script_ReadByte_V [wFightscene_ArenaIndex]  ; TODO
 
     ; Store the enemy magi ID
     Script_ReadByteA
@@ -1969,7 +1969,7 @@ Cmd_Battle_New::
     LdHLIBCI
 
     xor a
-    ld [$D0D7], a
+    ld [$D0D7], a   ; TODO
 
     ; TODO
     Set16_M wScript_Master.State, Script_Start
@@ -2094,7 +2094,7 @@ Cmd_Battle_Swirl::
 
 
 Battle02_00_CopyFromFrame:
-    ; Copies a bytes from the reading frame into the buffer
+    ; Copies "a" bytes from the reading frame into the buffer
     ; Then saves the updated frame
     ; Arguments:
     ;   a = number of bytes to copy
@@ -2125,20 +2125,15 @@ MagiOp_34_LoadSideScroller::
     ; Loads the horizontally-scrolling part of the Start Screen
     ; This erases some unimportant temporary variables in the WRAM
     ; Arguments:
-    ;   db  The ID of the start screen (0-14)
-    ld a, [$C9E4]
-    ld e, a
+    ;   db  The ID of the start screen e.g. FIGHTSCENE_ARENA_Arderial
+    Get8 e, wFightscene_ArenaIndex
     push de
-    ld a, [bc]
-    ld [wStartScreenIndex], a
-    inc bc
+    Script_ReadByte [wFightscene_ArenaIndex]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
-
     XCall LoadStartScreenScroller
     pop de
-    ld a, e
-    ld [$C9E4], a
+    Set8 wFightscene_ArenaIndex, e
     ret
 
 
@@ -2154,7 +2149,7 @@ MagiOp_34_LoadSideScroller::
 
 
     ld a, [bc]
-    ld [$C9E4], a
+    ld [wFightscene_ArenaIndex], a
     inc bc
     ld a, [bc]
     ld [$C9E0], a
@@ -3261,18 +3256,18 @@ Palette_ReadPackedLoop_SmallCounter::
     ; $19B9
 Palette_ReadColor::
     ; Preps a word that's a Color
-    ; If the 16th bit is set (i.e. transparent Color), load wArena_Color which represents the background Color
+    ; If the 16th bit is set (i.e. transparent Color), load wFightscene_ArenaColor which represents the background Color
     ; Arguments:
     ;   dw      Color - The 16th bit signifies transparency
     ; Output:
-    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wArena_Color instead
+    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wFightscene_ArenaColor instead
     Script_ReadByteA
     ld [wTemp_A.Palette_SetColor], a
     Script_ReadByteA
     ld [wTemp_A.Palette_SetColor+1], a
     bit 7, a
     ret z ;If the 16th bit is set, the color is transparent and so use the background arena color instead
-        Mov16 wTemp_A.Palette_SetColor, wArena_Color
+        Mov16 wTemp_A.Palette_SetColor, wFightscene_ArenaColor
         ret
 
     ; $19D3
@@ -3294,7 +3289,7 @@ Palette_ReadClearArguments::
     ;   dw      Color - The 16th bit signifies transparency
     ; Outputs:
     ;   wTemp_8.Palette_PackedInterval <- db
-    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wArena_Color instead
+    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wFightscene_ArenaColor instead
     call Palette_ReadPackedInterval
     call Palette_ReadColor
     Set16 hScript.Frame, bc
@@ -3384,7 +3379,7 @@ Cmd_Palette_ClearBase::
     ;
     ; Arguments:
     ;   db      wTemp_8.Palette_PackedInterval - Represents the palettes that should be modified
-    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wArena_Color is used instead)
+    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wFightscene_ArenaColor is used instead)
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearBaseBuffer
     Set16_M hScript.State, Script_Start
@@ -6138,9 +6133,9 @@ LoadStartScreenTilemapsTilesetsPalettes::
     ld l, a
     DerefHL
     ld a, h
-    ld [wArena_Color+1], a                      ;Stores the first color from wStartScreen2PalettesAddress
+    ld [wFightscene_ArenaColor+1], a                      ;Stores the first color from wStartScreen2PalettesAddress
     ld a, l
-    ld [wArena_Color], a
+    ld [wFightscene_ArenaColor], a
     Do_CallForeign PasteColorToPalette0010304060And2050IfTransparent
     PopROMBank
     ret

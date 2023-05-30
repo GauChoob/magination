@@ -6382,161 +6382,77 @@ jr_004_6DF2:
     ld l, l                                       ; $6E20: $6D
 
     ; $6E21
-StartScreenHeaderArderial::
-    AddressBank BITMAP_StartScreenArderialTopRLE
-    AddressBank ATTRTILE_ArderialTopRLE
-    AddressBank BITMAP_StartScreenArderialBottomRLE
-    AddressBank ATTRTILE_ArderialBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenArderial
-    db $4D, $1C ; Arena Palette
+Fightscene_ArenaTable_Arderial::
+    Fightscene_ArenaData Arderial, 1, 2, $0D, $02, $07
 
     ; $6E34
-StartScreenHeaderCore::
-    AddressBank BITMAP_StartScreenCoreTopRLE
-    AddressBank ATTRTILE_CoreTopRLE
-    AddressBank BITMAP_StartScreenCoreBottomRLE
-    AddressBank ATTRTILE_CoreBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenCore
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_Core::
+    Fightscene_ArenaData Core, 1, 2, $00, $00, $00
 
     ; $6E47
-StartScreenHeaderCald::
-    AddressBank BITMAP_StartScreenCaldTopRLE
-    AddressBank ATTRTILE_CaldTopRLE
-    AddressBank BITMAP_StartScreenCaldBottomRLE
-    AddressBank ATTRTILE_CaldBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenCald
-    db $3F, $00 ; Arena Palette
+Fightscene_ArenaTable_Cald::
+    Fightscene_ArenaData Cald, 1, 2, $1F, $01, $00
 
     ; $6E5A
-StartScreenHeaderUnderneathTunnels::
-    AddressBank BITMAP_StartScreenUnderneathTunnelsTopRLE
-    AddressBank ATTRTILE_UnderneathTunnelsTopRLE
-    AddressBank BITMAP_StartScreenUnderneathTunnelsBottomRLE
-    AddressBank ATTRTILE_UnderneathTunnelsBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenUnderneathTunnels
-    db $0F, $24 ; Arena Palette
+Fightscene_ArenaTable_UnderneathTunnels::
+    Fightscene_ArenaData UnderneathTunnels, 1, 2, $0F, $00, $09
 
     ; $6E6D
-StartScreenHeaderCaldGeyser::
-    AddressBank BITMAP_StartScreenCaldGeyserTopRLE
-    AddressBank ATTRTILE_CaldGeyserTopRLE
-    AddressBank BITMAP_StartScreenCaldGeyserBottomRLE
-    AddressBank ATTRTILE_CaldGeyserBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenCaldGeyser
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_CaldGeyser::
+    Fightscene_ArenaData CaldGeyser, 1, 2, $00, $00, $00
 
     ; $6E80
-StartScreenHeaderNaroomGeyser::
-    AddressBank BITMAP_StartScreenNaroomGeyserTopRLE
-    AddressBank ATTRTILE_NaroomGeyserTopRLE
-    AddressBank BITMAP_StartScreenNaroomGeyserBottomRLE
-    AddressBank ATTRTILE_NaroomGeyserBottomRLE
-    db $01, $01                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenNaroomGeyser
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_NaroomGeyser::
+    Fightscene_ArenaData NaroomGeyser, 1, 1, $00, $00, $00
 
     ; $6E93
-StartScreenHeaderNaroom::
-    AddressBank BITMAP_StartScreenNaroomTopRLE
-    AddressBank ATTRTILE_NaroomTopRLE
-    AddressBank BITMAP_StartScreenNaroomBottomRLE
-    AddressBank ATTRTILE_NaroomBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenNaroom
-    db $E0, $03 ; Arena Palette
+Fightscene_ArenaTable_Naroom::
+    Fightscene_ArenaData Naroom, 1, 2, $00, $1F, $00
 
     ; $6EA6
-StartScreenHeaderUnderneathGeyser::
-    AddressBank BITMAP_StartScreenUnderneathGeyserTopRLE
-    AddressBank ATTRTILE_UnderneathGeyserTopRLE
-    AddressBank BITMAP_StartScreenUnderneathGeyserBottomRLE
-    AddressBank ATTRTILE_UnderneathGeyserBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenUnderneathGeyser
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_UnderneathGeyser::
+    Fightscene_ArenaData UnderneathGeyser, 1, 2, $00, $00, $00
 
     ; $6EB9
-StartScreenHeaderOrotheStarfish::
-    AddressBank BITMAP_StartScreenOrotheStarfishTopRLE
-    AddressBank ATTRTILE_OrotheStarfishTopRLE
-    AddressBank BITMAP_StartScreenOrotheStarfishBottomRLE
-    AddressBank ATTRTILE_OrotheStarfishBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenOrotheStarfish
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_OrotheStarfish::
+    Fightscene_ArenaData OrotheStarfish, 1, 2, $00, $00, $00
 
     ; $6ECC
-StartScreenHeaderOrotheGeyser::
-    AddressBank BITMAP_StartScreenOrotheGeyserTopRLE
-    AddressBank ATTRTILE_OrotheGeyserTopRLE
-    AddressBank BITMAP_StartScreenOrotheGeyserBottomRLE
-    AddressBank ATTRTILE_OrotheGeyserBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenOrotheGeyser
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_OrotheGeyser::
+    Fightscene_ArenaData OrotheGeyser, 1, 2, $00, $00, $00
 
     ; $6EDF
-StartScreenHeaderOrothe::
-    AddressBank BITMAP_StartScreenOrotheTopRLE
-    AddressBank ATTRTILE_OrotheTopRLE
-    AddressBank BITMAP_StartScreenOrotheBottomRLE
-    AddressBank ATTRTILE_OrotheBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenOrothe
-    db $00, $24 ; Arena Palette
+Fightscene_ArenaTable_Orothe::
+    Fightscene_ArenaData Orothe, 1, 2, $00, $00, $09
 
     ; $6EF2
-StartScreenHeaderOrotheTunnels::
-    AddressBank BITMAP_StartScreenOrotheTunnelsTopRLE
-    AddressBank ATTRTILE_OrotheTunnelsTopRLE
-    AddressBank BITMAP_StartScreenOrotheTunnelsBottomRLE
-    AddressBank ATTRTILE_OrotheTunnelsBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenOrotheTunnels
-    db $00, $24 ; Arena Palette
+Fightscene_ArenaTable_OrotheTunnels::
+    Fightscene_ArenaData OrotheTunnels, 1, 2, $00, $00, $09
 
     ; $6F05
-StartScreenHeaderShadowhold::
-    AddressBank BITMAP_StartScreenShadowholdTopRLE
-    AddressBank ATTRTILE_ShadowholdTopRLE
-    AddressBank BITMAP_StartScreenShadowholdBottomRLE
-    AddressBank ATTRTILE_ShadowholdBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenShadowhold
-    db $00, $00 ; Arena Palette
+Fightscene_ArenaTable_Shadowhold::
+    Fightscene_ArenaData Shadowhold, 1, 2, $00, $00, $00
 
     ; $6F18
-StartScreenHeaderUnderneath::
-    AddressBank BITMAP_StartScreenUnderneathTopRLE
-    AddressBank ATTRTILE_UnderneathTopRLE
-    AddressBank BITMAP_StartScreenUnderneathBottomRLE
-    AddressBank ATTRTILE_UnderneathBottomRLE
-    db $01, $02                         ;StartScreen scrollspeed
-    AddressBank PAL_StartScreenUnderneath
-    db $24, $30 ; Arena Palette
+Fightscene_ArenaTable_Underneath::
+    Fightscene_ArenaData Underneath, 1, 2, $04, $01, $0C
 
-    ;6F2B
-StartScreenLookupTable::
-    dw StartScreenHeaderArderial
-    dw StartScreenHeaderCore
-    dw StartScreenHeaderCald
-    dw StartScreenHeaderUnderneathTunnels
-    dw StartScreenHeaderCaldGeyser
-    dw StartScreenHeaderNaroomGeyser
-    dw StartScreenHeaderNaroom
-    dw StartScreenHeaderUnderneathGeyser
-    dw StartScreenHeaderOrotheStarfish
-    dw StartScreenHeaderOrotheGeyser
-    dw StartScreenHeaderOrothe
-    dw StartScreenHeaderOrotheTunnels
-    dw StartScreenHeaderShadowhold
-    dw StartScreenHeaderUnderneath
+    ; $6F2B
+Fightscene_ArenaTable::
+    dw Fightscene_ArenaTable_Arderial
+    dw Fightscene_ArenaTable_Core
+    dw Fightscene_ArenaTable_Cald
+    dw Fightscene_ArenaTable_UnderneathTunnels
+    dw Fightscene_ArenaTable_CaldGeyser
+    dw Fightscene_ArenaTable_NaroomGeyser
+    dw Fightscene_ArenaTable_Naroom
+    dw Fightscene_ArenaTable_UnderneathGeyser
+    dw Fightscene_ArenaTable_OrotheStarfish
+    dw Fightscene_ArenaTable_OrotheGeyser
+    dw Fightscene_ArenaTable_Orothe
+    dw Fightscene_ArenaTable_OrotheTunnels
+    dw Fightscene_ArenaTable_Shadowhold
+    dw Fightscene_ArenaTable_Underneath
 
     ; $6F47
 Call_004_6F47::
@@ -6564,20 +6480,22 @@ Call_004_6F9E::
 
 
     ; $6FAB
-SaveStartScreenAssetsAddress:
-    ; Given the ID number of the start screen stored in wStartScreenIndex,
-    ; Loads the address of the header in wStartScreenHeaderAddress
+Fightscene_GetArenaDataPointer::
+    ; Given the ID number of the start screen stored in wFightscene_ArenaIndex,
+    ; Loads the address of the header in wTemp_C.Fightscene_ArenaDataPointer
     ; Inputs:
-    ;   [wStartScreenIndex] = 0-0xD
-    ld hl, StartScreenLookupTable
-    ld a, [wStartScreenIndex]
+    ;   [wFightscene_ArenaIndex] = FIGHTSCENE_ARENA_*
+    ; Outputs: 
+    ;   [wTemp_C.Fightscene_ArenaDataPointer] = [Fightscene_ArenaTable + 2*[wFightscene_ArenaIndex]]
+    ld hl, Fightscene_ArenaTable
+    ld a, [wFightscene_ArenaIndex]
     ld d, $00
     ld e, a
     sla e
     rl d
     add hl, de
     DerefHL
-    Set16_M wStartScreenHeaderAddress, hl
+    Set16_M wTemp_C.Fightscene_ArenaDataPointer, hl
     ret
 
 
@@ -6585,7 +6503,7 @@ SaveStartScreenAssetsAddress:
 CopyStartScreenAssetAddressesToMemory:
     ; Loads all the pointers to the assets used in the Press Start screen into
     ; memory. Unimportant temporary variables used for other things are overwritten
-    FGet16 hl, wStartScreenHeaderAddress
+    FGet16 hl, wTemp_C.Fightscene_ArenaDataPointer
     push de
     ld de, $0000
     add hl, de
@@ -6631,12 +6549,12 @@ Fightscene_GetCardsceneArenaColor::
     ; BTL_GET_CARDSCENE_ARENA_COLOR todo
     ; Get the color used in the background of the arena
     ; Inputs:
-    ;   wStartScreenIndex
-    call SaveStartScreenAssetsAddress
+    ;   wFightscene_ArenaIndex
+    call Fightscene_GetArenaDataPointer
     ld de, $0011 ; TODO
     add hl, de
     DerefHL
-    Set16 wArena_Color, hl
+    Set16 wFightscene_ArenaColor, hl
     ret
 
     ; $7029
@@ -6662,8 +6580,8 @@ Creature_GetDataFromID::
 LoadStartScreenScroller::
     ; Loads the horizontally-scrolling part of the Start Screen
     ; Inputs
-    ;   [wStartScreenIndex] - index 0-14 referring to the correct assets
-    call SaveStartScreenAssetsAddress
+    ;   [wFightscene_ArenaIndex] - index 0-14 referring to the correct assets
+    call Fightscene_GetArenaDataPointer
     call CopyStartScreenAssetAddressesToMemory
     call LoadStartScreenTilemapsTilesetsPalettes
     ret
@@ -6685,9 +6603,9 @@ jr_004_7065:
 
 
 Call_004_7069:
-    ld a, [wStartScreenHeaderAddress+1]                                 ; $7069: $FA $DF $C9
+    ld a, [wTemp_C.Fightscene_ArenaDataPointer+1]                                 ; $7069: $FA $DF $C9
     ld h, a                                       ; $706C: $67
-    ld a, [wStartScreenHeaderAddress]                                 ; $706D: $FA $DE $C9
+    ld a, [wTemp_C.Fightscene_ArenaDataPointer]                                 ; $706D: $FA $DE $C9
     ld l, a                                       ; $7070: $6F
     ld a, [hl+]                                   ; $7071: $2A
     ld [$C9CD], a                                 ; $7072: $EA $CD $C9
@@ -6983,8 +6901,8 @@ Call_004_722E:
     ld [$C832], a                                 ; $7257: $EA $32 $C8
     ld a, $24                                     ; $725A: $3E $24
     ld [$C833], a                                 ; $725C: $EA $33 $C8
-    ld a, [$C9E4]                                 ; $725F: $FA $E4 $C9
-    ld [$C9E4], a                                 ; $7262: $EA $E4 $C9
+    ld a, [wFightscene_ArenaIndex]                                 ; $725F: $FA $E4 $C9
+    ld [wFightscene_ArenaIndex], a                                 ; $7262: $EA $E4 $C9
     Do_CallForeign LoadStartScreenScroller
     ld a, [$C9E0]                                 ; $726D: $FA $E0 $C9
     ld [$C9D8], a                                 ; $7270: $EA $D8 $C9

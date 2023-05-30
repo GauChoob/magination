@@ -1048,8 +1048,8 @@ Call_002_472E:
     ld a, $01                                     ; $4741: $3E $01
     ld [$C9C5], a                                 ; $4743: $EA $C5 $C9
     ld [$C9C6], a                                 ; $4746: $EA $C6 $C9
-    ld a, [$C9E4]                                 ; $4749: $FA $E4 $C9
-    ld [$C9E4], a                                 ; $474C: $EA $E4 $C9
+    ld a, [wFightscene_ArenaIndex]                                 ; $4749: $FA $E4 $C9
+    ld [wFightscene_ArenaIndex], a                                 ; $474C: $EA $E4 $C9
     ld a, [$D0DB]                                 ; $474F: $FA $DB $D0
     ld [$C9E0], a                                 ; $4752: $EA $E0 $C9
     ld a, [wBattle_Creature_Target.ID]                                 ; $4755: $FA $12 $D1
