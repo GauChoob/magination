@@ -19,7 +19,7 @@ FOR Y, $00, $1F
         DEF WINDOW_COORD_{02X:Y}_{02X:X} EQU $9C00 + Y*SCRN_VX_B + X
     ENDR
 ENDR
-DEF WINDOW_COORD__20_00 EQU $A000 ; End of the section
+DEF WINDOW_COORD_20_00 EQU $A000 ; End of the section
 
 MACRO VRAM_TILEID_SPRITE
     DEF tileidmode = 1
