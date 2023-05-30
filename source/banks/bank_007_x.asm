@@ -84,7 +84,7 @@ PaletteFX_Battle_CreatureFadeUniColor::
     ld hl, $C7BD                                  ; $41F5: $21 $BD $C7
     ld bc, $0003                                  ; $41F8: $01 $03 $00
     call Palette_PaletteBufferFadeUniColor                            ; $41FB: $CD $E4 $46
-    ld a, [wPalette20Transparent]                                 ; $41FE: $FA $E2 $C9
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $41FE: $FA $E2 $C9
     and a                                         ; $4201: $A7
     jr z, jr_007_420A                             ; $4202: $28 $06
 
@@ -116,7 +116,7 @@ jr_007_4221:
     ld hl, $C7D5                                  ; $4233: $21 $D5 $C7
     ld bc, $0003                                  ; $4236: $01 $03 $00
     call Palette_PaletteBufferFadeUniColor                            ; $4239: $CD $E4 $46
-    ld a, [wPalette50Transparent]                                 ; $423C: $FA $E3 $C9
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $423C: $FA $E3 $C9
     and a                                         ; $423F: $A7
     jr z, jr_007_4248                             ; $4240: $28 $06
 
@@ -277,7 +277,7 @@ PaletteFX_Battle_CreatureInvert::
     ld hl, $C7BD                                  ; $4353: $21 $BD $C7
     ld bc, $0003                                  ; $4356: $01 $03 $00
     call Palette_PaletteBufferInvertColors                            ; $4359: $CD $D1 $47
-    ld a, [wPalette20Transparent]                                 ; $435C: $FA $E2 $C9
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $435C: $FA $E2 $C9
     and a                                         ; $435F: $A7
     jr z, jr_007_4368                             ; $4360: $28 $06
 
@@ -309,7 +309,7 @@ jr_007_437F:
     ld hl, $C7D5                                  ; $4391: $21 $D5 $C7
     ld bc, $0003                                  ; $4394: $01 $03 $00
     call Palette_PaletteBufferInvertColors                            ; $4397: $CD $D1 $47
-    ld a, [wPalette50Transparent]                                 ; $439A: $FA $E3 $C9
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $439A: $FA $E3 $C9
     and a                                         ; $439D: $A7
     jr z, jr_007_43A6                             ; $439E: $28 $06
 
@@ -346,7 +346,7 @@ Call_007_43BD:
     ld a, $03                                     ; $43DB: $3E $03
     ld [wTemp_4.Palette_ColorCounter], a                                 ; $43DD: $EA $D3 $C9
     call Palette_PaletteBufferFadeMultiColor                            ; $43E0: $CD $B6 $48
-    ld a, [wPalette20Transparent]                                 ; $43E3: $FA $E2 $C9
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $43E3: $FA $E2 $C9
     and a                                         ; $43E6: $A7
     jr z, jr_007_43F9                             ; $43E7: $28 $10
 
@@ -389,7 +389,7 @@ Call_007_440D:
     call Palette_PaletteBufferFadeMultiColor                            ; $4434: $CD $B6 $48
     xor a                                         ; $4437: $AF
     ld [wPalette_VBlankReady], a                                 ; $4438: $EA $31 $C8
-    ld a, [wPalette50Transparent]                                 ; $443B: $FA $E3 $C9
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $443B: $FA $E3 $C9
     and a                                         ; $443E: $A7
     jr nz, jr_007_4450                            ; $443F: $20 $0F
 
@@ -3715,50 +3715,50 @@ Call_007_5C29::
 
 
     ; $5C52
-PasteColorToPalette00103040And2050IfTransparent:
-    ; Pastes a Color wFightscene_ArenaColor into:
-    ;   Palette 0.0, 1.0, 3.0, 4.0
-    ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
-    ;   Also pastes over those values
+Fightscene_PalFX_SetCreaturePaletteArenaColor::
+    ; Pastes a Color wFightscene_ArenaColor into the first color of each palette id
+    ; To simulate a "transparency" color for the creatures
+    ; CreatureLeft: Palettes 0 and 1 automatically take the palette color
+    ;               Palette 2 optionally takes the color if the RGB value is 0, $F, $F
+    ; CreatureRight:Palettes 3 and 4 automatically take the palette color
+    ;               Palette 5 optionally takes the color if the RGB value is 0, $F, $F
     xor a
     ld [wPalette_VBlankReady], a
-    ld a, [wFightscene_ArenaColor+1]
-    ld b, a
-    ld a, [wFightscene_ArenaColor]
-    ld c, a
+    Get16 bc, wFightscene_ArenaColor
+
+    ; Palettes 0.0, 1.0
     ld hl, wPalette_BaseBuffers
-    ld e, $00       ;Palettes 0.0, 1.0
+    ld e, $00
+    ld a, $02
+    call Palette_PaletteBufferSetColor
+
+    ; Palettes 3.0, 4.0
+    ld hl, wPalette_BaseBuffers
+    ld e, $0C
     ld a, $02
     call Palette_PaletteBufferSetColor
     ld hl, wPalette_BaseBuffers
-    ld e, $0C       ;Palettes 3.0, 4.0
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld hl, wPalette_BaseBuffers
-    call ChangePalette2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
+
+    call Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor
+
+    Set8 wPalette_VBlankReady, $01
     ret
 
-PasteColorToPalette0010304060And2050IfTransparent:
     ; $5C7E
+Fightscene_PalFX_SetFightsceneArenaColor::
     ; Pastes a Color wFightscene_ArenaColor into:
     ;   Palette 0.0, 1.0, 3.0, 4.0, 6.0
     ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
     ;   Also pastes over those values
     xor a
     ld [wPalette_VBlankReady], a
-    ld a, [wFightscene_ArenaColor+1]
-    ld b, a
-    ld a, [wFightscene_ArenaColor]
-    ld c, a
+    Get16 bc, wFightscene_ArenaColor
     ld hl, wPalette_BaseBuffers
-    ld e, $18               ; Palette 6.0
+    ld e, 4*6
     ld a, $01
     call Palette_PaletteBufferSetColor
-    call PasteColorToPalette00103040And2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
+    call Fightscene_PalFX_SetCreaturePaletteArenaColor
+    Set8 wPalette_VBlankReady, $01
     ret
 
 Call_007_5C9D::
@@ -3816,7 +3816,7 @@ Call_007_5CE2:
     ld e, $18                                     ; $5D05: $1E $18
     ld a, $01                                     ; $5D07: $3E $01
     call Palette_PaletteBufferSetColor                            ; $5D09: $CD $74 $47
-    ld a, [wPalette20Transparent]                                 ; $5D0C: $FA $E2 $C9
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $5D0C: $FA $E2 $C9
     and a                                         ; $5D0F: $A7
     jr z, jr_007_5D1C                             ; $5D10: $28 $0A
 
@@ -3826,7 +3826,7 @@ Call_007_5CE2:
     call Palette_PaletteBufferSetColor                            ; $5D19: $CD $74 $47
 
 jr_007_5D1C:
-    ld a, [wPalette50Transparent]                                 ; $5D1C: $FA $E3 $C9
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $5D1C: $FA $E3 $C9
     and a                                         ; $5D1F: $A7
     jr z, jr_007_5D2C                             ; $5D20: $28 $0A
 
@@ -3842,15 +3842,23 @@ jr_007_5D2C:
 
 
     ; $5D32
-ChangePalette2050IfTransparent::
-    ; Pastes Color into Palette 2.0 and 5.0 if their values are RGB 00,$0F,$0F (i.e. transparency value)
+Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor::
+    ; Pastes a Color wFightscene_ArenaColor into the first color of the third palette id
+    ; To simulate a "transparency" color for the creatures
+    ; CreatureLeft:  Palette 2 optionally takes the color if the RGB value is 0, $F, $F
+    ; CreatureRight: Palette 5 optionally takes the color if the RGB value is 0, $F, $F
+    ; Outputs:
+    ;   Sets wFightscene_CreatureLeft_3rdPaletteTransparent and wFightscene_CreatureRight_3rdPaletteTransparent to non-zero if they are transparent
     push bc
     push hl
     xor a
-    ld [wPalette20Transparent], a
-    ld [wPalette50Transparent], a
-    ld bc, $3DE0    ;RGB 00,$0F,$0F
-    ld de, $0010    ;+2 Palettes
+    ld [wFightscene_CreatureLeft_3rdPaletteTransparent], a
+    ld [wFightscene_CreatureRight_3rdPaletteTransparent], a
+
+    ; Check Palette 2
+    db $01 ;ld bc,
+        RGB 0, $F, $F
+    ld de, 8*2    ;+2 Palettes
     add hl, de
     DerefHL
     ld a, h
@@ -3859,19 +3867,23 @@ ChangePalette2050IfTransparent::
     ld a, l
     cp c
     jr nz, .SkipPalette2
+    .SetPalette2Transparent
+        pop hl
+        pop bc
+        push bc
+        push hl
+        ld e, 4*2 ; Palette 2.0
+        ld a, $01
+        ld [wFightscene_CreatureLeft_3rdPaletteTransparent], a
+        call Palette_PaletteBufferSetColor
+    .SkipPalette2:
+
+    ; Check Palette 5
+    db $01 ;ld bc,
+    RGB 0, $F, $F
     pop hl
-    pop bc
-    push bc
     push hl
-    ld e, $08
-    ld a, $01
-    ld [wPalette20Transparent], a
-    call Palette_PaletteBufferSetColor
-.SkipPalette2:
-    ld bc, $3DE0    ;RGB 00,$0F,$0F
-    pop hl
-    push hl
-    ld de, $0028    ;+$5 Palettes
+    ld de, 8*5    ;+5 Palettes
     add hl, de
     DerefHL
     ld a, h
@@ -3880,14 +3892,15 @@ ChangePalette2050IfTransparent::
     ld a, l
     cp c
     jr nz, .SkipPalette5
-    pop hl
-    pop bc
-    ld e, $14
-    ld a, $01
-    ld [wPalette50Transparent], a
-    call Palette_PaletteBufferSetColor
-    ret
-.SkipPalette5:
+    .SetPalette5Transparent
+        pop hl
+        pop bc
+        ld e, 4*5 ; Palette 5.0
+        ld a, $01
+        ld [wFightscene_CreatureRight_3rdPaletteTransparent], a
+        call Palette_PaletteBufferSetColor
+        ret
+    .SkipPalette5:
     pop hl
     pop bc
     ret

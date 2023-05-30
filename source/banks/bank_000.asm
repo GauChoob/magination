@@ -6073,46 +6073,67 @@ Fightscene00_DrawArena::
     ; Load the tilemaps and tilesets for the top and bottom scrolling effect
     ; Also loads palettes 7 + 8 which are used for the top and bottom part respectively
     PushROMBank
+
     xor a
     ld [rVBK], a
+
+    ; Load Arena Bitmap Top
     SwitchROMBank [wTemp_1.Fightscene_Arena_TopBitmapBank]
     Get16 hl, wTemp_0.Fightscene_Arena_TopBitmapAddress
-    ld de, vChars1
+    ld de, FIGHTSCENE_VRAM_ARENA_TOP
     ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
-    call RLE_Decompress                              ;TopScroll tileset
+    call RLE_Decompress
+
+    ; Load Arena Bitmap Bottom
     SwitchROMBank [wTemp_8.Fightscene_Arena_BottomBitmapBank]
     Get16 hl, wTemp_A.Fightscene_Arena_BottomBitmapAddress
-    ld de, vChars1 + $0400
+    ld de, FIGHTSCENE_VRAM_ARENA_BOTTOM
     ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
-    call RLE_Decompress                              ;BottomScroll tileset
+    call RLE_Decompress
+
+    ; Make a single blank tile
     Set8 rVBK, $01
-    Do_MemSet $8800, $0010, $00 ;Wipe a single tile $100 to a square of palette 0
+    Do_MemSet $8800, $10, $00 ;Wipe a single tile to an empty square - inefficiency - could just use tile 1:EE instead?
+
+    ; Load Arena TileAttrmap Top
     SwitchROMBank [wTemp_3.Fightscene_Arena_TopTilemapBank]
-    ld hl, vBGMap0
+    ld hl, FIGHTSCENE_ARENA_TOP
     ld e, $20
     ld d, $04
     Get16 bc, wTemp_2.Fightscene_Arena_TopTilemapAddress
-    call Unpack_AttrTileRLE_To_StaticTilemap                  ;Top tilemap
+    call Unpack_AttrTileRLE_To_StaticTilemap
+
+    ; Load Arena TileAttrmap Bottom
     SwitchROMBank [wTemp_9.Fightscene_Arena_BottomTilemapBank]
-    ld hl, vBGMap0 + $80
+    ld hl, FIGHTSCENE_ARENA_BOTTOM
     ld e, $20
     ld d, $04
     Get16 bc, wTemp_B.Fightscene_Arena_BottomTilemapAddress
-    call Unpack_AttrTileRLE_To_StaticTilemap                  ;Bottom tilemap
+    call Unpack_AttrTileRLE_To_StaticTilemap
+
+    ; The tilemaps are based off of an index of 0, but the top tileset is loaded at tile FIGHTSCENE_TILEID_ARENA_TOP
+    ; We therefore need to offset the whole tilemap
+    ; Same thing for the bottom
     xor a
     ld [rVBK], a
-    Do_MemAdd vBGMap0, $0080, $80, $FF ;Add 80 to tile number of Top tilemap
-    Do_MemAdd vBGMap0 + $80, $0080, $C0, $FF ;Add C0 to tile number of Bottom tilemap
+    Do_MemAdd FIGHTSCENE_ARENA_TOP, (FIGHTSCENE_ARENA_TOP_END - FIGHTSCENE_ARENA_TOP), FIGHTSCENE_TILEID_ARENA_TOP, $FF
+    Do_MemAdd FIGHTSCENE_ARENA_BOTTOM, (FIGHTSCENE_ARENA_BOTTOM_END - FIGHTSCENE_ARENA_BOTTOM), FIGHTSCENE_TILEID_ARENA_BOTTOM, $FF
+    ; The tilemaps use palette 0 and 1, but the two palette colors are actually loaded into 6 and 7, so we need to offset the palette number
     Set8 rVBK, $01
-    Do_MemAdd vBGMap0, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
-    Do_MemAdd vBGMap0 + $80, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
+    Do_MemAdd FIGHTSCENE_ARENA_TOP, (FIGHTSCENE_ARENA_TOP_END - FIGHTSCENE_ARENA_TOP), $06, $FF
+    Do_MemAdd FIGHTSCENE_ARENA_BOTTOM, (FIGHTSCENE_ARENA_BOTTOM_END - FIGHTSCENE_ARENA_BOTTOM), $06, $FF
+
+    ; Load Palette 6 and 7
     SwitchROMBank [wTemp_7.Palette_PaletteBank]
     Get16 bc, wTemp_6.Palette_PaletteAddress
-    call CopyPalette67                              ;Overwrites palette 6+7
+    call Fightscene00_LoadArenaPalette
+
+    ; The first color from the Arena palette is the background color
     Get16 hl, wTemp_6.Palette_PaletteAddress
     DerefHL
     Set16 wFightscene_ArenaColor, hl ;Stores the first color from wTemp_6.Palette_PaletteAddress
-    Do_CallForeign PasteColorToPalette0010304060And2050IfTransparent
+    Do_CallForeign Fightscene_PalFX_SetFightsceneArenaColor
+
     PopROMBank
     ret
 
@@ -6124,7 +6145,7 @@ Call_000_358E:
     ld e, $00
     ld a, $0C
     call Unpack_Palette_Palettes
-    XCall PasteColorToPalette00103040And2050IfTransparent
+    XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
     ld a, $01
     ld [wPalette_VBlankReady], a
     ret
@@ -6137,23 +6158,24 @@ Call_000_35AD:
     ld e, $0C
     ld a, $0C
     call Unpack_Palette_Palettes
-    XCall PasteColorToPalette00103040And2050IfTransparent
+    XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
     ld a, $01
     ld [wPalette_VBlankReady], a
     ret
 
 
     ; $35CC
-CopyPalette67:
-    ; Copies 2 palettes from [bc] into palette 6+7
+Fightscene00_LoadArenaPalette::
+    ; Copies 2 palettes from [bc] into palette 6 + 7
+    ; Inputs:
+    ;   [bc] - 8 Colors (2 palette ids)
     xor a
     ld [wPalette_VBlankReady], a
     ld hl, wPalette_BaseBuffers
-    ld e, $18
-    ld a, $08
+    ld e, 6*4
+    ld a, 2*4
     call Unpack_Palette_Palettes
-    ld a, $01
-    ld [wPalette_VBlankReady], a
+    Set8 wPalette_VBlankReady, $01
     ret
 
 

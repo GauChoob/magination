@@ -4482,8 +4482,8 @@
 07:5af1 jr_007_5AF1
 07:5c00 Call_007_5C00
 07:5c29 Call_007_5C29
-07:5c52 PasteColorToPalette00103040And2050IfTransparent
-07:5c7e PasteColorToPalette0010304060And2050IfTransparent
+07:5c52 Fightscene_PalFX_SetCreaturePaletteArenaColor
+07:5c7e Fightscene_PalFX_SetFightsceneArenaColor
 07:5c9d Call_007_5C9D
 07:5cb9 Fightscene_PalFX_SetCardsceneArenaColor
 07:5ce2 Call_007_5CE2
@@ -36386,8 +36386,8 @@
 00:c9de wTemp_C.Fightscene_ArenaDataPointer
 00:c9de wTemp_C
 00:c9de wTemp_C.CreatureGraphicsPointer
-00:c9e2 wPalette20Transparent
-00:c9e3 wPalette50Transparent
+00:c9e2 wFightscene_CreatureLeft_3rdPaletteTransparent
+00:c9e3 wFightscene_CreatureRight_3rdPaletteTransparent
 00:wFightscene_ArenaIndex wFightscene_ArenaIndex
 00:c9e5 wFightscene_ArenaColor
 00:c9ff wMenu_MainMenu_ItemSpellMapDefaultScript

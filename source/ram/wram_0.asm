@@ -899,10 +899,10 @@ wTemp_C::
 
 
     ds $C9E2 - @
-wPalette20Transparent::
+wFightscene_CreatureLeft_3rdPaletteTransparent::
     ds 1
     ;ds $C9E3 - @
-wPalette50Transparent::
+wFightscene_CreatureRight_3rdPaletteTransparent::
     ds 1
     ;ds $C9E4 - @
 wFightscene_ArenaIndex::
