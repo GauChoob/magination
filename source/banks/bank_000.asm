@@ -2131,7 +2131,7 @@ MagiOp_34_LoadSideScroller::
     Script_ReadByte [wFightscene_ArenaIndex]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
-    XCall LoadStartScreenScroller
+    XCall Fightscene_LoadArena
     pop de
     Set8 wFightscene_ArenaIndex, e
     ret
@@ -5998,12 +5998,12 @@ Cardscene00_VBlank_SetCardPalette::
     ld a, [$C9CD]
     ld l, a
     ld de, $9000
-    ld bc, $0800
+    ld bc, $0800 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
-    XCall Call_004_6F47
+    XCall Fightscene_CreatureLeft_ClearTilemap
     ld a, $01
     ld [rVBK], a
-    XCall Call_004_6F60
+    XCall Fightscene_CreatureLeft_ClearAttrmap
     ld a, [$C9D2]
     SwitchROMBank a
     ld hl, $99E0
@@ -6038,12 +6038,12 @@ Cardscene00_VBlank_SetCardPalette::
     ld a, [$C9CD]
     ld l, a
     ld de, $9000
-    ld bc, $0800
+    ld bc, $0800 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
-    XCall Call_004_6F79
+    XCall Fightscene_CreatureRight_ClearAttrmap
     xor a
     ld [rVBK], a
-    XCall Call_004_6F9E
+    XCall Fightscene_CreatureRight_ClearTilemap
     SwitchROMBank [$C9D2]
     ld hl, $9C00
     ld a, [$C9D3]
@@ -6068,74 +6068,50 @@ Cardscene00_VBlank_SetCardPalette::
     ret
 
     ; $3493
-LoadStartScreenTilemapsTilesetsPalettes::
-    ; Using data saved into memory from CopyStartScreenAssetAddressesToMemory,
-    ; Load the tilemaps and tilesets for the top and bottom part of the scrolling
-    ; graphics on the start screen.
+Fightscene00_DrawArena::
+    ; Using data saved into memory from Fightscene_LoadArenaData,
+    ; Load the tilemaps and tilesets for the top and bottom scrolling effect
     ; Also loads palettes 7 + 8 which are used for the top and bottom part respectively
     PushROMBank
     xor a
     ld [rVBK], a
-    SwitchROMBank [wStartScreenTopTilesetBank]
-    ld a, [wStartScreenTopTilesetAddress+1]
-    ld h, a
-    ld a, [wStartScreenTopTilesetAddress]
-    ld l, a
+    SwitchROMBank [wTemp_1.Fightscene_Arena_TopBitmapBank]
+    Get16 hl, wTemp_0.Fightscene_Arena_TopBitmapAddress
     ld de, vChars1
-    ld bc, $0400
+    ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress                              ;TopScroll tileset
-    SwitchROMBank [wStartScreenBottomTilesetBank]
-    ld a, [wStartScreenBottomTilesetAddress+1]
-    ld h, a
-    ld a, [wStartScreenBottomTilesetAddress]
-    ld l, a
+    SwitchROMBank [wTemp_8.Fightscene_Arena_BottomBitmapBank]
+    Get16 hl, wTemp_A.Fightscene_Arena_BottomBitmapAddress
     ld de, vChars1 + $0400
-    ld bc, $0400
+    ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress                              ;BottomScroll tileset
-    ld a, $01
-    ld [rVBK], a
+    Set8 rVBK, $01
     Do_MemSet $8800, $0010, $00 ;Wipe a single tile $100 to a square of palette 0
-    SwitchROMBank [wStartScreenTopTilemapBank]
+    SwitchROMBank [wTemp_3.Fightscene_Arena_TopTilemapBank]
     ld hl, vBGMap0
     ld e, $20
     ld d, $04
-    ld a, [wStartScreenTopTilemapAddress+1]
-    ld b, a
-    ld a, [wStartScreenTopTilemapAddress]
-    ld c, a
+    Get16 bc, wTemp_2.Fightscene_Arena_TopTilemapAddress
     call Unpack_AttrTileRLE_To_StaticTilemap                  ;Top tilemap
-    SwitchROMBank [wStartScreenBottomTilemapBank]
+    SwitchROMBank [wTemp_9.Fightscene_Arena_BottomTilemapBank]
     ld hl, vBGMap0 + $80
     ld e, $20
     ld d, $04
-    ld a, [wStartScreenBottomTilemapAddress+1]
-    ld b, a
-    ld a, [wStartScreenBottomTilemapAddress]
-    ld c, a
+    Get16 bc, wTemp_B.Fightscene_Arena_BottomTilemapAddress
     call Unpack_AttrTileRLE_To_StaticTilemap                  ;Bottom tilemap
     xor a
     ld [rVBK], a
     Do_MemAdd vBGMap0, $0080, $80, $FF ;Add 80 to tile number of Top tilemap
     Do_MemAdd vBGMap0 + $80, $0080, $C0, $FF ;Add C0 to tile number of Bottom tilemap
-    ld a, $01
-    ld [rVBK], a
+    Set8 rVBK, $01
     Do_MemAdd vBGMap0, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
     Do_MemAdd vBGMap0 + $80, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
-    SwitchROMBank [wStartScreen2PalettesBank]
-    ld a, [wStartScreen2PalettesAddress+1]
-    ld b, a
-    ld a, [wStartScreen2PalettesAddress]
-    ld c, a
+    SwitchROMBank [wTemp_7.Palette_PaletteBank]
+    Get16 bc, wTemp_6.Palette_PaletteAddress
     call CopyPalette67                              ;Overwrites palette 6+7
-    ld a, [wStartScreen2PalettesAddress+1]
-    ld h, a
-    ld a, [wStartScreen2PalettesAddress]
-    ld l, a
+    Get16 hl, wTemp_6.Palette_PaletteAddress
     DerefHL
-    ld a, h
-    ld [wFightscene_ArenaColor+1], a                      ;Stores the first color from wStartScreen2PalettesAddress
-    ld a, l
-    ld [wFightscene_ArenaColor], a
+    Set16 wFightscene_ArenaColor, hl ;Stores the first color from wTemp_6.Palette_PaletteAddress
     Do_CallForeign PasteColorToPalette0010304060And2050IfTransparent
     PopROMBank
     ret
@@ -6404,7 +6380,7 @@ jr_000_3774:
 lcdc_HorizontalScroll_Upper::
     ; Run in StartScreen for horizontal scroll effect (start screen)
     ; Prepares the upper half of the horizontal scroll
-    ld a, [wStartScreenTopScrollSpeed]
+    ld a, [wFightscene_ScrollSpeedTop]
     ld e, a
     ld a, [wStartScreenTopScrollX]
     add e
@@ -6423,7 +6399,7 @@ lcdc_HorizontalScroll_Upper::
 lcdc_HorizontalScroll_Lower::
     ; Run in StartScreen for horizontal scroll effect (start screen)
     ; Prepares the lower half of the horizontal scroll
-    ld a, [wStartScreenBottomScrollSpeed]
+    ld a, [wFightscene_ScrollSpeedBottom]
     ld e, a
     ld a, [wStartScreenBottomScrollX]
     add e

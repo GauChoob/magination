@@ -771,11 +771,11 @@ wCardscene_IsOpened::
     ds 1
 
     ds $C9BE - @
-wStartScreenTopScrollSpeed::
+wFightscene_ScrollSpeedTop::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9BF - @
-wStartScreenBottomScrollSpeed::
+wFightscene_ScrollSpeedBottom::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9C0 - @
@@ -791,48 +791,50 @@ wStartScreenBottomScrollX::
 
     ; CREATURE_GFX_STRUCT TEMP
     ds $C9CD - @
-wTemp_0::
 wTemp_BitmapAddress::
-wStartScreenTopTilesetAddress::
+wTemp_0::
+    .Fightscene_Arena_TopBitmapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9CF - @
-wTemp_1::
 wTemp_BitmapBank::
-wStartScreenTopTilesetBank::
+wTemp_1::
+    .Fightscene_Arena_TopBitmapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D0 - @
-wTemp_2::
 wTemp_BackgroundAddress::
-wStartScreenTopTilemapAddress::
+wTemp_2::
+    .Fightscene_Arena_TopTilemapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9D2 - @
-wTemp_3::
 wTemp_BackgroundBank::
-wStartScreenTopTilemapBank::
+wTemp_3::
+    .Fightscene_Arena_TopTilemapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D3 - @
+wTemp_Width::
 wTemp_4::
     .Palette_ColorCounter:
     ; Loop counter
-wTemp_4.Cardscene_LoopCounter:
-wTemp_Width::
+    .Cardscene_LoopCounter:
     ds 1
     ;ds $C9D4 - @
 wTemp_5::
 wTemp_Height::
     ds 1
     ;ds $C9D5 - @
+wTemp_Palette::
 wTemp_6::
     .Palette_PaletteAddress:
     ; Address of palette file
-wTemp_Palette::
-wStartScreen2PalettesAddress::
     ds 2
     ;ds $C9D7 - @
 wTemp_7::
     .Palette_PaletteBank:
     ; Bank of palette file
-wStartScreen2PalettesBank::
     ds 1
     ;ds $C9D8 - @
 wTemp_8::
@@ -846,7 +848,8 @@ wTemp_8::
     ; e parameter for Palette_PaletteBufferSwapRGB
     .Cardscene_CreatureID::
     ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CREATURE_NULL
-wStartScreenBottomTilesetBank::
+    .Fightscene_Arena_BottomBitmapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D9 - @
 wTemp_9::
@@ -857,9 +860,10 @@ wTemp_9::
         ; Used to store the cycle pattern for Palette_PaletteCycleColors
     .Palette_BattleFX_CreatureSide:
         ; 0 = Left, 1 = Right
-wTemp_9.Cardscene_CardSlot::
+    .Cardscene_CardSlot::
     ; The card slot in the cardscene (0 - 7)
-wStartScreenBottomTilemapBank::
+    .Fightscene_Arena_BottomTilemapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9DA - @
 wTemp_A::
@@ -870,8 +874,9 @@ wTemp_A::
     ; The Color to which to set a value
     .Palette_Counter:
     ; Loop counter
+    .Fightscene_Arena_BottomBitmapAddress::
+    ; Fightscene_ArenaData Struct property
     .Unknown:
-wStartScreenBottomTilesetAddress::
     ; Temporary Color argument used in functions
     ds 2
     ;ds $C9DC - @
@@ -881,7 +886,8 @@ wTemp_B::
     ; e.g. a value of 2 will change the values of R, G and B by 2 every trigger
     .CreatureDataPointer:
     ; Points to the start of the data for a creature in the Creature_Table
-wStartScreenBottomTilemapAddress::
+    .Fightscene_Arena_BottomTilemapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9DE - @
 wTemp_C::

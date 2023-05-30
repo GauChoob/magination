@@ -6455,29 +6455,31 @@ Fightscene_ArenaTable::
     dw Fightscene_ArenaTable_Underneath
 
     ; $6F47
-Call_004_6F47::
-    Do_MemSet $9900, $0300, $80
-    Do_MemSet $99E0, $0140, $80
-    ret                                           ; $6F5F: $C9
+Fightscene_CreatureLeft_ClearTilemap::
+    Do_MemSet FIGHTSCENE_CREATURE_LEFT_EMPTY, (FIGHTSCENE_CREATURE_LEFT_EMPTY_END - FIGHTSCENE_CREATURE_LEFT_EMPTY), $80
+    Do_MemSet FIGHTSCENE_CREATURE_LEFT_SPRITE, (FIGHTSCENE_CREATURE_LEFT_SPRITE_END - FIGHTSCENE_CREATURE_LEFT_SPRITE), $80 ; inefficiency - this section is already erased by the previous line
+    ret
 
     ; $6F60
-Call_004_6F60::
-    Do_MemSet $9900, $0300, $08
-    Do_MemSet $99E0, $0140, $08
-    ret                                           ; $6F78: $C9
+Fightscene_CreatureLeft_ClearAttrmap::
+    Do_MemSet FIGHTSCENE_CREATURE_LEFT_EMPTY, (FIGHTSCENE_CREATURE_LEFT_EMPTY_END - FIGHTSCENE_CREATURE_LEFT_EMPTY), $08
+    Do_MemSet FIGHTSCENE_CREATURE_LEFT_SPRITE, (FIGHTSCENE_CREATURE_LEFT_SPRITE_END - FIGHTSCENE_CREATURE_LEFT_SPRITE), $08 ; inefficiency - this section is already erased by the previous line
+    ret
 
     ; $6F79
-Call_004_6F79::
-    Do_MemSet $9C00, $0400, $28
-    Do_MemSet $9C00, $0140, $00
-    Do_MemSet $9D40, $0140, $28
-    ret                                           ; $6F9D: $C9
+Fightscene_CreatureRight_ClearAttrmap::
+    Do_MemSet FIGHTSCENE_CREATURE_RIGHT_EMPTY, (FIGHTSCENE_CREATURE_RIGHT_EMPTY_END - FIGHTSCENE_CREATURE_RIGHT_EMPTY), $28
+    Do_MemSet FIGHTSCENE_CREATURE_RIGHT_SPRITE, (FIGHTSCENE_CREATURE_RIGHT_SPRITE_END - FIGHTSCENE_CREATURE_RIGHT_SPRITE), $00
+    ; Inefficiency - The next line is supposed to fix the attributes that a previous Menu text might have messed up...
+    ;  but the Menu is no longer at this coordinate
+    ;  and also FIGHTSCENE_CREATURE_RIGHT_EMPTY already resets this part of the data
+    Do_MemSet FIGHTSCENE_CREATURE_RIGHT_MENU, (FIGHTSCENE_CREATURE_RIGHT_MENU_END - FIGHTSCENE_CREATURE_RIGHT_MENU), $28
+    ret
 
     ; $6F9E
-Call_004_6F9E::
-    Do_MemSet $9C00, $0400, $80
-    ret                                           ; $6FAA: $C9
-
+Fightscene_CreatureRight_ClearTilemap::
+    Do_MemSet FIGHTSCENE_CREATURE_RIGHT_EMPTY, (FIGHTSCENE_CREATURE_RIGHT_EMPTY_END - FIGHTSCENE_CREATURE_RIGHT_EMPTY), $80
+    ret
 
     ; $6FAB
 Fightscene_GetArenaDataPointer::
@@ -6500,58 +6502,45 @@ Fightscene_GetArenaDataPointer::
 
 
     ; $6FC5
-CopyStartScreenAssetAddressesToMemory:
-    ; Loads all the pointers to the assets used in the Press Start screen into
-    ; memory. Unimportant temporary variables used for other things are overwritten
+Fightscene_LoadArenaData::
+    ; Loads the Arena data structure into WRAM from [wTemp_C.Fightscene_ArenaDataPointer]
+    ; Call this after calling Fightscene_GetArenaDataPointer
     FGet16 hl, wTemp_C.Fightscene_ArenaDataPointer
+
+    ; inefficiency; oFightscene_Arena_TopBitmap = 0
     push de
-    ld de, $0000
+    ld de, oFightscene_Arena_TopBitmap
     add hl, de
     pop de
-    ld a, [hl+]
-    ld [wStartScreenTopTilesetAddress], a
-    ld a, [hl+]
-    ld [wStartScreenTopTilesetAddress+1], a
-    ld a, [hl+]
-    ld [wStartScreenTopTilesetBank], a
-    ld a, [hl+]
-    ld [wStartScreenTopTilemapAddress], a
-    ld a, [hl+]
-    ld [wStartScreenTopTilemapAddress+1], a
-    ld a, [hl+]
-    ld [wStartScreenTopTilemapBank], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilesetAddress], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilesetAddress+1], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilesetBank], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilemapAddress], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilemapAddress+1], a
-    ld a, [hl+]
-    ld [wStartScreenBottomTilemapBank], a
-    ld a, [hl+]
-    ld [wStartScreenTopScrollSpeed], a
-    ld a, [hl+]
-    ld [wStartScreenBottomScrollSpeed], a
-    ld a, [hl+]
-    ld [wStartScreen2PalettesAddress], a
-    ld a, [hl+]
-    ld [wStartScreen2PalettesAddress+1], a
-    ld a, [hl+]
-    ld [wStartScreen2PalettesBank], a
+
+    Mov8 wTemp_0.Fightscene_Arena_TopBitmapAddress, hl+
+    Mov8 wTemp_0.Fightscene_Arena_TopBitmapAddress+1, hl+
+    Mov8 wTemp_1.Fightscene_Arena_TopBitmapBank, hl+
+    Mov8 wTemp_2.Fightscene_Arena_TopTilemapAddress, hl+
+    Mov8 wTemp_2.Fightscene_Arena_TopTilemapAddress+1, hl+
+    Mov8 wTemp_3.Fightscene_Arena_TopTilemapBank, hl+
+    Mov8 wTemp_A.Fightscene_Arena_BottomBitmapAddress, hl+
+    Mov8 wTemp_A.Fightscene_Arena_BottomBitmapAddress+1, hl+
+    Mov8 wTemp_8.Fightscene_Arena_BottomBitmapBank, hl+
+    Mov8 wTemp_B.Fightscene_Arena_BottomTilemapAddress, hl+
+    Mov8 wTemp_B.Fightscene_Arena_BottomTilemapAddress+1, hl+
+    Mov8 wTemp_9.Fightscene_Arena_BottomTilemapBank, hl+
+    Mov8 wFightscene_ScrollSpeedTop, hl+
+    Mov8 wFightscene_ScrollSpeedBottom, hl+
+    Mov8 wTemp_6.Palette_PaletteAddress, hl+
+    Mov8 wTemp_6.Palette_PaletteAddress+1, hl+
+    Mov8 wTemp_7.Palette_PaletteBank, hl+
     ret
 
     ; $7016
 Fightscene_GetCardsceneArenaColor::
-    ; BTL_GET_CARDSCENE_ARENA_COLOR todo
     ; Get the color used in the background of the arena
     ; Inputs:
-    ;   wFightscene_ArenaIndex
+    ;   [wFightscene_ArenaIndex]
+    ; Outputs:
+    ;   wFightscene_ArenaColor = Color
     call Fightscene_GetArenaDataPointer
-    ld de, $0011 ; TODO
+    ld de, oFightscene_Arena_Color
     add hl, de
     DerefHL
     Set16 wFightscene_ArenaColor, hl
@@ -6577,13 +6566,13 @@ Creature_GetDataFromID::
     ret
 
     ; $704B
-LoadStartScreenScroller::
+Fightscene_LoadArena::
     ; Loads the horizontally-scrolling part of the Start Screen
     ; Inputs
     ;   [wFightscene_ArenaIndex] - index 0-14 referring to the correct assets
     call Fightscene_GetArenaDataPointer
-    call CopyStartScreenAssetAddressesToMemory
-    call LoadStartScreenTilemapsTilesetsPalettes
+    call Fightscene_LoadArenaData
+    call Fightscene00_DrawArena
     ret
 
 Call_004_7055::
@@ -6903,7 +6892,7 @@ Call_004_722E:
     ld [$C833], a                                 ; $725C: $EA $33 $C8
     ld a, [wFightscene_ArenaIndex]                                 ; $725F: $FA $E4 $C9
     ld [wFightscene_ArenaIndex], a                                 ; $7262: $EA $E4 $C9
-    Do_CallForeign LoadStartScreenScroller
+    Do_CallForeign Fightscene_LoadArena
     ld a, [$C9E0]                                 ; $726D: $FA $E0 $C9
     ld [$C9D8], a                                 ; $7270: $EA $D8 $C9
     ld a, $00                                     ; $7273: $3E $00

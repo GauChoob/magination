@@ -165,10 +165,17 @@ INCLUDE "source/banks/bank_040.asm"
 INCLUDE "source/banks/bank_041.asm"
     ; ?
     ; Tilemaps for StartScreen 0-D
-INCLUDE "source/banks/bank_042_x.asm"
-    ; Tilesets for StartScreen 0-6
-    ; ?
-INCLUDE "source/banks/bank_043_x.asm"
+
+    ; Cardscene Card tile/attrmaps, and Fightscene Arena tilemaps
+    ; Lots of space remaining ($4FF0-$8000)
+SECTION "Cardscene Fightscene Tilemaps", ROMX[$4000], BANK[$42]
+INCLUDE "source/game/cardscene/cardscene_cardtileattrmaps.asm"
+INCLUDE "assets/fightscene/arena/fightscene_arena_tilemaps.asm"
+    ; Cardscene background and Fightscene Arena bitmaps (1/2)
+    ; Lots of space remaining ($649D-$8000)
+SECTION "Cardscene Fightscene Bitmaps1", ROMX[$4000], BANK[$43]
+INCLUDE "assets/fightscene/arena/fightscene_arena_bitmaps1.asm"
+INCLUDE "assets/cardscene/arenabackground.asm"
 
 ;
 ;       DREAM CREATURE CARD ICON BITMAPS (44, 45)

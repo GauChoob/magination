@@ -20,6 +20,7 @@ class TestTileset(unittest.TestCase):
         os.makedirs(config.TEMPFOLDER, exist_ok=True)
 
     def tearDown(self):
+        return
         if os.path.exists(config.TEMPFOLDER):
             shutil.rmtree(config.TEMPFOLDER)
 
