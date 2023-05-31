@@ -151,7 +151,7 @@ luDreamCreatureEnd                  EQU $6D
 
 
 
-;00
+;00 -> upper-endian of base energy - unused?
 dcBaseEnergy EQU $01
 dcMaxEnergy EQU $02 ;Big-endian
 dcBaseStrength EQU $04

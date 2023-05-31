@@ -5347,7 +5347,7 @@ Cardscene_MagiBitsetTable::
 Cardscene_SpawnCreature::
     ; Makes a creature appear in a card slot
     ; Inputs:
-    ;   wTemp_8.Cardscene_CreatureID - creature's id
+    ;   wTemp_8.Fightscene_CreatureID - creature's id
     ;   wTemp_9.Cardscene_CardSlot - the target card slot
     ; Outputs:
     ;   wCardscene_CardSlotCreatureIDs.CardX <- creature's id
@@ -5597,12 +5597,12 @@ Cardscene_GetCardIcon::
     ; Returns empty card if the creature ID is CARDSCENE_BLANKCARD or CREATURE_NULL
     ; Also stores the palette id of the card of interest
     ; Inputs:
-    ;   [wTemp_8.Cardscene_CreatureID]
+    ;   [wTemp_8.Fightscene_CreatureID]
     ; Outputs:
     ;   wVBlank_SourceAddress - address
     ;   wVBlank_Bank - bank
     ;   wCardscene_CardPalette - palette id of the card
-    ld a, [wTemp_8.Cardscene_CreatureID]
+    ld a, [wTemp_8.Fightscene_CreatureID]
     cp CARDSCENE_BLANKCARD ; Includes blank card and Creature_Null
     jr c, .ValidCard
     .NullCard:
@@ -5613,7 +5613,7 @@ Cardscene_GetCardIcon::
         ret
     .ValidCard:
         ; Get the tileset of the card
-        Do_CallForeign Creature_GetDataFromID
+        Do_CallForeign Fightscene_GetCreaturePointers
         ld bc, dcCardTileset
         add hl, bc
         ld a, [hl+]
@@ -5632,14 +5632,14 @@ Cardscene_GetCardIcon::
 Cardscene_GetCardPalette::
     ; Gets the palette of the dream creature's card
     ; If you need the icon as well, it is better to use Cardscene_GetCardIcon
-    ld a, [wTemp_8.Cardscene_CreatureID]
+    ld a, [wTemp_8.Fightscene_CreatureID]
     cp CARDSCENE_BLANKCARD
     jr c, .ValidCard
     .NullCard:
         Set8 wCardscene_CardPalette, CARDSCENE_PALETTE_BLANKCARD
         ret
     .ValidCard:
-        Do_CallForeign Creature_GetDataFromID
+        Do_CallForeign Fightscene_GetCreaturePointers
         ld bc, dcCardPaletteID
         add hl, bc
         DerefHL  ; bug - "hl" is dereferenced, but actually we just wanted to get the value of [hl], which thankfully happens to be saved in a when we run this macro
@@ -5653,46 +5653,46 @@ Cardscene_GetCardSlotCreatureID::
     ; Inputs:
     ;   wTemp_9.Cardscene_CardSlot - target cardslot
     ; Outputs:
-    ;   a = wTemp_8.Cardscene_CreatureID = the slot's creature id
+    ;   a = wTemp_8.Fightscene_CreatureID = the slot's creature id
 
     ld a, [wTemp_9.Cardscene_CardSlot]
     .Card0:
     cp 0
     jr nz, .Card1
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card0
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card0
         ret
     .Card1:
     cp 1
     jr nz, .Card2
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card1
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card1
         ret
     .Card2:
     cp 2
     jr nz, .Card3
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card2
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card2
         ret
     .Card3:
     cp 3
     jr nz, .Card4
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card3
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card3
         ret
     .Card4:
     cp 4
     jr nz, .Card5
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card4
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card4
         ret
     .Card5:
     cp 5
     jr nz, .Card6
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card5
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card5
         ret
     .Card6:
     cp 6
     jr nz, .Card7
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card6
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card6
         ret
     .Card7:
-        Mov8 wTemp_8.Cardscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card7
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card7
         ret
 
     ; $6542
@@ -5701,63 +5701,63 @@ Cardscene_SetCardSlotCreatureID::
     ; Returns the VRAM position in tileset - the card image must be copied separately during VBlank
     ; Inputs:
     ;   wTemp_9.Cardscene_CardSlot - target cardslot
-    ;   wTemp_8.Cardscene_CreatureID - creature id
+    ;   wTemp_8.Fightscene_CreatureID - creature id
     ; Outputs:
-    ;   wCardscene_CardSlotCreatureIDs.CardX <- wTemp_8.Cardscene_CreatureID
+    ;   wCardscene_CardSlotCreatureIDs.CardX <- wTemp_8.Fightscene_CreatureID
     ;   wVBlank_DestVBK, wVBlank_DestAddress point to that card's tileset destination
     ld a, [wTemp_9.Cardscene_CardSlot]
     .Card0:
     cp 0
     jr nz, .Card1
         ld bc, CARDSCENE_VRAM_CARD0
-        Mov8 wCardscene_CardSlotCreatureIDs.Card0, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card0, wTemp_8.Fightscene_CreatureID
         xor a
         jr .SetVars
     .Card1:
     cp 1
     jr nz, .Card2
         ld bc, CARDSCENE_VRAM_CARD1
-        Mov8 wCardscene_CardSlotCreatureIDs.Card1, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card1, wTemp_8.Fightscene_CreatureID
         xor a
         jr .SetVars
     .Card2:
     cp 2
     jr nz, .Card3
         ld bc, CARDSCENE_VRAM_CARD2
-        Mov8 wCardscene_CardSlotCreatureIDs.Card2, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card2, wTemp_8.Fightscene_CreatureID
         xor a
         jr .SetVars
     .Card3:
     cp 3
     jr nz, .Card4
         ld bc, CARDSCENE_VRAM_CARD3
-        Mov8 wCardscene_CardSlotCreatureIDs.Card3, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card3, wTemp_8.Fightscene_CreatureID
         xor a
         jr .SetVars
     .Card4:
     cp 4
     jr nz, .Card5
         ld bc, CARDSCENE_VRAM_CARD4
-        Mov8 wCardscene_CardSlotCreatureIDs.Card4, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card4, wTemp_8.Fightscene_CreatureID
         ld a, $01
         jr .SetVars
     .Card5:
     cp 5
     jr nz, .Card6
         ld bc, CARDSCENE_VRAM_CARD5
-        Mov8 wCardscene_CardSlotCreatureIDs.Card5, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card5, wTemp_8.Fightscene_CreatureID
         ld a, $01
         jr .SetVars
     .Card6:
     cp 6
     jr nz, .Card7
         ld bc, CARDSCENE_VRAM_CARD6
-        Mov8 wCardscene_CardSlotCreatureIDs.Card6, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card6, wTemp_8.Fightscene_CreatureID
         ld a, $01
         jr .SetVars
     .Card7:
         ld bc, CARDSCENE_VRAM_CARD7
-        Mov8 wCardscene_CardSlotCreatureIDs.Card7, wTemp_8.Cardscene_CreatureID
+        Mov8 wCardscene_CardSlotCreatureIDs.Card7, wTemp_8.Fightscene_CreatureID
         ld a, $01
         ;jr .SetVars
     .SetVars:
@@ -5933,14 +5933,14 @@ Call_004_6AFA::
     ld a, $01                                     ; $6B20: $3E $01
     ld [$C9F8], a                                 ; $6B22: $EA $F8 $C9
     ld a, $B4                                     ; $6B25: $3E $B4
-    ld [$C9F0], a                                 ; $6B27: $EA $F0 $C9
+    ld [wFightscene_FightFX_DataTable], a                                 ; $6B27: $EA $F0 $C9
     ld a, $6C                                     ; $6B2A: $3E $6C
     ld [$C9F1], a                                 ; $6B2C: $EA $F1 $C9
     ld a, $A8                                     ; $6B2F: $3E $A8
-    ld [$C9EC], a                                 ; $6B31: $EA $EC $C9
+    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $6B31: $EA $EC $C9
     xor a                                         ; $6B34: $AF
-    ld [$C9EB], a                                 ; $6B35: $EA $EB $C9
-    ld [$C9EE], a                                 ; $6B38: $EA $EE $C9
+    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $6B35: $EA $EB $C9
+    ld [wFightscene_FightFX_DelayCount], a                                 ; $6B38: $EA $EE $C9
     ret                                           ; $6B3B: $C9
 
 
@@ -6525,8 +6525,8 @@ Fightscene_LoadArenaData::
     Mov8 wTemp_B.Fightscene_Arena_BottomTilemapAddress, hl+
     Mov8 wTemp_B.Fightscene_Arena_BottomTilemapAddress+1, hl+
     Mov8 wTemp_9.Fightscene_Arena_BottomTilemapBank, hl+
-    Mov8 wFightscene_ScrollSpeedTop, hl+
-    Mov8 wFightscene_ScrollSpeedBottom, hl+
+    Mov8 wFightscene_Arena_TopDeltaX, hl+
+    Mov8 wFightscene_Arena_BottomDeltaX, hl+
     Mov8 wTemp_6.Palette_PaletteAddress, hl+
     Mov8 wTemp_6.Palette_PaletteAddress+1, hl+
     Mov8 wTemp_7.Palette_PaletteBank, hl+
@@ -6547,22 +6547,22 @@ Fightscene_GetCardsceneArenaColor::
     ret
 
     ; $7029
-Creature_GetDataFromID::
-    ; Given a Dream Creature ID, gives pointers to the creature data
+Fightscene_GetCreaturePointers::
+    ; Given a Dream Creature ID, gives pointers to the creature's Fightscene data
     ; Inputs:
-    ;   wTemp_8.Cardscene_CreatureID
+    ;   wTemp_8.Fightscene_CreatureID
     ; Outputs:
-    ;   wTemp_B.CreatureDataPointer - address to row of DC info
-    ;   wTemp_C.CreatureGraphicsPointer = hl = address to row of DC info + offset dcGraphics
-    Get8 c, wTemp_8.Cardscene_CreatureID
+    ;   wTemp_B.Fightscene_CreatureBaseStatsPointer - address to row of DC info
+    ;   wTemp_C.Fightscene_CreatureGraphicsPointer = hl = address to row of DC info + offset dcGraphics
+    Get8 c, wTemp_8.Fightscene_CreatureID
     ld b, Creature_Table_WIDTH
     call Math_Mult
     ld bc, Creature_Table
     add hl, bc
-    Set16_M wTemp_B.CreatureDataPointer, hl
+    Set16_M wTemp_B.Fightscene_CreatureBaseStatsPointer, hl
     ld bc, dcGraphics
     add hl, bc
-    Set16_M wTemp_C.CreatureGraphicsPointer, hl
+    Set16_M wTemp_C.Fightscene_CreatureGraphicsPointer, hl
     ret
 
     ; $704B
@@ -6575,140 +6575,131 @@ Fightscene_LoadArena::
     call Fightscene00_DrawArena
     ret
 
-Call_004_7055::
-    call Creature_GetDataFromID                            ; $7055: $CD $29 $70
-    call Call_004_7069                            ; $7058: $CD $69 $70
-    ld a, [$C9D9]                                 ; $705B: $FA $D9 $C9
-    and a                                         ; $705E: $A7
-    jr nz, jr_004_7065                            ; $705F: $20 $04
-
-    call $338D                                    ; $7061: $CD $8D $33
-    ret                                           ; $7064: $C9
-
-
-jr_004_7065:
-    call $340B                                    ; $7065: $CD $0B $34
-    ret                                           ; $7068: $C9
-
-
-Call_004_7069:
-    ld a, [wTemp_C.Fightscene_ArenaDataPointer+1]                                 ; $7069: $FA $DF $C9
-    ld h, a                                       ; $706C: $67
-    ld a, [wTemp_C.Fightscene_ArenaDataPointer]                                 ; $706D: $FA $DE $C9
-    ld l, a                                       ; $7070: $6F
-    ld a, [hl+]                                   ; $7071: $2A
-    ld [$C9CD], a                                 ; $7072: $EA $CD $C9
-    ld a, [hl+]                                   ; $7075: $2A
-    ld [$C9CE], a                                 ; $7076: $EA $CE $C9
-    ld a, [hl+]                                   ; $7079: $2A
-    ld [$C9CF], a                                 ; $707A: $EA $CF $C9
-    ld a, [hl+]                                   ; $707D: $2A
-    ld [$C9D0], a                                 ; $707E: $EA $D0 $C9
-    ld a, [hl+]                                   ; $7081: $2A
-    ld [$C9D1], a                                 ; $7082: $EA $D1 $C9
-    ld a, [hl+]                                   ; $7085: $2A
-    ld [$C9D2], a                                 ; $7086: $EA $D2 $C9
-    ld a, [hl+]                                   ; $7089: $2A
-    ld [$C9D3], a                                 ; $708A: $EA $D3 $C9
-    ld a, [hl+]                                   ; $708D: $2A
-    ld [$C9D4], a                                 ; $708E: $EA $D4 $C9
-    ld a, [hl+]                                   ; $7091: $2A
-    ld [$C9D5], a                                 ; $7092: $EA $D5 $C9
-    ld a, [hl+]                                   ; $7095: $2A
-    ld [$C9D6], a                                 ; $7096: $EA $D6 $C9
-    ld a, [hl+]                                   ; $7099: $2A
-    ld [$C9D7], a                                 ; $709A: $EA $D7 $C9
-    ret                                           ; $709D: $C9
+    ; $7055
+Fightscene_LoadCreature::
+    call Fightscene_GetCreaturePointers
+    call Fightscene_LoadCreatureGraphicsData
+    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]
+    and a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        call Fightscene00_DrawCreatureLeft
+        ret
+    .CreatureRight:
+        call Fightscene00_DrawCreatureRight
+        ret
 
 
-Call_004_709E:
-    ld a, [$C9EC]                                 ; $709E: $FA $EC $C9
-    ld c, a                                       ; $70A1: $4F
-    ld a, [$C9EB]                                 ; $70A2: $FA $EB $C9
-    cp c                                          ; $70A5: $B9
-    ret z                                         ; $70A6: $C8
-
-    ld a, [$C9EF]                                 ; $70A7: $FA $EF $C9
-    ld c, a                                       ; $70AA: $4F
-    ld a, [$C9EE]                                 ; $70AB: $FA $EE $C9
-    cp c                                          ; $70AE: $B9
-    jr z, jr_004_70B6                             ; $70AF: $28 $05
-
-    inc a                                         ; $70B1: $3C
-    ld [$C9EE], a                                 ; $70B2: $EA $EE $C9
-    ret                                           ; $70B5: $C9
-
-
-jr_004_70B6:
-    xor a                                         ; $70B6: $AF
-    ld [$C9EE], a                                 ; $70B7: $EA $EE $C9
-    FGet16 hl, $C9F0                                  ; $70BA: $21 $F0 $C9
-    ld b, $00                                     ; $70C0: $06 $00
-    ld a, [$C9EB]                                 ; $70C2: $FA $EB $C9
-    ld c, a                                       ; $70C5: $4F
-    add hl, bc                                    ; $70C6: $09
-    ld a, [hl+]                                   ; $70C7: $2A
-    ld d, a                                       ; $70C8: $57
-    ld a, [hl+]                                   ; $70C9: $2A
-    ld e, a                                       ; $70CA: $5F
-    ld a, [hl+]                                   ; $70CB: $2A
-    ld [$C9EF], a                                 ; $70CC: $EA $EF $C9
-    and a                                         ; $70CF: $A7
-    jr nz, jr_004_70FF                            ; $70D0: $20 $2D
-
-    cp e                                          ; $70D2: $BB
-    jr nz, jr_004_70FF                            ; $70D3: $20 $2A
-
-    cp d                                          ; $70D5: $BA
-    jr nz, jr_004_70FF                            ; $70D6: $20 $27
-
-    ld a, [$C9ED]                                 ; $70D8: $FA $ED $C9
-    and a                                         ; $70DB: $A7
-    jr nz, jr_004_70E7                            ; $70DC: $20 $09
-
-    ld a, [hl+]                                   ; $70DE: $2A
-    ld [$C9EB], a                                 ; $70DF: $EA $EB $C9
-    ld a, [hl+]                                   ; $70E2: $2A
-    ld [$C9ED], a                                 ; $70E3: $EA $ED $C9
-    ret                                           ; $70E6: $C9
+    ; $7069
+Fightscene_LoadCreatureGraphicsData::
+    ; Loads the Fightscene Creature graphics into WRAM from [wTemp_C.Fightscene_CreatureGraphicsPointer]
+    ; Call this after calling Fightscene_GetCreaturePointers
+    Get16 hl, wTemp_C.Fightscene_CreatureGraphicsPointer
+    Mov8 wTemp_0.Fightscene_Creature_TilesetAddress, hl+
+    Mov8 wTemp_0.Fightscene_Creature_TilesetAddress+1, hl+
+    Mov8 wTemp_1.Fightscene_Creature_TilesetBank, hl+
+    Mov8 wTemp_2.Fightscene_Creature_TilemapAddress, hl+
+    Mov8 wTemp_2.Fightscene_Creature_TilemapAddress+1, hl+
+    Mov8 wTemp_3.Fightscene_Creature_TilemapBank, hl+
+    Mov8 wTemp_4.Fightscene_Width, hl+
+    Mov8 wTemp_5.Fightscene_Height, hl+
+    Mov8 wTemp_6.Palette_PaletteAddress, hl+
+    Mov8 wTemp_6.Palette_PaletteAddress+1, hl+
+    Mov8 wTemp_7.Palette_PaletteBank, hl+
+    ret
 
 
-jr_004_70E7:
-    ld a, [$C9ED]                                 ; $70E7: $FA $ED $C9
-    dec a                                         ; $70EA: $3D
-    ld [$C9ED], a                                 ; $70EB: $EA $ED $C9
-    and a                                         ; $70EE: $A7
-    jr z, jr_004_70F6                             ; $70EF: $28 $05
+    ; $709E
+Fightscene_CreatureRight_FightFX_UpdateCamera::
+    ; If we have reached the end of the reading frame, don't move
+    Get8 c, wFightscene_FightFX_ReadingFrameMax
+    ld a, [wFightscene_FightFX_ReadingFrameDelta]
+    cp c
+    ret z
 
-    ld a, [hl+]                                   ; $70F1: $2A
-    ld [$C9EB], a                                 ; $70F2: $EA $EB $C9
-    ret                                           ; $70F5: $C9
+    ; Only move every wFightscene_FightFX_TotalDelay frames
+    Get8 c, wFightscene_FightFX_TotalDelay
+    ld a, [wFightscene_FightFX_DelayCount]
+    cp c
+    jr z, .Move
+    .DontMove:
+        ; Increment the count
+        inc a
+        ld [wFightscene_FightFX_DelayCount], a
+        ret
+    .Move:
+    ; Reset the count
+    xor a
+    ld [wFightscene_FightFX_DelayCount], a
 
+    ; Read the next 3 bytes from the reading frame
+    FGet16 hl, wFightscene_FightFX_DataTable
+    ld b, $00
+    Get8 c, wFightscene_FightFX_ReadingFrameDelta
+    add hl, bc
+    Get8 d, hl+  ; DeltaX
+    Get8 e, hl+  ; DeltaY
+    ld a, [hl+]  ; Delay
+    ld [wFightscene_FightFX_TotalDelay], a
 
-jr_004_70F6:
-    ld a, [$C9EB]                                 ; $70F6: $FA $EB $C9
-    add $05                                       ; $70F9: $C6 $05
-    ld [$C9EB], a                                 ; $70FB: $EA $EB $C9
-    ret                                           ; $70FE: $C9
-
-
-jr_004_70FF:
-    ld a, [$C9C4]                                 ; $70FF: $FA $C4 $C9
-    add d                                         ; $7102: $82
-    ld [$C9C4], a                                 ; $7103: $EA $C4 $C9
-    ld a, [$C9C3]                                 ; $7106: $FA $C3 $C9
-    add e                                         ; $7109: $83
-    cp $71                                        ; $710A: $FE $71
-    jr c, jr_004_7110                             ; $710C: $38 $02
-
-    ld a, $71                                     ; $710E: $3E $71
-
-jr_004_7110:
-    ld [$C9C3], a                                 ; $7110: $EA $C3 $C9
-    ld a, [$C9EB]                                 ; $7113: $FA $EB $C9
-    add $03                                       ; $7116: $C6 $03
-    ld [$C9EB], a                                 ; $7118: $EA $EB $C9
-    ret                                           ; $711B: $C9
+    ; If all 3 parameters are 0, then it is a special Loop command
+    and a
+    jr nz, .NormalDelta
+    cp e
+    jr nz, .NormalDelta
+    cp d
+    jr nz, .NormalDelta
+    .HandleLoopCommand:
+        ; Special Loop command
+        ; If this is the first time we encounter this loop,
+        ;  then wFightscene_FightFX_LoopCount is uninitialized at 0
+        ld a, [wFightscene_FightFX_LoopCount]
+        and a
+        jr nz, .HandleOldLoop
+        .HandleNewLoop:
+            ; Sets the reading frame to the specified byte
+            ; Records the number of times this loop should happen
+            Mov8 wFightscene_FightFX_ReadingFrameDelta, hl+
+            Mov8 wFightscene_FightFX_LoopCount, hl+
+            ret
+        .HandleOldLoop:
+            ; It's not the first time we encounter this loop
+            ; See if we looped the required amount of times
+            ld a, [wFightscene_FightFX_LoopCount]
+            dec a
+            ld [wFightscene_FightFX_LoopCount], a
+            and a
+            jr z, .FinishedLoop
+            .NotFinishedLoop:
+                ; Reset the reading frame
+                Mov8 wFightscene_FightFX_ReadingFrameDelta, hl+
+                ret
+            .FinishedLoop:
+                ; Set the reading frame to after the loop ($00, $00, $00, Frame, LoopCount)
+                ld a, [wFightscene_FightFX_ReadingFrameDelta]
+                add $05
+                ld [wFightscene_FightFX_ReadingFrameDelta], a
+                ret
+    .NormalDelta:
+    ; Save the Delta WX
+    ld a, [wFightscene_DeltaWX]
+    add d
+    ld [wFightscene_DeltaWX], a
+    ; Save the Delta WY
+    ld a, [wFightscene_WY]
+    add e
+    cp FIGHTSCENE_WY_MAX
+    jr c, .SkipUpperLimit
+        ; Window upper limit for WY is $71.
+        ; I'm not sure in which situation you would expect to hit this limit...
+        ld a, FIGHTSCENE_WY_MAX
+    .SkipUpperLimit:
+    ld [wFightscene_WY], a
+    ; Set the next reading frame
+    ld a, [wFightscene_FightFX_ReadingFrameDelta]
+    add $03
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ret
 
 Call_004_711C::
     FGet16 hl, $C9E7                                  ; $711C: $21 $E7 $C9
@@ -6793,9 +6784,12 @@ jr_004_7186:
     ret                                           ; $718A: $C9
 
     ; $718B
-Call_007_718B::
-    Do_MemXor $9C00, $0140, $28
-    Do_MemAdd $9C00, $0140, $03, $FF
+Fightscene_FixCreatureRightAttrmap::
+    ; Fix the attrmap so that CreatureRight faces left and uses the right palettes
+    ; Fix the attributes - Set the tileid VRAM bank to 1 and switch the Xflip flag
+    ; Fix the Palette - CreatureRight is in palettes 3-5 (instead of 0-2 for CreatureLeft)
+    Do_MemXor FIGHTSCENE_CREATURE_RIGHT_SPRITE, (FIGHTSCENE_CREATURE_RIGHT_SPRITE_END - FIGHTSCENE_CREATURE_RIGHT_SPRITE), $28
+    Do_MemAdd FIGHTSCENE_CREATURE_RIGHT_SPRITE, (FIGHTSCENE_CREATURE_RIGHT_SPRITE_END - FIGHTSCENE_CREATURE_RIGHT_SPRITE), $03, $FF
     ret                                           ; $71A5: $C9
 
 
@@ -6897,12 +6891,12 @@ Call_004_722E:
     ld [$C9D8], a                                 ; $7270: $EA $D8 $C9
     ld a, $00                                     ; $7273: $3E $00
     ld [$C9D9], a                                 ; $7275: $EA $D9 $C9
-    Do_CallForeign Call_004_7055
+    Do_CallForeign Fightscene_LoadCreature
     ld a, [$C9E1]                                 ; $7280: $FA $E1 $C9
     ld [$C9D8], a                                 ; $7283: $EA $D8 $C9
     ld a, $01                                     ; $7286: $3E $01
     ld [$C9D9], a                                 ; $7288: $EA $D9 $C9
-    Do_CallForeign Call_004_7055
+    Do_CallForeign Fightscene_LoadCreature
     ld a, $07                                     ; $7293: $3E $07
     ld [$C9D8], a                                 ; $7295: $EA $D8 $C9
     ld de, $7FFF                                  ; $7298: $11 $FF $7F
@@ -6943,24 +6937,24 @@ jr_004_72D5:
 Call_004_72ED:
     xor a                                         ; $72ED: $AF
     ld [$C9BC], a                                 ; $72EE: $EA $BC $C9
-    ld [$C9C2], a                                 ; $72F1: $EA $C2 $C9
-    ld [$C9C4], a                                 ; $72F4: $EA $C4 $C9
+    ld [wFightscene_WX], a                                 ; $72F1: $EA $C2 $C9
+    ld [wFightscene_DeltaWX], a                                 ; $72F4: $EA $C4 $C9
     ld [$C9C0], a                                 ; $72F7: $EA $C0 $C9
     ld [$C9C1], a                                 ; $72FA: $EA $C1 $C9
     ld [$C9C7], a                                 ; $72FD: $EA $C7 $C9
-    ld [$C9EC], a                                 ; $7300: $EA $EC $C9
-    ld [$C9EB], a                                 ; $7303: $EA $EB $C9
-    ld [$C9EF], a                                 ; $7306: $EA $EF $C9
-    ld [$C9EE], a                                 ; $7309: $EA $EE $C9
+    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $7300: $EA $EC $C9
+    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $7303: $EA $EB $C9
+    ld [wFightscene_FightFX_TotalDelay], a                                 ; $7306: $EA $EF $C9
+    ld [wFightscene_FightFX_DelayCount], a                                 ; $7309: $EA $EE $C9
     ld [$C9FB], a                                 ; $730C: $EA $FB $C9
     ld [$C9FA], a                                 ; $730F: $EA $FA $C9
     ld [$C9F9], a                                 ; $7312: $EA $F9 $C9
     ld a, $58                                     ; $7315: $3E $58
     ld [$C9BD], a                                 ; $7317: $EA $BD $C9
     ld a, $20                                     ; $731A: $3E $20
-    ld [$C9C3], a                                 ; $731C: $EA $C3 $C9
+    ld [wFightscene_WY], a                                 ; $731C: $EA $C3 $C9
     ld a, $60                                     ; $731F: $3E $60
-    ld [$C9F0], a                                 ; $7321: $EA $F0 $C9
+    ld [wFightscene_FightFX_DataTable], a                                 ; $7321: $EA $F0 $C9
     ld a, $6C                                     ; $7324: $3E $6C
     ld [$C9F1], a                                 ; $7326: $EA $F1 $C9
     ld a, $F9                                     ; $7329: $3E $F9
@@ -6996,14 +6990,14 @@ Call_004_734D:
     ld a, $01                                     ; $7374: $3E $01
     call Call_004_73AA                            ; $7376: $CD $AA $73
     push de                                       ; $7379: $D5
-    call Call_004_709E                            ; $737A: $CD $9E $70
+    call Fightscene_CreatureRight_FightFX_UpdateCamera                            ; $737A: $CD $9E $70
     pop de                                        ; $737D: $D1
     ld a, $87                                     ; $737E: $3E $87
     sub e                                         ; $7380: $93
     ld e, a                                       ; $7381: $5F
-    ld a, [$C9C4]                                 ; $7382: $FA $C4 $C9
+    ld a, [wFightscene_DeltaWX]                                 ; $7382: $FA $C4 $C9
     add e                                         ; $7385: $83
-    ld [$C9C2], a                                 ; $7386: $EA $C2 $C9
+    ld [wFightscene_WX], a                                 ; $7386: $EA $C2 $C9
     ld a, [$C9BC]                                 ; $7389: $FA $BC $C9
     ld [wSCXW], a                                 ; $738C: $EA $35 $C9
     ld a, [$C9C7]                                 ; $738F: $FA $C7 $C9
@@ -7082,14 +7076,14 @@ jr_004_73DB:
 
 
     ld a, $0C                                     ; $73E7: $3E $0C
-    ld [$C9F0], a                                 ; $73E9: $EA $F0 $C9
+    ld [wFightscene_FightFX_DataTable], a                                 ; $73E9: $EA $F0 $C9
     ld a, $6C                                     ; $73EC: $3E $6C
     ld [$C9F1], a                                 ; $73EE: $EA $F1 $C9
     ld a, $30                                     ; $73F1: $3E $30
-    ld [$C9EC], a                                 ; $73F3: $EA $EC $C9
+    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $73F3: $EA $EC $C9
     xor a                                         ; $73F6: $AF
-    ld [$C9EB], a                                 ; $73F7: $EA $EB $C9
-    ld [$C9EE], a                                 ; $73FA: $EA $EE $C9
+    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $73F7: $EA $EB $C9
+    ld [wFightscene_FightFX_DelayCount], a                                 ; $73FA: $EA $EE $C9
     ret                                           ; $73FD: $C9
 
     ; $73FE
@@ -7097,8 +7091,8 @@ AI_HorizontalScroller_Setup::
     ; Sets the variables to create the horizontal scrolling effect (start screen)
     xor a
     ld [$C9BC], a
-    ld [wStartScreenTopScrollX], a
-    ld [wStartScreenBottomScrollX], a
+    ld [wFightscene_Arena_TopSCX], a
+    ld [wFightscene_Arena_BottomSCX], a
     Set16_M wVBlank_HandlerFunc, vblank_HorizontalScroll
     ret
 

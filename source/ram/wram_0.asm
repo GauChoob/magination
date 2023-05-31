@@ -771,62 +771,70 @@ wCardscene_IsOpened::
     ds 1
 
     ds $C9BE - @
-wFightscene_ScrollSpeedTop::
+wFightscene_Arena_TopDeltaX::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9BF - @
-wFightscene_ScrollSpeedBottom::
+wFightscene_Arena_BottomDeltaX::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9C0 - @
-wStartScreenTopScrollX::
+wFightscene_Arena_TopSCX::
     ; Position of the upper part of the horizontal scroll of the Start Screen
     ; Copied to rSCX
     ds 1
     ;ds $C9C1 - @
-wStartScreenBottomScrollX::
+wFightscene_Arena_BottomSCX::
     ; Position of the lower part of the horizontal scroll of the Start Screen
     ; Copied to rSCX
+    ds 1
+    ;ds $C9C2 - @
+wFightscene_WX::
+    ds 1
+    ;ds $C9C3 - @
+wFightscene_WY::
+    ds 1
+    ;ds $C9C4 - @
+wFightscene_DeltaWX::
     ds 1
 
     ; CREATURE_GFX_STRUCT TEMP
     ds $C9CD - @
-wTemp_BitmapAddress::
 wTemp_0::
     .Fightscene_Arena_TopBitmapAddress::
+    .Fightscene_Creature_TilesetAddress::
     ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9CF - @
-wTemp_BitmapBank::
 wTemp_1::
     .Fightscene_Arena_TopBitmapBank::
+    .Fightscene_Creature_TilesetBank::
     ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D0 - @
-wTemp_BackgroundAddress::
 wTemp_2::
     .Fightscene_Arena_TopTilemapAddress::
+    .Fightscene_Creature_TilemapAddress::
     ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9D2 - @
-wTemp_BackgroundBank::
 wTemp_3::
     .Fightscene_Arena_TopTilemapBank::
+    .Fightscene_Creature_TilemapBank::
     ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D3 - @
-wTemp_Width::
 wTemp_4::
     .Palette_ColorCounter:
     ; Loop counter
     .Cardscene_LoopCounter:
+    .Fightscene_Width:
     ds 1
     ;ds $C9D4 - @
 wTemp_5::
-wTemp_Height::
+    .Fightscene_Height:
     ds 1
     ;ds $C9D5 - @
-wTemp_Palette::
 wTemp_6::
     .Palette_PaletteAddress:
     ; Address of palette file
@@ -846,7 +854,7 @@ wTemp_8::
     ; e.g. %0011 0010 -> Palettes 3-5
     .Palette_ColorSwapType:
     ; e parameter for Palette_PaletteBufferSwapRGB
-    .Cardscene_CreatureID::
+    .Fightscene_CreatureID::
     ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CREATURE_NULL
     .Fightscene_Arena_BottomBitmapBank::
     ; Fightscene_ArenaData Struct property
@@ -884,14 +892,14 @@ wTemp_B::
     .Palette_FadeMagnitude:
     ; 8-bit value that determines the amount of palette fade per trigger
     ; e.g. a value of 2 will change the values of R, G and B by 2 every trigger
-    .CreatureDataPointer:
+    .Fightscene_CreatureBaseStatsPointer:
     ; Points to the start of the data for a creature in the Creature_Table
     .Fightscene_Arena_BottomTilemapAddress::
     ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9DE - @
 wTemp_C::
-    .CreatureGraphicsPointer:
+    .Fightscene_CreatureGraphicsPointer:
     ; Points to the graphics part of the data for a creature in the Creature_Table
     .Fightscene_ArenaDataPointer::
     ; Points to a Fightscene's Arena's data
@@ -912,6 +920,28 @@ wFightscene_ArenaColor::
     ; This color replaces transparent colors
     ds 2
 
+    ds $C9EB - @
+wFightscene_FightFX_ReadingFrameDelta::
+    ; Amount the Fightscene has moved horizontally
+    ds 1
+    ;ds $C9EC - @
+wFightscene_FightFX_ReadingFrameMax::
+    ; Maximum of wFightscene_FightFX_ReadingFrameDelta
+    ds 1
+    ;ds $C9ED - @
+wFightscene_FightFX_LoopCount::
+    ds 1
+    ;ds $C9EE - @
+wFightscene_FightFX_DelayCount::
+    ; Counter for wFightscene_FightFX_TotalDelay
+    ds 1
+    ;ds $C9EF - @
+wFightscene_FightFX_TotalDelay::
+    ; Move every X frames
+    ds 1
+    ;ds $C9F0 - @
+wFightscene_FightFX_DataTable::
+    ds 2
 
     ds $C9FF - @
 wMenu_MainMenu_ItemSpellMapDefaultScript::

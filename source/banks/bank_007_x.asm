@@ -139,7 +139,7 @@ jr_007_4248:
 
 
     PushROMBank
-    Do_CallForeign Creature_GetDataFromID
+    Do_CallForeign Fightscene_GetCreaturePointers
     ld bc, $0008                                  ; $426B: $01 $08 $00
     add hl, bc                                    ; $426E: $09
     ld b, $00                                     ; $426F: $06 $00
@@ -3757,7 +3757,7 @@ Fightscene_PalFX_SetFightsceneArenaColor::
     ld e, 4*6
     ld a, $01
     call Palette_PaletteBufferSetColor
-    call Fightscene_PalFX_SetCreaturePaletteArenaColor
+    call Fightscene_PalFX_SetCreaturePaletteArenaColor ; inefficiency? - this function is called again when a creature's palette is loaded
     Set8 wPalette_VBlankReady, $01
     ret
 

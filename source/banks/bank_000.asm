@@ -2113,9 +2113,9 @@ Battle02_00_CopyFromFrame:
 
 
     ld a, $30
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $DC
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6B
     ld [$C9F1], a
     jp Jump_000_11D9
@@ -2144,7 +2144,7 @@ MagiOp_34_LoadSideScroller::
     Set16_M hScript.State, Script_Start
     xor a
     ld [$C9D9], a
-    XCall Call_004_7055
+    XCall Fightscene_LoadCreature
     ret
 
 
@@ -2211,17 +2211,17 @@ jr_000_10FC:
 
 
     ld a, $30
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $0C
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6C
     ld [$C9F1], a
     jr jr_000_11D9
 
     ld a, $24
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $3C
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6C
     ld [$C9F1], a
     jr jr_000_11D9
@@ -2248,34 +2248,34 @@ jr_000_10FC:
 
 
     ld a, $54
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $60
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6C
     ld [$C9F1], a
     jr jr_000_11D9
 
     ld a, $A8
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $B4
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6C
     ld [$C9F1], a
     jr jr_000_11D9
 
     ld a, $1D
-    ld [$C9EC], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
     ld a, $5C
-    ld [$C9F0], a
+    ld [wFightscene_FightFX_DataTable], a
     ld a, $6D
     ld [$C9F1], a
 
 Jump_000_11D9:
 jr_000_11D9:
     xor a
-    ld [$C9EB], a
-    ld [$C9EE], a
-    ld [$C9EF], a
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ld [wFightscene_FightFX_DelayCount], a
+    ld [wFightscene_FightFX_TotalDelay], a
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     ret
@@ -5890,7 +5890,7 @@ Cardscene00_Graphics_DrawCreature:
     ; This function must only be called when the screen is off
     ; If the screen is on, try using Cardscene_SpawnCreature instead
     ; Inputs:
-    ;   wTemp_8.Cardscene_CreatureID
+    ;   wTemp_8.Fightscene_CreatureID
     ;   wTemp_9.Cardscene_CardSlot
     PushROMBank
 
@@ -5988,82 +5988,82 @@ Cardscene00_VBlank_SetCardPalette::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-
+    ; $338D
+Fightscene00_DrawCreatureLeft::
     PushROMBank
+
+    ; Load Creature Tileset
     xor a
     ld [rVBK], a
-    SwitchROMBank [$C9CF]
-    ld a, [$C9CE]
-    ld h, a
-    ld a, [$C9CD]
-    ld l, a
-    ld de, $9000
-    ld bc, $0800 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
+    SwitchROMBank [wTemp_1.Fightscene_Creature_TilesetBank]
+    Get16 hl, wTemp_0.Fightscene_Creature_TilesetAddress
+    ld de, FIGHTSCENE_VRAM_ARENA_CREATURE_LEFT
+    ld bc, (FIGHTSCENE_VRAM_ARENA_CREATURE_LEFT_END - FIGHTSCENE_VRAM_ARENA_CREATURE_LEFT) ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
+
+    ; Reset the TileAttrmap
     XCall Fightscene_CreatureLeft_ClearTilemap
-    ld a, $01
-    ld [rVBK], a
+    Set8 rVBK, $01
     XCall Fightscene_CreatureLeft_ClearAttrmap
-    ld a, [$C9D2]
-    SwitchROMBank a
-    ld hl, $99E0
-    ld a, [$C9D3]
-    ld e, a
-    ld a, [$C9D4]
-    ld d, a
+
+    ; Draw the Creature on the TileAttrmap
+    ;   Center the creature's position using Fightscene00_CenterCreatureTilemap
+    ld a, [wTemp_3.Fightscene_Creature_TilemapBank]
+    SwitchROMBank a  ; inefficiency - ld a, a
+    ld hl, FIGHTSCENE_CREATURE_LEFT_SPRITE
+    Get8 e, wTemp_4.Fightscene_Width
+    Get8 d, wTemp_5.Fightscene_Height
     xor a
-    call Call_000_3635
-    ld a, [$C9D1]
-    ld b, a
-    ld a, [$C9D0]
-    ld c, a
+    call Fightscene00_CenterCreatureTilemap
+    Get16 bc, wTemp_2.Fightscene_Creature_TilemapAddress
     call Unpack_AttrTileRLE_To_StaticTilemap
-    ld a, [$C9D7]
-    SwitchROMBank a
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_358E
+
+    ; Load the Creature Palette
+    ld a, [wTemp_7.Palette_PaletteBank]
+    SwitchROMBank a  ; inefficiency - ld a, a
+    Get16 bc, wTemp_6.Palette_PaletteAddress
+    call Fightscene00_LoadCreatureLeftPalette
+
     PopROMBank
     ret
 
-
+    ; $340B
+Fightscene00_DrawCreatureRight::
     PushROMBank
-    ld a, $01
-    ld [rVBK], a
-    SwitchROMBank [$C9CF]
-    ld a, [$C9CE]
-    ld h, a
-    ld a, [$C9CD]
-    ld l, a
-    ld de, $9000
-    ld bc, $0800 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
+
+    ; Load Creature Tileset
+    Set8 rVBK, $01
+    SwitchROMBank [wTemp_1.Fightscene_Creature_TilesetBank]
+    Get16 hl, wTemp_0.Fightscene_Creature_TilesetAddress
+    ld de, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
+    ld bc, (FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT_END - FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT) ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
+
+    ; Reset the TileAttrmap
     XCall Fightscene_CreatureRight_ClearAttrmap
     xor a
     ld [rVBK], a
     XCall Fightscene_CreatureRight_ClearTilemap
-    SwitchROMBank [$C9D2]
-    ld hl, $9C00
-    ld a, [$C9D3]
-    ld e, a
-    ld a, [$C9D4]
-    ld d, a
+
+    ; Draw the Creature on the TileAttrmap
+    ;   Center the creature's position using Fightscene00_CenterCreatureTilemap
+    ;   Flip the creature (so it faces left)
+    ;   Increment the palette by 3 to use the right colors (0-2 is used from CreatureLeft)
+    SwitchROMBank [wTemp_3.Fightscene_Creature_TilemapBank]
+    ld hl, FIGHTSCENE_CREATURE_RIGHT_SPRITE
+    Get8 e, wTemp_4.Fightscene_Width
+    Get8 d, wTemp_5.Fightscene_Height
     ld a, $01
-    call Call_000_3635
-    ld a, [$C9D1]
-    ld b, a
-    ld a, [$C9D0]
-    ld c, a
+    call Fightscene00_CenterCreatureTilemap
+    Get16 bc, wTemp_2.Fightscene_Creature_TilemapAddress
     call Unpack_AttrTileRLE_To_XFlippedStaticTilemap
-    XCall Call_007_718B
-    SwitchROMBank [$C9D7]
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_35AD
+    XCall Fightscene_FixCreatureRightAttrmap
+
+    ; Load the Creature Palette
+    SwitchROMBank [wTemp_7.Palette_PaletteBank]
+    Get16 bc, wTemp_6.Palette_PaletteAddress
+    call Fightscene00_LoadCreatureRightPalette
+
     PopROMBank
     ret
 
@@ -6081,19 +6081,19 @@ Fightscene00_DrawArena::
     SwitchROMBank [wTemp_1.Fightscene_Arena_TopBitmapBank]
     Get16 hl, wTemp_0.Fightscene_Arena_TopBitmapAddress
     ld de, FIGHTSCENE_VRAM_ARENA_TOP
-    ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
+    ld bc, (FIGHTSCENE_VRAM_ARENA_TOP_END - FIGHTSCENE_VRAM_ARENA_TOP) ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
 
     ; Load Arena Bitmap Bottom
     SwitchROMBank [wTemp_8.Fightscene_Arena_BottomBitmapBank]
     Get16 hl, wTemp_A.Fightscene_Arena_BottomBitmapAddress
     ld de, FIGHTSCENE_VRAM_ARENA_BOTTOM
-    ld bc, $0400 ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
+    ld bc, (FIGHTSCENE_VRAM_ARENA_BOTTOM_END - FIGHTSCENE_VRAM_ARENA_BOTTOM) ;Unused line. This line exists because previously the pattern was not compressed and MemMov was used instead, which required this line
     call RLE_Decompress
 
     ; Make a single blank tile
     Set8 rVBK, $01
-    Do_MemSet $8800, $10, $00 ;Wipe a single tile to an empty square - inefficiency - could just use tile 1:EE instead?
+    Do_MemSet FIGHTSCENE_VRAM_ARENA_BLANKTILE, $10, $00 ;Wipe a single tile to an empty square - inefficiency - could just use tile 1:EE instead?
 
     ; Load Arena TileAttrmap Top
     SwitchROMBank [wTemp_3.Fightscene_Arena_TopTilemapBank]
@@ -6138,25 +6138,35 @@ Fightscene00_DrawArena::
     ret
 
 
-Call_000_358E:
+    ; $358E
+Fightscene00_LoadCreatureLeftPalette::
+    ; Loads the target palette into Pal0-2
+    ; Sets the first color of Pal0, Pal1 to transparent (Arena Color)
+    ; Optionally sets the first color of Pal2 to transparent if the color is the magic number RGB 0, $F, $F
+    ; Inputs:
+    ;   bc = Palette address
+    ;   ROMBank set to Palette bank
     xor a
     ld [wPalette_VBlankReady], a
     ld hl, wPalette_BaseBuffers
-    ld e, $00
-    ld a, $0C
+    ld e, 0
+    ld a, 4*3
     call Unpack_Palette_Palettes
     XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
-    ld a, $01
-    ld [wPalette_VBlankReady], a
+    Set8 wPalette_VBlankReady, $01
     ret
 
 
-Call_000_35AD:
+    ; $35AD
+Fightscene00_LoadCreatureRightPalette::
+    ; Loads the target palette into Pal3-5
+    ; Sets the first color of Pal3, Pal4 to transparent (Arena Color)
+    ; Optionally sets the first color of Pal5 to transparent if the color is the magic number RGB 0, $F, $F
     xor a
     ld [wPalette_VBlankReady], a
     ld hl, wPalette_BaseBuffers
-    ld e, $0C
-    ld a, $0C
+    ld e, 4*3
+    ld a, 4*3
     call Unpack_Palette_Palettes
     XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
     ld a, $01
@@ -6201,7 +6211,7 @@ Call_000_35F1:
     ld b, a
     ld a, [$C9D5]
     ld c, a
-    call Call_000_358E
+    call Fightscene00_LoadCreatureLeftPalette
     PopROMBank
     ret
 
@@ -6213,47 +6223,59 @@ jr_000_3618:
     ld b, a
     ld a, [$C9D5]
     ld c, a
-    call Call_000_35AD
+    call Fightscene00_LoadCreatureRightPalette
     PopROMBank
     ret
 
 
-Call_000_3635:
+Fightscene00_CenterCreatureTilemap::
+    ; Centers the creature at an ideal spot, given the creature tilemap dimensions
+    ; Inputs:
+    ;   hl = Topleft tilemap address of the creature area
+    ;   d = height
+    ;   e = width
+    ;   a = (Left = 0, NotFlipped), (Right = 1, XFlipped)
+    ; Output:
+    ;   hl = Ideal tilemap address to start drawing the creature
     and a
-    jr nz, jr_000_3643
+    jr nz, .RightSide_Flipped
+    .LeftSide_NotFlipped:
+        ; X offset: X=0, unless width=16, in which case X=1
+        ; Y offset: According to Fightscene00_CenterCreature_CalculateYOffset
+        ld a, e
+        cp $10
+        jr z, .SkipXOffset1 ; bug - should be nc (though I don't think there is any width larger than $10)
+            inc hl
+        .SkipXOffset1:
+        call Fightscene00_CenterCreature_CalculateYOffset
+        add hl, bc
+        ret
 
-    ld a, e
-    cp $10
-    jr z, jr_000_363E
-
-    inc hl
-
-jr_000_363E:
-    call Call_000_3667
-    add hl, bc
-    ret
-
-
-jr_000_3643:
-    ld a, e
-    cp $10
-    jr nc, jr_000_3652
-
-    call Call_000_3657
-    cpl
-    inc a
-    add $10
-    sub c
-    ld c, a
-    add hl, bc
-
-jr_000_3652:
-    call Call_000_3667
-    add hl, bc
-    ret
+    .RightSide_Flipped:
+        ld a, e
+        cp $10 ; If a >= $10, skip
+        jr nc, .SkipXOffset2
+            call Fightscene00_CenterCreature_CalculateXOffset
+            ; Right-align instead of Left-align: $10 - width - XOffset
+            cpl
+            inc a
+            add $10
+            sub c
+            ld c, a
+            add hl, bc
+        .SkipXOffset2:
+        call Fightscene00_CenterCreature_CalculateYOffset
+        add hl, bc
+        ret
 
 
-Call_000_3657:
+Fightscene00_CenterCreature_CalculateXOffset:
+    ; Inputs:
+    ;   e = height
+    ; Outputs:
+    ;   bc = offset = 
+    ;                d >= $10 then 0, else
+    ;                [Fightscene00_XOffset_Table + width]
     ld bc, $0000
     ld a, e
     cp $10
@@ -6261,22 +6283,29 @@ Call_000_3657:
 
     push hl
     ld c, e
-    ld hl, $3758
+    ld hl, Fightscene00_XOffset_Table
     add hl, bc
     ld c, [hl]
     pop hl
     ret
 
 
-Call_000_3667:
+    ; $3667
+Fightscene00_CenterCreature_CalculateYOffset:
+    ; Inputs:
+    ;   d = height
+    ; Outputs:
+    ;   bc = offset = 
+    ;                d == $0A then 0, else
+    ;                [Fightscene00_YOffset_Table + height]
     ld bc, $0000
     ld a, d
     cp $0A
-    ret z
+    ret z  ; bug - should be nc technically for >=, and Fightscene00_YOffset_Table goes up to 12, not 10
 
     push hl
     ld c, d
-    ld hl, $3769
+    ld hl, Fightscene00_YOffset_Table
     add hl, bc
     ld c, [hl]
     pop hl
@@ -6285,7 +6314,7 @@ Call_000_3667:
     ; $3677
 Call_000_3677::
     ; HBlank_Func
-    ld a, [$C9C2]
+    ld a, [wFightscene_WX]
     ldh [rWX], a
     ld a, [$C9BC]
     ldh [rSCX], a
@@ -6308,7 +6337,7 @@ Call_000_36B1:
     ; HBlank_Func
     ld a, $A7
     ldh [rWX], a
-    ld a, [wStartScreenBottomScrollX]
+    ld a, [wFightscene_Arena_BottomSCX]
     ldh [rSCX], a
     ld a, $B0
     ldh [rSCY], a
@@ -6320,11 +6349,11 @@ Call_000_36B1:
 Call_000_36C1:
     ld a, $A7
     ldh [rWX], a
-    ld a, [wStartScreenTopScrollX]
+    ld a, [wFightscene_Arena_TopSCX]
     ldh [rSCX], a
     xor a
     ldh [rSCY], a
-    ld a, [$C9C3]
+    ld a, [wFightscene_WY]
     ldh [rWY], a
     ld a, $1F
     ldh [rLYC], a
@@ -6362,51 +6391,52 @@ jr_000_370A:
     Set16FF hInterrupt_HBlank_Func, Call_000_3677
     ret
 
+Fightscene00_XOffset_Table::
+    ; Left-jusitifies the monster approximately at the 7th row
+    db $03   ; Width = 0  01234567890123456
+    db $03   ; Width = 1     _
+    db $02   ; Width = 2    __
+    db $02   ; Width = 3    ___
+    db $02   ; Width = 4    ____
+    db $02   ; Width = 5    _____
+    db $01   ; Width = 6   ______
+    db $01   ; Width = 7   _______
+    db $01   ; Width = 8   ________
+    db $01   ; Width = 9   _________
+    db $01   ; Width = 10  __________
+    db $01   ; Width = 11  ___________
+    db $01   ; Width = 12  ____________
+    db $01   ; Width = 13  _____________
+    db $01   ; Width = 14  ______________
+    db $01   ; Width = 15  _______________
+    db $00   ; Width = 16  ________________
 
-    inc bc
-    inc bc
-    ld [bc], a
-
-    db $02
-
-    ld [bc], a
-    ld [bc], a
-    ld bc, $0101
-
-    db $01
-
-    ld bc, $0101
-    ld bc, $0101
-    nop
-    ldh [$FFE0], a
-    db $E0
-
-    db $C0
-
-    and b
-
-    db $80
-
-    ld h, b
-    ld h, b
-
-    db $40
-
-    jr nz, jr_000_3774
-
-jr_000_3774:
-    nop
-    nop
+    ; $3769
+Fightscene00_YOffset_Table::
+    ; Centers the bottom of the monster approximately at the 7th row
+    db $20*7   ; Height = 0  01234567890
+    db $20*7   ; Height = 1         _
+    db $20*7   ; Height = 2         __
+    db $20*6   ; Height = 3        ___
+    db $20*5   ; Height = 4       ____
+    db $20*4   ; Height = 5      _____
+    db $20*3   ; Height = 6     ______
+    db $20*3   ; Height = 7     _______
+    db $20*2   ; Height = 8    ________
+    db $20*1   ; Height = 9   _________
+    db $20*0   ; Height = 10 __________    -> Handled specially Fightscene00_CenterCreature_CalculateYOffset
+    db $20*0   ; Height = 11 ___________
+    db $20*0   ; Height = 12 ___________
 
     ; $3776
 lcdc_HorizontalScroll_Upper::
     ; Run in StartScreen for horizontal scroll effect (start screen)
     ; Prepares the upper half of the horizontal scroll
-    ld a, [wFightscene_ScrollSpeedTop]
+    ld a, [wFightscene_Arena_TopDeltaX]
     ld e, a
-    ld a, [wStartScreenTopScrollX]
+    ld a, [wFightscene_Arena_TopSCX]
     add e
-    ld [wStartScreenTopScrollX], a
+    ld [wFightscene_Arena_TopSCX], a
     ldh [rSCX], a  ;SCX to the current position
     ld a, $B8
     ldh [rSCY], a  ;SCY to tile $17 (+rLY is at tile 9, making $20 or $00)
@@ -6421,11 +6451,11 @@ lcdc_HorizontalScroll_Upper::
 lcdc_HorizontalScroll_Lower::
     ; Run in StartScreen for horizontal scroll effect (start screen)
     ; Prepares the lower half of the horizontal scroll
-    ld a, [wFightscene_ScrollSpeedBottom]
+    ld a, [wFightscene_Arena_BottomDeltaX]
     ld e, a
-    ld a, [wStartScreenBottomScrollX]
+    ld a, [wFightscene_Arena_BottomSCX]
     add e
-    ld [wStartScreenBottomScrollX], a
+    ld [wFightscene_Arena_BottomSCX], a
     ldh [rSCX], a
     ld a, $B8
     ldh [rSCY], a     ;SCY to tile $17 (+rLY is at tile $0D, making $24 or $04)

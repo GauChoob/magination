@@ -2818,7 +2818,7 @@ Menu_MainMenu_Setup_Rings:
     push hl
     Battery_SetBank "XRAM Creatures"
     Battery_On
-    Set8 wTemp_8.Cardscene_CreatureID, [hl] ;id
+    Set8 wTemp_8.Fightscene_CreatureID, [hl] ;id
     Battery_Off
     Do_CallForeign Cardscene_GetCardIcon      ;Get the address of the card tileset
     ld bc, Menu_MainMenu_VRAM_RINGS_CARD
