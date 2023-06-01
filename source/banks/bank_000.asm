@@ -2078,7 +2078,7 @@ Cmd_Battle_Swirl::
     LdHLIBCI
     jp Script_Start
 
-
+    ; $0FFE
     ld a, $01
     ld [$C6D8], a
     ld a, $FF
@@ -2112,13 +2112,12 @@ Battle02_00_CopyFromFrame:
     ret
 
 
-    ld a, $30
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $DC
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6B
-    ld [$C9F1], a
-    jp Jump_000_11D9
+    ; $1049
+Cmd_Fightscene_FightFX_BlowAway::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_BlowAway
+    jp Fightscene_FightFX_MoveTableInit
 
     ; $105B
 MagiOp_34_LoadSideScroller::
@@ -2147,7 +2146,8 @@ MagiOp_34_LoadSideScroller::
     XCall Fightscene_LoadCreature
     ret
 
-
+    ; $10AF
+Cmd_Fightscene_FightFX_New::
     ld a, [bc]
     ld [wFightscene_ArenaIndex], a
     inc bc
@@ -2178,6 +2178,8 @@ jr_000_10FC:
     call Call_004_734D
     jr jr_000_10FC
 
+    ; $110C
+Cmd_Fightscene_FightFX_Pan::
     ld a, $01
     ldh [hScript.BigCounter], a
     xor a
@@ -2203,29 +2205,30 @@ jr_000_10FC:
     ret
 
     ; $1141
-    ; Identical to SceneReady, but not an opcode
-    ld a, $01
-    ld [wScript_SceneReady], a
+Cmd_Fightscene_FightFX_Ready::
+    ; Removed opcode - does not feature in the command list
+    ; Identical to Cmd_System_SceneReady
+    ; Inputs:
+    ;   None
+    Set8 wScript_SceneReady, $01
     Set16_M hScript.State, Script_Start
     ret
 
+    ; $1151
+Cmd_Fightscene_FightFX_Recoil::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Recoil
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $30
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $0C
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
+    ; $1162
+Cmd_Fightscene_FightFX_UNKTODO::  ; TODO find the name of the movetable and rename this command
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_UNKTODO
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $24
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $3C
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
-
+    ; $1173
     Script_ReadByteA
     ld [$C9EA], a
     Script_ReadByteA
@@ -2246,32 +2249,30 @@ jr_000_10FC:
     XCall Call_004_715B
     ret
 
+    ; $11A8
+Cmd_Fightscene_FightFX_Shake::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Shake
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $54
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $60
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
+    ; $11B9
+Cmd_Fightscene_FightFX_Sink::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Sink
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $A8
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $B4
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
+    ; $11CA
+Cmd_Fightscene_FightFX_Tremble::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Tremble
+    ;jr Fightscene_FightFX_MoveTableInit ; Fall through to the next function
 
-    ld a, $1D
-    ld [wFightscene_FightFX_ReadingFrameMax], a
-    ld a, $5C
-    ld [wFightscene_FightFX_DataTable], a
-    ld a, $6D
-    ld [$C9F1], a
-
-Jump_000_11D9:
-jr_000_11D9:
+    ; $11D9
+Fightscene_FightFX_MoveTableInit::
+    ; Initialize the associated vars
     xor a
     ld [wFightscene_FightFX_ReadingFrameDelta], a
     ld [wFightscene_FightFX_DelayCount], a
@@ -2280,15 +2281,18 @@ jr_000_11D9:
     Set16_M hScript.State, Script_Start
     ret
 
-
+    ; $11F6
+Cmd_Fightscene_FightFX_MeltFast::
     ld a, $08
     ld [$C9FA], a
     ld a, $E9
     ld [$C9F4], a
     ld a, $6D
     ld [$C9F5], a
-    jr jr_000_1216
+    jr Fightscene_FightFX_MeltInit
 
+    ; $1207
+Cmd_Fightscene_FightFX_MeltSlow::
     ld a, $10
     ld [$C9FA], a
     ld a, $F9
@@ -2296,7 +2300,7 @@ jr_000_11D9:
     ld a, $6D
     ld [$C9F5], a
 
-jr_000_1216:
+Fightscene_FightFX_MeltInit:
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     XCall Call_004_6AFA

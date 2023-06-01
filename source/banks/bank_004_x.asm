@@ -6023,220 +6023,187 @@ Call_004_6AFA::
     nop                                           ; $6BD9: $00
     nop                                           ; $6BDA: $00
     nop                                           ; $6BDB: $00
-    ld bc, $0002                                  ; $6BDC: $01 $02 $00
-    ld [bc], a                                    ; $6BDF: $02
-    cp $00                                        ; $6BE0: $FE $00
-    inc bc                                        ; $6BE2: $03
-    ld bc, $0300                                  ; $6BE3: $01 $00 $03
-    rst $38                                       ; $6BE6: $FF
-    nop                                           ; $6BE7: $00
-    inc b                                         ; $6BE8: $04
-    nop                                           ; $6BE9: $00
-    nop                                           ; $6BEA: $00
-    dec b                                         ; $6BEB: $05
-    nop                                           ; $6BEC: $00
-    nop                                           ; $6BED: $00
-    ld b, $00                                     ; $6BEE: $06 $00
-    nop                                           ; $6BF0: $00
-    rlca                                          ; $6BF1: $07
-    nop                                           ; $6BF2: $00
-    nop                                           ; $6BF3: $00
-    ld [rRAMG], sp                                ; $6BF4: $08 $00 $00
-    ld a, [bc]                                    ; $6BF7: $0A
-    nop                                           ; $6BF8: $00
-    nop                                           ; $6BF9: $00
-    inc c                                         ; $6BFA: $0C
-    nop                                           ; $6BFB: $00
-    nop                                           ; $6BFC: $00
-    ld c, $00                                     ; $6BFD: $0E $00
-    nop                                           ; $6BFF: $00
-    ld c, $00                                     ; $6C00: $0E $00
-    nop                                           ; $6C02: $00
-    stop                                          ; $6C03: $10 $00
-    nop                                           ; $6C05: $00
-    ld [de], a                                    ; $6C06: $12
-    nop                                           ; $6C07: $00
-    nop                                           ; $6C08: $00
-    inc d                                         ; $6C09: $14
-    nop                                           ; $6C0A: $00
-    nop                                           ; $6C0B: $00
-    ld [bc], a                                    ; $6C0C: $02
-    nop                                           ; $6C0D: $00
-    nop                                           ; $6C0E: $00
-    inc b                                         ; $6C0F: $04
-    nop                                           ; $6C10: $00
-    ld bc, $0006                                  ; $6C11: $01 $06 $00
-    ld bc, $0001                                  ; $6C14: $01 $01 $00
-    ld [bc], a                                    ; $6C17: $02
-    cp $00                                        ; $6C18: $FE $00
-    nop                                           ; $6C1A: $00
-    db $FC                                        ; $6C1B: $FC
-    nop                                           ; $6C1C: $00
-    ld bc, $00FA                                  ; $6C1D: $01 $FA $00
-    ld [bc], a                                    ; $6C20: $02
-    rst $38                                       ; $6C21: $FF
-    nop                                           ; $6C22: $00
-    ld [bc], a                                    ; $6C23: $02
-    ld [bc], a                                    ; $6C24: $02
-    nop                                           ; $6C25: $00
-    ld bc, $00FE                                  ; $6C26: $01 $FE $00
-    ld bc, $0003                                  ; $6C29: $01 $03 $00
-    ld bc, $00FD                                  ; $6C2C: $01 $FD $00
-    ld bc, $0002                                  ; $6C2F: $01 $02 $00
-    ld [bc], a                                    ; $6C32: $02
-    cp $00                                        ; $6C33: $FE $00
-    ld [bc], a                                    ; $6C35: $02
-    ld [bc], a                                    ; $6C36: $02
-    nop                                           ; $6C37: $00
-    ld [bc], a                                    ; $6C38: $02
-    cp $00                                        ; $6C39: $FE $00
-    ld [bc], a                                    ; $6C3B: $02
-    ld [bc], a                                    ; $6C3C: $02
-    nop                                           ; $6C3D: $00
-    nop                                           ; $6C3E: $00
-    inc b                                         ; $6C3F: $04
-    nop                                           ; $6C40: $00
-    ld bc, $00FE                                  ; $6C41: $01 $FE $00
-    nop                                           ; $6C44: $00
-    db $FC                                        ; $6C45: $FC
-    nop                                           ; $6C46: $00
-    ld bc, $0002                                  ; $6C47: $01 $02 $00
-    ld bc, $00FE                                  ; $6C4A: $01 $FE $00
-    ld bc, $0003                                  ; $6C4D: $01 $03 $00
-    ld bc, $00FD                                  ; $6C50: $01 $FD $00
-    ld bc, $0002                                  ; $6C53: $01 $02 $00
-    ld bc, $00FE                                  ; $6C56: $01 $FE $00
-    ld bc, $0002                                  ; $6C59: $01 $02 $00
-    ld bc, $00FE                                  ; $6C5C: $01 $FE $00
-    ld bc, $0101                                  ; $6C5F: $01 $01 $01
-    nop                                           ; $6C62: $00
-    rst $38                                       ; $6C63: $FF
-    rst $38                                       ; $6C64: $FF
-    ld [bc], a                                    ; $6C65: $02
-    ld [bc], a                                    ; $6C66: $02
-    ld [bc], a                                    ; $6C67: $02
-    ld [bc], a                                    ; $6C68: $02
-    cp $FE                                        ; $6C69: $FE $FE
-    ld [bc], a                                    ; $6C6B: $02
-    inc bc                                        ; $6C6C: $03
-    inc bc                                        ; $6C6D: $03
-    ld [bc], a                                    ; $6C6E: $02
-    db $FD                                        ; $6C6F: $FD
-    db $FD                                        ; $6C70: $FD
-    ld [bc], a                                    ; $6C71: $02
-    inc b                                         ; $6C72: $04
-    inc b                                         ; $6C73: $04
-    ld [bc], a                                    ; $6C74: $02
-    db $FC                                        ; $6C75: $FC
-    db $FC                                        ; $6C76: $FC
-    ld [bc], a                                    ; $6C77: $02
-    ld bc, $0101                                  ; $6C78: $01 $01 $01
-    rst $38                                       ; $6C7B: $FF
-    rst $38                                       ; $6C7C: $FF
-    ld bc, $0202                                  ; $6C7D: $01 $02 $02
-    ld bc, $FEFE                                  ; $6C80: $01 $FE $FE
-    ld bc, $0303                                  ; $6C83: $01 $03 $03
-    ld bc, $FDFD                                  ; $6C86: $01 $FD $FD
-    ld bc, $0404                                  ; $6C89: $01 $04 $04
-    ld bc, $FCFC                                  ; $6C8C: $01 $FC $FC
-    ld bc, $0303                                  ; $6C8F: $01 $03 $03
-    ld [bc], a                                    ; $6C92: $02
-    db $FD                                        ; $6C93: $FD
-    db $FD                                        ; $6C94: $FD
-    ld bc, $0404                                  ; $6C95: $01 $04 $04
-    ld [bc], a                                    ; $6C98: $02
-    db $FC                                        ; $6C99: $FC
-    db $FC                                        ; $6C9A: $FC
-    ld bc, $0303                                  ; $6C9B: $01 $03 $03
-    ld [bc], a                                    ; $6C9E: $02
-    db $FD                                        ; $6C9F: $FD
-    db $FD                                        ; $6CA0: $FD
-    ld bc, $0404                                  ; $6CA1: $01 $04 $04
-    ld [bc], a                                    ; $6CA4: $02
-    db $FC                                        ; $6CA5: $FC
-    db $FC                                        ; $6CA6: $FC
-    ld [bc], a                                    ; $6CA7: $02
-    inc bc                                        ; $6CA8: $03
-    inc bc                                        ; $6CA9: $03
-    ld [bc], a                                    ; $6CAA: $02
-    db $FD                                        ; $6CAB: $FD
-    db $FD                                        ; $6CAC: $FD
-    ld [bc], a                                    ; $6CAD: $02
-    inc b                                         ; $6CAE: $04
-    inc b                                         ; $6CAF: $04
-    ld [bc], a                                    ; $6CB0: $02
-    db $FC                                        ; $6CB1: $FC
-    db $FC                                        ; $6CB2: $FC
-    ld bc, $01FF                                  ; $6CB3: $01 $FF $01
-    nop                                           ; $6CB6: $00
-    rst $38                                       ; $6CB7: $FF
-    ld bc, $020E                                  ; $6CB8: $01 $0E $02
-    ld bc, $010E                                  ; $6CBB: $01 $0E $01
-    ld bc, $010E                                  ; $6CBE: $01 $0E $01
-    ld bc, $FE0E                                  ; $6CC1: $01 $0E $FE
-    ld bc, $FF0E                                  ; $6CC4: $01 $0E $FF
-    ld bc, $FF0E                                  ; $6CC7: $01 $0E $FF
-    ld bc, $FF0E                                  ; $6CCA: $01 $0E $FF
-    ld bc, $FF0E                                  ; $6CCD: $01 $0E $FF
-    ld bc, $020E                                  ; $6CD0: $01 $0E $02
-    ld bc, $010E                                  ; $6CD3: $01 $0E $01
-    ld bc, $010E                                  ; $6CD6: $01 $0E $01
-    ld bc, $FE0E                                  ; $6CD9: $01 $0E $FE
-    ld bc, $FF0E                                  ; $6CDC: $01 $0E $FF
-    ld bc, $FF0E                                  ; $6CDF: $01 $0E $FF
-    ld bc, $020E                                  ; $6CE2: $01 $0E $02
-    ld bc, $010C                                  ; $6CE5: $01 $0C $01
-    ld bc, $010C                                  ; $6CE8: $01 $0C $01
-    ld bc, $FE0C                                  ; $6CEB: $01 $0C $FE
-    ld bc, $FF0C                                  ; $6CEE: $01 $0C $FF
-    ld bc, $FF0C                                  ; $6CF1: $01 $0C $FF
-    ld bc, $020C                                  ; $6CF4: $01 $0C $02
-    ld bc, $010C                                  ; $6CF7: $01 $0C $01
-    ld bc, $010C                                  ; $6CFA: $01 $0C $01
-    ld bc, $FE09                                  ; $6CFD: $01 $09 $FE
-    ld bc, $FF09                                  ; $6D00: $01 $09 $FF
-    ld bc, $FF09                                  ; $6D03: $01 $09 $FF
-    ld bc, $0209                                  ; $6D06: $01 $09 $02
-    ld bc, $0109                                  ; $6D09: $01 $09 $01
-    ld bc, $0109                                  ; $6D0C: $01 $09 $01
-    ld bc, $FE09                                  ; $6D0F: $01 $09 $FE
-    ld bc, $0109                                  ; $6D12: $01 $09 $01
-    ld bc, $FE08                                  ; $6D15: $01 $08 $FE
-    ld bc, $FF08                                  ; $6D18: $01 $08 $FF
-    ld bc, $FF08                                  ; $6D1B: $01 $08 $FF
-    ld bc, $0208                                  ; $6D1E: $01 $08 $02
-    ld bc, $0108                                  ; $6D21: $01 $08 $01
-    ld bc, $0108                                  ; $6D24: $01 $08 $01
-    ld bc, $FE08                                  ; $6D27: $01 $08 $FE
-    ld bc, $0108                                  ; $6D2A: $01 $08 $01
-    ld bc, $FE06                                  ; $6D2D: $01 $06 $FE
-    ld bc, $FF06                                  ; $6D30: $01 $06 $FF
-    ld bc, $FF06                                  ; $6D33: $01 $06 $FF
-    ld bc, $0206                                  ; $6D36: $01 $06 $02
-    ld bc, $0106                                  ; $6D39: $01 $06 $01
-    ld bc, $0106                                  ; $6D3C: $01 $06 $01
-    ld bc, $FE06                                  ; $6D3F: $01 $06 $FE
-    ld bc, $0106                                  ; $6D42: $01 $06 $01
-    ld bc, $FF06                                  ; $6D45: $01 $06 $FF
-    ld bc, $0106                                  ; $6D48: $01 $06 $01
-    ld bc, $0006                                  ; $6D4B: $01 $06 $00
-    ld bc, $0006                                  ; $6D4E: $01 $06 $00
-    ld bc, $0006                                  ; $6D51: $01 $06 $00
-    ld bc, $0006                                  ; $6D54: $01 $06 $00
-    ld bc, $0006                                  ; $6D57: $01 $06 $00
-    ld bc, $0106                                  ; $6D5A: $01 $06 $01
-    ld bc, $FF00                                  ; $6D5D: $01 $00 $FF
-    rst $38                                       ; $6D60: $FF
-    ld bc, $0200                                  ; $6D61: $01 $00 $02
-    ld bc, $FE00                                  ; $6D64: $01 $00 $FE
-    ld bc, $0101                                  ; $6D67: $01 $01 $01
-    ld bc, $FFFF                                  ; $6D6A: $01 $FF $FF
-    ld bc, $0001                                  ; $6D6D: $01 $01 $00
-    ld bc, $00FF                                  ; $6D70: $01 $FF $00
-    ld bc, $0000                                  ; $6D73: $01 $00 $00
-    nop                                           ; $6D76: $00
-    inc c                                         ; $6D77: $0C
-    ld a, [bc]                                    ; $6D78: $0A
+
+
+    ; $6BDC
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_BlowAway
+        Fightscene_FightFX_MoveTable_Instruction 1, 2, 1
+        Fightscene_FightFX_MoveTable_Instruction 2, -2, 1
+        Fightscene_FightFX_MoveTable_Instruction 3, 1, 1
+        Fightscene_FightFX_MoveTable_Instruction 3, -1, 1
+
+        Fightscene_FightFX_MoveTable_Instruction 4, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 5, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 6, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 7, 0, 1
+
+        Fightscene_FightFX_MoveTable_Instruction 8, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 10, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 12, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 14, 0, 1
+
+        Fightscene_FightFX_MoveTable_Instruction 14, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 16, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 18, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 20, 0, 1
+    Fightscene_FightFX_MoveTable_TableEnd
+
+    ; $6C0C
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_Recoil
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 4, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 6, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 1, 0, 3
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction -4, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -6, 0, 3
+        Fightscene_FightFX_MoveTable_Instruction -1, 0, 3
+
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 3, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -3, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 3
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 3
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 3
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 3
+    Fightscene_FightFX_MoveTable_TableEnd
+
+    ; $6C3C
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_UNKTODO  ; Todo rename UNK
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction 4, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 1
+        Fightscene_FightFX_MoveTable_Instruction -4, 0, 2
+
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 3, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -3, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction 2, 0, 2
+        Fightscene_FightFX_MoveTable_Instruction -2, 0, 2
+    Fightscene_FightFX_MoveTable_TableEnd
+
+    ; $6C60
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_Shake
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 1
+        Fightscene_FightFX_MoveTable_Instruction -1, -1, 3
+        Fightscene_FightFX_MoveTable_Instruction 2, 2, 3
+        Fightscene_FightFX_MoveTable_Instruction -2, -2, 3
+        Fightscene_FightFX_MoveTable_Instruction 3, 3, 3
+        Fightscene_FightFX_MoveTable_Instruction -3, -3, 3
+        Fightscene_FightFX_MoveTable_Instruction 4, 4, 3
+        Fightscene_FightFX_MoveTable_Instruction -4, -4, 3
+            ; Fightscene_FightFX_MoveTable_LoopStart  ; A loop that was going to loop 9 times, then once, then was removed
+                Fightscene_FightFX_MoveTable_Instruction 1, 1, 2
+                Fightscene_FightFX_MoveTable_Instruction -1, -1, 2
+                Fightscene_FightFX_MoveTable_Instruction 2, 2, 2
+                Fightscene_FightFX_MoveTable_Instruction -2, -2, 2
+                Fightscene_FightFX_MoveTable_Instruction 3, 3, 2
+                Fightscene_FightFX_MoveTable_Instruction -3, -3, 2
+                Fightscene_FightFX_MoveTable_Instruction 4, 4, 2
+                Fightscene_FightFX_MoveTable_Instruction -4, -4, 2
+            ; Fightscene_FightFX_MoveTable_LoopEnd 1; 9
+        Fightscene_FightFX_MoveTable_Instruction 3, 3, 3
+        Fightscene_FightFX_MoveTable_Instruction -3, -3, 2
+        Fightscene_FightFX_MoveTable_Instruction 4, 4, 3
+        Fightscene_FightFX_MoveTable_Instruction -4, -4, 2
+        Fightscene_FightFX_MoveTable_Instruction 3, 3, 3
+        Fightscene_FightFX_MoveTable_Instruction -3, -3, 2
+        Fightscene_FightFX_MoveTable_Instruction 4, 4, 3
+        Fightscene_FightFX_MoveTable_Instruction -4, -4, 3
+
+        Fightscene_FightFX_MoveTable_Instruction 3, 3, 3
+        Fightscene_FightFX_MoveTable_Instruction -3, -3, 3
+        Fightscene_FightFX_MoveTable_Instruction 4, 4, 3
+        Fightscene_FightFX_MoveTable_Instruction -4, -4, 2
+    Fightscene_FightFX_MoveTable_TableEnd
+    
+
+    ; $6CB4
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_Sink
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 1
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 15
+
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 13
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 13
+
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 10
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 10
+
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 9
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 9
+
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 2, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction -2, 1, 7
+
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction -1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 0, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 0, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 0, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 0, 1, 7
+        Fightscene_FightFX_MoveTable_Instruction 0, 1, 7
+    Fightscene_FightFX_MoveTable_TableEnd
+    
+
+    ; $6D5C
+    Fightscene_FightFX_MoveTable_TableStart Fightscene_FightFX_MoveTable_Tremble
+        Fightscene_FightFX_MoveTable_Instruction 1, 1, 1
+        Fightscene_FightFX_MoveTable_Instruction -1, -1, 2
+        Fightscene_FightFX_MoveTable_Instruction 0, 2, 2
+        Fightscene_FightFX_MoveTable_Instruction 0, -2, 2
+            Fightscene_FightFX_MoveTable_LoopStart
+                Fightscene_FightFX_MoveTable_Instruction 1, 1, 2
+                Fightscene_FightFX_MoveTable_Instruction -1, -1, 2
+                Fightscene_FightFX_MoveTable_Instruction 1, 0, 2
+                Fightscene_FightFX_MoveTable_Instruction -1, 0, 2
+            Fightscene_FightFX_MoveTable_LoopEnd 10
+    Fightscene_FightFX_MoveTable_TableEnd
+    
+
     nop                                           ; $6D79: $00
     inc sp                                        ; $6D7A: $33
     ld bc, $0233                                  ; $6D7B: $01 $33 $02

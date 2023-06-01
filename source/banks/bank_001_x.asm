@@ -723,19 +723,19 @@ Script_Table::
     dw Cmd_Battle_Swirl            ; $30 -todo maybe this should be a graphics function instead
     dw $0FDF
     dw $0FFE
-    dw $1049
+    dw Cmd_Fightscene_FightFX_BlowAway
     dw MagiOp_34_LoadSideScroller
     dw $1088
-    dw $11F6
-    dw $1207
-    dw $10AF
-    dw $110C
-    dw $1151
-    dw $1162
+    dw Cmd_Fightscene_FightFX_MeltFast
+    dw Cmd_Fightscene_FightFX_MeltSlow
+    dw Cmd_Fightscene_FightFX_New
+    dw Cmd_Fightscene_FightFX_Pan
+    dw Cmd_Fightscene_FightFX_Recoil
+    dw Cmd_Fightscene_FightFX_UNKTODO
     dw $1173
-    dw $11A8
-    dw $11B9
-    dw $11CA
+    dw Cmd_Fightscene_FightFX_Shake
+    dw Cmd_Fightscene_FightFX_Sink
+    dw Cmd_Fightscene_FightFX_Tremble
 
     dw Cmd_Flow_Delay     ; $40
     dw Cmd_Flow_RandDelay                         ; $41

@@ -78,3 +78,38 @@ DEF FIGHTSCENE_CREATURE_RIGHT_SPRITE     EQU WINDOW_COORD_00_00
 DEF FIGHTSCENE_CREATURE_RIGHT_SPRITE_END EQU WINDOW_COORD_0A_00
 DEF FIGHTSCENE_CREATURE_RIGHT_MENU       EQU WINDOW_COORD_0A_00
 DEF FIGHTSCENE_CREATURE_RIGHT_MENU_END   EQU WINDOW_COORD_14_00
+
+
+MACRO Fightscene_FightFX_MoveTable_Load
+    ; \1 = Table name
+    Set8 wFightscene_FightFX_ReadingFrameMax, \1_Size
+    Set16_M wFightscene_FightFX_DataTable, \1
+ENDM
+
+MACRO Fightscene_FightFX_MoveTable_TableStart
+\1:
+DEF offset = 0
+REDEF FIGHTSCENE_FIGHTFX_MOVETABLE_LABELNAME EQUS "\1"
+ENDM
+
+MACRO Fightscene_FightFX_MoveTable_Instruction
+       ;ΔX    ΔY  num(frames)-1
+    db (\1), (\2), (\3 - 1)
+    DEF offset += 3
+ENDM
+
+MACRO Fightscene_FightFX_MoveTable_LoopStart
+    DEF FIGHTSCENE_FIGHTFX_MOVETABLE_LOOPSTART EQU offset
+ENDM
+
+MACRO Fightscene_FightFX_MoveTable_LoopEnd
+        ; Magic number identifying a loop
+    db $00, $00, $00
+        ; Jump to this position          Number of loops
+    db FIGHTSCENE_FIGHTFX_MOVETABLE_LOOPSTART, \1
+    DEF offset += 5
+ENDM
+
+MACRO Fightscene_FightFX_MoveTable_TableEnd
+    DEF {FIGHTSCENE_FIGHTFX_MOVETABLE_LABELNAME}_Size EQU offset
+ENDM
