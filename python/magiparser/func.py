@@ -251,7 +251,7 @@ class FuncHandler(ResultsHandler):
 
     # 0x31 - 0x33
 
-    def LoadSideScroller(self):             # 0x34
+    def LoadArena(self):             # 0x34
         self.size = 2
         return self.GenerateOutput(0)
 

@@ -2120,7 +2120,7 @@ Cmd_Fightscene_FightFX_BlowAway::
     jp Fightscene_FightFX_MoveTableInit
 
     ; $105B
-MagiOp_34_LoadSideScroller::
+Cmd_Fightscene_LoadArena::
     ; Loads the horizontally-scrolling part of the Start Screen
     ; This erases some unimportant temporary variables in the WRAM
     ; Arguments:
@@ -2282,28 +2282,28 @@ Fightscene_FightFX_MoveTableInit::
     ret
 
     ; $11F6
-Cmd_Fightscene_FightFX_MeltFast::
+Cmd_Fightscene_TileFX_MeltFast::
     ld a, $08
-    ld [$C9FA], a
+    ld [wFightscene_TileFX_DestroyIterationMax], a
     ld a, $E9
     ld [$C9F4], a
     ld a, $6D
     ld [$C9F5], a
-    jr Fightscene_FightFX_MeltInit
+    jr Fightscene_TileFX_MeltInit
 
     ; $1207
-Cmd_Fightscene_FightFX_MeltSlow::
+Cmd_Fightscene_TileFX_MeltSlow::
     ld a, $10
-    ld [$C9FA], a
+    ld [wFightscene_TileFX_DestroyIterationMax], a
     ld a, $F9
     ld [$C9F4], a
     ld a, $6D
     ld [$C9F5], a
 
-Fightscene_FightFX_MeltInit:
+Fightscene_TileFX_MeltInit:
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
-    XCall Call_004_6AFA
+    XCall Fightscene_TileFX_Setup
     ret
 
     ; $1234
@@ -6329,7 +6329,7 @@ Call_000_3677::
     Set16FF hInterrupt_HBlank_Func, Call_000_36B1
     PushROMBank
     SwitchROMBank $04
-    ld hl, $C9F2
+    ld hl, wFightscene_TileFX_VBlank_DestroyFunc
     ECallHL
     PopROMBank
     pop hl
@@ -6362,7 +6362,7 @@ Call_000_36C1:
     ld a, $1F
     ldh [rLYC], a
     SwitchROMBank $04
-    FGet16 hl, $C9F2
+    FGet16 hl, wFightscene_TileFX_VBlank_DestroyFunc
     push hl
     call CallHL
     pop hl

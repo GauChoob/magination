@@ -35,7 +35,7 @@ _shorthands_color = {
 #     0xFFFF, "TRUE",
 # }
 
-# Lookup table for LoadSideScroller argument
+# Lookup table for LoadArena argument
 _shorthands_loadsidescroller_scene = {
     0x00: "Arderial",
     0x01: "Core",
@@ -140,7 +140,7 @@ class MagiScriptLine:
 
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
 
-        0x34: CommandBuilder("func", "LoadSideScroller", "LoadSideScroller_Scene"),
+        0x34: CommandBuilder("func", "LoadArena", "LoadSideScroller_Scene"),
 
         0x40: CommandBuilder("func", "Delay", "db"),
         0x41: CommandBuilder("func", "RandDelay", "RandDelayAddress"),

@@ -56,7 +56,7 @@ DEF Enum_Cmd_Battle_Swirl                       RB 1 ; $30 -todo maybe this shou
 DEF Enum_Cmd_31                 RB 1 ; $31
 DEF Enum_Cmd_32                 RB 1 ; $32
 DEF Enum_Cmd_33                 RB 1 ; $33
-DEF Enum_Cmd_34                 RB 1 ; $34
+DEF Enum_Cmd_Fightscene_LoadArena               RB 1 ; $34
 DEF Enum_Cmd_35                 RB 1 ; $35
 DEF Enum_Cmd_36                 RB 1 ; $36
 DEF Enum_Cmd_37                 RB 1 ; $37
@@ -383,8 +383,8 @@ ENDM
 
 ; 31 - 33
 
-MACRO LoadSideScroller
-    db $34 ; TODO
+MACRO LoadArena
+    db Enum_Cmd_Fightscene_LoadArena
     db \1
 ENDM
 

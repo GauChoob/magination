@@ -942,6 +942,27 @@ wFightscene_FightFX_TotalDelay::
     ;ds $C9F0 - @
 wFightscene_FightFX_DataTable::
     ds 2
+    ;ds $C9F2 - @
+wFightscene_TileFX_VBlank_DestroyFunc::
+    ds 2
+
+    ds $C9F6 - @
+wFightscene_TileFX_DestroyAddress::
+    ds 2
+    ;ds $C9F8 - @
+wFightscene_TileFX_DestroyBank::
+    ds 1
+
+    ds $C9F9 - @
+wFightscene_TileFX_DestroyIteration::
+    ds 1
+    ;ds $C9FA - @
+wFightscene_TileFX_DestroyIterationMax::
+    ds 1
+    ;ds $C9FB - @
+wFightscene_TileFX_DestroyCount::
+    ds 1
+
 
     ds $C9FF - @
 wMenu_MainMenu_ItemSpellMapDefaultScript::

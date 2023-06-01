@@ -3728,13 +3728,13 @@ Fightscene_PalFX_SetCreaturePaletteArenaColor::
 
     ; Palettes 0.0, 1.0
     ld hl, wPalette_BaseBuffers
-    ld e, $00
+    ld e, 4*0
     ld a, $02
     call Palette_PaletteBufferSetColor
 
     ; Palettes 3.0, 4.0
     ld hl, wPalette_BaseBuffers
-    ld e, $0C
+    ld e, 4*3
     ld a, $02
     call Palette_PaletteBufferSetColor
     ld hl, wPalette_BaseBuffers
@@ -3761,17 +3761,19 @@ Fightscene_PalFX_SetFightsceneArenaColor::
     Set8 wPalette_VBlankReady, $01
     ret
 
-Call_007_5C9D::
-    xor a                                         ; $5C9D: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5C9E: $EA $31 $C8
+FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
+    ; Forces Palette 5.0 to be Color wFightscene_ArenaColor (CreatureRight 3rd Palette)
+    ; Inputs:
+    ;   wFightscene_ArenaColor
+    xor a
+    ld [wPalette_VBlankReady], a
     Get16 bc, wFightscene_ArenaColor
-    ld hl, $C7AB                                  ; $5CA9: $21 $AB $C7
-    ld e, $14                                     ; $5CAC: $1E $14
-    ld a, $01                                     ; $5CAE: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5CB0: $CD $74 $47
-    ld a, $01                                     ; $5CB3: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5CB5: $EA $31 $C8
-    ret                                           ; $5CB8: $C9
+    ld hl, wPalette_AnimBuffers
+    ld e, 4*5
+    ld a, $01
+    call Palette_PaletteBufferSetColor
+    Set8 wPalette_VBlankReady, $01
+    ret
 
     ; $5CB9
 Fightscene_PalFX_SetCardsceneArenaColor::
@@ -3880,7 +3882,7 @@ Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor::
 
     ; Check Palette 5
     db $01 ;ld bc,
-    RGB 0, $F, $F
+        RGB 0, $F, $F
     pop hl
     push hl
     ld de, 8*5    ;+5 Palettes

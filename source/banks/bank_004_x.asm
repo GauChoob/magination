@@ -5806,7 +5806,7 @@ Call_004_6A4B:
     ld e, [hl]                                    ; $6A4B: $5E
     inc hl                                        ; $6A4C: $23
     push hl                                       ; $6A4D: $E5
-    FGet16 hl, $C9F6                                  ; $6A4E: $21 $F6 $C9
+    FGet16 hl, wFightscene_TileFX_DestroyAddress                                  ; $6A4E: $21 $F6 $C9
     add hl, de                                    ; $6A54: $19
     ld b, h                                       ; $6A55: $44
     ld c, l                                       ; $6A56: $4D
@@ -5826,7 +5826,7 @@ Call_004_6A5E:
     ld a, [$C9F8]                                 ; $6A61: $FA $F8 $C9
     ld [rVBK], a                                 ; $6A64: $EA $4F $FF
     FGet16 hl, $C9F4                                  ; $6A67: $21 $F4 $C9
-    ld a, [$C9F9]                                 ; $6A6D: $FA $F9 $C9
+    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A6D: $FA $F9 $C9
     add a                                         ; $6A70: $87
     ld d, $00                                     ; $6A71: $16 $00
     ld e, a                                       ; $6A73: $5F
@@ -5840,108 +5840,78 @@ Call_004_6A5E:
     ret                                           ; $6A81: $C9
 
 
-    ld a, [$C9FB]                                 ; $6A82: $FA $FB $C9
+    ld a, [wFightscene_TileFX_DestroyCount]                                 ; $6A82: $FA $FB $C9
     and a                                         ; $6A85: $A7
     ret z                                         ; $6A86: $C8
 
-    ld a, [$C9F9]                                 ; $6A87: $FA $F9 $C9
+    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A87: $FA $F9 $C9
     inc a                                         ; $6A8A: $3C
-    ld [$C9F9], a                                 ; $6A8B: $EA $F9 $C9
-    ld a, [$C9FA]                                 ; $6A8E: $FA $FA $C9
+    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $6A8B: $EA $F9 $C9
+    ld a, [wFightscene_TileFX_DestroyIterationMax]                                 ; $6A8E: $FA $FA $C9
     ld l, a                                       ; $6A91: $6F
-    ld a, [$C9F9]                                 ; $6A92: $FA $F9 $C9
+    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A92: $FA $F9 $C9
     cp l                                          ; $6A95: $BD
     jr nz, jr_004_6ABB                            ; $6A96: $20 $23
 
-    ld a, [$C9FB]                                 ; $6A98: $FA $FB $C9
+    ld a, [wFightscene_TileFX_DestroyCount]                                 ; $6A98: $FA $FB $C9
     dec a                                         ; $6A9B: $3D
-    ld [$C9FB], a                                 ; $6A9C: $EA $FB $C9
+    ld [wFightscene_TileFX_DestroyCount], a                                 ; $6A9C: $EA $FB $C9
     ld a, $FF                                     ; $6A9F: $3E $FF
-    ld [$C9F9], a                                 ; $6AA1: $EA $F9 $C9
-    ld a, [$C9F6]                                 ; $6AA4: $FA $F6 $C9
-    add $10                                       ; $6AA7: $C6 $10
-    ld [$C9F6], a                                 ; $6AA9: $EA $F6 $C9
-    ld a, [$C9F7]                                 ; $6AAC: $FA $F7 $C9
-    adc $00                                       ; $6AAF: $CE $00
-    cp $98                                        ; $6AB1: $FE $98
-    jr nz, jr_004_6AB7                            ; $6AB3: $20 $02
-
-    ld a, $90                                     ; $6AB5: $3E $90
-
-jr_004_6AB7:
-    ld [$C9F7], a                                 ; $6AB7: $EA $F7 $C9
-    ret                                           ; $6ABA: $C9
+    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $6AA1: $EA $F9 $C9
+    Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
+    ret
 
 
 jr_004_6ABB:
     call Call_004_6A5E                            ; $6ABB: $CD $5E $6A
     ret                                           ; $6ABE: $C9
 
+    ; $6ABF
+Fightscene_TileFX_VBlank_DissolveEven::
+    ; Abort if we reached the end of the reading frame
+    Get8 l, wFightscene_TileFX_DestroyIterationMax
+    ld a, [wFightscene_TileFX_DestroyIteration]
+    cp l
+    ret z
 
-    ld a, [$C9FA]                                 ; $6ABF: $FA $FA $C9
-    ld l, a                                       ; $6AC2: $6F
-    ld a, [$C9F9]                                 ; $6AC3: $FA $F9 $C9
-    cp l                                          ; $6AC6: $BD
-    ret z                                         ; $6AC7: $C8
+    ld a, [wFightscene_TileFX_DestroyCount]
+    dec a
+    ld [wFightscene_TileFX_DestroyCount], a
+    jr nz, .DestroyCountNonZero
 
-    ld a, [$C9FB]                                 ; $6AC8: $FA $FB $C9
-    dec a                                         ; $6ACB: $3D
-    ld [$C9FB], a                                 ; $6ACC: $EA $FB $C9
-    jr nz, jr_004_6ADF                            ; $6ACF: $20 $0E
+    .DestroyCountZero:
+        ; Reset the destroy count
+        Set8 wFightscene_TileFX_DestroyCount, $80
+        ; Continue with the next iteration (unless wFightscene_TileFX_DestroyIteration == wFightscene_TileFX_DestroyIterationMax)
+        ld a, [wFightscene_TileFX_DestroyIteration]
+        inc a
+        ld [wFightscene_TileFX_DestroyIteration], a
+        cp l
+        ret z ; Fall through
+    .DestroyCountNonZero:
+    call Call_004_6A5E
+    Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
+    ret
 
-    ld a, $80                                     ; $6AD1: $3E $80
-    ld [$C9FB], a                                 ; $6AD3: $EA $FB $C9
-    ld a, [$C9F9]                                 ; $6AD6: $FA $F9 $C9
-    inc a                                         ; $6AD9: $3C
-    ld [$C9F9], a                                 ; $6ADA: $EA $F9 $C9
-    cp l                                          ; $6ADD: $BD
-    ret z                                         ; $6ADE: $C8
+    ; $6AF9
+Fightscene_HBlankFunc_Idle::
+    ret
 
-jr_004_6ADF:
-    call Call_004_6A5E                            ; $6ADF: $CD $5E $6A
-    ld a, [$C9F6]                                 ; $6AE2: $FA $F6 $C9
-    add $10                                       ; $6AE5: $C6 $10
-    ld [$C9F6], a                                 ; $6AE7: $EA $F6 $C9
-    ld a, [$C9F7]                                 ; $6AEA: $FA $F7 $C9
-    adc $00                                       ; $6AED: $CE $00
-    cp $98                                        ; $6AEF: $FE $98
-    jr nz, jr_004_6AF5                            ; $6AF1: $20 $02
+    ; $6AFA
+Fightscene_TileFX_Setup::
+    Set8 wFightscene_TileFX_DestroyIteration, -1
+    Set8 wFightscene_TileFX_DestroyCount, $7A
+    Set16_M wFightscene_TileFX_VBlank_DestroyFunc, Fightscene_TileFX_VBlank_DissolveEven
+    Set16_M wFightscene_TileFX_DestroyAddress, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
+    Do_CallForeign FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor ; TODO - why do we want to do this?
+    Set8 wFightscene_TileFX_DestroyBank, $01  ; CreatureRight
 
-    ld a, $90                                     ; $6AF3: $3E $90
-
-jr_004_6AF5:
-    ld [$C9F7], a                                 ; $6AF5: $EA $F7 $C9
-    ret                                           ; $6AF8: $C9
-
-
-    ret                                           ; $6AF9: $C9
-
-Call_004_6AFA::
-    ld a, $FF                                     ; $6AFA: $3E $FF
-    ld [$C9F9], a                                 ; $6AFC: $EA $F9 $C9
-    ld a, $7A                                     ; $6AFF: $3E $7A
-    ld [$C9FB], a                                 ; $6B01: $EA $FB $C9
-    ld a, $BF                                     ; $6B04: $3E $BF
-    ld [$C9F2], a                                 ; $6B06: $EA $F2 $C9
-    ld a, $6A                                     ; $6B09: $3E $6A
-    ld [$C9F3], a                                 ; $6B0B: $EA $F3 $C9
-    ld a, $00                                     ; $6B0E: $3E $00
-    ld [$C9F6], a                                 ; $6B10: $EA $F6 $C9
-    ld a, $90                                     ; $6B13: $3E $90
-    ld [$C9F7], a                                 ; $6B15: $EA $F7 $C9
-    Do_CallForeign Call_007_5C9D
-    ld a, $01                                     ; $6B20: $3E $01
-    ld [$C9F8], a                                 ; $6B22: $EA $F8 $C9
-    ld a, $B4                                     ; $6B25: $3E $B4
-    ld [wFightscene_FightFX_DataTable], a                                 ; $6B27: $EA $F0 $C9
-    ld a, $6C                                     ; $6B2A: $3E $6C
-    ld [$C9F1], a                                 ; $6B2C: $EA $F1 $C9
-    ld a, $A8                                     ; $6B2F: $3E $A8
-    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $6B31: $EA $EC $C9
-    xor a                                         ; $6B34: $AF
-    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $6B35: $EA $EB $C9
-    ld [wFightscene_FightFX_DelayCount], a                                 ; $6B38: $EA $EE $C9
-    ret                                           ; $6B3B: $C9
+    ; Apply Sink effect at the same time
+    Fightscene_FightFX_MoveTable_Load_V Fightscene_FightFX_MoveTable_Sink
+    xor a
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ld [wFightscene_FightFX_DelayCount], a
+    ret
 
 
     db $01                                        ; $6B3C: $01
@@ -6913,9 +6883,9 @@ Call_004_72ED:
     ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $7303: $EA $EB $C9
     ld [wFightscene_FightFX_TotalDelay], a                                 ; $7306: $EA $EF $C9
     ld [wFightscene_FightFX_DelayCount], a                                 ; $7309: $EA $EE $C9
-    ld [$C9FB], a                                 ; $730C: $EA $FB $C9
-    ld [$C9FA], a                                 ; $730F: $EA $FA $C9
-    ld [$C9F9], a                                 ; $7312: $EA $F9 $C9
+    ld [wFightscene_TileFX_DestroyCount], a                                 ; $730C: $EA $FB $C9
+    ld [wFightscene_TileFX_DestroyIterationMax], a                                 ; $730F: $EA $FA $C9
+    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $7312: $EA $F9 $C9
     ld a, $58                                     ; $7315: $3E $58
     ld [$C9BD], a                                 ; $7317: $EA $BD $C9
     ld a, $20                                     ; $731A: $3E $20
@@ -6925,17 +6895,14 @@ Call_004_72ED:
     ld a, $6C                                     ; $7324: $3E $6C
     ld [$C9F1], a                                 ; $7326: $EA $F1 $C9
     ld a, $F9                                     ; $7329: $3E $F9
-    ld [$C9F2], a                                 ; $732B: $EA $F2 $C9
+    ld [wFightscene_TileFX_VBlank_DestroyFunc], a                                 ; $732B: $EA $F2 $C9
     ld a, $6A                                     ; $732E: $3E $6A
     ld [$C9F3], a                                 ; $7330: $EA $F3 $C9
     ld a, $F9                                     ; $7333: $3E $F9
     ld [$C9F4], a                                 ; $7335: $EA $F4 $C9
     ld a, $6D                                     ; $7338: $3E $6D
     ld [$C9F5], a                                 ; $733A: $EA $F5 $C9
-    ld a, $00                                     ; $733D: $3E $00
-    ld [$C9F6], a                                 ; $733F: $EA $F6 $C9
-    ld a, $90                                     ; $7342: $3E $90
-    ld [$C9F7], a                                 ; $7344: $EA $F7 $C9
+    Set16_M wFightscene_TileFX_DestroyAddress, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
     ld a, $04                                     ; $7347: $3E $04
     ld [$C9F8], a                                 ; $7349: $EA $F8 $C9
     ret                                           ; $734C: $C9

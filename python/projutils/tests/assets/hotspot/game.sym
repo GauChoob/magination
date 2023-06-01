@@ -2332,7 +2332,7 @@
 04:6abb jr_004_6ABB
 04:6adf jr_004_6ADF
 04:6af5 jr_004_6AF5
-04:6afa Call_004_6AFA
+04:6afa Fightscene_TileFX_Setup
 04:6dc6 jr_004_6DC6
 04:6df2 jr_004_6DF2
 04:6e21 StartScreenHeaderArderial
@@ -4484,7 +4484,7 @@
 07:5c29 Call_007_5C29
 07:5c52 Fightscene_PalFX_SetCreaturePaletteArenaColor
 07:5c7e Fightscene_PalFX_SetFightsceneArenaColor
-07:5c9d Call_007_5C9D
+07:5c9d FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor
 07:5cb9 Fightscene_PalFX_SetCardsceneArenaColor
 07:5ce2 Call_007_5CE2
 07:5d1c jr_007_5D1C

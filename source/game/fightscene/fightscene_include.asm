@@ -86,6 +86,12 @@ MACRO Fightscene_FightFX_MoveTable_Load
     Set16_M wFightscene_FightFX_DataTable, \1
 ENDM
 
+MACRO Fightscene_FightFX_MoveTable_Load_V
+    ; \1 = Table name
+    Set16_M wFightscene_FightFX_DataTable, \1
+    Set8 wFightscene_FightFX_ReadingFrameMax, \1_Size
+ENDM
+
 MACRO Fightscene_FightFX_MoveTable_TableStart
 \1:
 DEF offset = 0
@@ -112,4 +118,20 @@ ENDM
 
 MACRO Fightscene_FightFX_MoveTable_TableEnd
     DEF {FIGHTSCENE_FIGHTFX_MOVETABLE_LABELNAME}_Size EQU offset
+ENDM
+
+MACRO Fightscene_FightFX_SetNextTile
+    ; \1 = wFightscene_TileFX_DestroyAddress
+    ; Increment wFightscene_TileFX_DestroyAddress by 1 tile ($10)
+    ; At $9800, overflow back to $9000
+    ld a, [\1]
+    add $10
+    ld [\1], a
+    ld a, [\1+1]
+    adc $00
+    cp $98
+    jr nz, .\@
+        ld a, $90
+    .\@:
+    ld [\1+1], a
 ENDM

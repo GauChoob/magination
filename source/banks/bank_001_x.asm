@@ -719,23 +719,23 @@ Script_Table::
     dw $0F76
     dw $0F82 ;This defines a single monster from an encounter
     dw $0F8A
-
     dw Cmd_Battle_Swirl            ; $30 -todo maybe this should be a graphics function instead
     dw $0FDF
     dw $0FFE
-    dw Cmd_Fightscene_FightFX_BlowAway
-    dw MagiOp_34_LoadSideScroller
+
+    dw Cmd_Fightscene_FightFX_BlowAway ; $33
+    dw Cmd_Fightscene_LoadArena        ; $34
     dw $1088
-    dw Cmd_Fightscene_FightFX_MeltFast
-    dw Cmd_Fightscene_FightFX_MeltSlow
-    dw Cmd_Fightscene_FightFX_New
-    dw Cmd_Fightscene_FightFX_Pan
-    dw Cmd_Fightscene_FightFX_Recoil
-    dw Cmd_Fightscene_FightFX_UNKTODO
+    dw Cmd_Fightscene_TileFX_MeltFast ; $37
+    dw Cmd_Fightscene_TileFX_MeltSlow ; $38
+    dw Cmd_Fightscene_FightFX_New      ; $39
+    dw Cmd_Fightscene_FightFX_Pan      ; $30
+    dw Cmd_Fightscene_FightFX_Recoil   ; $3A
+    dw Cmd_Fightscene_FightFX_UNKTODO  ; $3B
     dw $1173
-    dw Cmd_Fightscene_FightFX_Shake
-    dw Cmd_Fightscene_FightFX_Sink
-    dw Cmd_Fightscene_FightFX_Tremble
+    dw Cmd_Fightscene_FightFX_Shake    ; $3D
+    dw Cmd_Fightscene_FightFX_Sink     ; $3E
+    dw Cmd_Fightscene_FightFX_Tremble  ; $3F
 
     dw Cmd_Flow_Delay     ; $40
     dw Cmd_Flow_RandDelay                         ; $41
