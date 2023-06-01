@@ -5877,7 +5877,7 @@ Fightscene_TileFX_VBlank_DissolveEven::
     ld a, [wFightscene_TileFX_DestroyCount]
     dec a
     ld [wFightscene_TileFX_DestroyCount], a
-    jr nz, .DestroyCountNonZero
+    jr nz, .Continue
 
     .DestroyCountZero:
         ; Reset the destroy count
@@ -5888,7 +5888,8 @@ Fightscene_TileFX_VBlank_DissolveEven::
         ld [wFightscene_TileFX_DestroyIteration], a
         cp l
         ret z ; Fall through
-    .DestroyCountNonZero:
+    .Continue:
+    ; We always call this function EXCEPT if wFightscene_TileFX_DestroyIteration == wFightscene_TileFX_DestroyIterationMax
     call Call_004_6A5E
     Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
     ret
