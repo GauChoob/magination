@@ -770,7 +770,13 @@ wCardscene_IsOpened::
     ; This variable is used to prevent backing up the tileset more than once
     ds 1
 
-    ds $C9BE - @
+    ;ds $C9BC - @:
+wFightscene_SCX::
+    ds 1
+    ;ds $C9BD - @:
+wFightscene_SCY::
+    ds 1
+    ;ds $C9BE - @
 wFightscene_Arena_TopDeltaX::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
@@ -908,9 +914,11 @@ wTemp_C::
 
     ds $C9E2 - @
 wFightscene_CreatureLeft_3rdPaletteTransparent::
+    ; Whether the CreatureRight's 3rd Palette's first Color is the Arena's background Color
     ds 1
     ;ds $C9E3 - @
 wFightscene_CreatureRight_3rdPaletteTransparent::
+    ; Whether the CreatureRight's 3rd Palette's first Color is the Arena's background Color
     ds 1
     ;ds $C9E4 - @
 wFightscene_ArenaIndex::
@@ -919,8 +927,19 @@ wFightscene_ArenaIndex::
 wFightscene_ArenaColor::
     ; This color replaces transparent colors
     ds 2
-
-    ds $C9EB - @
+    ;ds $C9E7 - @
+wFightscene_FightFX_Pan_TableAddress::
+    ; Points to Fightscene_FightFX_PanTable_Regular or similar tables
+    ds 2
+    ;ds $C9E9 - @
+wFightscene_FightFX_Pan_DeltaX::
+    ds 1
+    ;ds $C9EA - @
+wFightscene_FightFX_Pan_RightDirection::
+    ; nz = Right
+    ; z = Left
+    ds 1
+    ;ds $C9EB - @
 wFightscene_FightFX_ReadingFrameDelta::
     ; Amount the Fightscene has moved horizontally
     ds 1
@@ -945,19 +964,20 @@ wFightscene_FightFX_DataTable::
     ;ds $C9F2 - @
 wFightscene_TileFX_VBlank_DestroyFunc::
     ds 2
-
-    ds $C9F6 - @
+    ;ds $C9F4 - @
+wFightscene_TileFX_PointerTable::
+    ds 2
+    ;ds $C9F6 - @
 wFightscene_TileFX_DestroyAddress::
     ds 2
     ;ds $C9F8 - @
 wFightscene_TileFX_DestroyBank::
     ds 1
-
-    ds $C9F9 - @
-wFightscene_TileFX_DestroyIteration::
+    ;ds $C9F9 - @
+wFightscene_TileFX_ReadingFrameDelta::
     ds 1
     ;ds $C9FA - @
-wFightscene_TileFX_DestroyIterationMax::
+wFightscene_TileFX_ReadingFrameMax::
     ds 1
     ;ds $C9FB - @
 wFightscene_TileFX_DestroyCount::

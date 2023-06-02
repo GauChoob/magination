@@ -5801,76 +5801,112 @@ Cardscene_SetPalette_Card{u:card}::
 ENDR
 
 
+    ; $6A4B
+Fightscene_TileFX_VBlank_MaskByte:
+    ; Reads 2 bytes of data from data pointed to by wFightscene_TileFX_PointerTable
+    ; and masks the target address with the effect
+    ; Inputs:
+    ;   [hl] = 2 bytes of data: tile's byte offset, mask
+    ;   wFightscene_TileFX_DestroyAddress = tileset target vram tile address
+    ;   d = 0 (needs to be set to 0)
+    ;   rVBK already set
+    ; Outputs:
+    ;   hl += 2
 
-Call_004_6A4B:
-    ld e, [hl]                                    ; $6A4B: $5E
-    inc hl                                        ; $6A4C: $23
-    push hl                                       ; $6A4D: $E5
-    FGet16 hl, wFightscene_TileFX_DestroyAddress                                  ; $6A4E: $21 $F6 $C9
-    add hl, de                                    ; $6A54: $19
-    ld b, h                                       ; $6A55: $44
-    ld c, l                                       ; $6A56: $4D
-    pop hl                                        ; $6A57: $E1
-    ld e, [hl]                                    ; $6A58: $5E
-    ld a, [bc]                                    ; $6A59: $0A
-    and e                                         ; $6A5A: $A3
-    ld [bc], a                                    ; $6A5B: $02
-    inc hl                                        ; $6A5C: $23
-    ret                                           ; $6A5D: $C9
+    ; Get the tile's byte offset into bc
+    ld e, [hl]
+    inc hl
+    push hl
+    FGet16 hl, wFightscene_TileFX_DestroyAddress
+    add hl, de
+    ld b, h
+    ld c, l
 
-
-Call_004_6A5E:
-    push hl                                       ; $6A5E: $E5
-    push bc                                       ; $6A5F: $C5
-    push de                                       ; $6A60: $D5
-    ld a, [$C9F8]                                 ; $6A61: $FA $F8 $C9
-    ld [rVBK], a                                 ; $6A64: $EA $4F $FF
-    FGet16 hl, $C9F4                                  ; $6A67: $21 $F4 $C9
-    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A6D: $FA $F9 $C9
-    add a                                         ; $6A70: $87
-    ld d, $00                                     ; $6A71: $16 $00
-    ld e, a                                       ; $6A73: $5F
-    add hl, de                                    ; $6A74: $19
-    DerefHL
-    call Call_004_6A4B                            ; $6A78: $CD $4B $6A
-    call Call_004_6A4B                            ; $6A7B: $CD $4B $6A
-    pop de                                        ; $6A7E: $D1
-    pop bc                                        ; $6A7F: $C1
-    pop hl                                        ; $6A80: $E1
-    ret                                           ; $6A81: $C9
-
-
-    ld a, [wFightscene_TileFX_DestroyCount]                                 ; $6A82: $FA $FB $C9
-    and a                                         ; $6A85: $A7
-    ret z                                         ; $6A86: $C8
-
-    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A87: $FA $F9 $C9
-    inc a                                         ; $6A8A: $3C
-    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $6A8B: $EA $F9 $C9
-    ld a, [wFightscene_TileFX_DestroyIterationMax]                                 ; $6A8E: $FA $FA $C9
-    ld l, a                                       ; $6A91: $6F
-    ld a, [wFightscene_TileFX_DestroyIteration]                                 ; $6A92: $FA $F9 $C9
-    cp l                                          ; $6A95: $BD
-    jr nz, jr_004_6ABB                            ; $6A96: $20 $23
-
-    ld a, [wFightscene_TileFX_DestroyCount]                                 ; $6A98: $FA $FB $C9
-    dec a                                         ; $6A9B: $3D
-    ld [wFightscene_TileFX_DestroyCount], a                                 ; $6A9C: $EA $FB $C9
-    ld a, $FF                                     ; $6A9F: $3E $FF
-    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $6AA1: $EA $F9 $C9
-    Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
+    ; mask the targetted byte with the supplied mask
+    pop hl
+    ld e, [hl]
+    ld a, [bc]
+    and e
+    ld [bc], a
+    inc hl
     ret
 
+    ; $6A5E
+Fightscene_TileFX_VBlank_MaskTile:
+    ; Mask a tile with 2 masks (one for lower nibble, one for upper nibble)
 
-jr_004_6ABB:
-    call Call_004_6A5E                            ; $6ABB: $CD $5E $6A
-    ret                                           ; $6ABE: $C9
+    ; Each reading frame is a pointer to 4 bytes of data:
+    ;   tile's byte offset (lower byte of a 2bbp row)
+    ;   masking effect (e.g. %b11111110)
+    ;   tile's byte offset (upper byte of a 2bbp row)
+    ;   masking effect (e.g. %b11111110)
+    ; Inputs:
+    ;   wFightscene_TileFX_PointerTable, offset by 2*wFightscene_TileFX_ReadingFrameDelta bytes
+    ;   wFightscene_TileFX_DestroyBank
+    push hl
+    push bc
+    push de
+    Mov8 rVBK, wFightscene_TileFX_DestroyBank
+    ; wFightscene_TileFX_PointerTable + 2*wFightscene_TileFX_ReadingFrameDelta
+    FGet16 hl, wFightscene_TileFX_PointerTable
+    ld a, [wFightscene_TileFX_ReadingFrameDelta]
+    add a
+    ld d, $00
+    ld e, a
+    add hl, de
+    DerefHL
+    ; Mask lower and upper byte of 2bbp data
+    call Fightscene_TileFX_VBlank_MaskByte
+    call Fightscene_TileFX_VBlank_MaskByte
+    pop de
+    pop bc
+    pop hl
+    ret
+
+    ; $6A82
+Fightscene_TileFX_VBlank_DissolveSequentially::
+    ; Loop through all the reading frames and completely erase a single tile
+    ; Then, reset the reading frame back to the start, and erase the second tile
+    ; Keep going until all tiles are erased
+    ; Inputs:
+    ;   wFightscene_TileFX_DestroyCount
+    ;   wFightscene_TileFX_ReadingFrameDelta
+    ;   wFightscene_TileFX_ReadingFrameMax
+    ;   wFightscene_TileFX_DestroyAddress
+    ld a, [wFightscene_TileFX_DestroyCount]
+    and a
+    ret z
+
+    ; Load the next reading frame and make sure it is not the end of the data
+    ld a, [wFightscene_TileFX_ReadingFrameDelta]
+    inc a
+    ld [wFightscene_TileFX_ReadingFrameDelta], a
+    Get8 l, wFightscene_TileFX_ReadingFrameMax
+    ld a, [wFightscene_TileFX_ReadingFrameDelta]
+    cp l
+    jr nz, .Continue
+    .IncrementTargetTileAddress:
+        ; Increment to the next tile and reset the reading frame
+        ld a, [wFightscene_TileFX_DestroyCount]
+        dec a
+        ld [wFightscene_TileFX_DestroyCount], a
+        Set8 wFightscene_TileFX_ReadingFrameDelta, -1
+        Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
+        ret
+    .Continue:
+        call Fightscene_TileFX_VBlank_MaskTile
+        ret
 
     ; $6ABF
 Fightscene_TileFX_VBlank_DissolveEven::
+    ; Loop $80 times through the $80 tiles from $9000 to $9800
+    ; Apply the instruction at the current reading frame to each tile to erase part of the tile
+    ; After we have looped through the $80 tiles, increment the reading frame to the next erasing command, and loop through all the tiles again
+    ; Repeat until we reach the end of the reading frame
+
     ; Abort if we reached the end of the reading frame
-    Get8 l, wFightscene_TileFX_DestroyIterationMax
-    ld a, [wFightscene_TileFX_DestroyIteration]
+    Get8 l, wFightscene_TileFX_ReadingFrameMax
+    ld a, [wFightscene_TileFX_ReadingFrameDelta]
     cp l
     ret z
 
@@ -5879,32 +5915,32 @@ Fightscene_TileFX_VBlank_DissolveEven::
     ld [wFightscene_TileFX_DestroyCount], a
     jr nz, .Continue
 
-    .DestroyCountZero:
+    .IncrementReadingFrame:
         ; Reset the destroy count
         Set8 wFightscene_TileFX_DestroyCount, $80
-        ; Continue with the next iteration (unless wFightscene_TileFX_DestroyIteration == wFightscene_TileFX_DestroyIterationMax)
-        ld a, [wFightscene_TileFX_DestroyIteration]
+        ; Continue with the next iteration (unless wFightscene_TileFX_ReadingFrameDelta == wFightscene_TileFX_ReadingFrameMax)
+        ld a, [wFightscene_TileFX_ReadingFrameDelta]
         inc a
-        ld [wFightscene_TileFX_DestroyIteration], a
+        ld [wFightscene_TileFX_ReadingFrameDelta], a
         cp l
         ret z ; Fall through
     .Continue:
-    ; We always call this function EXCEPT if wFightscene_TileFX_DestroyIteration == wFightscene_TileFX_DestroyIterationMax
-    call Call_004_6A5E
+    ; We always call this function EXCEPT if wFightscene_TileFX_ReadingFrameDelta == wFightscene_TileFX_ReadingFrameMax
+    call Fightscene_TileFX_VBlank_MaskTile
     Fightscene_FightFX_SetNextTile wFightscene_TileFX_DestroyAddress
     ret
 
     ; $6AF9
-Fightscene_HBlankFunc_Idle::
+Fightscene_TileFX_VBlank_Idle::
     ret
 
     ; $6AFA
 Fightscene_TileFX_Setup::
-    Set8 wFightscene_TileFX_DestroyIteration, -1
-    Set8 wFightscene_TileFX_DestroyCount, $7A
+    Set8 wFightscene_TileFX_ReadingFrameDelta, -1
+    Set8 wFightscene_TileFX_DestroyCount, $7A ; Bug - should be $80 to properly do a full loop. Right now, the last 6 tiles might not get fully erased
     Set16_M wFightscene_TileFX_VBlank_DestroyFunc, Fightscene_TileFX_VBlank_DissolveEven
     Set16_M wFightscene_TileFX_DestroyAddress, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
-    Do_CallForeign FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor ; TODO - why do we want to do this?
+    Do_CallForeign Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor ; TODO - why do we want to do this?
     Set8 wFightscene_TileFX_DestroyBank, $01  ; CreatureRight
 
     ; Apply Sink effect at the same time
@@ -5914,86 +5950,47 @@ Fightscene_TileFX_Setup::
     ld [wFightscene_FightFX_DelayCount], a
     ret
 
+    ; $6B3C
+Fightscene_FightFX_PanTable_Regular::
+    ; Duration, DeltaX - small bug - in the original source code, they mixed up the duration and deltax columns
+    db $01, $01 ; First line exceptionally, the Duration is overwritten to always be $01
+    db $01, $01
+    db $01, $02
+    db $02, $02
+    db $02, $02
+    db $03, $03
+    db $03, $04
+    db $04, $05
+    db $05, $05
+    db $06, $03 ; Total DeltaX = 96 (perfect!)
+    db $00, $00
+    db $00, $00
 
-    db $01                                        ; $6B3C: $01
+Fightscene_FightFX_PanTable_Fast::
+    ; Duration, DeltaX
+    db $01, $03 ; First line exceptionally, the Duration is overwritten to always be $01
+    db $03, $06
+    db $07, $08
+    db $09, $0A ; Bug - By the second frame here, we already hit the max DeltaX of 96. Further DeltaXs are useless (except they bug out the FightFx_MoveTables slightly)
+    db $04, $08 ; So we have 8+8+3+2+2+1 = 24 frames where we try to pan right but cannot, and so we just wait 24 frames
+    db $03, $03
+    db $02, $02
+    db $03, $02
+    db $01, $01
+    db $00, $00
+    db $00, $00
 
-    db $01, $01, $01, $01, $02, $02, $02, $02, $02, $03, $03, $03, $04, $04, $05, $05
-    db $05, $06, $03, $00
-
-    nop                                           ; $6B51: $00
-    nop                                           ; $6B52: $00
-    nop                                           ; $6B53: $00
-    ld bc, $0303                                  ; $6B54: $01 $03 $03
-    ld b, $07                                     ; $6B57: $06 $07
-    ld [$0A09], sp                                ; $6B59: $08 $09 $0A
-    inc b                                         ; $6B5C: $04
-    ld [$0303], sp                                ; $6B5D: $08 $03 $03
-    ld [bc], a                                    ; $6B60: $02
-    ld [bc], a                                    ; $6B61: $02
-    inc bc                                        ; $6B62: $03
-    ld [bc], a                                    ; $6B63: $02
-    ld bc, $0001                                  ; $6B64: $01 $01 $00
-    nop                                           ; $6B67: $00
-    nop                                           ; $6B68: $00
-    nop                                           ; $6B69: $00
-    ld bc, $0102                                  ; $6B6A: $01 $02 $01
-    ld [bc], a                                    ; $6B6D: $02
-    ld bc, $0102                                  ; $6B6E: $01 $02 $01
-    ld [bc], a                                    ; $6B71: $02
-    ld bc, $0102                                  ; $6B72: $01 $02 $01
-    ld [bc], a                                    ; $6B75: $02
-    ld bc, $0102                                  ; $6B76: $01 $02 $01
-    ld [bc], a                                    ; $6B79: $02
-    ld bc, $0102                                  ; $6B7A: $01 $02 $01
-    ld [bc], a                                    ; $6B7D: $02
-    ld bc, $0102                                  ; $6B7E: $01 $02 $01
-    ld [bc], a                                    ; $6B81: $02
-    ld bc, $0102                                  ; $6B82: $01 $02 $01
-    ld [bc], a                                    ; $6B85: $02
-    ld bc, $0102                                  ; $6B86: $01 $02 $01
-    ld [bc], a                                    ; $6B89: $02
-    ld bc, $0102                                  ; $6B8A: $01 $02 $01
-    ld [bc], a                                    ; $6B8D: $02
-    ld bc, $0102                                  ; $6B8E: $01 $02 $01
-    ld [bc], a                                    ; $6B91: $02
-    ld bc, $0102                                  ; $6B92: $01 $02 $01
-    ld [bc], a                                    ; $6B95: $02
-    ld bc, $0102                                  ; $6B96: $01 $02 $01
-    ld [bc], a                                    ; $6B99: $02
-    ld bc, $0102                                  ; $6B9A: $01 $02 $01
-    ld [bc], a                                    ; $6B9D: $02
-    ld bc, $0102                                  ; $6B9E: $01 $02 $01
-    ld [bc], a                                    ; $6BA1: $02
-    ld bc, $0102                                  ; $6BA2: $01 $02 $01
-    ld [bc], a                                    ; $6BA5: $02
-    ld bc, $0102                                  ; $6BA6: $01 $02 $01
-    ld [bc], a                                    ; $6BA9: $02
-    ld bc, $0102                                  ; $6BAA: $01 $02 $01
-    ld [bc], a                                    ; $6BAD: $02
-    ld bc, $0102                                  ; $6BAE: $01 $02 $01
-    ld [bc], a                                    ; $6BB1: $02
-    ld bc, $0102                                  ; $6BB2: $01 $02 $01
-    ld [bc], a                                    ; $6BB5: $02
-    ld bc, $0102                                  ; $6BB6: $01 $02 $01
-    ld [bc], a                                    ; $6BB9: $02
-    ld bc, $0102                                  ; $6BBA: $01 $02 $01
-    ld [bc], a                                    ; $6BBD: $02
-    ld bc, $0102                                  ; $6BBE: $01 $02 $01
-    ld [bc], a                                    ; $6BC1: $02
-    ld bc, $0102                                  ; $6BC2: $01 $02 $01
-    ld [bc], a                                    ; $6BC5: $02
-    ld bc, $0102                                  ; $6BC6: $01 $02 $01
-    ld [bc], a                                    ; $6BC9: $02
-    ld bc, $0102                                  ; $6BCA: $01 $02 $01
-    ld [bc], a                                    ; $6BCD: $02
-    ld bc, $0102                                  ; $6BCE: $01 $02 $01
-    ld [bc], a                                    ; $6BD1: $02
-    ld bc, $0102                                  ; $6BD2: $01 $02 $01
-    ld [bc], a                                    ; $6BD5: $02
-    ld bc, $0002                                  ; $6BD6: $01 $02 $00
-    nop                                           ; $6BD9: $00
-    nop                                           ; $6BDA: $00
-    nop                                           ; $6BDB: $00
+Fightscene_FightFX_PanTable_Slow::
+    ; DeltaX, Duration
+    db $01, $02 ; First line exceptionally, the Duration is overwritten to always be $01
+    REPT $29
+        db $01, $02  ; inefficiency - should have just been a single line: db $29, $02. I think they didn't change it because of the mini bug where the first line's duration is overwritten, so it was causing problems(?)
+    ENDR ; We hit DeltaX of 96 here
+    REPT $0D ; Bug - 14 frames of delay where we can't pan further right
+        db $01, $02
+    ENDR
+    db $00, $00
+    db $00, $00
 
 
     ; $6BDC
@@ -6174,150 +6171,78 @@ Fightscene_TileFX_Setup::
             Fightscene_FightFX_MoveTable_LoopEnd 10
     Fightscene_FightFX_MoveTable_TableEnd
     
+    ; $6D79
+Fightscene_TileFX_DissolveTable_Slow_Data:
+    ; Dither-erase the tile
+    Fightscene_TileFX_DissolveTable_Data $00, %00110011
+    Fightscene_TileFX_DissolveTable_Data $01, %11001100
+    Fightscene_TileFX_DissolveTable_Data $02, %00110011
+    Fightscene_TileFX_DissolveTable_Data $03, %11001100
+    Fightscene_TileFX_DissolveTable_Data $04, %00110011
+    Fightscene_TileFX_DissolveTable_Data $05, %11001100
+    Fightscene_TileFX_DissolveTable_Data $06, %00110011
+    Fightscene_TileFX_DissolveTable_Data $07, %11001100
+    ; Then pass a second time
+    Fightscene_TileFX_DissolveTable_Data $00, %11001100
+    Fightscene_TileFX_DissolveTable_Data $01, %00110011
+    Fightscene_TileFX_DissolveTable_Data $02, %11001100
+    Fightscene_TileFX_DissolveTable_Data $03, %00110011
+    Fightscene_TileFX_DissolveTable_Data $04, %11001100
+    Fightscene_TileFX_DissolveTable_Data $05, %00110011
+    Fightscene_TileFX_DissolveTable_Data $06, %11001100
+    Fightscene_TileFX_DissolveTable_Data $07, %00110011
+    ; Unused last 4 data rows - easter egg they spell out "EMORY" who wrote this code
+    db "EMOR"
+    db "Y822"
+    db "50", $02, $9A
+    db $00, $00, $00, $00
 
-    nop                                           ; $6D79: $00
-    inc sp                                        ; $6D7A: $33
-    ld bc, $0233                                  ; $6D7B: $01 $33 $02
-    call z, $CC03                                 ; $6D7E: $CC $03 $CC
-    inc b                                         ; $6D81: $04
-    inc sp                                        ; $6D82: $33
-    dec b                                         ; $6D83: $05
-    inc sp                                        ; $6D84: $33
-    ld b, $CC                                     ; $6D85: $06 $CC
-    rlca                                          ; $6D87: $07
-    call z, $3308                                 ; $6D88: $CC $08 $33
-    add hl, bc                                    ; $6D8B: $09
-    inc sp                                        ; $6D8C: $33
-    ld a, [bc]                                    ; $6D8D: $0A
-    call z, $CC0B                                 ; $6D8E: $CC $0B $CC
-    inc c                                         ; $6D91: $0C
-    inc sp                                        ; $6D92: $33
-    dec c                                         ; $6D93: $0D
-    inc sp                                        ; $6D94: $33
-    ld c, $CC                                     ; $6D95: $0E $CC
-    rrca                                          ; $6D97: $0F
-    call z, $CC00                                 ; $6D98: $CC $00 $CC
-    ld bc, $02CC                                  ; $6D9B: $01 $CC $02
-    inc sp                                        ; $6D9E: $33
-    inc bc                                        ; $6D9F: $03
-    inc sp                                        ; $6DA0: $33
-    inc b                                         ; $6DA1: $04
-    call z, $CC05                                 ; $6DA2: $CC $05 $CC
-    ld b, $33                                     ; $6DA5: $06 $33
-    rlca                                          ; $6DA7: $07
-    inc sp                                        ; $6DA8: $33
-    ld [$09CC], sp                                ; $6DA9: $08 $CC $09
-    call z, $330A                                 ; $6DAC: $CC $0A $33
-    dec bc                                        ; $6DAF: $0B
-    inc sp                                        ; $6DB0: $33
-    inc c                                         ; $6DB1: $0C
-    call z, $CC0D                                 ; $6DB2: $CC $0D $CC
-    ld c, $33                                     ; $6DB5: $0E $33
-    rrca                                          ; $6DB7: $0F
-    inc sp                                        ; $6DB8: $33
-    ld b, l                                       ; $6DB9: $45
-    ld c, l                                       ; $6DBA: $4D
-    ld c, a                                       ; $6DBB: $4F
-    ld d, d                                       ; $6DBC: $52
-    ld e, c                                       ; $6DBD: $59
-    jr c, jr_004_6DF2                             ; $6DBE: $38 $32
+    ; $6DC9
+Fightscene_TileFX_DissolveTable_Fast_Data:
+    Fightscene_TileFX_DissolveTable_Data $00, %00000000
+    Fightscene_TileFX_DissolveTable_Data $01, %00000000
+    Fightscene_TileFX_DissolveTable_Data $02, %00000000
+    Fightscene_TileFX_DissolveTable_Data $03, %00000000
+    Fightscene_TileFX_DissolveTable_Data $04, %00000000
+    Fightscene_TileFX_DissolveTable_Data $05, %00000000
+    Fightscene_TileFX_DissolveTable_Data $06, %00000000
+    Fightscene_TileFX_DissolveTable_Data $07, %00000000
 
-    ld [hl-], a                                   ; $6DC0: $32
-    dec [hl]                                      ; $6DC1: $35
-    jr nc, jr_004_6DC6                            ; $6DC2: $30 $02
+    ; $6DE9
+Fightscene_TileFX_DissolveTable_Fast_Pointers::
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*0
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*1
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*2
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*3
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*4
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*5
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*6
+    dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*7
+Fightscene_TileFX_DissolveTable_Fast_Pointers_ENTRIES EQU $08
 
-    sbc d                                         ; $6DC4: $9A
-    nop                                           ; $6DC5: $00
-
-jr_004_6DC6:
-    nop                                           ; $6DC6: $00
-    nop                                           ; $6DC7: $00
-    nop                                           ; $6DC8: $00
-    nop                                           ; $6DC9: $00
-    nop                                           ; $6DCA: $00
-    ld bc, $0200                                  ; $6DCB: $01 $00 $02
-    nop                                           ; $6DCE: $00
-    inc bc                                        ; $6DCF: $03
-    nop                                           ; $6DD0: $00
-    inc b                                         ; $6DD1: $04
-    nop                                           ; $6DD2: $00
-    dec b                                         ; $6DD3: $05
-    nop                                           ; $6DD4: $00
-    ld b, $00                                     ; $6DD5: $06 $00
-    rlca                                          ; $6DD7: $07
-    nop                                           ; $6DD8: $00
-    ld [$0900], sp                                ; $6DD9: $08 $00 $09
-    nop                                           ; $6DDC: $00
-    ld a, [bc]                                    ; $6DDD: $0A
-    nop                                           ; $6DDE: $00
-    dec bc                                        ; $6DDF: $0B
-    nop                                           ; $6DE0: $00
-    inc c                                         ; $6DE1: $0C
-    nop                                           ; $6DE2: $00
-    dec c                                         ; $6DE3: $0D
-    nop                                           ; $6DE4: $00
-    ld c, $00                                     ; $6DE5: $0E $00
-    rrca                                          ; $6DE7: $0F
-    nop                                           ; $6DE8: $00
-    ret                                           ; $6DE9: $C9
-
-
-    ld l, l                                       ; $6DEA: $6D
-    call $D16D                                    ; $6DEB: $CD $6D $D1
-    ld l, l                                       ; $6DEE: $6D
-    push de                                       ; $6DEF: $D5
-    ld l, l                                       ; $6DF0: $6D
-    reti                                          ; $6DF1: $D9
-
-
-jr_004_6DF2:
-    ld l, l                                       ; $6DF2: $6D
-    db $DD                                        ; $6DF3: $DD
-    ld l, l                                       ; $6DF4: $6D
-    pop hl                                        ; $6DF5: $E1
-    ld l, l                                       ; $6DF6: $6D
-    push hl                                       ; $6DF7: $E5
-    ld l, l                                       ; $6DF8: $6D
-    ld a, c                                       ; $6DF9: $79
-    ld l, l                                       ; $6DFA: $6D
-    ld a, l                                       ; $6DFB: $7D
-    ld l, l                                       ; $6DFC: $6D
-    add c                                         ; $6DFD: $81
-    ld l, l                                       ; $6DFE: $6D
-    add l                                         ; $6DFF: $85
-    ld l, l                                       ; $6E00: $6D
-    adc c                                         ; $6E01: $89
-    ld l, l                                       ; $6E02: $6D
-    adc l                                         ; $6E03: $8D
-    ld l, l                                       ; $6E04: $6D
-    sub c                                         ; $6E05: $91
-    ld l, l                                       ; $6E06: $6D
-    sub l                                         ; $6E07: $95
-    ld l, l                                       ; $6E08: $6D
-    sbc c                                         ; $6E09: $99
-    ld l, l                                       ; $6E0A: $6D
-    sbc l                                         ; $6E0B: $9D
-    ld l, l                                       ; $6E0C: $6D
-    and c                                         ; $6E0D: $A1
-    ld l, l                                       ; $6E0E: $6D
-    and l                                         ; $6E0F: $A5
-    ld l, l                                       ; $6E10: $6D
-    xor c                                         ; $6E11: $A9
-    ld l, l                                       ; $6E12: $6D
-    xor l                                         ; $6E13: $AD
-    ld l, l                                       ; $6E14: $6D
-    or c                                          ; $6E15: $B1
-    ld l, l                                       ; $6E16: $6D
-    or l                                          ; $6E17: $B5
-    ld l, l                                       ; $6E18: $6D
-    cp c                                          ; $6E19: $B9
-    ld l, l                                       ; $6E1A: $6D
-    cp l                                          ; $6E1B: $BD
-    ld l, l                                       ; $6E1C: $6D
-    pop bc                                        ; $6E1D: $C1
-    ld l, l                                       ; $6E1E: $6D
-    push bc                                       ; $6E1F: $C5
-    ld l, l                                       ; $6E20: $6D
+    ; $6DF9
+Fightscene_TileFX_DissolveTable_Slow_Pointers::
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*0
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*1
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*2
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*3
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*4
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*5
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*6
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*7
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*8
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*9
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*10
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*11
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*12
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*13
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*14
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*15
+Fightscene_TileFX_DissolveTable_Slow_Pointers_ENTRIES EQU $10
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*16  ; UNUSED extra line
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*17  ; UNUSED extra line
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*18  ; UNUSED extra line
+    dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*19  ; UNUSED extra line
 
     ; $6E21
 Fightscene_ArenaTable_Arderial::
@@ -6515,6 +6440,10 @@ Fightscene_LoadArena::
 
     ; $7055
 Fightscene_LoadCreature::
+    ; Loads a creature into the Fightscene
+    ; Inputs:
+    ;   wTemp_8.Fightscene_CreatureID
+    ;   wTemp_9.Palette_BattleFX_CreatureSide
     call Fightscene_GetCreaturePointers
     call Fightscene_LoadCreatureGraphicsData
     ld a, [wTemp_9.Palette_BattleFX_CreatureSide]
@@ -6639,87 +6568,108 @@ Fightscene_CreatureRight_FightFX_UpdateCamera::
     ld [wFightscene_FightFX_ReadingFrameDelta], a
     ret
 
-Call_004_711C::
-    FGet16 hl, $C9E7                                  ; $711C: $21 $E7 $C9
-    ldh a, [$FFA6]                                  ; $7122: $F0 $A6
-    sla a                                         ; $7124: $CB $27
-    ld e, a                                       ; $7126: $5F
-    ld d, $00                                     ; $7127: $16 $00
-    add hl, de                                    ; $7129: $19
-    ldh a, [$FFA7]                                  ; $712A: $F0 $A7
-    and a                                         ; $712C: $A7
-    jr nz, jr_004_714F                            ; $712D: $20 $20
+Fightscene_FightFX_PanFromTable::
+    ; Pans the scene left or right based on the table data
+    ; Inputs:
+    ;   wFightscene_FightFX_Pan_TableAddress    Table like Fightscene_FightFX_PanTable_Regular
+    ;   hScript.BigCounter                      Remaining delay number of frames to do the deltaX at the current frame
+    ;   hScript.SmallCounter                    Current reading offset
 
-    ldh a, [$FFA6]                                  ; $712F: $F0 $A6
-    inc a                                         ; $7131: $3C
-    ldh [$FFA6], a                                  ; $7132: $E0 $A6
-    inc hl                                        ; $7134: $23
-    inc hl                                        ; $7135: $23
-    ld a, [hl]                                    ; $7136: $7E
-    and a                                         ; $7137: $A7
-    jr nz, jr_004_714D                            ; $7138: $20 $13
+    ; Get the reading position
+    FGet16 hl, wFightscene_FightFX_Pan_TableAddress
+    ldh a, [hScript.SmallCounter]
+    sla a
+    ld e, a
+    ld d, $00
+    add hl, de
 
-    ld a, b                                       ; $713A: $78
-    ld [hScript.Frame+1], a                                 ; $713B: $EA $A3 $FF
-    ld a, c                                       ; $713E: $79
-    ld [hScript.Frame], a                                 ; $713F: $EA $A2 $FF
-    Set16_M hScript.State, Script_Start                                 ; $7149: $EA $A5 $FF
-    ret                                           ; $714C: $C9
+    ; Check if the remaining number of frames is zero
+    ldh a, [hScript.BigCounter]
+    and a
+    jr nz, .Continue2
+    .IncrementReadingFrame:
+        ; Increment the reading position to the next instruction
+        ldh a, [hScript.SmallCounter]
+        inc a
+        ldh [hScript.SmallCounter], a
+        inc hl
+        inc hl
+        ; If the delay is $00, we have reached the End of the table
+        ld a, [hl]
+        and a
+        jr nz, .Continue1
+        .EndOfTable:
+            ; Ready for the next instruction
+            Set16 hScript.Frame, bc
+            Set16_M hScript.State, Script_Start
+            ret
 
+    .Continue1:
+        ; Save the new delay
+        ldh [hScript.BigCounter], a
+    .Continue2:
+    ; Decrement the delay by 1
+    dec a
+    ldh [hScript.BigCounter], a
+    ; Pan by DeltaX
+    inc hl
+    ld a, [hl]
+    ld [wFightscene_FightFX_Pan_DeltaX], a
+    call Fightscene_FightFX_PanApplyDeltaX
+    ret
 
-jr_004_714D:
-    ldh [$FFA7], a                                  ; $714D: $E0 $A7
+    ; $715B
+Fightscene_FightFX_PanApplyDeltaX::
+    ; Moves the view by DeltaX
+    ; Inputs:
+    ;   wFightscene_FightFX_Pan_RightDirection - nz pan right, z pan left
+    ;   wFightscene_FightFX_Pan_DeltaX - DeltaX from panning
+    ; Outputs:
+    ;   wFightscene_SCX +- wFightscene_FightFX_Pan_DeltaX, capped within [0, $60]
+    ;   bc (script frame) is preserved
+    ld a, [wFightscene_FightFX_Pan_RightDirection]
+    and a
+    jr nz, .PanRight
+    .PanLeft:
+        ; If we are already at 0, we can't go further left, so end here
+        ld a, [wFightscene_SCX]
+        and a
+        ret z
 
-jr_004_714F:
-    dec a                                         ; $714F: $3D
-    ldh [$FFA7], a                                  ; $7150: $E0 $A7
-    inc hl                                        ; $7152: $23
-    ld a, [hl]                                    ; $7153: $7E
-    ld [$C9E9], a                                 ; $7154: $EA $E9 $C9
-    call Call_004_715B                            ; $7157: $CD $5B $71
-    ret                                           ; $715A: $C9
+        ; [wFightscene_SCX] - [wFightscene_FightFX_Pan_DeltaX]
+        push bc
+        ld c, a
+        ld a, [wFightscene_FightFX_Pan_DeltaX]
+        cpl
+        inc a
+        add c
 
+        ; Limit the value to a minimum of 0
+        jr c, .Finally
+        .OutOfBoundsLeft:
+            xor a
+        jp .Finally
 
-Call_004_715B:
-    ld a, [$C9EA]                                 ; $715B: $FA $EA $C9
-    and a                                         ; $715E: $A7
-    jr nz, jr_004_7174                            ; $715F: $20 $13
+    .PanRight:
+        ; If we are already at $60, we can't go further right, so end here
+        ld a, [wFightscene_SCX]
+        cp $60
+        ret z
 
-    ld a, [$C9BC]                                 ; $7161: $FA $BC $C9
-    and a                                         ; $7164: $A7
-    ret z                                         ; $7165: $C8
-
-    push bc                                       ; $7166: $C5
-    ld c, a                                       ; $7167: $4F
-    ld a, [$C9E9]                                 ; $7168: $FA $E9 $C9
-    cpl                                           ; $716B: $2F
-    inc a                                         ; $716C: $3C
-    add c                                         ; $716D: $81
-    jr c, jr_004_7186                             ; $716E: $38 $16
-
-    xor a                                         ; $7170: $AF
-    jp Jump_004_7186                              ; $7171: $C3 $86 $71
-
-
-jr_004_7174:
-    ld a, [$C9BC]                                 ; $7174: $FA $BC $C9
-    cp $60                                        ; $7177: $FE $60
-    ret z                                         ; $7179: $C8
-
-    push bc                                       ; $717A: $C5
-    ld c, a                                       ; $717B: $4F
-    ld a, [$C9E9]                                 ; $717C: $FA $E9 $C9
-    add c                                         ; $717F: $81
-    cp $60                                        ; $7180: $FE $60
-    jr c, jr_004_7186                             ; $7182: $38 $02
-
-    ld a, $60                                     ; $7184: $3E $60
-
-Jump_004_7186:
-jr_004_7186:
-    ld [$C9BC], a                                 ; $7186: $EA $BC $C9
-    pop bc                                        ; $7189: $C1
-    ret                                           ; $718A: $C9
+        ; [wFightscene_SCX] + [wFightscene_FightFX_Pan_DeltaX]
+        push bc
+        ld c, a
+        ld a, [wFightscene_FightFX_Pan_DeltaX]
+        add c
+        
+        ; Limit the value to a maximum of $60
+        cp $60
+        jr c, .Finally
+            ld a, $60
+    .Finally:
+    ld [wFightscene_SCX], a
+    pop bc
+    ret
 
     ; $718B
 Fightscene_FixCreatureRightAttrmap::
@@ -6871,50 +6821,38 @@ jr_004_72D5:
 
     ret                                           ; $72EC: $C9
 
-
+    ; $72ED
 Call_004_72ED:
-    xor a                                         ; $72ED: $AF
-    ld [$C9BC], a                                 ; $72EE: $EA $BC $C9
-    ld [wFightscene_WX], a                                 ; $72F1: $EA $C2 $C9
-    ld [wFightscene_DeltaWX], a                                 ; $72F4: $EA $C4 $C9
-    ld [$C9C0], a                                 ; $72F7: $EA $C0 $C9
-    ld [$C9C1], a                                 ; $72FA: $EA $C1 $C9
-    ld [$C9C7], a                                 ; $72FD: $EA $C7 $C9
-    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $7300: $EA $EC $C9
-    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $7303: $EA $EB $C9
-    ld [wFightscene_FightFX_TotalDelay], a                                 ; $7306: $EA $EF $C9
-    ld [wFightscene_FightFX_DelayCount], a                                 ; $7309: $EA $EE $C9
-    ld [wFightscene_TileFX_DestroyCount], a                                 ; $730C: $EA $FB $C9
-    ld [wFightscene_TileFX_DestroyIterationMax], a                                 ; $730F: $EA $FA $C9
-    ld [wFightscene_TileFX_DestroyIteration], a                                 ; $7312: $EA $F9 $C9
-    ld a, $58                                     ; $7315: $3E $58
-    ld [$C9BD], a                                 ; $7317: $EA $BD $C9
-    ld a, $20                                     ; $731A: $3E $20
-    ld [wFightscene_WY], a                                 ; $731C: $EA $C3 $C9
-    ld a, $60                                     ; $731F: $3E $60
-    ld [wFightscene_FightFX_DataTable], a                                 ; $7321: $EA $F0 $C9
-    ld a, $6C                                     ; $7324: $3E $6C
-    ld [$C9F1], a                                 ; $7326: $EA $F1 $C9
-    ld a, $F9                                     ; $7329: $3E $F9
-    ld [wFightscene_TileFX_VBlank_DestroyFunc], a                                 ; $732B: $EA $F2 $C9
-    ld a, $6A                                     ; $732E: $3E $6A
-    ld [$C9F3], a                                 ; $7330: $EA $F3 $C9
-    ld a, $F9                                     ; $7333: $3E $F9
-    ld [$C9F4], a                                 ; $7335: $EA $F4 $C9
-    ld a, $6D                                     ; $7338: $3E $6D
-    ld [$C9F5], a                                 ; $733A: $EA $F5 $C9
+    xor a
+    ld [wFightscene_SCX], a
+    ld [wFightscene_WX], a
+    ld [wFightscene_DeltaWX], a
+    ld [$C9C0], a
+    ld [$C9C1], a
+    ld [$C9C7], a
+    ld [wFightscene_FightFX_ReadingFrameMax], a
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ld [wFightscene_FightFX_TotalDelay], a
+    ld [wFightscene_FightFX_DelayCount], a
+    ld [wFightscene_TileFX_DestroyCount], a
+    ld [wFightscene_TileFX_ReadingFrameMax], a
+    ld [wFightscene_TileFX_ReadingFrameDelta], a
+    Set8 wFightscene_SCY, $58
+    Set8 wFightscene_WY, $20
+    Set16_M wFightscene_FightFX_DataTable, Fightscene_FightFX_MoveTable_Shake
+    Set16_M wFightscene_TileFX_VBlank_DestroyFunc, Fightscene_TileFX_VBlank_Idle
+    Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Slow_Pointers
     Set16_M wFightscene_TileFX_DestroyAddress, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
-    ld a, $04                                     ; $7347: $3E $04
-    ld [$C9F8], a                                 ; $7349: $EA $F8 $C9
-    ret                                           ; $734C: $C9
+    Set8 wFightscene_TileFX_DestroyBank, BANK(@) ; Bug? This is the current bank, but we want to refer to VBK bank 0 or 1. Luckily this value is always re-initialized before use
+    ret
 
 
 Call_004_734D:
     Set16_M wVBlank_HandlerFunc, VBlankHandler_000_36F9
     Do_CallForeign Palette_DeterminePaletteVBlankFunc
-    ld a, [$C9BC]                                 ; $735F: $FA $BC $C9
+    ld a, [wFightscene_SCX]                                 ; $735F: $FA $BC $C9
     and $7F                                       ; $7362: $E6 $7F
-    ld [$C9BC], a                                 ; $7364: $EA $BC $C9
+    ld [wFightscene_SCX], a                                 ; $7364: $EA $BC $C9
     ld e, a                                       ; $7367: $5F
     ld a, [$C9BE]                                 ; $7368: $FA $BE $C9
     ld d, a                                       ; $736B: $57
@@ -6933,7 +6871,7 @@ Call_004_734D:
     ld a, [wFightscene_DeltaWX]                                 ; $7382: $FA $C4 $C9
     add e                                         ; $7385: $83
     ld [wFightscene_WX], a                                 ; $7386: $EA $C2 $C9
-    ld a, [$C9BC]                                 ; $7389: $FA $BC $C9
+    ld a, [wFightscene_SCX]                                 ; $7389: $FA $BC $C9
     ld [wSCXW], a                                 ; $738C: $EA $35 $C9
     ld a, [$C9C7]                                 ; $738F: $FA $C7 $C9
     cp $01                                        ; $7392: $FE $01
@@ -7025,7 +6963,7 @@ jr_004_73DB:
 AI_HorizontalScroller_Setup::
     ; Sets the variables to create the horizontal scrolling effect (start screen)
     xor a
-    ld [$C9BC], a
+    ld [wFightscene_SCX], a
     ld [wFightscene_Arena_TopSCX], a
     ld [wFightscene_Arena_BottomSCX], a
     Set16_M wVBlank_HandlerFunc, vblank_HorizontalScroll

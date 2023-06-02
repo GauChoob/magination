@@ -2368,10 +2368,10 @@
 04:70f6 jr_004_70F6
 04:70ff jr_004_70FF
 04:7110 jr_004_7110
-04:711c Call_004_711C
+04:711c Fightscene_FightFX_Pan
 04:714d jr_004_714D
 04:714f jr_004_714F
-04:715b Call_004_715B
+04:715b Fightscene_FightFX_PanApplyDeltaX
 04:7174 jr_004_7174
 04:7186 jr_004_7186
 04:7186 Jump_004_7186
@@ -4484,7 +4484,7 @@
 07:5c29 Call_007_5C29
 07:5c52 Fightscene_PalFX_SetCreaturePaletteArenaColor
 07:5c7e Fightscene_PalFX_SetFightsceneArenaColor
-07:5c9d FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor
+07:5c9d Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor
 07:5cb9 Fightscene_PalFX_SetCardsceneArenaColor
 07:5ce2 Call_007_5CE2
 07:5d1c jr_007_5D1C

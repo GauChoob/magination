@@ -3761,7 +3761,7 @@ Fightscene_PalFX_SetFightsceneArenaColor::
     Set8 wPalette_VBlankReady, $01
     ret
 
-FIghtscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
+Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
     ; Forces Palette 5.0 to be Color wFightscene_ArenaColor (CreatureRight 3rd Palette)
     ; Inputs:
     ;   wFightscene_ArenaColor

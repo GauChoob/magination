@@ -725,14 +725,14 @@ Script_Table::
 
     dw Cmd_Fightscene_FightFX_BlowAway ; $33
     dw Cmd_Fightscene_LoadArena        ; $34
-    dw $1088
-    dw Cmd_Fightscene_TileFX_MeltFast ; $37
-    dw Cmd_Fightscene_TileFX_MeltSlow ; $38
-    dw Cmd_Fightscene_FightFX_New      ; $39
-    dw Cmd_Fightscene_FightFX_Pan      ; $30
+    dw Cmd_Fightscene_LoadCreatureLeft ; $35
+    dw Cmd_Fightscene_TileFX_DissolveFast ; $36
+    dw Cmd_Fightscene_TileFX_DissolveSlow ; $37
+    dw Cmd_Fightscene_New      ; $38
+    dw Cmd_Fightscene_FightFX_PanFromTable      ; $39
     dw Cmd_Fightscene_FightFX_Recoil   ; $3A
     dw Cmd_Fightscene_FightFX_UNKTODO  ; $3B
-    dw $1173
+    dw Cmd_Fightscene_FightFX_PanConstant ; $3C
     dw Cmd_Fightscene_FightFX_Shake    ; $3D
     dw Cmd_Fightscene_FightFX_Sink     ; $3E
     dw Cmd_Fightscene_FightFX_Tremble  ; $3F

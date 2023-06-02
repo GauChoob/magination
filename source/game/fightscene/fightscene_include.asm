@@ -135,3 +135,10 @@ MACRO Fightscene_FightFX_SetNextTile
     .\@:
     ld [\1+1], a
 ENDM
+
+MACRO Fightscene_TileFX_DissolveTable_Data
+    ; \1 = tile's row (0-7)
+    ; \2 = mask to apply to erase the row (to both upper and lower byte)
+    db 2*(\1), \2     ; lower byte
+    db 2*(\1)+1, \2   ; upper byte
+ENDM

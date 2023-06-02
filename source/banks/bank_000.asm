@@ -2135,19 +2135,21 @@ Cmd_Fightscene_LoadArena::
     Set8 wFightscene_ArenaIndex, e
     ret
 
-
-    ld a, [bc]
-    ld [wTemp_8.Palette_PackedInterval], a
-    inc bc
+    ; $1088
+Cmd_Fightscene_LoadCreatureLeft::
+    ; Loads a creature into the left side of the fightscene
+    ; Arguments:
+    ;   db  CreatureID
+    Script_ReadByte [wTemp_8.Fightscene_CreatureID]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     xor a
-    ld [$C9D9], a
+    ld [wTemp_9.Palette_BattleFX_CreatureSide], a
     XCall Fightscene_LoadCreature
     ret
 
     ; $10AF
-Cmd_Fightscene_FightFX_New::
+Cmd_Fightscene_New::
     ld a, [bc]
     ld [wFightscene_ArenaIndex], a
     inc bc
@@ -2179,30 +2181,24 @@ jr_000_10FC:
     jr jr_000_10FC
 
     ; $110C
-Cmd_Fightscene_FightFX_Pan::
-    ld a, $01
-    ldh [hScript.BigCounter], a
-    xor a
-    ldh [hScript.SmallCounter], a
-    ld a, $26
-    ld [hScript.State], a
-    ld a, $11
-    ld [hScript.State+1], a
-    Set16 hScript.Frame, bc
-    ret
-
-
-    ld a, [bc]
-    ld [$C9EA], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E7], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E8], a
-    inc bc
-    XCall Call_004_711C
-    ret
+Cmd_Fightscene_FightFX_PanFromTable::
+    ; Pans the camera right, reading the data from the specified table for the specified number of frames
+    ; Arguments:
+    ;   ds 1  wFightscene_FightFX_Pan_RightDirection (nz = Right, z = Left)
+    ;   ds 2  Pointer to Fightscene_FightFX_PanTable_Regular, Fightscene_FightFX_PanTable_Fast or Fightscene_FightFX_PanTable_Slow
+    .Init:
+        Set8FF hScript.BigCounter, $01 ; Number of frames each instruction should last (therefore the first instruction is hard-coded to always last 1 frame)
+        xor a
+        ldh [hScript.SmallCounter], a ; Reading frame offset
+        Set16_M hScript.State, .MainLoop
+        Set16 hScript.Frame, bc
+        ret
+    .MainLoop:
+        ; The same data is read every frame
+        Script_ReadByte [wFightscene_FightFX_Pan_RightDirection]
+        Script_MovWord wFightscene_FightFX_Pan_TableAddress
+        XCall Fightscene_FightFX_PanFromTable
+        ret
 
     ; $1141
 Cmd_Fightscene_FightFX_Ready::
@@ -2229,25 +2225,27 @@ Cmd_Fightscene_FightFX_UNKTODO::  ; TODO find the name of the movetable and rena
     jr Fightscene_FightFX_MoveTableInit
 
     ; $1173
-    Script_ReadByteA
-    ld [$C9EA], a
-    Script_ReadByteA
-    ld [$C9E9], a
-    Script_ReadByteA
-    ldh [hScript.SmallCounter], a
-    Set16 hScript.Frame, bc
-    ld a, $93
-    ld [hScript.State], a
-    ld a, $11
-    ld [hScript.State+1], a
-    ldh a, [hScript.SmallCounter]
-    and a
-    jp z, Script_Start
-
-    dec a
-    ldh [hScript.SmallCounter], a
-    XCall Call_004_715B
-    ret
+Cmd_Fightscene_FightFX_PanConstant::
+    ; Pan at a constant speed in a specified direction for a specified number of frames
+    ; Arguments:
+    ;   db   Direction; Right = 1, Left = 0
+    ;   db   DeltaX per frame
+    ;   db   Total number of frames
+    .Init:
+        Script_ReadByte_V [wFightscene_FightFX_Pan_RightDirection]
+        Script_ReadByte_V [wFightscene_FightFX_Pan_DeltaX]
+        Script_ReadByteA
+        ldh [hScript.SmallCounter], a
+        Set16 hScript.Frame, bc
+        Set16_M hScript.State, .MainLoop
+    .MainLoop
+        ldh a, [hScript.SmallCounter]
+        and a
+        jp z, Script_Start
+        dec a
+        ldh [hScript.SmallCounter], a
+        XCall Fightscene_FightFX_PanApplyDeltaX
+        ret
 
     ; $11A8
 Cmd_Fightscene_FightFX_Shake::
@@ -2282,23 +2280,20 @@ Fightscene_FightFX_MoveTableInit::
     ret
 
     ; $11F6
-Cmd_Fightscene_TileFX_MeltFast::
-    ld a, $08
-    ld [wFightscene_TileFX_DestroyIterationMax], a
-    ld a, $E9
-    ld [$C9F4], a
-    ld a, $6D
-    ld [$C9F5], a
+Cmd_Fightscene_TileFX_DissolveFast::
+    ; Inputs:
+    ;   None
+    Set8 wFightscene_TileFX_ReadingFrameMax, Fightscene_TileFX_DissolveTable_Fast_Pointers_ENTRIES
+    Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Fast_Pointers
     jr Fightscene_TileFX_MeltInit
 
     ; $1207
-Cmd_Fightscene_TileFX_MeltSlow::
-    ld a, $10
-    ld [wFightscene_TileFX_DestroyIterationMax], a
-    ld a, $F9
-    ld [$C9F4], a
-    ld a, $6D
-    ld [$C9F5], a
+Cmd_Fightscene_TileFX_DissolveSlow::
+    ; Inputs:
+    ;   None
+    Set8 wFightscene_TileFX_ReadingFrameMax, Fightscene_TileFX_DissolveTable_Slow_Pointers_ENTRIES
+    Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Slow_Pointers
+    ;jr Fightscene_TileFX_MeltInit ; Fall through
 
 Fightscene_TileFX_MeltInit:
     Set16 hScript.Frame, bc
@@ -3503,7 +3498,7 @@ Cmd_Palette_CreatureLoad::
     ; Creature
     Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
     Set16 hScript.Frame, bc
-    XCall Call_000_35F1 ;XCall, but the function needs to be in bank $00
+    XCall Call_000_35F1 ;bug - XCall, but the function needs to be in bank $00
     Set16_M hScript.State, Script_Start
     ret
 
@@ -6320,9 +6315,9 @@ Call_000_3677::
     ; HBlank_Func
     ld a, [wFightscene_WX]
     ldh [rWX], a
-    ld a, [$C9BC]
+    ld a, [wFightscene_SCX]
     ldh [rSCX], a
-    ld a, [$C9BD]
+    ld a, [wFightscene_SCY]
     ldh [rSCY], a
     ld a, $71
     ldh [rLYC], a
