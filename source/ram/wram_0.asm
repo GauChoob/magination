@@ -803,6 +803,12 @@ wFightscene_WY::
     ;ds $C9C4 - @
 wFightscene_DeltaWX::
     ds 1
+    ;ds $C9C5 - @
+wFightscene_Start::
+    ; Set to 1 when Fightscene is being initialized
+    ; Set back to 0 once Fightscene_Init is called
+    ; This variable is never read from, only written to
+    ds 1
 
     ; CREATURE_GFX_STRUCT TEMP
     ds $C9CD - @
@@ -872,7 +878,7 @@ wTemp_9::
         ; by wTemp_8.Palette_PackedInterval
     .Palette_CyclePattern:
         ; Used to store the cycle pattern for Palette_PaletteCycleColors
-    .Palette_BattleFX_CreatureSide:
+    .Palette_BattleFX_CreatureIsRight:
         ; 0 = Left, 1 = Right
     .Cardscene_CardSlot::
     ; The card slot in the cardscene (0 - 7)

@@ -2144,15 +2144,13 @@ Cmd_Fightscene_LoadCreatureLeft::
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     xor a
-    ld [wTemp_9.Palette_BattleFX_CreatureSide], a
+    ld [wTemp_9.Palette_BattleFX_CreatureIsRight], a
     XCall Fightscene_LoadCreature
     ret
 
     ; $10AF
 Cmd_Fightscene_New::
-    ld a, [bc]
-    ld [wFightscene_ArenaIndex], a
-    inc bc
+    Script_ReadByte [wFightscene_ArenaIndex]
     ld a, [bc]
     ld [$C9E0], a
     inc bc
@@ -2160,25 +2158,22 @@ Cmd_Fightscene_New::
     ld [$C9E1], a
     inc bc
     ld a, $01
-    ld [$C9C5], a
+    ld [wFightscene_Start], a
     Set16 hScript.Frame, bc
-    ld a, $06
-    ld [hScript_CurrentAddress], a
-    ld a, $C7
-    ld [hScript_CurrentAddress+1], a
+    Set16_M hScript_CurrentAddress, wScript_Master
     Set16_M hScript.State, Script_Start
     call Script_Close
     call ScreenHide
     call Interrupt_Timer_Start
     call Interpreter_ReInit
-    XCall Call_004_722E
+    XCall Fightscene_Init
     call System_Script_SceneInit
     call ScreenShow
 
-jr_000_10FC:
-    XCall Call_004_71A6
-    call Call_004_734D
-    jr jr_000_10FC
+    .Loop:
+        XCall Call_004_71A6
+        call Call_004_734D
+        jr .Loop
 
     ; $110C
 Cmd_Fightscene_FightFX_PanFromTable::
@@ -3403,7 +3398,7 @@ Cmd_Palette_CreatureCycle::
     ; BattleFX - cycles a creature's palette
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3418,7 +3413,7 @@ Cmd_Palette_CreatureCycle::
     .Main:
         ; Main body
         call Palette_ReadPackedLoop_SmallCounter ; Reset the SmallCounter
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
         XCall PaletteFX_Battle_CreatureCycle
         pop bc
@@ -3430,7 +3425,7 @@ Cmd_Palette_CreatureFadeUniColor::
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   dw  wTemp_A.Palette_SetColor
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3446,7 +3441,7 @@ Cmd_Palette_CreatureFadeUniColor::
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter ; Reset the SmallCounter
         call Palette_ReadColor
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
         XCall PaletteFX_Battle_CreatureFadeUniColor
@@ -3460,7 +3455,7 @@ Cmd_Palette_CreatureFadeMultiColor::
     ; BattleFX - Ipsum TODO
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3475,7 +3470,7 @@ Cmd_Palette_CreatureFadeMultiColor::
     .Main:
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
         XCall PaletteFX_Battle_CreatureFadeMultiColor
@@ -3488,7 +3483,7 @@ Cmd_Palette_CreatureLoad::
     ; TODO
     ; Arguments:
     ;   AddressBank - Creature palette
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     ;
     ; Address
     Script_ReadByte_V [wTemp_6.Palette_PaletteAddress]
@@ -3496,7 +3491,7 @@ Cmd_Palette_CreatureLoad::
     ; Bank
     Script_ReadByte_V [wTemp_7.Palette_PaletteBank]
     ; Creature
-    Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+    Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
     Set16 hScript.Frame, bc
     XCall Call_000_35F1 ;bug - XCall, but the function needs to be in bank $00
     Set16_M hScript.State, Script_Start
@@ -3508,7 +3503,7 @@ Cmd_Palette_CreatureFlash::
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   db  wTemp_8.Palette_ColorSwapType
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3524,7 +3519,7 @@ Cmd_Palette_CreatureFlash::
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
         Script_ReadByte_V [wTemp_8.Palette_ColorSwapType]
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
         XCall PaletteFX_Battle_CreatureSwapRGB
         pop bc
@@ -3534,8 +3529,8 @@ Cmd_Palette_CreatureFlash::
 Cmd_Palette_CreatureInvert::
     ; BattleFX - Inverts a creature's palette once
     ; Arguments:
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
-    Script_ReadByte [wTemp_9.Palette_BattleFX_CreatureSide]
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
+    Script_ReadByte [wTemp_9.Palette_BattleFX_CreatureIsRight]
     Set16 hScript.Frame, bc
     XCall PaletteFX_Battle_CreatureInvert
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)

@@ -10,7 +10,7 @@ INCLUDE "source/engine/battery/battery_xx.asm"
 PaletteFX_Battle_CreatureCycle::
     xor a                                         ; $416B: $AF
     ld [wPalette_VBlankReady], a                                 ; $416C: $EA $31 $C8
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $416F: $FA $D9 $C9
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $416F: $FA $D9 $C9
     and a                                         ; $4172: $A7
     jr nz, jr_007_4199                            ; $4173: $20 $24
 
@@ -71,7 +71,7 @@ PaletteFX_Battle_CreatureFadeUniColor::
     ld d, a                                       ; $41D8: $57
     ld a, [wTemp_A.Palette_SetColor]                                 ; $41D9: $FA $DA $C9
     ld e, a                                       ; $41DC: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $41DD: $FA $D9 $C9
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $41DD: $FA $D9 $C9
     and a                                         ; $41E0: $A7
     jr nz, jr_007_4221                            ; $41E1: $20 $3E
 
@@ -227,7 +227,7 @@ PaletteFX_Battle_CreatureSwapRGB::
     ld [wPalette_VBlankReady], a                                 ; $42E4: $EA $31 $C8
     ld a, [wTemp_8.Palette_ColorSwapType]                                 ; $42E7: $FA $D8 $C9
     ld e, a                                       ; $42EA: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $42EB: $FA $D9 $C9
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $42EB: $FA $D9 $C9
     and a                                         ; $42EE: $A7
     jr nz, jr_007_4312                            ; $42EF: $20 $21
 

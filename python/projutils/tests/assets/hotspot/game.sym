@@ -2382,7 +2382,7 @@
 04:71ce Call_004_71CE
 04:71ed Call_004_71ED
 04:721e jr_004_721E
-04:722e Call_004_722E
+04:722e Fightscene_Init
 04:72b4 Call_004_72B4
 04:72d5 jr_004_72D5
 04:72ed Call_004_72ED
@@ -36372,7 +36372,7 @@
 00:c9d9 wTemp_9
 00:c9d9 wTemp_9.Cardscene_CardSlot
 00:c9d9 wTemp_9.Fightscene_Arena_BottomTilemapBank
-00:c9d9 wTemp_9.Palette_BattleFX_CreatureSide
+00:c9d9 wTemp_9.Palette_BattleFX_CreatureIsRight
 00:c9da wTemp_A
 00:c9da wTemp_A.Unknown
 00:c9da wTemp_A.Palette_SetColor

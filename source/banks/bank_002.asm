@@ -1046,7 +1046,7 @@ Call_002_472E:
     ld [$C9CC], a                                 ; $4738: $EA $CC $C9
     FSet16 $C9CA, bc                                    ; $4740: $70
     ld a, $01                                     ; $4741: $3E $01
-    ld [$C9C5], a                                 ; $4743: $EA $C5 $C9
+    ld [wFightscene_Start], a                                 ; $4743: $EA $C5 $C9
     ld [$C9C6], a                                 ; $4746: $EA $C6 $C9
     ld a, [wFightscene_ArenaIndex]                                 ; $4749: $FA $E4 $C9
     ld [wFightscene_ArenaIndex], a                                 ; $474C: $EA $E4 $C9

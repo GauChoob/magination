@@ -6443,10 +6443,10 @@ Fightscene_LoadCreature::
     ; Loads a creature into the Fightscene
     ; Inputs:
     ;   wTemp_8.Fightscene_CreatureID
-    ;   wTemp_9.Palette_BattleFX_CreatureSide
+    ;   wTemp_9.Palette_BattleFX_CreatureIsRight
     call Fightscene_GetCreaturePointers
     call Fightscene_LoadCreatureGraphicsData
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
     and a
     jr nz, .CreatureRight
     .CreatureLeft:
@@ -6730,7 +6730,7 @@ Call_004_71ED::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle                                 ; $71F4: $EA $E5 $C6
     call ScreenHide                                    ; $71F7: $CD $C3 $07
     call Interrupt_Timer_Start                                    ; $71FA: $CD $F3 $29
-    call Call_004_722E                            ; $71FD: $CD $2E $72
+    call Fightscene_Init                            ; $71FD: $CD $2E $72
     ld hl, $C706                                  ; $7200: $21 $06 $C7
     ld a, [$C9CC]                                 ; $7203: $FA $CC $C9
     ld [hl+], a                                   ; $7206: $22
@@ -6756,45 +6756,44 @@ jr_004_721E:
     call Call_004_71CE                            ; $722A: $CD $CE $71
     ret                                           ; $722D: $C9
 
-
-Call_004_722E:
+    ; $722E
+Fightscene_Init:
     Do_CallForeign Actorlist_Init
     Frame_Init
-    xor a                                         ; $7241: $AF
-    ld [$C9C5], a                                 ; $7242: $EA $C5 $C9
-    ld [$C9C8], a                                 ; $7245: $EA $C8 $C9
-    ld [$C831], a                                 ; $7248: $EA $31 $C8
-    call Call_004_72ED                            ; $724B: $CD $ED $72
-    xor a                                         ; $724E: $AF
-    ld [$C834], a                                 ; $724F: $EA $34 $C8
-    ld [$C835], a                                 ; $7252: $EA $35 $C8
-    ld a, $00                                     ; $7255: $3E $00
-    ld [$C832], a                                 ; $7257: $EA $32 $C8
-    ld a, $24                                     ; $725A: $3E $24
-    ld [$C833], a                                 ; $725C: $EA $33 $C8
-    ld a, [wFightscene_ArenaIndex]                                 ; $725F: $FA $E4 $C9
-    ld [wFightscene_ArenaIndex], a                                 ; $7262: $EA $E4 $C9
+    xor a
+    ld [wFightscene_Start], a
+    ld [$C9C8], a
+    ld [$C831], a
+    call Fightscene_SCXInit
+    xor a
+    ld [$C834], a
+    ld [$C835], a
+    ld a, $00
+    ld [$C832], a
+    ld a, $24
+    ld [$C833], a
+
+    ; inefficiency - this was a single-use Macro which is why it loads itself
+    ld a, [wFightscene_ArenaIndex]
+    ld [wFightscene_ArenaIndex], a
     Do_CallForeign Fightscene_LoadArena
-    ld a, [$C9E0]                                 ; $726D: $FA $E0 $C9
-    ld [$C9D8], a                                 ; $7270: $EA $D8 $C9
-    ld a, $00                                     ; $7273: $3E $00
-    ld [$C9D9], a                                 ; $7275: $EA $D9 $C9
+
+    Mov8 wTemp_8.Fightscene_CreatureID, $C9E0
+    Set8 wTemp_9.Palette_BattleFX_CreatureIsRight, $00 ; inefficiency - ld a, $00 (this was a macro)
     Do_CallForeign Fightscene_LoadCreature
-    ld a, [$C9E1]                                 ; $7280: $FA $E1 $C9
-    ld [$C9D8], a                                 ; $7283: $EA $D8 $C9
-    ld a, $01                                     ; $7286: $3E $01
-    ld [$C9D9], a                                 ; $7288: $EA $D9 $C9
+    Mov8 wTemp_8.Fightscene_CreatureID, $C9E1
+    Set8 wTemp_9.Palette_BattleFX_CreatureIsRight, $01
     Do_CallForeign Fightscene_LoadCreature
-    ld a, $07                                     ; $7293: $3E $07
-    ld [$C9D8], a                                 ; $7295: $EA $D8 $C9
-    ld de, $7FFF                                  ; $7298: $11 $FF $7F
-    ld a, d                                       ; $729B: $7A
-    ld [$C9DB], a                                 ; $729C: $EA $DB $C9
-    ld a, e                                       ; $729F: $7B
-    ld [$C9DA], a                                 ; $72A0: $EA $DA $C9
+    ld a, $07
+    ld [$C9D8], a
+    ld de, $7FFF
+    ld a, d
+    ld [$C9DB], a
+    ld a, e
+    ld [$C9DA], a
     Do_CallForeign PaletteFX_ClearAnimBuffer
     Do_CallForeign PaletteVB_UpdatePalettes
-    ret                                           ; $72B3: $C9
+    ret
 
 
 Call_004_72B4:
@@ -6822,7 +6821,7 @@ jr_004_72D5:
     ret                                           ; $72EC: $C9
 
     ; $72ED
-Call_004_72ED:
+Fightscene_SCXInit:
     xor a
     ld [wFightscene_SCX], a
     ld [wFightscene_WX], a
@@ -6837,8 +6836,8 @@ Call_004_72ED:
     ld [wFightscene_TileFX_DestroyCount], a
     ld [wFightscene_TileFX_ReadingFrameMax], a
     ld [wFightscene_TileFX_ReadingFrameDelta], a
-    Set8 wFightscene_SCY, $58
-    Set8 wFightscene_WY, $20
+    Set8 wFightscene_SCY, FIGHTSCENE_SCY_INIT
+    Set8 wFightscene_WY, FIGHTSCENE_WY_INIT
     Set16_M wFightscene_FightFX_DataTable, Fightscene_FightFX_MoveTable_Shake
     Set16_M wFightscene_TileFX_VBlank_DestroyFunc, Fightscene_TileFX_VBlank_Idle
     Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Slow_Pointers
