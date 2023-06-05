@@ -5516,10 +5516,10 @@ Cardscene_Init::
     call ScreenShow
 
     ld a, [wCardscene_SCXW]
-    ld [wSCXW], a
+    ld [wSCX], a
     ldh [rSCX], a
     ld a, [wCardscene_SCYW]
-    ld [wSCYW], a
+    ld [wSCY], a
     ldh [rSCY], a
 
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
@@ -5582,10 +5582,10 @@ Cardscene_Startup:
     call Interpreter_ReInit
     call ScreenShow
     ld a, [wCardscene_SCXW]
-    ld [wSCXW], a
+    ld [wSCX], a
     ldh [rSCX], a
     ld a, [wCardscene_SCYW]
-    ld [wSCYW], a
+    ld [wSCY], a
     ldh [rSCY], a
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_Idle
@@ -5864,7 +5864,7 @@ Fightscene_TileFX_VBlank_MaskTile:
     ret
 
     ; $6A82
-Fightscene_TileFX_VBlank_DissolveSequentially::
+Fightscene_TileFX_VBlank_DissolveSequentially:: ; TODO - is this command unused?
     ; Loop through all the reading frames and completely erase a single tile
     ; Then, reset the reading frame back to the start, and erase the second tile
     ; Keep going until all tiles are erased
@@ -5971,7 +5971,7 @@ Fightscene_FightFX_PanTable_Fast::
     db $01, $03 ; First line exceptionally, the Duration is overwritten to always be $01
     db $03, $06
     db $07, $08
-    db $09, $0A ; Bug - By the second frame here, we already hit the max DeltaX of 96. Further DeltaXs are useless (except they bug out the FightFx_MoveTables slightly)
+    db $09, $0A ; Bug - By the second frame here, we already hit the max DeltaX of 96. Further DeltaXs are useless
     db $04, $08 ; So we have 8+8+3+2+2+1 = 24 frames where we try to pan right but cannot, and so we just wait 24 frames
     db $03, $03
     db $02, $02
@@ -6549,9 +6549,9 @@ Fightscene_CreatureRight_FightFX_UpdateCamera::
                 ret
     .NormalDelta:
     ; Save the Delta WX
-    ld a, [wFightscene_DeltaWX]
+    ld a, [wFightscene_ShakeWX]
     add d
-    ld [wFightscene_DeltaWX], a
+    ld [wFightscene_ShakeWX], a
     ; Save the Delta WY
     ld a, [wFightscene_WY]
     add e
@@ -6640,8 +6640,7 @@ Fightscene_FightFX_PanApplyDeltaX::
         push bc
         ld c, a
         ld a, [wFightscene_FightFX_Pan_DeltaX]
-        cpl
-        inc a
+        NegativeA
         add c
 
         ; Limit the value to a minimum of 0
@@ -6653,7 +6652,7 @@ Fightscene_FightFX_PanApplyDeltaX::
     .PanRight:
         ; If we are already at $60, we can't go further right, so end here
         ld a, [wFightscene_SCX]
-        cp $60
+        cp FIGHTSCENE_SCX_MAX_PAN
         ret z
 
         ; [wFightscene_SCX] + [wFightscene_FightFX_Pan_DeltaX]
@@ -6663,9 +6662,9 @@ Fightscene_FightFX_PanApplyDeltaX::
         add c
         
         ; Limit the value to a maximum of $60
-        cp $60
+        cp FIGHTSCENE_SCX_MAX_PAN
         jr c, .Finally
-            ld a, $60
+            ld a, FIGHTSCENE_SCX_MAX_PAN
     .Finally:
     ld [wFightscene_SCX], a
     pop bc
@@ -6681,39 +6680,39 @@ Fightscene_FixCreatureRightAttrmap::
     ret                                           ; $71A5: $C9
 
 
-Call_004_71A6:
-    ld a, [$C9C6]                                 ; $71A6: $FA $C6 $C9
-    and a                                         ; $71A9: $A7
-    ret z                                         ; $71AA: $C8
+    ; $71A6
+Fightscene_HandleButtons::
 
-    ld a, [wCntDown]                                 ; $71AB: $FA $32 $C9
-    bit 1, a                                      ; $71AE: $CB $4F
-    jr z, jr_004_71B6                             ; $71B0: $28 $04
+    ; Abort if fightscene is finished
+    ld a, [wFightscene_Done]
+    and a
+    ret z
 
-    call Call_004_71CE                            ; $71B2: $CD $CE $71
-    ret                                           ; $71B5: $C9
+    ld a, [wCntDown]
+    bit button_BIT_B, a
+    jr z, .CheckStart
+    .PressedB:
+        call Call_004_71CE
+        ret
+
+    .CheckStart:
+    ld a, [wCntDown]
+    bit button_BIT_START, a
+    ret z
+    .PressedStart:
+        ld a, [wFightscene_Paused]
+        cp $00  ; inefficiency
+        jr nz, .SetUnpaused
+        .SetPaused:
+            Set8 wFightscene_Paused, $01
+            ret
+        .SetUnpaused:
+            xor a
+            ld [wFightscene_Paused], a
+            ret
 
 
-jr_004_71B6:
-    ld a, [wCntDown]                                 ; $71B6: $FA $32 $C9
-    bit 3, a                                      ; $71B9: $CB $5F
-    ret z                                         ; $71BB: $C8
-
-    ld a, [$C9C7]                                 ; $71BC: $FA $C7 $C9
-    cp $00                                        ; $71BF: $FE $00
-    jr nz, jr_004_71C9                            ; $71C1: $20 $06
-
-    ld a, $01                                     ; $71C3: $3E $01
-    ld [$C9C7], a                                 ; $71C5: $EA $C7 $C9
-    ret                                           ; $71C8: $C9
-
-
-jr_004_71C9:
-    xor a                                         ; $71C9: $AF
-    ld [$C9C7], a                                 ; $71CA: $EA $C7 $C9
-    ret                                           ; $71CD: $C9
-
-
+    ; $71CE
 Call_004_71CE:
     call Call_004_72B4                            ; $71CE: $CD $B4 $72
     Set16_M wVBlank_HandlerFunc, Interrupt_VBlank_Handler_Standard
@@ -6723,7 +6722,7 @@ Call_004_71CE:
     ld [$C70A], a                                 ; $71E2: $EA $0A $C7
     xor a                                         ; $71E5: $AF
     ld [$C708], a                                 ; $71E6: $EA $08 $C7
-    ld [$C9C6], a                                 ; $71E9: $EA $C6 $C9
+    ld [wFightscene_Done], a                                 ; $71E9: $EA $C6 $C9
     ret                                           ; $71EC: $C9
 
 Call_004_71ED::
@@ -6747,8 +6746,8 @@ Call_004_71ED::
     call ScreenShow                                    ; $721B: $CD $EA $07
 
 jr_004_721E:
-    call Call_004_71A6                            ; $721E: $CD $A6 $71
-    call Call_004_734D                            ; $7221: $CD $4D $73
+    call Fightscene_HandleButtons                            ; $721E: $CD $A6 $71
+    call Fightscene_Update                            ; $7221: $CD $4D $73
     ld a, [$C708]                                 ; $7224: $FA $08 $C7
     and a                                         ; $7227: $A7
     jr nz, jr_004_721E                            ; $7228: $20 $F4
@@ -6778,19 +6777,18 @@ Fightscene_Init:
     ld [wFightscene_ArenaIndex], a
     Do_CallForeign Fightscene_LoadArena
 
-    Mov8 wTemp_8.Fightscene_CreatureID, $C9E0
+    Mov8 wTemp_8.Fightscene_CreatureID, wFightscene_CreatureLeft_ID
     Set8 wTemp_9.Palette_BattleFX_CreatureIsRight, $00 ; inefficiency - ld a, $00 (this was a macro)
     Do_CallForeign Fightscene_LoadCreature
-    Mov8 wTemp_8.Fightscene_CreatureID, $C9E1
+    Mov8 wTemp_8.Fightscene_CreatureID, wFightscene_CreatureRight_ID
     Set8 wTemp_9.Palette_BattleFX_CreatureIsRight, $01
     Do_CallForeign Fightscene_LoadCreature
-    ld a, $07
-    ld [$C9D8], a
-    ld de, $7FFF
-    ld a, d
-    ld [$C9DB], a
-    ld a, e
-    ld [$C9DA], a
+
+    ; Set the background palettes all to white so we can fade in
+    Set8 wTemp_8.Palette_PackedInterval, $07
+    db $11 ; ld de,
+        RGB $1F, $1F, $1F
+    Set16 wTemp_A.Palette_SetColor, de
     Do_CallForeign PaletteFX_ClearAnimBuffer
     Do_CallForeign PaletteVB_UpdatePalettes
     ret
@@ -6811,7 +6809,7 @@ Call_004_72B4:
 
 jr_004_72D5:
     Do_CallForeign PaletteFX_FadeAnimToBase
-    call Call_004_734D                            ; $72DD: $CD $4D $73
+    call Fightscene_Update                            ; $72DD: $CD $4D $73
     call System_UpdateGame                                    ; $72E0: $CD $BB $08
     ld a, [$C9DE]                                 ; $72E3: $FA $DE $C9
     dec a                                         ; $72E6: $3D
@@ -6825,10 +6823,10 @@ Fightscene_SCXInit:
     xor a
     ld [wFightscene_SCX], a
     ld [wFightscene_WX], a
-    ld [wFightscene_DeltaWX], a
-    ld [$C9C0], a
-    ld [$C9C1], a
-    ld [$C9C7], a
+    ld [wFightscene_ShakeWX], a
+    ld [wFightscene_Arena_TopSCX], a
+    ld [wFightscene_Arena_BottomSCX], a
+    ld [wFightscene_Paused], a
     ld [wFightscene_FightFX_ReadingFrameMax], a
     ld [wFightscene_FightFX_ReadingFrameDelta], a
     ld [wFightscene_FightFX_TotalDelay], a
@@ -6846,126 +6844,157 @@ Fightscene_SCXInit:
     ret
 
 
-Call_004_734D:
-    Set16_M wVBlank_HandlerFunc, VBlankHandler_000_36F9
+    ; $734D
+Fightscene_Update::
+    ; Set up the main VBlank function
+    Set16_M wVBlank_HandlerFunc, Fightscene00_VBlank_Main
+    ; Set up an update palette VBlank function if necessary
     Do_CallForeign Palette_DeterminePaletteVBlankFunc
-    ld a, [wFightscene_SCX]                                 ; $735F: $FA $BC $C9
-    and $7F                                       ; $7362: $E6 $7F
-    ld [wFightscene_SCX], a                                 ; $7364: $EA $BC $C9
-    ld e, a                                       ; $7367: $5F
-    ld a, [$C9BE]                                 ; $7368: $FA $BE $C9
-    ld d, a                                       ; $736B: $57
-    xor a                                         ; $736C: $AF
-    call Call_004_73AA                            ; $736D: $CD $AA $73
-    ld a, [$C9BF]                                 ; $7370: $FA $BF $C9
-    ld d, a                                       ; $7373: $57
-    ld a, $01                                     ; $7374: $3E $01
-    call Call_004_73AA                            ; $7376: $CD $AA $73
-    push de                                       ; $7379: $D5
-    call Fightscene_CreatureRight_FightFX_UpdateCamera                            ; $737A: $CD $9E $70
-    pop de                                        ; $737D: $D1
-    ld a, $87                                     ; $737E: $3E $87
-    sub e                                         ; $7380: $93
-    ld e, a                                       ; $7381: $5F
-    ld a, [wFightscene_DeltaWX]                                 ; $7382: $FA $C4 $C9
-    add e                                         ; $7385: $83
-    ld [wFightscene_WX], a                                 ; $7386: $EA $C2 $C9
-    ld a, [wFightscene_SCX]                                 ; $7389: $FA $BC $C9
-    ld [wSCXW], a                                 ; $738C: $EA $35 $C9
-    ld a, [$C9C7]                                 ; $738F: $FA $C7 $C9
-    cp $01                                        ; $7392: $FE $01
-    jr z, jr_004_739A                             ; $7394: $28 $04
 
-    call System_UpdateGame                                    ; $7396: $CD $BB $08
-    ret                                           ; $7399: $C9
+    ; Rolls wFightscene_SCX over at FIGHTSCENE_SCX_MAX_UPDATE/$7F
+    ; inefficiency - already capped in Fightscene_FightFX_PanApplyDeltaX to a max of $60/FIGHTSCENE_SCX_MAX_PAN
+    ld a, [wFightscene_SCX]
+    and FIGHTSCENE_SCX_MAX_UPDATE
+    ld [wFightscene_SCX], a
+    ld e, a
 
+    ; Calculate wFightscene_Arena_TopSCX and wFightscene_Arena_BottomSCX
+    Get8 d, wFightscene_Arena_TopDeltaX
+    xor a
+    call Fightscene_ArenaSCX_SetSCX
+    Get8 d, wFightscene_Arena_BottomDeltaX
+    ld a, $01
+    call Fightscene_ArenaSCX_SetSCX
 
-jr_004_739A:
-    ld a, $87                                     ; $739A: $3E $87
-    ldh [$FF9E], a                                  ; $739C: $E0 $9E
-    Do_CallForeign Sound_SetupSoundVB
-    call System_WaitVBlank                                    ; $73A6: $CD $A0 $09
-    ret                                           ; $73A9: $C9
+    ; Apply a FightFX to CreatureRight (e.g. shaking)
+    push de
+    call Fightscene_CreatureRight_FightFX_UpdateCamera
+    pop de
 
+    ; Window viewport is FIGHTSCENE_SCX_WX_DISTANCE + wFightscene_ShakeWX to the right of the Background viewport
+    ld a, FIGHTSCENE_SCX_WX_DISTANCE
+    sub e ; wFightscene_SCX
+    ld e, a
+    ld a, [wFightscene_ShakeWX]
+    add e
+    ld [wFightscene_WX], a
 
-Call_004_73AA:
-    and a                                         ; $73AA: $A7
-    jr nz, jr_004_73B9                            ; $73AB: $20 $0C
+    ld a, [wFightscene_SCX]
+    ld [wSCX], a
 
-    call Call_004_73D0                            ; $73AD: $CD $D0 $73
-    call Call_004_73C5                            ; $73B0: $CD $C5 $73
-    ld a, e                                       ; $73B3: $7B
-    add l                                         ; $73B4: $85
-    ld [$C9C0], a                                 ; $73B5: $EA $C0 $C9
-    ret                                           ; $73B8: $C9
+    ld a, [wFightscene_Paused]
+    cp $01
+    jr z, .Paused
+    .NotPaused:
+        call System_UpdateGame
+        ret
+    .Paused:
+        ld a, %10000111 ; Do all the Vblank updates
+        ldh [hInterrupt_VBlank_Control], a
+        Do_CallForeign Sound_SetupSoundVB
+        call System_WaitVBlank
+        ret
 
 
-jr_004_73B9:
-    call Call_004_73D0                            ; $73B9: $CD $D0 $73
-    call Call_004_73C5                            ; $73BC: $CD $C5 $73
-    ld a, e                                       ; $73BF: $7B
-    add l                                         ; $73C0: $85
-    ld [$C9C1], a                                 ; $73C1: $EA $C1 $C9
-    ret                                           ; $73C4: $C9
+    ; $73AA
+Fightscene_ArenaSCX_SetSCX:
+    ; Inputs:
+    ;   e = wFightscene_SCX
+    ;   d = DeltaX
+    ;   a => nz for wFightscene_Arena_BottomSCX, or else z for wFightscene_Arena_TopSCX
+    ; Outputs:
+    ;   wFightscene_Arena_TopSCX or wFightscene_Arena_BottomSCX =
+    ;       wFightscene_SCX + DeltaX*wFightscene_SCX//4
+    ;       Bugged for negative DeltaX, but in practicality DeltaX is always positive
+    and a
+    jr nz, .Bottom
+    .Top:
+        call Fightscene_ArenaSCX_GetOffsetFromPan
+        call Fightscene_ArenaSCX_CalculateSCX
+        ld a, e
+        add l
+        ld [wFightscene_Arena_TopSCX], a
+        ret
+    .Bottom:
+        call Fightscene_ArenaSCX_GetOffsetFromPan
+        call Fightscene_ArenaSCX_CalculateSCX
+        ld a, e
+        add l
+        ld [wFightscene_Arena_BottomSCX], a
+        ret
 
 
-Call_004_73C5:
-    ld b, $00                                     ; $73C5: $06 $00
-    ld h, b                                       ; $73C7: $60
-    ld l, b                                       ; $73C8: $68
+Fightscene_ArenaSCX_CalculateSCX:
+    ; Calculates the value of SCX by multiplying the DeltaX with the Magnitude of change
+    ; Inputs:
+    ;   Calculated from Fightscene_ArenaSCX_GetOffsetFromPan:
+    ;   d = abs(DeltaX)
+    ;   c = Magnitude of change (+-wFightscene_SCX//4)
+    ; Outputs:
+    ;   hl = c*d (but the upper byte h is discarded by the calling function)
+    ld b, $00
+    ld h, b
+    ld l, b
 
-jr_004_73C9:
-    ld a, d                                       ; $73C9: $7A
-    and a                                         ; $73CA: $A7
-    ret z                                         ; $73CB: $C8
+    .Loop:
+        ld a, d
+        and a
+        ret z
 
-    add hl, bc                                    ; $73CC: $09
-    dec d                                         ; $73CD: $15
-    jr jr_004_73C9                                ; $73CE: $18 $F9
+        add hl, bc
+        dec d
+        jr .Loop
 
-Call_004_73D0:
-    ld a, d                                       ; $73D0: $7A
-    cp $00                                        ; $73D1: $FE $00
-    jr c, jr_004_73DB                             ; $73D3: $38 $06
+Fightscene_ArenaSCX_GetOffsetFromPan:
+    ; Calculates the Magnitude of change from wFightscene_SCX
+    ; This function is bugged - negative DeltaX is not handled correctly
+    ; However, in reality, DeltaX is always positive
+    ; Inputs:
+    ;   d = DeltaX
+    ;   e = wFightscene_SCX
+    ; Outputs:
+    ;   c = sign(DeltaX)*wFightscene_SCX//4 (Magnitude of change)
+    ;   d = abs(DeltaX)
+    ld a, d
+    cp $00
+    jr c, .NegativeBugged ; Bugged comparison. This jump will never succeed (this check only works for unsigned cp)
+    .PositiveDeltaX:
+        ld c, e
+        sra c
+        sra c
+        ret
+    .NegativeBugged:
+        ; Never happens, but we are calculating the following:
+        ; d = -d
+        ; e = -e//4
+        NegativeA
+        ld d, a
+        ld a, e
+        sra a
+        sra a
+        NegativeA
+        ld c, a
+        ret
 
-    ld c, e                                       ; $73D5: $4B
-    sra c                                         ; $73D6: $CB $29
-    sra c                                         ; $73D8: $CB $29
-    ret                                           ; $73DA: $C9
 
-
-jr_004_73DB:
-    cpl                                           ; $73DB: $2F
-    inc a                                         ; $73DC: $3C
-    ld d, a                                       ; $73DD: $57
-    ld a, e                                       ; $73DE: $7B
-    sra a                                         ; $73DF: $CB $2F
-    sra a                                         ; $73E1: $CB $2F
-    cpl                                           ; $73E3: $2F
-    inc a                                         ; $73E4: $3C
-    ld c, a                                       ; $73E5: $4F
-    ret                                           ; $73E6: $C9
-
-
-    ld a, $0C                                     ; $73E7: $3E $0C
-    ld [wFightscene_FightFX_DataTable], a                                 ; $73E9: $EA $F0 $C9
-    ld a, $6C                                     ; $73EC: $3E $6C
-    ld [$C9F1], a                                 ; $73EE: $EA $F1 $C9
-    ld a, $30                                     ; $73F1: $3E $30
-    ld [wFightscene_FightFX_ReadingFrameMax], a                                 ; $73F3: $EA $EC $C9
-    xor a                                         ; $73F6: $AF
-    ld [wFightscene_FightFX_ReadingFrameDelta], a                                 ; $73F7: $EA $EB $C9
-    ld [wFightscene_FightFX_DelayCount], a                                 ; $73FA: $EA $EE $C9
-    ret                                           ; $73FD: $C9
+    ; $73E7
+Fightscene_FightFX_Recoil_UNK::
+    ; Copy of Cmd_Fightscene_FightFX_Recoil except not as a Cmd
+    ; TODO - unused? - to be determined
+    Fightscene_FightFX_MoveTable_Load_V Fightscene_FightFX_MoveTable_Recoil
+    xor a
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ld [wFightscene_FightFX_DelayCount], a
+    ret
 
     ; $73FE
-AI_HorizontalScroller_Setup::
-    ; Sets the variables to create the horizontal scrolling effect (start screen)
+Fightscene_StartScreen_Init::
+    ; Sets the variables to create the scrolling arena in the startscreen
     xor a
     ld [wFightscene_SCX], a
     ld [wFightscene_Arena_TopSCX], a
     ld [wFightscene_Arena_BottomSCX], a
-    Set16_M wVBlank_HandlerFunc, vblank_HorizontalScroll
+    Set16_M wVBlank_HandlerFunc, Fightscene00_VBlank_StartScreen
     ret
 
 

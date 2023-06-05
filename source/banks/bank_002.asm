@@ -1047,13 +1047,13 @@ Call_002_472E:
     FSet16 $C9CA, bc                                    ; $4740: $70
     ld a, $01                                     ; $4741: $3E $01
     ld [wFightscene_Start], a                                 ; $4743: $EA $C5 $C9
-    ld [$C9C6], a                                 ; $4746: $EA $C6 $C9
+    ld [wFightscene_Done], a                                 ; $4746: $EA $C6 $C9
     ld a, [wFightscene_ArenaIndex]                                 ; $4749: $FA $E4 $C9
     ld [wFightscene_ArenaIndex], a                                 ; $474C: $EA $E4 $C9
     ld a, [$D0DB]                                 ; $474F: $FA $DB $D0
-    ld [$C9E0], a                                 ; $4752: $EA $E0 $C9
+    ld [wFightscene_CreatureLeft_ID], a                                 ; $4752: $EA $E0 $C9
     ld a, [wBattle_Creature_Target.ID]                                 ; $4755: $FA $12 $D1
-    ld [$C9E1], a                                 ; $4758: $EA $E1 $C9
+    ld [wFightscene_CreatureRight_ID], a                                 ; $4758: $EA $E1 $C9
     Do_CallForeign Call_004_71ED
 
     ld hl, $C706                                  ; $4763: $21 $06 $C7
@@ -2955,8 +2955,7 @@ Call_002_54B3:
     sub c                                         ; $54B5: $91
     jr nc, jr_002_54BA                            ; $54B6: $30 $02
 
-    cpl                                           ; $54B8: $2F
-    inc a                                         ; $54B9: $3C
+    NegativeA
 
 jr_002_54BA:
     ld hl, $54A3                                  ; $54BA: $21 $A3 $54
@@ -3125,8 +3124,7 @@ Call_002_55C3:
     jr jr_002_561B                                ; $55FD: $18 $1C
 
 jr_002_55FF:
-    cpl                                           ; $55FF: $2F
-    inc a                                         ; $5600: $3C
+    NegativeA
     ld b, $14                                     ; $5601: $06 $14
     cp $03                                        ; $5603: $FE $03
     jr c, jr_002_561B                             ; $5605: $38 $14

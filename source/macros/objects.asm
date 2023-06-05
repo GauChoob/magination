@@ -243,8 +243,8 @@ MACRO Controller_Init
 ENDM
 
 MACRO Battle_Init
-    Set8 wFightscene_Start, 0 ; FightScn_Start?
-    Set8 $C9C6, 0 ; FightScn_Done?
+    Set8 wFightscene_Start, 0
+    Set8 wFightscene_Done, 0
 ENDM
 
 ; script

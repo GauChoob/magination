@@ -1124,8 +1124,7 @@ jr_001_4595:
     jr nz, jr_001_4592                            ; $4597: $20 $F9
 
     ld a, d                                       ; $4599: $7A
-    cpl                                           ; $459A: $2F
-    inc a                                         ; $459B: $3C
+    NegativeA
     ld e, a                                       ; $459C: $5F
     jr jr_001_45A4                                ; $459D: $18 $05
 
@@ -1158,8 +1157,7 @@ jr_001_45B9:
     jr nz, jr_001_45B6                            ; $45BB: $20 $F9
 
     ld a, d                                       ; $45BD: $7A
-    cpl                                           ; $45BE: $2F
-    inc a                                         ; $45BF: $3C
+    NegativeA
     ld e, a                                       ; $45C0: $5F
     jr jr_001_45C8                                ; $45C1: $18 $05
 
@@ -1846,8 +1844,7 @@ Call_001_4D13:
     dec a                                         ; $4D18: $3D
     ld c, a                                       ; $4D19: $4F
     ld a, [wTilemap_Width]                                 ; $4D1A: $FA $47 $C8
-    cpl                                           ; $4D1D: $2F
-    inc a                                         ; $4D1E: $3C
+    NegativeA
     ld e, a                                       ; $4D1F: $5F
     ld d, $FF                                     ; $4D20: $16 $FF
     ld a, [hActor.TileAddress+1]                                 ; $4D22: $FA $94 $FF
@@ -2020,8 +2017,7 @@ AI_Hero_BoxxleUp::
     SwitchRAMBank $03
     FGet16 hl, hActor.TileAddress                                  ; $4E97: $21 $93 $FF
     ld a, [wTilemap_Width]                                 ; $4E9D: $FA $47 $C8
-    cpl                                           ; $4EA0: $2F
-    inc a                                         ; $4EA1: $3C
+    NegativeA
     ld e, a                                       ; $4EA2: $5F
     ld d, $FF                                     ; $4EA3: $16 $FF
     add hl, de                                    ; $4EA5: $19
@@ -5493,12 +5489,12 @@ jr_001_6562:
     ret                                           ; $6585: $C9
 
     ; $6586
-AI_HorizontalScroller::
+AI_SetupStartScreenArena::
     ; $02 Horizontal Scrolling effect
-    ; The object itself is kind of a dummy. It just sets some variables
-    ; and then turns itself off, and lets VBlank and STAT interrupts do the rest
+    ; The object itself is a dummy object that is just used to run Fightscene_StartScreen_Init
+    ; It's sort of inefficient - It probably would have been better to just add an extra command (since we have the extra bytes anyways for it)
     call Actor_ScriptOpen
-    Do_CallForeign AI_HorizontalScroller_Setup
+    Do_CallForeign Fightscene_StartScreen_Init
     Set16FF hActor.State, AI_Idle
     call Actor_ScriptClose
     ret

@@ -966,9 +966,9 @@ Palette_PaletteBufferFadeUniColor::
 
     ; $474F
 Palette_DeterminePaletteVBlankFunc::
-    ; TODO - figure out when this function is relevant and why it exists
-    ;   Seems like this function is only called from Cardscene_Do and Fightscene_Update
-    ; Determines if the palette can be pushed to palette memory
+    ; Seems like this function is only called from Cardscene_Do and Fightscene_Update
+    ; Determines if there has been a change to the palette, and if so, requests that the palettes
+    ; get updated at the next VBlank.
     ; If wPalette_VBlankReady == 1, then palette is finished being modified by a function
     ;   and so we should push the new palette into palette memory
     ; If wPalette_VBlankReady == 0, then
@@ -980,13 +980,16 @@ Palette_DeterminePaletteVBlankFunc::
     jr z, .SetIdle
     .SetVBlankUpdatePalettes:
         ; Yes the palettes should be updated
+        ; Set to 0 so we don't push updates unnecessarily
         xor a
-        ld [wPalette_VBlankReady], a ;Set to 0 so we don't push updates unnecessarily
+        ld [wPalette_VBlankReady], a
+     ; Prep an update
         Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
-        Set16_M wVBlank_Func, PaletteVB_UpdatePalettes ; Prep an update
+        Set16_M wVBlank_Func, PaletteVB_UpdatePalettes
         ret
     .SetIdle:
-        Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle ;No need to update
+        ; No need to update
+        Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
         ret
 
     ; $4774
@@ -1528,7 +1531,7 @@ jr_007_49A7:
     ld b, a                                       ; $49B2: $47
     ld a, [wTilemap_XTileOffset]                                 ; $49B3: $FA $5D $C8
     add b                                         ; $49B6: $80
-    ld [wSCXW], a                                 ; $49B7: $EA $35 $C9
+    ld [wSCX], a                                 ; $49B7: $EA $35 $C9
     ldh [rSCX], a                                 ; $49BA: $E0 $43
     ld a, [wTilemap_YTile]                                 ; $49BC: $FA $60 $C8
     ld c, a                                       ; $49BF: $4F
@@ -1539,7 +1542,7 @@ jr_007_49A7:
     ld b, a                                       ; $49C4: $47
     ld a, [wTilemap_YTileOffset]                                 ; $49C5: $FA $5E $C8
     add b                                         ; $49C8: $80
-    ld [wSCYW], a                                 ; $49C9: $EA $34 $C9
+    ld [wSCY], a                                 ; $49C9: $EA $34 $C9
     ldh [rSCY], a                                 ; $49CC: $E0 $42
     ld a, [wTilemap_Width]                                 ; $49CE: $FA $47 $C8
     ld b, a                                       ; $49D1: $47
@@ -1734,9 +1737,9 @@ Tilemap_VBlank_DrawRowCol::
     ; This seems to update rSCX and rSCY
     ; and then potentially copy some stuff into VRAM during the vblank
     ; But this function wasn't closely investigated
-    ld a, [wSCXW]                                 ; $4B1D: $FA $35 $C9
+    ld a, [wSCX]                                 ; $4B1D: $FA $35 $C9
     ldh [rSCX], a                                 ; $4B20: $E0 $43
-    ld a, [wSCYW]                                 ; $4B22: $FA $34 $C9
+    ld a, [wSCY]                                 ; $4B22: $FA $34 $C9
     ldh [rSCY], a                                 ; $4B25: $E0 $42
     ld a, [wTilemap_ColTrig]                                 ; $4B27: $FA $92 $C8
     and a                                         ; $4B2A: $A7
@@ -1967,8 +1970,7 @@ jr_007_4D16:
     and a                                         ; $4D27: $A7
     jp z, Jump_007_4F38                           ; $4D28: $CA $38 $4F
 
-    cpl                                           ; $4D2B: $2F
-    inc a                                         ; $4D2C: $3C
+    NegativeA
     ld e, a                                       ; $4D2D: $5F
 
 jr_007_4D2E:
@@ -2759,8 +2761,7 @@ jr_007_51B9:
     and a                                         ; $51CA: $A7
     jp z, Jump_007_5415                           ; $51CB: $CA $15 $54
 
-    cpl                                           ; $51CE: $2F
-    inc a                                         ; $51CF: $3C
+    NegativeA
     ld e, a                                       ; $51D0: $5F
 
 jr_007_51D1:
@@ -2806,8 +2807,7 @@ jr_007_520A:
     add d                                         ; $5210: $82
     ld [hl], a                                    ; $5211: $77
     ld a, [wTilemap_Width]                                 ; $5212: $FA $47 $C8
-    cpl                                           ; $5215: $2F
-    inc a                                         ; $5216: $3C
+    NegativeA
     ld l, a                                       ; $5217: $6F
     ld h, $FF                                     ; $5218: $26 $FF
     add hl, bc                                    ; $521A: $09
@@ -4098,8 +4098,7 @@ jr_007_64D0:
     ld [hl], a                                    ; $64D1: $77
     pop bc                                        ; $64D2: $C1
     sub b                                         ; $64D3: $90
-    cpl                                           ; $64D4: $2F
-    inc a                                         ; $64D5: $3C
+    NegativeA
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $64D6: $EA $77 $D0
     ld a, $02                                     ; $64D9: $3E $02
     ld [wBattle_DamageOverrideFlag], a                                 ; $64DB: $EA $76 $D0

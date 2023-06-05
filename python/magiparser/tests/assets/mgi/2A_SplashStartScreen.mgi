@@ -85,7 +85,7 @@ msSplashStartScreen::
         ; $7314
     .StartScreen:
         ; Dummy Object for horizontal scrolling effect
-        ThatInit($02,AI_HorizontalScroller,
+        ThatInit($02,AI_SetupStartScreenArena,
                       $00,$00,$D000,$00,
                       msObjectIdle,msObjectIdle)
         ; PressStart Object

@@ -662,7 +662,7 @@
 00:3677 Call_000_3677
 00:36b1 Call_000_36B1
 00:36c1 Call_000_36C1
-00:36f9 VBlankHandler_000_36F9
+00:36f9 Fightscene00_VBlank_Main
 00:370a jr_000_370A
 00:370a jr_000_370A.CheckVFunc_u2841
 00:3710 jr_000_370A.DoVFunc_u2841
@@ -672,13 +672,13 @@
 00:3774 jr_000_3774
 00:3776 lcdc_HorizontalScroll_Upper
 00:3796 lcdc_HorizontalScroll_Lower
-00:37aa vblank_HorizontalScroll
-00:37c7 vblank_HorizontalScroll.End
-00:37c7 vblank_HorizontalScroll.CheckVFunc_u2852
-00:37cd vblank_HorizontalScroll.DoVFunc_u2852
-00:37de vblank_HorizontalScroll.End_u2852
-00:37f3 vblank_HorizontalScroll.DoSoundVBFunction_u2855
-00:37fe vblank_HorizontalScroll.Continue_u2855
+00:37aa Fightscene00_VBlank_StartScreen
+00:37c7 Fightscene00_VBlank_StartScreen.End
+00:37c7 Fightscene00_VBlank_StartScreen.CheckVFunc_u2852
+00:37cd Fightscene00_VBlank_StartScreen.DoVFunc_u2852
+00:37de Fightscene00_VBlank_StartScreen.End_u2852
+00:37f3 Fightscene00_VBlank_StartScreen.DoSoundVBFunction_u2855
+00:37fe Fightscene00_VBlank_StartScreen.Continue_u2855
 00:3812 BattleCmd_Stat_IncreaseCreatureExp
 00:3821 BattleCmd_Stat_IncreaseMagiEnergy
 00:382e BattleCmd_Stat_IncreaseMagiEnergy.ConsiderHigh
@@ -1168,7 +1168,7 @@
 01:654c jr_001_654C
 01:6558 jr_001_6558
 01:6562 jr_001_6562
-01:6586 AI_HorizontalScroller
+01:6586 AI_SetupStartScreenArena
 01:659d AI_Idle
 02:4000 Battle_Attack_Table
 02:40dc Battle_Luck_Table
@@ -2376,7 +2376,7 @@
 04:7186 jr_004_7186
 04:7186 Jump_004_7186
 04:718b Fightscene_FixCreatureRightAttrmap
-04:71a6 Call_004_71A6
+04:71a6 Fightscene_HandleButtons
 04:71b6 jr_004_71B6
 04:71c9 jr_004_71C9
 04:71ce Call_004_71CE
@@ -2386,7 +2386,7 @@
 04:72b4 Call_004_72B4
 04:72d5 jr_004_72D5
 04:72ed Call_004_72ED
-04:734d Call_004_734D
+04:734d Fightscene_Update
 04:739a jr_004_739A
 04:73aa Call_004_73AA
 04:73b9 jr_004_73B9
@@ -2394,7 +2394,7 @@
 04:73c9 jr_004_73C9
 04:73d0 Call_004_73D0
 04:73db jr_004_73DB
-04:73fe AI_HorizontalScroller_Setup
+04:73fe Fightscene_StartScreen_Init
 04:7471 jr_004_7471
 04:74a2 jr_004_74A2
 04:74c0 jr_004_74C0
@@ -36294,8 +36294,8 @@
 00:c931 wCnt1
 00:c932 wCntDown
 00:c933 wCntUp
-00:c934 wSCYW
-00:c935 wSCXW
+00:c934 wSCY
+00:c935 wSCX
 00:c936 wScreenVisible
 00:c937 wRAMBank
 00:c938 wROMBank

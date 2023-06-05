@@ -633,10 +633,12 @@ wCntUp::
     ; Controller buttons released this frame
     ds 1
     ;ds $C934 - @
-wSCYW::
+wSCY::
+    ; Mirror of rSCY
     ds 1
     ;ds $C935 - @
-wSCXW::
+wSCX::
+    ; Mirror of rSCX
     ds 1
     ;ds $C936 - @
 wScreenVisible::
@@ -801,13 +803,21 @@ wFightscene_WX::
 wFightscene_WY::
     ds 1
     ;ds $C9C4 - @
-wFightscene_DeltaWX::
+wFightscene_ShakeWX::
     ds 1
     ;ds $C9C5 - @
 wFightscene_Start::
     ; Set to 1 when Fightscene is being initialized
     ; Set back to 0 once Fightscene_Init is called
     ; This variable is never read from, only written to
+    ds 1
+    ;ds $C9C6 - @
+wFightscene_Done::
+    ; Set to 1 when Fightscene is done. Prevents the fightscene from updating
+    ds 1
+    ;ds $C9C7 - @
+wFightscene_Paused::
+    ; Set to 1 when Fightscene is paused via the Start button.
     ds 1
 
     ; CREATURE_GFX_STRUCT TEMP
@@ -916,9 +926,13 @@ wTemp_C::
     .Fightscene_ArenaDataPointer::
     ; Points to a Fightscene's Arena's data
     ds 2
-
-
-    ds $C9E2 - @
+    ;ds $C9E0 - @
+wFightscene_CreatureLeft_ID::
+    ds 1
+    ;ds $C9E1 - @
+wFightscene_CreatureRight_ID::
+    ds 1
+    ;ds $C9E2 - @
 wFightscene_CreatureLeft_3rdPaletteTransparent::
     ; Whether the CreatureRight's 3rd Palette's first Color is the Arena's background Color
     ds 1

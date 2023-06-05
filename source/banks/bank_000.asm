@@ -611,12 +611,12 @@ Frame_Draw::
     ;       A series of Y, X, Tile, Attr bytes, terminated by a single $80 byte
     ;   hActor.XTile, hActor.XOffset
     ;   hActor.YTile, hActor.YOffset
-    ;   wSCXW, wSCYW: Position of the screen
+    ;   wSCX, wSCY: Position of the screen
     ;   hActor.SpriteBase
     ; Outputs:
     ;   The sprite data in hl is added to wObjRAM. Y, X and Tile are offset by
-    ;       YTile, hActor.YOffset, wSCYW,
-    ;       XTile, hActor.XOffset, wSCXW, and
+    ;       YTile, hActor.YOffset, wSCY,
+    ;       XTile, hActor.XOffset, wSCX, and
     ;       hActor.SpriteBase respectively.
     ldh a, [hActor_ScreenY]
     ldh [hActor_ScreenYPrev], a
@@ -654,7 +654,7 @@ Frame_Draw::
 
     ;Frame_ScreenX
     ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCXW]
+        ld a, [wSCX]
         ld c, a
         ld a, d ; hActor.XTile
         add a
@@ -668,11 +668,11 @@ Frame_Draw::
         add b
         sub c
         ld d, a
-        ldh [hActor_ScreenX], a  ; <- d <- hActor.XTile*$10 + 8 + hActor.XOffset - wSCXW
+        ldh [hActor_ScreenX], a  ; <- d <- hActor.XTile*$10 + 8 + hActor.XOffset - wSCX
 
     ;Frame_ScreenY
     ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCYW]
+        ld a, [wSCY]
         ld c, a
         ld a, e ; hActor.YTile
         add a
@@ -798,8 +798,7 @@ Frame_Ready::
     sub b
     jr nc, .OAMClean ;If there are more sprites for this frame, we don't need to
                      ;erase the previous frame data since it will be overwritten
-    cpl
-    inc a
+    NegativeA
     srl a
     srl a
     ld e, a ; = (PreviousFrame-CurrentFrame)/4 -> Difference in the number of sprites
@@ -2150,15 +2149,16 @@ Cmd_Fightscene_LoadCreatureLeft::
 
     ; $10AF
 Cmd_Fightscene_New::
+    ; Starts a Fightscene
+    ; Arguments
+    ;   db wFightscene_ArenaIndex
+    ;   db wFightscene_CreatureLeft_ID
+    ;   db wFightscene_CreatureRight_ID
     Script_ReadByte [wFightscene_ArenaIndex]
-    ld a, [bc]
-    ld [$C9E0], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E1], a
-    inc bc
-    ld a, $01
-    ld [wFightscene_Start], a
+    Script_ReadByte [wFightscene_CreatureLeft_ID]
+    Script_ReadByte [wFightscene_CreatureRight_ID]
+    Set8 wFightscene_Start, $01
+
     Set16 hScript.Frame, bc
     Set16_M hScript_CurrentAddress, wScript_Master
     Set16_M hScript.State, Script_Start
@@ -2171,8 +2171,8 @@ Cmd_Fightscene_New::
     call ScreenShow
 
     .Loop:
-        XCall Call_004_71A6
-        call Call_004_734D
+        XCall Fightscene_HandleButtons
+        call Fightscene_Update
         jr .Loop
 
     ; $110C
@@ -5873,7 +5873,7 @@ Cardscene00_Graphics_InitCardBattle::
     call Cardscene00_Graphics_ResetCards
 
     ; Hide the window
-    Set8FF rWX, $A7
+    Set8FF rWX, FIGHTSCENE_WX_HIDDEN
 
     PopROMBank
     ret
@@ -6251,8 +6251,7 @@ Fightscene00_CenterCreatureTilemap::
         jr nc, .SkipXOffset2
             call Fightscene00_CenterCreature_CalculateXOffset
             ; Right-align instead of Left-align: $10 - width - XOffset
-            cpl
-            inc a
+            NegativeA
             add $10
             sub c
             ld c, a
@@ -6306,83 +6305,84 @@ Fightscene00_CenterCreature_CalculateYOffset:
     ret
 
     ; $3677
-Call_000_3677::
-    ; HBlank_Func
+Fightscene00_HBlank_DrawCreatures::
+    ; Swap the viewport to show the creatures
+    ; wFightscene_WY was already set in Fightscene00_VBlank_DoGraphics
     ld a, [wFightscene_WX]
     ldh [rWX], a
     ld a, [wFightscene_SCX]
     ldh [rSCX], a
     ld a, [wFightscene_SCY]
     ldh [rSCY], a
-    ld a, $71
-    ldh [rLYC], a
-    Set16FF hInterrupt_HBlank_Func, Call_000_36B1
+
+    Set8FF rLYC, FIGHTSCENE_LYC_ARENABOTTOM
+    Set16FF hInterrupt_HBlank_Func, Fightscene00_HBlank_DrawArenaBottom
+
+    ; Bug - HBlank is already over and VRAM is locked, so this does not do anything
     PushROMBank
-    SwitchROMBank $04
+    SwitchROMBank BANK(Fightscene_TileFX_VBlank_DissolveEven)
     ld hl, wFightscene_TileFX_VBlank_DestroyFunc
     ECallHL
     PopROMBank
+
     pop hl
     pop af
     reti
+
 
     ; $36B1
-Call_000_36B1:
-    ; HBlank_Func
-    ld a, $A7
-    ldh [rWX], a
+Fightscene00_HBlank_DrawArenaBottom:
+    ; Swap the viewport to show the bottom of the Arena
+    Set8FF rWX, FIGHTSCENE_WX_HIDDEN
     ld a, [wFightscene_Arena_BottomSCX]
     ldh [rSCX], a
-    ld a, $B0
+    ld a, FIGHTSCENE_SCY_ARENABOTTOM
     ldh [rSCY], a
+
     pop hl
     pop af
     reti
 
 
-Call_000_36C1:
-    ld a, $A7
-    ldh [rWX], a
+    ; $36C1
+Fightscene00_VBlank_DoGraphics:
+    ; Setup the top part of the Arena
+    Set8FF rWX, FIGHTSCENE_WX_HIDDEN ; Hide Window
     ld a, [wFightscene_Arena_TopSCX]
     ldh [rSCX], a
     xor a
     ldh [rSCY], a
+    ; We prep the window for when we are ready to draw the creatures
     ld a, [wFightscene_WY]
     ldh [rWY], a
-    ld a, $1F
-    ldh [rLYC], a
-    SwitchROMBank $04
+    Set8FF rLYC, FIGHTSCENE_LYC_ARENATOP
+
+    ; Do wFightscene_TileFX_VBlank_DestroyFunc 4 times (it was sped up from a lower amount)
+    SwitchROMBank BANK(Fightscene_TileFX_VBlank_DissolveEven)
     FGet16 hl, wFightscene_TileFX_VBlank_DestroyFunc
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
+    REPT 4
+        push hl
+        call CallHL
+        pop hl
+    ENDR
     ret
 
     ; $36F9
-VBlankHandler_000_36F9::
+Fightscene00_VBlank_Main::
+    ; Do graphics
     ldh a, [hInterrupt_VBlank_Control]
     bit 0, a
-    jr z, jr_000_370A
-
-    ld a, $E3
-    ld [rLCDC], a
-    call hSystem_RunDMA
-    call Call_000_36C1
-
-jr_000_370A:
+    jr z, .SkipGraphics
+    .DoGraphics:
+        ; Window On
+        Set8 rLCDC, LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BLK21 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJON | LCDCF_BGON
+        call hSystem_RunDMA
+        call Fightscene00_VBlank_DoGraphics
+    .SkipGraphics:
     Do_VBlank_Function
     Do_Sound_VBlank
 
-    Set16FF hInterrupt_HBlank_Func, Call_000_3677
+    Set16FF hInterrupt_HBlank_Func, Fightscene00_HBlank_DrawCreatures
     ret
 
 Fightscene00_XOffset_Table::
@@ -6423,66 +6423,62 @@ Fightscene00_YOffset_Table::
     db $20*0   ; Height = 12 ___________
 
     ; $3776
-lcdc_HorizontalScroll_Upper::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; Prepares the upper half of the horizontal scroll
-    ld a, [wFightscene_Arena_TopDeltaX]
-    ld e, a
+Fightscene00_HBlank_StartScreen_DrawArenaTop::
+    ; Switch to Arena Top
+
+    ; Also calculate the updated SCX position while we are at it
+    Get8 e, wFightscene_Arena_TopDeltaX
     ld a, [wFightscene_Arena_TopSCX]
     add e
     ld [wFightscene_Arena_TopSCX], a
-    ldh [rSCX], a  ;SCX to the current position
-    ld a, $B8
-    ldh [rSCY], a  ;SCY to tile $17 (+rLY is at tile 9, making $20 or $00)
-    ld a, $68
-    ldh [rLYC], a  ;Tile $0D
-    Set16FF hInterrupt_HBlank_Func, lcdc_HorizontalScroll_Lower
+    ldh [rSCX], a
+
+    Set8FF rSCY, FIGHTSCENE_SCY_STARTSCREEN_ARENATOP
+    Set8FF rLYC, FIGHTSCENE_LYC_STARTSCREEN_ARENABOTTOM
+    Set16FF hInterrupt_HBlank_Func, Fightscene00_HBlank_StartScreen_DrawArenaBottom
     pop hl
     pop af
     reti
 
     ; $3796
-lcdc_HorizontalScroll_Lower::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; Prepares the lower half of the horizontal scroll
-    ld a, [wFightscene_Arena_BottomDeltaX]
-    ld e, a
+Fightscene00_HBlank_StartScreen_DrawArenaBottom::
+    ; Switch to Arena Bottom
+
+    ; Also calculate the updated SCX position while we are at it
+    Get8 e, wFightscene_Arena_BottomDeltaX
     ld a, [wFightscene_Arena_BottomSCX]
     add e
     ld [wFightscene_Arena_BottomSCX], a
     ldh [rSCX], a
-    ld a, $B8
-    ldh [rSCY], a     ;SCY to tile $17 (+rLY is at tile $0D, making $24 or $04)
+
+    Set8FF rSCY, FIGHTSCENE_SCY_STARTSCREEN_ARENABOTTOM
     pop hl
     pop af
     reti
 
     ; $37AA
-vblank_HorizontalScroll::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; It sets SCX and SCY to (0,9) and adds a STAT interrupt
+Fightscene00_VBlank_StartScreen::
+    ; This VBlank adds the arena effect to the start screen
 
     ; Sets the window for horizontal scroll instead of calling Do_Graphics_VBlank
     ldh a, [hInterrupt_VBlank_Control]
     bit 0, a
-    jr z, .End
-    ;GraphicsUpdate
-        ld a, $E3 ;Enabled, Window 9C00, WindowEnable, 8800 mode
-        ld [rLCDC], a
+    jr z, .SkipGraphics
+    .DoGraphics:
+        ; Window On
+        Set8 rLCDC, LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BLK21 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJON | LCDCF_BGON
         call hSystem_RunDMA
-        ld a, $A7
-        ldh [rWX], a ;Window to Tile 14
+        ; Show the MagiNation Title
+        Set8FF rWX, FIGHTSCENE_WX_HIDDEN ; Hide window
         xor a
-        ldh [rSCX], a ;SCX to Tile 0
-        ld a, $48
-        ldh [rSCY], a ;SCY to Tile 9
-        ld a, $47
-        ldh [rLYC], a ;The line before the 9th tile (counting from 0th)
-    .End:
+        ldh [rSCX], a
+        Set8FF rSCY, FIGHTSCENE_SCY_STARTSCREEN_TITLE
+        Set8FF rLYC, FIGHTSCENE_LYC_STARTSCREEN_ARENATOP
+    .SkipGraphics:
     Do_VBlank_Function_V
     Do_Sound_VBlank
 
-    Set16FF hInterrupt_HBlank_Func, lcdc_HorizontalScroll_Upper
+    Set16FF hInterrupt_HBlank_Func, Fightscene00_HBlank_StartScreen_DrawArenaTop
     ret
 
 
@@ -6725,8 +6721,7 @@ BattleCmd_Stat_DecreasePercentCreatureStat::
         ld a, $01
     .Skip:
     pop hl
-    cpl
-    inc a
+    NegativeA
     add [hl]
     jr z, .Underflow
     jr c, .Skip2

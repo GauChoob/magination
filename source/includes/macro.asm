@@ -20,6 +20,11 @@ MACRO BankAddress
     ENDC
 ENDM
 
+MACRO NegativeA
+    cpl
+    inc a
+ENDM
+
 MACRO Dec16Loop
     ; Decrease a 16-bit register, and jumps to label if non-zero
     ; \1 = Target r16

@@ -104,7 +104,7 @@ msSplashStartScreen::
 
 .StartScreen:
 
-    ThatInit $02, AI_HorizontalScroller, $00, $00, $D000, $00, msObjectIdle, msObjectIdle  ; $7314
+    ThatInit $02, AI_SetupStartScreenArena, $00, $00, $D000, $00, msObjectIdle, msObjectIdle  ; $7314
 
     ThatInit $03, AI_Anim, $05, $06, $D041, $00, msObjectPressStart.Main, msObjectIdle  ; $7323
 
