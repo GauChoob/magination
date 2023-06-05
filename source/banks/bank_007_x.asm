@@ -1345,6 +1345,7 @@ Palette_PaletteBufferFadeMultiColor::
         ld a, $01
         ld [wPalette_VBlankReady], a
         ret
+
     .Unused:
         ; Unused
         ret

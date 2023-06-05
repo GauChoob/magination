@@ -6692,7 +6692,7 @@ Fightscene_HandleButtons::
     bit button_BIT_B, a
     jr z, .CheckStart
     .PressedB:
-        call Call_004_71CE
+        call Fightscene_Exit
         ret
 
     .CheckStart:
@@ -6713,47 +6713,46 @@ Fightscene_HandleButtons::
 
 
     ; $71CE
-Call_004_71CE:
-    call Call_004_72B4                            ; $71CE: $CD $B4 $72
+Fightscene_Exit:
+    ; Fade the fightscene to white
+    ; Then disable the script
+    call Fightscene_FadeToWhite
+    ; Disable wScript_Master
     Set16_M wVBlank_HandlerFunc, Interrupt_VBlank_Handler_Standard
-    ld a, $02                                     ; $71DB: $3E $02
-    ld [$C709], a                                 ; $71DD: $EA $09 $C7
-    ld a, $14                                     ; $71E0: $3E $14
-    ld [$C70A], a                                 ; $71E2: $EA $0A $C7
-    xor a                                         ; $71E5: $AF
-    ld [$C708], a                                 ; $71E6: $EA $08 $C7
-    ld [wFightscene_Done], a                                 ; $71E9: $EA $C6 $C9
-    ret                                           ; $71EC: $C9
+    Set16_M wScript_Master.State, Cmd_Flow_End
+    xor a
+    ld [wScript_Master.Frame + 1], a ; Upper byte being $00 indicates that there is no frame
+    ld [wFightscene_Done], a
+    ret
 
-Call_004_71ED::
-    Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle                                 ; $71F4: $EA $E5 $C6
-    call ScreenHide                                    ; $71F7: $CD $C3 $07
-    call Interrupt_Timer_Start                                    ; $71FA: $CD $F3 $29
-    call Fightscene_Init                            ; $71FD: $CD $2E $72
-    ld hl, $C706                                  ; $7200: $21 $06 $C7
-    ld a, [$C9CC]                                 ; $7203: $FA $CC $C9
-    ld [hl+], a                                   ; $7206: $22
-    ld a, [$C9CA]                                 ; $7207: $FA $CA $C9
-    ld [hl+], a                                   ; $720A: $22
-    ld a, [$C9CB]                                 ; $720B: $FA $CB $C9
-    ld [hl+], a                                   ; $720E: $22
-    ld a, $66                                     ; $720F: $3E $66
-    ld [hl+], a                                   ; $7211: $22
-    ld a, $0A                                     ; $7212: $3E $0A
-    ld [hl+], a                                   ; $7214: $22
-    call Interpreter_ReInit                                    ; $7215: $CD $A9 $28
-    call System_Script_SceneInit                                    ; $7218: $CD $1A $1F
-    call ScreenShow                                    ; $721B: $CD $EA $07
+Fightscene_NewFromBattle::
+    ; Sets up and displays a Fightscene that was set up during a battle
+    ; Loops until the Script is finished (or if Fightscene_Exit was called via the B button)
+    ; Inputs:
+    ;   wFightscene_BattleScriptBank, wFightscene_BattleScriptFrame
+    Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
+    call ScreenHide
+    call Interrupt_Timer_Start
+    call Fightscene_Init
+    ld hl, wScript_Master
+    Mov8 hl+, wFightscene_BattleScriptBank  ; .Bank
+    Mov8 hl+, wFightscene_BattleScriptFrame ; .Frame
+    Mov8 hl+, wFightscene_BattleScriptFrame + 1
+    Set8 hl+, LOW(Script_Start)             ; .State
+    Set8 hl+, HIGH(Script_Start)
+    call Interpreter_ReInit
+    call System_Script_SceneInit
+    call ScreenShow
 
-jr_004_721E:
-    call Fightscene_HandleButtons                            ; $721E: $CD $A6 $71
-    call Fightscene_Update                            ; $7221: $CD $4D $73
-    ld a, [$C708]                                 ; $7224: $FA $08 $C7
-    and a                                         ; $7227: $A7
-    jr nz, jr_004_721E                            ; $7228: $20 $F4
+    .Loop:
+        call Fightscene_HandleButtons
+        call Fightscene_Update
+        ld a, [wScript_Master.Frame + 1] ; If upper byte is $00, then the Frame is null, so exit the Fightscene
+        and a
+        jr nz, .Loop
 
-    call Call_004_71CE                            ; $722A: $CD $CE $71
-    ret                                           ; $722D: $C9
+    call Fightscene_Exit
+    ret
 
     ; $722E
 Fightscene_Init:
@@ -6794,29 +6793,22 @@ Fightscene_Init:
     ret
 
 
-Call_004_72B4:
-    ld a, $08                                     ; $72B4: $3E $08
-    ld [$C9DE], a                                 ; $72B6: $EA $DE $C9
-    ld a, $07                                     ; $72B9: $3E $07
-    ld [$C9D8], a                                 ; $72BB: $EA $D8 $C9
-    ld a, $FF                                     ; $72BE: $3E $FF
-    ld [$C9DA], a                                 ; $72C0: $EA $DA $C9
-    ld a, $7F                                     ; $72C3: $3E $7F
-    ld [$C9DB], a                                 ; $72C5: $EA $DB $C9
+Fightscene_FadeToWhite:
+    ; Fades the Fightscene to White over a few frames
+    Set8 wTemp_C.Fightscene_Counter, $08
+    Set8 wTemp_8.Palette_PackedInterval, $07
+    Set16_M wTemp_A.Palette_SetColor, $7FFF ; RGB $1F, $1F, $1F
     Do_CallForeign PaletteFX_ClearBaseBuffer
-    ld a, $04                                     ; $72D0: $3E $04
-    ld [$C9DC], a                                 ; $72D2: $EA $DC $C9
-
-jr_004_72D5:
-    Do_CallForeign PaletteFX_FadeAnimToBase
-    call Fightscene_Update                            ; $72DD: $CD $4D $73
-    call System_UpdateGame                                    ; $72E0: $CD $BB $08
-    ld a, [$C9DE]                                 ; $72E3: $FA $DE $C9
-    dec a                                         ; $72E6: $3D
-    ld [$C9DE], a                                 ; $72E7: $EA $DE $C9
-    jr nz, jr_004_72D5                            ; $72EA: $20 $E9
-
-    ret                                           ; $72EC: $C9
+    Set8 wTemp_B.Palette_FadeMagnitude, $04
+    .Loop:
+        Do_CallForeign PaletteFX_FadeAnimToBase
+        call Fightscene_Update
+        call System_UpdateGame
+        ld a, [wTemp_C.Fightscene_Counter]
+        dec a
+        ld [wTemp_C.Fightscene_Counter], a
+        jr nz, .Loop
+    ret
 
     ; $72ED
 Fightscene_SCXInit:

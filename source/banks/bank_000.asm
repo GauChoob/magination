@@ -2149,7 +2149,8 @@ Cmd_Fightscene_LoadCreatureLeft::
 
     ; $10AF
 Cmd_Fightscene_New::
-    ; Starts a Fightscene
+    ; Starts a Fightscene.
+    ; TODO - Loops forever unless explicitly cancelled(?) by the script
     ; Arguments
     ;   db wFightscene_ArenaIndex
     ;   db wFightscene_CreatureLeft_ID

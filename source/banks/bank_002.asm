@@ -1054,7 +1054,7 @@ Call_002_472E:
     ld [wFightscene_CreatureLeft_ID], a                                 ; $4752: $EA $E0 $C9
     ld a, [wBattle_Creature_Target.ID]                                 ; $4755: $FA $12 $D1
     ld [wFightscene_CreatureRight_ID], a                                 ; $4758: $EA $E1 $C9
-    Do_CallForeign Call_004_71ED
+    Do_CallForeign Fightscene_NewFromBattle
 
     ld hl, $C706                                  ; $4763: $21 $06 $C7
     ld a, $4C                                     ; $4766: $3E $4C

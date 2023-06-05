@@ -820,6 +820,12 @@ wFightscene_Paused::
     ; Set to 1 when Fightscene is paused via the Start button.
     ds 1
 
+    ds $C9CA - @
+wFightscene_BattleScriptFrame::
+    ds 2
+    ;ds $C9CC - @
+wFightscene_BattleScriptBank::
+    ds 1
     ; CREATURE_GFX_STRUCT TEMP
     ds $C9CD - @
 wTemp_0::
@@ -925,6 +931,8 @@ wTemp_C::
     ; Points to the graphics part of the data for a creature in the Creature_Table
     .Fightscene_ArenaDataPointer::
     ; Points to a Fightscene's Arena's data
+    .Fightscene_Counter:
+    ; Generic counter
     ds 2
     ;ds $C9E0 - @
 wFightscene_CreatureLeft_ID::

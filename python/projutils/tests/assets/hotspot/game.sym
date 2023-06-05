@@ -2380,7 +2380,7 @@
 04:71b6 jr_004_71B6
 04:71c9 jr_004_71C9
 04:71ce Call_004_71CE
-04:71ed Call_004_71ED
+04:71ed Fightscene_NewFromBattle
 04:721e jr_004_721E
 04:722e Fightscene_Init
 04:72b4 Call_004_72B4
