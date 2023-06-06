@@ -15,51 +15,6 @@ DEF FIGHTSCENE_LYC_STARTSCREEN_ARENABOTTOM EQU 13*8
 DEF FIGHTSCENE_SCX_WX_DISTANCE EQU $87 ; Number of pixels between the viewport of the Background and the Window. The Window is always this much to the right of the Background (barring a small difference from a FightFX)
 
 
-; Arena Index
-RSRESET
-DEF FIGHTSCENE_ARENA_Arderial            RB 1   ; $00
-DEF FIGHTSCENE_ARENA_Core                RB 1   ; $01
-DEF FIGHTSCENE_ARENA_Cald                RB 1   ; $02
-DEF FIGHTSCENE_ARENA_UnderneathTunnels   RB 1   ; $03
-DEF FIGHTSCENE_ARENA_CaldGeyser          RB 1   ; $04
-DEF FIGHTSCENE_ARENA_NaroomGeyser        RB 1   ; $05
-DEF FIGHTSCENE_ARENA_Naroom              RB 1   ; $06
-DEF FIGHTSCENE_ARENA_UnderneathGeyser    RB 1   ; $07
-DEF FIGHTSCENE_ARENA_OrotheStarfish      RB 1   ; $08
-DEF FIGHTSCENE_ARENA_OrotheGeyser        RB 1   ; $09
-DEF FIGHTSCENE_ARENA_Orothe              RB 1   ; $0A
-DEF FIGHTSCENE_ARENA_OrotheTunnels       RB 1   ; $0B
-DEF FIGHTSCENE_ARENA_Shadowhold          RB 1   ; $0C
-DEF FIGHTSCENE_ARENA_Underneath          RB 1   ; $0D
-
-RSRESET
-DEF oFightscene_Arena_TopBitmap         RB 3
-DEF oFightscene_Arena_TopAttrTile       RB 3
-DEF oFightscene_Arena_BottomBitmap      RB 3
-DEF oFightscene_Arena_BottomAttrTile    RB 3
-DEF oFightscene_Arena_ScrollSpeedTop    RB 1
-DEF oFightscene_Arena_ScrollSpeedBottom RB 1
-DEF oFightscene_Arena_Pal               RB 3
-DEF oFightscene_Arena_Color             RB 2
-
-MACRO Fightscene_ArenaData
-    ; \1 = Asset name
-    ; \2 = Top scroll speed
-    ; \3 = Bottom scroll speed
-    ; \4 = Cardscene R
-    ; \5 = Cardscene G
-    ; \6 = Cardscene B
-    AddressBank BITMAP_Fightscene_Arena_\1TopRLE
-    AddressBank ATTRTILE_Fightscene_Arena_\1TopRLE
-    AddressBank BITMAP_Fightscene_Arena_\1BottomRLE
-    AddressBank ATTRTILE_Fightscene_Arena_\1BottomRLE
-    db \2
-    db \3
-    AddressBank PAL_Fightscene_Arena_\1
-    RGB (\4), (\5), (\6)
-ENDM
-
-
     ; Bank 0
     VRAM_TILEID_BG
     VRAM_TILEID FIGHTSCENE, ARENA_TOP, $80
@@ -107,33 +62,7 @@ MACRO Fightscene_FightFX_MoveTable_Load_V
     Set8 wFightscene_FightFX_ReadingFrameMax, \1_Size
 ENDM
 
-MACRO Fightscene_FightFX_MoveTable_TableStart
-\1:
-DEF offset = 0
-REDEF FIGHTSCENE_FIGHTFX_MOVETABLE_LABELNAME EQUS "\1"
-ENDM
 
-MACRO Fightscene_FightFX_MoveTable_Instruction
-       ;ΔX    ΔY  num(frames)-1
-    db (\1), (\2), (\3 - 1)
-    DEF offset += 3
-ENDM
-
-MACRO Fightscene_FightFX_MoveTable_LoopStart
-    DEF FIGHTSCENE_FIGHTFX_MOVETABLE_LOOPSTART EQU offset
-ENDM
-
-MACRO Fightscene_FightFX_MoveTable_LoopEnd
-        ; Magic number identifying a loop
-    db $00, $00, $00
-        ; Jump to this position          Number of loops
-    db FIGHTSCENE_FIGHTFX_MOVETABLE_LOOPSTART, \1
-    DEF offset += 5
-ENDM
-
-MACRO Fightscene_FightFX_MoveTable_TableEnd
-    DEF {FIGHTSCENE_FIGHTFX_MOVETABLE_LABELNAME}_Size EQU offset
-ENDM
 
 MACRO Fightscene_FightFX_SetNextTile
     ; \1 = wFightscene_TileFX_DestroyAddress
@@ -151,9 +80,3 @@ MACRO Fightscene_FightFX_SetNextTile
     ld [\1+1], a
 ENDM
 
-MACRO Fightscene_TileFX_DissolveTable_Data
-    ; \1 = tile's row (0-7)
-    ; \2 = mask to apply to erase the row (to both upper and lower byte)
-    db 2*(\1), \2     ; lower byte
-    db 2*(\1)+1, \2   ; upper byte
-ENDM
