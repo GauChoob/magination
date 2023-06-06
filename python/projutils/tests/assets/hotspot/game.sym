@@ -4480,13 +4480,13 @@
 07:5ab7 SystemXX_DMA_HRAM_Code
 07:5ac1 Call_007_5AC1
 07:5af1 jr_007_5AF1
-07:5c00 Call_007_5C00
-07:5c29 Call_007_5C29
+07:5c00 Fightscene_PalFX_FadeArenaToColor
+07:5c29 Fightscene_PalFX_FadeArenaToBase
 07:5c52 Fightscene_PalFX_SetCreaturePaletteArenaColor
 07:5c7e Fightscene_PalFX_SetFightsceneArenaColor
 07:5c9d Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor
 07:5cb9 Fightscene_PalFX_SetCardsceneArenaColor
-07:5ce2 Call_007_5CE2
+07:5ce2 Fightscene_PalFX_FadeArenaToColor
 07:5d1c jr_007_5D1C
 07:5d2c jr_007_5D2C
 07:5d32 ChangePalette2050IfTransparent

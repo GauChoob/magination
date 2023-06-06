@@ -3684,35 +3684,40 @@ jr_007_5AF1:
     ld bc, $E507                                  ; $5BF8: $01 $07 $E5
     ld bc, $EA07                                  ; $5BFB: $01 $07 $EA
     db $01, $07
-Call_007_5C00::
-    xor a
-    ld [wPalette_VBlankReady], a                                 ; $5C01: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $5C04: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $5C07: $EA $30 $C8
-    ld a, $61                                     ; $5C0A: $3E $61
-    ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C0C: $EA $D8 $C9
-    call PaletteFX_FadeAnimToColor                            ; $5C0F: $CD $FD $48
-    FGet16 bc, $C7DB                                  ; $5C12: $21 $DB $C7
-    Set16 wFightscene_ArenaColor, bc
-    call Call_007_5CE2                            ; $5C20: $CD $E2 $5C
-    ld a, $01                                     ; $5C23: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5C25: $EA $31 $C8
-    ret                                           ; $5C28: $C9
 
-Call_007_5C29::
-    xor a                                         ; $5C29: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5C2A: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $5C2D: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $5C30: $EA $30 $C8
-    ld a, $61                                     ; $5C33: $3E $61
-    ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C35: $EA $D8 $C9
-    call PaletteFX_FadeAnimToBase                            ; $5C38: $CD $9D $48
-    FGet16 bc, $C7DB                                  ; $5C3B: $21 $DB $C7
+Fightscene_PalFX_FadeArenaToColor::
+    ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
+    ; Updates the tiles of the creatures as well to maintain transparency illusion
+    ; Inputs:
+    ;   wTemp_B.Palette_FadeMagnitude - magnitude of change
+    ;   wTemp_A.Palette_SetColor - target Color
+    xor a
+    ld [wPalette_VBlankReady], a
+    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
+    Palette_SetPackedInterval 6, 2
+    call PaletteFX_FadeAnimToColor
+    FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
     Set16 wFightscene_ArenaColor, bc
-    call Call_007_5CE2                            ; $5C49: $CD $E2 $5C
-    ld a, $01                                     ; $5C4C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5C4E: $EA $31 $C8
-    ret                                           ; $5C51: $C9
+    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
+    Set8 wPalette_VBlankReady, $01
+    ret
+
+Fightscene_PalFX_FadeArenaToBase::
+    ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
+    ; Updates the tiles of the creatures as well to maintain transparency illusion
+    ; Inputs:
+    ;   wTemp_B.Palette_FadeMagnitude - magnitude of change
+    ;   wPalette_AnimBuffers.Background - target colors
+    xor a
+    ld [wPalette_VBlankReady], a
+    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
+    Palette_SetPackedInterval 6, 2
+    call PaletteFX_FadeAnimToBase
+    FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
+    Set16 wFightscene_ArenaColor, bc
+    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
+    Set8 wPalette_VBlankReady, $01
+    ret
 
 
     ; $5C52
@@ -3803,45 +3808,52 @@ Fightscene_PalFX_SetCardsceneArenaColor::
     ret
 
 
-Call_007_5CE2:
-    xor a                                         ; $5CE2: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5CE3: $EA $31 $C8
+Fightscene_PalFX_UpdateTransparencyWithNewArenaColor:
+    ; When wFightscene_ArenaColor is changed, we need to apply the new color
+    ; To the creature's palettes so that they maintain transparency
+    ; Inputs:
+    ;   wFightscene_ArenaColor
+    ;   wFightscene_CreatureLeft_3rdPaletteTransparent
+    ;   wFightscene_CreatureRight_3rdPaletteTransparent
+    xor a
+    ld [wPalette_VBlankReady], a
+
+    ; Set CreatureLeft Pal 0+1 transparency
     Get16 bc, wFightscene_ArenaColor
-    ld hl, $C7AB                                  ; $5CEE: $21 $AB $C7
-    ld e, $00                                     ; $5CF1: $1E $00
-    ld a, $02                                     ; $5CF3: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $5CF5: $CD $74 $47
-    ld hl, $C7AB                                  ; $5CF8: $21 $AB $C7
-    ld e, $0C                                     ; $5CFB: $1E $0C
-    ld a, $02                                     ; $5CFD: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $5CFF: $CD $74 $47
-    ld hl, $C7AB                                  ; $5D02: $21 $AB $C7
-    ld e, $18                                     ; $5D05: $1E $18
-    ld a, $01                                     ; $5D07: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D09: $CD $74 $47
-    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $5D0C: $FA $E2 $C9
-    and a                                         ; $5D0F: $A7
-    jr z, jr_007_5D1C                             ; $5D10: $28 $0A
-
-    ld hl, $C7AB                                  ; $5D12: $21 $AB $C7
-    ld e, $08                                     ; $5D15: $1E $08
-    ld a, $01                                     ; $5D17: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D19: $CD $74 $47
-
-jr_007_5D1C:
-    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $5D1C: $FA $E3 $C9
-    and a                                         ; $5D1F: $A7
-    jr z, jr_007_5D2C                             ; $5D20: $28 $0A
-
-    ld hl, $C7AB                                  ; $5D22: $21 $AB $C7
-    ld e, $14                                     ; $5D25: $1E $14
-    ld a, $01                                     ; $5D27: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D29: $CD $74 $47
-
-jr_007_5D2C:
-    ld a, $01                                     ; $5D2C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5D2E: $EA $31 $C8
-    ret                                           ; $5D31: $C9
+    ld hl, wPalette_AnimBuffers.Background
+    ld e, 0*4
+    ld a, $02
+    call Palette_PaletteBufferSetColor
+    ; Set CreatureRight Pal 3+4 transparency
+    ld hl, wPalette_AnimBuffers.Background
+    ld e, 4*3
+    ld a, $02
+    call Palette_PaletteBufferSetColor
+    ; Set Arena Pal 6 to the new wFightscene_ArenaColor
+    ld hl, wPalette_AnimBuffers.Background
+    ld e, 4*6
+    ld a, $01
+    call Palette_PaletteBufferSetColor
+    ; Conditionally set CreatureLeft Pal 2 transparency
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]
+    and a
+    jr z, .Skip1
+        ld hl, wPalette_AnimBuffers.Background
+        ld e, 2*4
+        ld a, $01
+        call Palette_PaletteBufferSetColor
+    .Skip1:
+    ; Conditionally set CreatureRight Pal 5 transparency
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]
+    and a
+    jr z, .Skip2
+        ld hl, wPalette_AnimBuffers.Background
+        ld e, 5*4
+        ld a, $01
+        call Palette_PaletteBufferSetColor
+    .Skip2:
+    Set8 wPalette_VBlankReady, $01
+    ret
 
 
     ; $5D32
@@ -3899,7 +3911,7 @@ Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor::
         pop hl
         pop bc
         ld e, 4*5 ; Palette 5.0
-        ld a, $01
+        ld a, $01 ; Sequential palettes to set
         ld [wFightscene_CreatureRight_3rdPaletteTransparent], a
         call Palette_PaletteBufferSetColor
         ret

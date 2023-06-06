@@ -784,9 +784,9 @@ Script_Table::
     dw Cmd_Load_Triggers ; $69
     dw Cmd_Load_BitmapSet ;$6A
     dw Cmd_Load_Bitmap ; $6B
-    dw $1A16 ; $6C
-    dw $1A44 ; $6D
 
+    dw Cmd_Palette_Arena_FadeToColor ; $6C
+    dw Cmd_Palette_Arena_FadeToBase ; $6D
     dw Cmd_Palette_ClearBase        ; $6E
     dw Cmd_Palette_ClearAnim        ; $6F
     dw Cmd_Palette_CreatureCycle    ; $70

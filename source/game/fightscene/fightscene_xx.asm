@@ -394,7 +394,7 @@ Fightscene_HandleButtons::
             ret
 
 
-Fightscene_Exit
+Fightscene_Exit:
     ; Fade the fightscene to white
     ; Then disable the script
     call Fightscene_FadeToWhite
@@ -467,7 +467,7 @@ Fightscene_Init::
     Do_CallForeign Fightscene_LoadCreature
 
     ; Set the background palettes all to white so we can fade in
-    Set8 wTemp_8.Palette_PackedInterval, $07
+    Palette_SetPackedInterval 0, 8
     db $11 ; ld de,
         RGB $1F, $1F, $1F
     Set16 wTemp_A.Palette_SetColor, de
@@ -479,7 +479,7 @@ Fightscene_Init::
 Fightscene_FadeToWhite:
     ; Fades the Fightscene to White over a few frames
     Set8 wTemp_C.Fightscene_Counter, $08
-    Set8 wTemp_8.Palette_PackedInterval, $07
+    Palette_SetPackedInterval 0, 8
     Set16_M wTemp_A.Palette_SetColor, $7FFF ; RGB $1F, $1F, $1F
     Do_CallForeign PaletteFX_ClearBaseBuffer
     Set8 wTemp_B.Palette_FadeMagnitude, $04

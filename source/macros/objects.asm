@@ -309,6 +309,12 @@ MACRO Script_MovWord
     Script_ReadByte [\1 + 1]
 ENDM
 
+MACRO Script_MovWord_V
+    ; Different order
+    Script_ReadByte_V [\1]
+    Script_ReadByte_V [\1 + 1]
+ENDM
+
 MACRO Script_Init
     ; Disables a script
     Set16_M \1.Frame, $0000
