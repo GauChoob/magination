@@ -8,408 +8,438 @@ INCLUDE "source/engine/battery/battery_xx.asm"
 
     ; $416B
 PaletteFX_Battle_CreatureCycle::
-    xor a                                         ; $416B: $AF
-    ld [wPalette_VBlankReady], a                                 ; $416C: $EA $31 $C8
-    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $416F: $FA $D9 $C9
-    and a                                         ; $4172: $A7
-    jr nz, jr_007_4199                            ; $4173: $20 $24
+    ; Cycles once the 2nd, 3rd and 4th color for the 3 palettes of the creature
+    ; You should cycle a multiple of 3 times to reset the colors back to normal by the end
+    ; Inputs:
+    ;   wTemp_9.Palette_BattleFX_CreatureIsRight
+    xor a
+    ld [wPalette_VBlankReady], a
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
+    and a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        ; Cycle the 2nd-4th color for Palettes 0-2
+        DEF paletteid = 0
+        REPT 3
+            ld hl, wPalette_AnimBuffers.Background
+            ld e, paletteid
+            ld a, $03
+            call Palette_PaletteCycleColors
+            DEF paletteid += 1
+        ENDR
+        Set8 wPalette_VBlankReady, $01
+        ret
+    .CreatureRight:
+        ; Cycle the 2nd-4th color for Palettes 3-5
+        DEF paletteid = 3
+        REPT 3
+            ld hl, wPalette_AnimBuffers.Background
+            ld e, paletteid
+            ld a, $03
+            call Palette_PaletteCycleColors
+            DEF paletteid += 1
+        ENDR
+        Set8 wPalette_VBlankReady, $01
+        ret
 
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4175: $21 $AB $C7
-    ld e, $00                                     ; $4178: $1E $00
-    ld a, $03                                     ; $417A: $3E $03
-    call Palette_PaletteCycleColors                            ; $417C: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $417F: $21 $AB $C7
-    ld e, $01                                     ; $4182: $1E $01
-    ld a, $03                                     ; $4184: $3E $03
-    call Palette_PaletteCycleColors                            ; $4186: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4189: $21 $AB $C7
-    ld e, $02                                     ; $418C: $1E $02
-    ld a, $03                                     ; $418E: $3E $03
-    call Palette_PaletteCycleColors                            ; $4190: $CD $B2 $45
-    ld a, $01                                     ; $4193: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4195: $EA $31 $C8
-    ret                                           ; $4198: $C9
-
-
-jr_007_4199:
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4199: $21 $AB $C7
-    ld e, $03                                     ; $419C: $1E $03
-    ld a, $03                                     ; $419E: $3E $03
-    call Palette_PaletteCycleColors                            ; $41A0: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $41A3: $21 $AB $C7
-    ld e, $04                                     ; $41A6: $1E $04
-    ld a, $03                                     ; $41A8: $3E $03
-    call Palette_PaletteCycleColors                            ; $41AA: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $41AD: $21 $AB $C7
-    ld e, $05                                     ; $41B0: $1E $05
-    ld a, $03                                     ; $41B2: $3E $03
-    call Palette_PaletteCycleColors                            ; $41B4: $CD $B2 $45
-    ld a, $01                                     ; $41B7: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $41B9: $EA $31 $C8
-    ret                                           ; $41BC: $C9
-
-PaletteFX_Battle_CreatureFadeMultiColor::
-    ld a, [$C9D9]                                 ; $41BD: $FA $D9 $C9
-    and a                                         ; $41C0: $A7
-    jr nz, jr_007_41C7                            ; $41C1: $20 $04
-
-    call Call_007_43BD                            ; $41C3: $CD $BD $43
-    ret                                           ; $41C6: $C9
-
-
-jr_007_41C7:
-    call Call_007_440D                            ; $41C7: $CD $0D $44
-    ret                                           ; $41CA: $C9
-
-    ; $41CB
-PaletteFX_Battle_CreatureFadeUniColor::
-    xor a                                         ; $41CB: $AF
-    ld [wPalette_VBlankReady], a                                 ; $41CC: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $41CF: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $41D2: $EA $30 $C8
-    ld a, [wTemp_A.Palette_SetColor+1]                                 ; $41D5: $FA $DB $C9
-    ld d, a                                       ; $41D8: $57
-    ld a, [wTemp_A.Palette_SetColor]                                 ; $41D9: $FA $DA $C9
-    ld e, a                                       ; $41DC: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $41DD: $FA $D9 $C9
-    and a                                         ; $41E0: $A7
-    jr nz, jr_007_4221                            ; $41E1: $20 $3E
-
-    ld hl, $C7AD                                  ; $41E3: $21 $AD $C7
-    ld bc, $0003                                  ; $41E6: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41E9: $CD $E4 $46
-    ld hl, $C7B5                                  ; $41EC: $21 $B5 $C7
-    ld bc, $0003                                  ; $41EF: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41F2: $CD $E4 $46
-    ld hl, $C7BD                                  ; $41F5: $21 $BD $C7
-    ld bc, $0003                                  ; $41F8: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41FB: $CD $E4 $46
-    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $41FE: $FA $E2 $C9
-    and a                                         ; $4201: $A7
-    jr z, jr_007_420A                             ; $4202: $28 $06
-
-    ld a, $01                                     ; $4204: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4206: $EA $31 $C8
-    ret                                           ; $4209: $C9
+PaletteFX_Battle_CreatureFadeToBase::
+    ; Fades the target creature from wPalette_AnimBuffers to wPalette_BaseBuffers
+    ; The CreatureLeft function has multiple bugs
+    ; Inputs:
+    ;   wTemp_9.Palette_BattleFX_CreatureIsRight
+    ;   wPalette_BaseBuffers already set
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
+    and a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        call PaletteFX_Battle_CreatureLeftFadeMultiColor
+        ret
+    .CreatureRight:
+        call PaletteFX_Battle_CreatureRightFadeMultiColor
+        ret
 
 
-jr_007_420A:
-    ld a, [wTemp_A.Unknown+1]                                 ; $420A: $FA $DB $C9
-    ld d, a                                       ; $420D: $57
-    ld a, [wTemp_A.Unknown]                                 ; $420E: $FA $DA $C9
-    ld e, a                                       ; $4211: $5F
-    ld hl, $C7BB                                  ; $4212: $21 $BB $C7
-    ld bc, $0001                                  ; $4215: $01 $01 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4218: $CD $E4 $46
-    ld a, $01                                     ; $421B: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $421D: $EA $31 $C8
-    ret                                           ; $4220: $C9
+PaletteFX_Battle_CreatureFadeToColor::
+    ; Fades the target creature to a specific color
+    ; Inputs:
+    ;   wTemp_9.Palette_BattleFX_CreatureIsRight
+    ;   wTemp_A.Palette_SetColor
+    xor a
+    ld [wPalette_VBlankReady], a
+    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
 
+    Get16 de, wTemp_A.Palette_SetColor
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
+    and a
+    jr nz, .CreatureLeft
+    .CreatureRight:
+        ; Fade Palette 0, 1, 2, Colors 2nd-4th
+        ld hl, wPalette_AnimBuffers.Background + 1*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld hl, wPalette_AnimBuffers.Background + 5*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld hl, wPalette_AnimBuffers.Background + 9*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]
+        and a
+        jr z, .RightTransparent ; TODO - is there a bug here? Is the condition inversed?
+        .RightNonTransparent:
+            Set8 wPalette_VBlankReady, $01
+            ret
+        .RightTransparent:
+            ; Conditionally fade Palette 2, Colors 1st
+            Get16 de, wTemp_A.Palette_SetColor
+            ld hl, wPalette_AnimBuffers.Background + 8*2
+            ld bc, $0001
+            call Palette_PaletteBufferFadeUniColor
+            Set8 wPalette_VBlankReady, $01
+            ret
 
-jr_007_4221:
-    ld hl, $C7C5                                  ; $4221: $21 $C5 $C7
-    ld bc, $0003                                  ; $4224: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4227: $CD $E4 $46
-    ld hl, $C7CD                                  ; $422A: $21 $CD $C7
-    ld bc, $0003                                  ; $422D: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4230: $CD $E4 $46
-    ld hl, $C7D5                                  ; $4233: $21 $D5 $C7
-    ld bc, $0003                                  ; $4236: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4239: $CD $E4 $46
-    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $423C: $FA $E3 $C9
-    and a                                         ; $423F: $A7
-    jr z, jr_007_4248                             ; $4240: $28 $06
+    .CreatureLeft:
+        ; Fade Palette 3, 4, 5, Colors 2nd-4th
+        ld hl, wPalette_AnimBuffers.Background + 13*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld hl, wPalette_AnimBuffers.Background + 17*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld hl, wPalette_AnimBuffers.Background + 21*2
+        ld bc, $0003
+        call Palette_PaletteBufferFadeUniColor
+        ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]
+        and a
+        jr z, .LeftTransparent ; TODO - is there a bug here? Is the condition inversed?
+        .LeftNonTransparent:
+            Set8 wPalette_VBlankReady, $01
+            ret
+        .LeftTransparent:
+            ; Conditionally fade Palette 5, Colors 1st
+            Get16 de, wTemp_A.Palette_SetColor
+            ld hl, wPalette_AnimBuffers.Background + 20*2
+            ld bc, $0001
+            call Palette_PaletteBufferFadeUniColor
+            Set8 wPalette_VBlankReady, $01
+            ret
 
-    ld a, $01                                     ; $4242: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4244: $EA $31 $C8
-    ret                                           ; $4247: $C9
-
-
-jr_007_4248:
-    ld a, [wTemp_A.Unknown+1]                                 ; $4248: $FA $DB $C9
-    ld d, a                                       ; $424B: $57
-    ld a, [wTemp_A.Unknown]                                 ; $424C: $FA $DA $C9
-    ld e, a                                       ; $424F: $5F
-    ld hl, $C7D3                                  ; $4250: $21 $D3 $C7
-    ld bc, $0001                                  ; $4253: $01 $01 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4256: $CD $E4 $46
-    ld a, $01                                     ; $4259: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $425B: $EA $31 $C8
-    ret                                           ; $425E: $C9
-
-
+PaletteFX_Battle_CreatureLoadPalette_UNUSED::
+    ; Unused function
+    ; Replaced by Cmd_Palette_CreatureLoad or Fightscene_LoadCreature
+    ; Initially, the palettes of the creatures were saved 4 sets in 1 file
+    ;   Fake example:
+    ;       PAL0 AGOVO
+    ;       PAL1 AGOVO
+    ;       PAL2 AGOVO
+    ;       PAL3 FUROK
+    ;       PAL4 FUROK
+    ;       PAL5 FUROK
+    ;       PAL6 TUSK BWISP
+    ;       PAL7 TUSK BWISP
+    ;       PAL8 TUSK BWISP
+    ;       PAL9 WEEBO
+    ;       PAL10 WEEBO
+    ;       PAL11 WEEBO
+    ; So you would have the specify the offset within the target file (0, 1, 2, 3)
+    ; But since we don't need to do this anymore, we don't need this function
+    ;
+    ; Inputs:
+    ;   wTemp_8.Fightscene_CreatureID
+    ;   wTemp_A.Palette_Offset
     PushROMBank
-    Do_CallForeign Fightscene_GetCreaturePointers
-    ld bc, $0008                                  ; $426B: $01 $08 $00
-    add hl, bc                                    ; $426E: $09
-    ld b, $00                                     ; $426F: $06 $00
-    ld a, [wTemp_A.Unknown]                                 ; $4271: $FA $DA $C9
-    cp b                                          ; $4274: $B8
-    jr z, jr_007_4290                             ; $4275: $28 $19
+    ; Get the pointer to the palette
+    Do_CallForeign Fightscene_GetCreaturePointers ; hl = wTemp_C.Fightscene_CreatureGraphicsPointer
+    ld bc, dcCombatPaletteAddress
+    add hl, bc
 
-    cp $01                                        ; $4277: $FE $01
-    jr nz, jr_007_427F                            ; $4279: $20 $04
+    ; Calculate the offset within the .pal file and store it in c
+    ; Offset = [3 Palettes i.e. 24 bytes] * Offset
+    ld b, $00
+    ld a, [wTemp_A.Palette_Offset]
+    .Check0:
+    cp b
+    jr z, .Finally ; a = 0
+    .Check1:
+    cp $01
+    jr nz, .Check2
+    .Is1:
+        ld a, 1*24
+        jr .Finally
+    .Check2:
+    cp $02
+    jr nz, .Check3
+    .Is2
+        ld a, 2*24
+        jr z, .Finally
+    .Check3:
+    cp $03
+    jr nz, .Unknown
+    .Is3:
+        ld a, 3*24
+        jr z, .Finally
+    .Unknown:
+        xor a
+    .Finally:
+    ld c, a
 
-    ld a, $18                                     ; $427B: $3E $18
-    jr jr_007_4290                                ; $427D: $18 $11
+    ; Get the reference to the .pal file, and offset by the offset
+    ld a, [hl+]
+    push hl
+    ld h, [hl]
+    ld l, a
+    add hl, bc
+    ld b, h
+    ld c, l
+    Set16 wTemp_6.Palette_PaletteAddress, bc
 
-jr_007_427F:
-    cp $02                                        ; $427F: $FE $02
-    jr nz, jr_007_4287                            ; $4281: $20 $04
+    ; Save the bank
+    pop hl
+    inc hl
+    Mov8 wTemp_7.Palette_PaletteBank, hl+
 
-    ld a, $30                                     ; $4283: $3E $30
-    jr z, jr_007_4290                             ; $4285: $28 $09
-
-jr_007_4287:
-    cp $03                                        ; $4287: $FE $03
-    jr nz, jr_007_428F                            ; $4289: $20 $04
-
-    ld a, $48                                     ; $428B: $3E $48
-    jr z, jr_007_4290                             ; $428D: $28 $01
-
-jr_007_428F:
-    xor a                                         ; $428F: $AF
-
-jr_007_4290:
-    ld c, a                                       ; $4290: $4F
-    ld a, [hl+]                                   ; $4291: $2A
-    push hl                                       ; $4292: $E5
-    ld h, [hl]                                    ; $4293: $66
-    ld l, a                                       ; $4294: $6F
-    add hl, bc                                    ; $4295: $09
-    ld b, h                                       ; $4296: $44
-    ld c, l                                       ; $4297: $4D
-    ld a, c                                       ; $4298: $79
-    ld [$C9D5], a                                 ; $4299: $EA $D5 $C9
-    ld a, b                                       ; $429C: $78
-    ld [$C9D6], a                                 ; $429D: $EA $D6 $C9
-    pop hl                                        ; $42A0: $E1
-    inc hl                                        ; $42A1: $23
-    ld a, [hl+]                                   ; $42A2: $2A
-    ld [$C9D7], a                                 ; $42A3: $EA $D7 $C9
-    call $35F1                                    ; $42A6: $CD $F1 $35
+    call Fightscene00_LoadCreaturePalette
     PopROMBank
-    ret                                           ; $42B0: $C9
+    ret
 
+;TODO
+    xor a
+    ld [wPalette_VBlankReady], a
+    ld a, [wTemp_A.Unknown+1]
+    ld b, a
+    ld a, [wTemp_A.Unknown]
+    ld c, a
+    ld a, [$C9D9]
+    and a
+    jr nz, jr_007_42D3
 
-    xor a                                         ; $42B1: $AF
-    ld [wPalette_VBlankReady], a                                 ; $42B2: $EA $31 $C8
-    ld a, [wTemp_A.Unknown+1]                                 ; $42B5: $FA $DB $C9
-    ld b, a                                       ; $42B8: $47
-    ld a, [wTemp_A.Unknown]                                 ; $42B9: $FA $DA $C9
-    ld c, a                                       ; $42BC: $4F
-    ld a, [$C9D9]                                 ; $42BD: $FA $D9 $C9
-    and a                                         ; $42C0: $A7
-    jr nz, jr_007_42D3                            ; $42C1: $20 $10
-
-    ld hl, $C7AB                                  ; $42C3: $21 $AB $C7
-    ld e, $01                                     ; $42C6: $1E $01
-    ld a, $02                                     ; $42C8: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $42CA: $CD $74 $47
-    ld a, $01                                     ; $42CD: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $42CF: $EA $31 $C8
-    ret                                           ; $42D2: $C9
+    ld hl, $C7AB
+    ld e, $01
+    ld a, $02
+    call Palette_PaletteBufferSetColor
+    ld a, $01
+    ld [wPalette_VBlankReady], a
+    ret
 
 
 jr_007_42D3:
-    ld hl, $C7AB                                  ; $42D3: $21 $AB $C7
-    ld e, $0D                                     ; $42D6: $1E $0D
-    ld a, $02                                     ; $42D8: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $42DA: $CD $74 $47
-    ld a, $01                                     ; $42DD: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $42DF: $EA $31 $C8
-    ret                                           ; $42E2: $C9
+    ld hl, $C7AB
+    ld e, $0D
+    ld a, $02
+    call Palette_PaletteBufferSetColor
+    ld a, $01
+    ld [wPalette_VBlankReady], a
+    ret
 
-    ;BTL_SWAP_CREATURE_PALETTE
-    ; $42E3
+
 PaletteFX_Battle_CreatureSwapRGB::
-    xor a                                         ; $42E3: $AF
-    ld [wPalette_VBlankReady], a                                 ; $42E4: $EA $31 $C8
-    ld a, [wTemp_8.Palette_ColorSwapType]                                 ; $42E7: $FA $D8 $C9
-    ld e, a                                       ; $42EA: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]                                 ; $42EB: $FA $D9 $C9
-    and a                                         ; $42EE: $A7
-    jr nz, jr_007_4312                            ; $42EF: $20 $21
+    ; Swaps R, G and B values of the palettes of the target creature
+    ; Inputs:
+    ;   wTemp_9.Palette_BattleFX_CreatureIsRight
+    ;   wTemp_8.Palette_ColorSwapType - PALETTE_SWAP_RB, PALETTE_SWAP_BG, PALETTE_SWAP_RG_Bugged, PALETTE_SWAP_RGB
+    xor a
+    ld [wPalette_VBlankReady], a
 
-    ld hl, $C7AD                                  ; $42F1: $21 $AD $C7
-    ld bc, $0003                                  ; $42F4: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $42F7: $CD $87 $47
-    ld hl, $C7B5                                  ; $42FA: $21 $B5 $C7
-    ld bc, $0003                                  ; $42FD: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4300: $CD $87 $47
-    ld hl, $C7BD                                  ; $4303: $21 $BD $C7
-    ld bc, $0003                                  ; $4306: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4309: $CD $87 $47
-    ld a, $01                                     ; $430C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $430E: $EA $31 $C8
-    ret                                           ; $4311: $C9
-
-
-jr_007_4312:
-    ld hl, $C7C5                                  ; $4312: $21 $C5 $C7
-    ld bc, $0003                                  ; $4315: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4318: $CD $87 $47
-    ld hl, $C7CD                                  ; $431B: $21 $CD $C7
-    ld bc, $0003                                  ; $431E: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4321: $CD $87 $47
-    ld hl, $C7D5                                  ; $4324: $21 $D5 $C7
-    ld bc, $0003                                  ; $4327: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $432A: $CD $87 $47
-    ld a, $01                                     ; $432D: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $432F: $EA $31 $C8
-    ret                                           ; $4332: $C9
+    Get8 e, wTemp_8.Palette_ColorSwapType
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
+    and a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        ; Apply the effect to the last 3 colors in palette 0, 1, 2
+        ld hl, wPalette_AnimBuffers.Background + 1*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        ld hl, wPalette_AnimBuffers.Background + 5*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        ld hl, wPalette_AnimBuffers.Background + 9*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        Set8 wPalette_VBlankReady, $01
+        ret
+    .CreatureRight:
+        ; Apply the effect to the last 3 colors in palette 3, 4, 5
+        ld hl, wPalette_AnimBuffers.Background + 13*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        ld hl, wPalette_AnimBuffers.Background + 17*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        ld hl, wPalette_AnimBuffers.Background + 21*2
+        ld bc, $0003
+        call Palette_PaletteBufferSwapRGB
+        Set8 wPalette_VBlankReady, $01
+        ret
 
 PaletteFX_Battle_CreatureInvert::
-    xor a                                         ; $4333: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4334: $EA $31 $C8
-    ld a, [wTemp_8.Palette_PackedInterval]                                 ; $4337: $FA $D8 $C9
-    ld e, a                                       ; $433A: $5F
-    ld a, [$C9D9]                                 ; $433B: $FA $D9 $C9
-    and a                                         ; $433E: $A7
-    jr nz, jr_007_437F                            ; $433F: $20 $3E
+    xor a
+    ld [wPalette_VBlankReady], a
 
-    ld hl, $C7AD                                  ; $4341: $21 $AD $C7
-    ld bc, $0003                                  ; $4344: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4347: $CD $D1 $47
-    ld hl, $C7B5                                  ; $434A: $21 $B5 $C7
-    ld bc, $0003                                  ; $434D: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4350: $CD $D1 $47
-    ld hl, $C7BD                                  ; $4353: $21 $BD $C7
-    ld bc, $0003                                  ; $4356: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4359: $CD $D1 $47
-    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $435C: $FA $E2 $C9
-    and a                                         ; $435F: $A7
-    jr z, jr_007_4368                             ; $4360: $28 $06
-
-    ld a, $01                                     ; $4362: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4364: $EA $31 $C8
-    ret                                           ; $4367: $C9
-
-
-jr_007_4368:
-    ld a, [wTemp_A.Unknown+1]                                 ; $4368: $FA $DB $C9
-    ld d, a                                       ; $436B: $57
-    ld a, [wTemp_A.Unknown]                                 ; $436C: $FA $DA $C9
-    ld e, a                                       ; $436F: $5F
-    ld hl, $C7BB                                  ; $4370: $21 $BB $C7
-    ld bc, $0001                                  ; $4373: $01 $01 $00
-    call Palette_PaletteBufferInvertColors                            ; $4376: $CD $D1 $47
-    ld a, $01                                     ; $4379: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $437B: $EA $31 $C8
-    ret                                           ; $437E: $C9
-
-
-jr_007_437F:
-    ld hl, $C7C5                                  ; $437F: $21 $C5 $C7
-    ld bc, $0003                                  ; $4382: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4385: $CD $D1 $47
-    ld hl, $C7CD                                  ; $4388: $21 $CD $C7
-    ld bc, $0003                                  ; $438B: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $438E: $CD $D1 $47
-    ld hl, $C7D5                                  ; $4391: $21 $D5 $C7
-    ld bc, $0003                                  ; $4394: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4397: $CD $D1 $47
-    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $439A: $FA $E3 $C9
-    and a                                         ; $439D: $A7
-    jr z, jr_007_43A6                             ; $439E: $28 $06
-
-    ld a, $01                                     ; $43A0: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $43A2: $EA $31 $C8
-    ret                                           ; $43A5: $C9
-
-
-jr_007_43A6:
-    ld a, [wTemp_A.Unknown+1]                                 ; $43A6: $FA $DB $C9
-    ld d, a                                       ; $43A9: $57
-    ld a, [wTemp_A.Unknown]                                 ; $43AA: $FA $DA $C9
-    ld e, a                                       ; $43AD: $5F
-    ld hl, $C7D3                                  ; $43AE: $21 $D3 $C7
-    ld bc, $0001                                  ; $43B1: $01 $01 $00
-    call Palette_PaletteBufferInvertColors                            ; $43B4: $CD $D1 $47
-    ld a, $01                                     ; $43B7: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $43B9: $EA $31 $C8
-    ret                                           ; $43BC: $C9
-
-    ; $43BD
-Call_007_43BD:
-    xor a                                         ; $43BD: $AF
-    ld [wPalette_VBlankReady], a                                 ; $43BE: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $43C1: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $43C4: $EA $30 $C8
-    ld hl, $C7AD                                  ; $43C7: $21 $AD $C7
-    ld bc, $C72D                                  ; $43CA: $01 $2D $C7
-    ld a, $03                                     ; $43CD: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43CF: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43D2: $CD $B6 $48
-    ld hl, $C7B7                                  ; $43D5: $21 $B7 $C7
-    ld bc, $C737                                  ; $43D8: $01 $37 $C7
-    ld a, $03                                     ; $43DB: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43DD: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43E0: $CD $B6 $48
-    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]                                 ; $43E3: $FA $E2 $C9
-    and a                                         ; $43E6: $A7
-    jr z, jr_007_43F9                             ; $43E7: $28 $10
-
-    ld hl, $C7BB                                  ; $43E9: $21 $BB $C7
-    ld bc, $C73B                                  ; $43EC: $01 $3B $C7
-    ld a, $04                                     ; $43EF: $3E $04
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43F1: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43F4: $CD $B6 $48
-    jr jr_007_4407                                ; $43F7: $18 $0E
-
-jr_007_43F9:
-    ld hl, $C7C3                                  ; $43F9: $21 $C3 $C7
-    ld bc, $C743                                  ; $43FC: $01 $43 $C7
-    ld a, $03                                     ; $43FF: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4401: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4404: $CD $B6 $48
-
-jr_007_4407:
-    ld a, $01                                     ; $4407: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4409: $EA $31 $C8
-    ret                                           ; $440C: $C9
+    Get8 e, wTemp_8.Palette_PackedInterval
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
+    and a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        ; Apply the effect to the last 3 colors in palette 0, 1, 2
+        ld hl, wPalette_AnimBuffers.Background + 1*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld hl, wPalette_AnimBuffers.Background + 5*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld hl, wPalette_AnimBuffers.Background + 9*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]
+        and a
+        jr z, .LeftTransparent ; TODO - is there a bug here? Is the condition inversed?
+        .LeftNonTransparent:
+            Set8 wPalette_VBlankReady, $01
+            ret
+        .LeftTransparent:
+            ; Conditionally apply the effect to the 1st color in palette 2
+            Get16 de, wTemp_A.Palette_SetColor ; bug - unused (I guess Palette_PaletteBufferInvertColors used to take different parameters, or this line was accidentally copied from PaletteFX_Battle_CreatureFadeToColor)
+            ld hl, wPalette_AnimBuffers.Background + 8*2
+            ld bc, $0001
+            call Palette_PaletteBufferInvertColors
+            Set8 wPalette_VBlankReady, $01
+            ret
+    .CreatureRight:
+        ; Apply the effect to the last 3 colors in palette 3, 4, 5
+        ld hl, wPalette_AnimBuffers.Background + 13*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld hl, wPalette_AnimBuffers.Background + 17*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld hl, wPalette_AnimBuffers.Background + 21*2
+        ld bc, $0003
+        call Palette_PaletteBufferInvertColors
+        ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]
+        and a
+        jr z, .RightTransparent ; TODO - is there a bug here? Is the condition inversed?
+        .RightNonTransparent
+            Set8 wPalette_VBlankReady, $01
+            ret
+        .RightTransparent:
+            ; Conditionally apply the effect to the 1st color in palette 5
+            Get16 de, wTemp_A.Palette_SetColor ; bug - unused (I guess Palette_PaletteBufferInvertColors used to take different parameters, or this line was accidentally copied from PaletteFX_Battle_CreatureFadeToColor)
+            ld hl, wPalette_AnimBuffers.Background + 20*2
+            ld bc, $0001
+            call Palette_PaletteBufferInvertColors
+            Set8 wPalette_VBlankReady, $01
+            ret
 
 
-Call_007_440D:
-    xor a                                         ; $440D: $AF
-    ld [wPalette_VBlankReady], a                                 ; $440E: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $4411: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $4414: $EA $30 $C8
-    ld hl, $C7C5                                  ; $4417: $21 $C5 $C7
-    ld bc, $C745                                  ; $441A: $01 $45 $C7
-    ld a, $03                                     ; $441D: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $441F: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4422: $CD $B6 $48
-    xor a                                         ; $4425: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4426: $EA $31 $C8
-    ld hl, $C7CD                                  ; $4429: $21 $CD $C7
-    ld bc, $C74D                                  ; $442C: $01 $4D $C7
-    ld a, $03                                     ; $442F: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4431: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4434: $CD $B6 $48
-    xor a                                         ; $4437: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4438: $EA $31 $C8
-    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]                                 ; $443B: $FA $E3 $C9
-    and a                                         ; $443E: $A7
-    jr nz, jr_007_4450                            ; $443F: $20 $0F
+PaletteFX_Battle_CreatureLeftFadeMultiColor:
+    ; Fade CreatureLeft's palettes from Anim to Base
+    ; This function has multiple bugs, but the function is unused (effect only ever applied to CreatureRight)
+    ; Inputs:
+    ;   wTemp_B.Palette_FadeMagnitude
+    ;   wFightscene_CreatureLeft_3rdPaletteTransparent
+    xor a
+    ld [wPalette_VBlankReady], a
+    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
 
-    ld hl, $C7D3                                  ; $4441: $21 $D3 $C7
-    ld bc, $C753                                  ; $4444: $01 $53 $C7
-    ld a, $04                                     ; $4447: $3E $04
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4449: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $444C: $CD $B6 $48
-    ret                                           ; $444F: $C9
+    ; Fade Palette 0, Color 2nd-4th
+    ld hl, wPalette_AnimBuffers.Background + 1*2
+    ld bc, wPalette_BaseBuffers.Background + 1*2
+    Set8 wTemp_4.Palette_ColorCounter, $03
+    call Palette_PaletteBufferFadeMultiColor
+    IF FIX_BUGS == 1
+        ; The previous function sets wPalette_VBlankReady so we need to immediately reset it 
+        xor a
+        ld [wPalette_VBlankReady], a
+    ENDC
+
+    ; Bugged - Fade Palette 1, Color 3rd, 4th as well as Palette 2, Color 1st
+    ; Should fade Palette 1, Color 2nd-4th
+    IF FIX_BUGS == 0
+        ld hl, wPalette_AnimBuffers.Background + 6*2
+        ld bc, wPalette_BaseBuffers.Background + 6*2
+    ELSE
+        ld hl, wPalette_AnimBuffers.Background + 5*2
+        ld bc, wPalette_BaseBuffers.Background + 5*2
+    ENDC
+    Set8 wTemp_4.Palette_ColorCounter, $03
+    call Palette_PaletteBufferFadeMultiColor
+    IF FIX_BUGS == 1
+        xor a
+        ld [wPalette_VBlankReady], a
+    ENDC
+
+    ; Fade only the non-transparent colors of the 3rd Palette
+    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]
+    and a
+    jr z, .NonTransparent
+    .Transparent
+        ; Fade Palette 2, Color 1st-4th
+        ld hl, wPalette_AnimBuffers.Background + 8*2
+        ld bc, wPalette_BaseBuffers.Background + 8*2
+        Set8 wTemp_4.Palette_ColorCounter, $04
+        call Palette_PaletteBufferFadeMultiColor
+        jr .Finally
+
+    .NonTransparent:
+        ; Bugged - Fades Palette 3 (CreatureRight), Color 1st-3rd
+        ; Should fade Palette 2, Color 2nd-4th
+        IF FIX_BUGS == 0
+        ld hl, wPalette_AnimBuffers.Background + 12*2
+        ld bc, wPalette_BaseBuffers.Background + 12*2
+        ELSE
+            ld hl, wPalette_AnimBuffers.Background + 8*2
+            ld bc, wPalette_BaseBuffers.Background + 8*2
+        ENDC
+        Set8 wTemp_4.Palette_ColorCounter, $03
+        call Palette_PaletteBufferFadeMultiColor
+    .Finally:
+    Set8 wPalette_VBlankReady, $01 ; inefficiency - line not needed since the previous function already sets it to 1
+    ret
 
 
-jr_007_4450:
-    ld hl, $C7D5                                  ; $4450: $21 $D5 $C7
-    ld bc, $C755                                  ; $4453: $01 $55 $C7
-    ld a, $03                                     ; $4456: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4458: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $445B: $CD $B6 $48
-    ret                                           ; $445E: $C9
+PaletteFX_Battle_CreatureRightFadeMultiColor:
+    ; Fade CreatureRight's palettes from Anim to Base
+    ; Inputs:
+    ;   wTemp_B.Palette_FadeMagnitude
+    ;   wFightscene_CreatureRight_3rdPaletteTransparent
+    xor a
+    ld [wPalette_VBlankReady], a
+    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
 
-;above is source/engine/system/graphics/palette/palette_fx.s
+    ; Fade Palette 3, Color 2nd-4th
+    ld hl, wPalette_AnimBuffers.Background + 13*2
+    ld bc, wPalette_BaseBuffers.Background + 13*2
+    Set8 wTemp_4.Palette_ColorCounter, $03
+    call Palette_PaletteBufferFadeMultiColor
+    xor a
+    ld [wPalette_VBlankReady], a
+
+    ; Fade Palette 4, Color 2nd-4th
+    ld hl, wPalette_AnimBuffers.Background + 17*2
+    ld bc, wPalette_BaseBuffers.Background + 17*2
+    Set8 wTemp_4.Palette_ColorCounter, $03
+    call Palette_PaletteBufferFadeMultiColor
+    xor a
+    ld [wPalette_VBlankReady], a
+
+    ; Fade only the non-transparent colors of the 5th Palette
+    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]
+    and a
+    jr nz, .Transparent
+    .NonTransparent:
+        ; Fade Palette 5, Color 1st-4th
+        ld hl, wPalette_AnimBuffers.Background + 20*2
+        ld bc, wPalette_BaseBuffers.Background + 20*2
+        Set8 wTemp_4.Palette_ColorCounter, $04
+        call Palette_PaletteBufferFadeMultiColor
+        ret
+    .Transparent:
+        ; Fade Palette 5, Color 2nd-4th
+        ld hl, wPalette_AnimBuffers.Background + 21*2
+        ld bc, wPalette_BaseBuffers.Background + 21*2
+        Set8 wTemp_4.Palette_ColorCounter, $03
+        call Palette_PaletteBufferFadeMultiColor
+        ret
 
     ; $445F
 INCLUDE "source/engine/system/graphics/palette/palette_vb_xx.asm"
@@ -1342,8 +1372,7 @@ Palette_PaletteBufferFadeMultiColor::
         ld [wTemp_4.Palette_ColorCounter], a
         jr Palette_PaletteBufferFadeMultiColor
     .Finished:
-        ld a, $01
-        ld [wPalette_VBlankReady], a
+        Set8 wPalette_VBlankReady, $01
         ret
 
     .Unused:
@@ -3685,240 +3714,8 @@ jr_007_5AF1:
     ld bc, $EA07                                  ; $5BFB: $01 $07 $EA
     db $01, $07
 
-Fightscene_PalFX_FadeArenaToColor::
-    ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
-    ; Updates the tiles of the creatures as well to maintain transparency illusion
-    ; Inputs:
-    ;   wTemp_B.Palette_FadeMagnitude - magnitude of change
-    ;   wTemp_A.Palette_SetColor - target Color
-    xor a
-    ld [wPalette_VBlankReady], a
-    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
-    Palette_SetPackedInterval 6, 2
-    call PaletteFX_FadeAnimToColor
-    FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
-    Set16 wFightscene_ArenaColor, bc
-    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
-    Set8 wPalette_VBlankReady, $01
-    ret
 
-Fightscene_PalFX_FadeArenaToBase::
-    ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
-    ; Updates the tiles of the creatures as well to maintain transparency illusion
-    ; Inputs:
-    ;   wTemp_B.Palette_FadeMagnitude - magnitude of change
-    ;   wPalette_AnimBuffers.Background - target colors
-    xor a
-    ld [wPalette_VBlankReady], a
-    Mov8 wPalette_FadeMagnitudeCounter, wTemp_B.Palette_FadeMagnitude
-    Palette_SetPackedInterval 6, 2
-    call PaletteFX_FadeAnimToBase
-    FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
-    Set16 wFightscene_ArenaColor, bc
-    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-
-    ; $5C52
-Fightscene_PalFX_SetCreaturePaletteArenaColor::
-    ; Pastes a Color wFightscene_ArenaColor into the first color of each palette id
-    ; To simulate a "transparency" color for the creatures
-    ; CreatureLeft: Palettes 0 and 1 automatically take the palette color
-    ;               Palette 2 optionally takes the color if the RGB value is 0, $F, $F
-    ; CreatureRight:Palettes 3 and 4 automatically take the palette color
-    ;               Palette 5 optionally takes the color if the RGB value is 0, $F, $F
-    xor a
-    ld [wPalette_VBlankReady], a
-    Get16 bc, wFightscene_ArenaColor
-
-    ; Palettes 0.0, 1.0
-    ld hl, wPalette_BaseBuffers
-    ld e, 4*0
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-
-    ; Palettes 3.0, 4.0
-    ld hl, wPalette_BaseBuffers
-    ld e, 4*3
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld hl, wPalette_BaseBuffers
-
-    call Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor
-
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-    ; $5C7E
-Fightscene_PalFX_SetFightsceneArenaColor::
-    ; Pastes a Color wFightscene_ArenaColor into:
-    ;   Palette 0.0, 1.0, 3.0, 4.0, 6.0
-    ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
-    ;   Also pastes over those values
-    xor a
-    ld [wPalette_VBlankReady], a
-    Get16 bc, wFightscene_ArenaColor
-    ld hl, wPalette_BaseBuffers
-    ld e, 4*6
-    ld a, $01
-    call Palette_PaletteBufferSetColor
-    call Fightscene_PalFX_SetCreaturePaletteArenaColor ; inefficiency? - this function is called again when a creature's palette is loaded
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
-    ; Forces Palette 5.0 to be Color wFightscene_ArenaColor (CreatureRight 3rd Palette)
-    ; Inputs:
-    ;   wFightscene_ArenaColor
-    xor a
-    ld [wPalette_VBlankReady], a
-    Get16 bc, wFightscene_ArenaColor
-    ld hl, wPalette_AnimBuffers
-    ld e, 4*5
-    ld a, $01
-    call Palette_PaletteBufferSetColor
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-    ; $5CB9
-Fightscene_PalFX_SetCardsceneArenaColor::
-    ; Set the Palette 6 - populate it with the arena colors:
-    ; Palette 6.0 <- wFightscene_ArenaColor
-    ; Palette 6.1 <- Black
-    ; Palette 6.2, 6.3 - undefined (not used, not changed)
-    xor a
-    ld [wPalette_VBlankReady], a
-
-    ; Set Palette 6.0 to wFightscene_ArenaColor
-    Get16 bc, wFightscene_ArenaColor
-    ld hl, wPalette_BaseBuffers.Background
-    ld e, 6*4
-    ld a, 1
-    call Palette_PaletteBufferSetColor
-
-    ; Set Palette 6.0 to Black
-    ld bc, $0000
-    ld hl, wPalette_BaseBuffers.Background
-    ld e, 6*4 + 1
-    ld a, 1
-    call Palette_PaletteBufferSetColor
-
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-
-Fightscene_PalFX_UpdateTransparencyWithNewArenaColor:
-    ; When wFightscene_ArenaColor is changed, we need to apply the new color
-    ; To the creature's palettes so that they maintain transparency
-    ; Inputs:
-    ;   wFightscene_ArenaColor
-    ;   wFightscene_CreatureLeft_3rdPaletteTransparent
-    ;   wFightscene_CreatureRight_3rdPaletteTransparent
-    xor a
-    ld [wPalette_VBlankReady], a
-
-    ; Set CreatureLeft Pal 0+1 transparency
-    Get16 bc, wFightscene_ArenaColor
-    ld hl, wPalette_AnimBuffers.Background
-    ld e, 0*4
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ; Set CreatureRight Pal 3+4 transparency
-    ld hl, wPalette_AnimBuffers.Background
-    ld e, 4*3
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ; Set Arena Pal 6 to the new wFightscene_ArenaColor
-    ld hl, wPalette_AnimBuffers.Background
-    ld e, 4*6
-    ld a, $01
-    call Palette_PaletteBufferSetColor
-    ; Conditionally set CreatureLeft Pal 2 transparency
-    ld a, [wFightscene_CreatureLeft_3rdPaletteTransparent]
-    and a
-    jr z, .Skip1
-        ld hl, wPalette_AnimBuffers.Background
-        ld e, 2*4
-        ld a, $01
-        call Palette_PaletteBufferSetColor
-    .Skip1:
-    ; Conditionally set CreatureRight Pal 5 transparency
-    ld a, [wFightscene_CreatureRight_3rdPaletteTransparent]
-    and a
-    jr z, .Skip2
-        ld hl, wPalette_AnimBuffers.Background
-        ld e, 5*4
-        ld a, $01
-        call Palette_PaletteBufferSetColor
-    .Skip2:
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-
-    ; $5D32
-Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor::
-    ; Pastes a Color wFightscene_ArenaColor into the first color of the third palette id
-    ; To simulate a "transparency" color for the creatures
-    ; CreatureLeft:  Palette 2 optionally takes the color if the RGB value is 0, $F, $F
-    ; CreatureRight: Palette 5 optionally takes the color if the RGB value is 0, $F, $F
-    ; Outputs:
-    ;   Sets wFightscene_CreatureLeft_3rdPaletteTransparent and wFightscene_CreatureRight_3rdPaletteTransparent to non-zero if they are transparent
-    push bc
-    push hl
-    xor a
-    ld [wFightscene_CreatureLeft_3rdPaletteTransparent], a
-    ld [wFightscene_CreatureRight_3rdPaletteTransparent], a
-
-    ; Check Palette 2
-    db $01 ;ld bc,
-        RGB 0, $F, $F
-    ld de, 8*2    ;+2 Palettes
-    add hl, de
-    DerefHL
-    ld a, h
-    cp b
-    jr nz, .SkipPalette2
-    ld a, l
-    cp c
-    jr nz, .SkipPalette2
-    .SetPalette2Transparent
-        pop hl
-        pop bc
-        push bc
-        push hl
-        ld e, 4*2 ; Palette 2.0
-        ld a, $01
-        ld [wFightscene_CreatureLeft_3rdPaletteTransparent], a
-        call Palette_PaletteBufferSetColor
-    .SkipPalette2:
-
-    ; Check Palette 5
-    db $01 ;ld bc,
-        RGB 0, $F, $F
-    pop hl
-    push hl
-    ld de, 8*5    ;+5 Palettes
-    add hl, de
-    DerefHL
-    ld a, h
-    cp b
-    jr nz, .SkipPalette5
-    ld a, l
-    cp c
-    jr nz, .SkipPalette5
-    .SetPalette5Transparent
-        pop hl
-        pop bc
-        ld e, 4*5 ; Palette 5.0
-        ld a, $01 ; Sequential palettes to set
-        ld [wFightscene_CreatureRight_3rdPaletteTransparent], a
-        call Palette_PaletteBufferSetColor
-        ret
-    .SkipPalette5:
-    pop hl
-    pop bc
-    ret
+INCLUDE "source/game/fightscene/fightscene_xx_palfx_arena.asm"
 
     ; $5D7F
     dw $6865

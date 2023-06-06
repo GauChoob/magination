@@ -926,9 +926,11 @@ wTemp_A::
     ; The Color to which to set a value
     .Palette_Counter:
     ; Loop counter
+    .Palette_Offset:
+    ; Number of 3-palette palettes by which to offset
     .Fightscene_Arena_BottomBitmapAddress::
     ; Fightscene_ArenaData Struct property
-    .Unknown:
+    .Unknown: ; todo - remove
     ; Temporary Color argument used in functions
     ds 2
     ;ds $C9DC - @

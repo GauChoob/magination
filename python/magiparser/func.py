@@ -488,11 +488,11 @@ class FuncHandler(ResultsHandler):
         self.size = 3
         return self.GenerateOutput(*range(3))
 
-    def PalCreatureFadeUniColor(self):      # 0x71
+    def PalCreatureFadeToColor(self):      # 0x71
         self.size = 5
         return self.GenerateOutput(*range(7))
 
-    def PalCreatureFadeMultiColor(self):    # 0x72
+    def PalCreatureFadeToBase(self):    # 0x72
         self.size = 3
         return self.GenerateOutput(*range(3))
 

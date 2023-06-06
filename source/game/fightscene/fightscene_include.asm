@@ -15,6 +15,10 @@ DEF FIGHTSCENE_LYC_STARTSCREEN_ARENABOTTOM EQU 13*8
 DEF FIGHTSCENE_SCX_WX_DISTANCE EQU $87 ; Number of pixels between the viewport of the Background and the Window. The Window is always this much to the right of the Background (barring a small difference from a FightFX)
 
 DEF FIGHTSCENE_CREATURE_MAX_HEIGHT EQU $0A
+DEF FIGHTSCENE_CREATURE_LEFT EQU $00
+DEF FIGHTSCENE_CREATURE_RIGHT EQU $01
+
+DEF FIGHTSCENE_TRANSPARENT_COLOR EQU $3DE0  ; RGB $00, $0F, $0F
 
     ; Bank 0
     VRAM_TILEID_BG

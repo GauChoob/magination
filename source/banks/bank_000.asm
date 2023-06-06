@@ -3424,7 +3424,7 @@ Cmd_Palette_CreatureCycle::
         jp Palette_LoopFinally
 
     ; $1ADB
-Cmd_Palette_CreatureFadeUniColor::
+Cmd_Palette_CreatureFadeToColor::
     ; BattleFX - fades a creature's palette to a Color
     ; Arguments:
     ;   db  Palette_PackedLoop
@@ -3448,15 +3448,14 @@ Cmd_Palette_CreatureFadeUniColor::
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeUniColor
+        XCall PaletteFX_Battle_CreatureFadeToColor
         pop bc
         jp Palette_LoopFinally
 
     ; $1B0E
-Cmd_Palette_CreatureFadeMultiColor::
-    ; TODO VERIFY FUNCTION
-    ; A quick glance seems to fade from Anim to Base Buffers
-    ; BattleFX - Ipsum TODO
+Cmd_Palette_CreatureFadeToBase::
+    ; Fades the target creature's colors from Anim to Base Buffers
+    ; The CreatureLeft function has a few bugs, although CreatureRight works well
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
@@ -3477,7 +3476,7 @@ Cmd_Palette_CreatureFadeMultiColor::
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeMultiColor
+        XCall PaletteFX_Battle_CreatureFadeToBase
         pop bc
         jp Palette_LoopFinally
 
@@ -3501,10 +3500,10 @@ Cmd_Palette_CreatureLoad::
 
     ; $1B70
 Cmd_Palette_CreatureFlash::
-    ; BattleFX - rotates a creature's palette's RGB values
+    ; Swaps a creature's palette's RGB values
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_8.Palette_ColorSwapType
+    ;   db  wTemp_8.Palette_ColorSwapType - PALETTE_SWAP_RB, PALETTE_SWAP_BG, PALETTE_SWAP_RG_Bugged, PALETTE_SWAP_RGB
     ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command

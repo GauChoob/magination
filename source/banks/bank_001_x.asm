@@ -790,8 +790,8 @@ Script_Table::
     dw Cmd_Palette_ClearBase        ; $6E
     dw Cmd_Palette_ClearAnim        ; $6F
     dw Cmd_Palette_CreatureCycle    ; $70
-    dw Cmd_Palette_CreatureFadeUniColor ; $71
-    dw Cmd_Palette_CreatureFadeMultiColor ; $72
+    dw Cmd_Palette_CreatureFadeToColor ; $71
+    dw Cmd_Palette_CreatureFadeToBase ; $72
     dw Cmd_Palette_CreatureLoad     ; $73
     dw Cmd_Palette_CreatureFlash    ; $74
     dw Cmd_Palette_CreatureInvert   ; $75
