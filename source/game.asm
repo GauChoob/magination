@@ -169,11 +169,11 @@ INCLUDE "source/banks/bank_041.asm"
     ; Lots of space remaining ($4FF0-$8000)
 SECTION "Cardscene Fightscene Tilemaps", ROMX[$4000], BANK[$42]
 INCLUDE "source/game/cardscene/cardscene_cardtileattrmaps.asm"
-INCLUDE "assets/fightscene/arena/fightscene_arena_tilemaps.asm"
+INCLUDE "assets/fightscene/fightscene_arena_tilemaps.asm"
     ; Cardscene background and Fightscene Arena bitmaps (1/2)
     ; Lots of space remaining ($649D-$8000)
 SECTION "Cardscene Fightscene Bitmaps1", ROMX[$4000], BANK[$43]
-INCLUDE "assets/fightscene/arena/fightscene_arena_bitmaps1.asm"
+INCLUDE "assets/fightscene/fightscene_arena_bitmaps1.asm"
 INCLUDE "assets/cardscene/arenabackground.asm"
 
 ;
@@ -197,24 +197,24 @@ INCLUDE "source/assets/dream_creatures/cards/cards1.asm"
 
     ; Tilemap/attrmap for all the combat sprites. Room for more
 SECTION "DC Combat Tilemaps", ROMX[$4000], BANK[$46]
-INCLUDE "source/assets/dream_creatures/sprites/tilemaps.asm"
+INCLUDE "assets/fightscene/fightscene_creature_tilemaps.asm"
 
     ; Only a small amount of room left.
-SECTION "DC Combat Bitmaps 00", ROMX[$4000], BANK[$48]
-INCLUDE "source/assets/dream_creatures/sprites/bitmaps00.asm"
+SECTION "DC Combat Bitmaps 1", ROMX[$4000], BANK[$48]
+INCLUDE "assets/fightscene/fightscene_creature_bitmaps1.asm"
     ;  Only a small amount of room left.
-SECTION "DC Combat Bitmaps 01", ROMX[$4000], BANK[$49]
-INCLUDE "source/assets/dream_creatures/sprites/bitmaps01.asm"
+SECTION "DC Combat Bitmaps 2", ROMX[$4000], BANK[$49]
+INCLUDE "assets/fightscene/fightscene_creature_bitmaps2.asm"
     ; Tilesets for combat sprites. Only a small amount of room left.
-    ; Contains an extra unused copy of Abaquist's tileset but uncompressed (BUG/ERROR)
-SECTION "DC Combat Bitmaps 02", ROMX[$4000], BANK[$4A]
-INCLUDE "source/assets/dream_creatures/sprites/bitmaps02.asm"
+    ; Contains an extra unused copy of Abaquist's tileset but uncompressed (BUG)
+SECTION "DC Combat Bitmaps 3", ROMX[$4000], BANK[$4A]
+INCLUDE "assets/fightscene/fightscene_creature_bitmaps3.asm"
     ; Tilesets for combat sprites. Only a small amount of room left.
-SECTION "DC Combat Bitmaps 03", ROMX[$4000], BANK[$4B]
-INCLUDE "source/assets/dream_creatures/sprites/bitmaps03.asm"
+SECTION "DC Combat Bitmaps 4", ROMX[$4000], BANK[$4B]
+INCLUDE "assets/fightscene/fightscene_creature_bitmaps4.asm"
     ; Tilesets for combat sprites. Only a small amount of room left.
-SECTION "DC Combat Bitmaps 04", ROMX[$4000], BANK[$4D]
-INCLUDE "source/assets/dream_creatures/sprites/bitmaps04.asm"
+SECTION "DC Combat Bitmaps 5", ROMX[$4000], BANK[$4D]
+INCLUDE "assets/fightscene/fightscene_creature_bitmaps5.asm"
 
     ; Item/Spell scripts
 INCLUDE "source/banks/bank_04c.asm"

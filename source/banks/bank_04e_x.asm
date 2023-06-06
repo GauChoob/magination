@@ -1,7 +1,7 @@
 SECTION "ROM Bank $04e", ROMX[$4000], BANK[$4e]
 
 
-INCLUDE "assets/fightscene/arena/fightscene_arena_bitmaps2.asm"
+INCLUDE "assets/fightscene/fightscene_arena_bitmaps2.asm"
 
     ; $61C8
     nop                                           ; $61C8: $00

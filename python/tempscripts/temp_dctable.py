@@ -219,35 +219,35 @@ for i in range(n):
     pos = next(op)
     gbank = pos[2]
     gaddress = data_to_word(pos[0:2])
-    filenames,starts,ends = rle.main_decompress("../MN.gbc",gbank,gaddress,["dreamcreatures/combat/{}.tileset".format(name)])
+    filenames,starts,ends = rle.main_decompress("../MN.gbc",gbank,gaddress,["fightscene/creatures/{}.tileset".format(name)])
     replace_rom_text.replace_rom_text(pos_to_bank(starts[0]),pos_to_address(starts[0]),pos_to_address(ends[0]),
         "tsCombat"+name+"RLE::",
-        '    INCBIN "gfx/dreamcreatures/combat/{}.tileset.rle"'.format(name)
+        '    INCBIN "gfx/fightscene/creatures/{}.tileset.rle"'.format(name)
     )
     
     pos = next(op)
     gbank = pos[2]
     gaddress = data_to_word(pos[0:2])
-    filenames2,starts2,ends2 = rle.main_decompress("../MN.gbc",gbank,gaddress,["dreamcreatures/combat/{}.attrmap".format(name),"dreamcreatures/combat/{}.tilemap".format(name)])
+    filenames2,starts2,ends2 = rle.main_decompress("../MN.gbc",gbank,gaddress,["fightscene/creatures/{}.attrmap".format(name),"fightscene/creatures/{}.tilemap".format(name)])
     x = replace_rom_text.replace_rom_text(pos_to_bank(starts2[0]),pos_to_address(starts2[0]),pos_to_address(ends2[1]),
         "tmCombat"+name+"RLE::",
-        '    INCBIN "gfx/dreamcreatures/combat/{}.attrmap.rle"\n'.format(name) +
-        '    INCBIN "gfx/dreamcreatures/combat/{}.tilemap.rle"'.format(name)
+        '    INCBIN "gfx/fightscene/creatures/{}.attrmap.rle"\n'.format(name) +
+        '    INCBIN "gfx/fightscene/creatures/{}.tilemap.rle"'.format(name)
     )
     
     pos = next(op)
     gbank = pos[2]
     gaddress = data_to_word(pos[0:2])
-    palette.rom_to_image("../MN.gbc",gbank,gaddress,0x08*3,["dreamcreatures/combat/{}.pal".format(name)])
+    palette.rom_to_image("../MN.gbc",gbank,gaddress,0x08*3,["fightscene/creatures/{}.pal".format(name)])
     x = replace_rom_text.replace_rom_text(gbank,gaddress,gaddress+0x08*3,
         "pCombat"+name+"::",
-        '    INCBIN "gfx/dreamcreatures/combat/{}.pal"'.format(name)
+        '    INCBIN "gfx/fightscene/creatures/{}.pal"'.format(name)
     )
     
         
     filenames3 = extract_image.twobpp_to_png(filenames[0],"square")
     os.rename(filenames3[0],filenames3[0]+".tmp")
-    colorize.colorTileset(filenames3[0]+".tmp",filenames2[1],filenames2[0],0,0,"python/out/dreamcreatures/combat/{}.pal.png".format(name),0,addgreyscale=False,defaultpalette=0)
+    colorize.colorTileset(filenames3[0]+".tmp",filenames2[1],filenames2[0],0,0,"python/out/fightscene/creatures/{}.pal.png".format(name),0,addgreyscale=False,defaultpalette=0)
 
     pos = next(op)
     gbank = pos[2]
@@ -307,10 +307,10 @@ for bank in range(0x44,0x46):
             '    INCBIN "gfx/dreamcreatures/card/{}.tileset"'.format(cardsunused[id][0])
         )
 
-#extract_image.extract_image("python/out/dreamcreatures/combat/AbaquistUncompressed.tileset","../MN.gbc",0x4a,0x668B,0x688B-0x668B,"",palettemenu) #uncompressed abaquist
+#extract_image.extract_image("python/out/fightscene/creatures/AbaquistUncompressed.tileset","../MN.gbc",0x4a,0x668B,0x688B-0x668B,"",palettemenu) #uncompressed abaquist
     #It's identical to the compressed version of the abaquist so we'll just reference that directly
 
 replace_rom_text.replace_rom_text(0x4a,0x668B,0x688B,
     "tsCombatAbaquistUncompressed_Unused::",
-    '    INCBIN "gfx/dreamcreatures/combat/AbaquistRLE5.tileset"'.format(name)
+    '    INCBIN "gfx/fightscene/creatures/AbaquistRLE5.tileset"'.format(name)
 )
