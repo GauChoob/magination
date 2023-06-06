@@ -6677,11 +6677,12 @@ Fightscene_FixCreatureRightAttrmap::
     ; Fix the Palette - CreatureRight is in palettes 3-5 (instead of 0-2 for CreatureLeft)
     Do_MemXor FIGHTSCENE_CREATURE_RIGHT_SPRITE, (FIGHTSCENE_CREATURE_RIGHT_SPRITE_END - FIGHTSCENE_CREATURE_RIGHT_SPRITE), $28
     Do_MemAdd FIGHTSCENE_CREATURE_RIGHT_SPRITE, (FIGHTSCENE_CREATURE_RIGHT_SPRITE_END - FIGHTSCENE_CREATURE_RIGHT_SPRITE), $03, $FF
-    ret                                           ; $71A5: $C9
+    ret
 
 
     ; $71A6
 Fightscene_HandleButtons::
+    ; Checks if the user has pressed B or Start and reacts accordingly
 
     ; Abort if fightscene is finished
     ld a, [wFightscene_Done]
@@ -6760,22 +6761,23 @@ Fightscene_Init:
     Frame_Init
     xor a
     ld [wFightscene_Start], a
-    ld [$C9C8], a
-    ld [$C831], a
+    ld [wFightscene_DebugOptions], a
+    ld [wPalette_VBlankReady], a
     call Fightscene_SCXInit
-    xor a
-    ld [$C834], a
-    ld [$C835], a
-    ld a, $00
-    ld [$C832], a
-    ld a, $24
-    ld [$C833], a
 
+    ; Inefficiency/bug: These variables are no longer used and are accidentally still initialized here
+    xor a
+    ld [wPalette_Unused_Temp], a
+    ld [wPalette_Unused_Temp + 1], a
+    Set16_M wPalette_Unused_Color, $2400  ; RGB $00, $00, $09 (Dark Blue)
+
+    ; Load the Arena
     ; inefficiency - this was a single-use Macro which is why it loads itself
     ld a, [wFightscene_ArenaIndex]
     ld [wFightscene_ArenaIndex], a
     Do_CallForeign Fightscene_LoadArena
 
+    ; Load the two creatures
     Mov8 wTemp_8.Fightscene_CreatureID, wFightscene_CreatureLeft_ID
     Set8 wTemp_9.Palette_BattleFX_CreatureIsRight, $00 ; inefficiency - ld a, $00 (this was a macro)
     Do_CallForeign Fightscene_LoadCreature
@@ -6989,12 +6991,15 @@ Fightscene_StartScreen_Init::
     Set16_M wVBlank_HandlerFunc, Fightscene00_VBlank_StartScreen
     ret
 
-
-    xor a                                         ; $7413: $AF
-    ld [$C9C8], a                                 ; $7414: $EA $C8 $C9
+    ; $7413
+Fightscene_UNK::
+    ; Todo - unused? To verify
+    ; Disables the Fightscene VBlank/HBlank effects
+    xor a
+    ld [wFightscene_DebugOptions], a ; Inefficiency - this var is no longer used
     Set16_M wVBlank_HandlerFunc, Interrupt_VBlank_Handler_Standard
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_Idle
-    ret                                           ; $742B: $C9
+    ret
 
     ; $742C
 BITSET_Battle_Agram::

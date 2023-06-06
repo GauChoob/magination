@@ -503,6 +503,17 @@ wPalette_VBlankReady::
     ; This prevents a partially-modified palette from being pushed to palette memory during VBlank
     ; See Palette_DeterminePaletteVBlankFunc for details
     ds 1
+    ;ds $C832 - @
+wPalette_Unused_Color::
+    ; Unused var that has been replaced by wTemp_A.Palette_SetColor
+    ; Inefficiency/bug - this variable is still initialized in Fightscene_Init
+    ds 2
+    ;ds $C834 - @
+wPalette_Unused_Temp::
+    ; Unused var that has been replaced by the wTemp_1-wTemp_C variables
+    ; Inefficiency/bug - this variable is accidentally initialized in Fightscene_Init
+    ; Once upon a time this variable held temporary information in a debug function
+    ds 2
 
     ds $C836 - @
 INCLUDE "source/engine/system/graphics/screenfx/screenfx_wram.asm"
@@ -819,7 +830,12 @@ wFightscene_Done::
 wFightscene_Paused::
     ; Set to 1 when Fightscene is paused via the Start button.
     ds 1
-
+    ;ds $C9C8 - @
+wFightscene_DebugOptions::
+    ; Unused removed feature.
+    ; When this var was non-zero, pressing buttons applied some test effects for debugging
+    ; These features are removed and so this var does not do anything, although it is initialized
+    ds 1
     ds $C9CA - @
 wFightscene_BattleScriptFrame::
     ds 2
@@ -827,7 +843,7 @@ wFightscene_BattleScriptFrame::
 wFightscene_BattleScriptBank::
     ds 1
     ; CREATURE_GFX_STRUCT TEMP
-    ds $C9CD - @
+    ;ds $C9CD - @
 wTemp_0::
     .Fightscene_Arena_TopBitmapAddress::
     .Fightscene_Creature_TilesetAddress::
