@@ -1950,7 +1950,7 @@ Cmd_Battle_New::
     Script_ReadByteA
     ld [wBattle_MagiCreatureID], a
     ; Set whether Tony can run from the battle (yes if no enemy magi)
-    cp luDreamCreature6C
+    cp CreatureID_NoMagi
     jr z, .NoMagi
     .HasMagi:
         xor a
@@ -3319,7 +3319,7 @@ Palette_LoopFinally::
         ret
 
     ; $1A16
-Cmd_Palette_Arena_FadeToColor::
+Cmd_Palette_ArenaFadeToColor::
     ; Fades the Arena palettes to a single color
     ; Arguments:
     ;   db  Palette_PackedLoop
@@ -3346,7 +3346,7 @@ Cmd_Palette_Arena_FadeToColor::
         jp Palette_LoopFinally
 
     ; $1A44
-Cmd_Palette_Arena_FadeToBase::
+Cmd_Palette_ArenaFadeToBase::
     ; Fades the Arena palettes to a new palette
     ; The new palette needs to already be loaded into wPalette_BaseBuffers with a previous command
     ; Arguments:

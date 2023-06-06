@@ -2198,13 +2198,13 @@ jr_005_57B9:
 
     ; $57BA
 Call_005_57BA::
-    ; Abort if index is out of range, i.e. id is >= luDreamCreature6C
+    ; Abort if index is out of range, i.e. id is >= CreatureID_NoMagi
     ld a, [$D0C2]
-    cp luDreamCreature6C
+    cp CreatureID_NoMagi
     ret nc
 
     ; Lookup the nth entry (nth magi) from the magis' scripts' table
-    sub luDreamCreatureMAGI
+    sub CreatureID_MAGI
     add a
     ld c, a
     ld b, $00

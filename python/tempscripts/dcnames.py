@@ -14,7 +14,7 @@ with open("../MN.gbc","rb") as f:
             stripname = name[8:-1].rstrip().replace(" ","_")
             end = f.tell()
             
-            temp = "luDreamCreature" + stripname
+            temp = "CreatureID_" + stripname
             g.write(temp + " "*(36-len(temp)) +"EQU $"+write_i_to_byte(i)+"\n")
             replacetext += name + "\n"
             

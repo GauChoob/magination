@@ -839,7 +839,7 @@ jr_002_459B:
     jr nz, jr_002_45D0                            ; $459F: $20 $2F
 
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
 
 jr_002_45D0:
     ld a, [$D0B2]                                 ; $45D0: $FA $B2 $D0
@@ -2429,7 +2429,7 @@ jr_002_5086:
     jr jr_002_50CE                                ; $50A3: $18 $29
 
 jr_002_50A5:
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_FOCUS, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_FOCUS, $0B
     ld hl, $C71B                                  ; $50BC: $21 $1B $C7
     ld a, $4C                                     ; $50BF: $3E $4C
     ld [hl+], a                                   ; $50C1: $22
@@ -5016,7 +5016,7 @@ Battle_Flow_Exit:
     Sound_Request_StartSong SONGID_GetItem
 
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_VICTORY, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_VICTORY, $0B
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3
@@ -5119,7 +5119,7 @@ Jump_002_641DCheckLose:
     jp nz, Jump_002_64EDCheckTODO                          ; $641F: $C2 $ED $64
     .Lose:
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_VICTORY, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_DEFEAT, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_DEFEAT, $0B
     ld hl, $C71B                                  ; $6451: $21 $1B $C7
     ld a, $4C                                     ; $6454: $3E $4C
     ld [hl+], a                                   ; $6456: $22
@@ -5989,9 +5989,9 @@ Battle_Flow_ProcessHero:
 
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
     call Battle00_DisableActorScript
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_CHOOSE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_CHOOSE, $0B
     call Battle_Flow_ControlCreature
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
     FGet16 hl, wBattle_Creature_Current.BattleCmd_Function
     ld bc, BattleCmd_5272 ; Summon
     TwosComp bc
@@ -6000,7 +6000,7 @@ Battle_Flow_ProcessHero:
     or l
     jr nz, .jr_002_6BB0
 
-        Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_SUMMON, $0B
+        Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_SUMMON, $0B
 
     .jr_002_6BB0:
     ; Store the hero

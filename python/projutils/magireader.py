@@ -140,8 +140,19 @@ class MagiScriptLine:
 
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
 
+        0x33: CommandBuilder("func", "BlowAway"),
         0x34: CommandBuilder("func", "LoadArena", "LoadSideScroller_Scene"),
+        0x35: CommandBuilder("func", "LoadCreatureLeft", "CreatureID"),
+        0x36: CommandBuilder("func", "DissolveFast"),
+        0x37: CommandBuilder("func", "DissolveSlow"),
+        0x38: CommandBuilder("func", "FightsceneNew", "LoadSideScroller_Scene", "CreatureID", "CreatureID"),
+        0x39: CommandBuilder("func", "PanTable", "CreatureSide", "PanAddress"),  # Technically it is pan left vs pan right, not CreatureSide, but the reference is the same
+        0x3A: CommandBuilder("func", "Recoil"),
 
+        0x3C: CommandBuilder("func", "PanConstant", "CreatureSide", "db", "db"),
+        0x3D: CommandBuilder("func", "Shake"),
+        0x3E: CommandBuilder("func", "Sink"),
+        0x3F: CommandBuilder("func", "Tremble"),
         0x40: CommandBuilder("func", "Delay", "db"),
         0x41: CommandBuilder("func", "RandDelay", "RandDelayAddress"),
         0x42: CommandBuilder("func", "End"),
@@ -186,8 +197,8 @@ class MagiScriptLine:
         0x69: CommandBuilder("func", "LoadTriggers", "TriggerTableAddress"),
         0x6A: CommandBuilder("func", "LoadBitmapSet", "AddressBank_BITSET", "AddressBank_PAL"),
         0x6B: CommandBuilder("func", "LoadSingleBitmap", "$db", "BankAddress_BITMAP", "$dw", "$db"),
-
-        0x6E: CommandBuilder("func", "PalClearBase", "Palette_PackedInterval", "Color"),
+        0x6C: CommandBuilder("func", "PalArenaFadeToColor", "Palette_PackedLoop", "Color"),
+        0x6D: CommandBuilder("func", "PalArenaFadeToBase", "Palette_PackedLoop"),
         0x6F: CommandBuilder("func", "PalClearAnim", "Palette_PackedInterval", "Color"),
         0x70: CommandBuilder("func", "PalCreatureCycle", "Palette_PackedLoop", "CreatureSide"),
         0x71: CommandBuilder("func", "PalCreatureFadeUniColor", "Palette_PackedLoop", "Color", "CreatureSide"),
@@ -458,6 +469,10 @@ class MagiScriptLine:
                 address = getWord()
                 sprites.add(utils.BankAddress(curbank, address))  # store a copy of all the unique sprite addresses
                 return [interpretBankAddress(curbank, address, "OAMX")]  # Stay in same bank
+            elif(instruction == "PanAddress"):
+                address = getWord()
+                return [interpretBankAddress(0x04, address, "FIGHTSCENEPAN")]  # Fightscene bank = $04
+
 
             # VARBIT
             elif(instruction == "Varbit"):

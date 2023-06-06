@@ -3043,7 +3043,7 @@ dcYvohcna::
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcPlAcEhOlDr56::
+dcPlAcEhOlDr1::
     db                        $02                ;column00
     dcm_Energy                10
     db                        $00                ;column02
@@ -3077,7 +3077,7 @@ dcPlAcEhOlDr56::
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcPlAcEhOlDr57::
+dcPlAcEhOlDr2::
     db                        $02                ;column00
     dcm_Energy                10
     db                        $00                ;column02
@@ -3383,7 +3383,7 @@ dcMorag::
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcAgram60::
+dcAgram1::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3410,14 +3410,14 @@ dcAgram60::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_Agram60RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_Agram60RLE
+    dcm_CombatTileset         BITMAP_Combat_Agram1RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_Agram1RLE
     dcm_CombatTilemapSize     $09, $09
-    dcm_CombatPalette         PAL_CombatAgram60
+    dcm_CombatPalette         PAL_CombatAgram1
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcAgram61::
+dcAgram2::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3444,14 +3444,14 @@ dcAgram61::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_Agram61RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_Agram61RLE
+    dcm_CombatTileset         BITMAP_Combat_Agram2RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_Agram2RLE
     dcm_CombatTilemapSize     $09, $09
-    dcm_CombatPalette         PAL_CombatAgram61
+    dcm_CombatPalette         PAL_CombatAgram2
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcAgram62::
+dcAgram3::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3478,14 +3478,14 @@ dcAgram62::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_Agram62RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_Agram62RLE
+    dcm_CombatTileset         BITMAP_Combat_Agram3RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_Agram3RLE
     dcm_CombatTilemapSize     $09, $09
-    dcm_CombatPalette         PAL_CombatAgram62
+    dcm_CombatPalette         PAL_CombatAgram3
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi63::
+dcShadowMagi1::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3512,14 +3512,14 @@ dcShadowMagi63::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi63RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi63RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi1RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi1RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi63
+    dcm_CombatPalette         PAL_CombatShadowMagi1
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi64::
+dcShadowMagi2::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3546,14 +3546,14 @@ dcShadowMagi64::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi64RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi64RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi2RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi2RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi64
+    dcm_CombatPalette         PAL_CombatShadowMagi2
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi65::
+dcShadowMagi3::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3580,14 +3580,14 @@ dcShadowMagi65::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi65RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi65RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi3RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi3RLE
     dcm_CombatTilemapSize     $05, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi65
+    dcm_CombatPalette         PAL_CombatShadowMagi3
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi66::
+dcShadowMagi4::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3614,14 +3614,14 @@ dcShadowMagi66::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi66RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi66RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi4RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi4RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi66
+    dcm_CombatPalette         PAL_CombatShadowMagi4
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi67::
+dcShadowMagi5::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3648,14 +3648,14 @@ dcShadowMagi67::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi67RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi67RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi5RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi5RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi67
+    dcm_CombatPalette         PAL_CombatShadowMagi5
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi68::
+dcShadowMagi6::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3682,14 +3682,14 @@ dcShadowMagi68::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi68RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi68RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi6RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi6RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi68
+    dcm_CombatPalette         PAL_CombatShadowMagi6
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi69::
+dcShadowMagi7::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3716,14 +3716,14 @@ dcShadowMagi69::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi69RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi69RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi7RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi7RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi69
+    dcm_CombatPalette         PAL_CombatShadowMagi7
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
-dcShadowMagi70::
+dcShadowMagi8::
     db                        $0C                ;column00
     dcm_Energy                50
     db                        $FF                ;column02
@@ -3750,10 +3750,10 @@ dcShadowMagi70::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi70RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi70RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi8RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi8RLE
     dcm_CombatTilemapSize     $04, $06
-    dcm_CombatPalette         PAL_CombatShadowMagi70
+    dcm_CombatPalette         PAL_CombatShadowMagi8
     dcm_CardTileset           BITMAP_Card_Yvohcna
     dcm_CardPalette           $01
 
@@ -3818,8 +3818,8 @@ dcUnnamed6C::
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
     dcm_AbilityLevel          0
-    dcm_CombatTileset         BITMAP_Combat_ShadowMagi70RLE
-    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi70RLE
+    dcm_CombatTileset         BITMAP_Combat_ShadowMagi8RLE
+    dcm_CombatTilemap         ATTRTILE_Combat_ShadowMagi8RLE
     dcm_CombatTilemapSize     $06, $08
     dcm_CombatPalette         PAL_CombatOrathan_F
     dcm_CardTileset           BITMAP_Card_Yvohcna
@@ -5337,7 +5337,7 @@ Cardscene_Init::
     PushRAMBank
     SwitchRAMBank BANK("WRAM BATTLE")
     ld a, [wBattle_MagiCreatureID]
-    sub luDreamCreatureTogoth
+    sub CreatureID_Togoth
     add a
     ld c, a
     ld b, $00
