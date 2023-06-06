@@ -118,56 +118,56 @@ class FuncHandler(ResultsHandler):
 
     def HeroToDoor(self):                   # 0x01
         self.size = 3
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def HeroToRelativeDoor(self):           # 0x02
         self.size = 5
-        return self.GenerateOutput(0, 1, 2, 3)
+        return self.GenerateOutput(*range(4))
     
     # 0x04
 
     def ThatInit(self):                     # 0x05
         self.size = 15
-        return self.GenerateOutput(0, 1, 2, 3, 4, 5, 6, 7)
+        return self.GenerateOutput(*range(8))
 
     def ThatTeleportTo(self):               # 0x06
         self.size = 3
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def ThatAI(self):                       # 0x07
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def ThatLoc(self):                      # 0x08
         self.size = 8
-        return self.GenerateOutput(0, 1, 2, 3, 4, 5)
+        return self.GenerateOutput(*range(6))
 
     def ThatScript(self):                   # 0x09
         self.size = 5
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def ThatSpriteBase(self):               # 0x0A
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def ThatStart(self):                    # 0x0B
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def ThatDelete(self):                   # 0x0C
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     # 0x0D
     # 0x0E
 
     def ThisTeleportTo(self):               # 0x0F
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def ThisNewState(self):                 # 0x10
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     # 0x10
     # 0x11
@@ -178,22 +178,22 @@ class FuncHandler(ResultsHandler):
 
     def ThisAI(self):                       # 0x13
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def ThisSetAnimSingle(self):            # 0x14
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     # 0x15
     # 0x16
 
     def ThisLoc(self):                      # 0x17
         self.size = 7
-        return self.GenerateOutput(0, 1, 2, 3, 4)
+        return self.GenerateOutput(*range(5))
 
     def ThisSpriteBase(self):               # 0x18
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def ThisDelete(self):                   # 0x19
         self.size = 1
@@ -201,15 +201,15 @@ class FuncHandler(ResultsHandler):
 
     def ThisWaitTile(self):                 # 0x1A
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def StartSFX1(self):                    # 0x1B
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def StartSFX2(self):                    # 0x1C
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def PauseSongBugged(self):              # 0x1D
         self.size = 1
@@ -221,11 +221,11 @@ class FuncHandler(ResultsHandler):
 
     def StartSong(self):                    # 0x1F
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def StartJingle(self):                  # 0x20
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def StopSong(self):                     # 0x21
         self.size = 1
@@ -233,37 +233,81 @@ class FuncHandler(ResultsHandler):
 
     def SetSongVolume(self):                # 0x22
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SongFadeIn(self):                   # 0x23
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SongFadeOut(self):                  # 0x24
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     # 0x25 - 0x2F
 
     def BattleSwirl(self):                  # 0x30
         self.size = 4
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
-    # 0x31 - 0x33
+    # 0x31 - 0x32
 
-    def LoadArena(self):             # 0x34
+    def BlowAway(self):                     # 0x33
+        self.size = 1
+        return self.GenerateOutput()
+
+    def LoadArena(self):                    # 0x34
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
-    # 0x35 - 0x3F
+    def LoadCreatureLeft(self):             # 0x35
+        self.size = 2
+        return self.GenerateOutput(*range(1))
+
+    def DissolveFast(self):                 # 0x36
+        self.size = 1
+        return self.GenerateOutput()
+
+    def DissolveSlow(self):                 # 0x37
+        self.size = 1
+        return self.GenerateOutput()
+
+    def FightsceneNew(self):                # 0x38
+        self.size = 4
+        return self.GenerateOutput(*range(3))
+
+    def PanTable(self):                     # 0x39
+        self.size = 4
+        return self.GenerateOutput(*range(2))
+
+    def Recoil(self):                       # 0x3A
+        self.size = 1
+        return self.GenerateOutput()
+
+    # 0x3B
+
+    def PanConstant(self):                  # 0x3C
+        self.size = 4
+        return self.GenerateOutput(*range(3))
+
+    def Shake(self):                        # 0x3D
+        self.size = 1
+        return self.GenerateOutput()
+
+    def Sink(self):                         # 0x3E
+        self.size = 1
+        return self.GenerateOutput()
+
+    def Tremble(self):                      # 0x3F
+        self.size = 1
+        return self.GenerateOutput()
 
     def Delay(self):                        # 0x40
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def RandDelay(self):                    # 0x41
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def End(self):                          # 0x42
         self.size = 1
@@ -276,15 +320,15 @@ class FuncHandler(ResultsHandler):
 
     def InitSkip(self):                     # 0x44
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LongJump(self):                     # 0x45
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def Jump(self):                         # 0x46
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def RandLongJump(self):                 # 0x47
         entries = len(self.params)
@@ -314,7 +358,7 @@ class FuncHandler(ResultsHandler):
 
     def OverlayInit(self):                  # 0x50
         self.size = 9
-        return self.GenerateOutput(0, 1, 2, 3, 4)
+        return self.GenerateOutput(*range(5))
 
     def OverlayInvisible(self):             # 0x51
         self.size = 1
@@ -322,7 +366,7 @@ class FuncHandler(ResultsHandler):
 
     def ClearSync(self):                    # 0x52
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetAnyEventMaster(self):            # 0x53
         self.size = 1
@@ -338,31 +382,31 @@ class FuncHandler(ResultsHandler):
 
     def SetEventMaster(self):               # 0x56
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetEventScroll(self):               # 0x57
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetEventText(self):                 # 0x58
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetScriptMaster(self):              # 0x59
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetScriptScroll(self):              # 0x5A
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetScriptText(self):                # 0x5B
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def Sync(self):                         # 0x5C
         self.size = 3
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def WaitAnyEventMaster(self):           # 0x5D
         self.size = 1
@@ -390,75 +434,79 @@ class FuncHandler(ResultsHandler):
 
     def LoadFullTilemap(self):              # 0x63
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LoadHotspots(self):                 # 0x64
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LoadScene(self):                    # 0x65
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LoadSpritePalette(self):            # 0x66
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LoadMap(self):                  # 0x67
         self.size = 7
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def LoadMapMask(self):                  # 0x68
         self.size = 7
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def LoadTriggers(self):                 # 0x69
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def LoadBitmapSet(self):                # 0x6A
         self.size = 7
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def LoadSingleBitmap(self):             # 0x6B
         self.size = 8
-        return self.GenerateOutput(0, 1, 2, 3)
+        return self.GenerateOutput(*range(4))
 
-    # 0x6B
-    # 0x6C
-    # 0x6D
+    def PalArenaFadeToColor(self):          # 0x6C
+        self.size = 4
+        return self.GenerateOutput(*range(6))
+
+    def PalArenaFadeToBase(self):           # 0x6D
+        self.size = 2
+        return self.GenerateOutput(*range(2))
 
     def PalClearBase(self):                 # 0x6E
         self.size = 4
-        return self.GenerateOutput(0, 1, 2, 3, 4, 5)
+        return self.GenerateOutput(*range(6))
 
     def PalClearAnim(self):                 # 0x6F
         self.size = 4
-        return self.GenerateOutput(0, 1, 2, 3, 4, 5)
+        return self.GenerateOutput(*range(6))
 
     def PalCreatureCycle(self):             # 0x70
         self.size = 3
-        return self.GenerateOutput(0, 1, 2)
+        return self.GenerateOutput(*range(3))
 
     def PalCreatureFadeUniColor(self):      # 0x71
         self.size = 5
-        return self.GenerateOutput(0, 1, 2, 3, 4, 5, 6)
+        return self.GenerateOutput(*range(7))
 
     def PalCreatureFadeMultiColor(self):    # 0x72
         self.size = 3
-        return self.GenerateOutput(0, 1, 2)
+        return self.GenerateOutput(*range(3))
 
     def PalCreatureLoad(self):              # 0x73
         self.size = 5
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     def PalCreatureFlash(self):             # 0x74
         self.size = 4
-        return self.GenerateOutput(0, 1, 2, 3)
+        return self.GenerateOutput(*range(4))
 
     def PalCreatureInvert(self):            # 0x75
         self.size = 4
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def PalFadeAnimToBase(self):            # 0x76
         self.size = 3
@@ -508,7 +556,7 @@ class FuncHandler(ResultsHandler):
 
     def SetCamera(self):                    # 0x84
         self.size = 3
-        return self.GenerateOutput(0, 1)
+        return self.GenerateOutput(*range(2))
 
     # 0x85
 
@@ -531,11 +579,11 @@ class FuncHandler(ResultsHandler):
 
     def NewGame(self):                      # 0x91
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SaveGame(self):                     # 0x92
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SceneNew(self):                     # 0x93
         self.size = 1
@@ -559,7 +607,7 @@ class FuncHandler(ResultsHandler):
 
     def FormatChar(self):                   # 0x98
         self.size = 3
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def Clear(self):                        # 0x99
         self.size = 1
@@ -630,7 +678,7 @@ class FuncHandler(ResultsHandler):
 
     def SetGameCount(self):                 # 0xA9
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def SetWramByte(self):                   # 0xAA
         self.size = 5
@@ -666,28 +714,28 @@ class FuncHandler(ResultsHandler):
 
     def MoveDraw(self):                     # null
         self.size = 5
-        return self.GenerateOutput(0, 1, 2, 3)
+        return self.GenerateOutput(*range(4))
 
     def Draw(self):                         # null
         self.size = 2
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def Move(self):                         # null
         self.size = 3
-        return self.GenerateOutput(0, 1, 2)
+        return self.GenerateOutput(*range(3))
 
     def INCSPRITE(self):
         filesize = os.path.getsize(self.params[0].raw.strip('"'))
         self.size = 1 + filesize
-        return self.GenerateOutput(0)
+        return self.GenerateOutput(*range(1))
 
     def HeaderSceneData(self):
         self.size = 3*5
-        return self.GenerateOutput(0, 1, 2, 3, 4)
+        return self.GenerateOutput(*range(5))
 
     def HeaderTilesetEntry(self):
         self.size = 7
-        return self.GenerateOutput(0, 1, 2, 3)
+        return self.GenerateOutput(*range(4))
 
     def HeaderMetatilemap(self):
         self.size = 7

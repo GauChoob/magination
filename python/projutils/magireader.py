@@ -53,6 +53,119 @@ _shorthands_loadsidescroller_scene = {
     0x0D: "Underneath",
 }
 
+_shorthands_creatureids = {
+    0xFF: 'Null',
+    0x00: 'Abaquist',
+    0x01: 'Agovo',
+    0x02: 'Alaban',
+    0x03: 'Arbolit',
+    0x04: 'Arboll',
+    0x05: 'Ayebaw',
+    0x06: 'Bhatar',
+    0x07: 'Bisiwog',
+    0x08: 'BlackAgovo',
+    0x09: 'Bolt_Hyren',
+    0x0A: 'Borgor',
+    0x0B: 'Brub',
+    0x0C: 'Bwill',
+    0x0D: 'Cave_Hyren',
+    0x0E: 'CaveRudwot',
+    0x0F: 'Chaos_Jile',
+    0x10: 'CoralHyren',
+    0x11: 'Core_Grag',
+    0x12: 'Core_Hyren',
+    0x13: 'DarkAyebaw',
+    0x14: 'DarkVellup',
+    0x15: 'Deep_Hyren',
+    0x16: 'Diobor',
+    0x17: 'Drakan',
+    0x18: 'DryteFiend',
+    0x19: 'Eebit',
+    0x1A: 'Epik',
+    0x1B: 'FlameHyren',
+    0x1C: 'Furok',
+    0x1D: 'GhostBwisp',
+    0x1E: 'GiantKorit',
+    0x1F: 'Graw',
+    0x20: 'Grax',
+    0x21: 'Gum_Gum',
+    0x22: 'Hook_Wing',
+    0x23: 'Jingjack',
+    0x24: 'Karak',
+    0x25: 'Kazor',
+    0x26: 'Kelthet',
+    0x27: 'Kletch',
+    0x28: 'Koil',
+    0x29: 'Lava_Aq',
+    0x2A: 'LavaArboll',
+    0x2B: 'LavaBalmnt',
+    0x2C: 'Leaf_Chogo',
+    0x2D: 'Leaf_Hyren',
+    0x2E: 'MagmaHyren',
+    0x2F: 'Megathan',
+    0x30: 'Mush_Hyren',
+    0x31: 'Orathan_F',
+    0x32: 'Orish',
+    0x33: 'Ormagon',
+    0x34: 'Orpus',
+    0x35: 'Paralit',
+    0x36: 'Parmalag',
+    0x37: 'Platheus',
+    0x38: 'Plith',
+    0x39: 'Porkuslime',
+    0x3A: 'Quor',
+    0x3B: 'Rabbage',
+    0x3C: 'Raxis',
+    0x3D: 'Rudwot',
+    0x3E: 'Sabreback',
+    0x3F: 'Sarbil',
+    0x40: 'Sea_Jile',
+    0x41: 'ShadwKarak',
+    0x42: 'ShadwVinoc',
+    0x43: 'Sharbloot',
+    0x44: 'Shryque',
+    0x45: 'Sphor',
+    0x46: 'Spindle',
+    0x47: 'ThundrHyrn',
+    0x48: 'TimberHyrn',
+    0x49: 'Treebit',
+    0x4A: 'Tusk_Bwisp',
+    0x4B: 'Twee',
+    0x4C: 'Vashp',
+    0x4D: 'Vellup',
+    0x4E: 'Vile_Yogu',
+    0x4F: 'Vinoc',
+    0x50: 'Vulbor',
+    0x51: 'Wasperine',
+    0x52: 'Weebat',
+    0x53: 'Weebo',
+    0x54: 'Xyx',
+    0x55: 'Yvohcna',
+    0x56: 'PlAcEhOlDr1',
+    0x57: 'PlAcEhOlDr2',
+    0x58: 'Tony',
+    0x59: 'Togoth',
+    0x5A: 'Ogar',
+    0x5B: 'Korremar',
+    0x5C: 'Warrada',
+    0x5D: 'Korg',
+    0x5E: 'Zet',
+    0x5F: 'Morag',
+    0x60: 'Agram1',
+    0x61: 'Agram2',
+    0x62: 'Agram3',
+    0x63: 'ShadowMagi1',
+    0x64: 'ShadowMagi2',
+    0x65: 'ShadowMagi3',
+    0x66: 'ShadowMagi4',
+    0x67: 'ShadowMagi5',
+    0x68: 'ShadowMagi6',
+    0x69: 'ShadowMagi7',
+    0x6A: 'ShadowMagi8',
+    0x6B: 'Salafy',
+    0x6C: 'NoMagi',
+}
+
 
 class DepthTracker:
     defaultdepth = 4
@@ -379,6 +492,7 @@ class MagiScriptLine:
             curpos += 2
             return val
 
+        # This code is a bit of a trainwreck, but it works and doesn't need to be pretty
         try:
             # DB
             if(instruction == "db"):
@@ -529,6 +643,11 @@ class MagiScriptLine:
                 val = getByte()
                 if(val in _shorthands_loadsidescroller_scene):
                     return ["FIGHTSCENE_ARENA_"+_shorthands_loadsidescroller_scene[val]]
+                raise KeyError(val)
+            elif(instruction == "CreatureID"):
+                val = getByte()
+                if(val in _shorthands_creatureids):
+                    return ["CreatureID_"+_shorthands_creatureids[val]]
                 raise KeyError(val)
             elif(instruction == "SFXID"):
                 val = getByte()
