@@ -7,7 +7,7 @@ import colorize
 
 #extract_image.extract_image("../MN.gbc",0x4a,0x668B,0x688B-0x668B,"")
 
-#extract_image.png_to_twobpp(r"python\out\dreamcreatures\combat\AbaquistRLE5.tileset.color.png","python/out/dreamcreatures/combat/abatest.2bpp")
+#extract_image.png_to_twobpp(r"python\out\dreamcreatures\combat\AbaquistRLE5.tileset.color.png","python/out/fightscene/creatures/abatest.2bpp")
 
 
 palettecard = colorize.paletteToPNGpalette("python/ReferenceDuel.png")

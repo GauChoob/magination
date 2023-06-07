@@ -503,6 +503,17 @@ wPalette_VBlankReady::
     ; This prevents a partially-modified palette from being pushed to palette memory during VBlank
     ; See Palette_DeterminePaletteVBlankFunc for details
     ds 1
+    ;ds $C832 - @
+wPalette_Unused_Color::
+    ; Unused var that has been replaced by wTemp_A.Palette_SetColor
+    ; Inefficiency/bug - this variable is still initialized in Fightscene_Init
+    ds 2
+    ;ds $C834 - @
+wPalette_Unused_Temp::
+    ; Unused var that has been replaced by the wTemp_1-wTemp_C variables
+    ; Inefficiency/bug - this variable is accidentally initialized in Fightscene_Init
+    ; Once upon a time this variable held temporary information in a debug function
+    ds 2
 
     ds $C836 - @
 INCLUDE "source/engine/system/graphics/screenfx/screenfx_wram.asm"
@@ -633,10 +644,12 @@ wCntUp::
     ; Controller buttons released this frame
     ds 1
     ;ds $C934 - @
-wSCYW::
+wSCY::
+    ; Mirror of rSCY
     ds 1
     ;ds $C935 - @
-wSCXW::
+wSCX::
+    ; Mirror of rSCX
     ds 1
     ;ds $C936 - @
 wScreenVisible::
@@ -770,69 +783,110 @@ wCardscene_IsOpened::
     ; This variable is used to prevent backing up the tileset more than once
     ds 1
 
-    ds $C9BE - @
-wStartScreenTopScrollSpeed::
+    ;ds $C9BC - @:
+wFightscene_SCX::
+    ds 1
+    ;ds $C9BD - @:
+wFightscene_SCY::
+    ds 1
+    ;ds $C9BE - @
+wFightscene_Arena_TopDeltaX::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9BF - @
-wStartScreenBottomScrollSpeed::
+wFightscene_Arena_BottomDeltaX::
     ; DeltaX of the upper part of the horizontal scroll of the Start Screen
     ds 1
     ;ds $C9C0 - @
-wStartScreenTopScrollX::
+wFightscene_Arena_TopSCX::
     ; Position of the upper part of the horizontal scroll of the Start Screen
     ; Copied to rSCX
     ds 1
     ;ds $C9C1 - @
-wStartScreenBottomScrollX::
+wFightscene_Arena_BottomSCX::
     ; Position of the lower part of the horizontal scroll of the Start Screen
     ; Copied to rSCX
     ds 1
-
+    ;ds $C9C2 - @
+wFightscene_WX::
+    ds 1
+    ;ds $C9C3 - @
+wFightscene_WY::
+    ds 1
+    ;ds $C9C4 - @
+wFightscene_ShakeWX::
+    ds 1
+    ;ds $C9C5 - @
+wFightscene_Start::
+    ; Set to 1 when Fightscene is being initialized
+    ; Set back to 0 once Fightscene_Init is called
+    ; This variable is never read from, only written to
+    ds 1
+    ;ds $C9C6 - @
+wFightscene_Done::
+    ; Set to 1 when Fightscene is done. Prevents the fightscene from updating
+    ds 1
+    ;ds $C9C7 - @
+wFightscene_Paused::
+    ; Set to 1 when Fightscene is paused via the Start button.
+    ds 1
+    ;ds $C9C8 - @
+wFightscene_DebugOptions::
+    ; Unused removed feature.
+    ; When this var was non-zero, pressing buttons applied some test effects for debugging
+    ; These features are removed and so this var does not do anything, although it is initialized
+    ds 1
+    ds $C9CA - @
+wFightscene_BattleScriptFrame::
+    ds 2
+    ;ds $C9CC - @
+wFightscene_BattleScriptBank::
+    ds 1
     ; CREATURE_GFX_STRUCT TEMP
-    ds $C9CD - @
+    ;ds $C9CD - @
 wTemp_0::
-wTemp_BitmapAddress::
-wStartScreenTopTilesetAddress::
+    .Fightscene_Arena_TopBitmapAddress::
+    .Fightscene_Creature_TilesetAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9CF - @
 wTemp_1::
-wTemp_BitmapBank::
-wStartScreenTopTilesetBank::
+    .Fightscene_Arena_TopBitmapBank::
+    .Fightscene_Creature_TilesetBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D0 - @
 wTemp_2::
-wTemp_BackgroundAddress::
-wStartScreenTopTilemapAddress::
+    .Fightscene_Arena_TopTilemapAddress::
+    .Fightscene_Creature_TilemapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9D2 - @
 wTemp_3::
-wTemp_BackgroundBank::
-wStartScreenTopTilemapBank::
+    .Fightscene_Arena_TopTilemapBank::
+    .Fightscene_Creature_TilemapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D3 - @
 wTemp_4::
     .Palette_ColorCounter:
     ; Loop counter
-wTemp_4.Cardscene_LoopCounter:
-wTemp_Width::
+    .Cardscene_LoopCounter:
+    .Fightscene_Width:
     ds 1
     ;ds $C9D4 - @
 wTemp_5::
-wTemp_Height::
+    .Fightscene_Height:
     ds 1
     ;ds $C9D5 - @
 wTemp_6::
     .Palette_PaletteAddress:
     ; Address of palette file
-wTemp_Palette::
-wStartScreen2PalettesAddress::
     ds 2
     ;ds $C9D7 - @
 wTemp_7::
     .Palette_PaletteBank:
     ; Bank of palette file
-wStartScreen2PalettesBank::
     ds 1
     ;ds $C9D8 - @
 wTemp_8::
@@ -844,9 +898,10 @@ wTemp_8::
     ; e.g. %0011 0010 -> Palettes 3-5
     .Palette_ColorSwapType:
     ; e parameter for Palette_PaletteBufferSwapRGB
-wTemp_8.Cardscene_CreatureID::
+    .Fightscene_CreatureID::
     ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CREATURE_NULL
-wStartScreenBottomTilesetBank::
+    .Fightscene_Arena_BottomBitmapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9D9 - @
 wTemp_9::
@@ -855,11 +910,12 @@ wTemp_9::
         ; by wTemp_8.Palette_PackedInterval
     .Palette_CyclePattern:
         ; Used to store the cycle pattern for Palette_PaletteCycleColors
-    .Palette_BattleFX_CreatureSide:
+    .Palette_BattleFX_CreatureIsRight:
         ; 0 = Left, 1 = Right
-wTemp_9.Cardscene_CardSlot::
+    .Cardscene_CardSlot::
     ; The card slot in the cardscene (0 - 7)
-wStartScreenBottomTilemapBank::
+    .Fightscene_Arena_BottomTilemapBank::
+    ; Fightscene_ArenaData Struct property
     ds 1
     ;ds $C9DA - @
 wTemp_A::
@@ -870,40 +926,106 @@ wTemp_A::
     ; The Color to which to set a value
     .Palette_Counter:
     ; Loop counter
-    .Unknown:
-wStartScreenBottomTilesetAddress::
-    ; Temporary Color argument used in functions
+    .Palette_Offset:
+    ; Number of 3-palette palettes by which to offset
+    .Fightscene_Arena_BottomBitmapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9DC - @
 wTemp_B::
     .Palette_FadeMagnitude:
     ; 8-bit value that determines the amount of palette fade per trigger
     ; e.g. a value of 2 will change the values of R, G and B by 2 every trigger
-    .CreatureDataPointer:
+    .Fightscene_CreatureBaseStatsPointer:
     ; Points to the start of the data for a creature in the Creature_Table
-wStartScreenBottomTilemapAddress::
+    .Fightscene_Arena_BottomTilemapAddress::
+    ; Fightscene_ArenaData Struct property
     ds 2
     ;ds $C9DE - @
 wTemp_C::
-    .CreatureGraphicsPointer:
+    .Fightscene_CreatureGraphicsPointer:
     ; Points to the graphics part of the data for a creature in the Creature_Table
-wStartScreenHeaderAddress::
+    .Fightscene_ArenaDataPointer::
+    ; Points to a Fightscene's Arena's data
+    .Fightscene_Counter:
+    ; Generic counter
     ds 2
-
-
-    ds $C9E2 - @
-wPalette20Transparent::
+    ;ds $C9E0 - @
+wFightscene_CreatureLeft_ID::
+    ds 1
+    ;ds $C9E1 - @
+wFightscene_CreatureRight_ID::
+    ds 1
+    ;ds $C9E2 - @
+wFightscene_CreatureLeft_3rdPaletteTransparent::
+    ; Whether the CreatureRight's 3rd Palette's first Color is the Arena's background Color
     ds 1
     ;ds $C9E3 - @
-wPalette50Transparent::
+wFightscene_CreatureRight_3rdPaletteTransparent::
+    ; Whether the CreatureRight's 3rd Palette's first Color is the Arena's background Color
     ds 1
     ;ds $C9E4 - @
-wStartScreenIndex::
+wFightscene_ArenaIndex::
     ds 1
     ;ds $C9E5 - @
-wArena_Color::
+wFightscene_ArenaColor::
     ; This color replaces transparent colors
     ds 2
+    ;ds $C9E7 - @
+wFightscene_FightFX_Pan_TableAddress::
+    ; Points to Fightscene_FightFX_PanTable_Regular or similar tables
+    ds 2
+    ;ds $C9E9 - @
+wFightscene_FightFX_Pan_DeltaX::
+    ds 1
+    ;ds $C9EA - @
+wFightscene_FightFX_Pan_RightDirection::
+    ; nz = Right
+    ; z = Left
+    ds 1
+    ;ds $C9EB - @
+wFightscene_FightFX_ReadingFrameDelta::
+    ; Amount the Fightscene has moved horizontally
+    ds 1
+    ;ds $C9EC - @
+wFightscene_FightFX_ReadingFrameMax::
+    ; Maximum of wFightscene_FightFX_ReadingFrameDelta
+    ds 1
+    ;ds $C9ED - @
+wFightscene_FightFX_LoopCount::
+    ds 1
+    ;ds $C9EE - @
+wFightscene_FightFX_DelayCount::
+    ; Counter for wFightscene_FightFX_TotalDelay
+    ds 1
+    ;ds $C9EF - @
+wFightscene_FightFX_TotalDelay::
+    ; Move every X frames
+    ds 1
+    ;ds $C9F0 - @
+wFightscene_FightFX_DataTable::
+    ds 2
+    ;ds $C9F2 - @
+wFightscene_TileFX_VBlank_DestroyFunc::
+    ds 2
+    ;ds $C9F4 - @
+wFightscene_TileFX_PointerTable::
+    ds 2
+    ;ds $C9F6 - @
+wFightscene_TileFX_DestroyAddress::
+    ds 2
+    ;ds $C9F8 - @
+wFightscene_TileFX_DestroyBank::
+    ds 1
+    ;ds $C9F9 - @
+wFightscene_TileFX_ReadingFrameDelta::
+    ds 1
+    ;ds $C9FA - @
+wFightscene_TileFX_ReadingFrameMax::
+    ds 1
+    ;ds $C9FB - @
+wFightscene_TileFX_DestroyCount::
+    ds 1
 
 
     ds $C9FF - @

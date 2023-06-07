@@ -24,11 +24,8 @@ ENDM
 MACRO VarBit
     ; Gets a label varbit's address and mask
     ; e.g. LABEL_3 -> %00001000
-    PUSHC
-    SETCHARMAP VARBIT ; Casts a string "0" - "7" into a mask e.g. "3" -> %00001000
     dw \1
-    db STRSUB("\1", -1)
-    POPC
+    db 1 << (STRSUB("\1", -1) - "0") ; Casts a string "0" - "7" into a mask e.g. "3" -> %00001000
 ENDM
 
 MACRO dcm_Energy
@@ -246,8 +243,8 @@ MACRO Controller_Init
 ENDM
 
 MACRO Battle_Init
-    Set8 $C9C5, 0 ; FightScn_Start?
-    Set8 $C9C6, 0 ; FightScn_Done?
+    Set8 wFightscene_Start, 0
+    Set8 wFightscene_Done, 0
 ENDM
 
 ; script
@@ -310,6 +307,12 @@ MACRO Script_MovWord
     ; Stores a word into a variable
     Script_ReadByte [\1]
     Script_ReadByte [\1 + 1]
+ENDM
+
+MACRO Script_MovWord_V
+    ; Different order
+    Script_ReadByte_V [\1]
+    Script_ReadByte_V [\1 + 1]
 ENDM
 
 MACRO Script_Init

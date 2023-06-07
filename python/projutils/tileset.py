@@ -55,15 +55,18 @@ class Bitmap(filecontents.FileContentsSerializer):
         return tilewidth, tileheight
 
     def _count_discarded_tiles(self):
-        while self.discarded_tiles < self.width - 1:
-            left = (-self.discarded_tiles-1)*8
-            right = None if self.discarded_tiles == 0 else -self.discarded_tiles*8
-            if all([self.pixels[i][left:right] == self.DISCARDED_PIXELS_ROW for i in range(-1, -9, -1)]):
+        tilewidth = self.width//8
+        while True:
+            i = -(self.discarded_tiles//tilewidth)*8
+            i_top = i - 8
+            i_bottom = i
+            j = -(self.discarded_tiles % tilewidth)*8
+            j_left = j - 8
+            j_right = j if j != 0 else None
+            if all([self.pixels[i2][j_left:j_right] == self.DISCARDED_PIXELS_ROW for i2 in range(i_top, i_bottom)]):
                 self.discarded_tiles += 1
             else:
                 break
-        if(self.discarded_tiles and self.compression_mode):
-            raise NotImplementedError
 
     def _load_processed(self, data: bytes, tilewidth: int, tileheight: int):
         """Gets the 2D pixel list from raw data."""
@@ -122,16 +125,30 @@ class Bitmap(filecontents.FileContentsSerializer):
                         low = low | colorlow
                         high = high | colorhigh
                     data.extend([low, high])
-        if self.discarded_tiles:
+        if self.compression_mode and self.discarded_tiles:
+            # If there is compression, we must discard the unused tiles
+            data = data[:-self.discarded_tiles*0x10]
+        if self.compression_mode is None and self.discarded_tiles:
             data[-self.discarded_tiles*0x10:] = self.DISCARDED_TILE*self.discarded_tiles
         return bytes(data)
 
     def _to_original_data(self) -> list[list[int]]:
+        assert self.width == len(self.pixels[0])
+        assert self.height == len(self.pixels)
+
         if not self.discarded_tiles:
             return self.pixels
         pixels = copy.deepcopy(self.pixels)
-        for row in range(-1, -9, -1):
-            pixels[row][-self.discarded_tiles*8:] = self.DISCARDED_PIXELS_ROW*self.discarded_tiles
+        tilewidth = self.width//8
+        for tile in range(self.discarded_tiles):
+            i = -(tile//tilewidth)*8
+            i_top = i - 8
+            i_bottom = i
+            j = -(tile % tilewidth)*8
+            j_left = j - 8
+            j_right = j if j != 0 else None
+            for row in range(i_top, i_bottom):
+                pixels[row][j_left:j_right] = self.DISCARDED_PIXELS_ROW
         return pixels
 
     @classmethod
@@ -156,6 +173,10 @@ class Bitmap(filecontents.FileContentsSerializer):
     def init_from_processed_file(cls, filename: str | pathlib.PurePath, tilewidth: int | None, tileheight: int | None) -> Self:
         self = cls()
         data = self._handle_rle_from_processed_file(filename)
+        # If size is too big, we need to insert discarded tiles
+        if tilewidth is not None and tileheight is not None and len(data) < tilewidth*tileheight*0x10:
+            self.discarded_tiles = tilewidth*tileheight - len(data)//0x10
+            data.extend(self.DISCARDED_TILE*self.discarded_tiles)
         self._load_processed(data, tilewidth, tileheight)
         return self
 
@@ -177,7 +198,7 @@ class Bitmap(filecontents.FileContentsSerializer):
             f.write(data)
 
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
-        if(self.discarded_tiles):
+        if(self.compression_mode and self.discarded_tiles):
             return '    INCBIN "{}", 0, ${:04X}'.format(filename, self.size())
         return '    INCBIN "{}"'.format(filename)
 

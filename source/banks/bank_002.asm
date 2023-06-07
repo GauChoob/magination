@@ -839,7 +839,7 @@ jr_002_459B:
     jr nz, jr_002_45D0                            ; $459F: $20 $2F
 
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
 
 jr_002_45D0:
     ld a, [$D0B2]                                 ; $45D0: $FA $B2 $D0
@@ -1046,15 +1046,15 @@ Call_002_472E:
     ld [$C9CC], a                                 ; $4738: $EA $CC $C9
     FSet16 $C9CA, bc                                    ; $4740: $70
     ld a, $01                                     ; $4741: $3E $01
-    ld [$C9C5], a                                 ; $4743: $EA $C5 $C9
-    ld [$C9C6], a                                 ; $4746: $EA $C6 $C9
-    ld a, [$C9E4]                                 ; $4749: $FA $E4 $C9
-    ld [$C9E4], a                                 ; $474C: $EA $E4 $C9
+    ld [wFightscene_Start], a                                 ; $4743: $EA $C5 $C9
+    ld [wFightscene_Done], a                                 ; $4746: $EA $C6 $C9
+    ld a, [wFightscene_ArenaIndex]                                 ; $4749: $FA $E4 $C9
+    ld [wFightscene_ArenaIndex], a                                 ; $474C: $EA $E4 $C9
     ld a, [$D0DB]                                 ; $474F: $FA $DB $D0
-    ld [$C9E0], a                                 ; $4752: $EA $E0 $C9
+    ld [wFightscene_CreatureLeft_ID], a                                 ; $4752: $EA $E0 $C9
     ld a, [wBattle_Creature_Target.ID]                                 ; $4755: $FA $12 $D1
-    ld [$C9E1], a                                 ; $4758: $EA $E1 $C9
-    Do_CallForeign Call_004_71ED
+    ld [wFightscene_CreatureRight_ID], a                                 ; $4758: $EA $E1 $C9
+    Do_CallForeign Fightscene_NewFromBattle
 
     ld hl, $C706                                  ; $4763: $21 $06 $C7
     ld a, $4C                                     ; $4766: $3E $4C
@@ -2429,7 +2429,7 @@ jr_002_5086:
     jr jr_002_50CE                                ; $50A3: $18 $29
 
 jr_002_50A5:
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_FOCUS, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_FOCUS, $0B
     ld hl, $C71B                                  ; $50BC: $21 $1B $C7
     ld a, $4C                                     ; $50BF: $3E $4C
     ld [hl+], a                                   ; $50C1: $22
@@ -2955,8 +2955,7 @@ Call_002_54B3:
     sub c                                         ; $54B5: $91
     jr nc, jr_002_54BA                            ; $54B6: $30 $02
 
-    cpl                                           ; $54B8: $2F
-    inc a                                         ; $54B9: $3C
+    NegativeA
 
 jr_002_54BA:
     ld hl, $54A3                                  ; $54BA: $21 $A3 $54
@@ -3125,8 +3124,7 @@ Call_002_55C3:
     jr jr_002_561B                                ; $55FD: $18 $1C
 
 jr_002_55FF:
-    cpl                                           ; $55FF: $2F
-    inc a                                         ; $5600: $3C
+    NegativeA
     ld b, $14                                     ; $5601: $06 $14
     cp $03                                        ; $5603: $FE $03
     jr c, jr_002_561B                             ; $5605: $38 $14
@@ -5018,7 +5016,7 @@ Battle_Flow_Exit:
     Sound_Request_StartSong SONGID_GetItem
 
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_VICTORY, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_VICTORY, $0B
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3
@@ -5121,7 +5119,7 @@ Jump_002_641DCheckLose:
     jp nz, Jump_002_64EDCheckTODO                          ; $641F: $C2 $ED $64
     .Lose:
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_VICTORY, $0C
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_DEFEAT, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_DEFEAT, $0B
     ld hl, $C71B                                  ; $6451: $21 $1B $C7
     ld a, $4C                                     ; $6454: $3E $4C
     ld [hl+], a                                   ; $6456: $22
@@ -5991,9 +5989,9 @@ Battle_Flow_ProcessHero:
 
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
     call Battle00_DisableActorScript
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_CHOOSE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_CHOOSE, $0B
     call Battle_Flow_ControlCreature
-    Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_IDLE, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
     FGet16 hl, wBattle_Creature_Current.BattleCmd_Function
     ld bc, BattleCmd_5272 ; Summon
     TwosComp bc
@@ -6002,7 +6000,7 @@ Battle_Flow_ProcessHero:
     or l
     jr nz, .jr_002_6BB0
 
-        Battle_Set_MagiAnim luDreamCreatureTony, BATTLE_MAGIANIM_SUMMON, $0B
+        Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_SUMMON, $0B
 
     .jr_002_6BB0:
     ; Store the hero

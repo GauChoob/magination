@@ -65,7 +65,7 @@ TESTING::
             PushROMBank
             SwitchROMBank BANK(Cardscene_Init)
             ld a, d
-            sub luDreamCreatureTogoth
+            sub CreatureID_Togoth
             add a
             ld c, a
             ld b, $00

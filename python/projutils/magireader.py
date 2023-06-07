@@ -35,7 +35,7 @@ _shorthands_color = {
 #     0xFFFF, "TRUE",
 # }
 
-# Lookup table for LoadSideScroller argument
+# Lookup table for LoadArena argument
 _shorthands_loadsidescroller_scene = {
     0x00: "Arderial",
     0x01: "Core",
@@ -51,6 +51,119 @@ _shorthands_loadsidescroller_scene = {
     0x0B: "OrotheTunnels",
     0x0C: "Shadowhold",
     0x0D: "Underneath",
+}
+
+_shorthands_creatureids = {
+    0xFF: 'Null',
+    0x00: 'Abaquist',
+    0x01: 'Agovo',
+    0x02: 'Alaban',
+    0x03: 'Arbolit',
+    0x04: 'Arboll',
+    0x05: 'Ayebaw',
+    0x06: 'Bhatar',
+    0x07: 'Bisiwog',
+    0x08: 'BlackAgovo',
+    0x09: 'Bolt_Hyren',
+    0x0A: 'Borgor',
+    0x0B: 'Brub',
+    0x0C: 'Bwill',
+    0x0D: 'Cave_Hyren',
+    0x0E: 'CaveRudwot',
+    0x0F: 'Chaos_Jile',
+    0x10: 'CoralHyren',
+    0x11: 'Core_Grag',
+    0x12: 'Core_Hyren',
+    0x13: 'DarkAyebaw',
+    0x14: 'DarkVellup',
+    0x15: 'Deep_Hyren',
+    0x16: 'Diobor',
+    0x17: 'Drakan',
+    0x18: 'DryteFiend',
+    0x19: 'Eebit',
+    0x1A: 'Epik',
+    0x1B: 'FlameHyren',
+    0x1C: 'Furok',
+    0x1D: 'GhostBwisp',
+    0x1E: 'GiantKorit',
+    0x1F: 'Graw',
+    0x20: 'Grax',
+    0x21: 'Gum_Gum',
+    0x22: 'Hook_Wing',
+    0x23: 'Jingjack',
+    0x24: 'Karak',
+    0x25: 'Kazor',
+    0x26: 'Kelthet',
+    0x27: 'Kletch',
+    0x28: 'Koil',
+    0x29: 'Lava_Aq',
+    0x2A: 'LavaArboll',
+    0x2B: 'LavaBalmnt',
+    0x2C: 'Leaf_Chogo',
+    0x2D: 'Leaf_Hyren',
+    0x2E: 'MagmaHyren',
+    0x2F: 'Megathan',
+    0x30: 'Mush_Hyren',
+    0x31: 'Orathan_F',
+    0x32: 'Orish',
+    0x33: 'Ormagon',
+    0x34: 'Orpus',
+    0x35: 'Paralit',
+    0x36: 'Parmalag',
+    0x37: 'Platheus',
+    0x38: 'Plith',
+    0x39: 'Porkuslime',
+    0x3A: 'Quor',
+    0x3B: 'Rabbage',
+    0x3C: 'Raxis',
+    0x3D: 'Rudwot',
+    0x3E: 'Sabreback',
+    0x3F: 'Sarbil',
+    0x40: 'Sea_Jile',
+    0x41: 'ShadwKarak',
+    0x42: 'ShadwVinoc',
+    0x43: 'Sharbloot',
+    0x44: 'Shryque',
+    0x45: 'Sphor',
+    0x46: 'Spindle',
+    0x47: 'ThundrHyrn',
+    0x48: 'TimberHyrn',
+    0x49: 'Treebit',
+    0x4A: 'Tusk_Bwisp',
+    0x4B: 'Twee',
+    0x4C: 'Vashp',
+    0x4D: 'Vellup',
+    0x4E: 'Vile_Yogu',
+    0x4F: 'Vinoc',
+    0x50: 'Vulbor',
+    0x51: 'Wasperine',
+    0x52: 'Weebat',
+    0x53: 'Weebo',
+    0x54: 'Xyx',
+    0x55: 'Yvohcna',
+    0x56: 'PlAcEhOlDr1',
+    0x57: 'PlAcEhOlDr2',
+    0x58: 'Tony',
+    0x59: 'Togoth',
+    0x5A: 'Ogar',
+    0x5B: 'Korremar',
+    0x5C: 'Warrada',
+    0x5D: 'Korg',
+    0x5E: 'Zet',
+    0x5F: 'Morag',
+    0x60: 'Agram1',
+    0x61: 'Agram2',
+    0x62: 'Agram3',
+    0x63: 'ShadowMagi1',
+    0x64: 'ShadowMagi2',
+    0x65: 'ShadowMagi3',
+    0x66: 'ShadowMagi4',
+    0x67: 'ShadowMagi5',
+    0x68: 'ShadowMagi6',
+    0x69: 'ShadowMagi7',
+    0x6A: 'ShadowMagi8',
+    0x6B: 'Salafy',
+    0x6C: 'NoMagi',
 }
 
 
@@ -140,8 +253,19 @@ class MagiScriptLine:
 
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
 
-        0x34: CommandBuilder("func", "LoadSideScroller", "LoadSideScroller_Scene"),
+        0x33: CommandBuilder("func", "BlowAway"),
+        0x34: CommandBuilder("func", "LoadArena", "LoadSideScroller_Scene"),
+        0x35: CommandBuilder("func", "LoadCreatureLeft", "CreatureID"),
+        0x36: CommandBuilder("func", "DissolveFast"),
+        0x37: CommandBuilder("func", "DissolveSlow"),
+        0x38: CommandBuilder("func", "FightsceneNew", "LoadSideScroller_Scene", "CreatureID", "CreatureID"),
+        0x39: CommandBuilder("func", "PanTable", "CreatureSide", "PanAddress"),  # Technically it is pan left vs pan right, not CreatureSide, but the reference is the same
+        0x3A: CommandBuilder("func", "Recoil"),
 
+        0x3C: CommandBuilder("func", "PanConstant", "CreatureSide", "db", "db"),
+        0x3D: CommandBuilder("func", "Shake"),
+        0x3E: CommandBuilder("func", "Sink"),
+        0x3F: CommandBuilder("func", "Tremble"),
         0x40: CommandBuilder("func", "Delay", "db"),
         0x41: CommandBuilder("func", "RandDelay", "RandDelayAddress"),
         0x42: CommandBuilder("func", "End"),
@@ -186,12 +310,12 @@ class MagiScriptLine:
         0x69: CommandBuilder("func", "LoadTriggers", "TriggerTableAddress"),
         0x6A: CommandBuilder("func", "LoadBitmapSet", "AddressBank_BITSET", "AddressBank_PAL"),
         0x6B: CommandBuilder("func", "LoadSingleBitmap", "$db", "BankAddress_BITMAP", "$dw", "$db"),
-
-        0x6E: CommandBuilder("func", "PalClearBase", "Palette_PackedInterval", "Color"),
+        0x6C: CommandBuilder("func", "PalArenaFadeToColor", "Palette_PackedLoop", "Color"),
+        0x6D: CommandBuilder("func", "PalArenaFadeToBase", "Palette_PackedLoop"),
         0x6F: CommandBuilder("func", "PalClearAnim", "Palette_PackedInterval", "Color"),
         0x70: CommandBuilder("func", "PalCreatureCycle", "Palette_PackedLoop", "CreatureSide"),
-        0x71: CommandBuilder("func", "PalCreatureFadeUniColor", "Palette_PackedLoop", "Color", "CreatureSide"),
-        0x72: CommandBuilder("func", "PalCreatureFadeMultiColor", "Palette_PackedLoop", "CreatureSide"),
+        0x71: CommandBuilder("func", "PalCreatureFadeToColor", "Palette_PackedLoop", "Color", "CreatureSide"),
+        0x72: CommandBuilder("func", "PalCreatureFadeToBase", "Palette_PackedLoop", "CreatureSide"),
         0x73: CommandBuilder("func", "PalCreatureLoad", "AddressBank_PALCREATURE", "CreatureSide"),
         0x74: CommandBuilder("func", "PalCreatureFlash", "Palette_PackedLoop", "Palette_SwapType", "CreatureSide"),
         0x75: CommandBuilder("func", "PalCreatureInvert", "CreatureSide"),
@@ -368,6 +492,7 @@ class MagiScriptLine:
             curpos += 2
             return val
 
+        # This code is a bit of a trainwreck, but it works and doesn't need to be pretty
         try:
             # DB
             if(instruction == "db"):
@@ -458,6 +583,10 @@ class MagiScriptLine:
                 address = getWord()
                 sprites.add(utils.BankAddress(curbank, address))  # store a copy of all the unique sprite addresses
                 return [interpretBankAddress(curbank, address, "OAMX")]  # Stay in same bank
+            elif(instruction == "PanAddress"):
+                address = getWord()
+                return [interpretBankAddress(0x04, address, "FIGHTSCENEPAN")]  # Fightscene bank = $04
+
 
             # VARBIT
             elif(instruction == "Varbit"):
@@ -513,7 +642,12 @@ class MagiScriptLine:
             elif(instruction == "LoadSideScroller_Scene"):
                 val = getByte()
                 if(val in _shorthands_loadsidescroller_scene):
-                    return ["SCROLLER_"+_shorthands_loadsidescroller_scene[val]]
+                    return ["FIGHTSCENE_ARENA_"+_shorthands_loadsidescroller_scene[val]]
+                raise KeyError(val)
+            elif(instruction == "CreatureID"):
+                val = getByte()
+                if(val in _shorthands_creatureids):
+                    return ["CreatureID_"+_shorthands_creatureids[val]]
                 raise KeyError(val)
             elif(instruction == "SFXID"):
                 val = getByte()

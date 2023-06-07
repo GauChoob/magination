@@ -55,19 +55,19 @@ DEF Enum_Cmd_2F                 RB 1 ; $2F
 DEF Enum_Cmd_Battle_Swirl                       RB 1 ; $30 -todo maybe this should be a graphics function instead
 DEF Enum_Cmd_31                 RB 1 ; $31
 DEF Enum_Cmd_32                 RB 1 ; $32
-DEF Enum_Cmd_33                 RB 1 ; $33
-DEF Enum_Cmd_34                 RB 1 ; $34
-DEF Enum_Cmd_35                 RB 1 ; $35
-DEF Enum_Cmd_36                 RB 1 ; $36
-DEF Enum_Cmd_37                 RB 1 ; $37
-DEF Enum_Cmd_38                 RB 1 ; $38
-DEF Enum_Cmd_39                 RB 1 ; $39
-DEF Enum_Cmd_3A                 RB 1 ; $3A
+DEF Enum_Cmd_Fightscene_FightFX_BlowAway        RB 1 ; $33
+DEF Enum_Cmd_Fightscene_LoadArena               RB 1 ; $34
+DEF Enum_Cmd_Fightscene_LoadCreatureLeft        RB 1 ; $35
+DEF Enum_Cmd_Fightscene_TileFX_DissolveFast     RB 1 ; $36
+DEF Enum_Cmd_Fightscene_TileFX_DissolveSlow     RB 1 ; $37
+DEF Enum_Cmd_Fightscene_New                     RB 1 ; $38
+DEF Enum_Cmd_Fightscene_FightFX_PanFromTable    RB 1 ; $39
+DEF Enum_Cmd_Fightscene_FightFX_Recoil          RB 1 ; $3A
 DEF Enum_Cmd_3B                 RB 1 ; $3B
-DEF Enum_Cmd_3C                 RB 1 ; $3C
-DEF Enum_Cmd_3D                 RB 1 ; $3D
-DEF Enum_Cmd_3E                 RB 1 ; $3E
-DEF Enum_Cmd_3F                 RB 1 ; $3F
+DEF Enum_Cmd_Fightscene_FightFX_PanConstant     RB 1 ; $3C
+DEF Enum_Cmd_Fightscene_FightFX_Shake           RB 1 ; $3D
+DEF Enum_Cmd_Fightscene_FightFX_Sink            RB 1 ; $3E
+DEF Enum_Cmd_Fightscene_FightFX_Tremble         RB 1 ; $3F
 
 DEF Enum_Cmd_Flow_Delay                         RB 1 ; $40
 DEF Enum_Cmd_Flow_RandDelay                     RB 1 ; $41
@@ -116,14 +116,14 @@ DEF Enum_Cmd_Load_MapMask                       RB 1 ; $68
 DEF Enum_Cmd_Load_Triggers                      RB 1 ; $69
 DEF Enum_Cmd_Load_BitmapSet                     RB 1 ; $6A
 DEF Enum_Cmd_Load_Bitmap                        RB 1 ; $6B
-DEF Enum_Cmd_6C                 RB 1 ; $6C
-DEF Enum_Cmd_6D                 RB 1 ; $6D
 
+DEF Enum_Cmd_Palette_ArenaFadeToColor           RB 1 ; $6C
+DEF Enum_Cmd_Palette_ArenaFadeToBase            RB 1 ; $6D
 DEF Enum_Cmd_Palette_ClearBase                  RB 1 ; $6E
 DEF Enum_Cmd_Palette_ClearAnim                  RB 1 ; $6F
 DEF Enum_Cmd_Palette_CreatureCycle              RB 1 ; $70
-DEF Enum_Cmd_Palette_CreatureFadeUniColor       RB 1 ; $71
-DEF Enum_Cmd_Palette_CreatureFadeMultiColor     RB 1 ; $72
+DEF Enum_Cmd_Palette_CreatureFadeToColor       RB 1 ; $71
+DEF Enum_Cmd_Palette_CreatureFadeToBase     RB 1 ; $72
 DEF Enum_Cmd_Palette_CreatureLoad               RB 1 ; $73
 DEF Enum_Cmd_Palette_CreatureFlash              RB 1 ; $74
 DEF Enum_Cmd_Palette_CreatureInvert             RB 1 ; $75
@@ -381,31 +381,67 @@ MACRO BattleSwirl
     db \2       ; SONGID
 ENDM
 
-; 31 - 33
+; 31 - 32
 
-    ;Possible values for LoadSideScroller
-    ;Names subject to change
-RSRESET
-DEF SCROLLER_Arderial            RB 1   ; $00
-DEF SCROLLER_Core                RB 1   ; $01
-DEF SCROLLER_Cald                RB 1   ; $02
-DEF SCROLLER_UnderneathTunnels   RB 1   ; $03
-DEF SCROLLER_CaldGeyser          RB 1   ; $04
-DEF SCROLLER_NaroomGeyser        RB 1   ; $05
-DEF SCROLLER_Naroom              RB 1   ; $06
-DEF SCROLLER_UnderneathGeyser    RB 1   ; $07
-DEF SCROLLER_OrotheStarfish      RB 1   ; $08
-DEF SCROLLER_OrotheGeyser        RB 1   ; $09
-DEF SCROLLER_Orothe              RB 1   ; $0A
-DEF SCROLLER_OrotheTunnels       RB 1   ; $0B
-DEF SCROLLER_Shadowhold          RB 1   ; $0C
-DEF SCROLLER_Underneath          RB 1   ; $0D
-MACRO LoadSideScroller
-    db $34 ; TODO
-    db \1
+MACRO BlowAway
+    db Enum_Cmd_Fightscene_FightFX_BlowAway
 ENDM
 
-; 35 - 3F
+MACRO LoadArena
+    db Enum_Cmd_Fightscene_LoadArena
+    db \1       ; ArenaIndex
+ENDM
+
+MACRO LoadCreatureLeft
+    db Cmd_Fightscene_LoadCreatureLeft
+    db \1       ; CreatureID
+ENDM
+
+MACRO DissolveFast
+    db Enum_Cmd_Fightscene_TileFX_DissolveFast
+ENDM
+
+MACRO DissolveSlow
+    db Enum_Cmd_Fightscene_TileFX_DissolveSlow
+ENDM
+
+MACRO FightsceneNew
+    db Enum_Cmd_Fightscene_New
+    db \1       ; ArenaIndex
+    db \2       ; CreatureLeft ID
+    db \3       ; CreatureRight ID
+ENDM
+
+MACRO PanTable
+    db Enum_Cmd_Fightscene_FightFX_PanFromTable
+    db FIGHTSCENE_CREATURE_\1           ; Pan direction: LEFT or RIGHT
+    dw \2       ; Table pointer
+ENDM
+
+MACRO Recoil
+    db Enum_Cmd_Fightscene_FightFX_Recoil
+ENDM
+
+; 3B
+
+MACRO PanConstant
+    db Enum_Cmd_Fightscene_FightFX_PanConstant
+    db FIGHTSCENE_CREATURE_\1           ; Pan direction: LEFT or RIGHT
+    db \2       ; DeltaX per frame
+    db \3       ; Total number of frames
+ENDM
+
+MACRO Shake
+    db Enum_Cmd_Fightscene_FightFX_Shake
+ENDM
+
+MACRO Sink
+    db Enum_Cmd_Fightscene_FightFX_Sink
+ENDM
+
+MACRO Tremble
+    db Enum_Cmd_Fightscene_FightFX_Tremble
+ENDM
 
 MACRO Delay
     db Enum_Cmd_Flow_Delay
@@ -702,86 +738,94 @@ MACRO LoadSingleBitmap
     db \4           ; Destination VBK bank
 ENDM
 
-; 6C
-; 6D
+MACRO PalArenaFadeToColor
+    db Enum_Cmd_Palette_ArenaFadeToColor
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    RGBA (\3), (\4), (\5), (\6)         ; Target RGBA color
+ENDM
+
+MACRO PalArenaFadeToBase
+    db Enum_Cmd_Palette_ArenaFadeToBase
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+ENDM
 
 MACRO PalClearBase
     db Enum_Cmd_Palette_ClearBase
-    Palette_PackedInterval (\1), (\2)   ; Indices of palettes to be filled, (palettes[\1:\2])
+    Palette_PackedInterval (\1), (\2)   ; Indices of palettes to be filled, (palettes[\1:\1+\2])
     RGBA (\3), (\4), (\5), (\6)         ; RGBA color to fill
 ENDM
 
 MACRO PalClearAnim
     db Enum_Cmd_Palette_ClearAnim
-    Palette_PackedInterval (\1), (\2)   ; Indices of palettes to be filled, (palettes[\1:\2])
+    Palette_PackedInterval (\1), (\2)   ; Indices of palettes to be filled, (palettes[\1:\1+\2])
     RGBA (\3), (\4), (\5), (\6)         ; RGBA color to fill
 ENDM
 
 MACRO PalCreatureCycle
     db Enum_Cmd_Palette_CreatureCycle
-    Palette_PackedLoop (\1),(\2)        ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
-    db PALETTE_CREATURE_\3              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    db FIGHTSCENE_CREATURE_\3           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
-MACRO PalCreatureFadeUniColor
-    db Enum_Cmd_Palette_CreatureFadeUniColor
-    Palette_PackedLoop (\1),(\2)        ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+MACRO PalCreatureFadeToColor
+    db Enum_Cmd_Palette_CreatureFadeToColor
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
     RGBA (\3), (\4), (\5), (\6)         ; RGBA color to fill
-    db PALETTE_CREATURE_\7              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+    db FIGHTSCENE_CREATURE_\7           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
-MACRO PalCreatureFadeMultiColor
-    db Enum_Cmd_Palette_CreatureFadeMultiColor
-    Palette_PackedLoop (\1),(\2)        ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
-    db PALETTE_CREATURE_\3              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+MACRO PalCreatureFadeToBase
+    db Enum_Cmd_Palette_CreatureFadeToBase
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    db FIGHTSCENE_CREATURE_\3           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
 MACRO PalCreatureLoad
     db Enum_Cmd_Palette_CreatureLoad
     AddressBank \1                      ; Creature palette
-    db PALETTE_CREATURE_\2              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+    db FIGHTSCENE_CREATURE_\2           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
 MACRO PalCreatureFlash
     db Enum_Cmd_Palette_CreatureFlash
-    Palette_PackedLoop (\1),(\2)        ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    Palette_PackedLoop (\1), (\2)       ; Every (\1) cycles, fade by 1 unit, for a total of (\2) units
     db PALETTE_SWAP_RB \3               ; PALETTE_SWAP_RB / PALETTE_SWAP_BG / PALETTE_SWAP_RG_Bugged / PALETTE_SWAP_RGB
-    db PALETTE_CREATURE_\4              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+    db FIGHTSCENE_CREATURE_\4           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
 MACRO PalCreatureInvert
     db Enum_Cmd_Palette_CreatureInvert
-    db PALETTE_CREATURE_\1              ; PALETTE_CREATURE_LEFT / PALETTE_CREATURE_RIGHT
+    db FIGHTSCENE_CREATURE_\1           ; FIGHTSCENE_CREATURE_LEFT / FIGHTSCENE_CREATURE_RIGHT
 ENDM
 
 MACRO PalFadeAnimToBase
     db Enum_Cmd_Palette_FadeAnimToBase
-    Palette_PackedLoop (\1),(\2)    ;Every (\1) cycles, fade by 1 unit, for a total of (\2) units
-    Palette_PackedInterval (\3),(\4) ;Indices of palettes to be faded, (palettes[\3:\4])
+    Palette_PackedLoop (\1), (\2)    ;Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    Palette_PackedInterval (\3),(\4) ;Indices of palettes to be faded, (palettes[\3:\3+\4])
 ENDM
 
 MACRO PalFadeAnimToColor
     db Enum_Cmd_Palette_FadeAnimToColor
-    Palette_PackedLoop (\1),(\2)    ;Every (\1) cycles, fade by 1 unit, for a total of (\2) units
-    Palette_PackedInterval (\3),(\4) ;Indices of palettes to be faded, (palettes[\3:\4])
+    Palette_PackedLoop (\1), (\2)    ;Every (\1) cycles, fade by 1 unit, for a total of (\2) units
+    Palette_PackedInterval (\3),(\4) ;Indices of palettes to be faded, (palettes[\3:\3+\4])
     RGBA (\5), (\6), (\7), (\8)         ; RGBA color to fill
 ENDM
 
 MACRO PalLoad
     db Enum_Cmd_Palette_Load
     AddressBank \1                   ; Palette
-    Palette_PackedInterval (\2),(\3) ; Indices of palettes, (palettes[\3:\4])
+    Palette_PackedInterval (\2),(\3) ; Indices of palettes, (palettes[\3:\3+\4])
 ENDM
 
 MACRO PalRefresh
     db Enum_Cmd_Palette_Refresh
-    Palette_PackedInterval (\1),(\2) ; Indices of palettes, (palettes[\3:\4])
+    Palette_PackedInterval (\1),(\2) ; Indices of palettes, (palettes[\3:\3+\4])
 ENDM
 
 MACRO PalCycle
     db Enum_Cmd_Palette_Cycle
-    Palette_PackedLoop (\1),(\2)        ;Every (\1) cycles, for a total of (\2) times
-    Palette_PackedInterval (\3),(\4)    ; Indices of palettes, (palettes[\3:\4])
+    Palette_PackedLoop (\1), (\2)       ;Every (\1) cycles, for a total of (\2) times
+    Palette_PackedInterval (\3),(\4)    ; Indices of palettes, (palettes[\3:\3+\4])
     ASSERT \5 >= 2,"Number of Colors less than 2"
     ASSERT \5 <= 4,"Number of Colors more than 4"
     db \5                               ; Number of Colors to cycle per palette
@@ -789,7 +833,7 @@ ENDM
 
 MACRO PalInvert
     db Enum_Cmd_Palette_Invert
-    Palette_PackedInterval (\1),(\2)    ; Indices of palettes, (palettes[\1:\2])
+    Palette_PackedInterval (\1),(\2)    ; Indices of palettes, (palettes[\1:\1+\2])
 ENDM
 
 ; 7C

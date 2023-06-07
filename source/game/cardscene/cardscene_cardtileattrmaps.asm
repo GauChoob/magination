@@ -18,7 +18,7 @@ TILEATTR_CARDSCENE_CARD{u:card}::
         ; The attrmap is all $00 for the enemy's cards
         DEF attribute = $00
     ELSE
-        ; The attrmap is all $08 for the hero's card (VBK = 1)
+        ; The attrmap is all $08 for the hero's cards (VBK = 1)
         DEF attribute = $08
     ENDC
     ds 4*5, attribute

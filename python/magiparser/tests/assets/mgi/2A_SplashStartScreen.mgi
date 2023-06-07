@@ -64,28 +64,28 @@ msSplashStartScreen::
                 ; $73FE
             .SwitchArderial:
                 ; Do this by default if nothing is found on the switch
-                LoadSideScroller(SCROLLER_Arderial)
+                LoadArena(FIGHTSCENE_ARENA_Arderial)
                 Jump(.StartScreen)
                 ; $7303
             .SwitchNaroom:
-                LoadSideScroller(SCROLLER_Naroom)
+                LoadArena(FIGHTSCENE_ARENA_Naroom)
                 Jump(.StartScreen)
                 ; $7308
             .SwitchUnderneath:
-                LoadSideScroller(SCROLLER_Underneath)
+                LoadArena(FIGHTSCENE_ARENA_Underneath)
                 Jump(.StartScreen)
                 ; $730D
             .SwitchCald:
-                LoadSideScroller(SCROLLER_Cald)
+                LoadArena(FIGHTSCENE_ARENA_Cald)
                 Jump(.StartScreen)
                 ; $7312
             .SwitchOrothe:
-                LoadSideScroller(SCROLLER_Orothe)
+                LoadArena(FIGHTSCENE_ARENA_Orothe)
 
         ; $7314
     .StartScreen:
         ; Dummy Object for horizontal scrolling effect
-        ThatInit($02,AI_HorizontalScroller,
+        ThatInit($02,AI_SetupStartScreenArena,
                       $00,$00,$D000,$00,
                       msObjectIdle,msObjectIdle)
         ; PressStart Object

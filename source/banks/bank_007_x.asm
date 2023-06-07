@@ -4,414 +4,8 @@ SECTION "ROM Bank $007", ROMX[$4000], BANK[$7]
     ; $4000
 INCLUDE "source/engine/battery/battery_xx.asm"
 
-; source/engine/system/graphics/palette/palette_fx.s
+INCLUDE "source/game/fightscene/fightscene_palfx_creature.asm"
 
-    ; $416B
-PaletteFX_Battle_CreatureCycle::
-    xor a                                         ; $416B: $AF
-    ld [wPalette_VBlankReady], a                                 ; $416C: $EA $31 $C8
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $416F: $FA $D9 $C9
-    and a                                         ; $4172: $A7
-    jr nz, jr_007_4199                            ; $4173: $20 $24
-
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4175: $21 $AB $C7
-    ld e, $00                                     ; $4178: $1E $00
-    ld a, $03                                     ; $417A: $3E $03
-    call Palette_PaletteCycleColors                            ; $417C: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $417F: $21 $AB $C7
-    ld e, $01                                     ; $4182: $1E $01
-    ld a, $03                                     ; $4184: $3E $03
-    call Palette_PaletteCycleColors                            ; $4186: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4189: $21 $AB $C7
-    ld e, $02                                     ; $418C: $1E $02
-    ld a, $03                                     ; $418E: $3E $03
-    call Palette_PaletteCycleColors                            ; $4190: $CD $B2 $45
-    ld a, $01                                     ; $4193: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4195: $EA $31 $C8
-    ret                                           ; $4198: $C9
-
-
-jr_007_4199:
-    ld hl, wPalette_AnimBuffers.Background                                  ; $4199: $21 $AB $C7
-    ld e, $03                                     ; $419C: $1E $03
-    ld a, $03                                     ; $419E: $3E $03
-    call Palette_PaletteCycleColors                            ; $41A0: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $41A3: $21 $AB $C7
-    ld e, $04                                     ; $41A6: $1E $04
-    ld a, $03                                     ; $41A8: $3E $03
-    call Palette_PaletteCycleColors                            ; $41AA: $CD $B2 $45
-    ld hl, wPalette_AnimBuffers.Background                                  ; $41AD: $21 $AB $C7
-    ld e, $05                                     ; $41B0: $1E $05
-    ld a, $03                                     ; $41B2: $3E $03
-    call Palette_PaletteCycleColors                            ; $41B4: $CD $B2 $45
-    ld a, $01                                     ; $41B7: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $41B9: $EA $31 $C8
-    ret                                           ; $41BC: $C9
-
-PaletteFX_Battle_CreatureFadeMultiColor::
-    ld a, [$C9D9]                                 ; $41BD: $FA $D9 $C9
-    and a                                         ; $41C0: $A7
-    jr nz, jr_007_41C7                            ; $41C1: $20 $04
-
-    call Call_007_43BD                            ; $41C3: $CD $BD $43
-    ret                                           ; $41C6: $C9
-
-
-jr_007_41C7:
-    call Call_007_440D                            ; $41C7: $CD $0D $44
-    ret                                           ; $41CA: $C9
-
-    ; $41CB
-PaletteFX_Battle_CreatureFadeUniColor::
-    xor a                                         ; $41CB: $AF
-    ld [wPalette_VBlankReady], a                                 ; $41CC: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $41CF: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $41D2: $EA $30 $C8
-    ld a, [wTemp_A.Palette_SetColor+1]                                 ; $41D5: $FA $DB $C9
-    ld d, a                                       ; $41D8: $57
-    ld a, [wTemp_A.Palette_SetColor]                                 ; $41D9: $FA $DA $C9
-    ld e, a                                       ; $41DC: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $41DD: $FA $D9 $C9
-    and a                                         ; $41E0: $A7
-    jr nz, jr_007_4221                            ; $41E1: $20 $3E
-
-    ld hl, $C7AD                                  ; $41E3: $21 $AD $C7
-    ld bc, $0003                                  ; $41E6: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41E9: $CD $E4 $46
-    ld hl, $C7B5                                  ; $41EC: $21 $B5 $C7
-    ld bc, $0003                                  ; $41EF: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41F2: $CD $E4 $46
-    ld hl, $C7BD                                  ; $41F5: $21 $BD $C7
-    ld bc, $0003                                  ; $41F8: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $41FB: $CD $E4 $46
-    ld a, [wPalette20Transparent]                                 ; $41FE: $FA $E2 $C9
-    and a                                         ; $4201: $A7
-    jr z, jr_007_420A                             ; $4202: $28 $06
-
-    ld a, $01                                     ; $4204: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4206: $EA $31 $C8
-    ret                                           ; $4209: $C9
-
-
-jr_007_420A:
-    ld a, [wTemp_A.Unknown+1]                                 ; $420A: $FA $DB $C9
-    ld d, a                                       ; $420D: $57
-    ld a, [wTemp_A.Unknown]                                 ; $420E: $FA $DA $C9
-    ld e, a                                       ; $4211: $5F
-    ld hl, $C7BB                                  ; $4212: $21 $BB $C7
-    ld bc, $0001                                  ; $4215: $01 $01 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4218: $CD $E4 $46
-    ld a, $01                                     ; $421B: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $421D: $EA $31 $C8
-    ret                                           ; $4220: $C9
-
-
-jr_007_4221:
-    ld hl, $C7C5                                  ; $4221: $21 $C5 $C7
-    ld bc, $0003                                  ; $4224: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4227: $CD $E4 $46
-    ld hl, $C7CD                                  ; $422A: $21 $CD $C7
-    ld bc, $0003                                  ; $422D: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4230: $CD $E4 $46
-    ld hl, $C7D5                                  ; $4233: $21 $D5 $C7
-    ld bc, $0003                                  ; $4236: $01 $03 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4239: $CD $E4 $46
-    ld a, [wPalette50Transparent]                                 ; $423C: $FA $E3 $C9
-    and a                                         ; $423F: $A7
-    jr z, jr_007_4248                             ; $4240: $28 $06
-
-    ld a, $01                                     ; $4242: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4244: $EA $31 $C8
-    ret                                           ; $4247: $C9
-
-
-jr_007_4248:
-    ld a, [wTemp_A.Unknown+1]                                 ; $4248: $FA $DB $C9
-    ld d, a                                       ; $424B: $57
-    ld a, [wTemp_A.Unknown]                                 ; $424C: $FA $DA $C9
-    ld e, a                                       ; $424F: $5F
-    ld hl, $C7D3                                  ; $4250: $21 $D3 $C7
-    ld bc, $0001                                  ; $4253: $01 $01 $00
-    call Palette_PaletteBufferFadeUniColor                            ; $4256: $CD $E4 $46
-    ld a, $01                                     ; $4259: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $425B: $EA $31 $C8
-    ret                                           ; $425E: $C9
-
-
-    PushROMBank
-    Do_CallForeign Creature_GetDataFromID
-    ld bc, $0008                                  ; $426B: $01 $08 $00
-    add hl, bc                                    ; $426E: $09
-    ld b, $00                                     ; $426F: $06 $00
-    ld a, [wTemp_A.Unknown]                                 ; $4271: $FA $DA $C9
-    cp b                                          ; $4274: $B8
-    jr z, jr_007_4290                             ; $4275: $28 $19
-
-    cp $01                                        ; $4277: $FE $01
-    jr nz, jr_007_427F                            ; $4279: $20 $04
-
-    ld a, $18                                     ; $427B: $3E $18
-    jr jr_007_4290                                ; $427D: $18 $11
-
-jr_007_427F:
-    cp $02                                        ; $427F: $FE $02
-    jr nz, jr_007_4287                            ; $4281: $20 $04
-
-    ld a, $30                                     ; $4283: $3E $30
-    jr z, jr_007_4290                             ; $4285: $28 $09
-
-jr_007_4287:
-    cp $03                                        ; $4287: $FE $03
-    jr nz, jr_007_428F                            ; $4289: $20 $04
-
-    ld a, $48                                     ; $428B: $3E $48
-    jr z, jr_007_4290                             ; $428D: $28 $01
-
-jr_007_428F:
-    xor a                                         ; $428F: $AF
-
-jr_007_4290:
-    ld c, a                                       ; $4290: $4F
-    ld a, [hl+]                                   ; $4291: $2A
-    push hl                                       ; $4292: $E5
-    ld h, [hl]                                    ; $4293: $66
-    ld l, a                                       ; $4294: $6F
-    add hl, bc                                    ; $4295: $09
-    ld b, h                                       ; $4296: $44
-    ld c, l                                       ; $4297: $4D
-    ld a, c                                       ; $4298: $79
-    ld [$C9D5], a                                 ; $4299: $EA $D5 $C9
-    ld a, b                                       ; $429C: $78
-    ld [$C9D6], a                                 ; $429D: $EA $D6 $C9
-    pop hl                                        ; $42A0: $E1
-    inc hl                                        ; $42A1: $23
-    ld a, [hl+]                                   ; $42A2: $2A
-    ld [$C9D7], a                                 ; $42A3: $EA $D7 $C9
-    call $35F1                                    ; $42A6: $CD $F1 $35
-    PopROMBank
-    ret                                           ; $42B0: $C9
-
-
-    xor a                                         ; $42B1: $AF
-    ld [wPalette_VBlankReady], a                                 ; $42B2: $EA $31 $C8
-    ld a, [wTemp_A.Unknown+1]                                 ; $42B5: $FA $DB $C9
-    ld b, a                                       ; $42B8: $47
-    ld a, [wTemp_A.Unknown]                                 ; $42B9: $FA $DA $C9
-    ld c, a                                       ; $42BC: $4F
-    ld a, [$C9D9]                                 ; $42BD: $FA $D9 $C9
-    and a                                         ; $42C0: $A7
-    jr nz, jr_007_42D3                            ; $42C1: $20 $10
-
-    ld hl, $C7AB                                  ; $42C3: $21 $AB $C7
-    ld e, $01                                     ; $42C6: $1E $01
-    ld a, $02                                     ; $42C8: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $42CA: $CD $74 $47
-    ld a, $01                                     ; $42CD: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $42CF: $EA $31 $C8
-    ret                                           ; $42D2: $C9
-
-
-jr_007_42D3:
-    ld hl, $C7AB                                  ; $42D3: $21 $AB $C7
-    ld e, $0D                                     ; $42D6: $1E $0D
-    ld a, $02                                     ; $42D8: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $42DA: $CD $74 $47
-    ld a, $01                                     ; $42DD: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $42DF: $EA $31 $C8
-    ret                                           ; $42E2: $C9
-
-    ;BTL_SWAP_CREATURE_PALETTE
-    ; $42E3
-PaletteFX_Battle_CreatureSwapRGB::
-    xor a                                         ; $42E3: $AF
-    ld [wPalette_VBlankReady], a                                 ; $42E4: $EA $31 $C8
-    ld a, [wTemp_8.Palette_ColorSwapType]                                 ; $42E7: $FA $D8 $C9
-    ld e, a                                       ; $42EA: $5F
-    ld a, [wTemp_9.Palette_BattleFX_CreatureSide]                                 ; $42EB: $FA $D9 $C9
-    and a                                         ; $42EE: $A7
-    jr nz, jr_007_4312                            ; $42EF: $20 $21
-
-    ld hl, $C7AD                                  ; $42F1: $21 $AD $C7
-    ld bc, $0003                                  ; $42F4: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $42F7: $CD $87 $47
-    ld hl, $C7B5                                  ; $42FA: $21 $B5 $C7
-    ld bc, $0003                                  ; $42FD: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4300: $CD $87 $47
-    ld hl, $C7BD                                  ; $4303: $21 $BD $C7
-    ld bc, $0003                                  ; $4306: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4309: $CD $87 $47
-    ld a, $01                                     ; $430C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $430E: $EA $31 $C8
-    ret                                           ; $4311: $C9
-
-
-jr_007_4312:
-    ld hl, $C7C5                                  ; $4312: $21 $C5 $C7
-    ld bc, $0003                                  ; $4315: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4318: $CD $87 $47
-    ld hl, $C7CD                                  ; $431B: $21 $CD $C7
-    ld bc, $0003                                  ; $431E: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $4321: $CD $87 $47
-    ld hl, $C7D5                                  ; $4324: $21 $D5 $C7
-    ld bc, $0003                                  ; $4327: $01 $03 $00
-    call Palette_PaletteBufferSwapRGB                            ; $432A: $CD $87 $47
-    ld a, $01                                     ; $432D: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $432F: $EA $31 $C8
-    ret                                           ; $4332: $C9
-
-PaletteFX_Battle_CreatureInvert::
-    xor a                                         ; $4333: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4334: $EA $31 $C8
-    ld a, [wTemp_8.Palette_PackedInterval]                                 ; $4337: $FA $D8 $C9
-    ld e, a                                       ; $433A: $5F
-    ld a, [$C9D9]                                 ; $433B: $FA $D9 $C9
-    and a                                         ; $433E: $A7
-    jr nz, jr_007_437F                            ; $433F: $20 $3E
-
-    ld hl, $C7AD                                  ; $4341: $21 $AD $C7
-    ld bc, $0003                                  ; $4344: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4347: $CD $D1 $47
-    ld hl, $C7B5                                  ; $434A: $21 $B5 $C7
-    ld bc, $0003                                  ; $434D: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4350: $CD $D1 $47
-    ld hl, $C7BD                                  ; $4353: $21 $BD $C7
-    ld bc, $0003                                  ; $4356: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4359: $CD $D1 $47
-    ld a, [wPalette20Transparent]                                 ; $435C: $FA $E2 $C9
-    and a                                         ; $435F: $A7
-    jr z, jr_007_4368                             ; $4360: $28 $06
-
-    ld a, $01                                     ; $4362: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4364: $EA $31 $C8
-    ret                                           ; $4367: $C9
-
-
-jr_007_4368:
-    ld a, [wTemp_A.Unknown+1]                                 ; $4368: $FA $DB $C9
-    ld d, a                                       ; $436B: $57
-    ld a, [wTemp_A.Unknown]                                 ; $436C: $FA $DA $C9
-    ld e, a                                       ; $436F: $5F
-    ld hl, $C7BB                                  ; $4370: $21 $BB $C7
-    ld bc, $0001                                  ; $4373: $01 $01 $00
-    call Palette_PaletteBufferInvertColors                            ; $4376: $CD $D1 $47
-    ld a, $01                                     ; $4379: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $437B: $EA $31 $C8
-    ret                                           ; $437E: $C9
-
-
-jr_007_437F:
-    ld hl, $C7C5                                  ; $437F: $21 $C5 $C7
-    ld bc, $0003                                  ; $4382: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4385: $CD $D1 $47
-    ld hl, $C7CD                                  ; $4388: $21 $CD $C7
-    ld bc, $0003                                  ; $438B: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $438E: $CD $D1 $47
-    ld hl, $C7D5                                  ; $4391: $21 $D5 $C7
-    ld bc, $0003                                  ; $4394: $01 $03 $00
-    call Palette_PaletteBufferInvertColors                            ; $4397: $CD $D1 $47
-    ld a, [wPalette50Transparent]                                 ; $439A: $FA $E3 $C9
-    and a                                         ; $439D: $A7
-    jr z, jr_007_43A6                             ; $439E: $28 $06
-
-    ld a, $01                                     ; $43A0: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $43A2: $EA $31 $C8
-    ret                                           ; $43A5: $C9
-
-
-jr_007_43A6:
-    ld a, [wTemp_A.Unknown+1]                                 ; $43A6: $FA $DB $C9
-    ld d, a                                       ; $43A9: $57
-    ld a, [wTemp_A.Unknown]                                 ; $43AA: $FA $DA $C9
-    ld e, a                                       ; $43AD: $5F
-    ld hl, $C7D3                                  ; $43AE: $21 $D3 $C7
-    ld bc, $0001                                  ; $43B1: $01 $01 $00
-    call Palette_PaletteBufferInvertColors                            ; $43B4: $CD $D1 $47
-    ld a, $01                                     ; $43B7: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $43B9: $EA $31 $C8
-    ret                                           ; $43BC: $C9
-
-    ; $43BD
-Call_007_43BD:
-    xor a                                         ; $43BD: $AF
-    ld [wPalette_VBlankReady], a                                 ; $43BE: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $43C1: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $43C4: $EA $30 $C8
-    ld hl, $C7AD                                  ; $43C7: $21 $AD $C7
-    ld bc, $C72D                                  ; $43CA: $01 $2D $C7
-    ld a, $03                                     ; $43CD: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43CF: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43D2: $CD $B6 $48
-    ld hl, $C7B7                                  ; $43D5: $21 $B7 $C7
-    ld bc, $C737                                  ; $43D8: $01 $37 $C7
-    ld a, $03                                     ; $43DB: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43DD: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43E0: $CD $B6 $48
-    ld a, [wPalette20Transparent]                                 ; $43E3: $FA $E2 $C9
-    and a                                         ; $43E6: $A7
-    jr z, jr_007_43F9                             ; $43E7: $28 $10
-
-    ld hl, $C7BB                                  ; $43E9: $21 $BB $C7
-    ld bc, $C73B                                  ; $43EC: $01 $3B $C7
-    ld a, $04                                     ; $43EF: $3E $04
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $43F1: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $43F4: $CD $B6 $48
-    jr jr_007_4407                                ; $43F7: $18 $0E
-
-jr_007_43F9:
-    ld hl, $C7C3                                  ; $43F9: $21 $C3 $C7
-    ld bc, $C743                                  ; $43FC: $01 $43 $C7
-    ld a, $03                                     ; $43FF: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4401: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4404: $CD $B6 $48
-
-jr_007_4407:
-    ld a, $01                                     ; $4407: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $4409: $EA $31 $C8
-    ret                                           ; $440C: $C9
-
-
-Call_007_440D:
-    xor a                                         ; $440D: $AF
-    ld [wPalette_VBlankReady], a                                 ; $440E: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $4411: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $4414: $EA $30 $C8
-    ld hl, $C7C5                                  ; $4417: $21 $C5 $C7
-    ld bc, $C745                                  ; $441A: $01 $45 $C7
-    ld a, $03                                     ; $441D: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $441F: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4422: $CD $B6 $48
-    xor a                                         ; $4425: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4426: $EA $31 $C8
-    ld hl, $C7CD                                  ; $4429: $21 $CD $C7
-    ld bc, $C74D                                  ; $442C: $01 $4D $C7
-    ld a, $03                                     ; $442F: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4431: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $4434: $CD $B6 $48
-    xor a                                         ; $4437: $AF
-    ld [wPalette_VBlankReady], a                                 ; $4438: $EA $31 $C8
-    ld a, [wPalette50Transparent]                                 ; $443B: $FA $E3 $C9
-    and a                                         ; $443E: $A7
-    jr nz, jr_007_4450                            ; $443F: $20 $0F
-
-    ld hl, $C7D3                                  ; $4441: $21 $D3 $C7
-    ld bc, $C753                                  ; $4444: $01 $53 $C7
-    ld a, $04                                     ; $4447: $3E $04
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4449: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $444C: $CD $B6 $48
-    ret                                           ; $444F: $C9
-
-
-jr_007_4450:
-    ld hl, $C7D5                                  ; $4450: $21 $D5 $C7
-    ld bc, $C755                                  ; $4453: $01 $55 $C7
-    ld a, $03                                     ; $4456: $3E $03
-    ld [wTemp_4.Palette_ColorCounter], a                                 ; $4458: $EA $D3 $C9
-    call Palette_PaletteBufferFadeMultiColor                            ; $445B: $CD $B6 $48
-    ret                                           ; $445E: $C9
-
-;above is source/engine/system/graphics/palette/palette_fx.s
-
-    ; $445F
 INCLUDE "source/engine/system/graphics/palette/palette_vb_xx.asm"
 
 ; This palette module contains general use functions for manipulating colors
@@ -966,9 +560,9 @@ Palette_PaletteBufferFadeUniColor::
 
     ; $474F
 Palette_DeterminePaletteVBlankFunc::
-    ; TODO - figure out when this function is relevant and why it exists
-    ;   Seems like this function is only called from Cardscene_Do and Fightscene_Update
-    ; Determines if the palette can be pushed to palette memory
+    ; Seems like this function is only called from Cardscene_Do and Fightscene_Update
+    ; Determines if there has been a change to the palette, and if so, requests that the palettes
+    ; get updated at the next VBlank.
     ; If wPalette_VBlankReady == 1, then palette is finished being modified by a function
     ;   and so we should push the new palette into palette memory
     ; If wPalette_VBlankReady == 0, then
@@ -980,13 +574,16 @@ Palette_DeterminePaletteVBlankFunc::
     jr z, .SetIdle
     .SetVBlankUpdatePalettes:
         ; Yes the palettes should be updated
+        ; Set to 0 so we don't push updates unnecessarily
         xor a
-        ld [wPalette_VBlankReady], a ;Set to 0 so we don't push updates unnecessarily
+        ld [wPalette_VBlankReady], a
+     ; Prep an update
         Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
-        Set16_M wVBlank_Func, PaletteVB_UpdatePalettes ; Prep an update
+        Set16_M wVBlank_Func, PaletteVB_UpdatePalettes
         ret
     .SetIdle:
-        Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle ;No need to update
+        ; No need to update
+        Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
         ret
 
     ; $4774
@@ -1339,9 +936,9 @@ Palette_PaletteBufferFadeMultiColor::
         ld [wTemp_4.Palette_ColorCounter], a
         jr Palette_PaletteBufferFadeMultiColor
     .Finished:
-        ld a, $01
-        ld [wPalette_VBlankReady], a
+        Set8 wPalette_VBlankReady, $01
         ret
+
     .Unused:
         ; Unused
         ret
@@ -1528,7 +1125,7 @@ jr_007_49A7:
     ld b, a                                       ; $49B2: $47
     ld a, [wTilemap_XTileOffset]                                 ; $49B3: $FA $5D $C8
     add b                                         ; $49B6: $80
-    ld [wSCXW], a                                 ; $49B7: $EA $35 $C9
+    ld [wSCX], a                                 ; $49B7: $EA $35 $C9
     ldh [rSCX], a                                 ; $49BA: $E0 $43
     ld a, [wTilemap_YTile]                                 ; $49BC: $FA $60 $C8
     ld c, a                                       ; $49BF: $4F
@@ -1539,7 +1136,7 @@ jr_007_49A7:
     ld b, a                                       ; $49C4: $47
     ld a, [wTilemap_YTileOffset]                                 ; $49C5: $FA $5E $C8
     add b                                         ; $49C8: $80
-    ld [wSCYW], a                                 ; $49C9: $EA $34 $C9
+    ld [wSCY], a                                 ; $49C9: $EA $34 $C9
     ldh [rSCY], a                                 ; $49CC: $E0 $42
     ld a, [wTilemap_Width]                                 ; $49CE: $FA $47 $C8
     ld b, a                                       ; $49D1: $47
@@ -1734,9 +1331,9 @@ Tilemap_VBlank_DrawRowCol::
     ; This seems to update rSCX and rSCY
     ; and then potentially copy some stuff into VRAM during the vblank
     ; But this function wasn't closely investigated
-    ld a, [wSCXW]                                 ; $4B1D: $FA $35 $C9
+    ld a, [wSCX]                                 ; $4B1D: $FA $35 $C9
     ldh [rSCX], a                                 ; $4B20: $E0 $43
-    ld a, [wSCYW]                                 ; $4B22: $FA $34 $C9
+    ld a, [wSCY]                                 ; $4B22: $FA $34 $C9
     ldh [rSCY], a                                 ; $4B25: $E0 $42
     ld a, [wTilemap_ColTrig]                                 ; $4B27: $FA $92 $C8
     and a                                         ; $4B2A: $A7
@@ -1967,8 +1564,7 @@ jr_007_4D16:
     and a                                         ; $4D27: $A7
     jp z, Jump_007_4F38                           ; $4D28: $CA $38 $4F
 
-    cpl                                           ; $4D2B: $2F
-    inc a                                         ; $4D2C: $3C
+    NegativeA
     ld e, a                                       ; $4D2D: $5F
 
 jr_007_4D2E:
@@ -2759,8 +2355,7 @@ jr_007_51B9:
     and a                                         ; $51CA: $A7
     jp z, Jump_007_5415                           ; $51CB: $CA $15 $54
 
-    cpl                                           ; $51CE: $2F
-    inc a                                         ; $51CF: $3C
+    NegativeA
     ld e, a                                       ; $51D0: $5F
 
 jr_007_51D1:
@@ -2806,8 +2401,7 @@ jr_007_520A:
     add d                                         ; $5210: $82
     ld [hl], a                                    ; $5211: $77
     ld a, [wTilemap_Width]                                 ; $5212: $FA $47 $C8
-    cpl                                           ; $5215: $2F
-    inc a                                         ; $5216: $3C
+    NegativeA
     ld l, a                                       ; $5217: $6F
     ld h, $FF                                     ; $5218: $26 $FF
     add hl, bc                                    ; $521A: $09
@@ -3683,214 +3277,9 @@ jr_007_5AF1:
     ld bc, $E507                                  ; $5BF8: $01 $07 $E5
     ld bc, $EA07                                  ; $5BFB: $01 $07 $EA
     db $01, $07
-Call_007_5C00::
-    xor a
-    ld [wPalette_VBlankReady], a                                 ; $5C01: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $5C04: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $5C07: $EA $30 $C8
-    ld a, $61                                     ; $5C0A: $3E $61
-    ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C0C: $EA $D8 $C9
-    call PaletteFX_FadeAnimToColor                            ; $5C0F: $CD $FD $48
-    FGet16 bc, $C7DB                                  ; $5C12: $21 $DB $C7
-    Set16 wArena_Color, bc
-    call Call_007_5CE2                            ; $5C20: $CD $E2 $5C
-    ld a, $01                                     ; $5C23: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5C25: $EA $31 $C8
-    ret                                           ; $5C28: $C9
-
-Call_007_5C29::
-    xor a                                         ; $5C29: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5C2A: $EA $31 $C8
-    ld a, [wTemp_B.Palette_FadeMagnitude]                                 ; $5C2D: $FA $DC $C9
-    ld [wPalette_FadeMagnitudeCounter], a                                 ; $5C30: $EA $30 $C8
-    ld a, $61                                     ; $5C33: $3E $61
-    ld [wTemp_8.Palette_PackedInterval], a                                 ; $5C35: $EA $D8 $C9
-    call PaletteFX_FadeAnimToBase                            ; $5C38: $CD $9D $48
-    FGet16 bc, $C7DB                                  ; $5C3B: $21 $DB $C7
-    Set16 wArena_Color, bc
-    call Call_007_5CE2                            ; $5C49: $CD $E2 $5C
-    ld a, $01                                     ; $5C4C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5C4E: $EA $31 $C8
-    ret                                           ; $5C51: $C9
 
 
-    ; $5C52
-PasteColorToPalette00103040And2050IfTransparent:
-    ; Pastes a Color wArena_Color into:
-    ;   Palette 0.0, 1.0, 3.0, 4.0
-    ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
-    ;   Also pastes over those values
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld a, [wArena_Color+1]
-    ld b, a
-    ld a, [wArena_Color]
-    ld c, a
-    ld hl, wPalette_BaseBuffers
-    ld e, $00       ;Palettes 0.0, 1.0
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld hl, wPalette_BaseBuffers
-    ld e, $0C       ;Palettes 3.0, 4.0
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld hl, wPalette_BaseBuffers
-    call ChangePalette2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-PasteColorToPalette0010304060And2050IfTransparent:
-    ; $5C7E
-    ; Pastes a Color wArena_Color into:
-    ;   Palette 0.0, 1.0, 3.0, 4.0, 6.0
-    ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
-    ;   Also pastes over those values
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld a, [wArena_Color+1]
-    ld b, a
-    ld a, [wArena_Color]
-    ld c, a
-    ld hl, wPalette_BaseBuffers
-    ld e, $18               ; Palette 6.0
-    ld a, $01
-    call Palette_PaletteBufferSetColor
-    call PasteColorToPalette00103040And2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-Call_007_5C9D::
-    xor a                                         ; $5C9D: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5C9E: $EA $31 $C8
-    Get16 bc, wArena_Color
-    ld hl, $C7AB                                  ; $5CA9: $21 $AB $C7
-    ld e, $14                                     ; $5CAC: $1E $14
-    ld a, $01                                     ; $5CAE: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5CB0: $CD $74 $47
-    ld a, $01                                     ; $5CB3: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5CB5: $EA $31 $C8
-    ret                                           ; $5CB8: $C9
-
-    ; $5CB9
-Fightscene_PalFX_SetCardsceneArenaColor::
-    ; Set the Palette 6 - populate it with the arena colors:
-    ; Palette 6.0 <- wArena_Color
-    ; Palette 6.1 <- Black
-    ; Palette 6.2, 6.3 - undefined (not used, not changed)
-    xor a
-    ld [wPalette_VBlankReady], a
-
-    ; Set Palette 6.0 to wArena_Color
-    Get16 bc, wArena_Color
-    ld hl, wPalette_BaseBuffers.Background
-    ld e, 6*4
-    ld a, 1
-    call Palette_PaletteBufferSetColor
-
-    ; Set Palette 6.0 to Black
-    ld bc, $0000
-    ld hl, wPalette_BaseBuffers.Background
-    ld e, 6*4 + 1
-    ld a, 1
-    call Palette_PaletteBufferSetColor
-
-    Set8 wPalette_VBlankReady, $01
-    ret
-
-
-Call_007_5CE2:
-    xor a                                         ; $5CE2: $AF
-    ld [wPalette_VBlankReady], a                                 ; $5CE3: $EA $31 $C8
-    Get16 bc, wArena_Color
-    ld hl, $C7AB                                  ; $5CEE: $21 $AB $C7
-    ld e, $00                                     ; $5CF1: $1E $00
-    ld a, $02                                     ; $5CF3: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $5CF5: $CD $74 $47
-    ld hl, $C7AB                                  ; $5CF8: $21 $AB $C7
-    ld e, $0C                                     ; $5CFB: $1E $0C
-    ld a, $02                                     ; $5CFD: $3E $02
-    call Palette_PaletteBufferSetColor                            ; $5CFF: $CD $74 $47
-    ld hl, $C7AB                                  ; $5D02: $21 $AB $C7
-    ld e, $18                                     ; $5D05: $1E $18
-    ld a, $01                                     ; $5D07: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D09: $CD $74 $47
-    ld a, [wPalette20Transparent]                                 ; $5D0C: $FA $E2 $C9
-    and a                                         ; $5D0F: $A7
-    jr z, jr_007_5D1C                             ; $5D10: $28 $0A
-
-    ld hl, $C7AB                                  ; $5D12: $21 $AB $C7
-    ld e, $08                                     ; $5D15: $1E $08
-    ld a, $01                                     ; $5D17: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D19: $CD $74 $47
-
-jr_007_5D1C:
-    ld a, [wPalette50Transparent]                                 ; $5D1C: $FA $E3 $C9
-    and a                                         ; $5D1F: $A7
-    jr z, jr_007_5D2C                             ; $5D20: $28 $0A
-
-    ld hl, $C7AB                                  ; $5D22: $21 $AB $C7
-    ld e, $14                                     ; $5D25: $1E $14
-    ld a, $01                                     ; $5D27: $3E $01
-    call Palette_PaletteBufferSetColor                            ; $5D29: $CD $74 $47
-
-jr_007_5D2C:
-    ld a, $01                                     ; $5D2C: $3E $01
-    ld [wPalette_VBlankReady], a                                 ; $5D2E: $EA $31 $C8
-    ret                                           ; $5D31: $C9
-
-
-    ; $5D32
-ChangePalette2050IfTransparent::
-    ; Pastes Color into Palette 2.0 and 5.0 if their values are RGB 00,$0F,$0F (i.e. transparency value)
-    push bc
-    push hl
-    xor a
-    ld [wPalette20Transparent], a
-    ld [wPalette50Transparent], a
-    ld bc, $3DE0    ;RGB 00,$0F,$0F
-    ld de, $0010    ;+2 Palettes
-    add hl, de
-    DerefHL
-    ld a, h
-    cp b
-    jr nz, .SkipPalette2
-    ld a, l
-    cp c
-    jr nz, .SkipPalette2
-    pop hl
-    pop bc
-    push bc
-    push hl
-    ld e, $08
-    ld a, $01
-    ld [wPalette20Transparent], a
-    call Palette_PaletteBufferSetColor
-.SkipPalette2:
-    ld bc, $3DE0    ;RGB 00,$0F,$0F
-    pop hl
-    push hl
-    ld de, $0028    ;+$5 Palettes
-    add hl, de
-    DerefHL
-    ld a, h
-    cp b
-    jr nz, .SkipPalette5
-    ld a, l
-    cp c
-    jr nz, .SkipPalette5
-    pop hl
-    pop bc
-    ld e, $14
-    ld a, $01
-    ld [wPalette50Transparent], a
-    call Palette_PaletteBufferSetColor
-    ret
-.SkipPalette5:
-    pop hl
-    pop bc
-    ret
+INCLUDE "source/game/fightscene/fightscene_palfx_arena.asm"
 
     ; $5D7F
     dw $6865
@@ -4083,8 +3472,7 @@ jr_007_64D0:
     ld [hl], a                                    ; $64D1: $77
     pop bc                                        ; $64D2: $C1
     sub b                                         ; $64D3: $90
-    cpl                                           ; $64D4: $2F
-    inc a                                         ; $64D5: $3C
+    NegativeA
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $64D6: $EA $77 $D0
     ld a, $02                                     ; $64D9: $3E $02
     ld [wBattle_DamageOverrideFlag], a                                 ; $64DB: $EA $76 $D0

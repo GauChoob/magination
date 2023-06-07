@@ -611,12 +611,12 @@ Frame_Draw::
     ;       A series of Y, X, Tile, Attr bytes, terminated by a single $80 byte
     ;   hActor.XTile, hActor.XOffset
     ;   hActor.YTile, hActor.YOffset
-    ;   wSCXW, wSCYW: Position of the screen
+    ;   wSCX, wSCY: Position of the screen
     ;   hActor.SpriteBase
     ; Outputs:
     ;   The sprite data in hl is added to wObjRAM. Y, X and Tile are offset by
-    ;       YTile, hActor.YOffset, wSCYW,
-    ;       XTile, hActor.XOffset, wSCXW, and
+    ;       YTile, hActor.YOffset, wSCY,
+    ;       XTile, hActor.XOffset, wSCX, and
     ;       hActor.SpriteBase respectively.
     ldh a, [hActor_ScreenY]
     ldh [hActor_ScreenYPrev], a
@@ -654,7 +654,7 @@ Frame_Draw::
 
     ;Frame_ScreenX
     ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCXW]
+        ld a, [wSCX]
         ld c, a
         ld a, d ; hActor.XTile
         add a
@@ -668,11 +668,11 @@ Frame_Draw::
         add b
         sub c
         ld d, a
-        ldh [hActor_ScreenX], a  ; <- d <- hActor.XTile*$10 + 8 + hActor.XOffset - wSCXW
+        ldh [hActor_ScreenX], a  ; <- d <- hActor.XTile*$10 + 8 + hActor.XOffset - wSCX
 
     ;Frame_ScreenY
     ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCYW]
+        ld a, [wSCY]
         ld c, a
         ld a, e ; hActor.YTile
         add a
@@ -798,8 +798,7 @@ Frame_Ready::
     sub b
     jr nc, .OAMClean ;If there are more sprites for this frame, we don't need to
                      ;erase the previous frame data since it will be overwritten
-    cpl
-    inc a
+    NegativeA
     srl a
     srl a
     ld e, a ; = (PreviousFrame-CurrentFrame)/4 -> Difference in the number of sprites
@@ -1945,13 +1944,13 @@ Cmd_Battle_New::
 
     SwitchRAMBank BANK("WRAM BATTLE")
 
-    Script_ReadByte_V [$C9E4]
+    Script_ReadByte_V [wFightscene_ArenaIndex]  ; TODO
 
     ; Store the enemy magi ID
     Script_ReadByteA
     ld [wBattle_MagiCreatureID], a
     ; Set whether Tony can run from the battle (yes if no enemy magi)
-    cp luDreamCreature6C
+    cp CreatureID_NoMagi
     jr z, .NoMagi
     .HasMagi:
         xor a
@@ -1969,7 +1968,7 @@ Cmd_Battle_New::
     LdHLIBCI
 
     xor a
-    ld [$D0D7], a
+    ld [$D0D7], a   ; TODO
 
     ; TODO
     Set16_M wScript_Master.State, Script_Start
@@ -2078,7 +2077,7 @@ Cmd_Battle_Swirl::
     LdHLIBCI
     jp Script_Start
 
-
+    ; $0FFE
     ld a, $01
     ld [$C6D8], a
     ld a, $FF
@@ -2094,7 +2093,7 @@ Cmd_Battle_Swirl::
 
 
 Battle02_00_CopyFromFrame:
-    ; Copies a bytes from the reading frame into the buffer
+    ; Copies "a" bytes from the reading frame into the buffer
     ; Then saves the updated frame
     ; Arguments:
     ;   a = number of bytes to copy
@@ -2112,199 +2111,190 @@ Battle02_00_CopyFromFrame:
     ret
 
 
-    ld a, $30
-    ld [$C9EC], a
-    ld a, $DC
-    ld [$C9F0], a
-    ld a, $6B
-    ld [$C9F1], a
-    jp Jump_000_11D9
+    ; $1049
+Cmd_Fightscene_FightFX_BlowAway::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_BlowAway
+    jp Fightscene_FightFX_MoveTableInit
 
     ; $105B
-MagiOp_34_LoadSideScroller::
+Cmd_Fightscene_LoadArena::
     ; Loads the horizontally-scrolling part of the Start Screen
     ; This erases some unimportant temporary variables in the WRAM
     ; Arguments:
-    ;   db  The ID of the start screen (0-14)
-    ld a, [$C9E4]
-    ld e, a
+    ;   db  The ID of the start screen e.g. FIGHTSCENE_ARENA_Arderial
+    Get8 e, wFightscene_ArenaIndex
     push de
-    ld a, [bc]
-    ld [wStartScreenIndex], a
-    inc bc
+    Script_ReadByte [wFightscene_ArenaIndex]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
-
-    XCall LoadStartScreenScroller
+    XCall Fightscene_LoadArena
     pop de
-    ld a, e
-    ld [$C9E4], a
+    Set8 wFightscene_ArenaIndex, e
     ret
 
-
-    ld a, [bc]
-    ld [wTemp_8.Palette_PackedInterval], a
-    inc bc
+    ; $1088
+Cmd_Fightscene_LoadCreatureLeft::
+    ; Loads a creature into the left side of the fightscene
+    ; Arguments:
+    ;   db  CreatureID
+    Script_ReadByte [wTemp_8.Fightscene_CreatureID]
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     xor a
-    ld [$C9D9], a
-    XCall Call_004_7055
+    ld [wTemp_9.Palette_BattleFX_CreatureIsRight], a
+    XCall Fightscene_LoadCreature
     ret
 
+    ; $10AF
+Cmd_Fightscene_New::
+    ; Starts a Fightscene.
+    ; TODO - Loops forever unless explicitly cancelled(?) by the script
+    ; Arguments
+    ;   db wFightscene_ArenaIndex
+    ;   db wFightscene_CreatureLeft_ID
+    ;   db wFightscene_CreatureRight_ID
+    Script_ReadByte [wFightscene_ArenaIndex]
+    Script_ReadByte [wFightscene_CreatureLeft_ID]
+    Script_ReadByte [wFightscene_CreatureRight_ID]
+    Set8 wFightscene_Start, $01
 
-    ld a, [bc]
-    ld [$C9E4], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E0], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E1], a
-    inc bc
-    ld a, $01
-    ld [$C9C5], a
     Set16 hScript.Frame, bc
-    ld a, $06
-    ld [hScript_CurrentAddress], a
-    ld a, $C7
-    ld [hScript_CurrentAddress+1], a
+    Set16_M hScript_CurrentAddress, wScript_Master
     Set16_M hScript.State, Script_Start
     call Script_Close
     call ScreenHide
     call Interrupt_Timer_Start
     call Interpreter_ReInit
-    XCall Call_004_722E
+    XCall Fightscene_Init
     call System_Script_SceneInit
     call ScreenShow
 
-jr_000_10FC:
-    XCall Call_004_71A6
-    call Call_004_734D
-    jr jr_000_10FC
+    .Loop:
+        XCall Fightscene_HandleButtons
+        call Fightscene_Update
+        jr .Loop
 
-    ld a, $01
-    ldh [hScript.BigCounter], a
-    xor a
-    ldh [hScript.SmallCounter], a
-    ld a, $26
-    ld [hScript.State], a
-    ld a, $11
-    ld [hScript.State+1], a
-    Set16 hScript.Frame, bc
-    ret
-
-
-    ld a, [bc]
-    ld [$C9EA], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E7], a
-    inc bc
-    ld a, [bc]
-    ld [$C9E8], a
-    inc bc
-    XCall Call_004_711C
-    ret
+    ; $110C
+Cmd_Fightscene_FightFX_PanFromTable::
+    ; Pans the camera right, reading the data from the specified table for the specified number of frames
+    ; Arguments:
+    ;   ds 1  wFightscene_FightFX_Pan_RightDirection (nz = Right, z = Left)
+    ;   ds 2  Pointer to Fightscene_FightFX_PanTable_Regular, Fightscene_FightFX_PanTable_Fast or Fightscene_FightFX_PanTable_Slow
+    .Init:
+        Set8FF hScript.BigCounter, $01 ; Number of frames each instruction should last (therefore the first instruction is hard-coded to always last 1 frame)
+        xor a
+        ldh [hScript.SmallCounter], a ; Reading frame offset
+        Set16_M hScript.State, .MainLoop
+        Set16 hScript.Frame, bc
+        ret
+    .MainLoop:
+        ; The same data is read every frame
+        Script_ReadByte [wFightscene_FightFX_Pan_RightDirection]
+        Script_MovWord wFightscene_FightFX_Pan_TableAddress
+        XCall Fightscene_FightFX_PanFromTable
+        ret
 
     ; $1141
-    ; Identical to SceneReady, but not an opcode
-    ld a, $01
-    ld [wScript_SceneReady], a
+Cmd_Fightscene_FightFX_Ready::
+    ; Removed opcode - does not feature in the command list
+    ; Identical to Cmd_System_SceneReady
+    ; Inputs:
+    ;   None
+    Set8 wScript_SceneReady, $01
     Set16_M hScript.State, Script_Start
     ret
 
+    ; $1151
+Cmd_Fightscene_FightFX_Recoil::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Recoil
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $30
-    ld [$C9EC], a
-    ld a, $0C
-    ld [$C9F0], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
+    ; $1162
+Cmd_Fightscene_FightFX_UNKTODO::  ; TODO find the name of the movetable and rename this command
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_UNKTODO
+    jr Fightscene_FightFX_MoveTableInit
 
-    ld a, $24
-    ld [$C9EC], a
-    ld a, $3C
-    ld [$C9F0], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
+    ; $1173
+Cmd_Fightscene_FightFX_PanConstant::
+    ; Pan at a constant speed in a specified direction for a specified number of frames
+    ; Arguments:
+    ;   db   Direction; Right = 1, Left = 0
+    ;   db   DeltaX per frame
+    ;   db   Total number of frames
+    .Init:
+        Script_ReadByte_V [wFightscene_FightFX_Pan_RightDirection]
+        Script_ReadByte_V [wFightscene_FightFX_Pan_DeltaX]
+        Script_ReadByteA
+        ldh [hScript.SmallCounter], a
+        Set16 hScript.Frame, bc
+        Set16_M hScript.State, .MainLoop
+    .MainLoop
+        ldh a, [hScript.SmallCounter]
+        and a
+        jp z, Script_Start
+        dec a
+        ldh [hScript.SmallCounter], a
+        XCall Fightscene_FightFX_PanApplyDeltaX
+        ret
 
-    Script_ReadByteA
-    ld [$C9EA], a
-    Script_ReadByteA
-    ld [$C9E9], a
-    Script_ReadByteA
-    ldh [hScript.SmallCounter], a
-    Set16 hScript.Frame, bc
-    ld a, $93
-    ld [hScript.State], a
-    ld a, $11
-    ld [hScript.State+1], a
-    ldh a, [hScript.SmallCounter]
-    and a
-    jp z, Script_Start
+    ; $11A8
+Cmd_Fightscene_FightFX_Shake::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Shake
+    jr Fightscene_FightFX_MoveTableInit
 
-    dec a
-    ldh [hScript.SmallCounter], a
-    XCall Call_004_715B
-    ret
+    ; $11B9
+Cmd_Fightscene_FightFX_Sink::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Sink
+    jr Fightscene_FightFX_MoveTableInit
 
+    ; $11CA
+Cmd_Fightscene_FightFX_Tremble::
+    ; Inputs:
+    ;   None
+    Fightscene_FightFX_MoveTable_Load Fightscene_FightFX_MoveTable_Tremble
+    ;jr Fightscene_FightFX_MoveTableInit ; Fall through to the next function
 
-    ld a, $54
-    ld [$C9EC], a
-    ld a, $60
-    ld [$C9F0], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
-
-    ld a, $A8
-    ld [$C9EC], a
-    ld a, $B4
-    ld [$C9F0], a
-    ld a, $6C
-    ld [$C9F1], a
-    jr jr_000_11D9
-
-    ld a, $1D
-    ld [$C9EC], a
-    ld a, $5C
-    ld [$C9F0], a
-    ld a, $6D
-    ld [$C9F1], a
-
-Jump_000_11D9:
-jr_000_11D9:
+    ; $11D9
+Fightscene_FightFX_MoveTableInit::
+    ; Initialize the associated vars
     xor a
-    ld [$C9EB], a
-    ld [$C9EE], a
-    ld [$C9EF], a
+    ld [wFightscene_FightFX_ReadingFrameDelta], a
+    ld [wFightscene_FightFX_DelayCount], a
+    ld [wFightscene_FightFX_TotalDelay], a
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
     ret
 
+    ; $11F6
+Cmd_Fightscene_TileFX_DissolveFast::
+    ; Inputs:
+    ;   None
+    Set8 wFightscene_TileFX_ReadingFrameMax, Fightscene_TileFX_DissolveTable_Fast_Pointers_ENTRIES
+    Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Fast_Pointers
+    jr Fightscene_TileFX_MeltInit
 
-    ld a, $08
-    ld [$C9FA], a
-    ld a, $E9
-    ld [$C9F4], a
-    ld a, $6D
-    ld [$C9F5], a
-    jr jr_000_1216
+    ; $1207
+Cmd_Fightscene_TileFX_DissolveSlow::
+    ; Inputs:
+    ;   None
+    Set8 wFightscene_TileFX_ReadingFrameMax, Fightscene_TileFX_DissolveTable_Slow_Pointers_ENTRIES
+    Set16_M wFightscene_TileFX_PointerTable, Fightscene_TileFX_DissolveTable_Slow_Pointers
+    ;jr Fightscene_TileFX_MeltInit ; Fall through
 
-    ld a, $10
-    ld [$C9FA], a
-    ld a, $F9
-    ld [$C9F4], a
-    ld a, $6D
-    ld [$C9F5], a
-
-jr_000_1216:
+Fightscene_TileFX_MeltInit:
     Set16 hScript.Frame, bc
     Set16_M hScript.State, Script_Start
-    XCall Call_004_6AFA
+    XCall Fightscene_TileFX_Setup
     ret
 
     ; $1234
@@ -3261,18 +3251,15 @@ Palette_ReadPackedLoop_SmallCounter::
     ; $19B9
 Palette_ReadColor::
     ; Preps a word that's a Color
-    ; If the 16th bit is set (i.e. transparent Color), load wArena_Color which represents the background Color
+    ; If the 16th bit is set (i.e. transparent Color), load wFightscene_ArenaColor which represents the background Color
     ; Arguments:
     ;   dw      Color - The 16th bit signifies transparency
     ; Output:
-    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wArena_Color instead
-    Script_ReadByteA
-    ld [wTemp_A.Palette_SetColor], a
-    Script_ReadByteA
-    ld [wTemp_A.Palette_SetColor+1], a
+    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wFightscene_ArenaColor instead
+    Script_MovWord_V wTemp_A.Palette_SetColor
     bit 7, a
     ret z ;If the 16th bit is set, the color is transparent and so use the background arena color instead
-        Mov16 wTemp_A.Palette_SetColor, wArena_Color
+        Mov16 wTemp_A.Palette_SetColor, wFightscene_ArenaColor
         ret
 
     ; $19D3
@@ -3294,7 +3281,7 @@ Palette_ReadClearArguments::
     ;   dw      Color - The 16th bit signifies transparency
     ; Outputs:
     ;   wTemp_8.Palette_PackedInterval <- db
-    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wArena_Color instead
+    ;   wTemp_A.Palette_SetColor <- Color, unless 16th bit is set, then uses wFightscene_ArenaColor instead
     call Palette_ReadPackedInterval
     call Palette_ReadColor
     Set16 hScript.Frame, bc
@@ -3332,8 +3319,11 @@ Palette_LoopFinally::
         ret
 
     ; $1A16
-Cmd_Palette_000_1A16::
-    ; Unknown... Maybe it's a BattleFX that fades out the screen to white
+Cmd_Palette_ArenaFadeToColor::
+    ; Fades the Arena palettes to a single color
+    ; Arguments:
+    ;   db  Palette_PackedLoop
+    ;   dw  wTemp_A.Palette_SetColor - Target color
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3349,15 +3339,18 @@ Cmd_Palette_000_1A16::
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
         call Palette_ReadColor
-        Set8 wTemp_B.Palette_FadeMagnitude, $01 ;Unknown
+        Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall Call_007_5C00
+        XCall Fightscene_ArenaPalFX_FadeArenaToColor
         pop bc
         jp Palette_LoopFinally
 
     ; $1A44
-Cmd_Palette_000_1A44::
-    ; Unknown... Maybe it's a BattleFX that fades the screen into the real colors
+Cmd_Palette_ArenaFadeToBase::
+    ; Fades the Arena palettes to a new palette
+    ; The new palette needs to already be loaded into wPalette_BaseBuffers with a previous command
+    ; Arguments:
+    ;   db  Palette_PackedLoop
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3372,9 +3365,9 @@ Cmd_Palette_000_1A44::
     .Main:
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
-        Set8 wTemp_B.Palette_FadeMagnitude, $01 ;Unknown
+        Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall Call_007_5C29
+        XCall Fightscene_ArenaPalFX_FadeArenaToBase
         pop bc
         jp Palette_LoopFinally
 
@@ -3384,7 +3377,7 @@ Cmd_Palette_ClearBase::
     ;
     ; Arguments:
     ;   db      wTemp_8.Palette_PackedInterval - Represents the palettes that should be modified
-    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wArena_Color is used instead)
+    ;   dw      wTemp_A.Palette_SetColor - The 16th bit signifies transparency (wFightscene_ArenaColor is used instead)
     call Palette_ReadClearArguments
     XCall PaletteFX_ClearBaseBuffer
     Set16_M hScript.State, Script_Start
@@ -3409,7 +3402,7 @@ Cmd_Palette_CreatureCycle::
     ; BattleFX - cycles a creature's palette
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3424,19 +3417,19 @@ Cmd_Palette_CreatureCycle::
     .Main:
         ; Main body
         call Palette_ReadPackedLoop_SmallCounter ; Reset the SmallCounter
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
-        XCall PaletteFX_Battle_CreatureCycle
+        XCall Fightscene_CreaturePalFX_Cycle
         pop bc
         jp Palette_LoopFinally
 
     ; $1ADB
-Cmd_Palette_CreatureFadeUniColor::
+Cmd_Palette_CreatureFadeToColor::
     ; BattleFX - fades a creature's palette to a Color
     ; Arguments:
     ;   db  Palette_PackedLoop
     ;   dw  wTemp_A.Palette_SetColor
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3452,21 +3445,20 @@ Cmd_Palette_CreatureFadeUniColor::
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter ; Reset the SmallCounter
         call Palette_ReadColor
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeUniColor
+        XCall Fightscene_CreaturePalFX_FadeToColor
         pop bc
         jp Palette_LoopFinally
 
     ; $1B0E
-Cmd_Palette_CreatureFadeMultiColor::
-    ; TODO VERIFY FUNCTION
-    ; A quick glance seems to fade from Anim to Base Buffers
-    ; BattleFX - Ipsum TODO
+Cmd_Palette_CreatureFadeToBase::
+    ; Fades the target creature's colors from Anim to Base Buffers
+    ; The CreatureLeft function has a few bugs, although CreatureRight works well
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3481,40 +3473,38 @@ Cmd_Palette_CreatureFadeMultiColor::
     .Main:
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeMultiColor
+        XCall Fightscene_CreaturePalFX_FadeToBase
         pop bc
         jp Palette_LoopFinally
 
     ; $1B3E
 Cmd_Palette_CreatureLoad::
     ; Loads a palette of a creature
-    ; TODO
     ; Arguments:
     ;   AddressBank - Creature palette
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     ;
     ; Address
-    Script_ReadByte_V [wTemp_6.Palette_PaletteAddress]
-    Script_ReadByte_V [wTemp_6.Palette_PaletteAddress+1]
+    Script_MovWord_V wTemp_6.Palette_PaletteAddress
     ; Bank
     Script_ReadByte_V [wTemp_7.Palette_PaletteBank]
     ; Creature
-    Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+    Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
     Set16 hScript.Frame, bc
-    XCall Call_000_35F1 ;XCall, but the function needs to be in bank $00
+    XCall Fightscene00_LoadCreaturePalette ;inefficiency - XCall, but the function needs to be in ROM0
     Set16_M hScript.State, Script_Start
     ret
 
     ; $1B70
 Cmd_Palette_CreatureFlash::
-    ; BattleFX - rotates a creature's palette's RGB values
+    ; Swaps a creature's palette's RGB values
     ; Arguments:
     ;   db  Palette_PackedLoop
-    ;   db  wTemp_8.Palette_ColorSwapType
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
+    ;   db  wTemp_8.Palette_ColorSwapType - PALETTE_SWAP_RB, PALETTE_SWAP_BG, PALETTE_SWAP_RG_Bugged, PALETTE_SWAP_RGB
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     .Init:
         ; First iteration of the command
         Set16_M hScript.State, .MainLoop
@@ -3530,9 +3520,9 @@ Cmd_Palette_CreatureFlash::
         ;Main body
         call Palette_ReadPackedLoop_SmallCounter
         Script_ReadByte_V [wTemp_8.Palette_ColorSwapType]
-        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureSide]
+        Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
-        XCall PaletteFX_Battle_CreatureSwapRGB
+        XCall Fightscene_CreaturePalFX_SwapRGB
         pop bc
         jp Palette_LoopFinally
 
@@ -3540,10 +3530,10 @@ Cmd_Palette_CreatureFlash::
 Cmd_Palette_CreatureInvert::
     ; BattleFX - Inverts a creature's palette once
     ; Arguments:
-    ;   db  wTemp_9.Palette_BattleFX_CreatureSide (0=left creature, 1=right creature)
-    Script_ReadByte [wTemp_9.Palette_BattleFX_CreatureSide]
+    ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
+    Script_ReadByte [wTemp_9.Palette_BattleFX_CreatureIsRight]
     Set16 hScript.Frame, bc
-    XCall PaletteFX_Battle_CreatureInvert
+    XCall Fightscene_CreaturePalFX_Invert
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
     Set16_M wVBlank_Func, PaletteVB_UpdatePalettes
     Set16_M hScript.State, Script_Start
@@ -5776,7 +5766,7 @@ Cardscene00_Graphics_InitCardMap::
 Cardscene00_Graphics_ResetCards:
     ; Instantly loads the tilesets for all the 8 cards
     FOR card, 0, 8
-        Mov8 wTemp_8.Palette_PackedInterval, wCardscene_CardSlotCreatureIDs.Card{u:card}
+        Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card{u:card}
         Set8 wTemp_9.Cardscene_CardSlot, {u:card}
         XCall Cardscene_SetCardSlotCreatureID ; inefficiency? This function is called twice as it is also called by Cardscene00_Graphics_DrawCreature. To verify
         call Cardscene00_Graphics_DrawCreature
@@ -5799,9 +5789,7 @@ Cardscene00_Graphics_InitCardPalettes:
     ld e, 0
     ld a, 6*4
     call Unpack_Palette_Palettes
-    db $3E ;ld a, X
-        Palette_PackedInterval 0, 6
-    ld [wTemp_8.Palette_PackedInterval], a
+    Palette_SetPackedInterval 0, 6
     XCall PaletteFX_RefreshAnimBuffer
     Set8 wPalette_VBlankReady, $01
     ret
@@ -5821,7 +5809,7 @@ Cardscene00_Graphics_InitMap:
     ;   6.1 <- Black
     ;   6.2, 6.3 undefined (not used)
     XCall Fightscene_GetCardsceneArenaColor
-    XCall Fightscene_PalFX_SetCardsceneArenaColor
+    XCall Fightscene_ArenaPalFX_SetCardsceneArenaColor
 
     ; Reload the textbox palette into the 7th palette
     SwitchROMBank BANK(PAL_Cardscene_Textbox)
@@ -5832,9 +5820,7 @@ Cardscene00_Graphics_InitMap:
     call Unpack_Palette_Palettes
 
     ; Update the bottom 2 palettes
-    db $3E ;ld a, X
-        Palette_PackedInterval 6, 2
-    ld [wTemp_8.Palette_PackedInterval], a
+    Palette_SetPackedInterval 6, 2
     XCall PaletteFX_RefreshAnimBuffer
 
     ; Load the bitmap for the card shadows / arena background
@@ -5884,7 +5870,7 @@ Cardscene00_Graphics_InitCardBattle::
     call Cardscene00_Graphics_ResetCards
 
     ; Hide the window
-    Set8FF rWX, $A7
+    Set8FF rWX, FIGHTSCENE_WX_HIDDEN
 
     PopROMBank
     ret
@@ -5895,7 +5881,7 @@ Cardscene00_Graphics_DrawCreature:
     ; This function must only be called when the screen is off
     ; If the screen is on, try using Cardscene_SpawnCreature instead
     ; Inputs:
-    ;   wTemp_8.Cardscene_CreatureID
+    ;   wTemp_8.Fightscene_CreatureID
     ;   wTemp_9.Cardscene_CardSlot
     PushROMBank
 
@@ -5994,479 +5980,11 @@ Cardscene00_VBlank_SetCardPalette::
     ret
 
 
-    PushROMBank
-    xor a
-    ld [rVBK], a
-    SwitchROMBank [$C9CF]
-    ld a, [$C9CE]
-    ld h, a
-    ld a, [$C9CD]
-    ld l, a
-    ld de, $9000
-    ld bc, $0800
-    call RLE_Decompress
-    XCall Call_004_6F47
-    ld a, $01
-    ld [rVBK], a
-    XCall Call_004_6F60
-    ld a, [$C9D2]
-    SwitchROMBank a
-    ld hl, $99E0
-    ld a, [$C9D3]
-    ld e, a
-    ld a, [$C9D4]
-    ld d, a
-    xor a
-    call Call_000_3635
-    ld a, [$C9D1]
-    ld b, a
-    ld a, [$C9D0]
-    ld c, a
-    call Unpack_AttrTileRLE_To_StaticTilemap
-    ld a, [$C9D7]
-    SwitchROMBank a
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_358E
-    PopROMBank
-    ret
 
-
-    PushROMBank
-    ld a, $01
-    ld [rVBK], a
-    SwitchROMBank [$C9CF]
-    ld a, [$C9CE]
-    ld h, a
-    ld a, [$C9CD]
-    ld l, a
-    ld de, $9000
-    ld bc, $0800
-    call RLE_Decompress
-    XCall Call_004_6F79
-    xor a
-    ld [rVBK], a
-    XCall Call_004_6F9E
-    SwitchROMBank [$C9D2]
-    ld hl, $9C00
-    ld a, [$C9D3]
-    ld e, a
-    ld a, [$C9D4]
-    ld d, a
-    ld a, $01
-    call Call_000_3635
-    ld a, [$C9D1]
-    ld b, a
-    ld a, [$C9D0]
-    ld c, a
-    call Unpack_AttrTileRLE_To_XFlippedStaticTilemap
-    XCall Call_007_718B
-    SwitchROMBank [$C9D7]
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_35AD
-    PopROMBank
-    ret
-
-    ; $3493
-LoadStartScreenTilemapsTilesetsPalettes::
-    ; Using data saved into memory from CopyStartScreenAssetAddressesToMemory,
-    ; Load the tilemaps and tilesets for the top and bottom part of the scrolling
-    ; graphics on the start screen.
-    ; Also loads palettes 7 + 8 which are used for the top and bottom part respectively
-    PushROMBank
-    xor a
-    ld [rVBK], a
-    SwitchROMBank [wStartScreenTopTilesetBank]
-    ld a, [wStartScreenTopTilesetAddress+1]
-    ld h, a
-    ld a, [wStartScreenTopTilesetAddress]
-    ld l, a
-    ld de, vChars1
-    ld bc, $0400
-    call RLE_Decompress                              ;TopScroll tileset
-    SwitchROMBank [wStartScreenBottomTilesetBank]
-    ld a, [wStartScreenBottomTilesetAddress+1]
-    ld h, a
-    ld a, [wStartScreenBottomTilesetAddress]
-    ld l, a
-    ld de, vChars1 + $0400
-    ld bc, $0400
-    call RLE_Decompress                              ;BottomScroll tileset
-    ld a, $01
-    ld [rVBK], a
-    Do_MemSet $8800, $0010, $00 ;Wipe a single tile $100 to a square of palette 0
-    SwitchROMBank [wStartScreenTopTilemapBank]
-    ld hl, vBGMap0
-    ld e, $20
-    ld d, $04
-    ld a, [wStartScreenTopTilemapAddress+1]
-    ld b, a
-    ld a, [wStartScreenTopTilemapAddress]
-    ld c, a
-    call Unpack_AttrTileRLE_To_StaticTilemap                  ;Top tilemap
-    SwitchROMBank [wStartScreenBottomTilemapBank]
-    ld hl, vBGMap0 + $80
-    ld e, $20
-    ld d, $04
-    ld a, [wStartScreenBottomTilemapAddress+1]
-    ld b, a
-    ld a, [wStartScreenBottomTilemapAddress]
-    ld c, a
-    call Unpack_AttrTileRLE_To_StaticTilemap                  ;Bottom tilemap
-    xor a
-    ld [rVBK], a
-    Do_MemAdd vBGMap0, $0080, $80, $FF ;Add 80 to tile number of Top tilemap
-    Do_MemAdd vBGMap0 + $80, $0080, $C0, $FF ;Add C0 to tile number of Bottom tilemap
-    ld a, $01
-    ld [rVBK], a
-    Do_MemAdd vBGMap0, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
-    Do_MemAdd vBGMap0 + $80, $0080, $06, $FF ;Add 06 to attributes of Top tilemap
-    SwitchROMBank [wStartScreen2PalettesBank]
-    ld a, [wStartScreen2PalettesAddress+1]
-    ld b, a
-    ld a, [wStartScreen2PalettesAddress]
-    ld c, a
-    call CopyPalette67                              ;Overwrites palette 6+7
-    ld a, [wStartScreen2PalettesAddress+1]
-    ld h, a
-    ld a, [wStartScreen2PalettesAddress]
-    ld l, a
-    DerefHL
-    ld a, h
-    ld [wArena_Color+1], a                      ;Stores the first color from wStartScreen2PalettesAddress
-    ld a, l
-    ld [wArena_Color], a
-    Do_CallForeign PasteColorToPalette0010304060And2050IfTransparent
-    PopROMBank
-    ret
-
-
-Call_000_358E:
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld hl, wPalette_BaseBuffers
-    ld e, $00
-    ld a, $0C
-    call Unpack_Palette_Palettes
-    XCall PasteColorToPalette00103040And2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-
-Call_000_35AD:
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld hl, wPalette_BaseBuffers
-    ld e, $0C
-    ld a, $0C
-    call Unpack_Palette_Palettes
-    XCall PasteColorToPalette00103040And2050IfTransparent
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-
-    ; $35CC
-CopyPalette67:
-    ; Copies 2 palettes from [bc] into palette 6+7
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld hl, wPalette_BaseBuffers
-    ld e, $18
-    ld a, $08
-    call Unpack_Palette_Palettes
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-
-    xor a
-    ld [wPalette_VBlankReady], a
-    ld e, $00
-    ld a, $20
-    call Unpack_Palette_Palettes
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-;BTL_SET_CREATURE_PAL
-Call_000_35F1:
-    PushROMBank
-    ld a, [$C9D9]
-    and a
-    jr nz, jr_000_3618
-
-    ld a, [$C9D7]
-    SwitchROMBank a
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_358E
-    PopROMBank
-    ret
-
-
-jr_000_3618:
-    ld a, [$C9D7]
-    SwitchROMBank a
-    ld a, [$C9D6]
-    ld b, a
-    ld a, [$C9D5]
-    ld c, a
-    call Call_000_35AD
-    PopROMBank
-    ret
-
-
-Call_000_3635:
-    and a
-    jr nz, jr_000_3643
-
-    ld a, e
-    cp $10
-    jr z, jr_000_363E
-
-    inc hl
-
-jr_000_363E:
-    call Call_000_3667
-    add hl, bc
-    ret
-
-
-jr_000_3643:
-    ld a, e
-    cp $10
-    jr nc, jr_000_3652
-
-    call Call_000_3657
-    cpl
-    inc a
-    add $10
-    sub c
-    ld c, a
-    add hl, bc
-
-jr_000_3652:
-    call Call_000_3667
-    add hl, bc
-    ret
-
-
-Call_000_3657:
-    ld bc, $0000
-    ld a, e
-    cp $10
-    ret nc
-
-    push hl
-    ld c, e
-    ld hl, $3758
-    add hl, bc
-    ld c, [hl]
-    pop hl
-    ret
-
-
-Call_000_3667:
-    ld bc, $0000
-    ld a, d
-    cp $0A
-    ret z
-
-    push hl
-    ld c, d
-    ld hl, $3769
-    add hl, bc
-    ld c, [hl]
-    pop hl
-    ret
-
-    ; $3677
-Call_000_3677::
-    ; HBlank_Func
-    ld a, [$C9C2]
-    ldh [rWX], a
-    ld a, [$C9BC]
-    ldh [rSCX], a
-    ld a, [$C9BD]
-    ldh [rSCY], a
-    ld a, $71
-    ldh [rLYC], a
-    Set16FF hInterrupt_HBlank_Func, Call_000_36B1
-    PushROMBank
-    SwitchROMBank $04
-    ld hl, $C9F2
-    ECallHL
-    PopROMBank
-    pop hl
-    pop af
-    reti
-
-    ; $36B1
-Call_000_36B1:
-    ; HBlank_Func
-    ld a, $A7
-    ldh [rWX], a
-    ld a, [wStartScreenBottomScrollX]
-    ldh [rSCX], a
-    ld a, $B0
-    ldh [rSCY], a
-    pop hl
-    pop af
-    reti
-
-
-Call_000_36C1:
-    ld a, $A7
-    ldh [rWX], a
-    ld a, [wStartScreenTopScrollX]
-    ldh [rSCX], a
-    xor a
-    ldh [rSCY], a
-    ld a, [$C9C3]
-    ldh [rWY], a
-    ld a, $1F
-    ldh [rLYC], a
-    SwitchROMBank $04
-    FGet16 hl, $C9F2
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
-    push hl
-    call CallHL
-    pop hl
-    ret
-
-    ; $36F9
-VBlankHandler_000_36F9::
-    ldh a, [hInterrupt_VBlank_Control]
-    bit 0, a
-    jr z, jr_000_370A
-
-    ld a, $E3
-    ld [rLCDC], a
-    call hSystem_RunDMA
-    call Call_000_36C1
-
-jr_000_370A:
-    Do_VBlank_Function
-    Do_Sound_VBlank
-
-    Set16FF hInterrupt_HBlank_Func, Call_000_3677
-    ret
-
-
-    inc bc
-    inc bc
-    ld [bc], a
-
-    db $02
-
-    ld [bc], a
-    ld [bc], a
-    ld bc, $0101
-
-    db $01
-
-    ld bc, $0101
-    ld bc, $0101
-    nop
-    ldh [$FFE0], a
-    db $E0
-
-    db $C0
-
-    and b
-
-    db $80
-
-    ld h, b
-    ld h, b
-
-    db $40
-
-    jr nz, jr_000_3774
-
-jr_000_3774:
-    nop
-    nop
-
-    ; $3776
-lcdc_HorizontalScroll_Upper::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; Prepares the upper half of the horizontal scroll
-    ld a, [wStartScreenTopScrollSpeed]
-    ld e, a
-    ld a, [wStartScreenTopScrollX]
-    add e
-    ld [wStartScreenTopScrollX], a
-    ldh [rSCX], a  ;SCX to the current position
-    ld a, $B8
-    ldh [rSCY], a  ;SCY to tile $17 (+rLY is at tile 9, making $20 or $00)
-    ld a, $68
-    ldh [rLYC], a  ;Tile $0D
-    Set16FF hInterrupt_HBlank_Func, lcdc_HorizontalScroll_Lower
-    pop hl
-    pop af
-    reti
-
-    ; $3796
-lcdc_HorizontalScroll_Lower::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; Prepares the lower half of the horizontal scroll
-    ld a, [wStartScreenBottomScrollSpeed]
-    ld e, a
-    ld a, [wStartScreenBottomScrollX]
-    add e
-    ld [wStartScreenBottomScrollX], a
-    ldh [rSCX], a
-    ld a, $B8
-    ldh [rSCY], a     ;SCY to tile $17 (+rLY is at tile $0D, making $24 or $04)
-    pop hl
-    pop af
-    reti
-
-    ; $37AA
-vblank_HorizontalScroll::
-    ; Run in StartScreen for horizontal scroll effect (start screen)
-    ; It sets SCX and SCY to (0,9) and adds a STAT interrupt
-
-    ; Sets the window for horizontal scroll instead of calling Do_Graphics_VBlank
-    ldh a, [hInterrupt_VBlank_Control]
-    bit 0, a
-    jr z, .End
-    ;GraphicsUpdate
-        ld a, $E3 ;Enabled, Window 9C00, WindowEnable, 8800 mode
-        ld [rLCDC], a
-        call hSystem_RunDMA
-        ld a, $A7
-        ldh [rWX], a ;Window to Tile 14
-        xor a
-        ldh [rSCX], a ;SCX to Tile 0
-        ld a, $48
-        ldh [rSCY], a ;SCY to Tile 9
-        ld a, $47
-        ldh [rLYC], a ;The line before the 9th tile (counting from 0th)
-    .End:
-    Do_VBlank_Function_V
-    Do_Sound_VBlank
-
-    Set16FF hInterrupt_HBlank_Func, lcdc_HorizontalScroll_Upper
-    ret
+INCLUDE "source/game/fightscene/fightscene_00_graphics.asm"
+INCLUDE "source/game/fightscene/fightscene_00_vhblank.asm"
+INCLUDE "source/game/fightscene/fightscene_00_center_table.asm"
+INCLUDE "source/game/fightscene/fightscene_00_startscreen_vhblank.asm"
 
 
 
@@ -6708,8 +6226,7 @@ BattleCmd_Stat_DecreasePercentCreatureStat::
         ld a, $01
     .Skip:
     pop hl
-    cpl
-    inc a
+    NegativeA
     add [hl]
     jr z, .Underflow
     jr c, .Skip2

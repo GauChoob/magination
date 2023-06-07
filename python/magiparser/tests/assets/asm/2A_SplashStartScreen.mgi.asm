@@ -76,35 +76,35 @@ msSplashStartScreen::
 
 .SwitchArderial:
 
-    LoadSideScroller SCROLLER_Arderial                      ; $72FE
+    LoadArena FIGHTSCENE_ARENA_Arderial                     ; $72FE
 
     Jump .StartScreen                                       ; $7300
 
 .SwitchNaroom:
 
-    LoadSideScroller SCROLLER_Naroom                        ; $7303
+    LoadArena FIGHTSCENE_ARENA_Naroom                       ; $7303
 
     Jump .StartScreen                                       ; $7305
 
 .SwitchUnderneath:
 
-    LoadSideScroller SCROLLER_Underneath                    ; $7308
+    LoadArena FIGHTSCENE_ARENA_Underneath                   ; $7308
 
     Jump .StartScreen                                       ; $730A
 
 .SwitchCald:
 
-    LoadSideScroller SCROLLER_Cald                          ; $730D
+    LoadArena FIGHTSCENE_ARENA_Cald                         ; $730D
 
     Jump .StartScreen                                       ; $730F
 
 .SwitchOrothe:
 
-    LoadSideScroller SCROLLER_Orothe                        ; $7312
+    LoadArena FIGHTSCENE_ARENA_Orothe                       ; $7312
 
 .StartScreen:
 
-    ThatInit $02, AI_HorizontalScroller, $00, $00, $D000, $00, msObjectIdle, msObjectIdle  ; $7314
+    ThatInit $02, AI_SetupStartScreenArena, $00, $00, $D000, $00, msObjectIdle, msObjectIdle  ; $7314
 
     ThatInit $03, AI_Anim, $05, $06, $D041, $00, msObjectPressStart.Main, msObjectIdle  ; $7323
 
