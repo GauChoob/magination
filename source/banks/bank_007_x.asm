@@ -191,7 +191,7 @@ PaletteFX_Battle_CreatureLoadPalette_UNUSED::
     add hl, bc
     ld b, h
     ld c, l
-    Set16 wTemp_6.Palette_PaletteAddress, bc
+    Set16_M wTemp_6.Palette_PaletteAddress, bc
 
     ; Save the bank
     pop hl
@@ -202,33 +202,27 @@ PaletteFX_Battle_CreatureLoadPalette_UNUSED::
     PopROMBank
     ret
 
-;TODO
+;TODO $42B1
     xor a
     ld [wPalette_VBlankReady], a
-    ld a, [wTemp_A.Unknown+1]
-    ld b, a
-    ld a, [wTemp_A.Unknown]
-    ld c, a
-    ld a, [$C9D9]
+
+    Get16 bc, wTemp_A.Unknown
+    ld a, [wTemp_9.Palette_BattleFX_CreatureIsRight]
     and a
-    jr nz, jr_007_42D3
-
-    ld hl, $C7AB
-    ld e, $01
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld a, $01
-    ld [wPalette_VBlankReady], a
-    ret
-
-
-jr_007_42D3:
-    ld hl, $C7AB
-    ld e, $0D
-    ld a, $02
-    call Palette_PaletteBufferSetColor
-    ld a, $01
-    ld [wPalette_VBlankReady], a
+    jr nz, .CreatureRight
+    .CreatureLeft:
+        ld hl, wPalette_AnimBuffers.Background
+        ld e, $01
+        ld a, $02
+        call Palette_PaletteBufferSetColor
+        Set8 wPalette_VBlankReady, $01
+        ret
+    .CreatureRight:
+        ld hl, wPalette_AnimBuffers.Background
+        ld e, 13
+        ld a, $02
+        call Palette_PaletteBufferSetColor
+        Set8 wPalette_VBlankReady, $01
     ret
 
 
