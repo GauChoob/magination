@@ -162,71 +162,6 @@ Creature_Table_SIZE EQU $2D
 
 
 
-
-MACRO dcm_Energy
-    db \1
-ENDM
-MACRO dcm_Strength
-    db \1
-ENDM
-MACRO dcm_Skill
-    db \1
-ENDM
-MACRO dcm_Speed
-    db \1
-ENDM
-MACRO dcm_Defense
-    db \1
-ENDM
-MACRO dcm_Resist
-    db \1
-ENDM
-MACRO dcm_Luck
-    db \1
-ENDM
-MACRO dcm_Resistance
-    db \1
-ENDM
-MACRO dcm_Weakness
-    db \1
-ENDM
-MACRO dcm_StatusImmune
-    db \1
-ENDM
-MACRO dcm_StatusPerm
-    db \1
-ENDM
-MACRO dcm_MagiType
-    db \1
-ENDM
-MACRO dcm_Placeholder
-    db \1
-ENDM
-MACRO dcm_Ability
-    dw $5EAE+(\1)*$10
-ENDM
-MACRO dcm_AbilityLevel
-    db \1
-ENDM
-MACRO dcm_CombatTileset
-    AddressBank \1
-ENDM
-MACRO dcm_CombatTilemap
-    AddressBank \1
-ENDM
-MACRO dcm_CombatTilemapSize
-    db \1, \2
-ENDM
-MACRO dcm_CombatPalette
-    AddressBank \1
-ENDM
-MACRO dcm_CardTileset
-    AddressBank \1
-ENDM
-MACRO dcm_CardPalette
-    db \1
-ENDM
-
 ; Silence the first row of the CSV table
 MACRO Creature_Table_Header
 ENDM
@@ -252,7 +187,7 @@ MACRO Creature_Table_Row
     db \<17> ; MagiType or AI
     db \<18> ; Placeholder or RingCost
     db \<19> ; UNK
-    dw $5EAE + $10*(ability\<20>) ; Ability1 - TODO
+    dw $5EAE + $10*(ability\<20>) ; Ability1 - TODO Change $5EAE to label
     dw $5EAE + $10*(ability\<21>) ; Ability2
     dw $5EAE + $10*(ability\<22>) ; Ability3
     dw $5EAE + $10*(ability\<23>) ; Ability4

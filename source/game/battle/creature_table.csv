@@ -87,6 +87,8 @@
  Creature_Table_Row,Yvohcna,2,10,0,200,7,5,5,2,3,20,0,elementNone,elementGrass,0,0,0,0,0,Bite,Ink,Devour,Fight,255,10,20,200,Yvohcna,10,8,Yvohcna,Yvohcna,1
  Creature_Table_Row,PlAcEhOlDr1,2,10,0,255,2,5,4,2,3,20,0,elementWind,elementNone,0,0,0,11,0,Infect,Infect,Bite,Infect,255,10,20,30,Yvohcna,10,8,Yvohcna,Yvohcna,1
  Creature_Table_Row,PlAcEhOlDr2,2,10,0,255,2,5,4,2,3,20,0,elementWind,elementNone,0,0,0,11,0,Infect,Infect,Bite,Infect,255,10,20,30,Yvohcna,10,8,Yvohcna,Yvohcna,1
+ Creature_Table_Header,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+ Creature_Table_Header,MAGI Name,Type,Unused,MaxEnergy,MaxEnergy,Strength,Skill,Speed,Defense,Resist,Luck,UNKEnergyUp,Resistance,Weakness,StatusImmune,StatusPerm,MagiType or AI,Placeholder or RingCost (unused),Unused,Ability1,Ability2,Ability3,Ability4,Unused,Unused,Unused,Unused,Fightscene Tileset/AttrTilemap,Width,Height,Fightscene Palette,Cardscene,PaletteOffset
  Creature_Table_Row,Tony,12,100,0,100,25,25,75,25,75,50,0,elementNone,elementNone,255,0,1,0,0,SummonX,Spell,Item,Run,0,0,0,0,Tony,4,6,Tony,Yvohcna,1
  Creature_Table_Row,Togoth,12,50,255,150,20,20,40,50,50,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Togoth,4,6,Togoth,Yvohcna,1
  Creature_Table_Row,Ogar,12,50,255,255,35,35,55,55,55,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Ogar,4,6,Ogar,Yvohcna,1
