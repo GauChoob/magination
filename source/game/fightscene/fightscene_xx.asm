@@ -654,7 +654,7 @@ Fightscene_ArenaSCX_GetOffsetFromPan:
 
 Fightscene_FightFX_Recoil_UNK::
     ; Copy of Cmd_Fightscene_FightFX_Recoil except not as a Cmd
-    ; TODO - unused? - to be determined
+    ; TODO - unused? - to be determined. Probably used somewhere..(?)
     Fightscene_FightFX_MoveTable_Load_V Fightscene_FightFX_MoveTable_Recoil
     xor a
     ld [wFightscene_FightFX_ReadingFrameDelta], a

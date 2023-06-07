@@ -141,7 +141,7 @@ Fightscene00_DrawArena::
     Get16 hl, wTemp_6.Palette_PaletteAddress
     DerefHL
     Set16 wFightscene_ArenaColor, hl ;Stores the first color from wTemp_6.Palette_PaletteAddress
-    Do_CallForeign Fightscene_PalFX_SetFightsceneArenaColor
+    Do_CallForeign Fightscene_ArenaPalFX_SetFightsceneArenaColor
 
     PopROMBank
     ret
@@ -160,7 +160,7 @@ Fightscene00_LoadCreatureLeftPalette::
     ld e, 0
     ld a, 4*3
     call Unpack_Palette_Palettes
-    XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
+    XCall Fightscene_ArenaPalFX_SetCreaturePaletteArenaColor
     Set8 wPalette_VBlankReady, $01
     ret
 
@@ -175,7 +175,7 @@ Fightscene00_LoadCreatureRightPalette::
     ld e, 4*3
     ld a, 4*3
     call Unpack_Palette_Palettes
-    XCall Fightscene_PalFX_SetCreaturePaletteArenaColor
+    XCall Fightscene_ArenaPalFX_SetCreaturePaletteArenaColor
     ld a, $01
     ld [wPalette_VBlankReady], a
     ret

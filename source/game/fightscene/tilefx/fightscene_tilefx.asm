@@ -152,7 +152,7 @@ Fightscene_TileFX_Setup::
     Set16_M wFightscene_TileFX_VBlank_DestroyFunc, Fightscene_TileFX_VBlank_DissolveEven
     Set16_M wFightscene_TileFX_DestroyAddress, FIGHTSCENE_VRAM_ARENA_CREATURE_RIGHT
     ; Make sure Color 0 is the arena background when we destroy, and not a creature's palette's color
-    Do_CallForeign Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor
+    Do_CallForeign Fightscene_ArenaPalFX_SetCreatureRight3rdPaletteArenaColor
     Set8 wFightscene_TileFX_DestroyBank, $01  ; CreatureRight
 
     ; Apply Sink effect at the same time

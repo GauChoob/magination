@@ -3341,7 +3341,7 @@ Cmd_Palette_ArenaFadeToColor::
         call Palette_ReadColor
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall Fightscene_PalFX_FadeArenaToColor
+        XCall Fightscene_ArenaPalFX_FadeArenaToColor
         pop bc
         jp Palette_LoopFinally
 
@@ -3367,7 +3367,7 @@ Cmd_Palette_ArenaFadeToBase::
         call Palette_ReadPackedLoop_SmallCounter
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall Fightscene_PalFX_FadeArenaToBase
+        XCall Fightscene_ArenaPalFX_FadeArenaToBase
         pop bc
         jp Palette_LoopFinally
 
@@ -3419,7 +3419,7 @@ Cmd_Palette_CreatureCycle::
         call Palette_ReadPackedLoop_SmallCounter ; Reset the SmallCounter
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
-        XCall PaletteFX_Battle_CreatureCycle
+        XCall Fightscene_CreaturePalFX_Cycle
         pop bc
         jp Palette_LoopFinally
 
@@ -3448,7 +3448,7 @@ Cmd_Palette_CreatureFadeToColor::
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeToColor
+        XCall Fightscene_CreaturePalFX_FadeToColor
         pop bc
         jp Palette_LoopFinally
 
@@ -3476,7 +3476,7 @@ Cmd_Palette_CreatureFadeToBase::
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         Set8 wTemp_B.Palette_FadeMagnitude, $01
         push bc
-        XCall PaletteFX_Battle_CreatureFadeToBase
+        XCall Fightscene_CreaturePalFX_FadeToBase
         pop bc
         jp Palette_LoopFinally
 
@@ -3522,7 +3522,7 @@ Cmd_Palette_CreatureFlash::
         Script_ReadByte_V [wTemp_8.Palette_ColorSwapType]
         Script_ReadByte_V [wTemp_9.Palette_BattleFX_CreatureIsRight]
         push bc
-        XCall PaletteFX_Battle_CreatureSwapRGB
+        XCall Fightscene_CreaturePalFX_SwapRGB
         pop bc
         jp Palette_LoopFinally
 
@@ -3533,7 +3533,7 @@ Cmd_Palette_CreatureInvert::
     ;   db  wTemp_9.Palette_BattleFX_CreatureIsRight (0=left creature, 1=right creature)
     Script_ReadByte [wTemp_9.Palette_BattleFX_CreatureIsRight]
     Set16 hScript.Frame, bc
-    XCall PaletteFX_Battle_CreatureInvert
+    XCall Fightscene_CreaturePalFX_Invert
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
     Set16_M wVBlank_Func, PaletteVB_UpdatePalettes
     Set16_M hScript.State, Script_Start
@@ -5809,7 +5809,7 @@ Cardscene00_Graphics_InitMap:
     ;   6.1 <- Black
     ;   6.2, 6.3 undefined (not used)
     XCall Fightscene_GetCardsceneArenaColor
-    XCall Fightscene_PalFX_SetCardsceneArenaColor
+    XCall Fightscene_ArenaPalFX_SetCardsceneArenaColor
 
     ; Reload the textbox palette into the 7th palette
     SwitchROMBank BANK(PAL_Cardscene_Textbox)

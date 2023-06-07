@@ -930,8 +930,6 @@ wTemp_A::
     ; Number of 3-palette palettes by which to offset
     .Fightscene_Arena_BottomBitmapAddress::
     ; Fightscene_ArenaData Struct property
-    .Unknown: ; todo - remove
-    ; Temporary Color argument used in functions
     ds 2
     ;ds $C9DC - @
 wTemp_B::

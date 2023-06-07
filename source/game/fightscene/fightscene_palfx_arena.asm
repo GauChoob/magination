@@ -1,5 +1,9 @@
+; Arena Palette-related functions
+; Fightscene_ArenaPalFX_FadeArenaToColor/Fightscene_ArenaPalFX_FadeArenaToBase fade the arena
+; Other functions are used to set the transparent color of the creatures to the arena color
+; See also fightscene_palfx_creature.asm
 
-Fightscene_PalFX_FadeArenaToColor::
+Fightscene_ArenaPalFX_FadeArenaToColor::
     ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
     ; Updates the tiles of the creatures as well to maintain transparency illusion
     ; Inputs:
@@ -12,12 +16,12 @@ Fightscene_PalFX_FadeArenaToColor::
     call PaletteFX_FadeAnimToColor
     FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
     Set16 wFightscene_ArenaColor, bc
-    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
+    call Fightscene_ArenaPalFX_UpdateTransparencyWithNewArenaColor
     Set8 wPalette_VBlankReady, $01
     ret
 
 
-Fightscene_PalFX_FadeArenaToBase::
+Fightscene_ArenaPalFX_FadeArenaToBase::
     ; Fades the Arena palettes (6 + 7) towards a Color by wTemp_B.Palette_FadeMagnitude
     ; Updates the tiles of the creatures as well to maintain transparency illusion
     ; Inputs:
@@ -30,12 +34,12 @@ Fightscene_PalFX_FadeArenaToBase::
     call PaletteFX_FadeAnimToBase
     FGet16 bc, wPalette_AnimBuffers.Background + 2*4*6 ; 6th Palette, first Color
     Set16 wFightscene_ArenaColor, bc
-    call Fightscene_PalFX_UpdateTransparencyWithNewArenaColor
+    call Fightscene_ArenaPalFX_UpdateTransparencyWithNewArenaColor
     Set8 wPalette_VBlankReady, $01
     ret
 
 
-Fightscene_PalFX_SetCreaturePaletteArenaColor::
+Fightscene_ArenaPalFX_SetCreaturePaletteArenaColor::
     ; Pastes a Color wFightscene_ArenaColor into the first color of each palette id
     ; To simulate a "transparency" color for the creatures
     ; CreatureLeft: Palettes 0 and 1 automatically take the palette color
@@ -59,13 +63,13 @@ Fightscene_PalFX_SetCreaturePaletteArenaColor::
     call Palette_PaletteBufferSetColor
     ld hl, wPalette_BaseBuffers
 
-    call Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor
+    call Fightscene_ArenaPalFX_SetOptionallyCreatureLastPaletteArenaColor
 
     Set8 wPalette_VBlankReady, $01
     ret
 
 
-Fightscene_PalFX_SetFightsceneArenaColor::
+Fightscene_ArenaPalFX_SetFightsceneArenaColor::
     ; Pastes a Color wFightscene_ArenaColor into:
     ;   Palette 0.0, 1.0, 3.0, 4.0, 6.0
     ; If Palette 2.0 and/or 5.0 are RGB 0,$F,$F (transparency color),
@@ -77,12 +81,12 @@ Fightscene_PalFX_SetFightsceneArenaColor::
     ld e, 4*6
     ld a, $01
     call Palette_PaletteBufferSetColor
-    call Fightscene_PalFX_SetCreaturePaletteArenaColor ; inefficiency? - this function is called again when a creature's palette is loaded
+    call Fightscene_ArenaPalFX_SetCreaturePaletteArenaColor ; inefficiency? - this function is called again when a creature's palette is loaded
     Set8 wPalette_VBlankReady, $01
     ret
 
 
-Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
+Fightscene_ArenaPalFX_SetCreatureRight3rdPaletteArenaColor::
     ; Forces Palette 5.0 to be Color wFightscene_ArenaColor (CreatureRight 3rd Palette)
     ; Inputs:
     ;   wFightscene_ArenaColor
@@ -97,7 +101,7 @@ Fightscene_PalFX_SetCreatureRight3rdPaletteArenaColor::
     ret
 
 
-Fightscene_PalFX_SetCardsceneArenaColor::
+Fightscene_ArenaPalFX_SetCardsceneArenaColor::
     ; Set the Palette 6 - populate it with the arena colors:
     ; Palette 6.0 <- wFightscene_ArenaColor
     ; Palette 6.1 <- Black
@@ -123,7 +127,7 @@ Fightscene_PalFX_SetCardsceneArenaColor::
     ret
 
 
-Fightscene_PalFX_UpdateTransparencyWithNewArenaColor:
+Fightscene_ArenaPalFX_UpdateTransparencyWithNewArenaColor:
     ; When wFightscene_ArenaColor is changed, we need to apply the new color
     ; To the creature's palettes so that they maintain transparency
     ; Inputs:
@@ -171,7 +175,7 @@ Fightscene_PalFX_UpdateTransparencyWithNewArenaColor:
     ret
 
 
-Fightscene_PalFX_SetOptionallyCreatureLastPaletteArenaColor::
+Fightscene_ArenaPalFX_SetOptionallyCreatureLastPaletteArenaColor::
     ; Pastes a Color wFightscene_ArenaColor into the first color of the third palette id
     ; To simulate a "transparency" color for the creatures
     ; CreatureLeft:  Palette 2 optionally takes the color if the RGB value is FIGHTSCENE_TRANSPARENT_COLOR
