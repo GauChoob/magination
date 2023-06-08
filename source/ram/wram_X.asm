@@ -333,7 +333,7 @@ wBattle_TargetMode::
     ;ds $D0B1 - @
 wBattle_CurCreature_Slot::
     ; Offset of wBattle_CreatureSlots pointing to .Hero, .Ally, .Enemy or .Magi
-    ; bit 7 =  non-zero if owned by enemy
+    ; bit 7 = non-zero if owned by enemy
     ds 1
 
     ds $D0B3 - @

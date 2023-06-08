@@ -4233,7 +4233,7 @@ Battle_Flow_Begin_SummonMagi:
     Battery_Off
 
     ; All 4 abilities are always unlocked for Magi
-    ld a, CREATURE_TABLE_ABILITYUNLOCK_ALWAYS
+    ld a, CREATURE_TABLE_ABILITYUNLOCK_TRUE
     ld d, $04
     .CommandLoop:
         ld [hl+], a
@@ -4581,7 +4581,7 @@ Battle_Flow_CommandMenuGetCmdNames:
     ld [wMenu_BattleCmd_GetEnergyFlag], a
     Do_CallForeign BattleCmd_GetNameAndEnergy
 
-    ; Get the 4 battle_cmd pointers
+    ; Store the 4 battle_cmd pointers
     ld bc, wBattle_Creature_Current.Ability0
     ld hl, wBattle_Menu_BattleCmdPointers.Ability0
     ld d, $08
@@ -4598,7 +4598,7 @@ Battle_Flow_CommandMenuGetCmdNames:
         ld hl, wBattle_Creature_Current.AbilityUnlock0
         add hl, de
         ld a, [hl]
-        cp $FF
+        cp CREATURE_TABLE_ABILITYUNLOCK_TRUE
         jr z, .Unlocked
         .Locked:
             ; Locked ability! Null-pointer
@@ -4647,6 +4647,7 @@ Battle_Flow_CommandMenuGetCmdNames:
 
     ; $5FDF
 Battle_Flow_ControlCreature:
+    ; Shows the Menu options for the current creature (or Tony)
     xor a
     ld [$D0C0], a ; todo
 
@@ -4682,9 +4683,9 @@ Battle_Flow_ControlCreature:
     ld a, [wBattle_Creature_Current.BattleCmd_Menu]
     and a
     jr nz, .DoMenu
-        .DoOrdinaryTarget:
-            Battle_TextboxClose
-            jr .DoOrdinaryTarget2
+    .DoOrdinaryTarget:
+        Battle_TextboxClose
+        jr .DoOrdinaryTarget2
 
     .DoMenu:
         Do_CallForeign Battle_Helpers_SelectMenu

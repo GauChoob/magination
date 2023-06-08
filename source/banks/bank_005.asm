@@ -1018,7 +1018,7 @@ Battle_Helpers_CommandMenuGetCostStrings:
         ld hl, wBattle_Creature_Current.AbilityUnlock0
         add hl, bc
         ld a, [hl]
-        cp $FF
+        cp CREATURE_TABLE_ABILITYUNLOCK_TRUE
         ret nz
 
         jr .CmdLoop
@@ -3355,14 +3355,14 @@ BattleCmd_GetNameAndEnergy::
     ; 
     ; Inputs:
     ;   wMenu_BattleCmd_TablePointer - Pointer to the ability, or null ($0000)
-    ;   wMenu_BattleCmd_DestBuffer - Pointer to the 7-byte buffer where the name will be written
+    ;   wMenu_BattleCmd_DestBuffer - Pointer to the 7-byte or 11-byte buffer where the name will be written
     ;   wMenu_BattleCmd_GetEnergyFlag - If non-zero, it will store the energy cost on offset 8. Total space of buffer required is $0B because it can pad with zeros
     ; Outputs:
     ;  [wMenu_BattleCmd_DestBuffer]:
     ;        db "CMDNAME" (or "       " if null pointer)
     ;        if wMenu_BattleCmd_GetEnergyFlag
-    ;            db $20, ENERGYCOST (if pointer is defined)
-    ;            db $00, $00, $00, $00 (if null pointer) - bug - an extra 2 bytes are defined if the pointer is a null-pointer
+    ;            db " ", ENERGYCOST (if pointer is defined)
+    ;            db $00, $00, $00, $00 (if null pointer) - bug - an extra 2 bytes are defined if the pointer is a null-pointer. I guess originally the cost was going to be split into the individual digits? e.g. 2,0,0 for 200
 
     ; Get the ability pointer and check if null or not
     FGet16 bc, wMenu_BattleCmd_TablePointer
@@ -3387,7 +3387,7 @@ BattleCmd_GetNameAndEnergy::
         and a
         ret z
 
-        ld a, $20 ; todo
+        ld a, " "
         ld [hl+], a
         Get16 bc, wMenu_BattleCmd_TablePointer
         inc bc
