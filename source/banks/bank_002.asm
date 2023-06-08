@@ -931,7 +931,7 @@ Call_002_4653:
     ld [wBattle_CopyBuffer_Source], a                                 ; $4665: $EA $8D $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $4668: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $4670: $70
-    Do_CallForeign Creature_CopyStatsToBuffer
+    Do_CallForeign Creature_Table_CopyStatsToBuffer
     FGet16 bc, wBattle_CopyBuffer_Destination                                  ; $4679: $21 $8F $CD                                       ; $467E: $4F
     ld hl, $D110                                  ; $467F: $21 $10 $D1
     ld a, $01                                     ; $4682: $3E $01

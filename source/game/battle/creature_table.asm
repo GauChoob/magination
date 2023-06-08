@@ -1,7 +1,7 @@
 ; The table is also sometimes accessed via Fightscene_GetCreaturePointers
 
 
-Creature_CopyStatsToBuffer::
+Creature_Table_CopyStatsToBuffer::
     ; Copies the Creature's Stats from Source to Destination
     ; Inputs:
     ;   wBattle_CopyBuffer_Source = Creature_Table row
@@ -16,7 +16,7 @@ Creature_CopyStatsToBuffer::
     ret
 
 
-Creature_CopyAllToBuffer::
+Creature_Table_CopyAllToBuffer::
     ; TODO - unused? - graphics are used separately in Cardscene/Fightscene so we don't need both at once
     ; Copies the Creature's Stats and Graphics from Source to Destination
     ; Inputs:

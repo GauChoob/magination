@@ -849,7 +849,7 @@ jr_004_5D19:
     ld [wBattle_CopyBuffer_Source], a                                 ; $5D43: $EA $8D $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5D46: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5D4E: $70
-    Do_CallForeign Creature_CopyStatsToBuffer
+    Do_CallForeign Creature_Table_CopyStatsToBuffer
     ld hl, $A025                                  ; $5D57: $21 $25 $A0
     ld bc, $0025                                  ; $5D5A: $01 $25 $00
     ld d, $00                                     ; $5D5D: $16 $00

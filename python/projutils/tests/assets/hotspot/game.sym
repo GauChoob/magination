@@ -2079,7 +2079,7 @@
 03:77fc jr_003_77FC
 04:4000 PAL_Cardscene_Main
 04:4030 PAL_Cardscene_Textbox
-04:40f0 Creature_CopyStatsToBuffer
+04:40f0 Creature_Table_CopyStatsToBuffer
 04:40fe jr_004_40FE
 04:4113 jr_004_4113
 04:411a Creature_Table_MagiMakeCreatureStruct
