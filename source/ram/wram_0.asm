@@ -738,8 +738,11 @@ wHero_DoorX::
 wHero_DoorY::
     ; The position at which to place the Hero when he enters a scene
 
-
-    ds $C9AE - @
+    ds $C9AD - @
+wCardscene_StartUNUSED::
+    ; This var previously was set to 1 when Cardscene was started. It is no longer used, but it is still initialized
+    ds 1
+    ;ds $C9AE - @
 wCardscene_IsDone::
     ; Set to non-zero when Cardscene_Do should exit
     ds 1

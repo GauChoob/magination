@@ -1342,7 +1342,7 @@ jr_004_60C3:
     ret                                           ; $61C2: $C9
 
 
-    ; $61C3
+
 Cardscene_MagiBitsetTable::
     dw BITSET_Battle_Togoth
     dw BITSET_Battle_Ogar
@@ -1365,7 +1365,7 @@ Cardscene_MagiBitsetTable::
     dw BITSET_Battle_Salafy
     dw BITSET_Battle_Salafy
 
-    ; $61EB
+
 Cardscene_SpawnCreature::
     ; Makes a creature appear in a card slot
     ; Inputs:
@@ -1415,10 +1415,10 @@ Cardscene_SpawnCreature::
     PopROMBank
     ret
 
-    ; $624E
+
 Cardscene_BackupBackgroundCharsBC:
     ; Stores vBackgroundCharsB and vBackgroundCharsC into buffer
-    ; Restore macro: Cardscene_RestoreBackgroundCharsBC
+    ; Cardscene_RestoreAllBuffers, which uses the restore macro: Cardscene_RestoreBackgroundCharsBC
     SwitchRAMBank BANK(wBackgroundCharsBBuffer)
     xor a
     ld [rVBK], a
@@ -1427,11 +1427,11 @@ Cardscene_BackupBackgroundCharsBC:
     Do_MemMov vBackgroundCharsC, wBackgroundCharsCBuffer, $0800
     ret
 
-    ; $6277
+
 Cardscene_BackupNPCSpritesBackgroundCharsA:
     ; Backup vNPCSpritesChars and vBackgroundCharsA into buffer
     ; so it can be restored when the cardscene is over
-    ; Restore macro: Cardscene_BackupNPCSpritesBackgroundCharsA
+    ; Cardscene_RestoreAllBuffers, which uses the restore macro: Cardscene_RestoreNPCSpritesBackgroundCharsA
     SwitchRAMBank BANK(wCardscene_NPCSpritesBackgroundCharsABuffer)
     xor a
     ld [rVBK], a
@@ -1439,20 +1439,22 @@ Cardscene_BackupNPCSpritesBackgroundCharsA:
     Do_MemMov vNPCSpritesChars, wCardscene_NPCSpritesBackgroundCharsABuffer, $1000
     ret
 
-    ; $628F
+
 Cardscene_BackupPalette:
-    ; Stores wPalette_AnimBuffers.Background into a buffer so it can be restore
+    ; Stores wPalette_AnimBuffers.Background into a buffer so it can be restored
     ; when the cardscene is over
+    ; Restored in Cardscene_RestoreAllBuffers
     Do_MemMov wPalette_AnimBuffers.Background, wCardscene_PaletteBuffer, (wCardscene_PaletteBuffer.End - wCardscene_PaletteBuffer)
     ret
 
-    ; $629C
-Cardscene_Close::
+
+Cardscene_Close:
+    ; When the Cardscene ends, resets a few vars
     xor a
     ld [wCardscene_SCXW], a
     ld [wCardscene_SCYW], a
 
-    ld a, CARDSCENE_BLANKCARD
+    ld a, CreatureID_CARDSCENE_BLANKCARD
     ld [wCardscene_CardSlotCreatureIDs.Card0], a
     ld [wCardscene_CardSlotCreatureIDs.Card1], a
     ld [wCardscene_CardSlotCreatureIDs.Card2], a
@@ -1463,7 +1465,7 @@ Cardscene_Close::
     ld [wCardscene_CardSlotCreatureIDs.Card7], a
     ret
 
-    ; $62BE
+
 Cardscene_RestoreAllBuffers::
     ; Restores all the backed-up tilesets and palettes
     Do_CallForeign Menu_MainMenu_RestoreVRAMObjectsChars
@@ -1475,8 +1477,10 @@ Cardscene_RestoreAllBuffers::
     Cardscene_RestoreBackgroundCharsBC
     ret
 
-    ; $632E
+
 Cardscene_Do::
+    ; Reinitializes and displays the Cardscene
+    ; TODO - this is run by the Battle module? And every time a Fightscene ends?
     call Cardscene_Startup
     .Loop:
         Do_CallForeign Palette_DeterminePaletteVBlankFunc
@@ -1487,12 +1491,17 @@ Cardscene_Do::
     call Cardscene_Close
     ret
 
-    ; $6346
-Cardscene_Init::
+
+Cardscene_Init:
+    ; Initializes the Cardscene
+    ; Backs up the tilesets only if they haven't yet been backed up
+    ; Loads the bitset of the enemy magi
+
     call ScreenHide
     ; Keep playing music
     call Interrupt_Timer_Start
 
+    ; Only backup if we haven't already backed up the tilesets
     ld a, [wCardscene_IsOpened]
     and a
     jr nz, .SkipBackup
@@ -1550,6 +1559,7 @@ Cardscene_Init::
 
     ; $63D9
 Cardscene_VarsInit:
+    ; Reset the vars and wipe the creatures
     xor a
     ld [wTilemap_RowPhase], a
     ld [wTilemap_ColPhase], a
@@ -1560,9 +1570,10 @@ Cardscene_VarsInit:
     ld [wCardscene_SCXW], a
     ld [wCardscene_SCYW], a
     ld [wCardscene_IsDone], a
-    ld [$C831], a
-    ld [$C9AD], a
-    ld a, CARDSCENE_BLANKCARD
+    ld [wPalette_VBlankReady], a
+    ld [wCardscene_StartUNUSED], a
+
+    ld a, CreatureID_CARDSCENE_BLANKCARD
     ld [wCardscene_CardSlotCreatureIDs.Card0], a
     ld [wCardscene_CardSlotCreatureIDs.Card1], a
     ld [wCardscene_CardSlotCreatureIDs.Card2], a
@@ -1573,8 +1584,9 @@ Cardscene_VarsInit:
     ld [wCardscene_CardSlotCreatureIDs.Card7], a
     ret
 
-    ; $6416
+
 Cardscene_Open::
+    ; Open a Cardscene for the first time
     xor a
     ld [wCardscene_IsOpened], a
     call Cardscene_VarsInit
@@ -1594,29 +1606,37 @@ Cardscene_Open::
 
     ; $6439
 Cardscene_Startup:
+    ; Called when first entering the Cardscene
+    ; Re-initializes the Cardscene
+
     call Cardscene_VarsInit
     call ScreenHide
     call Interrupt_Timer_Start
     call Cardscene00_Graphics_InitCardBattle
-    Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
+
+    Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle ; inefficiency? This command is repeated near the end of this function
+
     Do_CallForeign Actorlist_Init
     Frame_Init
     call Interpreter_ReInit
+
     call ScreenShow
+
     ld a, [wCardscene_SCXW]
     ld [wSCX], a
     ldh [rSCX], a
     ld a, [wCardscene_SCYW]
     ld [wSCY], a
     ldh [rSCY], a
+
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_Idle
     ret
 
-    ; $648D
+
 Cardscene_GetCardIcon::
     ; Gets the tileset address of the dream creature's card
-    ; Returns empty card if the creature ID is CARDSCENE_BLANKCARD or CREATURE_NULL
+    ; Returns empty card if the creature ID is CreatureID_CARDSCENE_BLANKCARD or CREATURE_NULL
     ; Also stores the palette id of the card of interest
     ; Inputs:
     ;   [wTemp_8.Fightscene_CreatureID]
@@ -1625,11 +1645,11 @@ Cardscene_GetCardIcon::
     ;   wVBlank_Bank - bank
     ;   wCardscene_CardPalette - palette id of the card
     ld a, [wTemp_8.Fightscene_CreatureID]
-    cp CARDSCENE_BLANKCARD ; Includes blank card and Creature_Null
+    cp CreatureID_CARDSCENE_BLANKCARD ; Includes blank card and Creature_Null
     jr c, .ValidCard
     .NullCard:
         ld hl, BITMAP_Cardscene_Empty
-        Set16_M wVBlank_SourceAddress, hl ; inefficiency - no need to put BITMAP_Cardscene_Empty into hl
+        Set16_M wVBlank_SourceAddress, hl ; inefficiency - no need to put BITMAP_Cardscene_Empty into hl, since it's empty and we won't be updating it(?)
         Set8 wVBlank_Bank, BANK(BITMAP_Cardscene_Empty)
         Set8 wCardscene_CardPalette, CARDSCENE_PALETTE_BLANKCARD
         ret
@@ -1638,24 +1658,22 @@ Cardscene_GetCardIcon::
         Do_CallForeign Fightscene_GetCreaturePointers
         ld bc, oCreature_Table_Graphics_CardTileset
         add hl, bc
-        ld a, [hl+]
-        ld [wVBlank_SourceAddress], a
-        ld a, [hl+]
-        ld [wVBlank_SourceAddress+1], a
-        ld a, [hl+]
-        ld [wVBlank_Bank], a
+        Mov8 wVBlank_SourceAddress, hl+
+        Mov8 wVBlank_SourceAddress+1, hl+
+        Mov8 wVBlank_Bank, hl+
         ; Get the palette of the card
         ld a, [hl+]
         and %00000111
         ld [wCardscene_CardPalette], a
         ret
 
-    ; $64C9
+
 Cardscene_GetCardPalette::
     ; Gets the palette of the dream creature's card
     ; If you need the icon as well, it is better to use Cardscene_GetCardIcon
+    ; TODO - is the calling function of this function unused?
     ld a, [wTemp_8.Fightscene_CreatureID]
-    cp CARDSCENE_BLANKCARD
+    cp CreatureID_CARDSCENE_BLANKCARD
     jr c, .ValidCard
     .NullCard:
         Set8 wCardscene_CardPalette, CARDSCENE_PALETTE_BLANKCARD
@@ -1669,7 +1687,7 @@ Cardscene_GetCardPalette::
         ld [wCardscene_CardPalette], a
         ret
 
-    ; $64EB
+
 Cardscene_GetCardSlotCreatureID::
     ; Given a card slot, returns the slot's current creature id
     ; Inputs:
@@ -1717,7 +1735,7 @@ Cardscene_GetCardSlotCreatureID::
         Mov8 wTemp_8.Fightscene_CreatureID, wCardscene_CardSlotCreatureIDs.Card7
         ret
 
-    ; $6542
+
 Cardscene_SetCardSlotCreatureID::
     ; Sets a card slot's creature id
     ; Returns the VRAM position in tileset - the card image must be copied separately during VBlank
@@ -1787,7 +1805,7 @@ Cardscene_SetCardSlotCreatureID::
     Set16 wVBlank_DestAddress, bc
     ret
 
-    ; $65CF
+
 Cardscene_ResetArenaBackground::
     ; Re-initialize the bottom 5 rows of the background to be a blank black textbox
     xor a
@@ -1801,7 +1819,7 @@ Cardscene_ResetArenaBackground::
     Do_MemSet CARDSCENE_WINDOW_MENU, (CARDSCENE_WINDOW_MENU_END - CARDSCENE_WINDOW_MENU), $8F
     ret
 
-    ; $660B
+
 FOR card, 0, 8
 Cardscene_SetPalette_Card{u:card}::
     ; Cardscene_SetPalette_Card0, Cardscene_SetPalette_Card1, Cardscene_SetPalette_Card2, Cardscene_SetPalette_Card3, Cardscene_SetPalette_Card4, Cardscene_SetPalette_Card5, Cardscene_SetPalette_Card6, Cardscene_SetPalette_Card7
@@ -1811,7 +1829,6 @@ Cardscene_SetPalette_Card{u:card}::
     ;   wCardscene_CardPalette - desired palette ID
 
     ; Remove the current palette
-    DEF row = 0
     FOR row, 0, 5 ; A card is 4 tiles wide and 5 tiles tall
         Do_MemAnd CARDSCENE_TILEMAP_CARD{u:card} + row*SCRN_VX_B, 4, %11111000
     ENDR

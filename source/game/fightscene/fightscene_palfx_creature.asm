@@ -17,25 +17,21 @@ Fightscene_CreaturePalFX_Cycle::
     jr nz, .CreatureRight
     .CreatureLeft:
         ; Cycle the 2nd-4th color for Palettes 0-2
-        DEF paletteid = 0
-        REPT 3
+        FOR paletteid, 0, 3
             ld hl, wPalette_AnimBuffers.Background
             ld e, paletteid
             ld a, $03
             call Palette_PaletteCycleColors
-            DEF paletteid += 1
         ENDR
         Set8 wPalette_VBlankReady, $01
         ret
     .CreatureRight:
         ; Cycle the 2nd-4th color for Palettes 3-5
-        DEF paletteid = 3
-        REPT 3
+        FOR paletteid, 3, 6
             ld hl, wPalette_AnimBuffers.Background
             ld e, paletteid
             ld a, $03
             call Palette_PaletteCycleColors
-            DEF paletteid += 1
         ENDR
         Set8 wPalette_VBlankReady, $01
         ret

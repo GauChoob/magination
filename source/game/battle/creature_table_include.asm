@@ -1,6 +1,7 @@
 
 
-
+DEF CreatureID_CARDSCENE_BLANKCARD  EQU $F0
+; $F0-$FF are all considered blank cards by Cardscene
 DEF CreatureID_Null                 EQU $FF
 
 DEF CreatureID_Abaquist             EQU $00
@@ -162,7 +163,7 @@ Creature_Table_SIZE EQU $2D
 
 
 
-; Silence the first row of the CSV table
+; Silence the header row of the CSV table
 MACRO Creature_Table_Header
 ENDM
 
@@ -201,5 +202,5 @@ MACRO Creature_Table_Row
     db \<30> ; AttrTilemap Height
     AddressBank PAL_Fightscene_Creature_\<31> ; Fightscene Palette
     AddressBank BITMAP_Cardscene_\<32> ; Cardscene Tileset
-    db \<33> ; Cardscene Palette offset
+    db CARDSCENE_PALETTE_\<33> ; Cardscene Palette offset
 ENDM

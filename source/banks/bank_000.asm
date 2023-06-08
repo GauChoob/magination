@@ -1935,7 +1935,7 @@ Cmd_Battle_New::
     ; Starts a battle
     ; wScript_System - will continue running the script at the end of the battle (TODO to confirm)
     ; Arguments:
-    ;   db          TODO - maybe Arena color?
+    ;   db          Arena index
     ;   db          wBattle_MagiCreatureID
     ;   db          TODO
     ;   BankAddress Script that sets up or runs the battle - TODO
@@ -1944,7 +1944,7 @@ Cmd_Battle_New::
 
     SwitchRAMBank BANK("WRAM BATTLE")
 
-    Script_ReadByte_V [wFightscene_ArenaIndex]  ; TODO
+    Script_ReadByte_V [wFightscene_ArenaIndex]
 
     ; Store the enemy magi ID
     Script_ReadByteA
