@@ -738,8 +738,11 @@ wHero_DoorX::
 wHero_DoorY::
     ; The position at which to place the Hero when he enters a scene
 
-
-    ds $C9AE - @
+    ds $C9AD - @
+wCardscene_StartUNUSED::
+    ; This var previously was set to 1 when Cardscene was started. It is no longer used, but it is still initialized
+    ds 1
+    ;ds $C9AE - @
 wCardscene_IsDone::
     ; Set to non-zero when Cardscene_Do should exit
     ds 1
@@ -831,12 +834,17 @@ wFightscene_Paused::
     ; Set to 1 when Fightscene is paused via the Start button.
     ds 1
     ;ds $C9C8 - @
-wFightscene_DebugOptions::
+wFightscene_DebugOptions_UNUSED::
     ; Unused removed feature.
     ; When this var was non-zero, pressing buttons applied some test effects for debugging
     ; These features are removed and so this var does not do anything, although it is initialized
     ds 1
-    ds $C9CA - @
+    ;ds $C9C9 - @
+wFightscene_Count_UNUSED::
+    ; Unused var
+    ; Possibly a temporary counting var(?)
+    ds 1
+    ;ds $C9CA - @
 wFightscene_BattleScriptFrame::
     ds 2
     ;ds $C9CC - @
@@ -1026,7 +1034,7 @@ wFightscene_TileFX_ReadingFrameMax::
     ;ds $C9FB - @
 wFightscene_TileFX_DestroyCount::
     ds 1
-
+;wFightscene_FireEffectState (?) TODO
 
     ds $C9FF - @
 wMenu_MainMenu_ItemSpellMapDefaultScript::

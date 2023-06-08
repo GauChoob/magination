@@ -921,7 +921,7 @@ jr_002_4651:
 Call_002_4653:
     ld a, [$D068]                                 ; $4653: $FA $68 $D0
     ld b, a                                       ; $4656: $47
-    ld c, Creature_Table_WIDTH                                     ; $4657: $0E $2D
+    ld c, Creature_Table_SIZE                                     ; $4657: $0E $2D
     call Math_Mult                                    ; $4659: $CD $CA $04
     ld bc, Creature_Table                                  ; $465C: $01 $5B $41
     add hl, bc                                    ; $465F: $09
@@ -931,7 +931,7 @@ Call_002_4653:
     ld [wBattle_CopyBuffer_Source], a                                 ; $4665: $EA $8D $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $4668: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $4670: $70
-    Do_CallForeign Call_004_40F0
+    Do_CallForeign Creature_Table_CopyStatsToBuffer
     FGet16 bc, wBattle_CopyBuffer_Destination                                  ; $4679: $21 $8F $CD                                       ; $467E: $4F
     ld hl, $D110                                  ; $467F: $21 $10 $D1
     ld a, $01                                     ; $4682: $3E $01
@@ -4498,7 +4498,7 @@ Battle02_Flow_Begin::
 
     ; Find the opposing magi's reference
     Get8 c, wBattle_MagiCreatureID
-    ld b, Creature_Table_WIDTH
+    ld b, Creature_Table_SIZE
     call Math_Mult
     ld bc, Creature_Table
     add hl, bc

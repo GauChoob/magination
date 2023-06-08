@@ -270,11 +270,9 @@ xCreature_RAM::
     ; ID $01 - $D0 = Dream Creatures that the hero can have
 xCreature_00_Hero:: Creature_Struct
     ; ds $A025 - @
-DEF i = $01
-REPT $D0
+FOR i, $01, $D1
 xCreature_{02X:i}::
     Creature_Struct
-DEF i = i + 1
 ENDR
     ; $BE35
 xCreature_RAM_End::

@@ -1,3 +1,4 @@
+; Viewport
 DEF FIGHTSCENE_SCX_MAX_PAN EQU $60
 DEF FIGHTSCENE_SCX_MAX_UPDATE EQU $7F
 DEF FIGHTSCENE_SCY_INIT EQU $58
@@ -14,12 +15,15 @@ DEF FIGHTSCENE_LYC_STARTSCREEN_ARENATOP EQU 9*8 - 1
 DEF FIGHTSCENE_LYC_STARTSCREEN_ARENABOTTOM EQU 13*8
 DEF FIGHTSCENE_SCX_WX_DISTANCE EQU $87 ; Number of pixels between the viewport of the Background and the Window. The Window is always this much to the right of the Background (barring a small difference from a FightFX)
 
+; Creature
 DEF FIGHTSCENE_CREATURE_MAX_HEIGHT EQU $0A
 DEF FIGHTSCENE_CREATURE_LEFT EQU $00
 DEF FIGHTSCENE_CREATURE_RIGHT EQU $01
 
+; Magic number for transparent color
 DEF FIGHTSCENE_TRANSPARENT_COLOR EQU $3DE0  ; RGB $00, $0F, $0F
 
+; Hardcoded vram locations
     ; Bank 0
     VRAM_TILEID_BG
     VRAM_TILEID FIGHTSCENE, ARENA_TOP, $80
@@ -54,19 +58,19 @@ DEF FIGHTSCENE_CREATURE_RIGHT_SPRITE_END EQU WINDOW_COORD_0A_00
 DEF FIGHTSCENE_CREATURE_RIGHT_MENU       EQU WINDOW_COORD_0A_00
 DEF FIGHTSCENE_CREATURE_RIGHT_MENU_END   EQU WINDOW_COORD_14_00
 
-
+; Macros
 MACRO Fightscene_FightFX_MoveTable_Load
     ; \1 = Table name
     Set8 wFightscene_FightFX_ReadingFrameMax, \1_Size
     Set16_M wFightscene_FightFX_DataTable, \1
 ENDM
 
+
 MACRO Fightscene_FightFX_MoveTable_Load_V
     ; \1 = Table name
     Set16_M wFightscene_FightFX_DataTable, \1
     Set8 wFightscene_FightFX_ReadingFrameMax, \1_Size
 ENDM
-
 
 
 MACRO Fightscene_FightFX_SetNextTile

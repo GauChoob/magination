@@ -101,12 +101,12 @@ Fightscene_GetCreaturePointers::
     ;   wTemp_B.Fightscene_CreatureBaseStatsPointer - address to row of DC info
     ;   wTemp_C.Fightscene_CreatureGraphicsPointer = hl = address to row of DC info + offset dcGraphics
     Get8 c, wTemp_8.Fightscene_CreatureID
-    ld b, Creature_Table_WIDTH
+    ld b, Creature_Table_SIZE
     call Math_Mult
     ld bc, Creature_Table
     add hl, bc
     Set16_M wTemp_B.Fightscene_CreatureBaseStatsPointer, hl
-    ld bc, dcGraphics
+    ld bc, oCreature_Table_Graphics
     add hl, bc
     Set16_M wTemp_C.Fightscene_CreatureGraphicsPointer, hl
     ret
@@ -442,7 +442,7 @@ Fightscene_Init::
     Frame_Init
     xor a
     ld [wFightscene_Start], a
-    ld [wFightscene_DebugOptions], a
+    ld [wFightscene_DebugOptions_UNUSED], a
     ld [wPalette_VBlankReady], a
     call Fightscene_SCXInit
 
@@ -676,7 +676,7 @@ Fightscene_UNK::
     ; Todo - unused? To verify. Hypothesis - was used as a counterpart to Fightscene_StartScreen_Init to end the StartScreen but is now unused
     ; Disables the Fightscene VBlank/HBlank effects
     xor a
-    ld [wFightscene_DebugOptions], a ; Inefficiency - this var is no longer used
+    ld [wFightscene_DebugOptions_UNUSED], a ; Inefficiency - this var is no longer used
     Set16_M wVBlank_HandlerFunc, Interrupt_VBlank_Handler_Standard
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_Idle
     ret

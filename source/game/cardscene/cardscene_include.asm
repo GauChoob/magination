@@ -1,0 +1,78 @@
+DEF CARDSCENE_PALETTE_Naroom EQU $00
+DEF CARDSCENE_PALETTE_Cald EQU $01
+DEF CARDSCENE_PALETTE_Core EQU $01
+DEF CARDSCENE_PALETTE_Orothe EQU $02
+DEF CARDSCENE_PALETTE_Underneath EQU $03
+DEF CARDSCENE_PALETTE_Arderial EQU $03
+DEF CARDSCENE_PALETTE_CURSOR EQU $04
+DEF CARDSCENE_PALETTE_BLANKCARD EQU $05
+DEF CARDSCENE_PALETTE_BACKGROUND EQU $06
+DEF CARDSCENE_PALETTE_TEXTBOX EQU $07
+
+
+; VRAM tilemap positions of topleft corner of card
+
+; Hero's cards
+DEF CARDSCENE_TILEMAP_CARD0 EQU BACKGROUND_COORD_07_00
+DEF CARDSCENE_TILEMAP_CARD1 EQU BACKGROUND_COORD_06_05
+DEF CARDSCENE_TILEMAP_CARD2 EQU BACKGROUND_COORD_06_0B
+DEF CARDSCENE_TILEMAP_CARD3 EQU BACKGROUND_COORD_07_10
+; Enemy's cards
+DEF CARDSCENE_TILEMAP_CARD4 EQU BACKGROUND_COORD_00_00
+DEF CARDSCENE_TILEMAP_CARD5 EQU BACKGROUND_COORD_00_05
+DEF CARDSCENE_TILEMAP_CARD6 EQU BACKGROUND_COORD_00_0B
+DEF CARDSCENE_TILEMAP_CARD7 EQU BACKGROUND_COORD_00_10
+
+    ; Bank 0
+    VRAM_TILEID_SPRITE
+    ; Tiles $00 - $FF defined in battle_equ.asm
+    VRAM_TILEID_BG
+    VRAM_TILEID CARDSCENE, ARENABACKGROUND, $00
+    VRAM_TILEID CARDSCENE, CARD0, $30
+    VRAM_TILEID CARDSCENE, CARD1, $44
+    VRAM_TILEID CARDSCENE, CARD2, $58
+    VRAM_TILEID CARDSCENE, CARD3, $6C
+    ; Bank 1
+    VRAM_TILEID_SPRITE
+    ; Tiles $00 - $3F defined in battle_equ.asm
+    ; Tiles $40 - $7F are undefined
+    VRAM_TILEID_BG
+    ; Tiles $80 - $85 defined in textbox
+    ; Tiles $86 - $C6 defined in battle_equ.asm
+    ; Tiles $C7 - $05 are undefined
+    ; Tiles $06 - $0D defined in battle_equ.asm
+    ; Tiles $0E - $2F are undefined
+    VRAM_TILEID CARDSCENE, CARD4, $30
+    VRAM_TILEID CARDSCENE, CARD5, $44
+    VRAM_TILEID CARDSCENE, CARD6, $58
+    VRAM_TILEID CARDSCENE, CARD7, $6C
+
+DEF CARDSCENE_BACKGROUND_ARENA EQU BACKGROUND_COORD_00_00
+DEF CARDSCENE_BACKGROUND_ARENA_END EQU BACKGROUND_COORD_0D_00
+DEF CARDSCENE_BACKGROUND_MENU EQU BACKGROUND_COORD_0D_00
+DEF CARDSCENE_BACKGROUND_MENU_END EQU BACKGROUND_COORD_12_00
+DEF CARDSCENE_WINDOW_MENU EQU WINDOW_COORD_00_00
+DEF CARDSCENE_WINDOW_MENU_END EQU WINDOW_COORD_05_00
+
+
+
+MACRO Cardscene_RestoreBackgroundCharsBC
+    ; inefficient - this should be a function accessed via Do_CallForeign
+    ; Reestores wBackgroundCharsBBuffer and wBackgroundCharsCBuffer
+    ; Opposite of Cardscene_BackupBackgroundCharsBC
+    SwitchRAMBank BANK(wBackgroundCharsBBuffer)
+    xor a
+    ld [rVBK], a
+    Do_MemMov wBackgroundCharsBBuffer, vBackgroundCharsB, $0800
+    Set8 rVBK, $01
+    Do_MemMov wBackgroundCharsCBuffer, vBackgroundCharsC, $0800
+ENDM
+
+MACRO Cardscene_RestoreNPCSpritesBackgroundCharsA
+	; Restores vNPCSpritesChars and vBackgroundCharsA
+	; Opposite of Cardscene_BackupNPCSpritesBackgroundCharsA
+    SwitchRAMBank BANK(wCardscene_NPCSpritesBackgroundCharsABuffer)
+    xor a
+    ld [rVBK], a
+    Do_MemMov wCardscene_NPCSpritesBackgroundCharsABuffer, vNPCSpritesChars, $1000
+ENDM
