@@ -82,7 +82,7 @@ MACRO Menu_RingToID
         ld c, Creature_SIZE
         call Math_Mult
         Battery_SetBank "XRAM Creatures"
-        ld bc, xCreature_RAM + oCreature_ID
+        ld bc, xCreature_RAM + oCreature_Struct_ID
         add hl, bc
         ld b, [hl]
     .EmptyRing\@:

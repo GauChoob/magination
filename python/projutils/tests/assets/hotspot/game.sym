@@ -1338,10 +1338,10 @@
 02:5c3c jr_002_5C3C
 02:5c3d jr_002_5C3D
 02:5c42 jr_002_5C42
-02:5c5c Battle_Init_SummonMagi
-02:5c75 Battle_Init_SummonMagi.CopyLoop
-02:5c83 Battle_Init_SummonMagi.CommandLoop
-02:5c8e Battle_Init_SummonMagi.EraseLoop
+02:5c5c Battle_Flow_Init_SummonMagi
+02:5c75 Battle_Flow_Init_SummonMagi.CopyLoop
+02:5c83 Battle_Flow_Init_SummonMagi.CommandLoop
+02:5c8e Battle_Flow_Init_SummonMagi.EraseLoop
 02:5c93 Call_002_5C93
 02:5cad jr_002_5CAD
 02:5cb8 SCRIPT_Battle_TextboxOpen

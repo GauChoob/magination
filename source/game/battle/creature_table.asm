@@ -35,7 +35,7 @@ Creature_Table_CopyAllToBuffer::
 Creature_Table_MagiMakeCreatureStruct::
     ; Copy an enemy magi when loading a battle
     ; This function generates a temporary Creature_Struct from the Creature_Table for the enemy magi
-    ; because Battle_Init_SummonMagi needs a Creature_Struct as input
+    ; because Battle_Flow_Init_SummonMagi needs a Creature_Struct as input
     ; Inputs:
     ;   wBattle_CopyBuffer_Source = Creature_Table row
     ;   wBattle_CopyBuffer_Destination = Temporary buffer

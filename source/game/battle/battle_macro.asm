@@ -86,6 +86,7 @@ DEF BATTLE_MAGIANIM_FOCUS RB 1
 DEF BATTLE_MAGIANIM_CHOOSE RB 1
 
 MACRO Battle_Set_MagiAnim
+    ; TODO
     ; Arguments
     ;   \1  Magi's dream creature id
     ;   \2  BATTLE_MAGIANIM_X

@@ -130,38 +130,38 @@ SECTION "XRAM Creatures", SRAM[$A000], BANK[$01]
 ; This represents bank $01 and $03 (two alternate savefiles)
 ; The variables are read from bank $01 or $03 depending on the current savefile in use
 
-oCreature_ID EQU $00
-oCreature_Type EQU $01
-oCreature_Level EQU $02
-oCreature_Experience EQU $03
-oCreature_CurEnergy EQU $05
-oCreature_MaxEnergy EQU $07
-oCreature_Strength EQU $09
-oCreature_Skill EQU $0A
-oCreature_Speed EQU $0B
-oCreature_Defence EQU $0C
-oCreature_Resist EQU $0D
-oCreature_Luck EQU $0E
-oCreature_EnergyUp EQU $0F
-oCreature_ElementResist EQU $10
-oCreature_ElementWeak EQU $11
-oCreature_StatusImmune EQU $12
-oCreature_StatusActive EQU $13
-oCreature_StatusPerm EQU $14
-oCreature_AI EQU $15
-oCreature_Ability0 EQU $16
-oCreature_Ability1 EQU $18
-oCreature_Ability2 EQU $1A
-oCreature_Ability3 EQU $1C
-oCreature_AbilityUnlock0 EQU $1E
-oCreature_AbilityUnlock1 EQU $1F
-oCreature_AbilityUnlock2 EQU $20
-oCreature_AbilityUnlock3 EQU $21
-oCreature_Relic0 EQU $22
-oCreature_Relic1 EQU $23
-oCreature_Other EQU $24
-oCreature_SIZE EQU $25
-oCreature_ARRAYLENGTH EQU $D0
+oCreature_Struct_ID EQU $00
+oCreature_Struct_Type EQU $01
+oCreature_Struct_Level EQU $02
+oCreature_Struct_Experience EQU $03
+oCreature_Struct_CurEnergy EQU $05
+oCreature_Struct_MaxEnergy EQU $07
+oCreature_Struct_Strength EQU $09
+oCreature_Struct_Skill EQU $0A
+oCreature_Struct_Speed EQU $0B
+oCreature_Struct_Defence EQU $0C
+oCreature_Struct_Resist EQU $0D
+oCreature_Struct_Luck EQU $0E
+oCreature_Struct_EnergyUp EQU $0F
+oCreature_Struct_ElementResist EQU $10
+oCreature_Struct_ElementWeak EQU $11
+oCreature_Struct_StatusImmune EQU $12
+oCreature_Struct_StatusActive EQU $13
+oCreature_Struct_StatusPerm EQU $14
+oCreature_Struct_AI EQU $15
+oCreature_Struct_Ability0 EQU $16
+oCreature_Struct_Ability1 EQU $18
+oCreature_Struct_Ability2 EQU $1A
+oCreature_Struct_Ability3 EQU $1C
+oCreature_Struct_AbilityUnlock0 EQU $1E
+oCreature_Struct_AbilityUnlock1 EQU $1F
+oCreature_Struct_AbilityUnlock2 EQU $20
+oCreature_Struct_AbilityUnlock3 EQU $21
+oCreature_Struct_Relic0 EQU $22
+oCreature_Struct_Relic1 EQU $23
+oCreature_Struct_Other EQU $24
+oCreature_Struct_SIZE EQU $25
+oCreature_Struct_ARRAYLENGTH EQU $D0
 
 Creature_SIZE EQU $25
 Creature_Ability_UNLOCKED EQU $FF
@@ -268,7 +268,8 @@ xCreature_RAM::
     ; $D1 sequential Creature_Structs
     ; ID $00 = Hero
     ; ID $01 - $D0 = Dream Creatures that the hero can have
-xCreature_00_Hero:: Creature_Struct
+xCreature_00_Hero::
+    Creature_Struct
     ; ds $A025 - @
 FOR i, $01, $D1
 xCreature_{02X:i}::

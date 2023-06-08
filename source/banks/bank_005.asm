@@ -2673,7 +2673,7 @@ Jump_005_5A4D:
     sub b                                         ; $5A5F: $90
     push af                                       ; $5A60: $F5
     call Battle00_DisableActorScript                                    ; $5A61: $CD $C7 $38
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_MAGI
     pop af                                        ; $5A7C: $F1
     push af                                       ; $5A7D: $F5
     ld b, a                                       ; $5A7E: $47
