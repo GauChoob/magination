@@ -221,7 +221,7 @@ Battle_Luck_Table::
     db 98
     db 99
     .End:
-ASSERT Battle_Luck_Table.End - Battle_Luck == 100
+ASSERT Battle_Luck_Table.End - Battle_Luck_Table == 100
 
     ; $4140
     ;Battle Attack Wrapper
