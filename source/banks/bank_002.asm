@@ -4688,19 +4688,22 @@ Battle_Flow_ControlCreature:
         jr .DoOrdinaryTarget2
 
     .DoMenu:
+        ; Run the Menu function
         Do_CallForeign Battle_Helpers_SelectMenu
-        
         Battle_TextboxClose
+        ; If successful, allow the user to choose a target
         ld a, [wMenu_ReturnValue]
         cp Menu_CANCEL
         jr nz, .DoOrdinaryTarget2
-
-        ld a, [wBattle_CurCreature_Slot]
-        cp $00
-        jp nz, Battle_Flow_ControlCreature
-
-        Battle_TextboxOpen
-        jp Battle_Flow_ControlCreature
+        ; If unsuccessful, reset the control from the beginning
+        .CancelMenu:
+            ld a, [wBattle_CurCreature_Slot]
+            cp wBattle_CreatureSlots.Hero - wBattle_CreatureSlots
+            .NotHero:
+                jp nz, Battle_Flow_ControlCreature
+            .Hero:
+                Battle_TextboxOpen
+                jp Battle_Flow_ControlCreature
 
 
     .DoOrdinaryTarget2:
@@ -7524,13 +7527,13 @@ jr_002_7504:
     ; $752D
 Call_002_752D::
     xor a                                         ; $752D: $AF
-    ld [$D0D8], a                                 ; $752E: $EA $D8 $D0
+    ld [wBattle_NotEnoughEnergy], a                                 ; $752E: $EA $D8 $D0
     call Call_002_748B                            ; $7531: $CD $8B $74
     ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $7534: $FA $AF $D0
     and a                                         ; $7537: $A7
     jr nz, jr_002_7549                            ; $7538: $20 $0F
 
-    ld a, [$D0D8]                                 ; $753A: $FA $D8 $D0
+    ld a, [wBattle_NotEnoughEnergy]                                 ; $753A: $FA $D8 $D0
     and a                                         ; $753D: $A7
     ret z                                         ; $753E: $C8
 

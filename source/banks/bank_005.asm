@@ -597,7 +597,7 @@ Battle_Helpers_CheckValidTarget::
     jr c, .EnergyPass
     .NotEnoughEnergy:
         Sound_Request_StartSFX0 SFXID_SfxCancel
-        Set8 $D0D8, $01 ;todo
+        Set8 wBattle_NotEnoughEnergy, $01
         xor a ;invalid cmd
         ld [wBattle_CurCreature_ValidBattleCmd], a
         ret
@@ -1375,11 +1375,10 @@ jr_005_4F4C:
 
 
 Battle_Menu_Ring:
+    ; Allows the user to select a creature to Summon
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, $01
-    ld [$D0C0], a
-    ld a, $04
-    ld [wMenu_CursorID], a
+    Set8 $D0C0, $01 ; TODO
+    Set8 wMenu_CursorID, Enum_Menu_CursorTable_Battle_Summon_Creatur4 ; TODO - this seems useless as we will immediately replace it in Do_Menu_Init?
     ; wMenu_SelectedRingIndex = 0 (first page)
     xor a
 
@@ -1532,7 +1531,7 @@ Battle_Menu_Ring:
 
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_WindowSprite
     ld a, [wMenu_CursorID] ; TODO - isn't this useless as we are going to reset it in Do_Menu_Init?
-    cp $04
+    cp Enum_Menu_CursorTable_Battle_Summon_Creatur4
     jr z, .DoMenu
         Set8 wMenu_ReturnValue, Menu_NULL
         jr .MenuLoop
@@ -1577,7 +1576,7 @@ Battle_Menu_Ring:
         .FirstPage:
 
         ld a, [wMenu_SelectedRingIndex]
-        ld [$D06F], a ; TODO?
+        ld [$D06F], a ; TODO? Creature_ID
 
         ; Use this Macro to get the Creature_Struct saved in hl
         Menu_RingToID wMenu_SelectedRingIndex
@@ -1586,7 +1585,7 @@ Battle_Menu_Ring:
         Battery_On
         Set8 wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
 
-        Set16 $D107, hl ; TODO?
+        Set16 $D107, hl ; TODO? <- Creature_Struct
 
         ; Check to see if we have enough energy to summon the creature
         ; And that there is an empty card to target

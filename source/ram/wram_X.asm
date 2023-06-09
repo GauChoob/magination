@@ -158,6 +158,7 @@ MACRO Battle_Creature_BattleCmd_Struct
         ; Later changed to be a target e.g. 0-9 (Hero to Magi)
         ds 1
     .BattleCmd_Menu:
+        ; Whether or not this Command contains a Menu
         ds 1
     .BattleCmd_Rating:
         ; Damage multiplier
@@ -366,7 +367,12 @@ wBattle_CurCreature_FightDef::
     ; z -> Fight; nz -> Defend
     ds 1
 
-    ds $D0D9 - @
+    ds $D0D8 - @
+wBattle_NotEnoughEnergy::
+    ; Set to 1 when a BattleCmd is rejected by Battle_Helpers_CheckValidTarget because the creature does not have enough energy
+    ds 1
+
+    ;ds $D0D9 - @
 wBattle_Creature_Current::
     Battle_Creature_Struct
 
