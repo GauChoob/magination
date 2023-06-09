@@ -2656,7 +2656,7 @@ jr_002_51FC:
     ld b, $00                                     ; $52C1: $06 $00
     ld hl, $D376                                  ; $52C3: $21 $76 $D3
     add hl, bc                                    ; $52C6: $09
-    ld a, [$D06F]                                 ; $52C7: $FA $6F $D0
+    ld a, [wBattle_SummonRingIndex]                                 ; $52C7: $FA $6F $D0
     ld [hl], a                                    ; $52CA: $77
     ld c, a                                       ; $52CB: $4F
     ld b, $00                                     ; $52CC: $06 $00

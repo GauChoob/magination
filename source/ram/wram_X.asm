@@ -166,12 +166,8 @@ MACRO Battle_Creature_BattleCmd_Struct
     .BattleCmd_Elemental:
         ds 1
     UNION
-        .BattleCmd_Summon:
-            ; Creature to summon
-            ds 2
-    NEXTU
         .BattleCmd_Item:
-            ; Item to use
+            ; Item/Spell to use, or Creature to summon
             ds 2
     NEXTU
         .BattleCmd_MaxDamage:
@@ -277,7 +273,7 @@ wBattle_Menu_CommandCostString::
     .Cmd4:
         ds 3
     .End:
-    ; $D063 - @
+    ;ds $D063 - @
 wBattle_SelectedRingIndex::
     ; An offset to target one of the rings in xInventory_Rings
     ; Does the same thing as wMenu_SelectedRingIndex
@@ -287,6 +283,11 @@ wBattle_SelectedRingIndex::
 wBattle_TurnsElapsed::
     ; Number of turns elapsed from the start of the battle
     ds 2
+    ;ds $D06F - @
+wBattle_SummonRingIndex::
+    ; An offset to target one of the rings in xInventory_Rings
+    ; The ring that is going to be summoned
+    ds 1
 
     ds $D074 - @
 wBattle_TempCounter::

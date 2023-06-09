@@ -1376,6 +1376,11 @@ jr_005_4F4C:
 
 Battle_Menu_Ring:
     ; Allows the user to select a creature to Summon
+    ; Outputs:
+    ;   wBattle_SummonRingIndex - the selected ring
+    ;   wBattle_Creature_Current.BattleCmd_Item - the associated Creature_Struct of the creature we want to summon
+    ;   wMenu_ReturnValue
+    ;   wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
     SwitchRAMBank BANK("WRAM BATTLE")
     Set8 $D0C0, $01 ; TODO
     Set8 wMenu_CursorID, Enum_Menu_CursorTable_Battle_Summon_Creatur4 ; TODO - this seems useless as we will immediately replace it in Do_Menu_Init?
@@ -1575,8 +1580,8 @@ Battle_Menu_Ring:
             ld [wMenu_SelectedRingIndex], a
         .FirstPage:
 
-        ld a, [wMenu_SelectedRingIndex]
-        ld [$D06F], a ; TODO? Creature_ID
+        ; Save the ring offset
+        Mov8 wBattle_SummonRingIndex, wMenu_SelectedRingIndex
 
         ; Use this Macro to get the Creature_Struct saved in hl
         Menu_RingToID wMenu_SelectedRingIndex
@@ -1585,7 +1590,7 @@ Battle_Menu_Ring:
         Battery_On
         Set8 wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
 
-        Set16 $D107, hl ; TODO? <- Creature_Struct
+        Set16 wBattle_Creature_Current.BattleCmd_Item, hl
 
         ; Check to see if we have enough energy to summon the creature
         ; And that there is an empty card to target
@@ -1597,8 +1602,8 @@ Battle_Menu_Ring:
         call Battle_Helpers_CheckValidTarget
         ld a, [wBattle_CurCreature_ValidBattleCmd]
         and a
-        jp z, .DoMenu
-
+        jp z, .DoMenu ; If invalid, allow the user to select another choice
+        ; Valid choice! return
         ret
 
     ; $5553
