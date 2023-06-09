@@ -1,6 +1,7 @@
 import sys
 import projutils.utils as utils
 import projutils.color as color
+import projutils.tilemap as tilemap
 
 """Some quick command-line utilities for quick calculations"""
 
@@ -32,13 +33,16 @@ def main():
 
     if args[1] == 'rgb':
         if len(args) == 5:
-            r, g, b = (int(args[i+2],0) for i in range(3))
+            r, g, b = (int(args[i+2], 0) for i in range(3))
             print(color.Color(r, g, b))
         if len(args) == 6:
-            r, g, b, a = (int(args[i+2],0) for i in range(4))
+            r, g, b, a = (int(args[i+2], 0) for i in range(4))
             print(color.Color(r, g, b, a))
         if len(args) == 3:
-            print(color.Color(int(args[2],0)))
+            print(color.Color(int(args[2], 0)))
+
+    if args[1] == 'attr':
+        print(str(tilemap.TileAttribute(int(args[2], 0))))
 
 
 if __name__ == "__main__":

@@ -60,7 +60,8 @@ xInventory_Relics::
 
     ;ds $A118 - @
 xInventory_Rings::
-    ; $FF if no ring
+    DEF INVENTORY_RINGS_NORING EQU $FF
+    ; INVENTORY_RINGS_NORING if no ring
     ; Otherwise points to a creature id in "XRAM Creatures"
     ds xInventory_Rings_LENGTH
     .End

@@ -212,3 +212,6 @@ MACRO Creature_Table_Row
     AddressBank BITMAP_Cardscene_\<32> ; Cardscene Tileset
     db CARDSCENE_PALETTE_\<33> ; Cardscene Palette offset
 ENDM
+
+
+DEF CreatureName_SIZE EQU $0A

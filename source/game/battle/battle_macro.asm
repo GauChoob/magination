@@ -16,8 +16,8 @@ MACRO Battle_FormatCreatureName
     Set8 wBattle_CopyBuffer_ListIndex, \1
     ld bc, wText_StringBuffer
     FSet16 wBattle_CopyBuffer_Destination, bc
-    Do_CallForeign CopyDreamCreatureNameToBuffer
-    Set8 (wText_StringBuffer + Creature_NAMESIZE), "🔊"
+    Do_CallForeign CreatureName_CopyToDest
+    Set8 (wText_StringBuffer + CreatureName_SIZE), "🔊"
     Set16_M wText_StringFormatFrame, wText_StringBuffer
 ENDM
 
@@ -28,11 +28,11 @@ MACRO Battle_FormatCreatureName_Bugged
     Set8 wBattle_CopyBuffer_ListIndex, \1
     ld bc, wText_StringBuffer
     FSet16 wBattle_CopyBuffer_Destination, bc
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     IF FIX_BUGS == 1
-        Set8 (wText_StringBuffer + Creature_NAMESIZE), "🔊"
+        Set8 (wText_StringBuffer + CreatureName_SIZE), "🔊"
     ELSE
-        Set8 (wMenu_Battle_TableRowBuffer + Creature_NAMESIZE), "🔊" ; BUG! This line is applied to the wrong buffer! I guess previously wMenu_Battle_TableRowBuffer was used until it was changed for wText_StringBuffer and they forgot to change this one
+        Set8 (wMenu_Battle_TableRowBuffer + CreatureName_SIZE), "🔊" ; BUG! This line is applied to the wrong buffer! I guess previously wMenu_Battle_TableRowBuffer was used until it was changed for wText_StringBuffer and they forgot to change this one
     ENDC
     Set16_M wText_StringFormatFrame, wText_StringBuffer
 ENDM

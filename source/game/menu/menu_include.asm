@@ -34,30 +34,29 @@ ENDM
 MACRO Menu_TextCreatureSetup
     ; Menu_TextCreatureSetup VBK, VRAMDest, TilemapDEST
     ;
-    ; Pastes the creature name indicated by $D063
+    ; Pastes the creature name indicated by wBattle_SelectedRingIndex
     Set16_M wText_StringFormatFrame, wText_StringBuffer
-    Text_Setup \1, \2, \3, Creature_NAMESIZE
+    Text_Setup \1, \2, \3, CreatureName_SIZE
     Menu_GetCreatureName
-    ld a, Creature_NAMESIZE
+    ld a, CreatureName_SIZE
     inc a
     ld [wMenu_TextLengthCounter], a
     Set16_M wText_HandlerFunc, TextHandler_String
 ENDM
 
 MACRO Menu_GetCreatureName
-    ; Stores the name of the creature indicated by $D063 into wText_StringFrame
-                                                    ;TODO
-    Menu_RingToID
+    ; Stores the name of the creature indicated by wBattle_SelectedRingIndex into wText_StringFrame
+    Menu_RingToID wBattle_SelectedRingIndex
     ld a, b
-    cp Creature_NULL
+    cp CreatureID_Null
     jr nz, .NotNull\@
-        ld hl, DreamCreatureNameNull
+        ld hl, CreatureName_Null
         jr .GotString\@
     .NotNull\@:
         ld c, a
-        ld b, Creature_NAMESIZE
+        ld b, CreatureName_SIZE
         call Math_Mult
-        ld bc, DreamCreatureNameTable
+        ld bc, CreatureName_Table
         add hl, bc
     .GotString\@:
     ; Creature name in hl
@@ -66,27 +65,31 @@ ENDM
 
 MACRO Menu_RingToID
     ; Gets the ID (type) of the targetted ring
-    ; Returns in b
+    ; Inputs:
+    ;   \1 = ring index pointer (wBattle_SelectedRingIndex or wMenu_SelectedRingIndex)
+    ; Outputs:
+    ;   b = ID
+    ;   hl = pointer to ring Creature_Struct
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$D063] ;TODO
-    ld c, a
+    Get8 c, \1
     ld b, $00
     ld hl, xInventory_Rings
     add hl, bc
     ld a, [hl]
-    cp Creature_NULL
+    cp INVENTORY_RINGS_NORING
     ld b, a
-    jr z, .EmptyRing\@
+    jr z, .EmptyRing\@ ; CreatureID_Null = INVENTORY_RINGS_NORING
+    .ValidRing\@
         ld b, a
         ld c, Creature_SIZE
         call Math_Mult
         Battery_SetBank "XRAM Creatures"
-        ld bc, xCreature_RAM + oCreature_Struct_ID
+        ld bc, xCreature_00_Hero.ID
         add hl, bc
         ld b, [hl]
     .EmptyRing\@:
-        Battery_Off
+    Battery_Off
 ENDM
 
 MACRO Menu_TextUpdateLoop

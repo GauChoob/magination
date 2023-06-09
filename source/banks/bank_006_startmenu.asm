@@ -554,118 +554,44 @@ sMenu_MainMenu_Debug::
     db "01234"
     .End
 
-    ; $5385
-Call_006_5385::
+
+CreatureName_SummonMenuLoadNames::
+    ; Loads the names of the dream creatures in Tony's Summon menu during battle
+    ; Inputs:
+    ;   wMenu_SelectedRingIndex - 0 (for the first 5 creatures) or 5 (for the last 5 creatures)
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$CDD6]                                 ; $538C: $FA $D6 $CD
-    ld hl, $D063                                  ; $538F: $21 $63 $D0
-    ld [hl], a                                    ; $5392: $77
-    ld c, a                                       ; $5393: $4F
-    ld b, $00                                     ; $5394: $06 $00
-    ld hl, $D37A                                  ; $5396: $21 $7A $D3
-    add hl, bc                                    ; $5399: $09
-    ld a, [hl]                                    ; $539A: $7E
-    cp $02                                        ; $539B: $FE $02
-    jp z, Jump_006_543E                           ; $539D: $CA $3E $54
-
-    Menu_TextCreatureSetup $01, $8860, $9C03
-    jp Jump_006_54D9                              ; $543B: $C3 $D9 $54
-
-
-Jump_006_543E:
-    Menu_TextCreatureSetup $01, $8860, $9C04
-
-Jump_006_54D9:
-    Menu_TextUpdateLoop
-
-    ld hl, $D063                                  ; $54EB: $21 $63 $D0
-    inc [hl]                                      ; $54EE: $34
-    ld a, [hl]                                    ; $54EF: $7E
-    ld c, a                                       ; $54F0: $4F
-    ld b, $00                                     ; $54F1: $06 $00
-    ld hl, $D37A                                  ; $54F3: $21 $7A $D3
-    add hl, bc                                    ; $54F6: $09
-    ld a, [hl]                                    ; $54F7: $7E
-    cp $02                                        ; $54F8: $FE $02
-    jp z, Jump_006_559B                           ; $54FA: $CA $9B $55
-
-    Menu_TextCreatureSetup $01, $8900, $9C23
-    jp Jump_006_5636                              ; $5598: $C3 $36 $56
+    ld a, [wMenu_SelectedRingIndex]
+    ld hl, wBattle_SelectedRingIndex
+    ld [hl], a
+    FOR loop, 0, 5
+        IF loop != 0
+            ; Increment the selected ring by 1, except for the first loop
+            ld hl, wBattle_SelectedRingIndex
+            inc [hl]
+            ld a, [hl]
+        ENDC
+        ; Check if the ring is currently in play or not
+        ld c, a
+        ld b, $00
+        ld hl, wBattle_UsedRings
+        add hl, bc
+        ld a, [hl]
+        cp BATTLE_USEDRINGS_ALIVE
+        jp z, .Indent\@ ; inefficiency - jr could be used
+        .NoIndent\@:
+            ; Ring is not in play, so paste the creature name as normal
+            Menu_TextCreatureSetup $01, BATTLE_MENU_VRAM_SUMMONNAME{u:loop}, BATTLE_MENU_TILEMAP_SUMMONNAME{u:loop}
+            jp .Finally\@ ; inefficiency - jr could be used
+        .Indent\@:
+            ; Ring is in play, so indent the destination by 1 tile to the right and then paste the creature name
+            Menu_TextCreatureSetup $01, BATTLE_MENU_VRAM_SUMMONNAME{u:loop}, BATTLE_MENU_TILEMAP_SUMMONNAME{u:loop} + 1
+        .Finally\@:
+        Menu_TextUpdateLoop
+    ENDR
+    ret
 
 
-Jump_006_559B:
-    Menu_TextCreatureSetup $01, $8900, $9C24
-
-Jump_006_5636:
-    Menu_TextUpdateLoop
-
-    ld hl, $D063                                  ; $5648: $21 $63 $D0
-    inc [hl]                                      ; $564B: $34
-    ld a, [hl]                                    ; $564C: $7E
-    ld c, a                                       ; $564D: $4F
-    ld b, $00                                     ; $564E: $06 $00
-    ld hl, $D37A                                  ; $5650: $21 $7A $D3
-    add hl, bc                                    ; $5653: $09
-    ld a, [hl]                                    ; $5654: $7E
-    cp $02                                        ; $5655: $FE $02
-    jp z, Jump_006_56F8                           ; $5657: $CA $F8 $56
-
-    Menu_TextCreatureSetup $01, $89A0, $9C43
-    jp Jump_006_5793                              ; $56F5: $C3 $93 $57
-
-
-Jump_006_56F8:
-    Menu_TextCreatureSetup $01, $89A0, $9C44
-
-Jump_006_5793:
-    Menu_TextUpdateLoop
-
-    ld hl, $D063                                  ; $57A5: $21 $63 $D0
-    inc [hl]                                      ; $57A8: $34
-    ld a, [hl]                                    ; $57A9: $7E
-    ld c, a                                       ; $57AA: $4F
-    ld b, $00                                     ; $57AB: $06 $00
-    ld hl, $D37A                                  ; $57AD: $21 $7A $D3
-    add hl, bc                                    ; $57B0: $09
-    ld a, [hl]                                    ; $57B1: $7E
-    cp $02                                        ; $57B2: $FE $02
-    jp z, Jump_006_5855                           ; $57B4: $CA $55 $58
-
-    Menu_TextCreatureSetup $01, $8A40, $9C63
-    jp Jump_006_58F0                              ; $5852: $C3 $F0 $58
-
-
-Jump_006_5855:
-    Menu_TextCreatureSetup $01, $8A40, $9C64
-
-Jump_006_58F0:
-    Menu_TextUpdateLoop
-
-    ld hl, $D063                                  ; $5902: $21 $63 $D0
-    inc [hl]                                      ; $5905: $34
-    ld a, [hl]                                    ; $5906: $7E
-    ld c, a                                       ; $5907: $4F
-    ld b, $00                                     ; $5908: $06 $00
-    ld hl, $D37A                                  ; $590A: $21 $7A $D3
-    add hl, bc                                    ; $590D: $09
-    ld a, [hl]                                    ; $590E: $7E
-    cp $02                                        ; $590F: $FE $02
-    jp z, Jump_006_59B2                           ; $5911: $CA $B2 $59
-
-    Menu_TextCreatureSetup $01, $8AE0, $9C83
-    jp Jump_006_5A4D                              ; $59AF: $C3 $4D $5A
-
-
-Jump_006_59B2:
-    Menu_TextCreatureSetup $01, $8AE0, $9C84
-
-Jump_006_5A4D:
-    Menu_TextUpdateLoop
-
-    ret                                           ; $5A5F: $C9
-
-    ; $5A60
-CopyDreamCreatureNameToBuffer::
+CreatureName_CopyToDest::
     ; Given a dream creature index, the creature's name will be stored in
     ; the buffer indicated by [wBattle_CopyBuffer_Destination]
     ; Arguments:
@@ -673,19 +599,19 @@ CopyDreamCreatureNameToBuffer::
     ; Output:
     ;   [wBattle_CopyBuffer_Destination] = Creature's name
     Get8 b, wBattle_CopyBuffer_ListIndex
-    cp Creature_NULL
+    cp CreatureID_Null
     jr nz, .NotNull
     .Null:
-        ld hl, DreamCreatureNameNull
+        ld hl, CreatureName_Null
         jr .GetBufferAddress
     .NotNull:
-        ld c, Creature_NAMESIZE
+        ld c, CreatureName_SIZE
         call Math_Mult
-        ld bc, DreamCreatureNameTable
+        ld bc, CreatureName_Table
         add hl, bc
     .GetBufferAddress:
     Get16 bc, wBattle_CopyBuffer_Destination
-    ld d, Creature_NAMESIZE
+    ld d, CreatureName_SIZE
     .CopyNameLoop:
         LdBCIHLI
         dec d
@@ -694,25 +620,21 @@ CopyDreamCreatureNameToBuffer::
 
     ; $5A87
 Call_006_5A87::
-    FGet16 bc, wBattle_CopyBuffer_Destination                                  ; $5A87: $21 $8F $CD                                       ; $5A8C: $4F
-    FGet16 hl, wBattle_CopyBuffer_Source                                  ; $5A8D: $21 $8D $CD
-    ld d, $22                                     ; $5A93: $16 $22
+    ; TODO unknown
+    FGet16 bc, wBattle_CopyBuffer_Destination
+    FGet16 hl, wBattle_CopyBuffer_Source
+    ld d, $22
+    .Loop:
+        LdBCIHLI
+        dec d
+        jr nz, .Loop
+    ret
 
-jr_006_5A95:
-    LdBCIHLI                                        ; $5A97: $03
-    dec d                                         ; $5A98: $15
-    jr nz, jr_006_5A95                            ; $5A99: $20 $FA
 
-    ret                                           ; $5A9B: $C9
+CreatureName_Null::
+    db "          " ; CreatureID_Null
 
-DEF Creature_NULL EQU $FF ;TODO move this somewhere better
-DEF Creature_NAMESIZE EQU $0A
-
-    ; $5A9C
-DreamCreatureNameNull::
-    db "          " ;$FF
-    ; $5AA6
-DreamCreatureNameTable::
+CreatureName_Table::
     db "Abaquist  "
     db "Agovo     "
     db "Alaban    "
@@ -821,7 +743,7 @@ DreamCreatureNameTable::
     db "ShadowMagi"
     db "ShadowMagi"
     db "Salafy    "
-    db "          "
+    db "          " ; NoMagi
 
     ; $5EE8
 Menu_MainMenu_SetTilemap2DigitNumber:
@@ -1422,7 +1344,7 @@ Menu_MainMenu_DrawCurrentTop::
                     ld bc, WINDOW_COORD_03_06
                     add hl, bc
                     ; Erase the line of text
-                    ld c, (1 + Creature_NAMESIZE) ; +1 for the 🌟 icon
+                    ld c, (1 + CreatureName_SIZE) ; +1 for the 🌟 icon
                     ld a, Textbox_TILEID_BLANK
                     .TileLoop:
                         ld [hl+], a
@@ -1704,7 +1626,7 @@ Menu_MainMenu_BuildEntries::
             Set8 wBattle_CopyBuffer_ListIndex, c
             ld bc, wMenu_Battle_TableRowBuffer
             FSet16 wBattle_CopyBuffer_Destination, bc
-            Do_CallForeign CopyDreamCreatureNameToBuffer
+            Do_CallForeign CreatureName_CopyToDest
             jr .CopyBufferDone
 
         .DoRelic:
@@ -1744,9 +1666,9 @@ Menu_MainMenu_BuildEntries::
         .SourceFound:
 
         ; Copy the string
-        ASSERT ItemSpell_NAMESIZE >= Creature_NAMESIZE
+        ASSERT ItemSpell_NAMESIZE >= CreatureName_SIZE
         ASSERT ItemSpell_NAMESIZE >= Relic_NAMESIZE
-        Set8 wMenu_MainMenu_StringToTileset_Length, ItemSpell_NAMESIZE ;max(Creature_NAMESIZE, Relic_NAMESIZE, ItemSpell_NAMESIZE)
+        Set8 wMenu_MainMenu_StringToTileset_Length, ItemSpell_NAMESIZE ;max(CreatureName_SIZE, Relic_NAMESIZE, ItemSpell_NAMESIZE)
         Set16 wMenu_MainMenu_StringToTileset_Dest, hl
         FSet16 wMenu_MainMenu_StringToTileset_Source, bc
         call Menu_MainMenu_StringToTileset
@@ -2636,7 +2558,7 @@ Menu_MainMenu_Setup_Rings:
                 .CheckValidRing1:
                 ;If the xth ring is null, check the (x+1)th ring instead
                 ld a, [hl]
-                cp Creature_NULL
+                cp INVENTORY_RINGS_NORING
                 jr z, .GetNextRing
             jr .RingIsSelected
         .ChooseUpArrowRing:
@@ -2674,7 +2596,7 @@ Menu_MainMenu_Setup_Rings:
                 .CheckValidRing2:
                 ;If the xth ring is null, check the (x-1)th ring instead
                 ld a, [hl]
-                cp Creature_NULL
+                cp CreatureID_Null
                 jr z, .GetPreviousRing  ;Ring was empty
             jr .RingIsSelected ; inefficiency - line not needed
 
@@ -2694,13 +2616,13 @@ Menu_MainMenu_Setup_Rings:
     Battery_Off
     ld bc, wMenu_MainMenu_CurCreatureName
     FSet16 wBattle_CopyBuffer_Destination, bc
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ; Paste it into the tileset
     ld hl, wMenu_MainMenu_CurCreatureName
     Set16 wMenu_MainMenu_StringToTileset_Source, hl
     ld bc, Menu_MainMenu_VRAM_RINGS_NAME
     FSet16 wMenu_MainMenu_StringToTileset_Dest, bc
-    Set8 wMenu_MainMenu_StringToTileset_Length, Creature_NAMESIZE
+    Set8 wMenu_MainMenu_StringToTileset_Length, CreatureName_SIZE
     call Menu_MainMenu_StringToTileset
 
     ; Load the Stats Header

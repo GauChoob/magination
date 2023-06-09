@@ -91,4 +91,4 @@ Creature_Table_MagiMakeCreatureStruct::
 
 
 Creature_Table::
-    INCLUDE "source/game/battle/creature_table.csv"
+    INCLUDE "source/game/creature/creature_table.csv"

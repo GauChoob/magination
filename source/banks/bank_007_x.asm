@@ -4292,7 +4292,7 @@ jr_007_740C:
     ld [wBattle_CopyBuffer_Destination+1], a                                 ; $7429: $EA $90 $CD
     ld a, l                                       ; $742C: $7D
     ld [wBattle_CopyBuffer_Destination], a                                 ; $742D: $EA $8F $CD
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $7438: $3E $FC
     ld [bc], a                                    ; $743A: $02
     pop hl                                        ; $743B: $E1

@@ -636,7 +636,7 @@ jr_002_441F:
     ld hl, $D376                                  ; $4442: $21 $76 $D3
     add hl, bc                                    ; $4445: $09
     ld c, [hl]                                    ; $4446: $4E
-    ld hl, $D37A                                  ; $4447: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $4447: $21 $7A $D3
     add hl, bc                                    ; $444A: $09
     ld a, $01                                     ; $444B: $3E $01
     ld [hl], a                                    ; $444D: $77
@@ -1105,7 +1105,7 @@ System_ActorTonyDefaults::
     ; Disable all the selected rings
     Battery_SetBank "XRAM Gamestate"
     ld hl, xInventory_Rings
-    ld a, $FF
+    ld a, INVENTORY_RINGS_NORING
     REPT xInventory_Rings_LENGTH
         ld [hl+], a
     ENDR
@@ -2660,7 +2660,7 @@ jr_002_51FC:
     ld [hl], a                                    ; $52CA: $77
     ld c, a                                       ; $52CB: $4F
     ld b, $00                                     ; $52CC: $06 $00
-    ld hl, $D37A                                  ; $52CE: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $52CE: $21 $7A $D3
     add hl, bc                                    ; $52D1: $09
     ld a, $02                                     ; $52D2: $3E $02
     ld [hl], a                                    ; $52D4: $77
@@ -3012,7 +3012,7 @@ Jump_002_54E8:
     jp z, Jump_002_5578                           ; $54EE: $CA $78 $55
 
     push hl                                       ; $54F1: $E5
-    ld hl, $A118                                  ; $54F2: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $54F2: $21 $18 $A1
     ld a, [wBattle_TempCounter]                                 ; $54F5: $FA $74 $D0
     dec a                                         ; $54F8: $3D
     ld c, a                                       ; $54F9: $4F
@@ -3275,7 +3275,7 @@ Call_002_56C7:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $56CD: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $56D0: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $56D8: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $56E1: $3E $FC
     ld [$C953], a                                 ; $56E3: $EA $53 $C9
     pop hl                                        ; $56E6: $E1
@@ -4416,7 +4416,7 @@ jr_002_5DBD:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5DD3: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $5DD6: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5DDE: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $5DE7: $3E $FC
     ld [$C953], a                                 ; $5DE9: $EA $53 $C9
     ld a, $49                                     ; $5DEC: $3E $49
@@ -4468,7 +4468,7 @@ Jump_002_5E48:
     ret                                           ; $5E5D: $C9
 
 
-Call_002_5E5E:
+Call_002_5E5E_RunScripts:
     ld a, $01                                     ; $5E5E: $3E $01
     ld [$D3C2], a                                 ; $5E60: $EA $C2 $D3
 
@@ -4543,7 +4543,7 @@ Battle02_Flow_Begin::
     Do_MemSet $D0B8, $0008, $FF
     ld bc, $51C2
     FSet16 $D35D, bc
-    call Call_002_5E5E ; Run scripts
+    call Call_002_5E5E_RunScripts ; Run scripts
     ld bc, $51C2
     FSet16 $D16E, bc
     call Battle_Flow_SortCmdOrder
@@ -5259,7 +5259,7 @@ Battle_Flow_MainLoop::
     call Call_002_6A01
     call Call_002_6BBA
     call Battle_Flow_SortCmdOrder
-    call Call_002_5E5E
+    call Call_002_5E5E_RunScripts
     call Call_002_66DD
     ld a, [wBattle_ExitCode]
     cp BATTLE_EXITCODE_NOEXIT
@@ -5754,7 +5754,7 @@ jr_002_692D:
     ld hl, $D376                                  ; $694B: $21 $76 $D3
     add hl, bc                                    ; $694E: $09
     ld c, [hl]                                    ; $694F: $4E
-    ld hl, $D37A                                  ; $6950: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $6950: $21 $7A $D3
     add hl, bc                                    ; $6953: $09
     ld a, $01                                     ; $6954: $3E $01
     ld [hl], a                                    ; $6956: $77
@@ -6610,7 +6610,7 @@ jr_002_6F80:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $6F86: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $6F89: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $6F91: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $6F9A: $3E $FC
     ld [$C953], a                                 ; $6F9C: $EA $53 $C9
     ld a, $49                                     ; $6F9F: $3E $49

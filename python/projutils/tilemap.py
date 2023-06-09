@@ -219,3 +219,13 @@ class TileAttribute:
         self.hflip = (attributes & 0b00100000) >> 5
         self.vflip = (attributes & 0b01000000) >> 6
         self.priority = (attributes & 0b10000000) >> 7
+
+    def __str__(self):
+        return '\n'.join([
+            'pal {}'.format(self.pal),
+            'vbk {}'.format(self.vbk),
+            'obp {}'.format(self.obp),
+            'hflip {}'.format(self.hflip),
+            'vflip {}'.format(self.vflip),
+            'priority {}'.format(self.priority),
+        ])
