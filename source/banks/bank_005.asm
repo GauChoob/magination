@@ -52,7 +52,7 @@ Battle_CheckTarget_Table::
 Battle_Menu_Table::
     ; A bunch of functions that point to tables passed by BattleCmd
     dw Battle_Target_Crash ; 0 - no menu
-    dw Battle_Menu_Ring ; 1 - Ring
+    dw Battle_Menu_Ring ; 1 - Ring/Summon
     dw Battle_Menu_Item ; 2 - Item
     dw Battle_Menu_Spell ; 3 - Spell
 
@@ -1043,12 +1043,11 @@ Call_005_4B45::
     ; $45B1
 Battle_Menu_Item:
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld bc, $A3A7
-    FSet16 $CC82, bc
+    ld bc, xInventory_Items
+    FSet16 wMenu_MainMenu_Entry_QuantityTable, bc
     ld bc, Item_Table
-    FSet16 $CC84, bc
-    ld a, ItemSpell_ROWSIZE
-    ld [$CC88], a
+    FSet16 wMenu_MainMenu_Entry_EntryDataTable, bc
+    Set8 wMenu_MainMenu_Entry_DatatableWidth, ItemSpell_ROWSIZE
     xor a
 
 Jump_005_4B70:
@@ -1378,7 +1377,7 @@ Battle_Menu_Ring:
     ; Allows the user to select a creature to Summon
     ; Outputs:
     ;   wBattle_SummonRingIndex - the selected ring
-    ;   wBattle_Creature_Current.BattleCmd_Item - the associated Creature_Struct of the creature we want to summon
+    ;   wBattle_Creature_Current.BattleCmd_MenuChoice - the associated Creature_Struct of the creature we want to summon
     ;   wMenu_ReturnValue
     ;   wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
     SwitchRAMBank BANK("WRAM BATTLE")
@@ -1590,7 +1589,8 @@ Battle_Menu_Ring:
         Battery_On
         Set8 wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
 
-        Set16 wBattle_Creature_Current.BattleCmd_Item, hl
+        ; Save the selected Struct
+        Set16 wBattle_Creature_Current.BattleCmd_MenuChoice, hl
 
         ; Check to see if we have enough energy to summon the creature
         ; And that there is an empty card to target

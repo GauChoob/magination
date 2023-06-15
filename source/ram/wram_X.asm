@@ -166,8 +166,8 @@ MACRO Battle_Creature_BattleCmd_Struct
     .BattleCmd_Elemental:
         ds 1
     UNION
-        .BattleCmd_Item:
-            ; Item/Spell to use, or Creature to summon
+        .BattleCmd_MenuChoice:
+            ; Item/Spell to use, or Creature to summon (pointer to Row/Struct)
             ds 2
     NEXTU
         .BattleCmd_MaxDamage:
