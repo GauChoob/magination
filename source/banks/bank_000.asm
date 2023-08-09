@@ -5,7 +5,6 @@ INCLUDE "source/main/vectors_00.asm"
     ; $0100
 INCLUDE "source/main/header_00.asm"
 
-SECTION "ROM Bank $000", ROM0[$0150]
     ; source/ROM/bank00.s -> source/main/boot.s
 
     ; $0150
