@@ -25,6 +25,7 @@ INCLUDE "source/macros/lookuptables.asm"
 INCLUDE "source/macros/magiop.asm"
 
 
+INCLUDE "source/engine/script/script_include.asm"
 INCLUDE "source/engine/system/graphics/graphics_macro.asm"
 INCLUDE "source/engine/system/graphics/palette/palette_include.asm"
 INCLUDE "source/engine/system/graphics/screenfx/screenfx_equ.asm"

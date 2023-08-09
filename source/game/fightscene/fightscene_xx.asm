@@ -416,12 +416,7 @@ Fightscene_NewFromBattle::
     call ScreenHide
     call Interrupt_Timer_Start
     call Fightscene_Init
-    ld hl, wScript_Master
-    Mov8 hl+, wFightscene_BattleScriptBank  ; .Bank
-    Mov8 hl+, wFightscene_BattleScriptFrame ; .Frame
-    Mov8 hl+, wFightscene_BattleScriptFrame + 1
-    Set8 hl+, LOW(Script_Start)             ; .State
-    Set8 hl+, HIGH(Script_Start)
+    Script_Set_Var wScript_Master, wFightscene_BattleScriptBank, wFightscene_BattleScriptFrame
     call Interpreter_ReInit
     call System_Script_SceneInit
     call ScreenShow

@@ -1185,7 +1185,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4839: $3E $4C
     ld bc, $5640                                  ; $483B: $01 $40 $56
     call Call_002_472E                            ; $483E: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4841: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4841: $CD $4F $05
     cp $40                                        ; $4844: $FE $40
     ret nc                                        ; $4846: $D0
 
@@ -1244,7 +1244,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $48A6: $3E $4C
     ld bc, $4DC6                                  ; $48A8: $01 $C6 $4D
     call Call_002_472E                            ; $48AB: $CD $2E $47
-    call Math_RandomIncrement                                    ; $48AE: $CD $4F $05
+    call Math_Rand8Inc                                    ; $48AE: $CD $4F $05
     cp $C0                                        ; $48B1: $FE $C0
     ret nc                                        ; $48B3: $D0
 
@@ -1316,7 +1316,7 @@ System_ActorTonyDefaults::
     ld [$D0C5], a                                 ; $4934: $EA $C5 $D0
     ld [$D0C6], a                                 ; $4937: $EA $C6 $D0
     Do_CallForeign Call_005_4595
-    call Math_RandomIncrement                                    ; $4942: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4942: $CD $4F $05
     cp $40                                        ; $4945: $FE $40
     ret nc                                        ; $4947: $D0
 
@@ -1337,7 +1337,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $495C: $3E $4C
     ld bc, $596F                                  ; $495E: $01 $6F $59
     call Call_002_472E                            ; $4961: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4964: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4964: $CD $4F $05
     cp $40                                        ; $4967: $FE $40
     ret nc                                        ; $4969: $D0
 
@@ -1358,7 +1358,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $497E: $3E $4C
     ld bc, $51D0                                  ; $4980: $01 $D0 $51
     call Call_002_472E                            ; $4983: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4986: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4986: $CD $4F $05
     cp $40                                        ; $4989: $FE $40
     ret nc                                        ; $498B: $D0
 
@@ -1403,7 +1403,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $49C7: $3E $4C
     ld bc, $4E80                                  ; $49C9: $01 $80 $4E
     call Call_002_472E                            ; $49CC: $CD $2E $47
-    call Math_RandomIncrement                                    ; $49CF: $CD $4F $05
+    call Math_Rand8Inc                                    ; $49CF: $CD $4F $05
     cp $40                                        ; $49D2: $FE $40
     ret nc                                        ; $49D4: $D0
 
@@ -1430,7 +1430,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $49F8: $3E $4C
     ld bc, $4FD5                                  ; $49FA: $01 $D5 $4F
     call Call_002_472E                            ; $49FD: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4A00: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4A00: $CD $4F $05
     cp $40                                        ; $4A03: $FE $40
     ret nc                                        ; $4A05: $D0
 
@@ -1587,7 +1587,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4B02: $3E $4C
     ld bc, $4F18                                  ; $4B04: $01 $18 $4F
     call Call_002_472E                            ; $4B07: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4B0A: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4B0A: $CD $4F $05
     cp $80                                        ; $4B0D: $FE $80
     ret nc                                        ; $4B0F: $D0
 
@@ -1790,7 +1790,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4C55: $3E $4C
     ld bc, $4C5E                                  ; $4C57: $01 $5E $4C
     call Call_002_472E                            ; $4C5A: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4C5D: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4C5D: $CD $4F $05
     cp $40                                        ; $4C60: $FE $40
     ret nc                                        ; $4C62: $D0
 
@@ -1908,7 +1908,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4D17: $3E $4C
     ld bc, $5A32                                  ; $4D19: $01 $32 $5A
     call Call_002_472E                            ; $4D1C: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4D1F: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4D1F: $CD $4F $05
     cp $40                                        ; $4D22: $FE $40
     ret nc                                        ; $4D24: $D0
 
@@ -1970,7 +1970,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4D83: $3E $4C
     ld bc, $5A32                                  ; $4D85: $01 $32 $5A
     call Call_002_472E                            ; $4D88: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4D8B: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4D8B: $CD $4F $05
     cp $40                                        ; $4D8E: $FE $40
     ret nc                                        ; $4D90: $D0
 
@@ -2082,7 +2082,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4E5E: $3E $4C
     ld bc, $560E                                  ; $4E60: $01 $0E $56
     call Call_002_472E                            ; $4E63: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4E66: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4E66: $CD $4F $05
     cp $C0                                        ; $4E69: $FE $C0
     ret nc                                        ; $4E6B: $D0
 
@@ -2110,7 +2110,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4E87: $3E $4C
     ld bc, $5854                                  ; $4E89: $01 $54 $58
     call Call_002_472E                            ; $4E8C: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4E8F: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4E8F: $CD $4F $05
     cp $C0                                        ; $4E92: $FE $C0
     ret nc                                        ; $4E94: $D0
 
@@ -2195,7 +2195,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4F07: $3E $4C
     ld bc, $5889                                  ; $4F09: $01 $89 $58
     call Call_002_472E                            ; $4F0C: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4F0F: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4F0F: $CD $4F $05
     cp $40                                        ; $4F12: $FE $40
     ret nc                                        ; $4F14: $D0
 
@@ -2224,7 +2224,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4F33: $3E $4C
     ld bc, $55BD                                  ; $4F35: $01 $BD $55
     call Call_002_472E                            ; $4F38: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4F3B: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4F3B: $CD $4F $05
     cp $40                                        ; $4F3E: $FE $40
     ret nc                                        ; $4F40: $D0
 
@@ -2311,7 +2311,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $4FCE: $3E $4C
     ld bc, $590B                                  ; $4FD0: $01 $0B $59
     call Call_002_472E                            ; $4FD3: $CD $2E $47
-    call Math_RandomIncrement                                    ; $4FD6: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4FD6: $CD $4F $05
     cp $40                                        ; $4FD9: $FE $40
     ret nc                                        ; $4FDB: $D0
 
@@ -2344,7 +2344,7 @@ System_ActorTonyDefaults::
     ld a, $0A                                     ; $5016: $3E $0A
     ld [hl+], a                                   ; $5018: $22
     call Call_002_477E                            ; $5019: $CD $7E $47
-    call Math_RandomIncrement                                    ; $501C: $CD $4F $05
+    call Math_Rand8Inc                                    ; $501C: $CD $4F $05
     cp $80                                        ; $501F: $FE $80
     ret nc                                        ; $5021: $D0
 
@@ -2364,7 +2364,7 @@ System_ActorTonyDefaults::
     ld a, $4C                                     ; $5033: $3E $4C
     ld bc, $51D0                                  ; $5035: $01 $D0 $51
     call Call_002_472E                            ; $5038: $CD $2E $47
-    call Math_RandomIncrement                                    ; $503B: $CD $4F $05
+    call Math_Rand8Inc                                    ; $503B: $CD $4F $05
     cp $40                                        ; $503E: $FE $40
     ret nc                                        ; $5040: $D0
 
@@ -2560,7 +2560,7 @@ jr_002_5191:
     ld [wBattle_DamageOverrideFlag], a                                 ; $51D4: $EA $76 $D0
     xor a                                         ; $51D7: $AF
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $51D8: $EA $77 $D0
-    call Math_RandomIncrement                                    ; $51DB: $CD $4F $05
+    call Math_Rand8Inc                                    ; $51DB: $CD $4F $05
     and $03                                       ; $51DE: $E6 $03
     cp $03                                        ; $51E0: $FE $03
     jr nz, jr_002_51FC                            ; $51E2: $20 $18
@@ -3769,10 +3769,10 @@ jr_002_59EB:
 
 
 Call_002_59F2:
-    call Math_RandomIncrement                                    ; $59F2: $CD $4F $05
+    call Math_Rand8Inc                                    ; $59F2: $CD $4F $05
     ld c, a                                       ; $59F5: $4F
     ld b, $0A                                     ; $59F6: $06 $0A
-    call Math_Div                                    ; $59F8: $CD $AC $04
+    call Math_Div8                                   ; $59F8: $CD $AC $04
     ld c, l                                       ; $59FB: $4D
     ld b, $00                                     ; $59FC: $06 $00
     ld a, [$D113]                                 ; $59FE: $FA $13 $D1
@@ -3813,10 +3813,10 @@ jr_002_5A28:
 
 
 Call_002_5A2B:
-    call Math_RandomIncrement                                    ; $5A2B: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5A2B: $CD $4F $05
     ld c, a                                       ; $5A2E: $4F
     ld b, $0A                                     ; $5A2F: $06 $0A
-    call Math_Div                                    ; $5A31: $CD $AC $04
+    call Math_Div8                                   ; $5A31: $CD $AC $04
     ld c, l                                       ; $5A34: $4D
     ld b, $00                                     ; $5A35: $06 $00
     ld a, [$D113]                                 ; $5A37: $FA $13 $D1
@@ -3857,10 +3857,10 @@ jr_002_5A61:
 
 
 Call_002_5A64:
-    call Math_RandomIncrement                                    ; $5A64: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5A64: $CD $4F $05
     ld c, a                                       ; $5A67: $4F
     ld b, $0A                                     ; $5A68: $06 $0A
-    call Math_Div                                    ; $5A6A: $CD $AC $04
+    call Math_Div8                                   ; $5A6A: $CD $AC $04
     ld c, l                                       ; $5A6D: $4D
     ld b, $00                                     ; $5A6E: $06 $00
     ld a, [$D113]                                 ; $5A70: $FA $13 $D1
@@ -3898,10 +3898,10 @@ jr_002_5A9A:
     add hl, bc                                    ; $5A9A: $09
     ld a, [hl]                                    ; $5A9B: $7E
     push af                                       ; $5A9C: $F5
-    call Math_RandomIncrement                                    ; $5A9D: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5A9D: $CD $4F $05
     ld c, a                                       ; $5AA0: $4F
     ld b, $03                                     ; $5AA1: $06 $03
-    call Math_Div                                    ; $5AA3: $CD $AC $04
+    call Math_Div8                                   ; $5AA3: $CD $AC $04
     ld a, l                                       ; $5AA6: $7D
     and $02                                       ; $5AA7: $E6 $02
     srl a                                         ; $5AA9: $CB $3F
@@ -3912,10 +3912,10 @@ jr_002_5A9A:
 
 
 Call_002_5AAF:
-    call Math_RandomIncrement                                    ; $5AAF: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5AAF: $CD $4F $05
     ld c, a                                       ; $5AB2: $4F
     ld b, $0A                                     ; $5AB3: $06 $0A
-    call Math_Div                                    ; $5AB5: $CD $AC $04
+    call Math_Div8                                   ; $5AB5: $CD $AC $04
     ld c, l                                       ; $5AB8: $4D
     ld b, $00                                     ; $5AB9: $06 $00
     ld a, [$D113]                                 ; $5ABB: $FA $13 $D1
@@ -3953,10 +3953,10 @@ jr_002_5AE5:
     add hl, bc                                    ; $5AE5: $09
     ld a, [hl]                                    ; $5AE6: $7E
     push af                                       ; $5AE7: $F5
-    call Math_RandomIncrement                                    ; $5AE8: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5AE8: $CD $4F $05
     ld c, a                                       ; $5AEB: $4F
     ld b, $03                                     ; $5AEC: $06 $03
-    call Math_Div                                    ; $5AEE: $CD $AC $04
+    call Math_Div8                                   ; $5AEE: $CD $AC $04
     ld a, l                                       ; $5AF1: $7D
     and $02                                       ; $5AF2: $E6 $02
     srl a                                         ; $5AF4: $CB $3F
@@ -3967,9 +3967,9 @@ jr_002_5AE5:
 
 
 Call_002_5AFA:
-    call Math_RandomIncrement                                    ; $5AFA: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5AFA: $CD $4F $05
     ld b, a                                       ; $5AFD: $47
-    call Math_RandomIncrement                                    ; $5AFE: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5AFE: $CD $4F $05
     swap a                                        ; $5B01: $CB $37
     and b                                         ; $5B03: $A0
     and $07                                       ; $5B04: $E6 $07
@@ -5332,10 +5332,10 @@ jr_002_662D:
     Do_CallForeign Battle_Helpers_ChooseBattleCmd
 
 jr_002_664B:
-    call Math_RandomIncrement                                    ; $664B: $CD $4F $05
+    call Math_Rand8Inc                                    ; $664B: $CD $4F $05
     ld c, a                                       ; $664E: $4F
     ld b, $0A                                     ; $664F: $06 $0A
-    call Math_Div                                    ; $6651: $CD $AC $04
+    call Math_Div8                                   ; $6651: $CD $AC $04
     ld h, $00                                     ; $6654: $26 $00
     ld bc, wBattle_CreatureSlots                                  ; $6656: $01 $91 $D0
     push hl                                       ; $6659: $E5
@@ -5886,10 +5886,10 @@ Jump_002_6A1D:
     Do_CallForeign Battle_Helpers_ChooseBattleCmd
 
 jr_002_6A51:
-    call Math_RandomIncrement                                    ; $6A51: $CD $4F $05
+    call Math_Rand8Inc                                    ; $6A51: $CD $4F $05
     ld c, a                                       ; $6A54: $4F
     ld b, $0A                                     ; $6A55: $06 $0A
-    call Math_Div                                    ; $6A57: $CD $AC $04
+    call Math_Div8                                   ; $6A57: $CD $AC $04
     ld h, $00                                     ; $6A5A: $26 $00
     ld bc, wBattle_CreatureSlots                                  ; $6A5C: $01 $91 $D0
     push hl                                       ; $6A5F: $E5
@@ -6486,7 +6486,7 @@ Battle_Flow_StatusCombos:
                 ; Format the target creature's name
                 Battle_FormatCreatureName [wBattle_Creature_Target.ID]
 
-                Battle_SetScriptText SCRIPT_Battle_Text_PlagueCured
+                Script_Set wScript_Text, SCRIPT_Battle_Text_PlagueCured
 
                 Do_CallForeign UNK_AwaitTextEnd
                 ld a, [wBattle_Creature_Current.BattleCmd_Target]
@@ -6511,7 +6511,7 @@ Battle_Flow_StatusCombos:
                 ; Bugged! See the Macro for description. Luckily this does not seem to cause any problems
                 ; because the "🔊" char should already be written into the right place in wText_StringBuffer due to previous interactions during the battle
                 Battle_FormatCreatureName_Bugged [wBattle_Creature_Target.ID]
-                Battle_SetScriptText SCRIPT_Battle_Text_HiccupsCured
+                Script_Set wScript_Text, SCRIPT_Battle_Text_HiccupsCured
                 Do_CallForeign UNK_AwaitTextEnd
                 ; Cure hiccups
                 ld a, [wBattle_Creature_Target.StatusActive]
@@ -6846,7 +6846,7 @@ jr_002_70BC:
 
 
 Call_002_70C3:
-    call Math_RandomIncrement                                    ; $70C3: $CD $4F $05
+    call Math_Rand8Inc                                    ; $70C3: $CD $4F $05
     push af                                       ; $70C6: $F5
     and $03                                       ; $70C7: $E6 $03
     ld c, a                                       ; $70C9: $4F
@@ -7085,10 +7085,10 @@ jr_002_71F3:
     inc [hl]                                      ; $71F7: $34
     jr z, jr_002_721E                             ; $71F8: $28 $24
 
-    call Math_RandomIncrement                                    ; $71FA: $CD $4F $05
+    call Math_Rand8Inc                                    ; $71FA: $CD $4F $05
     ld c, a                                       ; $71FD: $4F
     ld b, $06                                     ; $71FE: $06 $06
-    call Math_Div                                    ; $7200: $CD $AC $04
+    call Math_Div8                                   ; $7200: $CD $AC $04
     ld a, l                                       ; $7203: $7D
     and a                                         ; $7204: $A7
     jr z, jr_002_721E                             ; $7205: $28 $17
@@ -7127,7 +7127,7 @@ jr_002_721E:
     and $40                                       ; $7242: $E6 $40
     jr z, jr_002_724F                             ; $7244: $28 $09
 
-    call Math_RandomIncrement                                    ; $7246: $CD $4F $05
+    call Math_Rand8Inc                                    ; $7246: $CD $4F $05
     bit 4, a                                      ; $7249: $CB $67
     jr z, jr_002_725A                             ; $724B: $28 $0D
 
@@ -7157,10 +7157,10 @@ jr_002_7262:
     inc [hl]                                      ; $7266: $34
     jr z, jr_002_728A                             ; $7267: $28 $21
 
-    call Math_RandomIncrement                                    ; $7269: $CD $4F $05
+    call Math_Rand8Inc                                    ; $7269: $CD $4F $05
     ld c, a                                       ; $726C: $4F
     ld b, $05                                     ; $726D: $06 $05
-    call Math_Div                                    ; $726F: $CD $AC $04
+    call Math_Div8                                   ; $726F: $CD $AC $04
     ld a, l                                       ; $7272: $7D
     and a                                         ; $7273: $A7
     jr z, jr_002_728A                             ; $7274: $28 $14
@@ -7242,7 +7242,7 @@ Call_002_72FD:
     cp $05                                        ; $730A: $FE $05
     jr nc, jr_002_7341                            ; $730C: $30 $33
 
-    call Math_RandomIncrement                                    ; $730E: $CD $4F $05
+    call Math_Rand8Inc                                    ; $730E: $CD $4F $05
     bit 0, a                                      ; $7311: $CB $47
     jr z, jr_002_732D                             ; $7313: $28 $18
 
@@ -7284,7 +7284,7 @@ jr_002_733E:
     jr jr_002_731D                                ; $733F: $18 $DC
 
 jr_002_7341:
-    call Math_RandomIncrement                                    ; $7341: $CD $4F $05
+    call Math_Rand8Inc                                    ; $7341: $CD $4F $05
     bit 0, a                                      ; $7344: $CB $47
     jr z, jr_002_7352                             ; $7346: $28 $0A
 

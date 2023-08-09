@@ -98,8 +98,9 @@ hTicker::
 
 
     ;ds $FFA9 - @
-hMath_RandCounter::
+hMath_RandSeed::
     ; Increments by an average of 1 [-3,4] every time 
+    ; Initialized upon boot to $DC in the GBC boot rom
     ds 1
     ;ds $FFAA - @
 ;?

@@ -3814,10 +3814,10 @@ Call_007_66D2::
 
 
     call Call_007_65AF                            ; $6739: $CD $AF $65
-    call Math_RandomIncrement                                    ; $673C: $CD $4F $05
+    call Math_Rand8Inc                                    ; $673C: $CD $4F $05
     ld c, a                                       ; $673F: $4F
     ld b, $05                                     ; $6740: $06 $05
-    call Math_Div                                    ; $6742: $CD $AC $04
+    call Math_Div8                                   ; $6742: $CD $AC $04
     ld h, $00                                     ; $6745: $26 $00
     ld bc, $0009                                  ; $6747: $01 $09 $00
     push hl                                       ; $674A: $E5
@@ -4111,10 +4111,10 @@ jr_007_729D:
 
     ld a, $01                                     ; $72B1: $3E $01
     ld [wBattle_DamageOverrideFlag], a                                 ; $72B3: $EA $76 $D0
-    call Math_RandomIncrement                                    ; $72B6: $CD $4F $05
+    call Math_Rand8Inc                                    ; $72B6: $CD $4F $05
     ld c, a                                       ; $72B9: $4F
     ld b, $1E                                     ; $72BA: $06 $1E
-    call Math_Div                                    ; $72BC: $CD $AC $04
+    call Math_Div8                                   ; $72BC: $CD $AC $04
 
 jr_007_72BF:
     ld a, l                                       ; $72BF: $7D
@@ -4139,7 +4139,7 @@ jr_007_72BF:
 
 
     Do_CallForeign Call_005_4B45
-    call Math_RandomIncrement                                    ; $72F8: $CD $4F $05
+    call Math_Rand8Inc                                    ; $72F8: $CD $4F $05
     cp $E6                                        ; $72FB: $FE $E6
     ret nc                                        ; $72FD: $D0
 

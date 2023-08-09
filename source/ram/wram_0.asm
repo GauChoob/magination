@@ -4,14 +4,9 @@ SECTION "WRAM", WRAM0[$C000]
     ;source/engine/system/graphics/frame/frame_var_256.s
 
     ;ds $C000 - @
-ALIGN 8,0 ;wObjRAM needs to be aligned to be copied into OAM
-wObjRAM::
-    ; Copied over directly into the OAM
-    ds 40 * $4
-    .End:
-    ASSERT HIGH(wObjRAM) == HIGH(wObjRAM.End) ; Var has to be aligned so that the upper byte doesn't change
+INCLUDE "source/engine/system/graphics/frame/frame_wram.asm"
 
-    ; todo - unused?
+    ; $C0A0-$C0FF unused due to alignment
 
     ds $C100 - @
 ALIGN 8,0
@@ -47,7 +42,7 @@ wActorlist_FreeStack::
     .End:
 wActorlist_Table::
     ; Objects to run
-    ; The WRAM address of an entry from Actor_Table is placed here
+    ; The WRAM address of an entry from Actor00_Table is placed here
     ds 2*Actorlist_SIZE
     .End
 
@@ -120,6 +115,7 @@ wActor_09::
 wActor_Cursor::
     ; Cursor used in menu selection
     ; Hard-coded in 2 functions
+    ; TODO - what should we do with this var name? Should we just DEF the cursor instead of renaming the original name?
     Actor_Struct
     ;ds $C2E8 - @
 wActor_0B::
@@ -251,6 +247,11 @@ wColl_XMove::
     ds 1
     ;ds $C6D3 - @
 wColl_YMove::
+    ds 1
+
+    ds $C6D8 - @
+wEncounter_Enabled::
+    ; ?
     ds 1
 
     ds $C6DE - @
@@ -443,7 +444,7 @@ wBattery_ActiveSavefileBaseBank::
 
     ;ds $C728 - @
 wFrame_OAMCursor::
-    ; LOW() of the first free address in wObjRAM (OAM buffer)
+    ; LOW() of the first free address in wFrame_OAM (OAM buffer)
     ds 1
     ;ds $C729 - @
 wFrame_OAMTop::
@@ -1037,7 +1038,7 @@ wFightscene_TileFX_DestroyCount::
 ;wFightscene_FireEffectState (?) TODO
 
     ds $C9FF - @
-wMenu_MainMenu_ItemSpellMapDefaultScript::
+wInventory_ItemSpellMapDefaultScript::
     ; When an item/spell has no defined .MapBank and .MapAddress,
     ; the script defined here will be run instead.
     ; Upon game initialization, the script will be Script_System_ItemSpellMapError,
@@ -1194,7 +1195,7 @@ wMenu_MainMenu_RelicMenuIsDisabled::
 wMenu_MainMenu_IsInOverworld::
     ds 1
     ;ds $CCA6 - @
-wMenu_MainMenu_FadeEffect::
+wMenu_MainMenu_Disabled::
     ds 1
     ;ds $CCA7 - @
 wMenu_ReturnValue::
