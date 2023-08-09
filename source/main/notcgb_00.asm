@@ -2,12 +2,13 @@
 ; source/main/notcgb.s
 
 ; This code is run if, upon loading the rom, a monochrome gameboy is detected.
-; The text sNotCGB_Text is displayed on the screen and the program enters an infinite loop
+; The text sNotCGB_PleaseUseGBC is displayed on the screen and the program enters an infinite loop
 ; This code is very poorly written
 
-; NotCGB_Message - Runs NotCGB_Main and then loops forever
-; NotCGB_Main - Generates the error message (sNotCGB_Text)
+; NotCGB_Main - Runs NotCGB_WriteMessage and then loops forever
+; NotCGB_WriteMessage - Generates the error message (sNotCGB_PleaseUseGBC)
 ; NotCGB_CopySequentialTilesToTilemap - Subroutine to copy the tileset into the tilemap
+
 
 MACRO Do_CopySequentialTilesToTilemap
     ; Copies tiles a to (a+b-1) into window background map hl
@@ -20,52 +21,79 @@ MACRO Do_CopySequentialTilesToTilemap
     call NotCGB_CopySequentialTilesToTilemap
 ENDM
 
-    ; $01D3
-sNotCGB_Text::
+
+sNotCGB_PleaseUseGBC:
     db "Magi-Nation is   Specially Designed for Game Boy Color.Please use a Game Boy Color To  Play This Game.   "
-    ;The first two bytes ($CD $42) from the call NotCGB_Main opcode are also included in the string
+    ;The first two bytes ($CD $42) from the next function NotCGB_WriteMessage are also included in the string
     .End:
 
-NotCGB_Message::
-    call NotCGB_Main
-    .Forever:
-        jp .Forever
 
-    ; $0242
 NotCGB_Main::
-    ld b, b
-    ld a, $06
-    SwitchROMBank a ;This causes a "ld a, a" instruction by accident
-    ld a, $00
-    ld hl, $8860
+    call NotCGB_WriteMessage
+    .LoopForever:
+        jp .LoopForever
 
-    .CopyLetter: ;for a in range(0x6B)
+
+NotCGB_WriteMessage:
+    ld b, b ; Debug breakpoint
+    IF FIX_BUGS == 1
+        SwitchROMBank BANK(BITMAP_Font)
+        xor a
+    ELSE
+        ld a, BANK(BITMAP_Font)
+        SwitchROMBank a ; Minor inefficiency This causes a "ld a, a" instruction by accident
+    ; Copy the string to VRAM
+    ld a, $00
+    ENDC
+    ld hl, $8860
+    .CopyLetter:
+        ; hl = sNotCGB_PleaseUseGBC + a
         push af
         push hl
-        ld hl, sNotCGB_Text
+        ld hl, sNotCGB_PleaseUseGBC
         ld c, a
         ld b, $00
-        add hl, bc ;sNotCGB_Text + a
+        add hl, bc
+
+        ; hl = BITMAP_Font + char([hl])*$10 (offset to the target letter)
         ld c, [hl]
         ld b, $10
-        call Math_Mult   ;Multiplies letter by $10 to get offset in Font tileset
-        Set8 wVBlank_DestVBK, $01     ;Doesn't do anything(?) because the MGB only has one WRAM bank
-        ld bc, BITMAP_Font                ;Offset is BITMAP_Font + char(x)*$10
+        call Math_Mult
+        IF FIX_BUGS == 0
+            ; Doesn't do anything(?) because the MGB only has one bank
+            ; But the intention is to write the message at $1:8860 which is where text is usually written into VRAM
+            Set8 wVBlank_DestVBK, $01
+        ENDC
+        ld bc, BITMAP_Font
         add hl, bc
+
+        ; Copy the letter in tileset to VRAM
         Set16 wVBlank_SourceAddress, hl
         pop de
         Set16 wVBlank_DestAddress, de
         push de
         ld e, BANK(BITMAP_Font)
         ld hl, Interrupt_VBlankFunc_CopyTile
-        call CallForeign           ;Copy the letter in tileset to VRAM
+        call CallForeign
+
+        ; Increment the string position and target destination
         pop hl
-        ld bc, $0010                ;Move to the next position
+        ld bc, $0010
         add hl, bc
         pop af
-        inc a                       ; a++
-        cp sNotCGB_Text.End - sNotCGB_Text + 2 ;Overflows by 2
+        inc a
+        
+        ; Check for string end
+        IF FIX_BUGS == 1
+            DEF NotCGB_PleaseUseGBCLength = sNotCGB_PleaseUseGBC.End - sNotCGB_PleaseUseGBC
+        ELSE
+            ; Bug - the string end is miscalculated
+            DEF NotCGB_PleaseUseGBCLength = sNotCGB_PleaseUseGBC.End - sNotCGB_PleaseUseGBC + 2
+        ENDC
+        cp NotCGB_PleaseUseGBCLength
         jr nz, .CopyLetter
+    
+    ; Draw to tilemap
                             ;#tiles, Tileid, Tilemap pos
     Do_CopySequentialTilesToTilemap $10, $86, $9C22      ;"Magi-Nation is  "
     Do_CopySequentialTilesToTilemap $12, $97, $9C81      ;"Specially Designed"
@@ -73,6 +101,7 @@ NotCGB_Main::
     Do_CopySequentialTilesToTilemap $0D, $BD, $9D44      ;"Please use a "
     Do_CopySequentialTilesToTilemap $13, $C9, $9DA1      ;" Game Boy Color To "
     Do_CopySequentialTilesToTilemap $12, $DC, $9E01      ;" Play This Game.  "
+
     xor a
     ld [rIF], a
     ld [hInterrupt_VBlank_Control], a
@@ -82,7 +111,7 @@ NotCGB_Main::
     ld [rIE], a
     ret
 
-    ; $02E0
+
 NotCGB_CopySequentialTilesToTilemap::
     ; Copies tile ids a to (a+b-1) sequentially into window background map hl
     ; Inputs:

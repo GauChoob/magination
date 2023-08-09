@@ -1,12 +1,17 @@
+SPRITE_END EQU -$80
+
 MACRO INCSPRITE
     ; Includes a .spr file
     ; This Macro adds the EOF marker to the included binary file
     INCBIN \1
-    SPRITE_END
+    db SPRITE_END
 ENDM
 
-MACRO SPRITE_END
-    ; Indicates the end of a list of OAM entries (.oam.asm / OAM_)
-    ; Used by Cmd_Frame_SpriteDraw and the other Cmd_Frame
-    db -$80
+
+
+MACRO Frame_Init
+    ld a, LOW(wFrame_OAM) ; Since the OAM is $100 bytes long, this must always be $00
+    ld [wFrame_OAMCursor], a
+    ld [wFrame_OAMTop], a
+    call Frame_ClearAll
 ENDM

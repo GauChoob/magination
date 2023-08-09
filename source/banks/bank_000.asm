@@ -1,827 +1,28 @@
-
-    ; $0000
 INCLUDE "source/main/vectors_00.asm"
-
-    ; $0100
 INCLUDE "source/main/header_00.asm"
 
-SECTION "ROM Bank $000", ROM0[$0150]
-    ; source/ROM/bank00.s -> source/main/boot.s
-
-    ; $0150
+; Game setup
 INCLUDE "source/main/boot_00.asm"
 
-    ; source/ROM/bank00.s -> source/main/gameloop.s
-    ; source/ROM/bank00.s -> source/main/gameloop.s -> source/main/notcgb.s
-
-    ; $01D3
+; Error message when using MGB
 INCLUDE "source/main/notcgb_00.asm"
 
-    ; $02E6
-Game_Loop::
-    ; Master game loop which controls the whole program
-    ldh a, [hTicker]
-    inc a
-    ldh [hTicker], a
-    ld a, [wCntDown]
-    bit button_BIT_START, a    ;Start button
-    jr z, .SkipMainMenu
-        XCall Menu_MainMenu_Open ;Opens Tony's Main Menu
-    .SkipMainMenu:
-    call System_UpdateGame
-    jp Game_Loop
+; Main logic loop
+INCLUDE "source/main/gameloop_00.asm"
 
     ; source/ROM/bank00.s -> source/engine/system/system.s
 
 
-    ; actor section
-    ; TODO
-    ; $0303
-Actor_Table::
-    ; All these are spaced apart in order by Actor_SIZE
-    ; 50 entries total
-    dw wActor_Hero
-    dw wActor_Save ; Temporary slot used to store/restore an actor
-    dw wActor_00
-    dw wActor_01
-    dw wActor_02
-    dw wActor_03
-    dw wActor_04
-    dw wActor_05
-    dw wActor_06
-    dw wActor_07
-    dw wActor_08
-    dw wActor_09
-    dw wActor_Cursor
-    dw wActor_0B
-    dw wActor_0C
-    dw wActor_0D
-    dw wActor_0E
-    dw wActor_0F
-    dw wActor_10
-    dw wActor_11
-    dw wActor_12
-    dw wActor_13
-    dw wActor_14
-    dw wActor_15
-    dw wActor_16
-    dw wActor_17
-    dw wActor_18
-    dw wActor_19
-    dw wActor_1A
-    dw wActor_1B
-    dw wActor_1C
-    dw wActor_1D
-    dw wActor_1E
-    dw wActor_1F
-    dw wActor_20
-    dw wActor_21
-    dw wActor_22
-    dw wActor_23
-    dw wActor_24
-    dw wActor_25
-    dw wActor_26
-    dw wActor_27
-    dw wActor_28
-    dw wActor_29
-    dw wActor_2A
-    dw wActor_2B
-    dw wActor_2C
-    dw wActor_2D
-    dw wActor_2E
-    dw wActor_2F
+; Actor
+; Only contains an actor ID -> lookup data
+INCLUDE "source/engine/actor/actor_00.asm"
 
-    ; source/ROM/bank00.s -> source/engine/system/system.s -> source/engine/system/math/math.s
-
-    ; $0367
-Math_CalcPercent::
-    ; Calculates a binary percentage (/32) (rounded down)
-    ; This function produces unreliable results if the Divisor is smaller than the Dividend
-    ;   (sometimes the result is 32, sometimes the result is the real >32 value)
-    ; This function overflows beyond 8191 (the function was intended for 0-999)
-    ; Inputs:
-    ;   bc = Divisor/Max (0-8191)
-    ;   de = Dividend/Current (0-8191)
-    ; Output:
-    ;   [wPercentCount] = a = (0 = 0%, 32 = 100%) = de/bc
-    xor a
-    ld h, a
-    ld l, a
-    ld [wPercentCount], a
-
-    ; Step 1: Compare if Num is 0 or Max
-        ld a, e
-        and a
-        jr z, .CheckZero ;e is zero, so check if d is zero
-
-    .CheckLower:
-        cp c
-        jr c, .StartCalc ;c > e
-
-        ld a, d
-        cp b
-        jr c, .StartCalc ;b > d
-
-        Set8 wPercentCount, 32 ; Return max if bc == de, but this check can fail if
-        ret                   ; de > bc (e.g. bc = $280, de = $301, or bc = $300, de = $400)
-
-    .CheckZero:
-        cp d
-        ret z ;Ret wPercentCount = a = 0 if d and e are both 0
-
-    ; Step 2: Calculate the binary percentage
-    ; Essentially, multiply the dividend by 32, then see how many times the divisor
-    ;  fits into dividend*32.
-    .StartCalc:
-        srl b
-        rr c    ;divisor//=2
-
-        sla e
-        rl d
-        sla e
-        rl d
-        sla e
-        rl d
-        sla e
-        rl d   ;dividend*=16   (net result is dividend is 32x larger than divisor relative to each other)
-
-        add hl, bc  ; Put one divisor in dividend*32.
-    .Loop:
-        ld a, h ;Check if hl < de
-        cp d
-        jr nz, .Compare ;If h != d, then check h < d
-            ld a, l
-            cp e            ;If h == d, then check l < e
-        .Compare:
-        jr nc, .EndLoop ;If hl < de, then the last divisor fit into dividend*32
-
-        add hl, bc  ; Put one more divisor in dividend*32.
-        ld a, [wPercentCount]
-        inc a       ; Increment by 1
-        ld [wPercentCount], a
-        jr .Loop
-
-    .EndLoop:
-        ld a, [wPercentCount]
-        ret
-
-    ; $03AB
-Math_CalcSqrRoot::
-    ; Input:
-    ;   c = 8-bit number to square root
-    ; Output:
-    ;   a = The square root, rounded. The rounding mechanism is not very clear but in general,
-    ;       if the result < X.4, round down, or else round up
-    ;
-    ;     0 -   0 ->  0
-    ;     1 -   1 ->  1
-    ;     2 -   4 ->  2
-    ;     5 -  10 ->  3
-    ;    11 -  18 ->  4
-    ;    19 -  28 ->  5
-    ;    29 -  40 ->  6
-    ;    41 -  54 ->  7
-    ;    55 -  70 ->  8
-    ;    71 -  88 ->  9
-    ;    89 - 108 -> 10
-    ;   109 - 130 -> 11
-    ;   131 - 154 -> 12
-    ;   155 - 180 -> 13
-    ;   181 - 207 -> 14
-    ;   208 - 237 -> 15
-    ;   238 - 255 -> 16
-    ; TODO - is this function unused?
-    ; COMMENT - This function appears to be unused
-    .Ret00:
-        ld a, c
-        and a
-        ret z
-    .MidPointOptimization:
-        cp 41
-        jr nc, .Ret07
-    .Ret01:
-        cp 2
-        jr nc, .Ret02
-        ld a, 1
-        ret
-    .Ret02:
-        cp 5
-        jr nc, .Ret03
-        ld a, 2
-        ret
-    .Ret03:
-        cp 11
-        jr nc, .Ret04
-        ld a, 3
-        ret
-    .Ret04:
-        cp 19
-        jr nc, .Ret05
-        ld a, 4
-        ret
-    .Ret05:
-        cp 29
-        jr nc, .Ret06
-        ld a, 5
-        ret
-    .Ret06:
-        ;cp 41          ;Midpoint optimization eliminates this check
-        ;jr nc, .Ret07
-        ld a, 6
-        ret
-    .Ret07:
-        cp 55
-        jr nc, .Ret08
-        ld a, 7
-        ret
-    .Ret08:
-        cp 71
-        jr nc, .Ret09
-        ld a, 8
-        ret
-    .Ret09:
-        cp 89
-        jr nc, .Ret10
-        ld a, 9
-        ret
-    .Ret10:
-        cp 109
-        jr nc, .Ret11
-        ld a, 10
-        ret
-    .Ret11:
-        cp 131
-        jr nc, .Ret12
-        ld a, 11
-        ret
-    .Ret12:
-        cp 155
-        jr nc, .Ret13
-        ld a, 12
-        ret
-    .Ret13:
-        cp 181
-        jr nc, .Ret14
-        ld a, 13
-        ret
-    .Ret14:
-        cp 208
-        jr nc, .Ret15
-        ld a, 14
-        ret
-    .Ret15:
-        cp 238
-        jr nc, .Ret16
-        ld a, 15
-        ret
-    .Ret16:
-        ld a, 16
-        ret
-
-    ; $041A
-Math_ConvertNumberToDigits::
-    ; Converts de from a 10-bit number into 3 decimal digits (stored as 3 bytes)
-    ; The top 6 bits are masked out, capping the quantity to 1023
-    ; Inputs
-    ;   de - number (0-999)
-    ; Outputs
-    ;   [wX100], [wX10], [wX1] - 3 individual digits (hundreds, tens, and ones)
-    ;       For example, wX100 = 4, wX10 = 3, wX1 = 9 would represent 439
-        xor a
-        ld [wX100], a
-        ld [wX10], a
-        ld [wX1], a
-
-        ; First, handle d. Since it's masked, it can only be 0-3
-        ld a, d
-        and $03  ;mask out the 6 MSB
-        jr z, .DecimalToElements ; <256, so wX100, wX10, wX1 <- 0
-    .Check768:
-        cp $03
-        jr nz, .Check512
-        Set8 wX100, 7
-        Set8 wX10, 6
-        Set8 wX1, 8
-        jr .DecimalToElements
-    .Check512:
-        cp $02
-        jr nz, .Check256
-        Set8 wX100, 5
-        Set8 wX10, 1
-        Set8 wX1, 2
-        jr .DecimalToElements
-    .Check256:
-        Set8 wX100, 2
-        Set8 wX10, 5
-        Set8 wX1, 6
-
-    .DecimalToElements:
-        ; Next, handle e. Do each digit place individually
-        Get8 b, wX100
-        ld a, e
-        ld c, a
-    .LoopBy100:
-        sub 100
-        jr c, .ContinueBy10
-        inc b ;Add 100 unless number goes negative
-        ld c, a
-        jr .LoopBy100
-    .ContinueBy10:
-        Set8 wX100, b
-        Get8 b, wX10
-        ld a, c ;Restore the number before number goes negative
-    .CheckTens:
-        sub 10
-        jr c, .ContinueBy1
-        inc b ;Add 10 unless number goes negative
-        ld c, a
-        jr .CheckTens
-    .ContinueBy1:
-        Set8 wX10, b
-        ld a, [wX1]
-        add c
-        ld [wX1], a
-
-    .Carry1To10:
-        ;if the first digit has a value of say, 13, you need to carry the 1 to the next digit
-        sub 10
-        jr c, .Carry10To100
-        ld [wX1], a
-        ld a, [wX10]
-        inc a
-        ld [wX10], a
-    .Carry10To100:
-        ld a, [wX10]
-        sub 10
-        jr c, .End
-        ld [wX10], a
-        ld a, [wX100]
-        inc a
-        ld [wX100], a
-    .End: ;No check
-        ret
-
-    ; $04AC
-Math_Div::
-    ; Returns c/b
-    ; Inputs:
-    ;   c = Dividend
-    ;   b = Divisor
-    ; Outputs:
-    ;   h = Quotient
-    ;   l = Remainder
-        ld hl, $0000
-        ld a, c
-    .Loop:
-        sub b ;Subtract Dividend from Divisor
-        jr c, .Done ;A negative number was obtained
-        inc h ;Increment Quotient if the number is still positive
-        jr .Loop
-    .Done:      ;If the subtraction results in a negative number, undo the last subtraction
-        add b   ;and take the remainder as the Remainder
-        ld l, a
-        ret
-
-    ; $04B9
-Math_Div16::
-    ; Returns hl/a
-    ; Modifies bc
-    ; Inputs:
-    ;   hl = Dividend
-    ;   a = Divisor
-    ; Outputs:
-    ;   a = Quotient
-    ;   The remainder is discarded (i.e. the quotient is rounded down)
-    ld c, a
-    ld b, $00
-    TwosComp bc
-    xor a
-    .Loop:
-        add hl, bc
-        ret nc
-        inc a
-        jr .Loop
-    .Done: ;Unused
-        ret
-
-
-    ; $04CA
-Math_Mult::
-    ; Multiplies 2 numbers together
-    ; Modifies de
-    ; Inputs:
-    ;   b*c
-    ; Outputs:
-    ;   hl
-    ld e, b
-    ld hl, $0000
-    ld d, $00
-    .Bit0:
-        bit 0, c ;This is elementary-school-style multiplication.
-        jr z, .Bit1
-        add hl, de
-    .Bit1:
-        sla e
-        rl d
-        bit 1, c
-        jr z, .Bit2
-        add hl, de
-    .Bit2:
-        sla e
-        rl d
-        bit 2, c
-        jr z, .Bit3
-        add hl, de
-    .Bit3:
-        sla e
-        rl d
-        bit 3, c
-        jr z, .Bit4
-        add hl, de
-    .Bit4:
-        sla e
-        rl d
-        bit 4, c
-        jr z, .Bit5
-        add hl, de
-    .Bit5:
-        sla e
-        rl d
-        bit 5, c
-        jr z, .Bit6
-        add hl, de
-    .Bit6:
-        sla e
-        rl d
-        bit 6, c
-        jr z, .Bit7
-        add hl, de
-    .Bit7:
-        sla e
-        rl d
-        bit 7, c
-        ret z
-        add hl, de
-    ret
-
-    ; $0514
-Math_ScaleNumber8::
-    ; Multiplies a Maximum with a binary percentage (/32), rounded down
-    ; Overflows if the binary percentage is > 32 (i.e. over 100%)
-    ; Inputs:
-    ;   l = Perc (0%=0, 100%=32)
-    ;   b = Max
-    ; Outputs:
-    ;   a = b*l
-    ld h, 0
-    ld d, h
-
-    ld a, l
-    and a
-    ret z ;Return 0 if % is 0
-    ld e, a
-
-    ld a, b
-    and a
-    ret z ;Return 0 if Max is 0
-
-    dec b
-    jr nz, .Loop
-    xor a ;Return 0 if Max is 1, since 0->31 all return 0
-    ret
-
-    ; de = hl = Perc
-    ; b = Max-1
-    .Loop:
-        add hl, de
-        dec b
-        jr nz, .Loop
-
-    ; hl = Perc*Max
-    ; Now do hl//32
-
-    ; h <- h*$100/32 = h*8 (never overflows for Perc <= 32)
-    sla h
-    sla h
-    sla h
-
-    ; l <- l//32
-    srl l
-    srl l
-    srl l
-    srl l
-    srl l
-    ld a, h
-    add l ;hl//32 = h*$100/32 + l//32
-    ret
-
-    ; $053A
-Math_Random::
-    ; Returns an 8-bit random number, masked
-    ; Input:
-    ;   c = mask
-    ; Output:
-    ;   a = random 8-bit number, masked
-    ld a, [rDIV] ;First, choose a random delay
-    rra
-    bit 0, a
-    jr nz, .CounterInit
-    swap a
-    .CounterInit:
-        and $3F
-        inc a ; Pseudorandom delay of 1-64 loops
-    .Loop:
-        dec a  ; This delays for a time that can change rDIV by a maximum of about $05
-        jr nz, .Loop
-
-    ld a, [rDIV] ; After the delay, just return rDIV masked by c
-    and c
-    ret
-
-    ; $054F
-Math_RandomIncrement::
-    ; Increments hMath_RandCounter by an average of 1 (random -3 to 4) every time
-    ; the function is called, and returns the value of hMath_RandCounter
-    ; TODO - clarify this function's purpose
-    ldh a, [rDIV]
-    swap a
-    sra a
-    ld e, a
-    ldh a, [rDIV]
-    add e
-    and %00000111
-    dec a
-    dec a
-    dec a
-    ld e, a
-    ldh a, [hMath_RandCounter]
-    add e
-    ldh [hMath_RandCounter], a
-    ret
-
-
-    ; source/ROM/bank00.s -> source/engine/system/system.s -> source/engine/system/graphics/graphics.s
-    ; source/ROM/bank00.s -> source/engine/system/system.s -> source/engine/system/graphics/graphics.s -> source/engine/system/graphics/frame/frame.s
-    ; frame.s
-
-MACRO Frame_Init
-    ld a, LOW(wObjRAM) ;Since the OAM is $100 bytes long, this must always be $00
-    ld [wFrame_OAMCursor], a
-    ld [wFrame_OAMTop], a
-    call Frame_ClearAll
-ENDM
-
-    ; $0565
-Frame_ClearAll::
-    ; Erases the OAM as well as the wObjRAM (OAM WRAM copy)
-    ; Achieves this by setting the y coordinates of all 40 sprites to $FF for the Buffer and real OAM
-    ld de, $0004
-    ld a, $28
-    ld b, a
-    ld hl, wObjRAM
-    ld a, $FF
-    .LoopBufferSprite:
-        ld [hl], a
-        add hl, de
-        dec b
-        jr nz, .LoopBufferSprite
-    ld a, $28
-    ld b, a
-    ld hl, _OAMRAM
-    ld a, $FF
-    .LoopOAMSprite:
-        ld [hl], a
-        add hl, de
-        dec b
-        jr nz, .LoopOAMSprite
-    ret
-
-    ; $0583
-Frame_Draw::
-    ; Draws an actor
-    ; First, it disables the actor by setting the ScreenY to $FF
-    ; Then, it checks if the actor is on the screen or near the edge of the screen
-    ;   If it is not, it quits without drawing the actor
-    ; Otherwise, it calculates the actor's position relative to the screen,
-    ;   then it does Frame_DrawLoop, which takes an actor's sprite data
-    ;   and puts it in wObjRAM
-    ;
-    ; Inputs:
-    ;   hl = Pointer to sprite data
-    ;       A series of Y, X, Tile, Attr bytes, terminated by a single $80 byte
-    ;   hActor.XTile, hActor.XOffset
-    ;   hActor.YTile, hActor.YOffset
-    ;   wSCX, wSCY: Position of the screen
-    ;   hActor.SpriteBase
-    ; Outputs:
-    ;   The sprite data in hl is added to wObjRAM. Y, X and Tile are offset by
-    ;       YTile, hActor.YOffset, wSCY,
-    ;       XTile, hActor.XOffset, wSCX, and
-    ;       hActor.SpriteBase respectively.
-    ldh a, [hActor_ScreenY]
-    ldh [hActor_ScreenYPrev], a
-    Set8FF hActor_ScreenY, $FF
-
-    ;Frame_CullX
-    ; If the actor is out of bounds X-wise, don't bother even trying to draw the actor
-        ld a, [wTilemap_XTile]
-        add -$02
-        ld c, a
-        ld a, [hActor.XTile]
-        ld d, a
-        sub c
-        bit 7, a
-        ret nz ; Do not draw frame if Actor is 3+ tiles less than wTilemap_XTile
-        add -($0A+$02+$02)
-        bit 7, a
-        ret z ; Do not draw frame if Actor is 3+ tiles more than wTilemap_XTile + ScreenWidth(i.e. 0A)
-        ; d <- hActor.XTile
-
-    ;Frame_CullY
-    ; If the actor is out of bounds Y-wise, don't bother even trying to draw the actor
-        ld a, [wTilemap_YTile]
-        add -$02
-        ld c, a
-        ld a, [hActor.YTile]
-        ld e, a
-        sub c
-        bit 7, a
-        ret nz ; Do not draw frame if Actor is 3+ tiles less than wTilemap_YTile
-        add -($09+$02+$02)
-        bit 7, a
-        ret z ; Do not draw frame if Actor is 3+ tiles more than wTilemap_YTile + ScreenHeight(i.e. 9)
-        ; e <- hActor.YTile
-
-    ;Frame_ScreenX
-    ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCX]
-        ld c, a
-        ld a, d ; hActor.XTile
-        add a
-        add a
-        add a
-        add a
-        ld b, $08 ;SCX vs OAM x-position has an offset of 8
-        add b
-        ld b, a
-        ld a, [hActor.XOffset]
-        add b
-        sub c
-        ld d, a
-        ldh [hActor_ScreenX], a  ; <- d <- hActor.XTile*$10 + 8 + hActor.XOffset - wSCX
-
-    ;Frame_ScreenY
-    ; Calculate the position of the sprite relative to the screen
-        ld a, [wSCY]
-        ld c, a
-        ld a, e ; hActor.YTile
-        add a
-        add a
-        add a
-        add a
-        ld b, $10 ;SCY vs OAM y-position has an offset of $10
-        add b
-        ld b, a
-        ld a, [hActor.YOffset]
-        add b
-        sub c
-        ld e, a
-        ldh [hActor_ScreenY], a  ; <- e <- hActor.YTile*$10 + $10 + hActor.YOffset - wSCYX
-    ;jp Frame_DrawLoop
-
-    ; $05DB
-Frame_DrawLoop::
-    ; Loops through the frame data of an actor
-    ; Adds each sprite from the frame data to wObjRAM (OAM buffer)
-    ; wFrame_OAMCursor is updated to point to the next empty spot in wObjRAM, the OAM buffer
-    ;
-    ; Inputs:
-    ;   hl = frame data
-    ;       {Y-offset, X-offset, Tileid, Attributes} * N
-    ;       $80 (end of data)
-    ;   d = OAM x-position
-    ;   e = OAM y-position
-
-    ld b, HIGH(wObjRAM)
-    Get8 c, wFrame_OAMCursor
-
-    .DrawLoop:
-        ld a, [hl+] ;Sprite y-offset
-        cp $80   ;Magic Number to end drawing
-        jr z, .Ret
-        add e ; hActor_ScreenY + Sprite y-offset
-        ld [bc], a
-        inc c
-
-        ld a, [hl+] ; Sprite x-offset
-        add d ; hActor_ScreenX + Sprite x-offset
-        ld [bc], a
-        inc c
-
-        ldh a, [hActor.SpriteBase]
-        add [hl] ;Sprite tileid
-        inc hl
-        ld [bc], a  ; hActor.SpriteBase + Sprite tileid
-        inc c
-
-        ld a, [hl+] ;Sprite attributes
-        ld [bc], a
-        inc c
-
-        jr .DrawLoop
-
-    .Ret:
-        ld a, c
-        ld [wFrame_OAMCursor], a
-        ret
-
-
-    ; $05FD
-Frame_DrawChr::
-    ; Adds a sprite to wObjRAM, the OAM buffer
-    ; wFrame_OAMCursor is updated to point to the next empty spot in wObjRAM (i.e. +$04)
-    ; Inputs:
-    ;   c = y position
-    ;   b = x position
-    ;   d = tile number
-    ;   e = attribute info
-    ; Outputs:
-    ;   wFrame_OAMCursor increased by 4 (points to the new next available sprite)
-    ld h, HIGH(wObjRAM)
-    Get8 l, wFrame_OAMCursor
-    Set8 hl+, c ;y-position
-    Set8 hl+, b ;x-position
-    Set8 hl+, d ;tileid
-    Set8 hl+, e ;attributes
-    Set8 wFrame_OAMCursor, l
-    ret
-
-    ; $0610
-Frame_Overlay::
-    ; Draws an actor at an absolute position relative to the screen
-    ; (i.e. static like an overlay)
-    ;
-    ; Inputs:
-    ;   hl = Pointer to sprite data
-    ;       A series of Y, X, Tile, Attr bytes, terminated by a single $80 byte
-    ;   hActor.XTile, hActor.XOffset
-    ;   hActor.YTile, hActor.YOffset
-    ;   hActor.SpriteBase
-    ; Outputs:
-    ;   The sprite data in hl is added to wObjRAM. Y, X and Tile are offset by
-    ;       YTile, hActor.YOffset,
-    ;       XTile, hActor.XOffset, and
-    ;       hActor.SpriteBase respectively.
-    ldh a, [hActor_ScreenY]
-    ldh [hActor_ScreenYPrev], a
-    Set8FF hActor_ScreenY, $FF
-    ld a, [hActor.XTile]
-    ld d, a
-    ldh [hActor_ScreenX], a
-    ld a, [hActor.YTile]
-    ld e, a
-    jp Frame_DrawLoop
-
-    ; $0625
-Frame_Ready::
-    ; Cleans wObjRAM (OAM buffer) to be ready for copying
-    ; It disables unused sprites from the previous frame
-    ; For example, if last frame there were 5 sprites and now there are 3 sprites
-    ;   it will disable the 4th and 5th sprite.
-    ; The other way around, nothing needs to be done since the old sprites are overwritten
-    ; Inputs:
-    ;   wFrame_OAMCursor = LOW(Address) of the first unused sprite (i.e. sprites*4)
-    ;   wFrame_OAMTop = The same as wFrame_OAMCursor but for the previous frame
-    ld a, [wFrame_OAMTop] ;OAM used in the previous frame
-    ld b, a
-    ld a, [wFrame_OAMCursor] ;OAM used for the upcoming frame
-    sub b
-    jr nc, .OAMClean ;If there are more sprites for this frame, we don't need to
-                     ;erase the previous frame data since it will be overwritten
-    NegativeA
-    srl a
-    srl a
-    ld e, a ; = (PreviousFrame-CurrentFrame)/4 -> Difference in the number of sprites
-    ld bc, $0004
-    ld h, HIGH(wObjRAM)
-    ld a, [wFrame_OAMCursor]
-    ld l, a
-    ld a, $FF
-    .DisableSpriteLoop:
-        ld [hl], a
-        add hl, bc
-        dec e
-        jr nz, .DisableSpriteLoop ;Disable all the extra sprites that aren't used anymore
-    .OAMClean:
-        Mov8 wFrame_OAMTop, wFrame_OAMCursor ; Shift wFrame_OAMCursor to wFrame_OAMTop and reset wFrame_OAMCursor
-        Set8 wFrame_OAMCursor, LOW(wObjRAM) ;Since the OAM is $100 bytes long, this must always be $00
-        ret
-
+; System
+INCLUDE "source/engine/system/math/math_00.asm"
+INCLUDE "source/engine/system/graphics/frame/frame_00.asm"
 INCLUDE "source/engine/system/sound/sound_vblank.asm"
+INCLUDE "source/engine/system/system_00.asm"
 
-    ; source/engine/system/system.s
-
-    ; $0773
 CallForeign::
     ; Used with Macro Do_CallForeign
     ; Switches to Bank e temporarily, then calls hl
@@ -835,13 +36,13 @@ CallForeign::
     PopROMBank
     ret
 
-    ; $0789
+
 CallHL::
     ; Inputs:
     ;   hl
     jp hl
 
-    ; $078A
+
 MemAdd::
     ; Used with Macro Do_MemAdd
     ; Adds a fixed value to a range of data
@@ -861,7 +62,7 @@ MemAdd::
     Dec16Loop bc, MemAdd
     ret
 
-    ; $0797
+
 MemAnd::
     ; Used with Macro Do_MemAnd
     ; Ands a range of data with a fixed value
@@ -875,7 +76,7 @@ MemAnd::
     Dec16Loop bc, MemAnd
     ret
 
-    ; $07A0
+
 MemMov::
     ; Used with Macro Do_MemMov
     ; Variant Macro exists as well, Do_MemMov_V
@@ -887,15 +88,10 @@ MemMov::
     ld a, [hl+]
     ld [de], a
     inc de
-
-    dec bc    ; These 4 lines should be "Dec16Loop bc, MemMov"
-    ld a, b   ; but it was manually written out here with a swapped b and c
-    or c
-    jr nz, MemMov
-
+    Dec16Loop_V bc, MemMov
     ret
 
-    ; $07A9
+
 MemOr::
     ; UNUSED FUNCTION
     ; Used with Macro Do_MemOr
@@ -910,7 +106,7 @@ MemOr::
     Dec16Loop bc, MemOr
     ret
 
-    ; $07B2
+
 MemSet::
     ; Used with Macro Do_MemSet
     ; Initializes a range of data to a fixed value
@@ -923,7 +119,7 @@ MemSet::
     Dec16Loop bc, MemSet
     ret
 
-    ; $07BA
+
 MemXor::
     ; Used with Macro Do_MemXor
     ; Xors a range of data with a fixed value
@@ -938,7 +134,6 @@ MemXor::
     ret
 
 
-    ; $07C3
 ScreenHide::
     ; Disables LCD.
     ; If LCD was enabled, it will also disable all interrupts and then setup Timer interrupt
@@ -971,7 +166,7 @@ ScreenHide::
 
     ret
 
-    ; $07EA
+
 ScreenShow::
     ; If LCD is turned off, turns on LCD with only V-Blank and STAT interrupts
     ; Outputs:
@@ -998,7 +193,7 @@ ScreenShow::
     ei
     ret
 
-    ; $080A
+
 System_DoVFunc::
     ; If screen is turned on, waits until vblank triggers, and do sound + vblank function
     ; If screen is turned off, immediately do vblank function
@@ -1019,7 +214,6 @@ System_DoVFunc::
         ret
 
 
-    ; $082D
 System_Init::
     ; Initializes all the parts of the engine
 
@@ -1027,13 +221,13 @@ System_Init::
     Hotspot_Init
     Interrupt_Init
     Frame_Init
-    Do_CallForeign TextboxXX_Init ;This is in bank 0 so direct call would have also worked
+    Do_CallForeign TextboxXX_Init ; This is actually in bank 0 so direct call would have also worked
     XCall Actorlist_Init
     Controller_Init
     Battle_Init
 
     ; Set the default error emssage when trying to use a spell/item in the map
-    ld hl, wMenu_MainMenu_ItemSpellMapDefaultScript.Bank
+    ld hl, wInventory_ItemSpellMapDefaultScript.Bank
     Set8 hl+, BANK(Script_System_ItemSpellMapError)
     Set8 hl+, LOW(Script_System_ItemSpellMapError)
     Set8 hl+, HIGH(Script_System_ItemSpellMapError)
@@ -1043,8 +237,8 @@ System_Init::
     ld [wRAMBank], a
     ld [wROMBank], a
     ld [wActor_SaveFlag], a
-    ld [$C6D8], a
-    ld [wMenu_MainMenu_FadeEffect], a
+    ld [wEncounter_Enabled], a
+    ld [wMenu_MainMenu_Disabled], a
     ld [$C6F3], a
     ld a, $03
     ld [$C6EF], a
@@ -1889,7 +1083,7 @@ Cmd_Actor_ThisActorWaitTile::
 
     ; $0DFB
 Actor_GetThatActor::
-    ; Loads the Nth address in Actor_Table and saves it to hl
+    ; Loads the Nth address in Actor00_Table and saves it to hl
     ; Input:
     ;   db - index id of the desired actor 0 = Hero, 1 = Save, 2 = 00, 3 = 01, etc
     ; Output:
@@ -1898,7 +1092,7 @@ Actor_GetThatActor::
     add a
     ld e, a
     ld d, $00
-    ld hl, Actor_Table
+    ld hl, Actor00_Table
     add hl, de
     DerefHL
     ret
@@ -2079,7 +1273,7 @@ Cmd_Battle_Swirl::
 
     ; $0FFE
     ld a, $01
-    ld [$C6D8], a
+    ld [wEncounter_Enabled], a
     ld a, $FF
     ld [$C6D7], a
     ld hl, $C6DB
@@ -2332,7 +1526,7 @@ Cmd_Flow_RandDelay::
     .Init:
         Script_ReadWord hl
         SwitchROMBank $01 ;TODO LongRandDelay lookup table to locate
-        call Math_RandomIncrement
+        call Math_Rand8Inc
         and %00001111       ;Random-ish number from 0 to F
         ld e, a
         ld d, $00
@@ -2440,7 +1634,7 @@ Cmd_Flow_RandLongJump::
     ;
     ; First, do X = rand(16) mod N
     Script_ReadByte_V l
-    call Math_RandomIncrement
+    call Math_Rand8Inc
     and $0F
     .ModuloLoop:
         cp l
@@ -3300,7 +2494,7 @@ Palette_LoopFinally::
     ; Outputs:
     ;   wVBlank_Bank / wVBlank_Func <- PaletteVB_UpdatePalettes
     ;   If hScript.BigCounter == 1
-    ;       wMenu_MainMenu_FadeEffect = 0
+    ;       wMenu_MainMenu_Disabled = 0
     ;       hScript.Frame = next command
     ;       hScript.State = Script_Start
     Set8 wVBlank_Bank, BANK(PaletteVB_UpdatePalettes)
@@ -3313,7 +2507,7 @@ Palette_LoopFinally::
         ret
     .EndOfIterations:
         xor a
-        ld [wMenu_MainMenu_FadeEffect], a
+        ld [wMenu_MainMenu_Disabled], a
         Set16 hScript.Frame, bc
         Set16_M hScript.State, Script_Start
         ret
@@ -3548,7 +2742,7 @@ Cmd_Palette_Cycle::
     ;   db  wTemp_9.Palette_CyclePattern -> Number of Colors to cycle in each Palette (2 to 4, starting from the right)
     .Init:
         ; First iteration of the command
-        Set8 wMenu_MainMenu_FadeEffect, $01
+        Set8 wMenu_MainMenu_Disabled, $01
         Set16_M hScript.State, .MainLoop
         call Palette_ReadPackedLoop
     .MainLoop:
@@ -3578,7 +2772,7 @@ Cmd_Palette_FadeAnimToBase::
     ;   db  Palette_PackedInterval
     .Init:
         ; First iteration of the command
-        Set8 wMenu_MainMenu_FadeEffect, $01
+        Set8 wMenu_MainMenu_Disabled, $01
         Set16_M hScript.State, .MainLoop
         call Palette_ReadPackedLoop
     .MainLoop:
@@ -3607,7 +2801,7 @@ Cmd_Palette_FadeAnimToColor::
     ;   dw  Color
     .Init:
         ; First iteration of the command
-        Set8 wMenu_MainMenu_FadeEffect, $01
+        Set8 wMenu_MainMenu_Disabled, $01
         Set16_M hScript.State, .MainLoop
         call Palette_ReadPackedLoop
     .MainLoop:
@@ -4223,7 +3417,7 @@ Cmd_System_SetItemSpellMapError::
     ; By default, when the game is turned on, the script is set to Script_System_ItemSpellMapError ("I can't use my X here")
     ; Arguments:
     ;   BankAddress - script
-    ld hl, wMenu_MainMenu_ItemSpellMapDefaultScript
+    ld hl, wInventory_ItemSpellMapDefaultScript
     LdHLIBCI
     LdHLIBCI
     LdHLIBCI

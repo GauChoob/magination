@@ -35,6 +35,14 @@ MACRO Dec16Loop
     jr nz, \2
 ENDM
 
+MACRO Dec16Loop_V
+    ; Order is flipped
+    dec \1
+    ld a, HIGH(\1)
+    or LOW(\1)
+    jr nz, \2
+ENDM
+
 MACRO DecHL16
     ; Decreases the (16-bit) value of [hl]
     ; de is modified

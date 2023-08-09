@@ -1259,7 +1259,7 @@ jr_055_4554:
 
     jr nz, jr_055_45E3                            ; $4571: $20 $70
 
-    ld [$C6D8], sp                                ; $4573: $08 $D8 $C6
+    ld [wEncounter_Enabled], sp                                ; $4573: $08 $D8 $C6
     halt                                          ; $4576: $76
     ld [hl], c                                    ; $4577: $71
     ld a, [de]                                    ; $4578: $1A

@@ -506,7 +506,7 @@ Call_005_42F6::
     Do_CallForeign UNK_AwaitTextEnd
 
 jr_005_4353:
-    call Math_RandomIncrement                                    ; $4353: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4353: $CD $4F $05
     and $0F                                       ; $4356: $E6 $0F
     cp $08                                        ; $4358: $FE $08
     jr nc, jr_005_439C                            ; $435A: $30 $40
@@ -539,7 +539,7 @@ jr_005_4353:
     Do_CallForeign UNK_AwaitTextEnd
 
 jr_005_439C:
-    call Math_RandomIncrement                                    ; $439C: $CD $4F $05
+    call Math_Rand8Inc                                    ; $439C: $CD $4F $05
     swap a                                        ; $439F: $CB $37
     and $0F                                       ; $43A1: $E6 $0F
     cp $05                                        ; $43A3: $FE $05
@@ -1889,9 +1889,9 @@ jr_005_5772:
     jr z, jr_005_5788                             ; $5775: $28 $11
 
     ld b, a                                       ; $5777: $47
-    call Math_RandomIncrement                                    ; $5778: $CD $4F $05
+    call Math_Rand8Inc                                    ; $5778: $CD $4F $05
     ld c, a                                       ; $577B: $4F
-    call Math_Div                                    ; $577C: $CD $AC $04
+    call Math_Div8                                   ; $577C: $CD $AC $04
     ld c, l                                       ; $577F: $4D
     ld b, $00                                     ; $5780: $06 $00
     ld hl, $D0B8                                  ; $5782: $21 $B8 $D0

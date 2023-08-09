@@ -2055,8 +2055,8 @@ Menu_MainMenu_Open::
     and a
     ret nz
 
-    ; Abort if the screen is currently fading
-    ld a, [wMenu_MainMenu_FadeEffect]
+    ; Abort if the screen is currently fading or unavailable
+    ld a, [wMenu_MainMenu_Disabled]
     and a
     ret nz
 
@@ -2818,21 +2818,11 @@ Menu_MainMenu_Save:
     jr z, .NotOverworld
     .InOverworld:
         ; Save the game
-        ld hl, wScript_System
-        Set8 hl+, BANK(Script_Save) ; Bank
-        Set8 hl+, LOW(Script_Save) ; Frame
-        Set8 hl+, HIGH(Script_Save)
-        Set8 hl+, LOW(Script_Start) ; State
-        Set8 hl+, HIGH(Script_Start)
+        Script_Set wScript_System, Script_Save
         ret
     .NotOverworld:
         ; Sets up Eldritch Awl
-        ld hl, wScript_System
-        Set8 hl+, BANK(_TODO_ELDRITCHAWL) ; Bank
-        Set8 hl+, LOW(_TODO_ELDRITCHAWL) ; Frame
-        Set8 hl+, HIGH(_TODO_ELDRITCHAWL)
-        Set8 hl+, LOW(Script_Start) ; State
-        Set8 hl+, HIGH(Script_Start)
+        Script_Set wScript_System, _TODO_ELDRITCHAWL
         ret
     ret ; unused
 
@@ -3088,12 +3078,7 @@ Menu_MainMenu_UseSelected::
     or l
     jr z, .NullPointer
     .ValidPointer:
-        ld hl, wScript_System
-        Mov8 hl+, wMenu_Battle_TableRowBuffer.ItemSpell_MapBank ; Bank
-        Mov8 hl+, wMenu_Battle_TableRowBuffer.ItemSpell_MapAddress ; Frame
-        Mov8 hl+, wMenu_Battle_TableRowBuffer.ItemSpell_MapAddress + 1
-        Set8 hl+, LOW(Script_Start) ; State
-        Set8 hl+, HIGH(Script_Start)
+        Script_Set_Var wScript_System, wMenu_Battle_TableRowBuffer.ItemSpell_MapBank, wMenu_Battle_TableRowBuffer.ItemSpell_MapAddress
         ; jr .CopyName
 
         ; Format the name of the item so that the script can use it if needed
@@ -3113,13 +3098,7 @@ Menu_MainMenu_UseSelected::
             ret
     .NullPointer:
         ;address is null $0000, so give error instead
-        ld hl, wScript_System
-        Mov8 hl+, wMenu_MainMenu_ItemSpellMapDefaultScript.Bank ; Bank
-        Mov8 hl+, wMenu_MainMenu_ItemSpellMapDefaultScript.Address ; Frame
-        Mov8 hl+, wMenu_MainMenu_ItemSpellMapDefaultScript.Address + 1
-        Set8 hl+, LOW(Script_Start) ; State
-        Set8 hl+, HIGH(Script_Start)
-
+        Script_Set_Var wScript_System, wInventory_ItemSpellMapDefaultScript.Bank, wInventory_ItemSpellMapDefaultScript.Address
         ; Save the item name
         jr .CopyName
 

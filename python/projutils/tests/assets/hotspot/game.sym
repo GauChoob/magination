@@ -25,15 +25,15 @@
 00:015b Boot_SoftReset
 00:0195 Boot_GameInit
 00:01d3 sNotCGB_Text
-00:023c NotCGB_Message
+00:023c NotCGB_Main
 00:023c sNotCGB_Text.End
-00:023f NotCGB_Message.Forever
+00:023f NotCGB_Main.Forever
 00:0242 NotCGB_Main
 00:0251 NotCGB_Main.CopyLetter
 00:02e0 NotCGB_CopySequentialTilesToTilemap
 00:02e6 Game_Loop
 00:02fd Game_Loop.SkipMainMenu
-00:0303 Actor_Table
+00:0303 Actor00_Table
 00:0367 Math_CalcPercent
 00:0371 Math_CalcPercent.CheckLower
 00:037e Math_CalcPercent.CheckZero
@@ -92,7 +92,7 @@
 00:053a Math_Random
 00:0544 Math_Random.CounterInit
 00:0547 Math_Random.Loop
-00:054f Math_RandomIncrement
+00:054f Math_Rand8Inc
 00:0565 Frame_ClearAll
 00:0570 Frame_ClearAll.LoopBufferSprite
 00:057d Frame_ClearAll.LoopOAMSprite
@@ -34947,8 +34947,8 @@
 01:be33 xCreature_D0.Relic1
 01:be34 xCreature_D0.Other
 01:be35 xCreature_RAM_End
-00:c000 wObjRAM
-00:c0a0 wObjRAM.End
+00:c000 wFrame_OAM
+00:c0a0 wFrame_OAM.End
 00:c100 wTilemap_Row_Tiles
 00:c116 wTilemap_Row_Tiles.End
 00:c116 wTilemap_Col_Tiles
@@ -36390,9 +36390,9 @@
 00:c9e3 wFightscene_CreatureRight_3rdPaletteTransparent
 00:wFightscene_ArenaIndex wFightscene_ArenaIndex
 00:c9e5 wFightscene_ArenaColor
-00:c9ff wMenu_MainMenu_ItemSpellMapDefaultScript
-00:c9ff wMenu_MainMenu_ItemSpellMapDefaultScript.Bank
-00:ca00 wMenu_MainMenu_ItemSpellMapDefaultScript.Address
+00:c9ff wInventory_ItemSpellMapDefaultScript
+00:c9ff wInventory_ItemSpellMapDefaultScript.Bank
+00:ca00 wInventory_ItemSpellMapDefaultScript.Address
 00:ca02 wMenu_MainMenu_ObjectsCharsBuffer
 00:cc02 wMenu_MainMenu_ObjectsCharsBuffer.End
 00:cc02 wCardscene_PaletteBuffer
@@ -36436,7 +36436,7 @@
 00:cca3 wMenu_MainMenu_EquippingRelic
 00:cca4 wMenu_MainMenu_RelicMenuIsDisabled
 00:cca5 wMenu_MainMenu_IsInOverworld
-00:cca6 wMenu_MainMenu_FadeEffect
+00:cca6 wMenu_MainMenu_Disabled
 00:cca7 wMenu_ReturnValue
 00:cca8 wMenuChoice_FingerTile
 00:cca9 wMenu_KeyMask
@@ -37252,5 +37252,5 @@
 00:ffa6 hScript.SmallCounter
 00:ffa7 hScript.BigCounter
 00:ffa8 hTicker
-00:ffa9 hMath_RandCounter
+00:ffa9 hMath_RandSeed
 00:fffe hCGBFlag

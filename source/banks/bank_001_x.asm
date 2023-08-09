@@ -490,7 +490,7 @@ Jump_001_41D8:
 
 jr_001_41FE:
     FGet16 hl, $C6D9                                  ; $41FE: $21 $D9 $C6
-    call Math_RandomIncrement                                    ; $4204: $CD $4F $05
+    call Math_Rand8Inc                                    ; $4204: $CD $4F $05
     and $0F                                       ; $4207: $E6 $0F
     ld e, a                                       ; $4209: $5F
     ld d, $00                                     ; $420A: $16 $00
@@ -501,7 +501,7 @@ jr_001_41FE:
 
 
 Call_001_4212:
-    ld a, [$C6D8]                                 ; $4212: $FA $D8 $C6
+    ld a, [wEncounter_Enabled]                                 ; $4212: $FA $D8 $C6
     and a                                         ; $4215: $A7
     ret z                                         ; $4216: $C8
 
@@ -514,7 +514,7 @@ Call_001_4212:
 
 
 Call_001_4221:
-    ld a, [$C6D8]                                 ; $4221: $FA $D8 $C6
+    ld a, [wEncounter_Enabled]                                 ; $4221: $FA $D8 $C6
     and a                                         ; $4224: $A7
     ret z                                         ; $4225: $C8
 

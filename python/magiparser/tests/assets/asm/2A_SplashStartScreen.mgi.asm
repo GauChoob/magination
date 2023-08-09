@@ -152,4 +152,4 @@ msGameEntrance::
 
     SceneNew                                                ; $736A
 
-    SetByte wMenu_MainMenu_FadeEffect, $01                  ; $736B
+    SetByte wMenu_MainMenu_Disabled, $01                    ; $736B

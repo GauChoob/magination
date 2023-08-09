@@ -37,18 +37,6 @@ MACRO Battle_FormatCreatureName_Bugged
     Set16_M wText_StringFormatFrame, wText_StringBuffer
 ENDM
 
-MACRO Battle_SetScriptText
-    ; Sets wScript_Text
-    ; Inputs:
-    ;   \1 = Script BankAddress
-    ld hl, wScript_Text.Bank
-    Set8 hl+, BANK(\1)
-    Set8 hl+, LOW(\1)
-    Set8 hl+, HIGH(\1)
-    Set8 hl+, LOW(Script_Start)
-    Set8 hl+, HIGH(Script_Start)
-ENDM
-
 MACRO Battle_AwaitTextbox
     ; This Macro is a submacro of Battle_TextboxClose and Battle_TextboxOpen
     ; Wait until the textbox is opened or closed
@@ -65,13 +53,13 @@ ENDM
 
 MACRO Battle_TextboxClose
     ; Closes the textbox and continues running once the textbox is properly closed
-    Battle_SetScriptText SCRIPT_Battle_TextboxClose
+    Script_Set wScript_Text, SCRIPT_Battle_TextboxClose
     Battle_AwaitTextbox CLOSED
 ENDM
 
 MACRO Battle_TextboxOpen
     ; Opens the textbox and continues running once the textbox is properly open
-    Battle_SetScriptText SCRIPT_Battle_TextboxOpen
+    Script_Set wScript_Text, SCRIPT_Battle_TextboxOpen
     Battle_AwaitTextbox OPEN
 ENDM
 
