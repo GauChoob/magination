@@ -72,6 +72,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Final_Battle
     Filename=magibattle.mid
+    Comment=aka agrambattle
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -82,6 +83,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=DreamCreature
     Filename=dream.mid
+    Comment=aka dream
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -102,6 +104,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Curio
     Filename=secret.mid
+    Comment=aka secret
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -142,6 +145,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Cald
     Filename=cald.mid
+    Comment=aka lavatubes
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -152,6 +156,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Core_Battle
     Filename=battle.mid
+    Comment=aka battle
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -172,6 +177,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Mischief
     Filename=korgzet.mid
+    Comment=aka korgzet
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -182,6 +188,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Ashyn
     Filename=caldtown.mid
+    Comment=aka caldtown
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -202,7 +209,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Sanctuary
     Filename=gia.mid
-    Comment=Not an error - gia became Sanctuary
+    Comment=aka wencehouse (Not an error - gia became Sanctuary)
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -213,7 +220,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Gia
     Filename=home.mid
-    Comment=Not an error - home became Gia
+    Comment=aka giahut (Not an error - home became Gia)
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -244,6 +251,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Evu
     Filename=random.mid
+    Comment=aka random
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -264,6 +272,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Bogrom
     Filename=underneath.mid
+    Comment=aka undtown
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -274,6 +283,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Descent
     Filename=tunnel.mid
+    Comment=aka undtunnels
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -284,7 +294,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Agram
     Filename=agramtheme.mid
-    Comment=magi.mid in the alpha version
+    Comment=aka agramtheme (magi.mid in the alpha version)
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -295,6 +305,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Shadow_Geyser
     Filename=maze.mid
+    Comment=aka maze
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -305,6 +316,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Weave
     Filename=orothe.mid
+    Comment=aka orotunnels
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -315,6 +327,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Orlon
     Filename=carnival.mid
+    Comment=aka oroisland
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -325,6 +338,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Vash_Naroom
     Filename=naroom.mid
+    Comment=aka naroom
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -335,6 +349,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=The_Deep
     Filename=ocean.mid
+    Comment=aka ororuins
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -345,6 +360,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Wasteland
     Filename=destruction.mid
+    Comment=aka destruction
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -355,6 +371,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Danger
     Filename=caldhunt.mid
+    Comment=aka lavavents
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -365,6 +382,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Parathin
     Filename=turtleride.mid
+    Comment=aka turtleride
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -375,6 +393,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Mushroom_Farm
     Filename=mushroom.mid
+    Comment=aka undcaverns
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -385,6 +404,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_begin]
     MidiSetupName=Villainy
     Filename=whimsical.mid
+    Comment=aka kzbattle
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -394,7 +414,8 @@ CommandpoolTree=11111
   [arrangementmidisetup_end]
   [arrangementmidisetup_begin]
     MidiSetupName=Rescue
-    Filename=song_032_rescue.mid
+    Filename=wencetheme.mid
+    Comment=aka wencetheme
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -404,7 +425,8 @@ CommandpoolTree=11111
   [arrangementmidisetup_end]
   [arrangementmidisetup_begin]
     MidiSetupName=Quest
-    Filename=song_033_quest.mid
+    Filename=overworld.mid
+    Comment=aka overworld
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -414,7 +436,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_end]
   [arrangementmidisetup_begin]
     MidiSetupName=Overture_Pt_1
-    Filename=song_034_overture_pt_1.mid
+    Filename=overture1.mid
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -424,7 +446,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_end]
   [arrangementmidisetup_begin]
     MidiSetupName=Overture_Pt_2
-    Filename=song_035_overture_pt_2.mid
+    Filename=overture2.mid
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -434,7 +456,7 @@ CommandpoolTree=11111
   [arrangementmidisetup_end]
   [arrangementmidisetup_begin]
     MidiSetupName=Overture_Pt_3
-    Filename=song_036_overture_pt_3.mid
+    Filename=overture3.mid
     BPM=120000
     Volume=127,127,127,127,127,127,127,127,127,127,127,127,127,127,127,127
     Panning=64,64,64,64,64,64,64,64,64,64,64,64,64,64,64,64
@@ -526,23 +548,23 @@ CommandpoolTree=11111
   SFXEntry=21,34,10,255,127,64,60,"Error","Triggered when trying to open the Relics tab in the StartMenu, but you don't have any relics. Plays a buzzing rejection sound"
   SFXEntry=22,35,10,255,127,64,60,"Drain",""
   SFXEntry=23,36,10,255,127,64,60,"Test",""
-  SFXEntry=24,38,10,255,127,64,60,"sfx_24",""
-  SFXEntry=25,39,10,255,127,64,60,"sfx_25",""
-  SFXEntry=26,40,10,255,127,64,60,"sfx_26",""
-  SFXEntry=27,41,10,255,127,64,60,"sfx_27",""
-  SFXEntry=28,42,10,255,127,64,60,"sfx_28",""
-  SFXEntry=29,43,10,255,127,64,60,"sfx_29",""
-  SFXEntry=30,45,11,255,127,64,60,"sfx_30",""
-  SFXEntry=31,44,11,255,127,64,60,"sfx_31",""
-  SFXEntry=32,46,10,255,127,64,60,"sfx_32",""
-  SFXEntry=33,47,10,255,127,64,60,"sfx_33",""
-  SFXEntry=34,48,10,255,127,64,60,"sfx_34",""
-  SFXEntry=35,20,10,255,127,64,60,"sfx_35",""
-  SFXEntry=36,37,10,255,127,64,60,"sfx_36",""
-  SFXEntry=37,37,10,255,127,64,60,"sfx_37",""
-  SFXEntry=38,37,10,255,127,64,60,"sfx_38",""
-  SFXEntry=39,49,10,255,127,64,60,"sfx_39",""
-  SFXEntry=40,50,10,255,127,64,60,"sfx_40",""
+  SFXEntry=24,38,10,255,127,64,60,"Kick",""
+  SFXEntry=25,39,10,255,127,64,60,"WindowSlide",""
+  SFXEntry=26,40,10,255,127,64,60,"Dig",""
+  SFXEntry=27,41,10,255,127,64,60,"Splash",""
+  SFXEntry=28,42,10,255,127,64,60,"BlockDestroy",""
+  SFXEntry=29,43,10,255,127,64,60,"LavaFlow",""
+  SFXEntry=30,45,11,255,127,64,60,"PanPop",""
+  SFXEntry=31,44,11,255,127,64,60,"Summon",""
+  SFXEntry=32,46,10,255,127,64,60,"Jump",""
+  SFXEntry=33,47,10,255,127,64,60,"WindStart",""
+  SFXEntry=34,48,10,255,127,64,60,"WindEnd",""
+  SFXEntry=35,20,10,255,127,64,60,"MakeRing",""
+  SFXEntry=36,37,10,255,127,64,60,"Misc1",""
+  SFXEntry=37,37,10,255,127,64,60,"Misc2",""
+  SFXEntry=38,37,10,255,127,64,60,"Misc3",""
+  SFXEntry=39,49,10,255,127,64,60,"Misc4",""
+  SFXEntry=40,50,10,255,127,64,60,"Misc5",""
   Flags=1
 [object_end]
 
@@ -719,7 +741,7 @@ CommandpoolTree=11111
 [object_end]
 [object_begin]
   Tree=32,6,200,202
-  Name=macro_020.mxm
+  Name=make_ring.mxm
   ObjectID=20
   Description=0,0,0,0,0,0,0
 [object_end]
@@ -821,85 +843,85 @@ CommandpoolTree=11111
 [object_end]
 [object_begin]
   Tree=49,6,200,202
-  Name=macro_037.mxm
+  Name=misc_123.mxm
   ObjectID=37
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=50,6,200,202
-  Name=macro_038.mxm
+  Name=kick.mxm
   ObjectID=38
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=51,6,200,202
-  Name=macro_039.mxm
+  Name=window_slide.mxm
   ObjectID=39
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=52,6,200,202
-  Name=macro_040.mxm
+  Name=dig.mxm
   ObjectID=40
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=53,6,200,202
-  Name=macro_041.mxm
+  Name=splash.mxm
   ObjectID=41
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=54,6,200,202
-  Name=macro_042.mxm
+  Name=block_destroy.mxm
   ObjectID=42
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=55,6,200,202
-  Name=macro_043.mxm
+  Name=lava_flow.mxm
   ObjectID=43
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=56,6,200,202
-  Name=macro_044.mxm
+  Name=summon.mxm
   ObjectID=44
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=57,6,200,202
-  Name=macro_045.mxm
+  Name=pan_pop.mxm
   ObjectID=45
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=58,6,200,202
-  Name=macro_046.mxm
+  Name=jump.mxm
   ObjectID=46
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=59,6,200,202
-  Name=macro_047.mxm
+  Name=wind_start.mxm
   ObjectID=47
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=60,6,200,202
-  Name=macro_048.mxm
+  Name=wind_end.mxm
   ObjectID=48
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=61,6,200,202
-  Name=macro_049.mxm
+  Name=misc4.mxm
   ObjectID=49
   Description=0,0,0,0,0,0,0
 [object_end]
 [object_begin]
   Tree=62,6,200,202
-  Name=macro_050.mxm
+  Name=misc5.mxm
   ObjectID=50
   Description=0,0,0,0,0,0,0
 [object_end]

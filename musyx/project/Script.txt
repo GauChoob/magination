@@ -1,7 +1,7 @@
 ; Scriptfile, written by MusyX Soundtool
-; Date: 2021-06-12
+; Date: 2023-08-09
 
-Projectpath=C:\Programs\ROM\MN\musyx\project
+Projectpath=C:\Programs\ROM\MagiNation\musyx\project
 ; ------------------
 ; objectid, filename
 
@@ -16,6 +16,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
 1,\Samples\cursor_enemyhit.wav,0("None")
 
 [Soundmacros]
+42,\Soundmacros\block_destroy.mxm
 11,\Soundmacros\ch1_bounce.mxm
 8,\Soundmacros\ch1_default_finevibrato.mxm
 6,\Soundmacros\ch2_default_coarsevibrato.mxm
@@ -28,6 +29,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
 3,\Soundmacros\ch4_echoes.mxm
 28,\Soundmacros\critical_attack.mxm
 26,\Soundmacros\dark_attack.mxm
+40,\Soundmacros\dig.mxm
 35,\Soundmacros\drain.mxm
 29,\Soundmacros\earthquake.mxm
 30,\Soundmacros\earthquake_end.mxm
@@ -37,21 +39,14 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
 25,\Soundmacros\fire_attack.mxm
 21,\Soundmacros\heal.mxm
 24,\Soundmacros\ice_attack.mxm
-20,\Soundmacros\macro_020.mxm
-37,\Soundmacros\macro_037.mxm
-38,\Soundmacros\macro_038.mxm
-39,\Soundmacros\macro_039.mxm
-40,\Soundmacros\macro_040.mxm
-41,\Soundmacros\macro_041.mxm
-42,\Soundmacros\macro_042.mxm
-43,\Soundmacros\macro_043.mxm
-44,\Soundmacros\macro_044.mxm
-45,\Soundmacros\macro_045.mxm
-46,\Soundmacros\macro_046.mxm
-47,\Soundmacros\macro_047.mxm
-48,\Soundmacros\macro_048.mxm
-49,\Soundmacros\macro_049.mxm
-50,\Soundmacros\macro_050.mxm
+46,\Soundmacros\jump.mxm
+38,\Soundmacros\kick.mxm
+43,\Soundmacros\lava_flow.mxm
+20,\Soundmacros\make_ring.mxm
+49,\Soundmacros\misc4.mxm
+50,\Soundmacros\misc5.mxm
+37,\Soundmacros\misc_123.mxm
+45,\Soundmacros\pan_pop.mxm
 19,\Soundmacros\physical_attack.mxm
 15,\Soundmacros\place_holder.mxm
 27,\Soundmacros\power_up_stat.mxm
@@ -62,10 +57,15 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
 23,\Soundmacros\sfx_explosion_large.mxm
 22,\Soundmacros\sfx_explosion_small.mxm
 14,\Soundmacros\sfx_ok.mxm
+41,\Soundmacros\splash.mxm
+44,\Soundmacros\summon.mxm
 36,\Soundmacros\test.mxm
 32,\Soundmacros\thunder.mxm
 31,\Soundmacros\treasurechest.mxm
 33,\Soundmacros\vortex.mxm
+39,\Soundmacros\window_slide.mxm
+48,\Soundmacros\wind_end.mxm
+47,\Soundmacros\wind_start.mxm
 
 [Tables]
 49154,\Tables\adsr_002_formacro_002.mxt
@@ -780,7 +780,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   MidiSetup
   {
     Name=Rescue
-    Filename=song_032_rescue.mid
+    Filename=wencetheme.mid
     ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
     Channelsetup=1,0,127,64,0,0
     Channelsetup=2,1,127,64,0,0
@@ -802,7 +802,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   MidiSetup
   {
     Name=Quest
-    Filename=song_033_quest.mid
+    Filename=overworld.mid
     ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
     Channelsetup=1,0,127,64,0,0
     Channelsetup=2,1,127,64,0,0
@@ -824,7 +824,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   MidiSetup
   {
     Name=Overture_Pt_1
-    Filename=song_034_overture_pt_1.mid
+    Filename=overture1.mid
     ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
     Channelsetup=1,0,127,64,0,0
     Channelsetup=2,1,127,64,0,0
@@ -846,7 +846,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   MidiSetup
   {
     Name=Overture_Pt_2
-    Filename=song_035_overture_pt_2.mid
+    Filename=overture2.mid
     ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
     Channelsetup=1,0,127,64,0,0
     Channelsetup=2,1,127,64,0,0
@@ -868,7 +868,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   MidiSetup
   {
     Name=Overture_Pt_3
-    Filename=song_036_overture_pt_3.mid
+    Filename=overture3.mid
     ; Channelsetup=Channel,ProgramNr,Volume,Panning,Reverb,Chorus
     Channelsetup=1,0,127,64,0,0
     Channelsetup=2,1,127,64,0,0
@@ -1093,23 +1093,23 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   SFXEntry=21,34,10,255,127,64,60,Error
   SFXEntry=22,35,10,255,127,64,60,Drain
   SFXEntry=23,36,10,255,127,64,60,Test
-  SFXEntry=24,38,10,255,127,64,60,sfx_24
-  SFXEntry=25,39,10,255,127,64,60,sfx_25
-  SFXEntry=26,40,10,255,127,64,60,sfx_26
-  SFXEntry=27,41,10,255,127,64,60,sfx_27
-  SFXEntry=28,42,10,255,127,64,60,sfx_28
-  SFXEntry=29,43,10,255,127,64,60,sfx_29
-  SFXEntry=30,45,11,255,127,64,60,sfx_30
-  SFXEntry=31,44,11,255,127,64,60,sfx_31
-  SFXEntry=32,46,10,255,127,64,60,sfx_32
-  SFXEntry=33,47,10,255,127,64,60,sfx_33
-  SFXEntry=34,48,10,255,127,64,60,sfx_34
-  SFXEntry=35,20,10,255,127,64,60,sfx_35
-  SFXEntry=36,37,10,255,127,64,60,sfx_36
-  SFXEntry=37,37,10,255,127,64,60,sfx_37
-  SFXEntry=38,37,10,255,127,64,60,sfx_38
-  SFXEntry=39,49,10,255,127,64,60,sfx_39
-  SFXEntry=40,50,10,255,127,64,60,sfx_40
+  SFXEntry=24,38,10,255,127,64,60,Kick
+  SFXEntry=25,39,10,255,127,64,60,WindowSlide
+  SFXEntry=26,40,10,255,127,64,60,Dig
+  SFXEntry=27,41,10,255,127,64,60,Splash
+  SFXEntry=28,42,10,255,127,64,60,BlockDestroy
+  SFXEntry=29,43,10,255,127,64,60,LavaFlow
+  SFXEntry=30,45,11,255,127,64,60,PanPop
+  SFXEntry=31,44,11,255,127,64,60,Summon
+  SFXEntry=32,46,10,255,127,64,60,Jump
+  SFXEntry=33,47,10,255,127,64,60,WindStart
+  SFXEntry=34,48,10,255,127,64,60,WindEnd
+  SFXEntry=35,20,10,255,127,64,60,MakeRing
+  SFXEntry=36,37,10,255,127,64,60,Misc1
+  SFXEntry=37,37,10,255,127,64,60,Misc2
+  SFXEntry=38,37,10,255,127,64,60,Misc3
+  SFXEntry=39,49,10,255,127,64,60,Misc4
+  SFXEntry=40,50,10,255,127,64,60,Misc5
   ; Referencelist
   Soundmacro=13
   Soundmacro=14
@@ -1160,7 +1160,7 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   ; Soundmacro=   17		; (enemy_die.mxm)
   ; Soundmacro=   18		; (enemy_hit.mxm)
   ; Soundmacro=   19		; (physical_attack.mxm)
-  ; Soundmacro=   20		; (macro_020.mxm)
+  ; Soundmacro=   20		; (make_ring.mxm)
   ; Soundmacro=   21		; (heal.mxm)
   ; Soundmacro=   22		; (sfx_explosion_small.mxm)
   ; Soundmacro=   23		; (sfx_explosion_large.mxm)
@@ -1177,20 +1177,20 @@ Projectpath=C:\Programs\ROM\MN\musyx\project
   ; Soundmacro=   34		; (error.mxm)
   ; Soundmacro=   35		; (drain.mxm)
   ; Soundmacro=   36		; (test.mxm)
-  ; Soundmacro=   37		; (macro_037.mxm)
-  ; Soundmacro=   38		; (macro_038.mxm)
-  ; Soundmacro=   39		; (macro_039.mxm)
-  ; Soundmacro=   40		; (macro_040.mxm)
-  ; Soundmacro=   41		; (macro_041.mxm)
-  ; Soundmacro=   42		; (macro_042.mxm)
-  ; Soundmacro=   43		; (macro_043.mxm)
-  ; Soundmacro=   44		; (macro_044.mxm)
-  ; Soundmacro=   45		; (macro_045.mxm)
-  ; Soundmacro=   46		; (macro_046.mxm)
-  ; Soundmacro=   47		; (macro_047.mxm)
-  ; Soundmacro=   48		; (macro_048.mxm)
-  ; Soundmacro=   49		; (macro_049.mxm)
-  ; Soundmacro=   50		; (macro_050.mxm)
+  ; Soundmacro=   37		; (misc_123.mxm)
+  ; Soundmacro=   38		; (kick.mxm)
+  ; Soundmacro=   39		; (window_slide.mxm)
+  ; Soundmacro=   40		; (dig.mxm)
+  ; Soundmacro=   41		; (splash.mxm)
+  ; Soundmacro=   42		; (block_destroy.mxm)
+  ; Soundmacro=   43		; (lava_flow.mxm)
+  ; Soundmacro=   44		; (summon.mxm)
+  ; Soundmacro=   45		; (pan_pop.mxm)
+  ; Soundmacro=   46		; (jump.mxm)
+  ; Soundmacro=   47		; (wind_start.mxm)
+  ; Soundmacro=   48		; (wind_end.mxm)
+  ; Soundmacro=   49		; (misc4.mxm)
+  ; Soundmacro=   50		; (misc5.mxm)
   ; Table     =    1		; (ice_attack.mxt)
   ; Sample    =    1		; (cursor_enemyhit.wav)
   ; -----------------------
