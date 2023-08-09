@@ -12,7 +12,7 @@ This explains how to get the tools required to build Magi-Nation.
 
 3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.6.1).
 
-4. Install [Python](https://www.python.org/downloads/) (version 3.11.3).
+4. Install [Python](https://www.python.org/downloads/) (version 3.11.4).
 
 5. Install the required Python packages:
 
