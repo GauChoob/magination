@@ -2319,7 +2319,7 @@ jr_007_4FC8:
     ret                                           ; $5197: $C9
 
     ; $5198
-Call_007_5198::
+Tilemap_Ready_RowCodes::
     ld hl, wTilemap_RowPhase                                  ; $5198: $21 $69 $C8
     sra [hl]                                      ; $519B: $CB $2E
     ld a, [wTilemap_Flags]                                 ; $519D: $FA $42 $C8

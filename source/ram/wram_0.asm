@@ -279,9 +279,10 @@ wTextbox_FirstLine::
     ds 1
     ;ds $C6EE - @
 wTextbox_Position::
-    ; Presumably =1 when textbox is open? TODO
+    ; See textbox_include.asm for valid values
     ds 1
-
+wTextbox_Halted_UNUSED::
+    ; A removed feature that would prevent the Textbox from opening/closing when a palette effect was in progress
     ds $C6F0 - @
 wTextbox_WX::
     ds 1
@@ -291,6 +292,10 @@ wTextbox_WY::
     ;ds $C6F2 - @
 wTextbox_CursorBlinkCounter::
     ; This var is only referenced in unused code
+    ds 1
+    ;ds $C6F3
+wTextbox_SoundEnabled_UNUSED::
+    ; Removed feature
     ds 1
 
     ds $C6F4 - @
@@ -738,6 +743,19 @@ wHero_DoorX::
     ;ds $C9A2 - @
 wHero_DoorY::
     ; The position at which to place the Hero when he enters a scene
+    ds 1
+    ;ds $C9A3
+wAI_Cnt1::
+    ; Mirror of wCnt1, but not transmitted to the AI if the Textbox is open
+    ds 1
+    ;ds $C9A4
+wAI_CntDown::
+    ; Mirror of wCntDown, but not transmitted to the AI if the Textbox is open
+    ds 1
+    ;ds $C9A5
+wAI_CntUp::
+    ; Mirror of wCntUp, but not transmitted to the AI if the Textbox is open
+    ds 1
 
     ds $C9AD - @
 wCardscene_StartUNUSED::

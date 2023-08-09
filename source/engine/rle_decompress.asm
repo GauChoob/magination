@@ -1,5 +1,3 @@
-
-    ; $09AF
 RLE_Decompress::
     ; Decompresses [hl] and copies it into [de]
     ; [hl] is RLE-encoded

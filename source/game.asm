@@ -4,6 +4,7 @@
 DEF GHOST_DATA EQU 1 ; Set to 1 to include unused data that was copied from the developer's computer into the final producted, likely from uninitialized memory in RAM
 DEF TEST EQU 0 ;set to 1 when testing, otherwise 0
 DEF DEBUG_TEXTBOX_CURSOR EQU 0 ;set to 1 when enabling the disabled feature
+DEF DEBUG_TEXTBOX_SOUND EQU 0 ;set to 1 when enabling the disabled feature - TODO currently broken probably because the bank isn't completely decompiled. We need to check later that this debug function works
 DEF FIX_BUGS EQU 0 ; Set to 1 to fix a few bugs that I found in the code
 
 ; Universal hardware constant file
@@ -45,13 +46,14 @@ INCLUDE "source/engine/system/math/math_include.asm"
 INCLUDE "source/engine/text/text_include.asm"
 INCLUDE "source/engine/textbox/textbox_include.asm"
 INCLUDE "source/engine/trigger/trigger_include.asm"
-INCLUDE "source/game/cardscene/cardscene_include.asm"
+INCLUDE "source/game/ai/ai_include.asm"
 INCLUDE "source/game/battle/battle_equ.asm"
 INCLUDE "source/game/battle/battle_macro.asm"
 INCLUDE "source/game/battle/battlecmd/battlecmd_macro.asm"
 INCLUDE "source/game/battle/battlecmd/battlecmd_equ.asm"
 INCLUDE "source/game/battle/itemspell/itemspell_include.asm"
 INCLUDE "source/game/battle/relic/relic_include.asm"
+INCLUDE "source/game/cardscene/cardscene_include.asm"
 INCLUDE "source/game/creature/creature_include.asm"
 INCLUDE "source/game/fightscene/fightscene_include.asm"
 INCLUDE "source/game/menu/mainmenu_include.asm"
