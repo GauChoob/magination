@@ -220,6 +220,8 @@ Battle_Luck_Table::
     db 96
     db 98
     db 99
+    .End:
+ASSERT Battle_Luck_Table.End - Battle_Luck_Table == 100
 
     ; $4140
     ;Battle Attack Wrapper
@@ -634,7 +636,7 @@ jr_002_441F:
     ld hl, $D376                                  ; $4442: $21 $76 $D3
     add hl, bc                                    ; $4445: $09
     ld c, [hl]                                    ; $4446: $4E
-    ld hl, $D37A                                  ; $4447: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $4447: $21 $7A $D3
     add hl, bc                                    ; $444A: $09
     ld a, $01                                     ; $444B: $3E $01
     ld [hl], a                                    ; $444D: $77
@@ -646,7 +648,7 @@ jr_002_441F:
     add hl, bc                                    ; $4458: $09
     add hl, bc                                    ; $4459: $09
     push hl                                       ; $445A: $E5
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_TAUNT, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_TAUNT, BATTLE_ACTOR_MAGI
     pop hl                                        ; $4473: $E1
     xor a                                         ; $4474: $AF
     ld [hl+], a                                   ; $4475: $22
@@ -838,8 +840,8 @@ jr_002_459B:
     and a                                         ; $459E: $A7
     jr nz, jr_002_45D0                            ; $459F: $20 $2F
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_MAGI
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_TONY
 
 jr_002_45D0:
     ld a, [$D0B2]                                 ; $45D0: $FA $B2 $D0
@@ -1103,7 +1105,7 @@ System_ActorTonyDefaults::
     ; Disable all the selected rings
     Battery_SetBank "XRAM Gamestate"
     ld hl, xInventory_Rings
-    ld a, $FF
+    ld a, INVENTORY_RINGS_NORING
     REPT xInventory_Rings_LENGTH
         ld [hl+], a
     ENDR
@@ -2429,7 +2431,7 @@ jr_002_5086:
     jr jr_002_50CE                                ; $50A3: $18 $29
 
 jr_002_50A5:
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_FOCUS, $0B
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_FOCUS, BATTLE_ACTOR_TONY
     ld hl, $C71B                                  ; $50BC: $21 $1B $C7
     ld a, $4C                                     ; $50BF: $3E $4C
     ld [hl+], a                                   ; $50C1: $22
@@ -2654,11 +2656,11 @@ jr_002_51FC:
     ld b, $00                                     ; $52C1: $06 $00
     ld hl, $D376                                  ; $52C3: $21 $76 $D3
     add hl, bc                                    ; $52C6: $09
-    ld a, [$D06F]                                 ; $52C7: $FA $6F $D0
+    ld a, [wBattle_SummonRingIndex]                                 ; $52C7: $FA $6F $D0
     ld [hl], a                                    ; $52CA: $77
     ld c, a                                       ; $52CB: $4F
     ld b, $00                                     ; $52CC: $06 $00
-    ld hl, $D37A                                  ; $52CE: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $52CE: $21 $7A $D3
     add hl, bc                                    ; $52D1: $09
     ld a, $02                                     ; $52D2: $3E $02
     ld [hl], a                                    ; $52D4: $77
@@ -2827,6 +2829,7 @@ Battle_Cmd_Formula_Luck:
     ; Outputs:
     ;   a = Random value between [-positive_range*luck(luck_stat), positive_range*luck(luck_stat)],
     ;       where luck(luck_stat) is a percentage from 0% to 100% defined in Battle_Luck_Table
+    ;       If Luck_stat == 0, there is a 1/256 chance of getting a +1 magnitude (bug)
 
     ; Get the magnitude from the table
     ld hl, Battle_Luck_Table
@@ -2850,8 +2853,7 @@ Battle_Cmd_Formula_Luck:
 
     ; a = Value = full_range*rand() - MaxValue
     push de
-    ld a, [rDIV]
-    ld b, a
+    Get8 b, rDIV
     call Math_Mult
     ld a, 255
     call Math_Div16 ; Since we don't handle the special case where MaxValue = 0, 1/256 of the time, we should get a Luck bonus of +1
@@ -3010,7 +3012,7 @@ Jump_002_54E8:
     jp z, Jump_002_5578                           ; $54EE: $CA $78 $55
 
     push hl                                       ; $54F1: $E5
-    ld hl, $A118                                  ; $54F2: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $54F2: $21 $18 $A1
     ld a, [wBattle_TempCounter]                                 ; $54F5: $FA $74 $D0
     dec a                                         ; $54F8: $3D
     ld c, a                                       ; $54F9: $4F
@@ -3273,7 +3275,7 @@ Call_002_56C7:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $56CD: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $56D0: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $56D8: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $56E1: $3E $FC
     ld [$C953], a                                 ; $56E3: $EA $53 $C9
     pop hl                                        ; $56E6: $E1
@@ -4208,11 +4210,11 @@ jr_002_5C42:
     ret                                           ; $5C5B: $C9
 
     ; $5C5C
-Battle_Init_SummonMagi:
+Battle_Flow_Begin_SummonMagi:
     ; Setup the Battle_Creature_Struct for a Magi
     ; Inputs:
     ;   bc = source (e.g. xCreature_00_Hero)
-    ;   hl = destination in WRAM (Battle_Creature_Struct)
+    ;   hl = destination in WRAM (wBattle_Creature_Hero or wBattle_Creature_Magi, which are Battle_Creature_Struct)
 
     SwitchRAMBank BANK("WRAM BATTLE")
     Battery_SetBank "XRAM Creatures"
@@ -4220,10 +4222,10 @@ Battle_Init_SummonMagi:
 
     xor a
     ld [hl+], a ; Team - irrelevant for Magi
-    ld [hl+], a ; Status counter
+    ld [hl+], a ; EruptMirrorCounter counter
 
     ; Copy all except the Ability unlock levels and relics are irrelevant for Magi
-    ld d, (xCreature_00_Hero.AbilityUnlock0 - xCreature_00_Hero)
+    ld d, oCreature_Struct_AbilityUnlock0
     .CopyLoop:
         LdHLIBCI
         dec d
@@ -4231,7 +4233,7 @@ Battle_Init_SummonMagi:
     Battery_Off
 
     ; All 4 abilities are always unlocked for Magi
-    ld a, $FF ; todo
+    ld a, CREATURE_TABLE_ABILITYUNLOCK_TRUE
     ld d, $04
     .CommandLoop:
         ld [hl+], a
@@ -4244,7 +4246,7 @@ Battle_Init_SummonMagi:
     ld [hl+], a
     ld [hl+], a
 
-    ; Set the Battle_Creature_BattleCmd_Struct to all 0
+    ; Initialize the Battle_Creature_BattleCmd_Struct to all 0
     ld d, BATTLE_COMMAND_SIZE
     xor a
     .EraseLoop:
@@ -4414,7 +4416,7 @@ jr_002_5DBD:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5DD3: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $5DD6: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5DDE: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $5DE7: $3E $FC
     ld [$C953], a                                 ; $5DE9: $EA $53 $C9
     ld a, $49                                     ; $5DEC: $3E $49
@@ -4466,7 +4468,7 @@ Jump_002_5E48:
     ret                                           ; $5E5D: $C9
 
 
-Call_002_5E5E:
+Call_002_5E5E_RunScripts:
     ld a, $01                                     ; $5E5E: $3E $01
     ld [$D3C2], a                                 ; $5E60: $EA $C2 $D3
 
@@ -4493,7 +4495,7 @@ Battle02_Flow_Begin::
     ; Load the hero
     ld bc, xCreature_00_Hero
     ld hl, wBattle_Creature_Hero
-    call Battle_Init_SummonMagi
+    call Battle_Flow_Begin_SummonMagi
     Set8 wBattle_CreatureSlots.Hero, $01
 
     ; Find the opposing magi's reference
@@ -4510,9 +4512,9 @@ Battle02_Flow_Begin::
     ; Load the enemy magi
     ld bc, wMenu_Battle_TableRowBuffer
     ld hl, wBattle_Creature_Magi
-    call Battle_Init_SummonMagi
+    call Battle_Flow_Begin_SummonMagi
 
-    ; Determine if the magi is visible or not
+    ; Determine if the enemy magi exists or not
     ld a, [wBattle_Creature_Magi.Type]
     cp CREATURE_TABLE_TYPE_NOMAGI
     jr z, .InvisibleMagi
@@ -4524,15 +4526,15 @@ Battle02_Flow_Begin::
     .MagiFinally:
     ld [wBattle_CreatureSlots.Magi], a
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_MAGI
 
     xor a
-    ld [$D15C], a
-    ld [$D34B], a
+    ; Make sure the magi don't start with any statuses, although all magi in the game have immunity to all statuses (.StatusImmune)
+    ld [wBattle_Creature_Hero.StatusActive], a
+    ld [wBattle_Creature_Magi.StatusActive], a
     ld [wBattle_ExitCode], a
-    ld [$D06C], a
-    ld a, $FF
-    ld [$D0CD], a
+    ld [$D06C], a ; TODO
+    Set8 $D0CD, $FF ; TODO
     ; Empty the 8 creature wBattle_CreatureSlots
     Do_MemSet wBattle_CreatureSlots.Ally0, (wBattle_CreatureSlots.Enemy3 + 1 - wBattle_CreatureSlots.Ally0), $00
     
@@ -4541,7 +4543,7 @@ Battle02_Flow_Begin::
     Do_MemSet $D0B8, $0008, $FF
     ld bc, $51C2
     FSet16 $D35D, bc
-    call Call_002_5E5E ; Run scripts
+    call Call_002_5E5E_RunScripts ; Run scripts
     ld bc, $51C2
     FSet16 $D16E, bc
     call Battle_Flow_SortCmdOrder
@@ -4579,7 +4581,7 @@ Battle_Flow_CommandMenuGetCmdNames:
     ld [wMenu_BattleCmd_GetEnergyFlag], a
     Do_CallForeign BattleCmd_GetNameAndEnergy
 
-    ; Get the 4 battle_cmd pointers
+    ; Store the 4 battle_cmd pointers
     ld bc, wBattle_Creature_Current.Ability0
     ld hl, wBattle_Menu_BattleCmdPointers.Ability0
     ld d, $08
@@ -4596,7 +4598,7 @@ Battle_Flow_CommandMenuGetCmdNames:
         ld hl, wBattle_Creature_Current.AbilityUnlock0
         add hl, de
         ld a, [hl]
-        cp $FF
+        cp CREATURE_TABLE_ABILITYUNLOCK_TRUE
         jr z, .Unlocked
         .Locked:
             ; Locked ability! Null-pointer
@@ -4645,6 +4647,7 @@ Battle_Flow_CommandMenuGetCmdNames:
 
     ; $5FDF
 Battle_Flow_ControlCreature:
+    ; Shows the Menu options for the current creature (or Tony)
     xor a
     ld [$D0C0], a ; todo
 
@@ -4680,24 +4683,27 @@ Battle_Flow_ControlCreature:
     ld a, [wBattle_Creature_Current.BattleCmd_Menu]
     and a
     jr nz, .DoMenu
-        .DoOrdinaryTarget:
-            Battle_TextboxClose
-            jr .DoOrdinaryTarget2
+    .DoOrdinaryTarget:
+        Battle_TextboxClose
+        jr .DoOrdinaryTarget2
 
     .DoMenu:
+        ; Run the Menu function
         Do_CallForeign Battle_Helpers_SelectMenu
-        
         Battle_TextboxClose
+        ; If successful, allow the user to choose a target
         ld a, [wMenu_ReturnValue]
         cp Menu_CANCEL
         jr nz, .DoOrdinaryTarget2
-
-        ld a, [wBattle_CurCreature_Slot]
-        cp $00
-        jp nz, Battle_Flow_ControlCreature
-
-        Battle_TextboxOpen
-        jp Battle_Flow_ControlCreature
+        ; If unsuccessful, reset the control from the beginning
+        .CancelMenu:
+            ld a, [wBattle_CurCreature_Slot]
+            cp wBattle_CreatureSlots.Hero - wBattle_CreatureSlots
+            .NotHero:
+                jp nz, Battle_Flow_ControlCreature
+            .Hero:
+                Battle_TextboxOpen
+                jp Battle_Flow_ControlCreature
 
 
     .DoOrdinaryTarget2:
@@ -5015,8 +5021,8 @@ Battle_Flow_Exit:
     .Win:
     Sound_Request_StartSong SONGID_GetItem
 
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, $0C
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_VICTORY, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_DEFEAT, BATTLE_ACTOR_MAGI
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_VICTORY, BATTLE_ACTOR_TONY
 
 Jump_002_636A:
     ld hl, $D36E                                  ; $636A: $21 $6E $D3
@@ -5118,8 +5124,8 @@ Jump_002_641DCheckLose:
     cp BATTLE_EXITCODE_LOSE                                        ; $641D: $FE $03
     jp nz, Jump_002_64EDCheckTODO                          ; $641F: $C2 $ED $64
     .Lose:
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_VICTORY, $0C
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_DEFEAT, $0B
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_VICTORY, BATTLE_ACTOR_MAGI
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_DEFEAT, BATTLE_ACTOR_TONY
     ld hl, $C71B                                  ; $6451: $21 $1B $C7
     ld a, $4C                                     ; $6454: $3E $4C
     ld [hl+], a                                   ; $6456: $22
@@ -5247,22 +5253,22 @@ jr_002_658B:
 Battle_Flow_MainLoop::
     ; Btl_Main_Loop
     .Loop:
-        call Battle_Flow_ProcessHero                            ; $6591: $CD $ED $6A
-        call Call_002_65B7                            ; $6594: $CD $B7 $65
-        ld a, [$D0D5]                                 ; $6597: $FA $D5 $D0
-        and a                                         ; $659A: $A7
-        jr nz, .Loop                            ; $659B: $20 $F4
+        call Battle_Flow_ProcessHero
+        call Call_002_65B7
+        ld a, [$D0D5]
+        and a
+        jr nz, .Loop
 
-    call Call_002_6A01                            ; $659D: $CD $01 $6A
-    call Call_002_6BBA                            ; $65A0: $CD $BA $6B
-    call Battle_Flow_SortCmdOrder                            ; $65A3: $CD $E7 $6B
-    call Call_002_5E5E                            ; $65A6: $CD $5E $5E
-    call Call_002_66DD                            ; $65A9: $CD $DD $66
-    ld a, [wBattle_ExitCode]                                 ; $65AC: $FA $16 $D0
-    cp BATTLE_EXITCODE_NOEXIT                                        ; $65AF: $FE $00
-    jp nz, Battle_Flow_Exit                          ; $65B1: $C2 $16 $63
+    call Call_002_6A01
+    call Call_002_6BBA
+    call Battle_Flow_SortCmdOrder
+    call Call_002_5E5E_RunScripts
+    call Call_002_66DD
+    ld a, [wBattle_ExitCode]
+    cp BATTLE_EXITCODE_NOEXIT
+    jp nz, Battle_Flow_Exit
 
-    jp Battle_Flow_MainLoop                              ; $65B4: $C3 $91 $65
+    jp Battle_Flow_MainLoop
 
 
 Call_002_65B7:
@@ -5751,7 +5757,7 @@ jr_002_692D:
     ld hl, $D376                                  ; $694B: $21 $76 $D3
     add hl, bc                                    ; $694E: $09
     ld c, [hl]                                    ; $694F: $4E
-    ld hl, $D37A                                  ; $6950: $21 $7A $D3
+    ld hl, wBattle_UsedRings                                  ; $6950: $21 $7A $D3
     add hl, bc                                    ; $6953: $09
     ld a, $01                                     ; $6954: $3E $01
     ld [hl], a                                    ; $6956: $77
@@ -5987,22 +5993,27 @@ Battle_Flow_ProcessHero:
     ld [hl+], a
     ld [hl], a
 
+    ; Todo
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
     call Battle00_DisableActorScript
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_CHOOSE, $0B
+
+    ; Choose an option for Tony
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_CHOOSE, BATTLE_ACTOR_TONY
     call Battle_Flow_ControlCreature
-    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, $0B
+
+    ; If Summon was chosen, show the Summon animation, or else show the Idle animation
+    Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_TONY
     FGet16 hl, wBattle_Creature_Current.BattleCmd_Function
-    ld bc, BattleCmd_5272 ; Summon
+    ld bc, BattleCmd_5272 ; Summon TODO
     TwosComp bc
     add hl, bc
     ld a, h
     or l
-    jr nz, .jr_002_6BB0
+    jr nz, .NotSummon
+    .Summon:
+        Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_SUMMON, BATTLE_ACTOR_TONY
+    .NotSummon:
 
-        Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_SUMMON, $0B
-
-    .jr_002_6BB0:
     ; Store the hero
     ld bc, wBattle_Creature_Current
     ld hl, wBattle_Creature_Hero
@@ -6070,27 +6081,33 @@ Battle_Flow_SortCmdOrder:
             pop bc
             ld hl, wBattle_Sort_CurSpeed
             add [hl]
-            jr nc, .SkipZero
-            .SetToZero:
-                ; Huge bug!!! This is supposed to set the speed to 0 if the speed is negative
-                ; However, it instead sets the speed to zero if the Luck modifier is negative and
-                ; Speed + LuckModifier >= 0
-                ; This means that having positive Luck (>=30) significantly increases your chance of going last
-                xor a
-            .SkipZero:
+            IF FIX_BUGS == 0
+                jr nc, .SkipZero
+                .SetToZero:
+                    ; Huge bug!!! This is supposed to set the speed to 0 if the speed is negative
+                    ; However, it instead sets the speed to zero if the Luck modifier is negative and
+                    ; Speed + LuckModifier >= 0
+                    ; This means that having positive Luck (>=30) significantly increases your chance of going last
+                    xor a
+                .SkipZero:
+            ELSE
+                ; Just make all the numbers positive for comparison purposes
+                ; TODO - make sure this works?
+                add $80
+            ENDC
             ; Store the calculated speed value
             ld hl, wBattle_Sort_SpeedSlots
             ld b, $00
             add hl, bc
             ld [hl], a
-            ; Store the index of the creature (+1 because 0 means no creature)
+            ; Store the index of the creature (+1, so 1-8)
             ld hl, wBattle_Sort_IndexSlots
             add hl, bc
             ld [hl], c
             inc [hl]
             jr .CheckEndLoop
         .EmptySlot:
-            ; Set 0 speed and index 0 (i.e. no creature)
+            ; Set 0 speed and index $FF (i.e. no creature)
             ; a = 0
             ld hl, wBattle_Sort_SpeedSlots
             ld b, $00
@@ -6107,12 +6124,12 @@ Battle_Flow_SortCmdOrder:
         cp c
         jr nz, .CalculateSpeedLoop
 
-    ; Alright, let's sort the values by speed
+    ; Alright, let's sort the values by speed using Bubble Sort
     ; We check all 7 adjacent pairs (index 0-7) for swapping, in decrementing order
     ; This guarantees that the fastest will be first
     ; Then we check 6 adjacent pairs (index 1-7) for swapping, placing the second-fastest first
     ; Then we check 5 adjacent pairs (index 2-7), then 4 pairs (3-7), then 3, 2, 1
-    ; Minor bug? -> Note that creatures with equal speed will get swapped back and forth
+    ; Minor bug? feature? -> Note that creatures with equal speed will get swapped back and forth
     ld e, $07
     xor a
     ld [wBattle_TempCounter], a
@@ -6596,7 +6613,7 @@ jr_002_6F80:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $6F86: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $6F89: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $6F91: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $6F9A: $3E $FC
     ld [$C953], a                                 ; $6F9C: $EA $53 $C9
     ld a, $49                                     ; $6F9F: $3E $49
@@ -7510,13 +7527,13 @@ jr_002_7504:
     ; $752D
 Call_002_752D::
     xor a                                         ; $752D: $AF
-    ld [$D0D8], a                                 ; $752E: $EA $D8 $D0
+    ld [wBattle_NotEnoughEnergy], a                                 ; $752E: $EA $D8 $D0
     call Call_002_748B                            ; $7531: $CD $8B $74
     ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $7534: $FA $AF $D0
     and a                                         ; $7537: $A7
     jr nz, jr_002_7549                            ; $7538: $20 $0F
 
-    ld a, [$D0D8]                                 ; $753A: $FA $D8 $D0
+    ld a, [wBattle_NotEnoughEnergy]                                 ; $753A: $FA $D8 $D0
     and a                                         ; $753D: $A7
     ret z                                         ; $753E: $C8
 
@@ -7528,7 +7545,7 @@ Call_002_752D::
 
 
 jr_002_7549:
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_SUMMON, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_SUMMON, BATTLE_ACTOR_MAGI
     call Call_002_4653                            ; $7561: $CD $53 $46
     FGet16 hl, $D07B                                  ; $7564: $21 $7B $D0
     ld bc, $D110                                  ; $756A: $01 $10 $D1

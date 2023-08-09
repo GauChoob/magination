@@ -10,7 +10,7 @@ PAL_Cardscene_Textbox::
 
 
 INCLUDE "assets/fightscene/fightscene_effects.asm"
-INCLUDE "source/game/battle/creature_table.asm"
+INCLUDE "source/game/creature/creature_table.asm"
 
 
     ; $5484
@@ -136,7 +136,7 @@ Call_004_554E:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $554F: $EA $8C $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5552: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $555A: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5563: $01 $91 $CD
     FSet16 wMenu_MainMenu_StringToTileset_Source, bc                                    ; $556B: $70
     ld a, $0A                                     ; $556C: $3E $0A
@@ -799,7 +799,7 @@ jr_004_5C9D:
     ld [$CD51], a                                 ; $5CBC: $EA $51 $CD
     ld bc, wText_StringBuffer                                  ; $5CBF: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5CC7: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld hl, $C953                                  ; $5CD0: $21 $53 $C9
     ld a, $FC                                     ; $5CD3: $3E $FC
     ld [hl], a                                    ; $5CD5: $77
@@ -915,7 +915,7 @@ jr_004_5DAD:
     PushRAMBank
     Do_CallForeign Call_002_5B35
     PopRAMBank
-    ld hl, $A118                                  ; $5DCE: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $5DCE: $21 $18 $A1
     ld d, $0A                                     ; $5DD1: $16 $0A
     Battery_SetBank "XRAM Gamestate"
     Battery_On

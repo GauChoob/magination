@@ -907,7 +907,7 @@ wTemp_8::
     .Palette_ColorSwapType:
     ; e parameter for Palette_PaletteBufferSwapRGB
     .Fightscene_CreatureID::
-    ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CREATURE_NULL
+    ; The type of dream creature, or CARDSCENE_EMPTYCARD, or CreatureID_Null
     .Fightscene_Arena_BottomBitmapBank::
     ; Fightscene_ArenaData Struct property
     ds 1
@@ -1505,7 +1505,11 @@ wMenu_BattleCmd_DestBuffer::
 wMenu_BattleCmd_GetEnergyFlag::
     ; Parameter for BattleCmd_GetNameAndEnergy
     ds 1
-
+    ;ds $CDD6 - @
+wMenu_SelectedRingIndex::
+    ; An offset to target one of the rings in xInventory_Rings
+    ; Does the same thing as wBattle_SelectedRingIndex
+    ds 1
     ds $CDD7 - @
 wMenu_MainMenu_Entry_EntriesUpdated::
     ; Set to $01 if new entries were loaded, meaning the list needs to be updated

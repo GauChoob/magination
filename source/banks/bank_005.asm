@@ -52,7 +52,7 @@ Battle_CheckTarget_Table::
 Battle_Menu_Table::
     ; A bunch of functions that point to tables passed by BattleCmd
     dw Battle_Target_Crash ; 0 - no menu
-    dw Battle_Menu_Ring ; 1 - Ring
+    dw Battle_Menu_Ring ; 1 - Ring/Summon
     dw Battle_Menu_Item ; 2 - Item
     dw Battle_Menu_Spell ; 3 - Spell
 
@@ -486,15 +486,7 @@ Call_005_42F6::
     ld d, $00                                     ; $4313: $16 $00
     call Math_ConvertNumberToDigits                                    ; $4315: $CD $1A $04
     ld hl, wText_StringBuffer                                  ; $4318: $21 $49 $C9
-    ld a, [wX100]                                 ; $431B: $FA $2F $C9
-    add $30                                       ; $431E: $C6 $30
-    ld [hl+], a                                   ; $4320: $22
-    ld a, [wX10]                                 ; $4321: $FA $2E $C9
-    add $30                                       ; $4324: $C6 $30
-    ld [hl+], a                                   ; $4326: $22
-    ld a, [wX1]                                 ; $4327: $FA $2D $C9
-    add $30                                       ; $432A: $C6 $30
-    ld [hl+], a                                   ; $432C: $22
+    Math_DigitsToStringHL
     ld [hl], $FC                                  ; $432D: $36 $FC
     ld a, $49                                     ; $432F: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $4331: $EA $3D $C9
@@ -605,7 +597,7 @@ Battle_Helpers_CheckValidTarget::
     jr c, .EnergyPass
     .NotEnoughEnergy:
         Sound_Request_StartSFX0 SFXID_SfxCancel
-        Set8 $D0D8, $01 ;todo
+        Set8 wBattle_NotEnoughEnergy, $01
         xor a ;invalid cmd
         ld [wBattle_CurCreature_ValidBattleCmd], a
         ret
@@ -747,7 +739,7 @@ Call_005_44F4::
 
 jr_005_450A:
     push hl                                       ; $450A: $E5
-    ld bc, $D09B                                  ; $450B: $01 $9B $D0
+    ld bc, wBattle_CursorTableValidIDs                                  ; $450B: $01 $9B $D0
     TwosComp bc
     add hl, bc                                    ; $4515: $09
     ld a, h                                       ; $4516: $7C
@@ -920,35 +912,35 @@ Battle_Helpers_DrawCommandMenu::
 
     ; Draw all the strings for the menu
     SwitchRAMBank BANK("WRAM BATTLE")
-    Menu_TextSetup $01, BATTLE_VRAM_ENERGY, BATTLE_MENU_TILEMAP_ENERGY, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_EnergyString
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_ENERGY, BATTLE_MENU_TILEMAP_ENERGY, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_EnergyString
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDNAME0, BATTLE_MENU_TILEMAP_CMD0NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd0
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDNAME0, BATTLE_MENU_TILEMAP_CMD0NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd0
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDNAME1, BATTLE_MENU_TILEMAP_CMD1NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd1
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDNAME1, BATTLE_MENU_TILEMAP_CMD1NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd1
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDCOST1, BATTLE_MENU_TILEMAP_CMD1COST, (wBattle_Menu_CommandCostString.Cmd2 - wBattle_Menu_CommandCostString.Cmd1), wBattle_Menu_CommandCostString.Cmd1
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDCOST1, BATTLE_MENU_TILEMAP_CMD1COST, (wBattle_Menu_CommandCostString.Cmd2 - wBattle_Menu_CommandCostString.Cmd1), wBattle_Menu_CommandCostString.Cmd1
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDNAME2, BATTLE_MENU_TILEMAP_CMD2NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd2
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDNAME2, BATTLE_MENU_TILEMAP_CMD2NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd2
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDCOST2, BATTLE_MENU_TILEMAP_CMD2COST, (wBattle_Menu_CommandCostString.Cmd3 - wBattle_Menu_CommandCostString.Cmd2), wBattle_Menu_CommandCostString.Cmd2
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDCOST2, BATTLE_MENU_TILEMAP_CMD2COST, (wBattle_Menu_CommandCostString.Cmd3 - wBattle_Menu_CommandCostString.Cmd2), wBattle_Menu_CommandCostString.Cmd2
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDNAME3, BATTLE_MENU_TILEMAP_CMD3NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd3
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDNAME3, BATTLE_MENU_TILEMAP_CMD3NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd3
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDCOST3, BATTLE_MENU_TILEMAP_CMD3COST, (wBattle_Menu_CommandCostString.Cmd4 - wBattle_Menu_CommandCostString.Cmd3), wBattle_Menu_CommandCostString.Cmd3
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDCOST3, BATTLE_MENU_TILEMAP_CMD3COST, (wBattle_Menu_CommandCostString.Cmd4 - wBattle_Menu_CommandCostString.Cmd3), wBattle_Menu_CommandCostString.Cmd3
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDNAME4, BATTLE_MENU_TILEMAP_CMD4NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd4
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDNAME4, BATTLE_MENU_TILEMAP_CMD4NAME, BATTLECMD_STRUCT_NAMESIZE, wBattle_Menu_CommandNameString.Cmd4
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, BATTLE_VRAM_CMDCOST4, BATTLE_MENU_TILEMAP_CMD4COST, (wBattle_Menu_CommandCostString.End - wBattle_Menu_CommandCostString.Cmd4), wBattle_Menu_CommandCostString.Cmd4
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_CMDCOST4, BATTLE_MENU_TILEMAP_CMD4COST, (wBattle_Menu_CommandCostString.End - wBattle_Menu_CommandCostString.Cmd4), wBattle_Menu_CommandCostString.Cmd4
     Menu_TextUpdateLoop
 
     ; Fixed string "Defend🡆🡇" (not visible)
-    Menu_TextSetup $01, BATTLE_VRAM_DEFEND, $9CA5, .End, sBattle_Helpers_DefendArrowArrow ; Defend
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_DEFEND, $9CA5, .End, sBattle_Helpers_DefendArrowArrow ; Defend
     Menu_TextUpdateLoop
     ret
 
     ; $4AA4
 Battle_Helpers_CommandMenuGetCostStrings:
-    ; Write the 4 cost strings for the 4 battle cmds
+    ; Write the 4 cost strings for the 4 battle cmds (Don't use Cmd0 = Fight)
     ; Write "---" if the cost is 0
     ; Inputs:
     ;   wBattle_Creature_Current
@@ -956,8 +948,8 @@ Battle_Helpers_CommandMenuGetCostStrings:
     ; First, initialize the 4 strings with "---"
     SwitchRAMBank BANK("WRAM BATTLE")
     ld a, "-"
-    ld hl, wBattle_Menu_CommandCostString
-    ld b, (wBattle_Menu_CommandCostString.End - wBattle_Menu_CommandCostString)
+    ld hl, wBattle_Menu_CommandCostString.Cmd1
+    ld b, (wBattle_Menu_CommandCostString.End - wBattle_Menu_CommandCostString.Cmd1)
     .Loop:
         ld [hl+], a
         dec b
@@ -993,18 +985,10 @@ Battle_Helpers_CommandMenuGetCostStrings:
             ; Navigate to wBattle_Menu_CommandCostString.CmdX
             ld b, (wBattle_Menu_CommandCostString.Cmd2 - wBattle_Menu_CommandCostString.Cmd1)
             call Math_Mult
-            ld de, wBattle_Menu_CommandCostString
+            ld de, wBattle_Menu_CommandCostString.Cmd1
             ; Write the digits
             add hl, de
-            ld a, [wX100]
-            add "0"
-            ld [hl+], a
-            ld a, [wX10]
-            add "0"
-            ld [hl+], a
-            ld a, [wX1]
-            add "0"
-            ld [hl+], a
+            Math_DigitsToStringHL
         .Skip:
 
         ; End if we have done all 4 cmds
@@ -1018,7 +1002,7 @@ Battle_Helpers_CommandMenuGetCostStrings:
         ld hl, wBattle_Creature_Current.AbilityUnlock0
         add hl, bc
         ld a, [hl]
-        cp $FF
+        cp CREATURE_TABLE_ABILITYUNLOCK_TRUE
         ret nz
 
         jr .CmdLoop
@@ -1035,15 +1019,7 @@ Battle_Helpers_CommandMenuGetEnergyStrings:
     FGet16_BigEndian de, wBattle_Creature_Current.CurEnergy
     call Math_ConvertNumberToDigits
     ld hl, wBattle_Menu_EnergyString
-    ld a, [wX100]
-    add "0"
-    ld [hl+], a
-    ld a, [wX10]
-    add "0"
-    ld [hl+], a
-    ld a, [wX1]
-    add "0"
-    ld [hl+], a
+    Math_DigitsToStringHL
 
     ; Colon
     Set8 hl+, ":"
@@ -1052,15 +1028,7 @@ Battle_Helpers_CommandMenuGetEnergyStrings:
     FGet16_BigEndian de, wBattle_Creature_Current.MaxEnergy
     call Math_ConvertNumberToDigits
     ld hl, wBattle_Menu_EnergyString.MaxEnergy
-    ld a, [wX100]
-    add "0"
-    ld [hl+], a
-    ld a, [wX10]
-    add "0"
-    ld [hl+], a
-    ld a, [wX1]
-    add "0"
-    ld [hl+], a
+    Math_DigitsToStringHL
     ret
 
 Call_005_4B45::
@@ -1075,796 +1043,568 @@ Call_005_4B45::
     ; $45B1
 Battle_Menu_Item:
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld bc, $A3A7                                  ; $4B58: $01 $A7 $A3
-    FSet16 $CC82, bc                                    ; $4B60: $70
-    ld bc, Item_Table                                  ; $4B61: $01 $FF $5D
-    FSet16 $CC84, bc                                    ; $4B69: $70
-    ld a, ItemSpell_ROWSIZE                                     ; $4B6A: $3E $22
-    ld [$CC88], a                                 ; $4B6C: $EA $88 $CC
-    xor a                                         ; $4B6F: $AF
+    ld bc, xInventory_Items
+    FSet16 wMenu_MainMenu_Entry_QuantityTable, bc
+    ld bc, Item_Table
+    FSet16 wMenu_MainMenu_Entry_EntryDataTable, bc
+    Set8 wMenu_MainMenu_Entry_DatatableWidth, ItemSpell_ROWSIZE
+    xor a
 
 Jump_005_4B70:
-    add $0D                                       ; $4B70: $C6 $0D
-    ld [wMenu_CursorID], a                                 ; $4B72: $EA $81 $CD
+    add $0D
+    ld [wMenu_CursorID], a
     Battery_On
     Battery_SetBank "XRAM Gamestate"
     Do_CallForeign Menu_MainMenu_Get5Entries
     Battery_Off
-    ld hl, wMenu_CursorID                                  ; $4B8E: $21 $81 $CD
-    ld a, [hl]                                    ; $4B91: $7E
-    sub $0D                                       ; $4B92: $D6 $0D
-    ld [hl], a                                    ; $4B94: $77
-    FGet16 hl, $CC78                                  ; $4B95: $21 $78 $CC
-    ld a, h                                       ; $4B9B: $7C
-    or l                                          ; $4B9C: $B5
-    jr nz, jr_005_4BAA                            ; $4B9D: $20 $0B
+    ld hl, wMenu_CursorID
+    ld a, [hl]
+    sub $0D
+    ld [hl], a
+    FGet16 hl, $CC78
+    ld a, h
+    or l
+    jr nz, jr_005_4BAA
 
     Sound_Request_StartSFX0 SFXID_Error
-    ld a, $FE                                     ; $4BA4: $3E $FE
-    ld [wMenu_ReturnValue], a                                 ; $4BA6: $EA $A7 $CC
-    ret                                           ; $4BA9: $C9
+    ld a, $FE
+    ld [wMenu_ReturnValue], a
+    ret
 
 
 jr_005_4BAA:
     Battle_TextboxClose
     Battle_TextboxOpen
-    ld a, [$CDD7]                                 ; $4BE6: $FA $D7 $CD
-    and a                                         ; $4BE9: $A7
-    jp z, Jump_005_4DC5                           ; $4BEA: $CA $C5 $4D
+    ld a, [$CDD7]
+    and a
+    jp z, Jump_005_4DC5
 
-    xor a                                         ; $4BED: $AF
-    ld [wBattle_TempCounter], a                                 ; $4BEE: $EA $74 $D0
+    xor a
+    ld [wBattle_TempCounter], a
 
 Jump_005_4BF1:
-    ld hl, $CC78                                  ; $4BF1: $21 $78 $CC
-    ld a, [wBattle_TempCounter]                                 ; $4BF4: $FA $74 $D0
-    ld c, a                                       ; $4BF7: $4F
-    ld b, $00                                     ; $4BF8: $06 $00
-    add hl, bc                                    ; $4BFA: $09
-    add hl, bc                                    ; $4BFB: $09
+    ld hl, $CC78
+    ld a, [wBattle_TempCounter]
+    ld c, a
+    ld b, $00
+    add hl, bc
+    add hl, bc
     DerefHL
-    ld a, [$CC83]                                 ; $4BFF: $FA $83 $CC
-    ld d, a                                       ; $4C02: $57
-    ld a, [$CC82]                                 ; $4C03: $FA $82 $CC
-    ld e, a                                       ; $4C06: $5F
+    ld a, [$CC83]
+    ld d, a
+    ld a, [$CC82]
+    ld e, a
     TwosComp de
-    add hl, de                                    ; $4C0E: $19
-    ld b, l                                       ; $4C0F: $45
-    ld c, $22                                     ; $4C10: $0E $22
-    call Math_Mult                                    ; $4C12: $CD $CA $04
-    ld a, [$CC85]                                 ; $4C15: $FA $85 $CC
-    ld b, a                                       ; $4C18: $47
-    ld a, [$CC84]                                 ; $4C19: $FA $84 $CC
-    ld c, a                                       ; $4C1C: $4F
-    add hl, bc                                    ; $4C1D: $09
-    ld a, h                                       ; $4C1E: $7C
-    ld [wBattle_CopyBuffer_Source + 1], a                                 ; $4C1F: $EA $8E $CD
-    ld a, l                                       ; $4C22: $7D
-    ld [wBattle_CopyBuffer_Source], a                                 ; $4C23: $EA $8D $CD
-    ld bc, wMenu_Battle_TableRowBuffer                                  ; $4C26: $01 $91 $CD
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $4C2E: $70
+    add hl, de
+    ld b, l
+    ld c, $22
+    call Math_Mult
+    ld a, [$CC85]
+    ld b, a
+    ld a, [$CC84]
+    ld c, a
+    add hl, bc
+    ld a, h
+    ld [wBattle_CopyBuffer_Source + 1], a
+    ld a, l
+    ld [wBattle_CopyBuffer_Source], a
+    ld bc, wMenu_Battle_TableRowBuffer
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign ItemSpell_GetDataFromAddress
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $4C37: $21 $91 $CD
-    ld bc, $000C                                  ; $4C3A: $01 $0C $00
-    add hl, bc                                    ; $4C3D: $09
-    push hl                                       ; $4C3E: $E5
-    ld a, [wBattle_TempCounter]                                 ; $4C3F: $FA $74 $D0
-    ld b, a                                       ; $4C42: $47
-    ld c, $0D                                     ; $4C43: $0E $0D
-    call Math_Mult                                    ; $4C45: $CD $CA $04
+    ld hl, wMenu_Battle_TableRowBuffer
+    ld bc, $000C
+    add hl, bc
+    push hl
+    ld a, [wBattle_TempCounter]
+    ld b, a
+    ld c, $0D
+    call Math_Mult
     Sla16 hl, 4
 
-    ld bc, $8860                                  ; $4C51: $01 $60 $88
-    add hl, bc                                    ; $4C54: $09
-    push hl                                       ; $4C55: $E5
-    ld a, [wBattle_TempCounter]                                 ; $4C56: $FA $74 $D0
-    ld b, a                                       ; $4C59: $47
-    ld c, $20                                     ; $4C5A: $0E $20
-    call Math_Mult                                    ; $4C5C: $CD $CA $04
-    ld bc, $9C02                                  ; $4C5F: $01 $02 $9C
-    add hl, bc                                    ; $4C62: $09
-    ld b, h                                       ; $4C63: $44
-    ld c, l                                       ; $4C64: $4D
-    pop de                                        ; $4C65: $D1
-    pop hl                                        ; $4C66: $E1
+    ld bc, $8860
+    add hl, bc
+    push hl
+    ld a, [wBattle_TempCounter]
+    ld b, a
+    ld c, $20
+    call Math_Mult
+    ld bc, $9C02
+    add hl, bc
+    ld b, h
+    ld c, l
+    pop de
+    pop hl
     Menu_TextSetup $01, de, bc, $0D, hl
     Menu_TextUpdateLoop
-    ld hl, wBattle_TempCounter                                  ; $4CD1: $21 $74 $D0
-    inc [hl]                                      ; $4CD4: $34
-    ld a, $05                                     ; $4CD5: $3E $05
-    cp [hl]                                       ; $4CD7: $BE
-    jp nz, Jump_005_4BF1                          ; $4CD8: $C2 $F1 $4B
+    ld hl, wBattle_TempCounter
+    inc [hl]
+    ld a, $05
+    cp [hl]
+    jp nz, Jump_005_4BF1
 
-    xor a                                         ; $4CDB: $AF
-    ld [wBattle_TempCounter], a                                 ; $4CDC: $EA $74 $D0
+    xor a
+    ld [wBattle_TempCounter], a
 
 Jump_005_4CDF:
-    ld hl, $CC78                                  ; $4CDF: $21 $78 $CC
-    ld a, [wBattle_TempCounter]                                 ; $4CE2: $FA $74 $D0
-    ld c, a                                       ; $4CE5: $4F
-    ld b, $00                                     ; $4CE6: $06 $00
-    add hl, bc                                    ; $4CE8: $09
-    add hl, bc                                    ; $4CE9: $09
+    ld hl, $CC78
+    ld a, [wBattle_TempCounter]
+    ld c, a
+    ld b, $00
+    add hl, bc
+    add hl, bc
     DerefHL
     Battery_On
     Battery_SetBank "XRAM Gamestate"
-    ld e, [hl]                                    ; $4CFA: $5E
-    ld d, $00                                     ; $4CFB: $16 $00
+    ld e, [hl]
+    ld d, $00
     Battery_Off
-    xor a                                         ; $4D01: $AF
-    cp e                                          ; $4D02: $BB
-    jr nz, jr_005_4D0F                            ; $4D03: $20 $0A
+    xor a
+    cp e
+    jr nz, jr_005_4D0F
 
-    ld a, $F0                                     ; $4D05: $3E $F0
-    ld hl, wX1                                  ; $4D07: $21 $2D $C9
-    ld [hl+], a                                   ; $4D0A: $22
-    ld [hl+], a                                   ; $4D0B: $22
-    ld [hl+], a                                   ; $4D0C: $22
-    jr jr_005_4D12                                ; $4D0D: $18 $03
+    ld a, $F0
+    ld hl, wX1
+    ld [hl+], a
+    ld [hl+], a
+    ld [hl+], a
+    jr jr_005_4D12
 
 jr_005_4D0F:
-    call Math_ConvertNumberToDigits                                    ; $4D0F: $CD $1A $04
+    call Math_ConvertNumberToDigits
 
 jr_005_4D12:
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $4D12: $21 $91 $CD
-    ld a, [wX100]                                 ; $4D15: $FA $2F $C9
-    add $30                                       ; $4D18: $C6 $30
-    ld [hl+], a                                   ; $4D1A: $22
-    ld a, [wX10]                                 ; $4D1B: $FA $2E $C9
-    add $30                                       ; $4D1E: $C6 $30
-    ld [hl+], a                                   ; $4D20: $22
-    ld a, [wX1]                                 ; $4D21: $FA $2D $C9
-    add $30                                       ; $4D24: $C6 $30
-    ld [hl+], a                                   ; $4D26: $22
-    ld a, [wBattle_TempCounter]                                 ; $4D27: $FA $74 $D0
-    ld b, a                                       ; $4D2A: $47
-    ld c, $03                                     ; $4D2B: $0E $03
-    call Math_Mult                                    ; $4D2D: $CD $CA $04
+    ld hl, wMenu_Battle_TableRowBuffer
+    Math_DigitsToStringHL
+    ld a, [wBattle_TempCounter]
+    ld b, a
+    ld c, $03
+    call Math_Mult
     Sla16 hl, 4
 
-    ld bc, $8C70                                  ; $4D39: $01 $70 $8C
-    add hl, bc                                    ; $4D3C: $09
-    push hl                                       ; $4D3D: $E5
-    ld a, [wBattle_TempCounter]                                 ; $4D3E: $FA $74 $D0
-    ld b, a                                       ; $4D41: $47
-    ld c, $20                                     ; $4D42: $0E $20
-    call Math_Mult                                    ; $4D44: $CD $CA $04
-    ld bc, $9C10                                  ; $4D47: $01 $10 $9C
-    add hl, bc                                    ; $4D4A: $09
-    ld b, h                                       ; $4D4B: $44
-    ld c, l                                       ; $4D4C: $4D
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $4D4D: $21 $91 $CD
-    pop de                                        ; $4D50: $D1
+    ld bc, $8C70
+    add hl, bc
+    push hl
+    ld a, [wBattle_TempCounter]
+    ld b, a
+    ld c, $20
+    call Math_Mult
+    ld bc, $9C10
+    add hl, bc
+    ld b, h
+    ld c, l
+    ld hl, wMenu_Battle_TableRowBuffer
+    pop de
 
     Menu_TextSetup $01, de, bc, $03, hl
     Menu_TextUpdateLoop
 
-    ld hl, wBattle_TempCounter                                  ; $4DBB: $21 $74 $D0
-    inc [hl]                                      ; $4DBE: $34
-    ld a, $05                                     ; $4DBF: $3E $05
-    cp [hl]                                       ; $4DC1: $BE
-    jp nz, Jump_005_4CDF                          ; $4DC2: $C2 $DF $4C
+    ld hl, wBattle_TempCounter
+    inc [hl]
+    ld a, $05
+    cp [hl]
+    jp nz, Jump_005_4CDF
 
 Jump_005_4DC5:
-    ld hl, $CC78                                  ; $4DC5: $21 $78 $CC
-    ld de, $D09B                                  ; $4DC8: $11 $9B $D0
-    ld c, $05                                     ; $4DCB: $0E $05
+    ld hl, $CC78
+    ld de, wBattle_CursorTableValidIDs
+    ld c, $05
 
 jr_005_4DCD:
-    push de                                       ; $4DCD: $D5
-    ld a, [hl+]                                   ; $4DCE: $2A
-    ld d, [hl]                                    ; $4DCF: $56
-    ld e, a                                       ; $4DD0: $5F
-    push hl                                       ; $4DD1: $E5
+    push de
+    ld a, [hl+]
+    ld d, [hl]
+    ld e, a
+    push hl
     TwosComp de
-    FGet16 hl, $CC82                                  ; $4DD9: $21 $82 $CC
-    add hl, de                                    ; $4DDF: $19
-    ld a, h                                       ; $4DE0: $7C
-    or l                                          ; $4DE1: $B5
-    pop hl                                        ; $4DE2: $E1
-    pop de                                        ; $4DE3: $D1
-    ld [de], a                                    ; $4DE4: $12
-    inc de                                        ; $4DE5: $13
-    inc hl                                        ; $4DE6: $23
-    dec c                                         ; $4DE7: $0D
-    jr nz, jr_005_4DCD                            ; $4DE8: $20 $E3
+    FGet16 hl, $CC82
+    add hl, de
+    ld a, h
+    or l
+    pop hl
+    pop de
+    ld [de], a
+    inc de
+    inc hl
+    dec c
+    jr nz, jr_005_4DCD
 
-    ld a, $01                                     ; $4DEA: $3E $01
-    ld [de], a                                    ; $4DEC: $12
-    inc de                                        ; $4DED: $13
-    ld [de], a                                    ; $4DEE: $12
+    ld a, $01
+    ld [de], a
+    inc de
+    ld [de], a
     Battery_On
     Battery_SetBank "XRAM Gamestate"
-    FGet16 bc, $CC82                                  ; $4DFC: $21 $82 $CC                                       ; $4E01: $4F
+    FGet16 bc, $CC82
     TwosComp bc
-    FGet16 hl, $CC78                                  ; $4E09: $21 $78 $CC
-    add hl, bc                                    ; $4E0F: $09
-    ld b, $00                                     ; $4E10: $06 $00
-    ld c, l                                       ; $4E12: $4D
+    FGet16 hl, $CC78
+    add hl, bc
+    ld b, $00
+    ld c, l
 
 jr_005_4E13:
-    FGet16 hl, $CC82                                  ; $4E13: $21 $82 $CC
-    dec bc                                        ; $4E19: $0B
-    ld a, $FF                                     ; $4E1A: $3E $FF
-    cp c                                          ; $4E1C: $B9
-    jr z, jr_005_4E26                             ; $4E1D: $28 $07
+    FGet16 hl, $CC82
+    dec bc
+    ld a, $FF
+    cp c
+    jr z, jr_005_4E26
 
-    add hl, bc                                    ; $4E1F: $09
-    ld a, [hl]                                    ; $4E20: $7E
-    and a                                         ; $4E21: $A7
-    jr z, jr_005_4E13                             ; $4E22: $28 $EF
+    add hl, bc
+    ld a, [hl]
+    and a
+    jr z, jr_005_4E13
 
-    jr jr_005_4E2A                                ; $4E24: $18 $04
+    jr jr_005_4E2A
 
 jr_005_4E26:
-    xor a                                         ; $4E26: $AF
-    ld [$D0A0], a                                 ; $4E27: $EA $A0 $D0
+    xor a
+    ld [$D0A0], a
 
 jr_005_4E2A:
-    FGet16 bc, $CC82                                  ; $4E2A: $21 $82 $CC                                       ; $4E2F: $4F
+    FGet16 bc, $CC82
     TwosComp bc
-    FGet16 hl, $CC80                                  ; $4E37: $21 $80 $CC
-    add hl, bc                                    ; $4E3D: $09
-    ld b, $00                                     ; $4E3E: $06 $00
-    ld c, l                                       ; $4E40: $4D
-    ld a, c                                       ; $4E41: $79
-    and c                                         ; $4E42: $A1
-    jr z, jr_005_4E58                             ; $4E43: $28 $13
+    FGet16 hl, $CC80
+    add hl, bc
+    ld b, $00
+    ld c, l
+    ld a, c
+    and c
+    jr z, jr_005_4E58
 
 jr_005_4E45:
-    FGet16 hl, $CC82                                  ; $4E45: $21 $82 $CC
-    inc bc                                        ; $4E4B: $03
-    ld a, $FF                                     ; $4E4C: $3E $FF
-    cp c                                          ; $4E4E: $B9
-    jr z, jr_005_4E58                             ; $4E4F: $28 $07
+    FGet16 hl, $CC82
+    inc bc
+    ld a, $FF
+    cp c
+    jr z, jr_005_4E58
 
-    add hl, bc                                    ; $4E51: $09
-    ld a, [hl]                                    ; $4E52: $7E
-    and a                                         ; $4E53: $A7
-    jr z, jr_005_4E45                             ; $4E54: $28 $EF
+    add hl, bc
+    ld a, [hl]
+    and a
+    jr z, jr_005_4E45
 
-    jr jr_005_4E5C                                ; $4E56: $18 $04
+    jr jr_005_4E5C
 
 jr_005_4E58:
-    xor a                                         ; $4E58: $AF
-    ld [$D0A1], a                                 ; $4E59: $EA $A1 $D0
+    xor a
+    ld [$D0A1], a
 
 jr_005_4E5C:
     Battery_Off
-    ld a, $31                                     ; $4E60: $3E $31
-    ld [wVBlank_Func], a                                 ; $4E62: $EA $E4 $C6
-    ld a, $39                                     ; $4E65: $3E $39
-    ld [wVBlank_Func+1], a                                 ; $4E67: $EA $E5 $C6
-    call System_UpdateGame                                    ; $4E6A: $CD $BB $08
+    ld a, $31
+    ld [wVBlank_Func], a
+    ld a, $39
+    ld [wVBlank_Func+1], a
+    call System_UpdateGame
 
 Jump_005_4E6D:
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_WindowSprite
 
-    Do_Menu_Init Menu_CursorTable_Battle_SpellItem, %11110011, $D09B, MenuFunc_Flash, MenuFunc_Flash, Option0, Menu_CURSOR_BLINK, Menu_CURSOR_SPRITE
+    Do_Menu_Init Menu_CursorTable_Battle_SpellItem, %11110011, wBattle_CursorTableValidIDs, MenuFunc_Flash, MenuFunc_Flash, Option0, Menu_CURSOR_BLINK, Menu_CURSOR_SPRITE
 
-    ld hl, wCntDown                                  ; $4EBE: $21 $32 $C9
-    xor a                                         ; $4EC1: $AF
-    ld [hl], a                                    ; $4EC2: $77
+    ld hl, wCntDown
+    xor a
+    ld [hl], a
 
 jr_005_4EC3:
     Do_CallForeign Menu_Do
-    call System_UpdateGame                                    ; $4ECB: $CD $BB $08
-    ld a, [wMenu_ReturnValue]                                 ; $4ECE: $FA $A7 $CC
-    cp $FF                                        ; $4ED1: $FE $FF
-    jr z, jr_005_4EC3                             ; $4ED3: $28 $EE
+    call System_UpdateGame
+    ld a, [wMenu_ReturnValue]
+    cp $FF
+    jr z, jr_005_4EC3
 
-    cp $FE                                        ; $4ED5: $FE $FE
-    ret z                                         ; $4ED7: $C8
+    cp $FE
+    ret z
 
-    cp $05                                        ; $4ED8: $FE $05
-    jp nc, Jump_005_4B70                          ; $4EDA: $D2 $70 $4B
+    cp $05
+    jp nc, Jump_005_4B70
 
-    ld c, a                                       ; $4EDD: $4F
-    ld b, $00                                     ; $4EDE: $06 $00
-    ld hl, $CC78                                  ; $4EE0: $21 $78 $CC
-    add hl, bc                                    ; $4EE3: $09
-    add hl, bc                                    ; $4EE4: $09
+    ld c, a
+    ld b, $00
+    ld hl, $CC78
+    add hl, bc
+    add hl, bc
     DerefHL
-    ld a, [$CC83]                                 ; $4EE8: $FA $83 $CC
-    ld d, a                                       ; $4EEB: $57
-    ld a, [$CC82]                                 ; $4EEC: $FA $82 $CC
-    ld e, a                                       ; $4EEF: $5F
+    ld a, [$CC83]
+    ld d, a
+    ld a, [$CC82]
+    ld e, a
     TwosComp de
-    add hl, de                                    ; $4EF7: $19
-    ld b, l                                       ; $4EF8: $45
-    ld c, $22                                     ; $4EF9: $0E $22
-    call Math_Mult                                    ; $4EFB: $CD $CA $04
-    ld a, [$CC85]                                 ; $4EFE: $FA $85 $CC
-    ld b, a                                       ; $4F01: $47
-    ld a, [$CC84]                                 ; $4F02: $FA $84 $CC
-    ld c, a                                       ; $4F05: $4F
-    add hl, bc                                    ; $4F06: $09
-    push hl                                       ; $4F07: $E5
-    ld a, h                                       ; $4F08: $7C
-    ld [wBattle_CopyBuffer_Source + 1], a                                 ; $4F09: $EA $8E $CD
-    ld a, l                                       ; $4F0C: $7D
-    ld [wBattle_CopyBuffer_Source], a                                 ; $4F0D: $EA $8D $CD
-    ld bc, wMenu_Battle_TableRowBuffer                                  ; $4F10: $01 $91 $CD
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $4F18: $70
+    add hl, de
+    ld b, l
+    ld c, $22
+    call Math_Mult
+    ld a, [$CC85]
+    ld b, a
+    ld a, [$CC84]
+    ld c, a
+    add hl, bc
+    push hl
+    ld a, h
+    ld [wBattle_CopyBuffer_Source + 1], a
+    ld a, l
+    ld [wBattle_CopyBuffer_Source], a
+    ld bc, wMenu_Battle_TableRowBuffer
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign ItemSpell_GetDataFromAddress
-    ld a, [$CD9A]                                 ; $4F21: $FA $9A $CD
-    and $01                                       ; $4F24: $E6 $01
-    jr z, jr_005_4F43                             ; $4F26: $28 $1B
+    ld a, [$CD9A]
+    and $01
+    jr z, jr_005_4F43
 
-    ld a, [$CD96]                                 ; $4F28: $FA $96 $CD
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $4F2B: $EA $03 $D1
-    ld a, [$CD95]                                 ; $4F2E: $FA $95 $CD
-    ld [wBattle_Creature_Current.BattleCmd_Cost], a                                 ; $4F31: $EA $02 $D1
-    ld a, [$CD98]                                 ; $4F34: $FA $98 $CD
-    ld [wBattle_Creature_Current.BattleCmd_Rating], a                                 ; $4F37: $EA $05 $D1
-    call Battle_Helpers_CheckValidTarget                            ; $4F3A: $CD $E6 $43
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $4F3D: $FA $AF $D0
-    and a                                         ; $4F40: $A7
-    jr nz, jr_005_4F4C                            ; $4F41: $20 $09
+    ld a, [$CD96]
+    ld [wBattle_Creature_Current.BattleCmd_Target], a
+    ld a, [$CD95]
+    ld [wBattle_Creature_Current.BattleCmd_Cost], a
+    ld a, [$CD98]
+    ld [wBattle_Creature_Current.BattleCmd_Rating], a
+    call Battle_Helpers_CheckValidTarget
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    jr nz, jr_005_4F4C
 
 jr_005_4F43:
-    pop bc                                        ; $4F43: $C1
+    pop bc
     Sound_Request_StartSFX0 SFXID_SfxCancel
-    jp Jump_005_4E6D                              ; $4F49: $C3 $6D $4E
+    jp Jump_005_4E6D
 
 
 jr_005_4F4C:
-    pop bc                                        ; $4F4C: $C1
-    FSet16 $D107, bc                                    ; $4F52: $70
-    ret                                           ; $4F53: $C9
+    pop bc
+    FSet16 $D107, bc
+    ret
 
-    ; $4F54
+
 Battle_Menu_Ring:
+    ; Allows the user to select a creature to Summon
+    ; Outputs:
+    ;   wBattle_SummonRingIndex - the selected ring
+    ;   wBattle_Creature_Current.BattleCmd_MenuChoice - the associated Creature_Struct of the creature we want to summon
+    ;   wMenu_ReturnValue
+    ;   wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, $01                                     ; $4F5B: $3E $01
-    ld [$D0C0], a                                 ; $4F5D: $EA $C0 $D0
-    ld a, $04                                     ; $4F60: $3E $04
-    ld [wMenu_CursorID], a                                 ; $4F62: $EA $81 $CD
-    xor a                                         ; $4F65: $AF
+    Set8 $D0C0, $01 ; TODO
+    Set8 wMenu_CursorID, Enum_Menu_CursorTable_Battle_Summon_Creatur4 ; TODO - this seems useless as we will immediately replace it in Do_Menu_Init?
+    ; wMenu_SelectedRingIndex = 0 (first page)
+    xor a
 
-Jump_005_4F66:
-    ld [$CDD6], a                                 ; $4F66: $EA $D6 $CD
+    .ReloadMenu: ; Jump to here when swapping the Summon page
+
+    ld [wMenu_SelectedRingIndex], a
     Battle_TextboxClose
     Battle_TextboxOpen
-    Do_CallForeign Call_006_5385
-    ld a, $20                                     ; $4FAD: $3E $20
-    ld hl, $D054                                  ; $4FAF: $21 $54 $D0
-    ld b, $0F                                     ; $4FB2: $06 $0F
+    ; Load the Creature names (0-4 or 5-9)
+    Do_CallForeign CreatureName_SummonMenuLoadNames
+    ; Load the summon costs
+    ; First, let's default all the 5 values to "   "
+    ld a, " "
+    ld hl, wBattle_Menu_CommandCostString
+    ld b, wBattle_Menu_CommandCostString.End - wBattle_Menu_CommandCostString
+    .Loop1:
+        ld [hl+], a
+        dec b
+        jr nz, .Loop1
 
-jr_005_4FB4:
-    ld [hl+], a                                   ; $4FB4: $22
-    dec b                                         ; $4FB5: $05
-    jr nz, jr_005_4FB4                            ; $4FB6: $20 $FC
+    ; Let's set the valid selections for the Menu
+    ; By default, we assume we have no creatures (so first 5 options are invalid) (Enum_Menu_CursorTable_Battle_Summon_Creatur0-4)
+    xor a
+    ld hl, wBattle_CursorTableValidIDs
+    ld b, $05
+    .Loop2:
+        ld [hl+], a
+        dec b
+        jr nz, .Loop2
 
-    xor a                                         ; $4FB8: $AF
-    ld hl, $D09B                                  ; $4FB9: $21 $9B $D0
-    ld b, $05                                     ; $4FBC: $06 $05
-
-jr_005_4FBE:
-    ld [hl+], a                                   ; $4FBE: $22
-    dec b                                         ; $4FBF: $05
-    jr nz, jr_005_4FBE                            ; $4FC0: $20 $FC
-
+    ; If the 6th creature is not $FF/INVENTORY_RINGS_NORING,
+    ; Then we are allowed to select the second page of creatures
+    ; (Enum_Menu_CursorTable_Battle_Summon_SwapRing)
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$A11D]                                 ; $4FCF: $FA $1D $A1
-    push af                                       ; $4FD2: $F5
+    ld a, [xInventory_Rings + 5]
+    push af
     Battery_Off
-    pop af                                        ; $4FD7: $F1
-    inc a                                         ; $4FD8: $3C
-    ld [hl+], a                                   ; $4FD9: $22
-    xor a                                         ; $4FDA: $AF
-    ld [hl+], a                                   ; $4FDB: $22
+    pop af
+    inc a
+    ld [hl+], a
+
+    ; Even though the 7th option doesn't exist, we need to set it to 0 so that
+    ; Battle00_VBlank_UpdatePreviousNextArrows does not add a "Next" arrow
+    xor a
+    ld [hl+], a
+
+    ; Let's check and process all 5 rings now
     SwitchRAMBank BANK("WRAM BATTLE")
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $4FF0: $FA $D6 $CD
-    ld c, a                                       ; $4FF3: $4F
-    ld b, $00                                     ; $4FF4: $06 $00
-    ld hl, $A118                                  ; $4FF6: $21 $18 $A1
-    add hl, bc                                    ; $4FF9: $09
-    ld a, [hl]                                    ; $4FFA: $7E
-    cp $FF                                        ; $4FFB: $FE $FF
-    ld b, a                                       ; $4FFD: $47
-    jr z, jr_005_5013                             ; $4FFE: $28 $13
+    FOR loop, 0, 5
+        IF loop != 0
+            ; Increment the index except for the first loop
+            ld hl, wMenu_SelectedRingIndex
+            inc [hl]
+        ENDC
+        ; First, we get the ring id
+        Menu_RingToID wMenu_SelectedRingIndex
 
-    ld b, a                                       ; $5000: $47
-    ld c, $25                                     ; $5001: $0E $25
-    call Math_Mult                                    ; $5003: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $500E: $01 $00 $A0
-    add hl, bc                                    ; $5011: $09
-    ld b, [hl]                                    ; $5012: $46
+        ; Process the ring if the ring is valid
+        Battery_SetBank "XRAM Creatures"
+        Battery_On
+        ld a, b
+        cp CreatureID_Null ; == INVENTORY_RINGS_NORING
+        jr z, .SkipRing\@
+            ; Valid menu option
+            Set8 wBattle_CursorTableValidIDs + loop, $01
+            ; Let's write the creature's max energy
+            ; First we get the value (big-endian)
+            ld c, (oCreature_Struct_MaxEnergy - oCreature_Struct_ID)
+            ld b, $00
+            add hl, bc
+            ld a, [hl+]
+            ld e, [hl]
+            ld d, a
 
-jr_005_5013:
+            ; Then we save the value as a string
+            call Math_ConvertNumberToDigits
+            ld hl, wBattle_Menu_CommandCostString + loop*(wBattle_Menu_CommandCostString.Cmd1 - wBattle_Menu_CommandCostString.Cmd0)
+            Math_DigitsToStringHL
+        .SkipRing\@:
+    ENDR
+
+    ; We marked all the valid rings as valid menu options, but actually we now need to disable
+    ; the creatures that have already been summoned (since you can't summon them twice)
+
+    ; We've incremented wBattle_SelectedRingIndex so we need to figure out the original value
+    ; 9 -> 5
+    ; 4 -> 0
     Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, b                                       ; $5024: $78
-    cp $FF                                        ; $5025: $FE $FF
-    jr z, jr_005_504E                             ; $5027: $28 $25
+    ld c, $00
+    ld a, [wBattle_SelectedRingIndex]
+    cp $09
+    jr nz, .RingIndex0
+    .RingIndex5:
+        ld c, $05
+    .RingIndex0:
+    ld b, $00
+    ld hl, wBattle_UsedRings
+    add hl, bc
+    ; Now we have wBattle_UsedRings + [0 or 5]
+    ; Check each ring. If the ring is summoned and alive, disable its corresponding menu option
+    ld bc, wBattle_CursorTableValidIDs
+    ld d, $05
+    .CheckSummonedRingLoop:
+        ld a, [hl+]
+        cp BATTLE_USEDRINGS_ALIVE
+        jr nz, .NotSummonedRing
+        .SummonedRing:
+            ; Disable
+            xor a
+            ld [bc], a
+        .NotSummonedRing:
+        inc bc
+        dec d
+        jr nz, .CheckSummonedRingLoop
 
-    ld a, $01                                     ; $5029: $3E $01
-    ld [$D09B], a                                 ; $502B: $EA $9B $D0
-    ld c, $07                                     ; $502E: $0E $07
-    ld b, $00                                     ; $5030: $06 $00
-    add hl, bc                                    ; $5032: $09
-    ld a, [hl+]                                   ; $5033: $2A
-    ld e, [hl]                                    ; $5034: $5E
-    ld d, a                                       ; $5035: $57
-    call Math_ConvertNumberToDigits                                    ; $5036: $CD $1A $04
-    ld hl, $D054                                  ; $5039: $21 $54 $D0
-    ld a, [wX100]                                 ; $503C: $FA $2F $C9
-    add $30                                       ; $503F: $C6 $30
-    ld [hl+], a                                   ; $5041: $22
-    ld a, [wX10]                                 ; $5042: $FA $2E $C9
-    add $30                                       ; $5045: $C6 $30
-    ld [hl+], a                                   ; $5047: $22
-    ld a, [wX1]                                 ; $5048: $FA $2D $C9
-    add $30                                       ; $504B: $C6 $30
-    ld [hl+], a                                   ; $504D: $22
+    ; Check to see if we have at least 1 valid menu option
+    ld hl, wBattle_CursorTableValidIDs
+    ld d, $07
+    xor a
+    .CountValidOptions:
+        add [hl]
+        inc hl
+        dec d
+        jr nz, .CountValidOptions
 
-jr_005_504E:
-    ld hl, $CDD6                                  ; $504E: $21 $D6 $CD
-    inc [hl]                                      ; $5051: $34
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $505F: $FA $D6 $CD
-    ld c, a                                       ; $5062: $4F
-    ld b, $00                                     ; $5063: $06 $00
-    ld hl, $A118                                  ; $5065: $21 $18 $A1
-    add hl, bc                                    ; $5068: $09
-    ld a, [hl]                                    ; $5069: $7E
-    cp $FF                                        ; $506A: $FE $FF
-    ld b, a                                       ; $506C: $47
-    jr z, jr_005_5082                             ; $506D: $28 $13
+    and a
+    jr nz, .Pass
+    .NoValidMenuOptions:
+        ; No valid menu options. Cancel the Summon menu!
+        Set8 wMenu_ReturnValue, Menu_CANCEL
+        ret
+    .Pass:
 
-    ld b, a                                       ; $506F: $47
-    ld c, $25                                     ; $5070: $0E $25
-    call Math_Mult                                    ; $5072: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $507D: $01 $00 $A0
-    add hl, bc                                    ; $5080: $09
-    ld b, [hl]                                    ; $5081: $46
-
-jr_005_5082:
-    Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, b                                       ; $5093: $78
-    cp $FF                                        ; $5094: $FE $FF
-    jr z, jr_005_50BD                             ; $5096: $28 $25
-
-    ld a, $01                                     ; $5098: $3E $01
-    ld [$D09C], a                                 ; $509A: $EA $9C $D0
-    ld c, $07                                     ; $509D: $0E $07
-    ld b, $00                                     ; $509F: $06 $00
-    add hl, bc                                    ; $50A1: $09
-    ld a, [hl+]                                   ; $50A2: $2A
-    ld e, [hl]                                    ; $50A3: $5E
-    ld d, a                                       ; $50A4: $57
-    call Math_ConvertNumberToDigits                                    ; $50A5: $CD $1A $04
-    ld hl, wBattle_Menu_CommandCostString                                  ; $50A8: $21 $57 $D0
-    ld a, [wX100]                                 ; $50AB: $FA $2F $C9
-    add $30                                       ; $50AE: $C6 $30
-    ld [hl+], a                                   ; $50B0: $22
-    ld a, [wX10]                                 ; $50B1: $FA $2E $C9
-    add $30                                       ; $50B4: $C6 $30
-    ld [hl+], a                                   ; $50B6: $22
-    ld a, [wX1]                                 ; $50B7: $FA $2D $C9
-    add $30                                       ; $50BA: $C6 $30
-    ld [hl+], a                                   ; $50BC: $22
-
-jr_005_50BD:
-    ld hl, $CDD6                                  ; $50BD: $21 $D6 $CD
-    inc [hl]                                      ; $50C0: $34
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $50CE: $FA $D6 $CD
-    ld c, a                                       ; $50D1: $4F
-    ld b, $00                                     ; $50D2: $06 $00
-    ld hl, $A118                                  ; $50D4: $21 $18 $A1
-    add hl, bc                                    ; $50D7: $09
-    ld a, [hl]                                    ; $50D8: $7E
-    cp $FF                                        ; $50D9: $FE $FF
-    ld b, a                                       ; $50DB: $47
-    jr z, jr_005_50F1                             ; $50DC: $28 $13
-
-    ld b, a                                       ; $50DE: $47
-    ld c, $25                                     ; $50DF: $0E $25
-    call Math_Mult                                    ; $50E1: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $50EC: $01 $00 $A0
-    add hl, bc                                    ; $50EF: $09
-    ld b, [hl]                                    ; $50F0: $46
-
-jr_005_50F1:
-    Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, b                                       ; $5102: $78
-    cp $FF                                        ; $5103: $FE $FF
-    jr z, jr_005_512C                             ; $5105: $28 $25
-
-    ld a, $01                                     ; $5107: $3E $01
-    ld [$D09D], a                                 ; $5109: $EA $9D $D0
-    ld c, $07                                     ; $510C: $0E $07
-    ld b, $00                                     ; $510E: $06 $00
-    add hl, bc                                    ; $5110: $09
-    ld a, [hl+]                                   ; $5111: $2A
-    ld e, [hl]                                    ; $5112: $5E
-    ld d, a                                       ; $5113: $57
-    call Math_ConvertNumberToDigits                                    ; $5114: $CD $1A $04
-    ld hl, $D05A                                  ; $5117: $21 $5A $D0
-    ld a, [wX100]                                 ; $511A: $FA $2F $C9
-    add $30                                       ; $511D: $C6 $30
-    ld [hl+], a                                   ; $511F: $22
-    ld a, [wX10]                                 ; $5120: $FA $2E $C9
-    add $30                                       ; $5123: $C6 $30
-    ld [hl+], a                                   ; $5125: $22
-    ld a, [wX1]                                 ; $5126: $FA $2D $C9
-    add $30                                       ; $5129: $C6 $30
-    ld [hl+], a                                   ; $512B: $22
-
-jr_005_512C:
-    ld hl, $CDD6                                  ; $512C: $21 $D6 $CD
-    inc [hl]                                      ; $512F: $34
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $513D: $FA $D6 $CD
-    ld c, a                                       ; $5140: $4F
-    ld b, $00                                     ; $5141: $06 $00
-    ld hl, $A118                                  ; $5143: $21 $18 $A1
-    add hl, bc                                    ; $5146: $09
-    ld a, [hl]                                    ; $5147: $7E
-    cp $FF                                        ; $5148: $FE $FF
-    ld b, a                                       ; $514A: $47
-    jr z, jr_005_5160                             ; $514B: $28 $13
-
-    ld b, a                                       ; $514D: $47
-    ld c, $25                                     ; $514E: $0E $25
-    call Math_Mult                                    ; $5150: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $515B: $01 $00 $A0
-    add hl, bc                                    ; $515E: $09
-    ld b, [hl]                                    ; $515F: $46
-
-jr_005_5160:
-    Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, b                                       ; $5171: $78
-    cp $FF                                        ; $5172: $FE $FF
-    jr z, jr_005_519B                             ; $5174: $28 $25
-
-    ld a, $01                                     ; $5176: $3E $01
-    ld [$D09E], a                                 ; $5178: $EA $9E $D0
-    ld c, $07                                     ; $517B: $0E $07
-    ld b, $00                                     ; $517D: $06 $00
-    add hl, bc                                    ; $517F: $09
-    ld a, [hl+]                                   ; $5180: $2A
-    ld e, [hl]                                    ; $5181: $5E
-    ld d, a                                       ; $5182: $57
-    call Math_ConvertNumberToDigits                                    ; $5183: $CD $1A $04
-    ld hl, $D05D                                  ; $5186: $21 $5D $D0
-    ld a, [wX100]                                 ; $5189: $FA $2F $C9
-    add $30                                       ; $518C: $C6 $30
-    ld [hl+], a                                   ; $518E: $22
-    ld a, [wX10]                                 ; $518F: $FA $2E $C9
-    add $30                                       ; $5192: $C6 $30
-    ld [hl+], a                                   ; $5194: $22
-    ld a, [wX1]                                 ; $5195: $FA $2D $C9
-    add $30                                       ; $5198: $C6 $30
-    ld [hl+], a                                   ; $519A: $22
-
-jr_005_519B:
-    ld hl, $CDD6                                  ; $519B: $21 $D6 $CD
-    inc [hl]                                      ; $519E: $34
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $51AC: $FA $D6 $CD
-    ld c, a                                       ; $51AF: $4F
-    ld b, $00                                     ; $51B0: $06 $00
-    ld hl, $A118                                  ; $51B2: $21 $18 $A1
-    add hl, bc                                    ; $51B5: $09
-    ld a, [hl]                                    ; $51B6: $7E
-    cp $FF                                        ; $51B7: $FE $FF
-    ld b, a                                       ; $51B9: $47
-    jr z, jr_005_51CF                             ; $51BA: $28 $13
-
-    ld b, a                                       ; $51BC: $47
-    ld c, $25                                     ; $51BD: $0E $25
-    call Math_Mult                                    ; $51BF: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $51CA: $01 $00 $A0
-    add hl, bc                                    ; $51CD: $09
-    ld b, [hl]                                    ; $51CE: $46
-
-jr_005_51CF:
-    Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, b                                       ; $51E0: $78
-    cp $FF                                        ; $51E1: $FE $FF
-    jr z, jr_005_520A                             ; $51E3: $28 $25
-
-    ld a, $01                                     ; $51E5: $3E $01
-    ld [$D09F], a                                 ; $51E7: $EA $9F $D0
-    ld c, $07                                     ; $51EA: $0E $07
-    ld b, $00                                     ; $51EC: $06 $00
-    add hl, bc                                    ; $51EE: $09
-    ld a, [hl+]                                   ; $51EF: $2A
-    ld e, [hl]                                    ; $51F0: $5E
-    ld d, a                                       ; $51F1: $57
-    call Math_ConvertNumberToDigits                                    ; $51F2: $CD $1A $04
-    ld hl, $D060                                  ; $51F5: $21 $60 $D0
-    ld a, [wX100]                                 ; $51F8: $FA $2F $C9
-    add $30                                       ; $51FB: $C6 $30
-    ld [hl+], a                                   ; $51FD: $22
-    ld a, [wX10]                                 ; $51FE: $FA $2E $C9
-    add $30                                       ; $5201: $C6 $30
-    ld [hl+], a                                   ; $5203: $22
-    ld a, [wX1]                                 ; $5204: $FA $2D $C9
-    add $30                                       ; $5207: $C6 $30
-    ld [hl+], a                                   ; $5209: $22
-
-jr_005_520A:
-    Battery_Off
-    ld c, $00                                     ; $520E: $0E $00
-    ld a, [$D063]                                 ; $5210: $FA $63 $D0
-    cp $09                                        ; $5213: $FE $09
-    jr nz, jr_005_5219                            ; $5215: $20 $02
-
-    ld c, $05                                     ; $5217: $0E $05
-
-jr_005_5219:
-    ld b, $00                                     ; $5219: $06 $00
-    ld hl, $D37A                                  ; $521B: $21 $7A $D3
-    add hl, bc                                    ; $521E: $09
-    ld bc, $D09B                                  ; $521F: $01 $9B $D0
-    ld d, $05                                     ; $5222: $16 $05
-
-jr_005_5224:
-    ld a, [hl+]                                   ; $5224: $2A
-    cp $02                                        ; $5225: $FE $02
-    jr nz, jr_005_522B                            ; $5227: $20 $02
-
-    xor a                                         ; $5229: $AF
-    ld [bc], a                                    ; $522A: $02
-
-jr_005_522B:
-    inc bc                                        ; $522B: $03
-    dec d                                         ; $522C: $15
-    jr nz, jr_005_5224                            ; $522D: $20 $F5
-
-    ld hl, $D09B                                  ; $522F: $21 $9B $D0
-    ld d, $07                                     ; $5232: $16 $07
-    xor a                                         ; $5234: $AF
-
-jr_005_5235:
-    add [hl]                                      ; $5235: $86
-    inc hl                                        ; $5236: $23
-    dec d                                         ; $5237: $15
-    jr nz, jr_005_5235                            ; $5238: $20 $FB
-
-    and a                                         ; $523A: $A7
-    jr nz, jr_005_5243                            ; $523B: $20 $06
-
-    ld a, $FE                                     ; $523D: $3E $FE
-    ld [wMenu_ReturnValue], a                                 ; $523F: $EA $A7 $CC
-    ret                                           ; $5242: $C9
-
-
-jr_005_5243:
-    Menu_TextSetup $01, $8B80, $9C0F, $03, $D054 ;Row0 Right
+    ; Lets draw the Summon costs
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_SUMMONCOST0, BATTLE_MENU_TILEMAP_SUMMONCOST0, $03, wBattle_Menu_CommandCostString.Cmd0
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, $8BB0, $9C2F, $03, wBattle_Menu_CommandCostString ;Row1 Right
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_SUMMONCOST1, BATTLE_MENU_TILEMAP_SUMMONCOST1, $03, wBattle_Menu_CommandCostString.Cmd1
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, $8BE0, $9C4F, $03, $D05A ;Row2 Right
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_SUMMONCOST2, BATTLE_MENU_TILEMAP_SUMMONCOST2, $03, wBattle_Menu_CommandCostString.Cmd2
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, $8C10, $9C6F, $03, $D05D ;Row3 Right
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_SUMMONCOST3, BATTLE_MENU_TILEMAP_SUMMONCOST3, $03, wBattle_Menu_CommandCostString.Cmd3
     Menu_TextUpdateLoop
-    Menu_TextSetup $01, $8C40, $9C8F, $03, $D060 ;Row4 Right
+    Menu_TextSetup $01, BATTLE_MENU_VRAM_SUMMONCOST4, BATTLE_MENU_TILEMAP_SUMMONCOST4, $03, wBattle_Menu_CommandCostString.Cmd4
     Menu_TextUpdateLoop
 
-    ld a, $31                                     ; $5446: $3E $31
-    ld [wVBlank_Func], a                                 ; $5448: $EA $E4 $C6
-    ld a, $39                                     ; $544B: $3E $39
-    ld [wVBlank_Func+1], a                                 ; $544D: $EA $E5 $C6
-    call System_UpdateGame                                    ; $5450: $CD $BB $08
+    ; Conditionally draw the Prev (SwapRing) arrow. We never draw the Next arrow
+    Set16_M wVBlank_Func, Battle00_VBlank_UpdatePreviousNextArrows
+    call System_UpdateGame
+
     Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_WindowSprite
-    ld a, [wMenu_CursorID]                                 ; $545D: $FA $81 $CD
-    cp $04                                        ; $5460: $FE $04
-    jr z, jr_005_546B                             ; $5462: $28 $07
+    ld a, [wMenu_CursorID] ; TODO - isn't this useless as we are going to reset it in Do_Menu_Init?
+    cp Enum_Menu_CursorTable_Battle_Summon_Creatur4
+    jr z, .DoMenu
+        Set8 wMenu_ReturnValue, Menu_NULL
+        jr .MenuLoop
 
-    ld a, $FF                                     ; $5464: $3E $FF
-    ld [wMenu_ReturnValue], a                                 ; $5466: $EA $A7 $CC
-    jr jr_005_54B2                                ; $5469: $18 $47
+    .DoMenu:
 
-Jump_005_546B:
-jr_005_546B:
+    ; Let the user choose an option
+    Do_Menu_Init Menu_CursorTable_Battle_Summon, %11110011, wBattle_CursorTableValidIDs, MenuFunc_Flash, MenuFunc_Flash, Creatur0, Menu_CURSOR_NOBLINK, Menu_CURSOR_SPRITE
+    .MenuLoop:
+        Do_CallForeign Menu_Do
+        call System_UpdateGame
+        ld a, [wMenu_ReturnValue]
+        cp Menu_NULL
+        jr z, .MenuLoop
 
+    ; Cancel -> Exit
+    cp Menu_CANCEL
+    ret z
 
-    Do_Menu_Init Menu_CursorTable_Battle_Summon, %11110011, $D09B, MenuFunc_Flash, MenuFunc_Flash, Creatur0, Menu_CURSOR_NOBLINK, Menu_CURSOR_SPRITE
+    cp Enum_Menu_CursorTable_Battle_Summon_SwapRing
+    jr c, .SelectedCreature
+    .SwapRing:
+        ; We selected SwapRing, so we need to change wBattle_SelectedRingIndex to 0 or 5, and then reload the Menu
+        ld a, [wBattle_SelectedRingIndex]
+        inc a
+        cp $0A
+        jp nz, .ReloadMenu
+        xor a
+        jp .ReloadMenu
+    .SelectedCreature:
+        ; We selected a creature! The selected ring is the wMenu_ReturnValue, +5 if we are on the second page
+        ld a, [wMenu_ReturnValue]
+        ld [wMenu_SelectedRingIndex], a
+        ld b, a
+        ld a, [wBattle_SelectedRingIndex]
+        cp $09
+        jr nz, .FirstPage
+        .SecondPage:
+            ld a, b
+            add $05
+            ld [wMenu_SelectedRingIndex], a
+        .FirstPage:
 
+        ; Save the ring offset
+        Mov8 wBattle_SummonRingIndex, wMenu_SelectedRingIndex
 
-jr_005_54B2:
-    Do_CallForeign Menu_Do
-    call System_UpdateGame                                    ; $54BA: $CD $BB $08
-    ld a, [wMenu_ReturnValue]                                 ; $54BD: $FA $A7 $CC
-    cp $FF                                        ; $54C0: $FE $FF
-    jr z, jr_005_54B2                             ; $54C2: $28 $EE
+        ; Use this Macro to get the Creature_Struct saved in hl
+        Menu_RingToID wMenu_SelectedRingIndex
 
-    cp $FE                                        ; $54C4: $FE $FE
-    ret z                                         ; $54C6: $C8
+        Battery_SetBank "XRAM Creatures"
+        Battery_On
+        Set8 wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
 
-    cp $05                                        ; $54C7: $FE $05
-    jr c, jr_005_54D8                             ; $54C9: $38 $0D
+        ; Save the selected Struct
+        Set16 wBattle_Creature_Current.BattleCmd_MenuChoice, hl
 
-    ld a, [$D063]                                 ; $54CB: $FA $63 $D0
-    inc a                                         ; $54CE: $3C
-    cp $0A                                        ; $54CF: $FE $0A
-    jp nz, Jump_005_4F66                          ; $54D1: $C2 $66 $4F
+        ; Check to see if we have enough energy to summon the creature
+        ; And that there is an empty card to target
 
-    xor a                                         ; $54D4: $AF
-    jp Jump_005_4F66                              ; $54D5: $C3 $66 $4F
-
-
-jr_005_54D8:
-    ld a, [wMenu_ReturnValue]                                 ; $54D8: $FA $A7 $CC
-    ld [$CDD6], a                                 ; $54DB: $EA $D6 $CD
-    ld b, a                                       ; $54DE: $47
-    ld a, [$D063]                                 ; $54DF: $FA $63 $D0
-    cp $09                                        ; $54E2: $FE $09
-    jr nz, jr_005_54EC                            ; $54E4: $20 $06
-
-    ld a, b                                       ; $54E6: $78
-    add $05                                       ; $54E7: $C6 $05
-    ld [$CDD6], a                                 ; $54E9: $EA $D6 $CD
-
-jr_005_54EC:
-    ld a, [$CDD6]                                 ; $54EC: $FA $D6 $CD
-    ld [$D06F], a                                 ; $54EF: $EA $6F $D0
-    Battery_SetBank "XRAM Gamestate"
-    Battery_On
-    ld a, [$CDD6]                                 ; $54FF: $FA $D6 $CD
-    ld c, a                                       ; $5502: $4F
-    ld b, $00                                     ; $5503: $06 $00
-    ld hl, $A118                                  ; $5505: $21 $18 $A1
-    add hl, bc                                    ; $5508: $09
-    ld a, [hl]                                    ; $5509: $7E
-    cp $FF                                        ; $550A: $FE $FF
-    ld b, a                                       ; $550C: $47
-    jr z, jr_005_5522                             ; $550D: $28 $13
-
-    ld b, a                                       ; $550F: $47
-    ld c, $25                                     ; $5510: $0E $25
-    call Math_Mult                                    ; $5512: $CD $CA $04
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $A000                                  ; $551D: $01 $00 $A0
-    add hl, bc                                    ; $5520: $09
-    ld b, [hl]                                    ; $5521: $46
-
-jr_005_5522:
-    Battery_Off
-    Battery_SetBank "XRAM Creatures"
-    Battery_On
-    ld a, $0C                                     ; $5533: $3E $0C
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $5535: $EA $03 $D1
-    ld a, h                                       ; $5538: $7C
-    ld [$D108], a                                 ; $5539: $EA $08 $D1
-    ld a, l                                       ; $553C: $7D
-    ld [$D107], a                                 ; $553D: $EA $07 $D1
-    ld bc, $0008                                  ; $5540: $01 $08 $00
-    add hl, bc                                    ; $5543: $09
-    ld a, [hl]                                    ; $5544: $7E
-    ld [wBattle_Creature_Current.BattleCmd_Cost], a                                 ; $5545: $EA $02 $D1
-    call Battle_Helpers_CheckValidTarget                            ; $5548: $CD $E6 $43
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $554B: $FA $AF $D0
-    and a                                         ; $554E: $A7
-    jp z, Jump_005_546B                           ; $554F: $CA $6B $54
-
-    ret                                           ; $5552: $C9
+        ; We can't take the upper byte of the energy because the checking function caps out at 255
+        ld bc, oCreature_Struct_MaxEnergy + 1
+        add hl, bc
+        Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
+        call Battle_Helpers_CheckValidTarget
+        ld a, [wBattle_CurCreature_ValidBattleCmd]
+        and a
+        jp z, .DoMenu ; If invalid, allow the user to select another choice
+        ; Valid choice! return
+        ret
 
     ; $5553
 Battle_Menu_Spell:
@@ -1884,14 +1624,14 @@ Call_005_5575:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5578: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $557B: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5583: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $558C: $3E $FC
     ld [$C953], a                                 ; $558E: $EA $53 $C9
     ld a, [wBattle_Creature_Target.ID]                                 ; $5591: $FA $12 $D1
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5594: $EA $8C $CD
     ld bc, $C954                                  ; $5597: $01 $54 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $559F: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $55A8: $3E $FC
     ld [$C95E], a                                 ; $55AA: $EA $5E $C9
     ld hl, $C95F                                  ; $55AD: $21 $5F $C9
@@ -1937,7 +1677,7 @@ Call_005_55E0::
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $55E3: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $55E6: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $55EE: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $55F7: $3E $FC
     ld [$C953], a                                 ; $55F9: $EA $53 $C9
     ld bc, $C954                                  ; $55FC: $01 $54 $C9
@@ -1963,7 +1703,7 @@ Call_005_560E::
     ld [wBattle_CopyBuffer_Destination], a                                 ; $5619: $EA $8F $CD
     ld a, [$D0C7]                                 ; $561C: $FA $C7 $D0
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $561F: $EA $8C $CD
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $562A: $3E $FC
     ld [$C954], a                                 ; $562C: $EA $54 $C9
     ld a, [$D0C8]                                 ; $562F: $FA $C8 $D0
@@ -1999,7 +1739,7 @@ Call_005_5657::
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $565A: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $565D: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5665: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $566E: $3E $FC
     ld [$C953], a                                 ; $5670: $EA $53 $C9
     ld hl, $D109                                  ; $5673: $21 $09 $D1
@@ -2025,7 +1765,7 @@ jr_005_568D:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5695: $EA $8C $CD
     ld bc, $C95C                                  ; $5698: $01 $5C $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $56A0: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld a, $FC                                     ; $56A9: $3E $FC
     ld [$C966], a                                 ; $56AB: $EA $66 $C9
     ret                                           ; $56AE: $C9
@@ -2166,7 +1906,8 @@ jr_005_5788:
 
 Battle_Helpers_SelectMenu::
     ; Opens the Ring/Item/Spell menu and lets the user choose an option
-
+    ; Inputs:
+    ;   wBattle_Creature_Current.BattleCmd_Menu - id of selection
     ; Run the function by index
     ld a, [wBattle_Creature_Current.BattleCmd_Menu]
     add a
@@ -2250,7 +1991,7 @@ Call_005_57BA::
 Call_005_57FE:
     SwitchRAMBank BANK("WRAM BATTLE")
     ld bc, $D091                                  ; $5805: $01 $91 $D0
-    ld hl, $D09B                                  ; $5808: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $5808: $21 $9B $D0
     ld a, [wBattle_TargetMode]                                 ; $580B: $FA $B0 $D0
     cp $18                                        ; $580E: $FE $18
     jr z, jr_005_5821                             ; $5810: $28 $0F
@@ -2372,7 +2113,7 @@ jr_005_5882:
     jr jr_005_58A3                                ; $5896: $18 $0B
 
 jr_005_5898:
-    ld hl, $D09B                                  ; $5898: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $5898: $21 $9B $D0
     ld a, [wBattle_CurCreature_Slot]                                 ; $589B: $FA $B1 $D0
     ld c, a                                       ; $589E: $4F
     ld b, $00                                     ; $589F: $06 $00
@@ -2386,7 +2127,7 @@ jr_005_58A3:
     ; $58A6
 Call_005_58A6:
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D09B                                  ; $58AD: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $58AD: $21 $9B $D0
     ld a, $01                                     ; $58B0: $3E $01
     ld [hl+], a                                   ; $58B2: $22
     xor a                                         ; $58B3: $AF
@@ -2404,7 +2145,7 @@ jr_005_58B6:
 Call_005_58BD:
     SwitchRAMBank BANK("WRAM BATTLE")
     ld bc, $D091                                  ; $58C4: $01 $91 $D0
-    ld hl, $D09B                                  ; $58C7: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $58C7: $21 $9B $D0
     ld a, [wBattle_TargetMode]                                 ; $58CA: $FA $B0 $D0
     cp $0E                                        ; $58CD: $FE $0E
     jr z, jr_005_58D5                             ; $58CF: $28 $04
@@ -2498,8 +2239,7 @@ jr_005_5942:
 
 jr_005_5944:
 
-    Do_Menu_Init Menu_CursorTable_Battle_ChooseTarget, %11110011, $D09B, MenuFunc_Flash, MenuFunc_Flash, d, Menu_CURSOR_NOBLINK, Menu_CURSOR_ACTOR
-    ; TODO clarify D09B
+    Do_Menu_Init Menu_CursorTable_Battle_ChooseTarget, %11110011, wBattle_CursorTableValidIDs, MenuFunc_Flash, MenuFunc_Flash, d, Menu_CURSOR_NOBLINK, Menu_CURSOR_ACTOR
 
 
 jr_005_598A:
@@ -2525,7 +2265,7 @@ jr_005_5996:
     ; $59B0
 Call_005_59B0:
     ld bc, $D091                                  ; $59B0: $01 $91 $D0
-    ld hl, $D09B                                  ; $59B3: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $59B3: $21 $9B $D0
     xor a                                         ; $59B6: $AF
     ld [hl+], a                                   ; $59B7: $22
     inc bc                                        ; $59B8: $03
@@ -2585,7 +2325,7 @@ jr_005_59EB:
     ld bc, $D085                                  ; $59F0: $01 $85 $D0
 
 jr_005_59F3:
-    ld hl, $D09B                                  ; $59F3: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $59F3: $21 $9B $D0
     add hl, de                                    ; $59F6: $19
     ld a, [bc]                                    ; $59F7: $0A
     and a                                         ; $59F8: $A7
@@ -2605,7 +2345,7 @@ jr_005_59FD:
     ; $5A03
 Call_005_5A03:
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D09B                                  ; $5A0A: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $5A0A: $21 $9B $D0
     xor a                                         ; $5A0D: $AF
     ld b, $09                                     ; $5A0E: $06 $09
 
@@ -2632,7 +2372,7 @@ UNK_AwaitTextEnd::
     ; $5A24
 Call_005_5A24::
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D09B                                  ; $5A2B: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $5A2B: $21 $9B $D0
     xor a                                         ; $5A2E: $AF
     ld b, $0A                                     ; $5A2F: $06 $0A
 
@@ -2644,7 +2384,7 @@ jr_005_5A31:
     ld a, [wBattle_CurCreature_Slot]                                 ; $5A35: $FA $B1 $D0
     ld c, a                                       ; $5A38: $4F
     ld b, $00                                     ; $5A39: $06 $00
-    ld hl, $D09B                                  ; $5A3B: $21 $9B $D0
+    ld hl, wBattle_CursorTableValidIDs                                  ; $5A3B: $21 $9B $D0
     add hl, bc                                    ; $5A3E: $09
     ld a, $01                                     ; $5A3F: $3E $01
     ld [hl], a                                    ; $5A41: $77
@@ -2673,7 +2413,7 @@ Jump_005_5A4D:
     sub b                                         ; $5A5F: $90
     push af                                       ; $5A60: $F5
     call Battle00_DisableActorScript                                    ; $5A61: $CD $C7 $38
-    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, $0C
+    Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_MAGI
     pop af                                        ; $5A7C: $F1
     push af                                       ; $5A7D: $F5
     ld b, a                                       ; $5A7E: $47
@@ -3355,14 +3095,14 @@ BattleCmd_GetNameAndEnergy::
     ; 
     ; Inputs:
     ;   wMenu_BattleCmd_TablePointer - Pointer to the ability, or null ($0000)
-    ;   wMenu_BattleCmd_DestBuffer - Pointer to the 7-byte buffer where the name will be written
+    ;   wMenu_BattleCmd_DestBuffer - Pointer to the 7-byte or 11-byte buffer where the name will be written
     ;   wMenu_BattleCmd_GetEnergyFlag - If non-zero, it will store the energy cost on offset 8. Total space of buffer required is $0B because it can pad with zeros
     ; Outputs:
     ;  [wMenu_BattleCmd_DestBuffer]:
     ;        db "CMDNAME" (or "       " if null pointer)
     ;        if wMenu_BattleCmd_GetEnergyFlag
-    ;            db $20, ENERGYCOST (if pointer is defined)
-    ;            db $00, $00, $00, $00 (if null pointer) - bug - an extra 2 bytes are defined if the pointer is a null-pointer
+    ;            db " ", ENERGYCOST (if pointer is defined)
+    ;            db $00, $00, $00, $00 (if null pointer) - bug - an extra 2 bytes are defined if the pointer is a null-pointer. I guess originally the cost was going to be split into the individual digits? e.g. 2,0,0 for 200
 
     ; Get the ability pointer and check if null or not
     FGet16 bc, wMenu_BattleCmd_TablePointer
@@ -3387,7 +3127,7 @@ BattleCmd_GetNameAndEnergy::
         and a
         ret z
 
-        ld a, $20 ; todo
+        ld a, " "
         ld [hl+], a
         Get16 bc, wMenu_BattleCmd_TablePointer
         inc bc

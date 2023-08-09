@@ -292,7 +292,7 @@ Cardscene_Startup:
 
 Cardscene_GetCardIcon::
     ; Gets the tileset address of the dream creature's card
-    ; Returns empty card if the creature ID is CreatureID_CARDSCENE_BLANKCARD or CREATURE_NULL
+    ; Returns empty card if the creature ID is CreatureID_CARDSCENE_BLANKCARD or CreatureID_Null
     ; Also stores the palette id of the card of interest
     ; Inputs:
     ;   [wTemp_8.Fightscene_CreatureID]
@@ -301,7 +301,7 @@ Cardscene_GetCardIcon::
     ;   wVBlank_Bank - bank
     ;   wCardscene_CardPalette - palette id of the card
     ld a, [wTemp_8.Fightscene_CreatureID]
-    cp CreatureID_CARDSCENE_BLANKCARD ; Includes blank card and Creature_Null
+    cp CreatureID_CARDSCENE_BLANKCARD ; Includes blank card and CreatureID_Null
     jr c, .ValidCard
     .NullCard:
         ld hl, BITMAP_Cardscene_Empty

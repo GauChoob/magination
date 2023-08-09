@@ -1091,6 +1091,7 @@ Menu_CursorTable_Battle_Summon::
         Menu_CursorTable_Row Creatur3,   $02, $10,   Creatur4, Creatur2, Creatur2, Creatur4,   MenuFunc_SingleClickA, MenuFunc_SingleClickB  ;03
         Menu_CursorTable_Row Creatur4,   $02, $11,   SwapRing, Creatur3, Creatur3, SwapRing,   MenuFunc_SingleClickA, MenuFunc_SingleClickB  ;04
         Menu_CursorTable_Row SwapRing,   $00, $11,   Creatur0, Creatur4, Creatur4, Creatur0,   MenuFunc_SingleClickA, MenuFunc_SingleClickB  ;05
+        ; The 7th option does not exist but represents Next so that it mirrors Menu_CursorTable_Battle_SpellItem and Menu_CursorTable_Unused
     Menu_CursorTable_End
 
     ; $464A
@@ -2489,7 +2490,7 @@ jr_003_5774:
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5781: $EA $8C $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5784: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $578C: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     ld b, $A0                                     ; $5795: $06 $A0
     ld a, [$CC89]                                 ; $5797: $FA $89 $CC
     ld c, a                                       ; $579A: $4F
@@ -2543,7 +2544,7 @@ jr_003_57EE:
     add [hl]                                      ; $5803: $86
     ld b, a                                       ; $5804: $47
     inc b                                         ; $5805: $04
-    ld hl, $A118                                  ; $5806: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $5806: $21 $18 $A1
     ld d, $0A                                     ; $5809: $16 $0A
     Battery_SetBank "XRAM Gamestate"
     Battery_On
@@ -2814,7 +2815,7 @@ jr_003_5D42:
 
 
 jr_003_5D65:
-    ld hl, $A118                                  ; $5D65: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $5D65: $21 $18 $A1
     ld d, $0A                                     ; $5D68: $16 $0A
     Battery_SetBank "XRAM Gamestate"
     Battery_On
@@ -2837,7 +2838,7 @@ jr_003_5D85:
     ld [$CD75], a                                 ; $5D8D: $EA $75 $CD
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld hl, $A118                                  ; $5D9D: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $5D9D: $21 $18 $A1
     ld a, [$CD68]                                 ; $5DA0: $FA $68 $CD
     ld b, a                                       ; $5DA3: $47
     ld d, $0A                                     ; $5DA4: $16 $0A
@@ -2977,7 +2978,7 @@ jr_003_61C8:
     ld a, [$CD68]                                 ; $61D8: $FA $68 $CD
     ld b, a                                       ; $61DB: $47
     ld d, $0A                                     ; $61DC: $16 $0A
-    ld hl, $A118                                  ; $61DE: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $61DE: $21 $18 $A1
 
 jr_003_61E1:
     ld a, [hl]                                    ; $61E1: $7E
@@ -3025,7 +3026,7 @@ jr_003_6209:
 Jump_003_6213:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld hl, $A118                                  ; $6220: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $6220: $21 $18 $A1
     ld bc, $CD6A                                  ; $6223: $01 $6A $CD
     ld d, $0A                                     ; $6226: $16 $0A
 
@@ -3066,7 +3067,7 @@ Jump_003_62F8:
     Battery_Off
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $6323: $01 $91 $CD
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $632B: $70
-    Do_CallForeign CopyDreamCreatureNameToBuffer
+    Do_CallForeign CreatureName_CopyToDest
     Menu_TextSetup $01, $9040, $9E05, $0A, wMenu_Battle_TableRowBuffer
     Do_CallForeign Call_003_4260
 
@@ -3109,7 +3110,7 @@ jr_003_63C3:
     ld a, [$CC89]                                 ; $63C3: $FA $89 $CC
     ld c, a                                       ; $63C6: $4F
     ld b, $00                                     ; $63C7: $06 $00
-    ld hl, $A118                                  ; $63C9: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $63C9: $21 $18 $A1
     add hl, bc                                    ; $63CC: $09
     Battery_SetBank "XRAM Gamestate"
     Battery_On
@@ -4637,7 +4638,7 @@ Call_003_7025::
     ld [$CCE9], a                                 ; $7032: $EA $E9 $CC
     ld a, $03                                     ; $7035: $3E $03
     ld [wMenu_CursorID], a                                 ; $7037: $EA $81 $CD
-    ld hl, $A118                                  ; $703A: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $703A: $21 $18 $A1
     ld a, h                                       ; $703D: $7C
     ld [$CCE5], a                                 ; $703E: $EA $E5 $CC
     ld a, l                                       ; $7041: $7D
@@ -5140,7 +5141,7 @@ jr_003_7419:
     add d                                         ; $7422: $82
     ld d, a                                       ; $7423: $57
     ld c, $00                                     ; $7424: $0E $00
-    ld hl, $A118                                  ; $7426: $21 $18 $A1
+    ld hl, xInventory_Rings                                  ; $7426: $21 $18 $A1
     Battery_SetBank "XRAM Gamestate"
     Battery_On
 

@@ -119,8 +119,16 @@ DEF CreatureID_NoMagi               EQU $6C
 DEF CreatureID_End                  EQU $6D
 
 
+CREATURE_TABLE_TYPE_0 EQU $00
+CREATURE_TABLE_TYPE_2 EQU $02
+CREATURE_TABLE_TYPE_4 EQU $04
+CREATURE_TABLE_TYPE_6 EQU $06
+CREATURE_TABLE_TYPE_8 EQU $08
 CREATURE_TABLE_TYPE_MAGI EQU $0C
 CREATURE_TABLE_TYPE_NOMAGI EQU $0E
+
+CREATURE_TABLE_ABILITYUNLOCK_TRUE EQU $FF ; Ability is unlocked
+CREATURE_TABLE_ABILITYUNLOCK_NEVER EQU $C8 ; Ability cannot be unlocked
 
 ;00 -> upper-endian of base energy - unused?
 oCreature_Table_Stats_BaseEnergy EQU $01
@@ -170,7 +178,7 @@ ENDM
 MACRO Creature_Table_Row
     SHIFT ; Empty first parameter in CSV file
 .\1:
-    db \2 ; Type
+    db CREATURE_TABLE_TYPE_\2 ; Type
     db \3 ; Energy
     db \4 ; UNK
     db \5 ; MaxEnergy
@@ -204,3 +212,6 @@ MACRO Creature_Table_Row
     AddressBank BITMAP_Cardscene_\<32> ; Cardscene Tileset
     db CARDSCENE_PALETTE_\<33> ; Cardscene Palette offset
 ENDM
+
+
+DEF CreatureName_SIZE EQU $0A

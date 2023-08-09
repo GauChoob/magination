@@ -1577,7 +1577,7 @@ jr_023_4651:
     jr nz, jr_023_469D                            ; $469B: $20 $00
 
 jr_023_469D:
-    ld hl, $D06F                                  ; $469D: $21 $6F $D0
+    ld hl, wBattle_SummonRingIndex                                  ; $469D: $21 $6F $D0
     sub e                                         ; $46A0: $93
     add l                                         ; $46A1: $85
     rrca                                          ; $46A2: $0F

@@ -89,24 +89,24 @@
  Creature_Table_Row,PlAcEhOlDr2,2,10,0,255,2,5,4,2,3,20,0,elementWind,elementNone,0,0,0,11,0,Infect,Infect,Bite,Infect,255,10,20,30,Yvohcna,10,8,Yvohcna,Yvohcna,Core
  Creature_Table_Header,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
  Creature_Table_Header,MAGI Name,Type,Unused,MaxEnergy,MaxEnergy,Strength,Skill,Speed,Defense,Resist,Luck,UNKEnergyUp,Resistance,Weakness,StatusImmune,StatusPerm,MagiType or AI,Placeholder or RingCost (unused),Unused,Ability1,Ability2,Ability3,Ability4,Unused,Unused,Unused,Unused,Fightscene Tileset/AttrTilemap,Width,Height,Fightscene Palette,Cardscene,PaletteOffset
- Creature_Table_Row,Tony,12,100,0,100,25,25,75,25,75,50,0,elementNone,elementNone,255,0,1,0,0,SummonX,Spell,Item,Run,0,0,0,0,Tony,4,6,Tony,Yvohcna,Core
- Creature_Table_Row,Togoth,12,50,255,150,20,20,40,50,50,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Togoth,4,6,Togoth,Yvohcna,Core
- Creature_Table_Row,Ogar,12,50,255,255,35,35,55,55,55,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Ogar,4,6,Ogar,Yvohcna,Core
- Creature_Table_Row,Korremar,12,50,255,144,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Korremar,5,7,Korremar,Yvohcna,Core
- Creature_Table_Row,Warrada,12,50,255,144,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Warrada,5,6,Warrada,Yvohcna,Core
- Creature_Table_Row,Korg,12,50,255,20,40,20,40,40,40,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Korg,5,6,Korg,Yvohcna,Core
- Creature_Table_Row,Zet,12,50,0,255,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Zet,4,6,Zet,Yvohcna,Core
- Creature_Table_Row,Morag,12,50,255,255,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Morag,5,6,Morag,Yvohcna,Core
- Creature_Table_Row,Agram1,12,50,255,144,30,30,70,70,70,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram1,9,9,Agram1,Yvohcna,Core
- Creature_Table_Row,Agram2,12,50,255,144,30,30,30,70,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram2,9,9,Agram2,Yvohcna,Core
- Creature_Table_Row,Agram3,12,50,255,144,30,30,30,70,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram3,9,9,Agram3,Yvohcna,Core
- Creature_Table_Row,ShadowMagi1,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi1,4,6,ShadowMagi1,Yvohcna,Core
- Creature_Table_Row,ShadowMagi2,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi2,4,6,ShadowMagi2,Yvohcna,Core
- Creature_Table_Row,ShadowMagi3,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi3,5,6,ShadowMagi3,Yvohcna,Core
- Creature_Table_Row,ShadowMagi4,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi4,4,6,ShadowMagi4,Yvohcna,Core
- Creature_Table_Row,ShadowMagi5,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi5,4,6,ShadowMagi5,Yvohcna,Core
- Creature_Table_Row,ShadowMagi6,12,50,255,5,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi6,4,6,ShadowMagi6,Yvohcna,Core
- Creature_Table_Row,ShadowMagi7,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi7,4,6,ShadowMagi7,Yvohcna,Core
- Creature_Table_Row,ShadowMagi8,12,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi8,4,6,ShadowMagi8,Yvohcna,Core
- Creature_Table_Row,Salafy,12,50,0,20,255,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Salafy,4,6,Salafy,Yvohcna,Core
- Creature_Table_Row,NoMagi,14,0,255,255,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi8,6,8,Orathan_F,Yvohcna,Core
+ Creature_Table_Row,Tony,MAGI,100,0,100,25,25,75,25,75,50,0,elementNone,elementNone,255,0,1,0,0,SummonX,Spell,Item,Run,0,0,0,0,Tony,4,6,Tony,Yvohcna,Core
+ Creature_Table_Row,Togoth,MAGI,50,255,150,20,20,40,50,50,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Togoth,4,6,Togoth,Yvohcna,Core
+ Creature_Table_Row,Ogar,MAGI,50,255,255,35,35,55,55,55,50,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Ogar,4,6,Ogar,Yvohcna,Core
+ Creature_Table_Row,Korremar,MAGI,50,255,144,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Korremar,5,7,Korremar,Yvohcna,Core
+ Creature_Table_Row,Warrada,MAGI,50,255,144,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Warrada,5,6,Warrada,Yvohcna,Core
+ Creature_Table_Row,Korg,MAGI,50,255,20,40,20,40,40,40,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Korg,5,6,Korg,Yvohcna,Core
+ Creature_Table_Row,Zet,MAGI,50,0,255,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Zet,4,6,Zet,Yvohcna,Core
+ Creature_Table_Row,Morag,MAGI,50,255,255,30,30,50,50,50,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Morag,5,6,Morag,Yvohcna,Core
+ Creature_Table_Row,Agram1,MAGI,50,255,144,30,30,70,70,70,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram1,9,9,Agram1,Yvohcna,Core
+ Creature_Table_Row,Agram2,MAGI,50,255,144,30,30,30,70,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram2,9,9,Agram2,Yvohcna,Core
+ Creature_Table_Row,Agram3,MAGI,50,255,144,30,30,30,70,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Agram3,9,9,Agram3,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi1,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi1,4,6,ShadowMagi1,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi2,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi2,4,6,ShadowMagi2,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi3,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi3,5,6,ShadowMagi3,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi4,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi4,4,6,ShadowMagi4,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi5,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi5,4,6,ShadowMagi5,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi6,MAGI,50,255,5,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi6,4,6,ShadowMagi6,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi7,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi7,4,6,ShadowMagi7,Yvohcna,Core
+ Creature_Table_Row,ShadowMagi8,MAGI,50,255,144,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi8,4,6,ShadowMagi8,Yvohcna,Core
+ Creature_Table_Row,Salafy,MAGI,50,0,20,255,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,Salafy,4,6,Salafy,Yvohcna,Core
+ Creature_Table_Row,NoMagi,NOMAGI,0,255,255,30,30,30,30,30,25,0,elementNone,elementNone,255,0,2,0,0,SummonX,Spell,Item,Run,0,0,0,0,ShadowMagi8,6,8,Orathan_F,Yvohcna,Core

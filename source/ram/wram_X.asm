@@ -158,6 +158,7 @@ MACRO Battle_Creature_BattleCmd_Struct
         ; Later changed to be a target e.g. 0-9 (Hero to Magi)
         ds 1
     .BattleCmd_Menu:
+        ; Whether or not this Command contains a Menu
         ds 1
     .BattleCmd_Rating:
         ; Damage multiplier
@@ -165,12 +166,8 @@ MACRO Battle_Creature_BattleCmd_Struct
     .BattleCmd_Elemental:
         ds 1
     UNION
-        .BattleCmd_Summon:
-            ; Creature to summon
-            ds 2
-    NEXTU
-        .BattleCmd_Item:
-            ; Item to use
+        .BattleCmd_MenuChoice:
+            ; Item/Spell to use, or Creature to summon (pointer to Row/Struct)
             ds 2
     NEXTU
         .BattleCmd_MaxDamage:
@@ -260,11 +257,13 @@ wBattle_Menu_CommandNameString::
         ds BATTLECMD_STRUCT_NAMESIZE ; Ability3
     .Temp:
         ds BATTLECMD_STRUCT_NAMESIZE ; Buffer used to swap the position of Cmd0 and Cmd1 for the hero, since Focus should be the second option
-
-    ds 3
-    ;ds $D057 - @
+    ;ds $D054 - @
 wBattle_Menu_CommandCostString::
-    ; Contains the strings in the menu for the costs of the 4 abilities
+    ; Contains the strings in the menu for the costs of the 5 abilities/options
+    .Cmd0:
+        ; Not used for creature attacks, since Fight/Defend shows wBattle_Menu_EnergyString instead
+        ; Used for Summon menu and TODO probably Spell/Item menus
+        ds 3
     .Cmd1:
         ds 3
     .Cmd2:
@@ -274,11 +273,21 @@ wBattle_Menu_CommandCostString::
     .Cmd4:
         ds 3
     .End:
+    ;ds $D063 - @
+wBattle_SelectedRingIndex::
+    ; An offset to target one of the rings in xInventory_Rings
+    ; Does the same thing as wMenu_SelectedRingIndex
+    ds 1
 
     ds $D06D - @
 wBattle_TurnsElapsed::
     ; Number of turns elapsed from the start of the battle
     ds 2
+    ;ds $D06F - @
+wBattle_SummonRingIndex::
+    ; An offset to target one of the rings in xInventory_Rings
+    ; The ring that is going to be summoned
+    ds 1
 
     ds $D074 - @
 wBattle_TempCounter::
@@ -322,6 +331,12 @@ wBattle_CreatureSlots::
     .Magi:
         ds 1
 
+    ;ds $D09B - @
+wBattle_CursorTableValidIDs::
+    ; Used in the same way as wMenu_Generic_CursorTableValidIDs
+    ; nz = valid menu option
+    ds 7 ; TODO probably goes even higher as high as $7 or $14
+
     ds $D0AF - @
 wBattle_CurCreature_ValidBattleCmd:
     ds 1
@@ -333,7 +348,7 @@ wBattle_TargetMode::
     ;ds $D0B1 - @
 wBattle_CurCreature_Slot::
     ; Offset of wBattle_CreatureSlots pointing to .Hero, .Ally, .Enemy or .Magi
-    ; bit 7 =  non-zero if owned by enemy
+    ; bit 7 = non-zero if owned by enemy
     ds 1
 
     ds $D0B3 - @
@@ -353,7 +368,12 @@ wBattle_CurCreature_FightDef::
     ; z -> Fight; nz -> Defend
     ds 1
 
-    ds $D0D9 - @
+    ds $D0D8 - @
+wBattle_NotEnoughEnergy::
+    ; Set to 1 when a BattleCmd is rejected by Battle_Helpers_CheckValidTarget because the creature does not have enough energy
+    ds 1
+
+    ;ds $D0D9 - @
 wBattle_Creature_Current::
     Battle_Creature_Struct
 
@@ -394,6 +414,14 @@ wBattle_Creature_Magi::
 
     ;ds $D36D - @
     ds 1
+
+    ds $D37A - @
+wBattle_UsedRings::
+    ; Indicates whether the rings have been used or not previously
+    DEF BATTLE_USEDRINGS_NEVERUSED EQU $00 ; Has never been summoned this battle
+    DEF BATTLE_USEDRINGS_DEAD EQU $01      ; Was summoned but is not longer on the field
+    DEF BATTLE_USEDRINGS_ALIVE EQU $02     ; Summoned on the field
+    ds xInventory_Rings_LENGTH
 
     ds $D391 - @
 wBattle_MagiCreatureID::
