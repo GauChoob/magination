@@ -5,7 +5,7 @@
 ; TextInterrupt_VBlankFunc_CopyTile - Copies a tile from source to the tileset, and then updates the tilemap
 ; Interrupt_VBlankFunc_CopyTile is also referenced by Text_Handler
 
-    ; $2AC8
+
 TextVBlank_TilemapChar::
     ; UNUSED function
     ; This function is not used anymore because it was copied into the second half of Text_Interrupt_VBlankFunc_CopyTile
@@ -33,7 +33,7 @@ TextVBlank_TilemapChar::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-    ; $2AF8
+
 TextVBlank_TilemapString::
     ; After an entire string (wText_TileStart to wText_TileLimit) has been copied into the tileset,
     ; update the tilemap to display the entire string on the same frame
@@ -66,7 +66,7 @@ TextVBlank_TilemapString::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-    ; $2B28
+
 TextInterrupt_VBlankFunc_CopyTile::
     ; Copies from BITMAP_Font the specified character, and then updates the tilemap/attrmap
     ;   to display the character

@@ -1,5 +1,3 @@
-
-    ; $2A07
 Interrupt_HBlank_Do::
     ; Upon interrupt, run [hInterrupt_HBlank_Func]
     push af

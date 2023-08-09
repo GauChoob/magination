@@ -11,7 +11,7 @@
 ;                       Used with the Menu module
 ; TextHandler_Idle - Does nothing (returns d=0)
 
-    ; $2B51
+
 TextHandler_Char::
     ; Inputs:
     ;   See Text_Wrap and Text_StringGetChar
@@ -49,7 +49,7 @@ TextHandler_Char::
             ld d, $00 ;Unneeded line? d should already be zero. Good to be safe I guess
             ret
 
-    ; $2B8C
+
 TextHandler_Immediate::
     ; Disabled handler function - currently UNUSED
     ; To immediately display text, the screen has to be temporarily turned off
@@ -97,7 +97,7 @@ TextHandler_Immediate::
             jr DisplayString
     */
 
-    ; $2B8F
+
 TextHandler_String::
     ; This function will copy an entire line of a string (one char per frame) into the tileset
     ; Once the entire line is copied, the tilemap will be updated to display the entire frame at once
@@ -131,7 +131,7 @@ TextHandler_String::
         Set16_M wVBlank_Func, TextVBlank_TilemapString
         jp TextHandler_Idle
 
-    ; $2BBB
+
 TextHandler_Idle::
     ; Loops indefinitely
     ; Output:

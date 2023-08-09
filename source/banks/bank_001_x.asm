@@ -547,7 +547,7 @@ HotspotX_CheckHotspot::
     ;       TODO $C716 ?
     ;   If the hotspot is activated
     ;       wHotspotCurrent = hotspot id
-    ;       The hotspot's script BankAddress is set via Hotspot_SetScript,
+    ;       The hotspot's script BankAddress is set via Hotspot00_SetScript,
     ;           which sets wScript_System
     ;   If the tile is not a hotspot,
     ;       wHotspotCurrent = HOTSPOT_NULL
@@ -605,7 +605,7 @@ HotspotX_CheckHotspot::
     ld h, a
 
     ; Determine the hotspot trigger type
-    call Hotspot_GetType
+    call Hotspot00_GetType
     cp HOTSPOT_TRIGGER_NORTH
         jr z, .CheckTriggerNorth
     cp HOTSPOT_TRIGGER_SOUTH
@@ -650,7 +650,7 @@ HotspotX_CheckHotspot::
     .HotspotActivated:
         ; Valid, new hotspot, with the hero walking in the right direction
         Set8 wHotspotCurrent, d
-        call Hotspot_SetScript
+        call Hotspot00_SetScript
         ld a, $66                                     ; $42B2: $3E $66
         ld [$C717], a                                 ; $42B4: $EA $17 $C7
         ld a, $0A                                     ; $42B7: $3E $0A
@@ -1385,7 +1385,7 @@ TriggerXX_Start::
     inc hl
 
     ; Set wScript_System
-    call Hotspot_SetScript
+    call Hotspot00_SetScript
     Set16_M wScript_System.State, Script_Start
     ret
 
@@ -5491,10 +5491,10 @@ jr_001_6562:
     ; $6586
 AI_SetupStartScreenArena::
     ; $02 Horizontal Scrolling effect
-    ; The object itself is a dummy object that is just used to run Fightscene_StartScreen_Init
+    ; The object itself is a dummy object that is just used to run Fightscene_StartScreen_Open
     ; It's sort of inefficient - It probably would have been better to just add an extra command (since we have the extra bytes anyways for it)
     call Actor_ScriptOpen
-    Do_CallForeign Fightscene_StartScreen_Init
+    Do_CallForeign Fightscene_StartScreen_Open
     Set16FF hActor.State, AI_Idle
     call Actor_ScriptClose
     ret

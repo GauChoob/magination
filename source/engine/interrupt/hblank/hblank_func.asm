@@ -1,5 +1,3 @@
-
-    ; $2AA8
 Interrupt_HBlankFunc_SwitchBackground::
     ; Todo - unused?
     ; Changes the frame + LCDC properties
@@ -10,14 +8,14 @@ Interrupt_HBlankFunc_SwitchBackground::
     pop af
     reti
 
-    ; $2AB7
+
 Interrupt_HBlankFunc_Idle::
     ; Null LCDC Interrupt
     pop hl
     pop af
     reti
 
-    ; $2ABA
+
 Interrupt_HBlankFunc_WindowNoSprite::
     ; This LCDC interrupt should run at the transition from game to textbox
     ;
@@ -28,7 +26,7 @@ Interrupt_HBlankFunc_WindowNoSprite::
     pop af
     reti
 
-    ; $2AC1
+
 Interrupt_HBlankFunc_WindowSprite::
     ; Sets the LCDC for standard background and window settings
     ; Except sprites are turned on. Used when there is a textbox with a sprite cursor

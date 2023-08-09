@@ -6,7 +6,7 @@ MACRO Do_Battle_SetActorScript
     ld a, \1
     ld d, BANK(\2)
     ld bc, \2
-    call Battle00_SetActorScript
+    call Battle00_Actor_SetScript
 ENDM
 
 MACRO Battle_FormatCreatureName

@@ -52,14 +52,10 @@
 ; In the released version, the module is only accessed via the Textbox or Menu module
 
 
-    ; $2AC8
 INCLUDE "source/engine/text/text_vblank.asm"
-
-    ; $2B51
 INCLUDE "source/engine/text/text_handler.asm"
 
 
-    ; $2BC8
 Text_SetVBlankCharSource::
     ; Given a character id, calculate the address that points to the char in the font tileset
     ; Then store that into wVBlank_SourceAddress so it can be copied during vblank
@@ -83,7 +79,7 @@ Text_SetVBlankCharSource::
     Set8 wVBlank_Bank, BANK(BITMAP_Font)
     ret
 
-    ; $2BE4
+
 Text_StringGetChar::
     ; Read the character at the current string frame and update the frame
     ; Inputs:
@@ -149,7 +145,7 @@ Text_StringGetChar::
         Set16 wText_StringFormatFrame, hl
         jp Text_StringGetChar
 
-    ; $2C33
+
 Text_FormatChar::
     ; Formats an 8-bit number to be used in a line of dialogue
     ; Inputs:
@@ -177,7 +173,7 @@ Text_FormatChar::
     Set16_M wText_StringFormatFrame, wText_StringBuffer
     ret
 
-    ; $2C57
+
 Text_FormatWord::
     ; Formats a 16-bit number to be used in a line of dialogue
     ; Inputs:
@@ -206,7 +202,7 @@ Text_FormatWord::
     Set16_M wText_StringFormatFrame, wText_StringBuffer
     ret
 
-    ; $2C7B
+
 Text_Wrap::
     ; Checks if you hit the end of the tileset text buffer
     ; If you did, wraps around back to the start of the buffer
