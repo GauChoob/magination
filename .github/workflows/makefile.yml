@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      RGBDS_VERSION: 0.6.1
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -16,21 +18,21 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.3'
+          python-version: '3.11.4'
 
       - name: Cache RGBDS
         id: cache-rgbds
         uses: actions/cache@v3
         with:
           path: rgbds/**
-          key: ${{ runner.os }}-0.6.1-rgbds
+          key: ${{ runner.os }}-${{ env.RGBDS_VERSION }}-rgbds
 
       - name: Setup RGBDS
         if: steps.cache-rgbds.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v0.6.1/rgbds-0.6.1-win64.zip -OutFile rgbds-0.6.1-win64.zip
-          Expand-Archive -Path rgbds-0.6.1-win64.zip -DestinationPath rgbds/
+          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v$env:RGBDS_VERSION/rgbds-$env:RGBDS_VERSION-win64.zip -OutFile rgbds-$env:RGBDS_VERSION-win64.zip
+          Expand-Archive -Path rgbds-$env:RGBDS_VERSION-win64.zip -DestinationPath rgbds/
 
       - name: Cache Python Pip
         id: cache-pip

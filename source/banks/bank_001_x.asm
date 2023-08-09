@@ -1545,7 +1545,7 @@ jr_001_4B25:
 
 
 Jump_001_4B2D:
-    Sound_Request_StartSFX0 SFXID_sfx_26
+    Sound_Request_StartSFX0 SFXID_Dig
     ld a, b                                       ; $4B32: $78
     ld [wTilemap_VBlank_DestAddress+1], a                                 ; $4B33: $EA $C8 $C8
     ld a, c                                       ; $4B36: $79
@@ -1863,7 +1863,7 @@ Jump_001_4D33:
 
 
 Jump_001_4D3C:
-    Sound_Request_StartSFX0 SFXID_sfx_24
+    Sound_Request_StartSFX0 SFXID_Kick
     push bc                                       ; $4D41: $C5
     ld a, d                                       ; $4D42: $7A
     ld [wTilemap_VBlank_DestAddress+1], a                                 ; $4D43: $EA $C8 $C8
