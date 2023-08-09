@@ -32,7 +32,7 @@ jobs:
         if: steps.cache-rgbds.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v$env:RGBDS_VERSION/rgbds-$RGBDS_VERSION-win64.zip -OutFile rgbds-$env:RGBDS_VERSION-win64.zip
+          Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v$env:RGBDS_VERSION/rgbds-$env:RGBDS_VERSION-win64.zip -OutFile rgbds-$env:RGBDS_VERSION-win64.zip
           Expand-Archive -Path rgbds-$env:RGBDS_VERSION-win64.zip -DestinationPath rgbds/
 
       - name: Cache Python Pip
