@@ -26,7 +26,7 @@ Sound_Init::
     ld [wSound_CurrentSong], a
     ld a, $81 ;Gameboy Color game played on a Gameboy Color
     IF FIX_BUGS == 1
-    ld c, $00 ; Make sure that we can do no harm (in case c is changed before calling this function)
+        ld c, $00 ; Make sure that we can do no harm (in case c is changed before calling this function)
     ENDC
     Do_CallForeign snd_Init ; MusyX sound initialization. Has an undocumented function where
                          ; the value of c is saved. Then, whenever MusyX loads a bank,

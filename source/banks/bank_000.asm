@@ -1,34 +1,14 @@
-
-    ; $0000
 INCLUDE "source/main/vectors_00.asm"
-
-    ; $0100
 INCLUDE "source/main/header_00.asm"
 
-    ; source/ROM/bank00.s -> source/main/boot.s
-
-    ; $0150
+; Game setup
 INCLUDE "source/main/boot_00.asm"
 
-    ; source/ROM/bank00.s -> source/main/gameloop.s
-    ; source/ROM/bank00.s -> source/main/gameloop.s -> source/main/notcgb.s
-
-    ; $01D3
+; Error message when using MGB
 INCLUDE "source/main/notcgb_00.asm"
 
-    ; $02E6
-Game_Loop::
-    ; Master game loop which controls the whole program
-    ldh a, [hTicker]
-    inc a
-    ldh [hTicker], a
-    ld a, [wCntDown]
-    bit button_BIT_START, a    ;Start button
-    jr z, .SkipMainMenu
-        XCall Menu_MainMenu_Open ;Opens Tony's Main Menu
-    .SkipMainMenu:
-    call System_UpdateGame
-    jp Game_Loop
+; Main logic loop
+INCLUDE "source/main/gameloop_00.asm"
 
     ; source/ROM/bank00.s -> source/engine/system/system.s
 

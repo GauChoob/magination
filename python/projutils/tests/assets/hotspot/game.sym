@@ -25,9 +25,9 @@
 00:015b Boot_SoftReset
 00:0195 Boot_GameInit
 00:01d3 sNotCGB_Text
-00:023c NotCGB_Message
+00:023c NotCGB_Main
 00:023c sNotCGB_Text.End
-00:023f NotCGB_Message.Forever
+00:023f NotCGB_Main.Forever
 00:0242 NotCGB_Main
 00:0251 NotCGB_Main.CopyLetter
 00:02e0 NotCGB_CopySequentialTilesToTilemap
