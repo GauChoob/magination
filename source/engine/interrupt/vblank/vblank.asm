@@ -1,5 +1,3 @@
-
-    ; $2A10
 Interrupt_VBlank_Do::
     ; Upon interrupt, run [wVBlank_HandlerFunc]
     ; Also, update the buttons currently pressed (wCnt1, wCntDown, wCntUp)
@@ -24,7 +22,7 @@ Interrupt_VBlank_Do::
     RestoreRegisters
     reti
 
-    ; $2A49
+
 Interrupt_VBlank_Handler_Standard::
     ; Standard Vblank behaviour
     ; Graphics:

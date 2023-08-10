@@ -52,6 +52,15 @@ TextboxXX_Close::
         Set8 wVBlank_Bank, BANK(TextboxXX_VBlank_Clear1)
         Set16_M wVBlank_Func, TextboxXX_VBlank_Clear1
         Set16_M hScript.State, .Main
+
+        IF DEBUG_TEXTBOX_SOUND == 1
+            ; Removed feature
+            ld a, [wTextbox_SoundEnabled_UNUSED]
+            and a
+            ret z
+            Sound_Request_StartSFX0 SFXID_WindowSlide
+        ENDC
+
         ret
 
     .Main:
@@ -133,6 +142,14 @@ TextboxXX_Open::
 
         ; This hblank disables sprites over the textbox
         Set16_M hInterrupt_HBlank_Func, Interrupt_HBlankFunc_WindowNoSprite
+
+        IF DEBUG_TEXTBOX_SOUND == 1
+            ; Removed feature
+            ld a, [wTextbox_SoundEnabled_UNUSED]
+            and a
+            ret z
+            Sound_Request_StartSFX0 SFXID_WindowSlide
+        ENDC
         ret
 
     .Init2:

@@ -1930,7 +1930,7 @@ Call_005_579D::
     ld a, [$D0C1]                                 ; $57AD: $FA $C1 $D0
     ld d, $11                                     ; $57B0: $16 $11
     ld bc, $7438                                  ; $57B2: $01 $38 $74
-    call Battle00_SetActorScript                                    ; $57B5: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $57B5: $CD $F0 $38
     ret                                           ; $57B8: $C9
 
 
@@ -1968,7 +1968,7 @@ Call_005_57BA::
     ld b, [hl]
     ld c, a
     ld a, [$D0C1]
-    call Battle00_SetActorScript
+    call Battle00_Actor_SetScript
     ret
 
 
@@ -1984,7 +1984,7 @@ Call_005_57BA::
     ld b, [hl]                                    ; $57F5: $46
     ld c, a                                       ; $57F6: $4F
     ld a, [$D0C1]                                 ; $57F7: $FA $C1 $D0
-    call Battle00_SetActorScript                                    ; $57FA: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $57FA: $CD $F0 $38
     ret                                           ; $57FD: $C9
 
     ; $57FE
@@ -2412,7 +2412,7 @@ Jump_005_5A4D:
     ld a, $09                                     ; $5A5D: $3E $09
     sub b                                         ; $5A5F: $90
     push af                                       ; $5A60: $F5
-    call Battle00_DisableActorScript                                    ; $5A61: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $5A61: $CD $C7 $38
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_IDLE, BATTLE_ACTOR_MAGI
     pop af                                        ; $5A7C: $F1
     push af                                       ; $5A7D: $F5

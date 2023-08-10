@@ -40,6 +40,7 @@ DEF Textbox_TILEID_BORDER_CORNER  EQU $85
 DEF Textbox_CLOSED EQU $00 ; Not visible
 DEF Textbox_BUSY   EQU $01 ; Sliding open or closed
 DEF Textbox_OPEN   EQU $02 ; Visible
+DEF Textbox_HALTED EQU $03 ; Unused except to initialize an unused variable
 
 
 ; Attribute flags for textbox

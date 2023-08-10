@@ -163,7 +163,7 @@
 00:09f7 RLE_Decompress.DecodeRLEGrande
 00:09fd RLE_Decompress.Loop4
 00:0a09 Hotspot_GetType
-00:0a1d Hotspot_SetScript
+00:0a1d Hotspot00_SetScript
 00:0a3a Script_Play
 00:0a46 Script_Play.ScriptBank
 00:0a66 Script_Start
@@ -713,13 +713,13 @@
 00:38bc BattleCmd_Stat_DecreasePercentCreatureStat.Skip2
 00:38be BattleCmd_Stat_SetCreatureStatus
 00:38c2 BattleCmd_Stat_ClearCreatureStatus
-00:38c7 Battle00_DisableActorScript
-00:38de Battle00_GetPointerAddressScript
-00:38e5 Battle00_GetPointerAddressScript.ActorGetLoop
-00:38eb Battle00_GetPointerAddressScript.Done
-00:38f0 Battle00_SetActorScript
-00:3919 Battle00_SwapFightDef
-00:3920 Battle00_SwapFightDef.Loop
+00:38c7 Battle00_Actor_DisableScript
+00:38de Battle00_Actor_GetAddressFromID
+00:38e5 Battle00_Actor_GetAddressFromID.ActorGetLoop
+00:38eb Battle00_Actor_GetAddressFromID.Done
+00:38f0 Battle00_Actor_SetScript
+00:3919 Battle00_VBlank_SwapFightDef
+00:3920 Battle00_VBlank_SwapFightDef.Loop
 00:394a jr_000_394A
 00:394c jr_000_394C
 00:3966 jr_000_3966
@@ -818,8 +818,8 @@
 01:42ab HotspotX_CheckHotspot.HotspotActivated
 01:42bd HotspotX_CheckHotspot.NotHotspot
 01:42c3 Script_Table
-01:4423 ActorXX_HeroFromDoorXX
-01:4456 Jump_001_4456
+01:4423 ActorXX_HeroFromDoor
+01:4456 ActorXX_RaindropLocate
 01:4489 jr_001_4489
 01:44a6 Scroll_TransplantMap_XX
 01:44c8 Scroll_TransplantMap_XX.Shared
@@ -1084,7 +1084,7 @@
 01:5ddd jr_001_5DDD
 01:5de1 Call_001_5DE1
 01:5dfd Jump_001_5DFD
-01:5e10 Jump_001_5E10
+01:5e10 AI_Hero_Start
 01:5e3e Call_001_5E3E
 01:5e58 jr_001_5E58
 01:5e5b jr_001_5E5B
@@ -1154,7 +1154,7 @@
 01:633d jr_001_633D
 01:6344 jr_001_6344
 01:638a jr_001_638A
-01:63ce Call_001_63CE
+01:63ce AI_Raindrop
 01:641d Call_001_641D
 01:6488 jr_001_6488
 01:649e jr_001_649E
@@ -2394,7 +2394,7 @@
 04:73c9 jr_004_73C9
 04:73d0 Call_004_73D0
 04:73db jr_004_73DB
-04:73fe Fightscene_StartScreen_Init
+04:73fe Fightscene_StartScreen_Open
 04:7471 jr_004_7471
 04:74a2 jr_004_74A2
 04:74c0 jr_004_74C0
@@ -4399,7 +4399,7 @@
 07:4f38 Jump_007_4F38
 07:4f98 jr_007_4F98
 07:4fc8 jr_007_4FC8
-07:5198 Call_007_5198
+07:5198 Tilemap_Ready_RowCodes
 07:51b9 jr_007_51B9
 07:51d1 jr_007_51D1
 07:51e3 jr_007_51E3
@@ -36258,7 +36258,7 @@
 00:c85e wTilemap_YTileOffset
 00:c85f wTilemap_XTile
 00:c860 wTilemap_YTile
-00:c863 wTilemap_XYTileAddress
+00:c863 wTilemap_DestAddr
 00:c867 wTilemap_Row_Dest
 00:c869 wTilemap_RowPhase
 00:c86a wTilemap_RowTrig

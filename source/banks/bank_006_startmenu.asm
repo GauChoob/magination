@@ -2046,7 +2046,7 @@ Menu_MainMenu_Open::
     ret nz
 
     ; TODO
-    ld a, [$FFAB]
+    ld a, [hAI_HeroFlags_Current]
     bit 1, a
     ret z
 

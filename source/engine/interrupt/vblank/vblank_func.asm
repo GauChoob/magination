@@ -1,10 +1,7 @@
-
-    ; $2948
 Interrupt_VBlankFunc_CopyByte::
     ; Unused unimplemented function
     ret
 
-    ; $2949
 Interrupt_VBlankFunc_CopyTile::
     ; Copy $10 bytes from wVBlank_SourceAddress to wVBlank_DestAddress
     ; Arguments:
@@ -22,7 +19,7 @@ Interrupt_VBlankFunc_CopyTile::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-    ; $29A4
+
 Interrupt_VBlankFunc_Idle::
     ; Does nothing.
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle

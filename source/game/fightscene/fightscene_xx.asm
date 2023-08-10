@@ -657,7 +657,7 @@ Fightscene_FightFX_Recoil_UNK::
     ret
 
 
-Fightscene_StartScreen_Init::
+Fightscene_StartScreen_Open::
     ; Sets the variables to create the scrolling arena in the startscreen
     xor a
     ld [wFightscene_SCX], a
@@ -667,8 +667,8 @@ Fightscene_StartScreen_Init::
     ret
 
 
-Fightscene_UNK::
-    ; Todo - unused? To verify. Hypothesis - was used as a counterpart to Fightscene_StartScreen_Init to end the StartScreen but is now unused
+Fightscene_StartScreen_Close_UNUSED::
+    ; Unused.
     ; Disables the Fightscene VBlank/HBlank effects
     xor a
     ld [wFightscene_DebugOptions_UNUSED], a ; Inefficiency - this var is no longer used

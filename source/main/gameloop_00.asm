@@ -1,8 +1,15 @@
 Game_Loop::
     ; Master game loop
+    
+    IF TEST == 1
+        call TESTING ;TODO remove this eventually from the source
+        nop
+        nop
+    ELSE
     ldh a, [hTicker]
     inc a
     ldh [hTicker], a
+    ENDC
 
     ld a, [wCntDown]
     bit button_BIT_START, a    ;Start button

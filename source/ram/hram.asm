@@ -96,18 +96,19 @@ hTicker::
     ; Increments by 1 every GameLoop (60 Hz)
     ds 1
 
-
     ;ds $FFA9 - @
 hMath_RandSeed::
     ; Increments by an average of 1 [-3,4] every time 
     ; Initialized upon boot to $DC in the GBC boot rom
     ds 1
+
     ;ds $FFAA - @
-;?
+hAI_HeroFlags_Next::
+    ; TODO - for the next frame or whatever
     ds 1
-;CurrentFrameUnknown
     ;ds $FFAB - @
-;PreviousFrameUnknown
+hAI_HeroFlags_Current::
+    ; TODO - the current state or whatever
     ds 1
 
 

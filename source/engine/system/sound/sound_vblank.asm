@@ -8,7 +8,7 @@
 
 SECTION "Sound VBlank", ROM0
 
-    ; $0652
+
 SoundVB_SetSongVolume:
     ; private function
     ; The public function is SoundVB_SetVolumeSong
@@ -16,7 +16,7 @@ SoundVB_SetSongVolume:
     call snd_SetSongVolume
     ret
 
-    ; $0659
+
 SoundVB_Init::
     ; Sets everything to max volume
     ld a, $07
@@ -29,12 +29,12 @@ SoundVB_Init::
     call snd_SetSFXVolume
     ret
 
-    ; $066F
+
 SoundVB_Nop::
     ; Do nothing
     ret
 
-    ; $0670
+
 SoundVB_PlaySong::
     ; Changes the song to wSound_CurrentSong
     xor a
@@ -46,7 +46,7 @@ SoundVB_PlaySong::
     call SoundVB_SetSongVolume
     ret
 
-    ; $0684
+
 SoundVB_FadeoutSong::
     ; Fades the music out then stops the song
     ; Inputs:
@@ -83,7 +83,7 @@ SoundVB_FadeoutSong::
         call snd_StopSong
         ret
 
-    ; $06C1
+
 SoundVB_FadeinSong::
     ; Fades the music in to max volume
     ; Inputs:
@@ -117,7 +117,7 @@ SoundVB_FadeinSong::
         call SoundVB_SetSongVolume
         ret
 
-    ; $06F4
+
 SoundVB_SetVolumeSong::
     ; Sets the song's volume
     ; Input:
@@ -127,14 +127,14 @@ SoundVB_SetVolumeSong::
     ld [wSound_Control_Volume], a ;Disable fade/volume effects
     ret
 
-    ; $06FC
+
 SoundVB_StopSong::
     ; Stops the song
     Set8 wSound_CurrentSong, SOUND_NULL
     call snd_StopSong
     ret
 
-    ; $0705
+
 SoundVB_PauseSong::
     ; Pauses the song.
     ; Bug - this function is inaccessible due to a bug in Sound_SetupSoundVB
@@ -142,13 +142,13 @@ SoundVB_PauseSong::
     call snd_PauseSong
     ret
 
-    ; $0709
+
 SoundVB_ResumeSong::
     ; Resumes the song. Not useful for now as SoundVB_PauseSong is not accessible.
     call snd_ResumeSong
     ret
 
-    ; $070D
+
 SoundVB_PlaySFX0::
     ; Plays SFXs (should be for the sfxids that are intended for Audio Channel 1)
     ld a, [wSound_Control_SFX0]
@@ -158,7 +158,7 @@ SoundVB_PlaySFX0::
     Set8 wSound_Control_SFX0, SOUND_NULL
     ret
 
-    ; $071D
+
 SoundVB_PlaySFX1::
     ; Plays SFXs (should be for the sfxids that are intended for Audio Channel 2)
     ld a, [wSound_Control_SFX1]
@@ -168,7 +168,7 @@ SoundVB_PlaySFX1::
     Set8 wSound_Control_SFX1, SOUND_NULL
     ret
 
-    ; $072D
+
 SoundVB_StartFanfare::
     ; A fanfare is a short song that plays over a usual song. The active song
     ; will be paused, the fanfare will play, and then the old song will resume.
@@ -180,7 +180,7 @@ SoundVB_StartFanfare::
     call snd_StartSong
     ret
 
-    ; $074F
+
 SoundVB_CheckFanfareIfDone::
     ; Waits for fanfare to be finished
     ; Then restores the old song

@@ -316,10 +316,10 @@ jr_002_41D7:
     ld a, [$D0B6]                                 ; $41E9: $FA $B6 $D0
     ld d, $41                                     ; $41EC: $16 $41
     ld bc, $6EC2                                  ; $41EE: $01 $C2 $6E
-    call Battle00_SetActorScript                                    ; $41F1: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $41F1: $CD $F0 $38
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [$D0B6]                                 ; $41FC: $FA $B6 $D0
-    call Battle00_DisableActorScript                                    ; $41FF: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $41FF: $CD $C7 $38
 
 Jump_002_4202:
     ld a, [$D107]                                 ; $4202: $FA $07 $D1
@@ -814,7 +814,7 @@ jr_002_455C:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $456A: $FA $03 $D1
     ld d, $41                                     ; $456D: $16 $41
     ld bc, $7058                                  ; $456F: $01 $58 $70
-    call Battle00_SetActorScript                                    ; $4572: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $4572: $CD $F0 $38
     Do_CallForeign Call_005_4430
     xor a                                         ; $457D: $AF
     ld [$C722], a                                 ; $457E: $EA $22 $C7
@@ -851,7 +851,7 @@ jr_002_45D0:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $45D5: $FA $03 $D1
     ld d, $41                                     ; $45D8: $16 $41
     ld bc, $6F5E                                  ; $45DA: $01 $5E $6F
-    call Battle00_SetActorScript                                    ; $45DD: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $45DD: $CD $F0 $38
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $45E0: $FA $03 $D1
     dec a                                         ; $45E3: $3D
     ld b, a                                       ; $45E4: $47
@@ -2665,7 +2665,7 @@ jr_002_51FC:
     ld a, $02                                     ; $52D2: $3E $02
     ld [hl], a                                    ; $52D4: $77
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $52D5: $FA $03 $D1
-    call Battle00_DisableActorScript                                    ; $52D8: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $52D8: $CD $C7 $38
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $52DB: $FA $03 $D1
     dec a                                         ; $52DE: $3D
     ld b, a                                       ; $52DF: $47
@@ -2899,7 +2899,7 @@ jr_002_5441:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5448: $FA $03 $D1
     ld d, $41                                     ; $544B: $16 $41
     ld bc, $701C                                  ; $544D: $01 $1C $70
-    call Battle00_SetActorScript                                    ; $5450: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $5450: $CD $F0 $38
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $545B: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $545D: $EA $3D $C9
@@ -2918,7 +2918,7 @@ jr_002_5441:
     ld [hl+], a                                   ; $5476: $22
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $547F: $FA $03 $D1
-    call Battle00_DisableActorScript                                    ; $5482: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $5482: $CD $C7 $38
 
 jr_002_5485:
     xor a                                         ; $5485: $AF
@@ -4368,7 +4368,7 @@ jr_002_5D21:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5D58: $FA $03 $D1
     ld d, $41                                     ; $5D5B: $16 $41
     ld bc, $6EE5                                  ; $5D5D: $01 $E5 $6E
-    call Battle00_SetActorScript                                    ; $5D60: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $5D60: $CD $F0 $38
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $5D6B: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $5D6D: $EA $3D $C9
@@ -4387,7 +4387,7 @@ jr_002_5D21:
     ld [hl+], a                                   ; $5D86: $22
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5D8F: $FA $03 $D1
-    call Battle00_DisableActorScript                                    ; $5D92: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $5D92: $CD $C7 $38
     ld a, $01                                     ; $5D95: $3E $01
     ld [$D0B5], a                                 ; $5D97: $EA $B5 $D0
     Do_CallForeign Call_005_44F4
@@ -4411,7 +4411,7 @@ jr_002_5DBD:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5DC5: $FA $03 $D1
     ld d, $41                                     ; $5DC8: $16 $41
     ld bc, $7035                                  ; $5DCA: $01 $35 $70
-    call Battle00_SetActorScript                                    ; $5DCD: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $5DCD: $CD $F0 $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $5DD0: $FA $12 $D1
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5DD3: $EA $8C $CD
     ld bc, wText_StringBuffer                                  ; $5DD6: $01 $49 $C9
@@ -4439,7 +4439,7 @@ jr_002_5DBD:
     ld a, $01                                     ; $5E13: $3E $01
     call Call_002_6F30                            ; $5E15: $CD $30 $6F
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5E18: $FA $03 $D1
-    call Battle00_DisableActorScript                                    ; $5E1B: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $5E1B: $CD $C7 $38
     FGet16 hl, $D07B                                  ; $5E1E: $21 $7B $D0
     ld bc, $D110                                  ; $5E24: $01 $10 $D1
     call Battle_Init_CreatureCopy                            ; $5E27: $CD $DC $5B
@@ -4882,7 +4882,7 @@ Battle_Flow_CreatureCommandMenu:
     jr nz, .SkipSwapFiDe
     .SwapFiDe:
         ; Swap "Fight" with "Defend" or vice-versa
-        Set16_M wVBlank_Func, Battle00_SwapFightDef
+        Set16_M wVBlank_Func, Battle00_VBlank_SwapFightDef
 
         ; Reset wMenu_CursorID
         xor a
@@ -5314,7 +5314,7 @@ Jump_002_65CC:
     ld [hl+], a                                   ; $661B: $22
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [wBattle_CurCreature_Slot]                                 ; $6624: $FA $B1 $D0
-    call Battle00_DisableActorScript                                    ; $6627: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $6627: $CD $C7 $38
     jp Jump_002_66B5                              ; $662A: $C3 $B5 $66
 
 
@@ -5322,7 +5322,7 @@ jr_002_662D:
     ld a, [wBattle_CurCreature_Slot]                                 ; $662D: $FA $B1 $D0
     ld d, $41                                     ; $6630: $16 $41
     ld bc, $6EC2                                  ; $6632: $01 $C2 $6E
-    call Battle00_SetActorScript                                    ; $6635: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $6635: $CD $F0 $38
     ld a, [wBattle_Creature_Current.StatusActive]                                 ; $6638: $FA $EE $D0
     and $40                                       ; $663B: $E6 $40
     jr z, jr_002_66A3                             ; $663D: $28 $64
@@ -5350,7 +5350,7 @@ jr_002_664B:
     ld a, [wBattle_CurCreature_Slot]                                 ; $6664: $FA $B1 $D0
     ld d, $41                                     ; $6667: $16 $41
     ld bc, $6ECC                                  ; $6669: $01 $CC $6E
-    call Battle00_SetActorScript                                    ; $666C: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $666C: $CD $F0 $38
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $6677: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $6679: $EA $3D $C9
@@ -5369,13 +5369,13 @@ jr_002_664B:
     ld [hl+], a                                   ; $6692: $22
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [wBattle_CurCreature_Slot]                                 ; $669B: $FA $B1 $D0
-    call Battle00_DisableActorScript                                    ; $669E: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $669E: $CD $C7 $38
     jr jr_002_66B5                                ; $66A1: $18 $12
 
 jr_002_66A3:
     call Battle_Flow_ControlCreature                            ; $66A3: $CD $DF $5F
     ld a, [wBattle_CurCreature_Slot]                                 ; $66A6: $FA $B1 $D0
-    call Battle00_DisableActorScript                                    ; $66A9: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $66A9: $CD $C7 $38
     ld a, [$D0D5]                                 ; $66AC: $FA $D5 $D0
     and a                                         ; $66AF: $A7
     jr z, jr_002_66B5                             ; $66B0: $28 $03
@@ -5496,7 +5496,7 @@ jr_002_6735:
     ld a, [$D0B6]                                 ; $6760: $FA $B6 $D0
     ld d, $41                                     ; $6763: $16 $41
     ld bc, $6FF7                                  ; $6765: $01 $F7 $6F
-    call Battle00_SetActorScript                                    ; $6768: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $6768: $CD $F0 $38
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $6773: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $6775: $EA $3D $C9
@@ -5515,7 +5515,7 @@ jr_002_6735:
     ld [hl+], a                                   ; $678E: $22
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [$D0B6]                                 ; $6797: $FA $B6 $D0
-    call Battle00_DisableActorScript                                    ; $679A: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $679A: $CD $C7 $38
     jp Jump_002_68E8                              ; $679D: $C3 $E8 $68
 
 
@@ -5644,10 +5644,10 @@ jr_002_6842:
     ld a, [$D0B6]                                 ; $6879: $FA $B6 $D0
     ld d, $41                                     ; $687C: $16 $41
     ld bc, $6EC2                                  ; $687E: $01 $C2 $6E
-    call Battle00_SetActorScript                                    ; $6881: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $6881: $CD $F0 $38
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [$D0B6]                                 ; $688C: $FA $B6 $D0
-    call Battle00_DisableActorScript                                    ; $688F: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $688F: $CD $C7 $38
 
 jr_002_6892:
     Do_CallForeign Call_005_407C
@@ -5797,13 +5797,13 @@ jr_002_6966:
 jr_002_6991:
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [$D0B6]                                 ; $6999: $FA $B6 $D0
-    call Battle00_DisableActorScript                                    ; $699C: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $699C: $CD $C7 $38
     xor a                                         ; $699F: $AF
     ld [$C722], a                                 ; $69A0: $EA $22 $C7
     ld a, [$D0B6]                                 ; $69A3: $FA $B6 $D0
     ld d, $41                                     ; $69A6: $16 $41
     ld bc, $6F5E                                  ; $69A8: $01 $5E $6F
-    call Battle00_SetActorScript                                    ; $69AB: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $69AB: $CD $F0 $38
     ld a, [$D0B6]                                 ; $69AE: $FA $B6 $D0
     dec a                                         ; $69B1: $3D
     ld b, a                                       ; $69B2: $47
@@ -5906,7 +5906,7 @@ jr_002_6A51:
     ld a, a                                       ; $6A6F: $7F
     ld d, $41                                     ; $6A70: $16 $41
     ld bc, $6ECC                                  ; $6A72: $01 $CC $6E
-    call Battle00_SetActorScript                                    ; $6A75: $CD $F0 $38
+    call Battle00_Actor_SetScript                                    ; $6A75: $CD $F0 $38
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $6A80: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $6A82: $EA $3D $C9
@@ -5927,7 +5927,7 @@ jr_002_6A51:
     ld a, [wBattle_CurCreature_Slot]                                 ; $6AA4: $FA $B1 $D0
     res 7, a                                      ; $6AA7: $CB $BF
     ld a, a                                       ; $6AA9: $7F
-    call Battle00_DisableActorScript                                    ; $6AAA: $CD $C7 $38
+    call Battle00_Actor_DisableScript                                    ; $6AAA: $CD $C7 $38
     jr jr_002_6AC4                                ; $6AAD: $18 $15
 
 jr_002_6AAF:
@@ -5995,7 +5995,7 @@ Battle_Flow_ProcessHero:
 
     ; Todo
     ld a, [wBattle_Creature_Current.BattleCmd_Target]
-    call Battle00_DisableActorScript
+    call Battle00_Actor_DisableScript
 
     ; Choose an option for Tony
     Battle_Set_MagiAnim CreatureID_Tony, BATTLE_MAGIANIM_CHOOSE, BATTLE_ACTOR_TONY
@@ -6227,7 +6227,7 @@ Battle_Flow_StatusAilments::
             ld [hl+], a
             Do_CallForeign UNK_AwaitTextEnd
             ld a, [$D0B6]
-            call Battle00_DisableActorScript
+            call Battle00_Actor_DisableScript
             jr .CheckErupt
 
             .PlagueDead:
@@ -6259,7 +6259,7 @@ Battle_Flow_StatusAilments::
     ld a, [$D0B6]
     ld d, $41
     ld bc, $6EF5
-    call Battle00_SetActorScript
+    call Battle00_Actor_SetScript
     ld a, [$D0DA]
     ld b, a
     and $F0
@@ -6297,7 +6297,7 @@ jr_002_6D12:
     ld [hl+], a
     Do_CallForeign UNK_AwaitTextEnd
     ld a, [$D0B6]
-    call Battle00_DisableActorScript
+    call Battle00_Actor_DisableScript
     jr jr_002_6DC7
 
 jr_002_6D53:
@@ -6387,12 +6387,12 @@ jr_002_6DC7:
     ld a, [$D0B6]
     ld d, $41
     ld bc, $7035
-    call Battle00_SetActorScript
+    call Battle00_Actor_SetScript
     ld hl, $D0D9
     xor a
     call Call_002_6F30
     ld a, [$D0B6]
-    call Battle00_DisableActorScript
+    call Battle00_Actor_DisableScript
 
 jr_002_6DE6:
     ret
@@ -6490,7 +6490,7 @@ Battle_Flow_StatusCombos:
 
                 Do_CallForeign UNK_AwaitTextEnd
                 ld a, [wBattle_Creature_Current.BattleCmd_Target]
-                call Battle00_DisableActorScript
+                call Battle00_Actor_DisableScript
                 ld a, [wBattle_Creature_Target.StatusActive]
                 xor $01
                 ld [wBattle_Creature_Target.StatusActive], a
