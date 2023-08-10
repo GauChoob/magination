@@ -818,8 +818,8 @@
 01:42ab HotspotX_CheckHotspot.HotspotActivated
 01:42bd HotspotX_CheckHotspot.NotHotspot
 01:42c3 Script_Table
-01:4423 ActorXX_HeroFromDoorXX
-01:4456 Jump_001_4456
+01:4423 ActorXX_HeroFromDoor
+01:4456 ActorXX_RaindropLocate
 01:4489 jr_001_4489
 01:44a6 Scroll_TransplantMap_XX
 01:44c8 Scroll_TransplantMap_XX.Shared
@@ -1084,7 +1084,7 @@
 01:5ddd jr_001_5DDD
 01:5de1 Call_001_5DE1
 01:5dfd Jump_001_5DFD
-01:5e10 Jump_001_5E10
+01:5e10 AI_Hero_Start
 01:5e3e Call_001_5E3E
 01:5e58 jr_001_5E58
 01:5e5b jr_001_5E5B
@@ -1154,7 +1154,7 @@
 01:633d jr_001_633D
 01:6344 jr_001_6344
 01:638a jr_001_638A
-01:63ce Call_001_63CE
+01:63ce AI_Raindrop
 01:641d Call_001_641D
 01:6488 jr_001_6488
 01:649e jr_001_649E
@@ -36258,7 +36258,7 @@
 00:c85e wTilemap_YTileOffset
 00:c85f wTilemap_XTile
 00:c860 wTilemap_YTile
-00:c863 wTilemap_XYTileAddress
+00:c863 wTilemap_DestAddr
 00:c867 wTilemap_Row_Dest
 00:c869 wTilemap_RowPhase
 00:c86a wTilemap_RowTrig

@@ -1143,10 +1143,10 @@ jr_007_49A7:
     call Math_Mult                                    ; $49D2: $CD $CA $04
     ld a, [wTilemap_XTile]                                 ; $49D5: $FA $5F $C8
     add l                                         ; $49D8: $85
-    ld [$C861], a                                 ; $49D9: $EA $61 $C8
+    ld [wTilemap_Source], a                                 ; $49D9: $EA $61 $C8
     ld a, $D0                                     ; $49DC: $3E $D0
     adc h                                         ; $49DE: $8C
-    ld [$C862], a                                 ; $49DF: $EA $62 $C8
+    ld [wTilemap_Source + 1], a                                 ; $49DF: $EA $62 $C8
     ld a, [wTilemap_YTile]                                 ; $49E2: $FA $60 $C8
     ld c, a                                       ; $49E5: $4F
     ld b, $40                                     ; $49E6: $06 $40
@@ -1159,10 +1159,10 @@ jr_007_49A7:
     add a                                         ; $49F6: $87
     and $1F                                       ; $49F7: $E6 $1F
     add l                                         ; $49F9: $85
-    ld [wTilemap_XYTileAddress], a                                 ; $49FA: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $49FA: $EA $63 $C8
     ld a, [$C864]                                 ; $49FD: $FA $64 $C8
     ld d, a                                       ; $4A00: $57
-    ld a, [wTilemap_XYTileAddress]                                 ; $4A01: $FA $63 $C8
+    ld a, [wTilemap_DestAddr]                                 ; $4A01: $FA $63 $C8
     ld e, a                                       ; $4A04: $5F
     ld hl, $0020                                  ; $4A05: $21 $20 $00
     ld a, [wTilemap_XTileOffset]                                 ; $4A08: $FA $5D $C8
@@ -1185,7 +1185,7 @@ jr_007_4A17:
     ld a, h                                       ; $4A1E: $7C
     ld [$C864], a                                 ; $4A1F: $EA $64 $C8
     ld a, l                                       ; $4A22: $7D
-    ld [wTilemap_XYTileAddress], a                                 ; $4A23: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $4A23: $EA $63 $C8
     ret                                           ; $4A26: $C9
 
 
@@ -1201,7 +1201,7 @@ jr_007_4A27:
     ld a, e                                       ; $4A33: $7B
     and $E0                                       ; $4A34: $E6 $E0
     add c                                         ; $4A36: $81
-    ld [wTilemap_XYTileAddress], a                                 ; $4A37: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $4A37: $EA $63 $C8
     ret                                           ; $4A3A: $C9
 
 
@@ -1222,16 +1222,13 @@ jr_007_4A3B:
     ld a, h                                       ; $4A4C: $7C
     ld [$C864], a                                 ; $4A4D: $EA $64 $C8
     ld a, l                                       ; $4A50: $7D
-    ld [wTilemap_XYTileAddress], a                                 ; $4A51: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $4A51: $EA $63 $C8
     ret                                           ; $4A54: $C9
 
     ; $4A55
 Tilemap_Position::
     call Tilemap_Clamp                            ; $4A55: $CD $1F $49
-    ld a, [$C862]                                 ; $4A58: $FA $62 $C8
-    ld h, a                                       ; $4A5B: $67
-    ld a, [$C861]                                 ; $4A5C: $FA $61 $C8
-    ld l, a                                       ; $4A5F: $6F
+    Get16 hl, wTilemap_Source
     ld a, [wTilemap_XTile]                                 ; $4A60: $FA $5F $C8
     ld d, a                                       ; $4A63: $57
     ld a, [wTilemap_YTile]                                 ; $4A64: $FA $60 $C8
@@ -1588,7 +1585,7 @@ jr_007_4D40:
     jp z, Jump_007_4F38                           ; $4D46: $CA $38 $4F
 
     bit 7, e                                      ; $4D49: $CB $7B
-    ld hl, $C861                                  ; $4D4B: $21 $61 $C8
+    ld hl, wTilemap_Source                                  ; $4D4B: $21 $61 $C8
     jr z, jr_007_4D6E                             ; $4D4E: $28 $1E
 
     push hl                                       ; $4D50: $E5
@@ -1616,7 +1613,7 @@ jr_007_4D6E:
     ld b, [hl]                                    ; $4D6F: $46
     ld c, a                                       ; $4D70: $4F
     FSet16 $C88D, bc                                    ; $4D76: $70
-    ld a, [wTilemap_XYTileAddress]                                 ; $4D77: $FA $63 $C8
+    ld a, [wTilemap_DestAddr]                                 ; $4D77: $FA $63 $C8
     ld e, a                                       ; $4D7A: $5F
     dec a                                         ; $4D7B: $3D
     and $1F                                       ; $4D7C: $E6 $1F
@@ -1625,7 +1622,7 @@ jr_007_4D6E:
     and $E0                                       ; $4D80: $E6 $E0
     add d                                         ; $4D82: $82
     ld [$C88F], a                                 ; $4D83: $EA $8F $C8
-    ld hl, wTilemap_XYTileAddress                                  ; $4D86: $21 $63 $C8
+    ld hl, wTilemap_DestAddr                                  ; $4D86: $21 $63 $C8
     ld [hl+], a                                   ; $4D89: $22
     ld a, [hl]                                    ; $4D8A: $7E
     ld [$C890], a                                 ; $4D8B: $EA $90 $C8
@@ -1676,7 +1673,7 @@ jr_007_4DB6:
     jp z, Jump_007_4F38                           ; $4DCA: $CA $38 $4F
 
     bit 4, e                                      ; $4DCD: $CB $63
-    FGet16 bc, $C861                                  ; $4DCF: $21 $61 $C8                                       ; $4DD4: $4F
+    FGet16 bc, wTilemap_Source                                  ; $4DCF: $21 $61 $C8                                       ; $4DD4: $4F
     jr z, jr_007_4DF5                             ; $4DD5: $28 $1E
 
     ld hl, wTilemap_XTile                                  ; $4DD7: $21 $5F $C8
@@ -1696,7 +1693,7 @@ jr_007_4DE6:
     add d                                         ; $4DEC: $82
     ld [hl], a                                    ; $4DED: $77
     inc bc                                        ; $4DEE: $03
-    FSet16 $C861, bc                                    ; $4DF4: $70
+    FSet16 wTilemap_Source, bc                                    ; $4DF4: $70
 
 jr_007_4DF5:
     ld hl, $000A                                  ; $4DF5: $21 $0A $00
@@ -1705,7 +1702,7 @@ jr_007_4DF5:
     ld [$C88E], a                                 ; $4DFA: $EA $8E $C8
     ld a, l                                       ; $4DFD: $7D
     ld [$C88D], a                                 ; $4DFE: $EA $8D $C8
-    ld a, [wTilemap_XYTileAddress]                                 ; $4E01: $FA $63 $C8
+    ld a, [wTilemap_DestAddr]                                 ; $4E01: $FA $63 $C8
     ld e, a                                       ; $4E04: $5F
     inc a                                         ; $4E05: $3C
     and $1F                                       ; $4E06: $E6 $1F
@@ -1713,7 +1710,7 @@ jr_007_4DF5:
     ld a, e                                       ; $4E09: $7B
     and $E0                                       ; $4E0A: $E6 $E0
     add d                                         ; $4E0C: $82
-    ld [wTilemap_XYTileAddress], a                                 ; $4E0D: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $4E0D: $EA $63 $C8
     ld e, a                                       ; $4E10: $5F
     add $14                                       ; $4E11: $C6 $14
     and $1F                                       ; $4E13: $E6 $1F
@@ -2379,8 +2376,8 @@ jr_007_51E3:
     jp z, Jump_007_5415                           ; $51E9: $CA $15 $54
 
     bit 7, e                                      ; $51EC: $CB $7B
-    FGet16 bc, $C861                                  ; $51EE: $21 $61 $C8                                       ; $51F3: $4F
-    FGet16 de, wTilemap_XYTileAddress                                  ; $51F4: $21 $63 $C8                                       ; $51F9: $5F
+    FGet16 bc, wTilemap_Source                                  ; $51EE: $21 $61 $C8                                       ; $51F3: $4F
+    FGet16 de, wTilemap_DestAddr                                  ; $51F4: $21 $63 $C8                                       ; $51F9: $5F
     jr z, jr_007_5226                             ; $51FA: $28 $2A
 
     push de                                       ; $51FC: $D5
@@ -2405,10 +2402,7 @@ jr_007_520A:
     ld l, a                                       ; $5217: $6F
     ld h, $FF                                     ; $5218: $26 $FF
     add hl, bc                                    ; $521A: $09
-    ld a, l                                       ; $521B: $7D
-    ld [$C861], a                                 ; $521C: $EA $61 $C8
-    ld a, h                                       ; $521F: $7C
-    ld [$C862], a                                 ; $5220: $EA $62 $C8
+    Set16_M wTilemap_Source, hl
     ld c, l                                       ; $5223: $4D
     ld b, h                                       ; $5224: $44
     pop de                                        ; $5225: $D1
@@ -2418,7 +2412,7 @@ jr_007_5226:
     ld hl, $FFE0                                  ; $522C: $21 $E0 $FF
     add hl, de                                    ; $522F: $19
     ld a, l                                       ; $5230: $7D
-    ld [wTilemap_XYTileAddress], a                                 ; $5231: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $5231: $EA $63 $C8
     ld [wTilemap_Row_Dest], a                                 ; $5234: $EA $67 $C8
     ld a, h                                       ; $5237: $7C
     and $03                                       ; $5238: $E6 $03
@@ -2472,8 +2466,8 @@ jr_007_526A:
     jp z, Jump_007_5415                           ; $527E: $CA $15 $54
 
     bit 4, e                                      ; $5281: $CB $63
-    FGet16 bc, $C861                                  ; $5283: $21 $61 $C8                                       ; $5288: $4F
-    FGet16 de, wTilemap_XYTileAddress                                  ; $5289: $21 $63 $C8                                       ; $528E: $5F
+    FGet16 bc, wTilemap_Source                                  ; $5283: $21 $61 $C8                                       ; $5288: $4F
+    FGet16 de, wTilemap_DestAddr                                  ; $5289: $21 $63 $C8                                       ; $528E: $5F
     jr z, jr_007_52BB                             ; $528F: $28 $2A
 
     push de                                       ; $5291: $D5
@@ -2497,10 +2491,7 @@ jr_007_52A1:
     ld l, a                                       ; $52AC: $6F
     ld h, $00                                     ; $52AD: $26 $00
     add hl, bc                                    ; $52AF: $09
-    ld a, h                                       ; $52B0: $7C
-    ld [$C862], a                                 ; $52B1: $EA $62 $C8
-    ld a, l                                       ; $52B4: $7D
-    ld [$C861], a                                 ; $52B5: $EA $61 $C8
+    Set16 wTilemap_Source, hl
     ld c, l                                       ; $52B8: $4D
     ld b, h                                       ; $52B9: $44
     pop de                                        ; $52BA: $D1
@@ -2515,7 +2506,7 @@ jr_007_52BB:
     ld a, h                                       ; $52C5: $7C
     ld [$C864], a                                 ; $52C6: $EA $64 $C8
     ld a, l                                       ; $52C9: $7D
-    ld [wTilemap_XYTileAddress], a                                 ; $52CA: $EA $63 $C8
+    ld [wTilemap_DestAddr], a                                 ; $52CA: $EA $63 $C8
     ld e, l                                       ; $52CD: $5D
     ld d, h                                       ; $52CE: $54
     ld a, [wTilemap_YMapPad+1]                                 ; $52CF: $FA $4A $C8

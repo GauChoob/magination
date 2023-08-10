@@ -567,9 +567,12 @@ wTilemap_XTile::
 wTilemap_YTile::
     ; Camera position. I think this is the topleft corner of the camera position
     ds 1
-
-    ds $C863 - @
-wTilemap_XYTileAddress::
+    ;ds $C861 - @
+wTilemap_Source::
+    ; TODO
+    ds 2
+    ;ds $C863 - @
+wTilemap_DestAddr::
     ; Camera position. The address of the topleft corner of the camera position
     ds 2
 

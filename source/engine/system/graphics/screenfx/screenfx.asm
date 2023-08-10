@@ -221,7 +221,7 @@ Graphics_ScreenFX_Swirl_Do::
     ; Every frame, copy 4 white tiles (2x2) in a swirl pattern
 
     ; Inputs:
-    ;   wTilemap_XYTileAddress = topleft corner of the visible screen. Starting point for the swirl
+    ;   wTilemap_DestAddr = topleft corner of the visible screen. Starting point for the swirl
 
     ; Swirl: From X to X
     ; X>>>>>>>>>v
@@ -240,7 +240,7 @@ Graphics_ScreenFX_Swirl_Do::
     Set8 wGraphics_ScreenFX_TileAttr, GRAPHICS_SCREENFX_TILEATTR
 
     ; Get the topleft corner of the visible tilemap
-    FGet16 hl, wTilemap_XYTileAddress
+    FGet16 hl, wTilemap_DestAddr
     ; Draw the white tile here
     call Graphics_ScreenFX_Swirl_SetupVBlank
     ; Now move in a clockwise circle

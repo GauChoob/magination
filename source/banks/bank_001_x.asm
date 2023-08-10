@@ -666,13 +666,13 @@ HotspotX_CheckHotspot::
 DEF ScriptXX_BANK EQU $01 ;TODO make it refer to a non-constant
 ASSERT ScriptXX_BANK == BANK(@)
 
-Script_Table::
     ; $42C3
+Script_Table::
     dw Cmd_Actor_HeroFromDoor            ; $00
     dw Cmd_Actor_HeroToDoor ; $01
     dw Cmd_Actor_HeroToRelativeDoor            ; $02
-    dw $0B22
-    dw $0B72
+    dw Cmd_Actor_ThatActorDrawTile ; $03
+    dw Cmd_Actor_ThatActorDrawMaskTile ; $04
     dw Cmd_Actor_ThatActorInit ; $05
     dw Cmd_Actor_ThatActorTeleportToThatActor ; $06
     dw Cmd_Actor_ThatActorSetAI ; $07
@@ -681,12 +681,12 @@ Script_Table::
     dw Cmd_Actor_ThatActorSetSpriteBase ; $0A
     dw Cmd_Actor_ThatActorStart ; $0B
     dw Cmd_Actor_ThatActorDelete ; $0C
-    dw $0C43
-    dw $0C49
+    dw Cmd_Actor_ThisActorDrawTile ; $0D
+    dw Cmd_Actor_ThisActorDrawMaskTile ; $0E
     dw Cmd_Actor_ThisActorTeleportToThatActor ; $0F
 
     dw Cmd_Actor_ThisActorNewState ;$10
-    dw $0C7E
+    dw Cmd_Actor_ThisActorRaindrop ; $11
     dw Cmd_Actor_RestoreActorState ; $12
     dw Cmd_Actor_ThisActorSetAI ; $13
     dw Cmd_Actor_ThisActorSetAnimSingle ; $14
@@ -862,88 +862,7 @@ Script_Table::
     dw Cmd_Ram_OrXramByte    ; $AF
 
 
-ASSERT BANK(@) == ScriptXX_BANK
-    ; $4423
-ActorXX_HeroFromDoorXX::
-    ; Teleport the Hero to the X and Y coordinates specified by a Cmd_Actor_HeroToDoor
-    ; Useful to set the Hero to specific tile when loading a new scene
-    ; Also sets wHotspotCurrent to null
-    ; Inputs:
-    ;   wHero_DoorX + wHero_DoorY
-    ; Outputs:
-    ;   wActor_Hero.XTile, wActor_Hero.YTile, wActor_Hero.TileAddress updated
-    ;   wHotspotCurrent = HOTSPOT_NULL
-
-    ; Set the X and Y tile from the door variables
-    Mov8 wActor_Hero.XTile, wHero_DoorX
-    ld a, [wHero_DoorY]
-    ld [wActor_Hero.YTile], a
-
-    ; Get the collisionmap/tilemap address:
-    ; wActor_Hero.TileAddress = wCollisionMap + wHero_DoorY*wTilemap_Width + wHero_DoorX
-    ld b, a
-    Get8 c, wTilemap_Width
-    call Math_Mult
-    ld d, HIGH(wCollisionMap)
-    Get8 e, wHero_DoorX
-    add hl, de
-    Set16 wActor_Hero.TileAddress, hl
-
-    ; Nil hotspot
-    Set8 wHotspotCurrent, HOTSPOT_NULL
-
-    Set16_M hScript.State, Script_Start
-    ret
-
-Jump_001_4456:: ;Farjump from 00
-    ld a, [rDIV]                                 ; $4456: $FA $04 $FF
-    and $0F                                       ; $4459: $E6 $0F
-    ld b, a                                       ; $445B: $47
-    add a                                         ; $445C: $87
-    add b                                         ; $445D: $80
-    ld c, a                                       ; $445E: $4F
-    ld b, $00                                     ; $445F: $06 $00
-    ld hl, $639E                                  ; $4461: $21 $9E $63
-    add hl, bc                                    ; $4464: $09
-    ld a, [hl+]                                   ; $4465: $2A
-    ld b, a                                       ; $4466: $47
-    ld a, [wTilemap_YTile]                                 ; $4467: $FA $60 $C8
-    add b                                         ; $446A: $80
-    ldh [hActor.YTile], a                                  ; $446B: $E0 $92
-    DerefHL
-    ld a, [hl+]                                   ; $4470: $2A
-    ld d, [hl]                                    ; $4471: $56
-    ld e, a                                       ; $4472: $5F
-    ld a, [rDIV]                                 ; $4473: $FA $04 $FF
-    swap a                                        ; $4476: $CB $37
-    and $0F                                       ; $4478: $E6 $0F
-    ld c, a                                       ; $447A: $4F
-    ld b, $00                                     ; $447B: $06 $00
-    ld hl, $638E                                  ; $447D: $21 $8E $63
-    add hl, bc                                    ; $4480: $09
-    ld b, [hl]                                    ; $4481: $46
-    ld a, [wTilemap_XTile]                                 ; $4482: $FA $5F $C8
-    add b                                         ; $4485: $80
-    ldh [hActor.XTile], a                                  ; $4486: $E0 $91
-    ld l, b                                       ; $4488: $68
-
-jr_001_4489:
-    ld h, $00                                     ; $4489: $26 $00
-    add hl, de                                    ; $448B: $19
-    ld a, [$C862]                                 ; $448C: $FA $62 $C8
-    ld d, a                                       ; $448F: $57
-    ld a, [$C861]                                 ; $4490: $FA $61 $C8
-    ld e, a                                       ; $4493: $5F
-    add hl, de                                    ; $4494: $19
-    ld a, h                                       ; $4495: $7C
-    ld [hActor.TileAddress+1], a                                 ; $4496: $EA $94 $FF
-    ld a, l                                       ; $4499: $7D
-    ld [hActor.TileAddress], a                                 ; $449A: $EA $93 $FF
-    ld a, $9A                                     ; $449D: $3E $9A
-    ldh [hScript.State], a                                  ; $449F: $E0 $A4
-    ld a, $0C                                     ; $44A1: $3E $0C
-    ldh [hScript.State+1], a                                  ; $44A3: $E0 $A5
-    ret                                           ; $44A5: $C9
+INCLUDE "source/engine/actor/actor_script_xx.asm"
 
 
 ASSERT BANK(@) == ScriptXX_BANK
@@ -4263,7 +4182,7 @@ AI_Hero_Main:
     ld a, [$A3A3]                                 ; $5D8E: $FA $A3 $A3
     ld [$C9A6], a                                 ; $5D91: $EA $A6 $C9
     Battery_Off
-    jp Jump_001_5E10                              ; $5D98: $C3 $10 $5E
+    jp AI_Hero_Start                              ; $5D98: $C3 $10 $5E
 
 
 Jump_001_5D9B:
@@ -4328,7 +4247,7 @@ Jump_001_5DFD:
     jp Jump_001_5D9B                              ; $5E0D: $C3 $9B $5D
 
 
-Jump_001_5E10:
+AI_Hero_Start::
     call Call_001_5DE1                            ; $5E10: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5E13: $FA $A3 $C9
     bit 4, a                                      ; $5E16: $CB $67
@@ -5195,20 +5114,55 @@ jr_001_638A:
     ret                                           ; $638D: $C9
 
 
+AI_Raindrop_RandomTable::
+    .Col:
     db $00, $00, $01, $01, $02, $02, $03, $04, $05, $06, $07, $07, $08, $08, $09, $09
-    db $00, $4B, $C8, $00, $4B, $C8, $01, $4D, $C8, $01, $4D, $C8, $01, $4D, $C8, $02
-    db $4F, $C8, $02, $4F, $C8, $03, $51, $C8, $04, $53, $C8, $05, $55, $C8, $06, $57
-    db $C8, $06, $57, $C8, $07, $59, $C8, $07, $59, $C8, $08, $5B, $C8, $08, $5B, $C8
+    .Row:
+    db $00
+    dw wTilemap_YPadTable + $00
+    db $00
+    dw wTilemap_YPadTable + $00
+    db $01
+    dw wTilemap_YPadTable + $02
+    db $01
+    dw wTilemap_YPadTable + $02
+    db $01
+    dw wTilemap_YPadTable + $02
+    db $02
+    dw wTilemap_YPadTable + $04
+    db $02
+    dw wTilemap_YPadTable + $04
+    db $03
+    dw wTilemap_YPadTable + $06
+    db $04
+    dw wTilemap_YPadTable + $08
+    db $05
+    dw wTilemap_YPadTable + $0A
+    db $06
+    dw wTilemap_YPadTable + $0C
+    db $06
+    dw wTilemap_YPadTable + $0C
+    db $07
+    dw wTilemap_YPadTable + $0E
+    db $07
+    dw wTilemap_YPadTable + $0E
+    db $08
+    dw wTilemap_YPadTable + $10
+    db $08
+    dw wTilemap_YPadTable + $10
 
-    ; $63CE
-Call_001_63CE::
-    call Actor_ScriptOpen                            ; $63CE: $CD $2F $41
-    call Script_Open                                    ; $63D1: $CD $28 $29
-    call Script_Play                                    ; $63D4: $CD $3A $0A
-    call Script_Close                                    ; $63D7: $CD $0A $29
+
+AI_Raindrop::
+    call Actor_ScriptOpen
+
+    call Script_Open
+    call Script_Play
+    call Script_Close
+
     Do_CallForeign Coll_FreeMove
-    call Actor_ScriptClose                            ; $63E2: $CD $0A $41
-    ret                                           ; $63E5: $C9
+
+    call Actor_ScriptClose
+    ret
 
 
     call AI_Anim                            ; $63E6: $CD $6B $4A
