@@ -124,7 +124,13 @@ class FuncHandler(ResultsHandler):
         self.size = 5
         return self.GenerateOutput(*range(4))
     
-    # 0x04
+    def ThatActorDrawTile(self):            # 0x03
+        self.size = 8
+        return self.GenerateOutput(*range(6))
+
+    def ThatActorDrawMaskTile(self):        # 0x04
+        self.size = 6
+        return self.GenerateOutput(*range(6))
 
     def ThatInit(self):                     # 0x05
         self.size = 15

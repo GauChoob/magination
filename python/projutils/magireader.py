@@ -105,6 +105,8 @@ class MagiScriptLine:
         0x00: CommandBuilder("func", "HeroFromDoor"),
         0x01: CommandBuilder("func", "HeroToDoor", "$db", "$db"),
         0x02: CommandBuilder("func", "HeroToRelativeDoor", "-$db", "-$db", "-$db", "-$db"),
+        #0x02: CommandBuilder("func", "ThatDrawTile", "db", "YXTileaddress", "-$db", "-$db"),
+        #0x02: CommandBuilder("func", "ThatDrawTile", "db", "YXTileaddress", "-$db", "-$db"),
 
         0x05: CommandBuilder("func", "ThatInit", "db", "ActorStateAddress", "$db", "$db", "$dw", "$db", "BankAddress_ACTORSCRIPT0", "BankAddress_ACTORSCRIPT1"),
         0x06: CommandBuilder("func", "ThatTeleportTo", "db", "db"),

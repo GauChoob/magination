@@ -3,8 +3,8 @@ RSRESET
 DEF Enum_Cmd_Actor_HeroFromDoor                 RB 1 ; $00
 DEF Enum_Cmd_Actor_HeroToDoor                   RB 1 ; $01
 DEF Enum_Cmd_Actor_HeroToRelativeDoor           RB 1 ; $02
-DEF Enum_Cmd_03                 RB 1 ; $03
-DEF Enum_Cmd_04                 RB 1 ; $04
+DEF Enum_Cmd_Actor_ThatActorDrawTile            RB 1 ; $03
+DEF Enum_Cmd_Actor_ThatActorDrawMaskTile        RB 1 ; $04
 DEF Enum_Cmd_Actor_ThatActorInit                RB 1 ; $05
 DEF Enum_Cmd_Actor_ThatActorTeleportToThatActor RB 1 ; $06
 DEF Enum_Cmd_Actor_ThatActorSetAI               RB 1 ; $07
@@ -204,14 +204,29 @@ ENDM
 
 MACRO HeroToRelativeDoor
     db Enum_Cmd_Actor_HeroToRelativeDoor
-    db \1       ; -X TODO
+    db \1       ; -X
     db \2       ; +X
     db \3       ; -Y
     db \4       ; +Y
 ENDM
 
-; 03
-; 04
+MACRO ThatDrawTile
+    db Enum_Cmd_Actor_ThatActorDrawTile
+    db \1       ; Actor ID
+    db \2       ; Y offset
+    db \3       ; X offset
+    dw (\2)*(\4) + (\3) ; Tileaddress offset = Yoffset*Width + Xoffset | \4 = map width
+    db \5       ; Collision id
+    db \6       ; Pattern id
+ENDM
+
+MACRO ThatDrawMaskTile
+    db Enum_Cmd_Actor_ThatActorDrawMaskTile
+    db \1       ; Actor ID
+    dw (\2)*(\4) + (\3) ; Tileaddress offset = Yoffset*Width + Xoffset | \2 = Yoffset, \3 = Xoffset, \4 = map width
+    db \5       ; Collision id
+    db \6       ; Pattern id
+ENDM
 
 MACRO ThatInit
     db Enum_Cmd_Actor_ThatActorInit
