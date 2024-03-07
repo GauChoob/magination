@@ -719,9 +719,9 @@ wText_DelayCounter::
     ds 1
     ;ds $C949 - @
 wText_StringBuffer::
-    ds $1E ;at least
+    ds $50
 
-    ds $C999 - @
+   ; ds $C999 - @
 wTrigger_TableSize::
     ds 1
     ;ds $C99A - @
