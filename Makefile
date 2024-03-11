@@ -47,6 +47,7 @@ tests:
 	python -m unittest python\\projutils\\tests\\test_asm.py
 	python -m unittest python\\projutils\\tests\\test_autopack.py
 	python -m unittest python\\projutils\\tests\\test_battle.py
+	python -m unittest python\\projutils\\tests\\test_collision.py
 	python -m unittest python\\projutils\\tests\\test_color.py
 	python -m unittest python\\projutils\\tests\\test_encoding.py
 	python -m unittest python\\projutils\\tests\\test_fileregistry.py

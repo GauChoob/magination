@@ -11,13 +11,15 @@ DEF FIX_BUGS EQU 0 ; Set to 1 to fix a few bugs that I found in the code
 INCLUDE "source/includes/hardware_constants.asm"
 
 ; Personalized charmap
-INCLUDE "source/includes/charmap/charmap.asm"
+INCLUDE "source/includes/charmap.asm"
 
 ; General-purpose equs
 INCLUDE "source/includes/equ.asm"
 ; General-purpose macros
 INCLUDE "source/includes/macro.asm"
 INCLUDE "source/includes/vram_equ.asm"
+; Fixed bank definitions
+INCLUDE "source/includes/bank_distribution.asm"
 
 
 INCLUDE "source/macros/macro.asm"

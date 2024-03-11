@@ -12,7 +12,7 @@ for loc in locs:
     except:
         traceback.print_exc()
         pass """
-magireader.interpret(BankAddress(0x20, 0x701E),BankAddress(0x20, 0x713C))
+print(magireader.interpret(BankAddress(0x22, 0x4000),BankAddress(0x20, 0x8000)))
 
 #magireader.interpret(BankAddress(0x4C, 0x4023), BankAddress(0x4C, 0x8000))
 # magireader.interpret(BankAddress(0x2A, 0x6CB5), BankAddress(0x2A, 0x73E7)) # Game start
@@ -28,4 +28,3 @@ magireader.interpret(BankAddress(0x20, 0x701E),BankAddress(0x20, 0x713C))
 # interpret(BankAddress(0x2A,0x4000),BankAddress(0x2A,0x73E7))
 magireader.buildHotspots()
 magireader.buildTriggers()
-magireader.buildSprites()

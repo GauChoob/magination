@@ -173,7 +173,7 @@ Cardscene_Init:
     .SkipBackup:
 
     ; Reset actors and graphics for cardscene
-    Do_CallForeign Actorlist_Init
+    Do_CallForeign ActorList_Init
     Frame_Init
     call Cardscene00_Graphics_InitCardBattle
     call Interpreter_ReInit
@@ -272,7 +272,7 @@ Cardscene_Startup:
 
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle ; inefficiency? This command is repeated near the end of this function
 
-    Do_CallForeign Actorlist_Init
+    Do_CallForeign ActorList_Init
     Frame_Init
     call Interpreter_ReInit
 

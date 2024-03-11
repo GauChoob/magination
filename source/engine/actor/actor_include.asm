@@ -1,53 +1,56 @@
 
-DEF Actor_NORTH     EQU 0
-DEF Actor_WEST      EQU 1
-DEF Actor_EAST      EQU 2
-DEF Actor_SOUTH     EQU 3
 
-DEF Actor_FLAGS_BIT_PLACEDWALL EQU $05
-DEF Actor_FLAGS_BIT_ACTIVE EQU $06
-DEF Actor_FLAGS_BIT_DELETE EQU $07
+DEF ActorList_SIZE EQU $10
 
-DEF Actorlist_SIZE EQU $10
 DEF Actor_COUNT EQU $32
 ASSERT Actor_COUNT == (wActor_RAM_END - wActor_RAM)/Actor_SIZE
 
 ; ACTOR STRUCT
 
-DEF Actor_ENUM_Flags                 EQU $00 ;\
-DEF Actor_ENUM_State                 EQU $01 ; \
-DEF Actor_ENUM_XOffset               EQU $03 ;  \
-DEF Actor_ENUM_YOffset               EQU $04 ;   \
-DEF Actor_ENUM_XTile                 EQU $05 ;   /  Also referenceable in HRAM
-DEF Actor_ENUM_YTile                 EQU $06 ;  /
-DEF Actor_ENUM_TileAddress           EQU $07 ; /
-DEF Actor_ENUM_SpriteBase            EQU $09 ;/
+RSRESET
+DEF Actor_ENUM_Flags                 RB 1 ;\
+DEF Actor_ENUM_State                 RB 2 ; \
+DEF Actor_ENUM_XOffset               RB 1 ;  \
+DEF Actor_ENUM_YOffset               RB 1 ;   \
+DEF Actor_ENUM_XTile                 RB 1 ;   /  Also referenceable in HRAM
+DEF Actor_ENUM_YTile                 RB 1 ;  /
+DEF Actor_ENUM_TileAddress           RB 2 ; /
+DEF Actor_ENUM_SpriteBase            RB 1 ;/
 
-DEF Actor_ENUM_Script0               EQU $0A ;TODO - change Script0 to anim?
-DEF Actor_ENUM_Script0_Bank          EQU $0A
-DEF Actor_ENUM_Script0_Frame         EQU $0B
-DEF Actor_ENUM_Script0_State         EQU $0D
-DEF Actor_ENUM_Script0_SmallCounter  EQU $0F
-DEF Actor_ENUM_Script0_BigCounter    EQU $10
-DEF Actor_ENUM_Script1               EQU $11 ;TODO - change Script1 to ?
-DEF Actor_ENUM_Script1_Bank          EQU $11
-DEF Actor_ENUM_Script1_Frame         EQU $12
-DEF Actor_ENUM_Script1_State         EQU $14
-DEF Actor_ENUM_Script1_SmallCounter  EQU $16
-DEF Actor_ENUM_Script1_BigCounter    EQU $17
-DEF Actor_ENUM_Interrupt             EQU $18
-DEF Actor_ENUM_Interrupt_Bank        EQU $18
-DEF Actor_ENUM_Interrupt_State       EQU $19
-DEF Actor_SIZE                       EQU $1B
+DEF Actor_ENUM_Script0               RB 0 ; Script0
+DEF Actor_ENUM_Script0_Bank          RB 1
+DEF Actor_ENUM_Script0_Frame         RB 2
+DEF Actor_ENUM_Script0_State         RB 2
+DEF Actor_ENUM_Script0_SmallCounter  RB 1
+DEF Actor_ENUM_Script0_BigCounter    RB 1
+DEF Actor_ENUM_Script1               RB 0 ; Script1
+DEF Actor_ENUM_Script1_Bank          RB 1
+DEF Actor_ENUM_Script1_Frame         RB 2
+DEF Actor_ENUM_Script1_State         RB 2
+DEF Actor_ENUM_Script1_SmallCounter  RB 1
+DEF Actor_ENUM_Script1_BigCounter    RB 1
+DEF Actor_ENUM_Interrupt             RB 0
+DEF Actor_ENUM_Interrupt_Bank        RB 1
+DEF Actor_ENUM_Interrupt_State       RB 2
+DEF Actor_SIZE                       RB 0
+
+
+DEF Actor_FLAGS_FACENORTH       EQU 0
+DEF Actor_FLAGS_FACEWEST        EQU 1
+DEF Actor_FLAGS_FACEEAST        EQU 2
+DEF Actor_FLAGS_FACESOUTH       EQU 3
+DEF Actor_FLAGS_BIT_PLACEDWALL  EQU $05
+DEF Actor_FLAGS_BIT_ACTIVE      EQU $06
+DEF Actor_FLAGS_BIT_DELETE      EQU $07
 
 MACRO Actor_Struct
     .Flags:
         ; bit 7 - actor is disabled
         ; bit 6 - actor is activated
-        ; bit 1-0 - 0 = North
-        ;           1 = West
-        ;           2 = East
-        ;           3 = South
+        ; bit 1-0 - 0 = Facing North
+        ;           1 = Facing West
+        ;           2 = Facing East
+        ;           3 = Facing South
         ds 1
     .State:
         ; The main function that runs to handle the actor, aka the AI
@@ -93,7 +96,7 @@ MACRO Actor_Struct
         .Script1_BigCounter:
             ds 1
     .Interrupt:
-        ; This function is run when the object is disabled
+        ; Script that runs when the object is interacted with
         .Interrupt_Bank:
             ds 1
         .Interrupt_State:

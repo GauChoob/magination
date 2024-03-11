@@ -1,11 +1,11 @@
 
-Actor_InitInterrupt::
+Actor_Init_SetInterrupt::
     ; Sets the Interrupt Function of an Actor
     ; The interrupt function triggers
-    ;   - When you try to talk to a talkable actor AI_TALKER
-    ;   - When you stand on the same tile as an AI_TRAP
+    ;   - When you try to talk to a talkable actor AI_TALKER (TODO rename)
+    ;   - When you stand on the same tile as an AI_TRAP (TODO rename)
     ; Arguments:
-    ;   BankAddress of DisableThread
+    ;   BankAddress Script
     ;   hl          Memory address of Actor.Interrupt
     ; Output:
     ;   Actor.Interrupt_Bank and Actor.Interrupt_State
@@ -15,7 +15,7 @@ Actor_InitInterrupt::
     ret
 
 
-Actor_InitScript0::
+Actor_Init_SetScript0::
     ; Initializes Script0 of an Actor
     ; Arguments:
     ;   BankAddress  Script
@@ -36,7 +36,7 @@ Actor_InitScript0::
     ret
 
 
-Actor_InitScript1::
+Actor_Init_NullScript1::
     ; Initializes Script1 of an Actor as Cmd_Flow_End
     ; Arguments:
     ;   hl      Memory address of Actor.Script1
@@ -56,7 +56,7 @@ Actor_InitScript1::
     ret
 
 
-Actor_InitShared::
+Actor_Init_StateAndScript::
     ; Initializes the AI and position of an Actor, as well as Script0
     ; Inputs:
     ;   hl: Points to an Actor
@@ -80,11 +80,11 @@ Actor_InitShared::
     LdHLIBCI_V
     LdHLIBCI_V
     LdHLIBCI_V
-    jp Actor_InitScript0
+    jp Actor_Init_SetScript0
 
 
 Actor_SetScript::
-    ; Updates the Frame address of an Actor's script
+    ; Locally updates the Frame address of an Actor's script (bank is fixed)
     ; Arguments:
     ;   [bc] dw  New Frame
     ;   hl - Actor.Script0/1_Frame or hScript.Frame
@@ -129,13 +129,16 @@ Cmd_Actor_HeroToDoor::
 
 Cmd_Actor_HeroToRelativeDoor::
     ; Sets the X and Y door coordinates that can be retrieved by Cmd_Actor_HeroFromDoor
-    ; Useful to set the location of the next scene when exiting the current scene
+    ; Useful to set the location of the next scene when exiting the current scene and there are multiple available tiles
     ; The coordinates are set as relative offsets from the current position
     ; Arguments:
     ;   db Decrease X by # (Source X)
     ;   db Increase X by # (Dest X)
     ;   db Decrease Y by # (Source Y)
     ;   db Increase Y by # (Dest Y)
+    ; Outputs:
+    ;   wHero_DoorX = wActor_Hero.XTile - SourceX + DestX
+    ;   wHero_DoorY = wActor_Hero.YTile - SourceY + DestY
     Script_ReadByte_V l
     ld a, [wActor_Hero.XTile]
     sub l
@@ -143,6 +146,7 @@ Cmd_Actor_HeroToRelativeDoor::
     Script_ReadByteA
     add l
     ld [wHero_DoorX], a
+
     Script_ReadByte_V l
     ld a, [wActor_Hero.YTile]
     sub l
@@ -241,12 +245,12 @@ Cmd_Actor_ThatActorInit::
     ; Outputs:
     ;   Actor initialized but not activated
     ;   XSubtile and YSubtile set to 8
-    ;   Thread1 set to Idle
+    ;   Script1 set to Null
     call Actor_GetThatActor
 
-    call Actor_InitShared
-    call Actor_InitScript1
-    call Actor_InitInterrupt
+    call Actor_Init_StateAndScript
+    call Actor_Init_NullScript1
+    call Actor_Init_SetInterrupt
     jp Script_Start
 
 
@@ -322,7 +326,7 @@ Cmd_Actor_ThatActorSetLoc::
 
 Cmd_Actor_ThatActorSetScript::
     ; For an Actor, sets the BankAddress of Script0
-    ; Sets Script1 (animscript) to Cmd_Flow_End
+    ; Sets Script1 to Cmd_Flow_End
     ; Arguments:
     ;   db      Actor ID
     ;   BankAddress
@@ -357,12 +361,12 @@ Cmd_Actor_ThatActorSetSpriteBase::
 Cmd_Actor_ThatActorStart::
     ; Activates an Actor
     ; If Actor is already activated, it will also cancel a disable command before the actor is actually disabled
-    ; This will fail if there's already $10 actors activated
+    ; This will silently fail if there's already $10 actors activated
     ; Arguments:
     ;   db  Actor ID
     ; Outputs:
     ;   Actor_FLAGS_BIT_DELETE reset
-    ;   If Actor was not already enabled, Actor_AddActor is run to add the actor to the wActorlist_Table
+    ;   If Actor was not already enabled, ActorListXX_AddActor is run to add the actor to the wActorList_Table
     ;       and Actor_FLAGS_BIT_ACTIVE is set
     call Actor_GetThatActor
     bit Actor_FLAGS_BIT_ACTIVE, [hl]
@@ -370,7 +374,7 @@ Cmd_Actor_ThatActorStart::
         push bc
         ld b, h
         ld c, l
-        XCall Actor_AddActor
+        XCall ActorListXX_AddActor
         SwitchROMBank [hScript.Bank]
         pop bc
     .ActorAlreadyEnabled:
@@ -437,11 +441,11 @@ Cmd_Actor_ThisActorTeleportToThatActor::
 
 
 Cmd_Actor_ThisActorNewState::
-    ; Only implemented with wActor_Hero - Stores a new state for the actor to load for the next frame
+    ; Only for wActor_Hero - Stores a new state for the actor to load for the next frame
     ; Arguments:
     ;   dw  NewState (AI)
     Script_ReadWord de
-    Set16 wActor_NewState, de
+    Set16 wActor_HeroNewState, de
     jp Script_Start
 
 
@@ -450,19 +454,20 @@ Cmd_Actor_ThisActorRaindrop::
     ;   a) Collision ID of the selected tile matches the argument
     ;   b) The selected tile is not where the hero is currently located
     ; Once a tile is found, continue the script
-    ; Used for lava bubbles, swirl to teleport to mush hyren, et cetera
+    ; Used for lava bubbles, swirl to teleport to mush hyren, battle sparkles
     ; Arguments:
     ;   db  Collision ID
-    Set16FF hActor.State, AI_Raindrop
-    Set16FF hScript.State, .RaindropLocate
-    ret
+    .Init:
+        Set16FF hActor.State, AI_Raindrop
+        Set16FF hScript.State, .RaindropLocate
+        ret
     .RaindropLocate:
         XJump ActorXX_RaindropLocate
 
     .CheckValidRaindropLocation::
+        ; First, assert that the selected tile is not the hero's tile, or else .Failed
         FGet16 de, wActor_Hero.TileAddress
         Get16FF hl, hActor.TileAddress
-        ; if hl == de, goto .Failed
         ld a, l
         cp e
         jr nz, .DifferentTileAddress
@@ -470,7 +475,7 @@ Cmd_Actor_ThisActorRaindrop::
         cp d
         jr z, .Failed
         .DifferentTileAddress:
-            ; if coll id == arg, then goto .Failed
+            ; Second, make sure the selected tile's collision ID matches the input collision ID, or else .Failed
             SwitchRAMBank BANK(wCollisionMap)
             ld e, [hl]
             Script_ReadByteA
@@ -494,7 +499,7 @@ Cmd_Actor_RestoreActorState::
     
     ; Although it is originally known as ThisActorRestoreState, technically the actor
     ; that was saved will be restored, be it This actor or a different actor
-    Set8 wActor_SaveFlag, Actor_SaveFlag_REQUEST_RESTORE
+    Set8 wActorSave_Flags, ActorSave_Flag_REQUEST_RESTORE
     Set16_M wActor_Hero.State, AI_Hero_Start
     jp Cmd_Flow_End
 
@@ -513,14 +518,14 @@ Cmd_Actor_ThisActorSetAI::
 
 
 Cmd_Actor_ThisActorSetAnimSingle::
-    ; Sets Script1 with an animation
+    ; Sets Script1 (with an animation)
     ; Arguments:
     ;   BankAddress - Script1 to run with animation
     Get16 hl, hActor_CurrentAddress
     ld de, Actor_ENUM_Script1_Bank
     add hl, de
-    LdHLIBCI_V ;Bank
-    call Actor_SetScript
+    LdHLIBCI_V ; Bank
+    call Actor_SetScript ; Address
     jp Script_Start
 
 

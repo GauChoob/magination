@@ -197,7 +197,7 @@ System_Init::
     Interrupt_Init
     Frame_Init
     Do_CallForeign TextboxXX_Init ; This is actually in bank 0 so direct call would have also worked
-    XCall Actorlist_Init
+    XCall ActorList_Init
     Controller_Init
     Battle_Init
 
@@ -211,7 +211,7 @@ System_Init::
     xor a
     ld [wRAMBank], a
     ld [wROMBank], a
-    ld [wActor_SaveFlag], a
+    ld [wActorSave_Flags], a
     ld [wEncounter_Enabled], a
     ld [wMenu_MainMenu_Disabled], a
     ld [wTextbox_SoundEnabled_UNUSED], a
@@ -239,7 +239,7 @@ System_UpdateGame::
         AI_UpdateController
         AI_UpdateHeroFlags
 
-        XCall Actorlist_Run
+        XCall ActorList_Run
 
     Graphics_Close
 

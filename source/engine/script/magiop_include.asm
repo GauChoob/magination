@@ -13,12 +13,11 @@ DEF Enum_Cmd_Actor_ThatActorSetScript           RB 1 ; $09
 DEF Enum_Cmd_Actor_ThatActorSetSpriteBase       RB 1 ; $0A
 DEF Enum_Cmd_Actor_ThatActorStart               RB 1 ; $0B
 DEF Enum_Cmd_Actor_ThatActorDelete              RB 1 ; $0C
-DEF Enum_Cmd_0D                 RB 1 ; $0D
-DEF Enum_Cmd_0E                 RB 1 ; $0E
+DEF Enum_Cmd_Actor_ThisActorDrawTile            RB 1 ; $0D
+DEF Enum_Cmd_Actor_ThisActorDrawMaskTile        RB 1 ; $0E
 DEF Enum_Cmd_Actor_ThisActorTeleportToThatActor RB 1 ; $0F
-
 DEF Enum_Cmd_Actor_ThisActorNewState            RB 1 ; $10
-DEF Enum_Cmd_11                 RB 1 ; $11
+DEF Enum_Cmd_Actor_ThisActorRaindrop            RB 1 ; $11
 DEF Enum_Cmd_Actor_RestoreActorState            RB 1 ; $12
 DEF Enum_Cmd_Actor_ThisActorSetAI               RB 1 ; $13
 DEF Enum_Cmd_Actor_ThisActorSetAnimSingle       RB 1 ; $14
@@ -213,9 +212,9 @@ ENDM
 MACRO ThatDrawTile
     db Enum_Cmd_Actor_ThatActorDrawTile
     db \1       ; Actor ID
-    db \2       ; Y offset
-    db \3       ; X offset
-    dw (\2)*(\4) + (\3) ; Tileaddress offset = Yoffset*Width + Xoffset | \4 = map width
+    db \3       ; Y offset
+    db \2       ; X offset
+    dw (\3)*(\4) + (\2) ; Tileaddress offset = Yoffset*Width + Xoffset | \4 = map width
     db \5       ; Collision id
     db \6       ; Pattern id
 ENDM
@@ -223,7 +222,7 @@ ENDM
 MACRO ThatDrawMaskTile
     db Enum_Cmd_Actor_ThatActorDrawMaskTile
     db \1       ; Actor ID
-    dw (\2)*(\4) + (\3) ; Tileaddress offset = Yoffset*Width + Xoffset | \2 = Yoffset, \3 = Xoffset, \4 = map width
+    dw (\3)*(\4) + (\2) ; Tileaddress offset = Yoffset*Width + Xoffset | \2 = Xoffset, \3 = Yoffset, \4 = map width
     db \5       ; Collision id
     db \6       ; Pattern id
 ENDM
@@ -284,8 +283,21 @@ MACRO ThatDelete
     db \1       ; Actor ID
 ENDM
 
-; 0D
-; 0E
+MACRO ThisDrawTile
+    db Enum_Cmd_Actor_ThatActorDrawTile
+    db \2       ; Y offset
+    db \1       ; X offset
+    dw (\2)*(\3) + (\1) ; Tileaddress offset = Yoffset*Width + Xoffset | \3 = map width
+    db \4       ; Collision id
+    db \5       ; Pattern id
+ENDM
+
+MACRO ThisDrawMaskTile
+    db Enum_Cmd_Actor_ThatActorDrawMaskTile
+    dw (\2)*(\3) + (\1) ; Tileaddress offset = Yoffset*Width + Xoffset | \1 = Xoffset, \2 = Yoffset, \3 = map width
+    db \4       ; Collision id
+    db \5       ; Pattern id
+ENDM
 
 MACRO ThisTeleportTo
     db Enum_Cmd_Actor_ThisActorTeleportToThatActor
@@ -297,7 +309,10 @@ MACRO ThisNewState
     dw \1       ; State
 ENDM
 
-; 11
+MACRO ThisRaindrop
+    db Enum_Cmd_Actor_ThisActorRaindrop
+    db \1       ; Collision ID
+ENDM
 
 MACRO RestoreActorState
     db Enum_Cmd_Actor_RestoreActorState
@@ -313,8 +328,31 @@ MACRO ThisSetAnimSingle
     BankAddress \1  ; Thread1 InstructionBankAddress
 ENDM
 
-; 15
-; 16
+MACRO ThisSetAnimDelay
+    db Enum_Cmd_Actor_ThisActorSetAnimDelay
+    ; EndThisSetAnimDelay
+ENDM
+MACRO ScriptDelay
+    BankAddress \1  ; Anim script to run
+    db \2           ; Frame duration
+ENDM
+MACRO EndThisSetAnimDelay
+    db $00
+ENDM
+
+MACRO ThisSetAnimScroll
+    db Enum_Cmd_Actor_ThisActorSetAnimScroll
+    ; EndThisSetAnimScroll
+ENDM
+MACRO ScriptScroll
+    BankAddress \1  ; Anim script to run
+    db \2           ; Frame duration
+    db \3           ; Scroll X per frame
+    db \4           ; Scroll Y per frame
+ENDM
+MACRO EndThisSetAnimScroll
+    db $00
+ENDM
 
 MACRO ThisLoc
     db Enum_Cmd_Actor_ThisActorSetLoc

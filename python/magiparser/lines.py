@@ -12,6 +12,22 @@ Lines = Forward()
 
 
 class BlockHandler(FuncHandler):
+    def ThisSetAnimDelay(self):                  # 0x15
+        self.size = 1
+        return self.GenerateOutput()
+
+    def EndThisSetAnimDelay(self):               # 0xFF
+        self.post_size = 1
+        return self.GenerateEndOutput()
+
+    def ThisSetAnimScroll(self):                  # 0x16
+        self.size = 1
+        return self.GenerateOutput()
+
+    def EndThisSetAnimDelay(self):               # 0xFF
+        self.post_size = 1
+        return self.GenerateEndOutput()
+
     def SwitchRange(self):                  # 0x4B
         self.size = 1  # + math
         return self.GenerateOutput(0)
