@@ -48,6 +48,7 @@ ENDU
 
 SECTION "WRAM5", WRAMX[$D000], BANK[5]
     ;ds $D000 - @
+ALIGN 8,0
 wCollisionMap::
     ; This contains a map of collision data for the map
     ds $1000

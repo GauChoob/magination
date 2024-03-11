@@ -5,370 +5,19 @@ SECTION "ROM Bank $001", ROMX[$4000], BANK[$1]
 ; Some extra Cmd code
 ; AI
 
-    ; Actor_Activate.s
 
     ; $4000
-Actor_CheckRestore::
-    ; Restores an actor from the wActor_Save if it was requested via Cmd_Actor_RestoreActorState
-    ; Inputs:
-    ;   wActor_SaveFlag - restore if  = Actor_SaveFlag_REQUEST_RESTORE
+INCLUDE "source/engine/actor/actor_save_xx.asm"
 
-    ; Only restore if requested
-    ld a, [wActor_SaveFlag]
-    cp Actor_SaveFlag_REQUEST_RESTORE
-    ret nz
-
-    ; Mark wActor_Save as empty
-    xor a  ; Actor_SaveFlag_EMPTY
-    ld [wActor_SaveFlag], a
-
-    ; Copy from wActor_Save to the Actor_Struct pointed to by wActor_SavedActor
-    Get16 hl, wActor_SavedActor
-    ld bc, wActor_Save
-    ld e, Actor_SIZE
-
-    .CopyLoop:
-        LdHLIBCI_V
-        dec e
-        jr nz, .CopyLoop
-
-    ret
-
-    ; $401E
-Actor_StoreCopy::
-    ; Saves a copy of the current actor into wActor_Save so that it can later be restored
-    ; Returns:
-    ;   hl = hActor_CurrentAddress
-
-    ; Mark the wActor_SaveFlag as full
-    Set8 wActor_SaveFlag, Actor_SaveFlag_FULL
-
-    ; Save the location of the current Actor_Struct so that the correct actor can be restored
-    ldh a, [hActor_CurrentAddress]
-    ld l, a
-    ld [wActor_SavedActor], a
-    ldh a, [hActor_CurrentAddress+1]
-    ld h, a
-    ld [wActor_SavedActor + 1], a
-    push hl
-
-    ; Copies the current actor's Actor_Struct into wActor_Save
-    ld bc, wActor_Save
-    ld e, Actor_SIZE
-    .CopyLoop:
-        LdBCIHLI
-        dec e
-        jr nz, .CopyLoop
-
-    pop hl
-    ret
-
-    ; Actorlist.s
 
     ; $403D
-Actor_AddActor::
-    ; Adds an Actor so that it can run, and enables the ACTIVE flag
-    ; The Actor is added to wActorlist_Table, based on the list of available slots in wActorlist_FreeStack/wActorlist_FreeCursor
-    ; This can fail if
-    ;   1) The Actor to add has the DELETE flag set (happens with uninitialized Actors)
-    ;   2) There are already $10 Actors (maximum reached)
-    ; Inputs:
-    ;   bc - WRAM address of Actor
-    ; Outputs:
-    ;   The Actor is added to a free slot in wActorlist_Table
-    ;   wActorlist_FreeStack/wActorlist_FreeCursor are updated to the next free slot
-    ;   The Actor is marked as ACTIVE
-
-    ; Abort if the DELETE flag is set (i.e. you didn't initialize the Actor vars first)
-    ld a, [bc]
-    bit Actor_FLAGS_BIT_DELETE, a
-    ret z
-
-    ; Check the stack position and abort if the stack limit has been reached
-    Get16 hl, wActorlist_FreeCursor
-    ld a, LOW(wActorlist_FreeStack.End)
-    cp l
-    ret z
-
-    ; Mark the Actor as now ACTIVE
-    ld a, %1 << Actor_FLAGS_BIT_ACTIVE
-    ld [bc], a
-
-    ; Get the address of the free slot in wActorlist_Table from wActorlist_FreeStack
-    ld a, [hl+]
-    ld e, a
-    ld a, [hl+]
-    ld d, a
-    ; Store this address into the free slot in wActorlist_Table
-    ld a, c
-    ld [de], a
-    inc de
-    ld a, b
-    ld [de], a
-    ; Update Cursor
-    Set16 wActorlist_FreeCursor, hl 
-    ret
-
-    ; $4062
-Actorlist_ReleaseActor::
-    ; Disables the specified Actor
-    ; Pushes the address of the specified Actor onto wActorlist_Table,
-    ; allowing this slot to be reused for a different new Actor
-    ;
-    ; Inputs:
-    ;   hl = Slot within wActorlist_Table to release
-    ;   wActorlist_FreeStack = contains a stack of all the free slots
-    ; Outputs:
-    ;   hl pushed to wActorlist_FreeStack
-    ;   [hl] set to null
-
-    ; push hl onto wActorlist_FreeStack
-    Get16 bc, wActorlist_FreeCursor
-    dec bc
-    ld a, h
-    ld [bc], a
-    dec bc
-    ld a, l
-    ld [bc], a
-    Set16 wActorlist_FreeCursor, bc
-
-    ; Set the slot in wActorlist_Table to $0000 (null)
-    xor a
-    inc hl
-    ld [hl-], a
-    ld [hl], a
-    ret
-
-    ; $407D
-Actorlist_Run::
-    ; Iterates over the $10 Actors in wActorlist_Table
-    ;   1) Skips null Actors
-    ;   2) Deletes Actors with DELETE flag enabled
-    ;           wActorlist_Table and wActorlist_FreeStack are updated to allow for a new Actor to eventually replace the old one
-    ;   3) Runs the rest of the Actors
-    ;   4) Sorts wActorlist_Table in decrementing value of hActor_ScreenY
-    ;   5) TODO does "Actor_CheckRestore"
-    ; Additionally, special check to see if wActor_Save should run
-    ;
-    ; Inputs:
-    ;   wActorlist_Table - list of up to $10 Actors
-    ;
-    ld a, $FF
-    ldh [hActor_ScreenY], a
-    ldh [hActor_ScreenYPrev], a
-    ld de, wActorlist_Table ;de will point to the Previous actor (exceptionally points to the same Actor for the first loop) - we could remove this line since no swaps occur in the first loop
-    ld hl, wActorlist_Table ;hl will point to the Current actor
-
-    ; For each Actor in the table
-    .LoopTable:
-        ; Check if the entry actually points to an Actor. Skip if null
-        inc hl
-        ld a, [hl-]
-        and a
-        jr z, .Skip ;If HIGH(Entry) == $00, then there is no entry, so skip
-
-        push de
-        push hl
-
-            ; Deref hl to point to the Actor_Struct
-            DerefHL
-
-            ; Store the address of Actor_Struct in bc
-            ld b, h
-            ld c, l
-
-            ; If the DELETE flag is enabled, disable the Actor
-            ld a, [hl+]  ; Actor_Flags
-            bit Actor_FLAGS_BIT_DELETE, a
-            jr nz, .DisableActor
-
-            .ProcessActor:
-                ; Run the Actor
-                DerefHL  ; Actor_State
-                call CallHL ; Run the Actor_State function which controls the Actor's behaviour
-
-                pop hl
-                pop de
-
-                ; Fix the order of the Actors so that higher Y is on top
-                ; Earlier in OAM = on top
-                ; So we want the Y in decreasing order
-                Get8FF b, hActor_ScreenY
-                ldh a, [hActor_ScreenYPrev]
-                sub b
-                jr nc, .SetupNextActor ; PrevY >= CurY, so no need to fix the order
-
-                .SwapActors:
-                    ; PrevY < CurY
-                    ; Therefore we need to swap the position of the two actors
-                    ; to fix the Z-orders
-
-                    ; bc = [de]
-                    ld a, [de]
-                    inc de
-                    ld c, a
-                    ld a, [de]
-                    dec de
-                    ld b, a
-                    ; [de] = [hl]
-                    ld a, [hl+]
-                    ld [de], a
-                    inc de
-                    ld a, [hl-]
-                    ld [de], a
-                    ; [hl] = bc
-                    ld a, c
-                    ld [hl+], a
-                    ld a, b
-                    ld [hl-], a
-                    jr .SetupNextActor
-
-            .DisableActor:
-                ; Update an UNKNOWN TODO flag
-                res Actor_FLAGS_BIT_ACTIVE, a ; TODO confirm flag function
-                dec hl
-                ld [hl], a  ; Actor_Flags
-
-                pop hl
-                pop de
-                call Actorlist_ReleaseActor
-                jr .Skip
-
-        .SetupNextActor:
-            ld d, h
-            ld e, l
-        .Skip:
-            inc hl
-            inc hl
-            ld a, LOW(wActorlist_Table.End)
-            cp l
-            jr nz, .LoopTable
-    call Actor_CheckRestore
-    ret
-
-    ; $40D3
-Actorlist_Init::
-    ; Initializes wActorlist_Table, wActorlist_FreeStack
-    ; Sets the DELETE flag and resets the ACTIVE flag of all Actors (bug - except for wActor_2F)
-    ; i.e. a new blank slate to fill in Actors for a new Scene
-    ; Inputs:
-    ;   None
-    ; Outputs:
-    ;   wActorlist_Table set to $00
-    ;   wActorlist_FreeStack/wActorlist_FreeStack has all $10 slots of the wActorlist_Table pushed
-    ;   
-    
-    ; Set wActorlist_Table to null ($00)
-    ld b, Actorlist_SIZE
-    xor a
-    ld hl, wActorlist_Table
-    .TableLoop:
-        ld [hl+], a  ;Fill each slot with $0000
-        ld [hl+], a
-        dec b
-        jr nz, .TableLoop
-
-    ; Push the $10 empty slot addresses into the stack
-    ld b, Actorlist_SIZE
-    ld de, wActorlist_Table
-    ld hl, wActorlist_FreeStack
-    .StackLoop:
-        ld a, e
-        ld [hl+], a
-        ld a, d
-        ld [hl+], a
-        inc de
-        inc de
-        dec b
-        jr nz, .StackLoop
-    Set16_M wActorlist_FreeCursor, wActorlist_FreeStack
-
-    ; Disable all the actors
-    ld hl, wActor_RAM
-    ld de, Actor_SIZE ;Size of 1 entry
-    ld c, Actor_COUNT-1   ;Bug - This actually only erases the first 49 entries and accidentally skips the last entry (50th entry)
-    .ActorRAMLoop:
-        set Actor_FLAGS_BIT_DELETE, [hl] ;Deleted
-        res Actor_FLAGS_BIT_ACTIVE, [hl] ;Not active
-        add hl, de
-        dec c
-        jr nz, .ActorRAMLoop
-    ret
+INCLUDE "source/engine/actor/actor_list_xx.asm"
 
     ; $410A
-Actor_ScriptClose::
-    ; After calling the Script_Play, save the Actor's current state back to the WRAM entry
-    ; Inputs:
-    ;   hActor_CurrentAddress = WRAM address of opened Actor
-    ; Outputs:
-    ;   The Actor is saved back into the Actor_Struct at hActor_CurrentAddress
-    ldh a, [hActor_CurrentAddress]
-    ld l, a
-    ldh a, [hActor_CurrentAddress+1]
-    ld h, a
-    ldh a, [hActor.Flags]
-    ld [hl+], a
-    ldh a, [hActor.State]
-    ld [hl+], a
-    ldh a, [hActor.State+1]
-    ld [hl+], a
-    ldh a, [hActor.XOffset]
-    ld [hl+], a
-    ldh a, [hActor.YOffset]
-    ld [hl+], a
-    ldh a, [hActor.XTile]
-    ld [hl+], a
-    ldh a, [hActor.YTile]
-    ld [hl+], a
-    ldh a, [hActor.TileAddress]
-    ld [hl+], a
-    ldh a, [hActor.TileAddress+1]
-    ld [hl+], a
-    ldh a, [hActor.SpriteBase]
-    ld [hl+], a
-    ret
-
-    ; $412F
-Actor_ScriptOpen::
-    ; Before calling Script_Play, copy the Actor into HRAM
-    ; Sets wColl_XMove/wColl_YMove to 0 (delta movement)
-    ; 
-    ; Inputs:
-    ;   bc = WRAM address of Actor
-    ; Ouputs:
-    ;   hActor is ready
-    ;   hActor_CurrentAddress = WRAM address of Actor
-    ;   wColl_XMove/wColl_YMove = 0
-    ;   bc = hActor.State
-    ld h, b
-    ld l, c
-    Set16FF hActor_CurrentAddress, hl
-    ld a, [hl+]
-    ldh [hActor.Flags], a
-    ld a, [hl+]
-    ldh [hActor.State], a
-    ld a, [hl+]
-    ldh [hActor.State+1], a
-    ld a, [hl+]
-    ldh [hActor.XOffset], a
-    ld a, [hl+]
-    ldh [hActor.YOffset], a
-    ld a, [hl+]
-    ldh [hActor.XTile], a
-    ld a, [hl+]
-    ldh [hActor.YTile], a
-    ld a, [hl+]
-    ldh [hActor.TileAddress], a
-    ld a, [hl+]
-    ldh [hActor.TileAddress+1], a
-    ld a, [hl+]
-    ldh [hActor.SpriteBase], a
-    xor a
-    ld [wColl_XMove], a
-    ld [wColl_YMove], a
-    ret
+INCLUDE "source/engine/actor/actor_xx.asm"
 
 
+    ; $415D
     db $11                                        ; $415D: $11
 
     db $04
@@ -663,7 +312,6 @@ HotspotX_CheckHotspot::
         Set8 wHotspotCurrent, HOTSPOT_NULL
         ret
 
-DEF ScriptXX_BANK EQU $01 ;TODO make it refer to a non-constant
 ASSERT ScriptXX_BANK == BANK(@)
 
     ; $42C3
@@ -684,7 +332,6 @@ Script_Table::
     dw Cmd_Actor_ThisActorDrawTile ; $0D
     dw Cmd_Actor_ThisActorDrawMaskTile ; $0E
     dw Cmd_Actor_ThisActorTeleportToThatActor ; $0F
-
     dw Cmd_Actor_ThisActorNewState ;$10
     dw Cmd_Actor_ThisActorRaindrop ; $11
     dw Cmd_Actor_RestoreActorState ; $12
@@ -4205,18 +3852,18 @@ Jump_001_5DA2:
 
     call Actor_ScriptOpen                            ; $5DB5: $CD $2F $41
     xor a                                         ; $5DB8: $AF
-    ld [$C187], a                                 ; $5DB9: $EA $87 $C1
+    ld [wActor_HeroNewState + 1], a                                 ; $5DB9: $EA $87 $C1
     call Script_Open                                    ; $5DBC: $CD $28 $29
     call Script_Play                                    ; $5DBF: $CD $3A $0A
     call Script_Close                                    ; $5DC2: $CD $0A $29
     Do_CallForeign Coll_FreeMove
     call Call_001_4AF0                            ; $5DCD: $CD $F0 $4A
-    ld a, [$C187]                                 ; $5DD0: $FA $87 $C1
+    ld a, [wActor_HeroNewState + 1]                                 ; $5DD0: $FA $87 $C1
     and a                                         ; $5DD3: $A7
     jr z, jr_001_5DDD                             ; $5DD4: $28 $07
 
     ldh [hActor.State+1], a                                  ; $5DD6: $E0 $8E
-    ld a, [$C186]                                 ; $5DD8: $FA $86 $C1
+    ld a, [wActor_HeroNewState]                                 ; $5DD8: $FA $86 $C1
     ldh [hActor.State], a                                  ; $5DDB: $E0 $8D
 
 jr_001_5DDD:
@@ -5093,7 +4740,7 @@ jr_001_6344:
 
     call Actor_ScriptOpen                            ; $635C: $CD $2F $41
     xor a                                         ; $635F: $AF
-    ld [$C187], a                                 ; $6360: $EA $87 $C1
+    ld [wActor_HeroNewState + 1], a                                 ; $6360: $EA $87 $C1
     call Script_Open                                    ; $6363: $CD $28 $29
     call Script_Play                                    ; $6366: $CD $3A $0A
     call Script_Close                                    ; $6369: $CD $0A $29
@@ -5101,12 +4748,12 @@ jr_001_6344:
     call Script_Play                                    ; $636F: $CD $3A $0A
     call Script_Close                                    ; $6372: $CD $0A $29
     Do_CallForeign Coll_FreeMove
-    ld a, [$C187]                                 ; $637D: $FA $87 $C1
+    ld a, [wActor_HeroNewState + 1]                                 ; $637D: $FA $87 $C1
     and a                                         ; $6380: $A7
     jr z, jr_001_638A                             ; $6381: $28 $07
 
     ldh [hActor.State+1], a                                  ; $6383: $E0 $8E
-    ld a, [$C186]                                 ; $6385: $FA $86 $C1
+    ld a, [wActor_HeroNewState]                                 ; $6385: $FA $86 $C1
     ldh [hActor.State], a                                  ; $6388: $E0 $8D
 
 jr_001_638A:
@@ -5115,6 +4762,8 @@ jr_001_638A:
 
 
 AI_Raindrop_RandomTable::
+    ; A table used to randomly choose an X and Y offset on the visible screen
+    ; See ActorXX_RaindropLocate
     .Col:
     db $00, $00, $01, $01, $02, $02, $03, $04, $05, $06, $07, $07, $08, $08, $09, $09
     .Row:
@@ -5175,9 +4824,9 @@ AI_Raindrop::
     and a                                         ; $63F3: $A7
     ret z                                         ; $63F4: $C8
 
-    ld a, [wActor_SaveFlag]
+    ld a, [wActorSave_Flags]
     and a
-    ret nz ; Not Actor_SaveFlag_EMPTY
+    ret nz ; Not ActorSave_Flag_EMPTY
 
     call Actor_StoreCopy                            ; $63FA: $CD $1E $40
     inc hl                                        ; $63FD: $23
@@ -5210,8 +4859,8 @@ Call_001_641D:
     bit 2, a                                      ; $641F: $CB $57
     jp z, Jump_001_64CF                           ; $6421: $CA $CF $64
 
-    ld a, [wActor_SaveFlag]
-    cp Actor_SaveFlag_EMPTY
+    ld a, [wActorSave_Flags]
+    cp ActorSave_Flag_EMPTY
     jp nz, Jump_001_64CF
 
     ld a, [wTextbox_Position]                                 ; $642C: $FA $EE $C6

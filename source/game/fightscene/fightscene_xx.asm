@@ -433,7 +433,7 @@ Fightscene_NewFromBattle::
 
 
 Fightscene_Init::
-    Do_CallForeign Actorlist_Init
+    Do_CallForeign ActorList_Init
     Frame_Init
     xor a
     ld [wFightscene_Start], a

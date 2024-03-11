@@ -22,6 +22,8 @@ class FuncHandler(ResultsHandler):
         return True
 
     parentmap = {
+        "ThisSetAnimDelay": ["ScriptDelay"],
+        "ThisSetAnimScroll": ["ScriptScroll"],
         "SwitchRange": ["CaseRange"],
         "Switch": ["Case"],
         "SpriteDraw": ["MoveDraw"],
@@ -124,7 +126,13 @@ class FuncHandler(ResultsHandler):
         self.size = 5
         return self.GenerateOutput(*range(4))
     
-    # 0x04
+    def ThatDrawTile(self):            # 0x03
+        self.size = 8
+        return self.GenerateOutput(*range(6))
+
+    def ThatDrawMaskTile(self):        # 0x04
+        self.size = 6
+        return self.GenerateOutput(*range(6))
 
     def ThatInit(self):                     # 0x05
         self.size = 15
@@ -158,8 +166,13 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    # 0x0D
-    # 0x0E
+    def ThisDrawTile(self):            # 0x03
+        self.size = 7
+        return self.GenerateOutput(*range(5))
+
+    def ThisDrawMaskTile(self):        # 0x04
+        self.size = 5
+        return self.GenerateOutput(*range(5))
 
     def ThisTeleportTo(self):               # 0x0F
         self.size = 2
@@ -169,8 +182,9 @@ class FuncHandler(ResultsHandler):
         self.size = 3
         return self.GenerateOutput(*range(1))
 
-    # 0x10
-    # 0x11
+    def ThisRaindrop(self):                 # 0x10
+        self.size = 1
+        return self.GenerateOutput(*range(1))
 
     def RestoreActorState(self):            # 0x12
         self.size = 1
@@ -184,8 +198,8 @@ class FuncHandler(ResultsHandler):
         self.size = 4
         return self.GenerateOutput(*range(1))
 
-    # 0x15
-    # 0x16
+    # def ThisSetAnimDelay BLOCK            # 0x15
+    # def ThisSetAnimScroll BLOCK           # 0x16
 
     def ThisLoc(self):                      # 0x17
         self.size = 7
@@ -703,6 +717,14 @@ class FuncHandler(ResultsHandler):
     def OrByte(self):                       # 0xAF
         self.size = 4
         return self.GenerateOutput(*range(2))
+
+    def ScriptDelay(self):                  # null
+        self.size = 4
+        return self.GenerateOutput(*range(2))
+
+    def ScriptScroll(self):               # null
+        self.size = 6
+        return self.GenerateOutput(*range(4))
 
     def CaseRange(self):                    # null
         self.size = 7

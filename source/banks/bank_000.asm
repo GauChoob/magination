@@ -990,8 +990,8 @@ Cmd_Frame_OverlayInit::
     inc hl
     inc hl
     LdHLIBCI_V
-    call Actor_InitScript0 ;BankAddress
-    call Actor_InitScript1 ;Null
+    call Actor_Init_SetScript0 ;BankAddress
+    call Actor_Init_NullScript1
     jp Script_Start
 
 Cmd_Frame_OverlayInvisible::
@@ -2320,8 +2320,7 @@ Cmd_System_NewGame::
 Cmd_System_SaveGame::
     ; Saves the game
     ; Arguments:
-    ;   db  If non-zero, Tony will be healed right before saving - todo in practice is this =1?
-    ; TODO - unknown parameters
+    ;   db  If non-zero (1 is used), Tony will be healed right before saving
     Battery_On
     Battery_SetBank "XRAM Gamestate"
     Set8 $A017, $01 ; TODO

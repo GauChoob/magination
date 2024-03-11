@@ -195,7 +195,7 @@ MACRO Creature_Table_Row
     db \<16> ; StatusPerm
     db \<17> ; MagiType or AI
     db \<18> ; Placeholder or RingCost
-    db \<19> ; UNK
+    db \<19> ; UNK - upper byte of RingCost
     dw $5EAE + $10*(ability\<20>) ; Ability1 - TODO Change $5EAE to label
     dw $5EAE + $10*(ability\<21>) ; Ability2
     dw $5EAE + $10*(ability\<22>) ; Ability3

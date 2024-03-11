@@ -11,19 +11,20 @@ DEF FIX_BUGS EQU 0 ; Set to 1 to fix a few bugs that I found in the code
 INCLUDE "source/includes/hardware_constants.asm"
 
 ; Personalized charmap
-INCLUDE "source/includes/charmap/charmap.asm"
+INCLUDE "source/includes/charmap.asm"
 
 ; General-purpose equs
 INCLUDE "source/includes/equ.asm"
 ; General-purpose macros
 INCLUDE "source/includes/macro.asm"
 INCLUDE "source/includes/vram_equ.asm"
+; Fixed bank definitions
+INCLUDE "source/includes/bank_distribution.asm"
 
 
 INCLUDE "source/macros/macro.asm"
 INCLUDE "source/macros/objects.asm"
 INCLUDE "source/macros/lookuptables.asm"
-INCLUDE "source/macros/magiop.asm"
 
 
 INCLUDE "source/engine/actor/actor_include.asm"
@@ -36,6 +37,7 @@ INCLUDE "source/engine/interrupt/interrupt_macro.asm"
 INCLUDE "source/engine/interrupt/timer/timer_macro.asm"
 INCLUDE "source/engine/interrupt/vblank/vblank_macro.asm"
 INCLUDE "source/engine/script/script_include.asm"
+INCLUDE "source/engine/script/magiop_include.asm"
 INCLUDE "source/engine/system/graphics/frame/frame_include.asm"
 INCLUDE "source/engine/system/graphics/graphics_macro.asm"
 INCLUDE "source/engine/system/graphics/palette/palette_include.asm"

@@ -2,6 +2,7 @@ import os
 import re
 import traceback
 import projutils.utils as utils
+import projutils.collision as collision
 import projutils.color as color
 import projutils.hotspot as hotspot
 import projutils.encoding as encoding
@@ -27,7 +28,7 @@ sprites = set()
 
 
 _shorthands_color = {
-    color.Color(0x1F*8, 0x1F*8, 0x1F*8, 0).get_word(): "WHITE_A",
+    color.Color(0x1F*8, 0x1F*8, 0x1F*8, 255).get_word(): "WHITE_A",
 }
 
 
@@ -88,6 +89,9 @@ rambank = 1
 # Load the sfxid and songid. This assumes that the musyx file has been compiled
 musyx = utils.MusyXIDs()
 
+# Load collision ids
+collision_ids = collision.CollisionIDs()
+
 depthtracker = DepthTracker()
 
 
@@ -105,7 +109,8 @@ class MagiScriptLine:
         0x00: CommandBuilder("func", "HeroFromDoor"),
         0x01: CommandBuilder("func", "HeroToDoor", "$db", "$db"),
         0x02: CommandBuilder("func", "HeroToRelativeDoor", "-$db", "-$db", "-$db", "-$db"),
-
+        0x03: CommandBuilder("func", "ThatDrawTile", "db", "YXTileaddress", "CollID", "$db"),
+        0x04: CommandBuilder("func", "ThatDrawMaskTile", "db", "Tileaddress", "CollID", "$db"),
         0x05: CommandBuilder("func", "ThatInit", "db", "ActorStateAddress", "$db", "$db", "$dw", "$db", "BankAddress_ACTORSCRIPT0", "BankAddress_ACTORSCRIPT1"),
         0x06: CommandBuilder("func", "ThatTeleportTo", "db", "db"),
         0x07: CommandBuilder("func", "ThatAI", "db", "ActorStateAddress"),
@@ -114,14 +119,16 @@ class MagiScriptLine:
         0x0A: CommandBuilder("func", "ThatSpriteBase", "db", "$db"),
         0x0B: CommandBuilder("func", "ThatStart", "db"),
         0x0C: CommandBuilder("func", "ThatDelete", "db"),
-
+        0x0D: CommandBuilder("func", "ThisDrawTile", "YXTileaddress", "CollID", "$db"),
+        0x0E: CommandBuilder("func", "ThisDrawMaskTile", "Tileaddress", "CollID", "$db"),
         0x0F: CommandBuilder("func", "ThisTeleportTo", "db"),
         0x10: CommandBuilder("func", "ThisNewState", "ActorStateAddress"),
-
+        0x11: CommandBuilder("func", "ThisRaindrop", "CollID"),
         0x12: CommandBuilder("func", "RestoreActorState"),
         0x13: CommandBuilder("func", "ThisAI", "ActorStateAddress"),
         0x14: CommandBuilder("func", "ThisSetAnimSingle", "BankAddress_ACTORSCRIPT1"),
-
+        0x15: CommandBuilder("block", "ThisSetAnimDelay"),
+        0x16: CommandBuilder("block", "ThisSetAnimScroll"),
         0x17: CommandBuilder("func", "ThisLoc", "$db", "$db", "$db", "$db", "$dw"),
         0x18: CommandBuilder("func", "ThisSpriteBase", "$db"),
         0x19: CommandBuilder("func", "ThisDelete"),
@@ -230,7 +237,7 @@ class MagiScriptLine:
         0x8C: CommandBuilder("func", "MusicMenu", "MusicMenu"),  # TODO finalize
 
         0x91: CommandBuilder("func", "NewGame", "db"),  # TODO boolean how?
-        0x92: CommandBuilder("func", "SaveGame", "SaveGameTODO ?boolean 1,0 or other?"),
+        0x92: CommandBuilder("func", "SaveGame", "db"),
         0x93: CommandBuilder("func", "SceneNew"),
         0x94: CommandBuilder("func", "SceneReady"),
         0x95: CommandBuilder("func", "SetItemSpellMapError", "BankAddress_SCRIPT_ITEMSPELLMAPERROR"),
@@ -377,6 +384,12 @@ class MagiScriptLine:
         def getWord() -> int:
             global curpos
             val = rom.getWord(curpos)
+            curpos += 2
+            return val
+
+        def getSignedWord() -> int:
+            global curpos
+            val = rom.getSignedWord(curpos)
             curpos += 2
             return val
 
@@ -550,6 +563,25 @@ class MagiScriptLine:
                 if val == 0:
                     raise NotImplementedError  # 0 ->"RGB" but it's supposed to be accessed as 4 instead
                 return [[None, "RB", "BG", "RG_Bugged", "RGB"][val]]
+            elif(instruction == "CollID"):
+                val = getByte()
+                return [collision_ids.ids[val]]
+
+            # Map tileaddresses
+            elif instruction == "YXTileaddress":
+                y = getSignedByte()
+                x = getSignedByte()
+                offset = getSignedWord()
+                y_times_width = offset - x
+                if y_times_width == 0:
+                    width = 0
+                else:
+                    width = y_times_width//y
+                    assert y_times_width % y == 0
+                return [[x, y, width]]
+            elif instruction == "Tileaddress":
+                offset = getSignedWord()
+                return [[offset, 0, 0]] # TODO - we can't predict width unfortunately with the limited data
 
             # Special Objects
             elif(instruction == "TextMenu"):
@@ -585,6 +617,24 @@ class MagiScriptLine:
                 return []
 
             # FUNC HANDLERS
+            elif(instruction == "func_ThisSetAnimDelay"):
+                bank = getByte()
+                if(bank == 0x00):
+                    return []  # End
+                address = getWord()
+                bankaddress = interpretBankAddress(bank, address, "SCRIPT")
+                frames = str(getByte())
+                return ["{}ScriptDelay({})".format(depthtracker.getWhitespace(), ", ".join([bankaddress, frames]))]
+            elif(instruction == "func_ThisSetAnimScroll"):
+                bank = getByte()
+                if(bank == 0x00):
+                    return []  # End
+                address = getWord()
+                bankaddress = interpretBankAddress(bank, address, "SCRIPT")
+                frames = str(getByte())
+                deltax = str(getSignedByte())
+                deltay = str(getSignedByte())
+                return ["{}ScriptScroll({})".format(depthtracker.getWhitespace(), ", ".join([bankaddress, frames, deltax, deltay]))]
             elif(instruction == "func_Switch"):
                 bank = getByte()
                 if(bank == 0xFF):

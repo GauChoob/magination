@@ -1,1 +1,3 @@
+$FC = (MAP_TILE_DUG) - after digging
+$FD = (MAP_TILE_BLANK) - after kicking?
 $FF = TRIGGER_TREASUREOPEN

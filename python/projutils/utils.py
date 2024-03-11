@@ -169,6 +169,11 @@ class Rom:
             return BankAddress(arg[0], arg[1]).getPos()
         raise ValueError("Invalid input to Rom class: "+str(arg))
 
+    def getByte(self, pos: BankAddress | int | tuple[int, int]) -> int:
+        """Gets the value of the byte located at pos."""
+        pos = Rom._determinePosition(pos) - self._offset
+        return self._rawdata[pos]
+
     def getSignedByte(self, pos: BankAddress | int | tuple[int, int]) -> int:
         """Gets the signed value of the byte located at pos."""
         pos = Rom._determinePosition(pos) - self._offset
@@ -177,15 +182,18 @@ class Rom:
             val -= 256
         return val
 
-    def getByte(self, pos: BankAddress | int | tuple[int, int]) -> int:
-        """Gets the value of the byte located at pos."""
-        pos = Rom._determinePosition(pos) - self._offset
-        return self._rawdata[pos]
-
     def getWord(self, pos: BankAddress | int | tuple[int, int]) -> int:
         """Gets the value of the word located at pos."""
         pos = Rom._determinePosition(pos) - self._offset
         return self._rawdata[pos]+self._rawdata[pos+1]*256
+
+    def getSignedWord(self, pos: BankAddress | int | tuple[int, int]) -> int:
+        """Gets the signed value of the word located at pos."""
+        pos = Rom._determinePosition(pos) - self._offset
+        val = self._rawdata[pos]+self._rawdata[pos+1]*256
+        if val > 32767:
+            val -= 65536
+        return val
 
     def _retBankAddress(bank: int, address: int, getobj: bool) -> tuple[int, int] | BankAddress:
         if getobj:
