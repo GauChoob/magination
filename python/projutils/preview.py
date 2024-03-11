@@ -1,14 +1,12 @@
 import math
 import re
 import os
-import projutils.color as color
-import projutils.tileset as tileset
 import projutils.png as png
 import projutils.config as config
 import projutils.fileregistry as fileregistry
 import projutils.pattern as pattern
 import projutils.scene as scene
-import projutils.tilemap as tilemap
+import projutils.vram as vram
 
 
 PROJFILES = os.path.dirname(__file__)
@@ -30,35 +28,7 @@ def GetCollisionDataPixel(collid: int, xoffset: int, yoffset: int, rgboffset: in
     basey = collid//0x10
     return cdfpixels[basey*0x10+yoffset][(basex*0x10+xoffset)*cdfmeta["planes"]+rgboffset]  # use planes so that the format can be rgb or rgba (3 or 4)
 
-
-class VRAMTile:
-    def __init__(self):
-        """Contains a 8x8 VRAM tile (both bank 0 and 1)"""
-        self.baseimage = [[[0 for x in range(8)] for y in range(8)] for bank in range(2)]
-
-    def storeImage(self, vbk: int, pixels: list, x: int, y: int) -> None:
-        """Stores a tileset from the pixels at coordinate x, y into the VRAMTile
-        vbk: target bank
-        pixels, x, y: source tileset information"""
-        for cury in range(0, 8):
-            for curx in range(0, 8):
-                self.baseimage[vbk][cury][curx] = pixels[y*8+cury][x*8+curx]
-
-    def paintImage(self, pixelcanvas: list, x: int, y: int, attributes: int) -> list:
-        """Paints the VRAM tile into the canvas, using the provided attributes.
-        Returns the updated canvas"""
-        attr = tilemap.TileAttribute(attributes)
-
-        for cury in range(8):
-            targety = y*8 + (7-cury if attr.vflip else cury)
-            for curx in range(8):
-                targetx = x*8 + (7-curx if attr.hflip else curx)
-                pixelcanvas[targety][targetx] = self.baseimage[attr.vbk][cury][curx] + attr.pal*4
-
-        return pixelcanvas
-
-
-def DrawMetatile(vram: list[VRAMTile], pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
+def DrawMetatile(vramtiles: vram.VRAMTiles, pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
     """Paints the Metatile into the canvas "pixels"
     vram: List of VRAMTiles
     pat: Pattern
@@ -72,7 +42,7 @@ def DrawMetatile(vram: list[VRAMTile], pat: pattern.Pattern, pixels: list, patte
         queryattr = pat.attrmap[patternid][cycle]
         xoffset = cycle & 0b01
         yoffset = 1 if cycle & 0b10 else 0
-        pixels = vram[querytile].paintImage(pixels, x+xoffset, y+yoffset, queryattr)
+        pixels = vramtiles.tiles[querytile].paintImage(pixels, x+xoffset, y+yoffset, queryattr)
     return pixels
 
 
@@ -110,7 +80,7 @@ def _preview(scene_label: str):
     collmap = scenery.collmap.contents
 
     # Set up a blank VRAM
-    vram = [VRAMTile() for _ in range(0x100)]
+    vramtiles = vram.VRAMTiles()
 
     # Find each bitmap in the bitset and load it into VRAM
     for bank in range(2):
@@ -123,14 +93,14 @@ def _preview(scene_label: str):
             for y in range(bitmap_ref.height):
                 for x in range(bitmap_ref.width):
                     targettile = (basetile + y*0x10 + x) % 0x100
-                    vram[targettile].storeImage(bank, bitmap_ref.contents.pixels, x, y)
+                    vramtiles.tiles[targettile].storeImage(bank, bitmap_ref.contents.pixels, x, y)
 
     # Output the VRAM
     vram_pixels = [[0 for x in range(0x20*8)] for y in range(0x10*8)]
     for bank in range(2):
         for y in range(0x10):
             for x in range(0x10):
-                vram[((y+8) % 0x10)*0x10 + x].paintImage(vram_pixels, x + 0x10*bank, y, 0b00001000*bank)
+                vramtiles.tiles[((y+8) % 0x10)*0x10 + x].paintImage(vram_pixels, x + 0x10*bank, y, 0b00001000*bank)
 
     with open(PREVIEW_VRAM+scene_label+".png", 'wb') as f:
         w = png.Writer(0x20*8, 0x10*8, alpha=False, bitdepth=8, palette=[(0xFF, 0xFF, 0xFF), (0xBF, 0xBF, 0xBF), (0x7F, 0x7F, 0x7F), (0x3F, 0x3F, 0x3F)])
@@ -141,7 +111,7 @@ def _preview(scene_label: str):
     for y in range(0x10):
         for x in range(0x10):
             patternid = y*0x10 + x
-            pattern_pixels = DrawMetatile(vram, pat, pattern_pixels, patternid, x, y)
+            pattern_pixels = DrawMetatile(vramtiles, pat, pattern_pixels, patternid, x, y)
     with open(PREVIEW_PATTERN+scene_label+".png", 'wb') as f:
         w = png.Writer(0x10*0x10, 0x10*0x10, alpha=False, bitdepth=8, palette=pal.get_png_palette())
         w.write(f, pattern_pixels)
@@ -173,7 +143,7 @@ def _preview(scene_label: str):
     for y in range(metamap_height):
         for x in range(metamap.width):
             patternid = metamap.map.contents.map[y*metamap.width + x]
-            metamap_pixels = DrawMetatile(vram, pat, metamap_pixels, patternid, x, y)
+            metamap_pixels = DrawMetatile(vramtiles, pat, metamap_pixels, patternid, x, y)
 
     # Output the metatilemap
     with open(PREVIEW_SCENES+scene_label+".png", 'wb') as f:
