@@ -643,7 +643,7 @@ class MagiScriptLine:
                 val = getWord()
                 if self.args[0] == '#{}#'.format(MagiScriptMath.GETHERODIRECTION):
                     # Special case where the Switch is #DIRECTION# to check the direction the hero is facing
-                    val = ['Expr_DIRECTION_UP', 'Expr_DIRECTION_LEFT', 'Expr_DIRECTION_RIGHT', 'Expr_DIRECTION_DOWN'][val]
+                    val = ['Actor_FLAGS_FACENORTH', 'Actor_FLAGS_FACEWEST', 'Actor_FLAGS_FACEEAST', 'Actor_FLAGS_FACESOUTH'][val]
                 else:
                     val = str(val)
 
