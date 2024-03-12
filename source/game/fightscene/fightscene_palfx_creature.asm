@@ -146,7 +146,7 @@ Fightscene_CreaturePalFX_LoadPalette_UNUSED::
     PushROMBank
     ; Get the pointer to the palette
     Do_CallForeign Fightscene_GetCreaturePointers ; hl = wTemp_C.Fightscene_CreatureGraphicsPointer
-    ld bc, oCreature_Table_Graphics_CombatPaletteAddress
+    ld bc, Creature_Table_Graphics_CombatPaletteAddress
     add hl, bc
 
     ; Calculate the offset within the .pal file and store it in c

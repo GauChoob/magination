@@ -9,7 +9,7 @@ Battle00_Actor_DisableScript::
     inc hl
     Set8 hl+, LOW(Cmd_Flow_End)
     Set8 hl+, HIGH(Cmd_Flow_End)
-    ld bc, (Actor_ENUM_Script1_State - (Actor_ENUM_Script0_State + 2))
+    ld bc, (Actor_OFFSET_Script1_State - (Actor_OFFSET_Script0_State + 2))
     add hl, bc
     Set8 hl+, LOW(Cmd_Flow_End)
     Set8 hl+, HIGH(Cmd_Flow_End)
@@ -31,7 +31,7 @@ Battle00_Actor_GetAddressFromID:
         add hl, de
         jr .ActorGetLoop
     .Done:
-    ld de, Actor_ENUM_Script0
+    ld de, Actor_OFFSET_Script0
     add hl, de
     ret
 

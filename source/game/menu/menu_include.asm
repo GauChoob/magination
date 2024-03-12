@@ -77,9 +77,9 @@ MACRO Menu_RingToID
     ld hl, xInventory_Rings
     add hl, bc
     ld a, [hl]
-    cp INVENTORY_RINGS_NORING
+    cp xInventory_Rings_NORING
     ld b, a
-    jr z, .EmptyRing\@ ; CreatureID_Null = INVENTORY_RINGS_NORING
+    jr z, .EmptyRing\@ ; CreatureID_Null = xInventory_Rings_NORING
     .ValidRing\@
         ld b, a
         ld c, Creature_SIZE

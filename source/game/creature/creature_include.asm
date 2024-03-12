@@ -119,55 +119,55 @@ DEF CreatureID_NoMagi               EQU $6C
 DEF CreatureID_End                  EQU $6D
 
 
-CREATURE_TABLE_TYPE_0 EQU $00
-CREATURE_TABLE_TYPE_2 EQU $02
-CREATURE_TABLE_TYPE_4 EQU $04
-CREATURE_TABLE_TYPE_6 EQU $06
-CREATURE_TABLE_TYPE_8 EQU $08
-CREATURE_TABLE_TYPE_MAGI EQU $0C
-CREATURE_TABLE_TYPE_NOMAGI EQU $0E
+DEF CREATURE_TABLE_TYPE_0 EQU $00
+DEF CREATURE_TABLE_TYPE_2 EQU $02
+DEF CREATURE_TABLE_TYPE_4 EQU $04
+DEF CREATURE_TABLE_TYPE_6 EQU $06
+DEF CREATURE_TABLE_TYPE_8 EQU $08
+DEF CREATURE_TABLE_TYPE_MAGI EQU $0C
+DEF CREATURE_TABLE_TYPE_NOMAGI EQU $0E
 
-CREATURE_TABLE_ABILITYUNLOCK_TRUE EQU $FF ; Ability is unlocked
-CREATURE_TABLE_ABILITYUNLOCK_NEVER EQU $C8 ; Ability cannot be unlocked
+DEF CREATURE_TABLE_ABILITYUNLOCK_TRUE EQU $FF ; Ability is unlocked
+DEF CREATURE_TABLE_ABILITYUNLOCK_NEVER EQU $C8 ; Ability cannot be unlocked
 
 ;00 -> upper-endian of base energy - unused?
-oCreature_Table_Stats_BaseEnergy EQU $01
-oCreature_Table_Stats_MaxEnergy EQU $02 ;Big-endian
-oCreature_Table_Stats_BaseStrength EQU $04
-oCreature_Table_Stats_BaseSkill EQU $05
-oCreature_Table_Stats_BaseSpeed EQU $06
-oCreature_Table_Stats_BaseDefense EQU $07
-oCreature_Table_Stats_BaseResist EQU $08
-oCreature_Table_Stats_BaseLuck EQU $09
+DEF Creature_Table_Stats_BaseEnergy EQU $01
+DEF Creature_Table_Stats_MaxEnergy EQU $02 ;Big-endian
+DEF Creature_Table_Stats_BaseStrength EQU $04
+DEF Creature_Table_Stats_BaseSkill EQU $05
+DEF Creature_Table_Stats_BaseSpeed EQU $06
+DEF Creature_Table_Stats_BaseDefense EQU $07
+DEF Creature_Table_Stats_BaseResist EQU $08
+DEF Creature_Table_Stats_BaseLuck EQU $09
 ;0A all 0s ?EnergyUp/Elem
-oCreature_Table_Stats_Resistance EQU $0B
-oCreature_Table_Stats_Weakness EQU $0C
-oCreature_Table_Stats_StatusImmune EQU $0D
-oCreature_Table_Stats_StatusPerm EQU $0E
-oCreature_Table_Stats_MagiType EQU $0F
-oCreature_Table_Stats_IsPlaceholder EQU $10
+DEF Creature_Table_Stats_Resistance EQU $0B
+DEF Creature_Table_Stats_Weakness EQU $0C
+DEF Creature_Table_Stats_StatusImmune EQU $0D
+DEF Creature_Table_Stats_StatusPerm EQU $0E
+DEF Creature_Table_Stats_MagiType EQU $0F
+DEF Creature_Table_Stats_IsPlaceholder EQU $10
 ;11 all 0s
-oCreature_Table_Stats_Ability1TableAddress EQU $12
-oCreature_Table_Stats_Ability2TableAddress EQU $14
-oCreature_Table_Stats_Ability3TableAddress EQU $16
-oCreature_Table_Stats_Ability4TableAddress EQU $18
-oCreature_Table_Stats_Ability1UnlockLevel EQU $1A
-oCreature_Table_Stats_Ability2UnlockLevel EQU $1B
-oCreature_Table_Stats_Ability3UnlockLevel EQU $1C
-oCreature_Table_Stats_Ability4UnlockLevel EQU $1D
-Creature_Table_Stats_SIZE EQU $1E
+DEF Creature_Table_Stats_Ability1TableAddress EQU $12
+DEF Creature_Table_Stats_Ability2TableAddress EQU $14
+DEF Creature_Table_Stats_Ability3TableAddress EQU $16
+DEF Creature_Table_Stats_Ability4TableAddress EQU $18
+DEF Creature_Table_Stats_Ability1UnlockLevel EQU $1A
+DEF Creature_Table_Stats_Ability2UnlockLevel EQU $1B
+DEF Creature_Table_Stats_Ability3UnlockLevel EQU $1C
+DEF Creature_Table_Stats_Ability4UnlockLevel EQU $1D
+DEF Creature_Table_Stats_SIZE EQU $1E
 
-oCreature_Table_Graphics EQU $1E
-oCreature_Table_Graphics_CombatTilesetAddress EQU $00    ;AddressBank. dcGraphics + 0
-oCreature_Table_Graphics_CombatTilemapAddress EQU $03    ;AddressBank.
-oCreature_Table_Graphics_CombatTilemapWidth EQU $06
-oCreature_Table_Graphics_CombatTilemapHeight EQU $07
-oCreature_Table_Graphics_CombatPaletteAddress EQU $08  ;AddressBank. points to a paletteset of 3 palettes
-oCreature_Table_Graphics_CardTileset EQU $0B           ;AddressBank
-oCreature_Table_Graphics_CardPaletteID EQU $0E
-Creature_Table_Graphics_SIZE EQU $0F
+DEF Creature_Table_Graphics EQU $1E
+DEF Creature_Table_Graphics_CombatTilesetAddress EQU $00    ;AddressBank. dcGraphics + 0
+DEF Creature_Table_Graphics_CombatTilemapAddress EQU $03    ;AddressBank.
+DEF Creature_Table_Graphics_CombatTilemapWidth EQU $06
+DEF Creature_Table_Graphics_CombatTilemapHeight EQU $07
+DEF Creature_Table_Graphics_CombatPaletteAddress EQU $08  ;AddressBank. points to a paletteset of 3 palettes
+DEF Creature_Table_Graphics_CardTileset EQU $0B           ;AddressBank
+DEF Creature_Table_Graphics_CardPaletteID EQU $0E
+DEF Creature_Table_Graphics_SIZE EQU $0F
 
-Creature_Table_SIZE EQU $2D
+DEF Creature_Table_SIZE EQU $2D
 
 
 

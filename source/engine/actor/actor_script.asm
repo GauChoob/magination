@@ -170,7 +170,7 @@ Cmd_Actor_ThatActorDrawTile::
     ; jp Actor_DrawTile
 Actor_DrawTile:
     ; X
-    ld de, Actor_ENUM_XTile
+    ld de, Actor_OFFSET_XTile
     add hl, de
     Get8 d, hl+
     ; Y
@@ -215,7 +215,7 @@ Cmd_Actor_ThatActorDrawMaskTile::
     ; jp Actor_DrawMaskTile
 Actor_DrawMaskTile:
     ; Tile address
-    ld de, Actor_ENUM_TileAddress
+    ld de, Actor_OFFSET_TileAddress
     add hl, de
     Script_ReadWord de
     DerefHL
@@ -265,13 +265,13 @@ Cmd_Actor_ThatActorTeleportToThatActor::
 
     ; Actor1
     call Actor_GetThatActor
-    ld de, Actor_ENUM_XOffset
+    ld de, Actor_OFFSET_XOffset
     add hl, de
     push hl
 
     ; Actor2
     call Actor_GetThatActor
-    ld de, Actor_ENUM_XTile
+    ld de, Actor_OFFSET_XTile
     add hl, de
 
     pop de
@@ -331,7 +331,7 @@ Cmd_Actor_ThatActorSetScript::
     ;   db      Actor ID
     ;   BankAddress
     call Actor_GetThatActor
-    ld de, Actor_ENUM_Script0_Bank
+    ld de, Actor_OFFSET_Script0_Bank
     add hl, de
     LdHLIBCI_V ;Bank
     call Actor_SetScript ;Address
@@ -352,7 +352,7 @@ Cmd_Actor_ThatActorSetSpriteBase::
     ;   db      Actor ID
     ;   db      New value of SpriteBase
     call Actor_GetThatActor
-    ld de, Actor_ENUM_SpriteBase
+    ld de, Actor_OFFSET_SpriteBase
     add hl, de
     LdHLIBCI
     jp Script_Start
@@ -423,7 +423,7 @@ Cmd_Actor_ThisActorTeleportToThatActor::
     ;   hActor.X/YTile and hActor.TileAddress of current Actor is changed to that of target Actor
     ;   hActor.X/YSubtile is set to $08
     call Actor_GetThatActor
-    ld de, Actor_ENUM_XTile
+    ld de, Actor_OFFSET_XTile
     add hl, de
     ld a, $08
     ldh [hActor.XOffset], a
@@ -522,7 +522,7 @@ Cmd_Actor_ThisActorSetAnimSingle::
     ; Arguments:
     ;   BankAddress - Script1 to run with animation
     Get16 hl, hActor_CurrentAddress
-    ld de, Actor_ENUM_Script1_Bank
+    ld de, Actor_OFFSET_Script1_Bank
     add hl, de
     LdHLIBCI_V ; Bank
     call Actor_SetScript ; Address
@@ -540,7 +540,7 @@ Cmd_Actor_ThisActorSetAnimDelay::
     ;   db $00 - End-of-command
     .Init:
         Get16 hl, hActor_CurrentAddress
-        ld de, Actor_ENUM_Script1_Bank
+        ld de, Actor_OFFSET_Script1_Bank
         add hl, de
         Script_ReadByteA
         and a
@@ -589,7 +589,7 @@ Cmd_Actor_ThisActorSetAnimScroll::
     .Init:
         ; Check for End-of-command
         Get16 hl, hActor_CurrentAddress
-        ld de, Actor_ENUM_Script1_Bank
+        ld de, Actor_OFFSET_Script1_Bank
         add hl, de
         Script_ReadByteA
         and a
@@ -716,7 +716,7 @@ Actor_SetLoc::
     ;   dw      TileAddress
     ; Outputs:
     ;   Values above are set for Actor
-    ld de, Actor_ENUM_XOffset
+    ld de, Actor_OFFSET_XOffset
     add hl, de
     LdHLIBCI
     LdHLIBCI

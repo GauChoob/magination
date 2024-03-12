@@ -1,4 +1,4 @@
-SPRITE_END EQU -$80
+DEF SPRITE_END EQU -$80
 
 MACRO INCSPRITE
     ; Includes a .spr file

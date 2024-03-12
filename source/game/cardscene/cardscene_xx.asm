@@ -312,7 +312,7 @@ Cardscene_GetCardIcon::
     .ValidCard:
         ; Get the tileset of the card
         Do_CallForeign Fightscene_GetCreaturePointers
-        ld bc, oCreature_Table_Graphics_CardTileset
+        ld bc, Creature_Table_Graphics_CardTileset
         add hl, bc
         Mov8 wVBlank_SourceAddress, hl+
         Mov8 wVBlank_SourceAddress+1, hl+
@@ -336,7 +336,7 @@ Cardscene_GetCardPalette::
         ret
     .ValidCard:
         Do_CallForeign Fightscene_GetCreaturePointers
-        ld bc, oCreature_Table_Graphics_CardPaletteID
+        ld bc, Creature_Table_Graphics_CardPaletteID
         add hl, bc
         DerefHL  ; bug - "hl" is dereferenced, but actually we just wanted to get the value of [hl], which thankfully happens to be saved in a when we run this macro
         and %00000111

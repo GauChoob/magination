@@ -52,7 +52,7 @@ Fightscene_TileFX_DissolveTable_Fast_Pointers::
     dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*5
     dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*6
     dw Fightscene_TileFX_DissolveTable_Fast_Data + 4*7
-Fightscene_TileFX_DissolveTable_Fast_Pointers_ENTRIES EQU $08
+DEF Fightscene_TileFX_DissolveTable_Fast_Pointers_ENTRIES EQU $08
 
     ; $6DF9
 Fightscene_TileFX_DissolveTable_Slow_Pointers::
@@ -72,7 +72,7 @@ Fightscene_TileFX_DissolveTable_Slow_Pointers::
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*13
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*14
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*15
-Fightscene_TileFX_DissolveTable_Slow_Pointers_ENTRIES EQU $10
+DEF Fightscene_TileFX_DissolveTable_Slow_Pointers_ENTRIES EQU $10
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*16  ; UNUSED extra line
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*17  ; UNUSED extra line
     dw Fightscene_TileFX_DissolveTable_Slow_Data + 4*18  ; UNUSED extra line
