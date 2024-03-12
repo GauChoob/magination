@@ -3056,7 +3056,7 @@ jr_007_5499:
     add e                                         ; $55E3: $83
     ret                                           ; $55E4: $C9
 
-INCLUDE "source/engine/system/graphics/screenfx/screenfx.asm"
+INCLUDE "source/engine/system/graphics/screenfx/screenfx_xx.asm"
 
 INCLUDE "source/engine/system/sound/sound_xx.asm"
 

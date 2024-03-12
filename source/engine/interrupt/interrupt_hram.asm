@@ -5,17 +5,17 @@ hInterrupt_HBlank_Func::
     ds 2
     ;ds $FF9B - @
 hInterrupt_HBlank_LCDC::
-    ; todo - unused?
+    ; Intended for Interrupt_HBlankFunc_SwitchBackground, an unused function
     ; When HBlank is triggered, can be used to update rLCDC
     ds 1
     ;ds $FF9C - @
 hInterrupt_HBlank_SCX::
-    ; todo - unused?
+    ; Intended for Interrupt_HBlankFunc_SwitchBackground, an unused function
     ; When HBlank is triggered, can be used to update rSCX
     ds 1
     ;ds $FF9D - @
 hInterrupt_HBlank_SCY::
-    ; todo - unused?
+    ; Intended for Interrupt_HBlankFunc_SwitchBackground, an unused function
     ; When HBlank is triggered, can be used to update rSCY
     ds 1
     ;ds $FF9E - @

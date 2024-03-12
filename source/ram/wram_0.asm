@@ -1,15 +1,13 @@
 SECTION "WRAM", WRAM0[$C000]
 
 
-    ;source/engine/system/graphics/frame/frame_var_256.s
 
     ;ds $C000 - @
-INCLUDE "source/engine/system/graphics/frame/frame_wram.asm"
+INCLUDE "source/engine/system/graphics/frame/frame_wram_aligned.asm"
 
-    ; $C0A0-$C0FF unused due to alignment
+ds ALIGN[8,0] ; $C0A0-$C0FF unused due to alignment
 
-    ds $C100 - @
-ALIGN 8,0
+    ;ds $C100 - @
 wTilemap_Row_Tiles::
     ds $16
     .End:
@@ -232,27 +230,15 @@ wScript_Text::
     ds 1
 
 
-    ; source/engine/system/battery/battery.s
 
     ds $C727 - @
 INCLUDE "source/engine/system/battery/battery_wram.asm"
 
-    ;source/engine/system/graphics/frame/frame_var.s
-
     ;ds $C728 - @
-wFrame_OAMCursor::
-    ; LOW() of the first free address in wFrame_OAM (OAM buffer)
-    ds 1
-    ;ds $C729 - @
-wFrame_OAMTop::
-    ; LOW() of the first free address in OAM, for the previous frame
-    ; wOAMCursor is copied into wOAMTop every frame
-    ; By knowing where the top of the OAM data is, we can erase just the part of the OAM
-    ;   that we actually used, saving time
-    ds 1
+INCLUDE "source/engine/system/graphics/frame/frame_wram.asm"
 
     ; source/engine/system/graphics/palette/palette_var.s
-    ds $C72B - @
+    ;ds $C72B - @
 wPalette_BaseBuffers::
     ; Palette data for the background and sprites is first loaded into these variables
     ; This palette data is copied over to wPalette_AnimBuffers

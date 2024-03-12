@@ -10,9 +10,6 @@ INCLUDE "source/main/notcgb_00.asm"
 ; Main logic loop
 INCLUDE "source/main/gameloop_00.asm"
 
-    ; source/ROM/bank00.s -> source/engine/system/system.s
-
-
 ; Actor
 ; Only contains an actor ID -> lookup data
 INCLUDE "source/engine/actor/actor_00.asm"
@@ -20,11 +17,11 @@ INCLUDE "source/engine/actor/actor_00.asm"
 ; System
 INCLUDE "source/engine/system/math/math_00.asm"
 INCLUDE "source/engine/system/graphics/frame/frame_00.asm"
-INCLUDE "source/engine/system/sound/sound_vblank.asm"
+INCLUDE "source/engine/system/sound/sound_vblank_00.asm"
 INCLUDE "source/engine/system/system_00.asm"
 
 ; Engine
-INCLUDE "source/engine/rle_decompress.asm"
+INCLUDE "source/engine/rle_decompress_00.asm"
 INCLUDE "source/engine/hotspot/hotspot_00.asm"
 
 
@@ -460,7 +457,7 @@ Fightscene_TileFX_MeltInit:
     ret
 
     ; $1234
-    INCLUDE "source/engine/expression/expression_00.asm"
+INCLUDE "source/engine/expression/expression_00.asm"
 
 ;source/engine/script/modules/script_00_flow.s
 
@@ -3209,10 +3206,10 @@ Script_Open::
 
 
 
-INCLUDE "source/engine/interrupt/interrupt.asm"
+INCLUDE "source/engine/interrupt/interrupt_00.asm"
 INCLUDE "source/engine/text/text_00.asm"
 INCLUDE "source/engine/trigger/trigger_00.asm"
-INCLUDE "source/engine/unpack.asm"
+INCLUDE "source/engine/unpack_00.asm"
 
 
 ; Cardscene

@@ -1,7 +1,6 @@
 
-;SECTION "System XX", ROMX, BANK[$07]
 
-    ; $59FF
+
 SystemXX_UpdatePressedButtons::
     ; Update the pressed buttons
     ; Also reset the game if Select/Start/A/B are pressed
@@ -47,7 +46,7 @@ SystemXX_UpdatePressedButtons::
     Set8 rP1, $30
     ret
 
-    ; $5A4F
+
 SystemXX_SetDoubleSpeed::
     ; Enables CGB Double Speed Mode if it isn't already enabled
     ld a, [rKEY1]
@@ -71,7 +70,7 @@ SystemXX_SetDoubleSpeed::
     ld [rIE], a ;Reset interrupts to previous state
     ret
 
-    ; $5A7C
+
 SystemXX_SetSingleSpeed::
     ; Disables CGB Double Speed Mode if the gameboy isn't operating at Normal Speed Mode
     ; This function is unused
@@ -96,7 +95,7 @@ SystemXX_SetSingleSpeed::
     ld [rIE], a ;Reset interrupts to previous state
     ret
 
-    ; $5AA9
+
 SystemXX_SetupDMA_HRAM::
     ; Initializes $FF80 - $FF8A with function RunDMA
     ld c, LOW(hSystem_RunDMA)
@@ -110,7 +109,7 @@ SystemXX_SetupDMA_HRAM::
 	    jr nz, .CopyLoop
     ret
 
-    ; $5AB7
+
 SystemXX_DMA_HRAM_Code::
 LOAD "HRAM_RUNDMA", HRAM[$FF80]
 hSystem_RunDMA::
