@@ -10,9 +10,6 @@ INCLUDE "source/main/notcgb_00.asm"
 ; Main logic loop
 INCLUDE "source/main/gameloop_00.asm"
 
-    ; source/ROM/bank00.s -> source/engine/system/system.s
-
-
 ; Actor
 ; Only contains an actor ID -> lookup data
 INCLUDE "source/engine/actor/actor_00.asm"
