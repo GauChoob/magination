@@ -3977,7 +3977,7 @@ Jump_003_6A4D:
     ld hl, $D001                                  ; $6A69: $21 $01 $D0
     add hl, bc                                    ; $6A6C: $09
     ld a, [hl+]                                   ; $6A6D: $2A
-    ld [$C9FD], a                                 ; $6A6E: $EA $FD $C9
+    ld [wInventory_ID], a                                 ; $6A6E: $EA $FD $C9
     ld a, [hl+]                                   ; $6A71: $2A
     ld c, a                                       ; $6A72: $4F
     ld b, [hl]                                    ; $6A73: $46
@@ -3998,11 +3998,11 @@ Jump_003_6A4D:
 
 jr_003_6A97:
     ld a, $00                                     ; $6A97: $3E $00
-    ld [$C9FC], a                                 ; $6A99: $EA $FC $C9
+    ld [wInventory_Type], a                                 ; $6A99: $EA $FC $C9
     ld a, $01                                     ; $6A9C: $3E $01
-    ld [$C9FE], a                                 ; $6A9E: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $6A9E: $EA $FE $C9
     Do_CallForeign Unknown_GetNameAndGiveItem
-    ld a, [$C9FD]                                 ; $6AA9: $FA $FD $C9
+    ld a, [wInventory_ID]                                 ; $6AA9: $FA $FD $C9
     cp $00                                        ; $6AAC: $FE $00
     jp z, Jump_003_6B03                           ; $6AAE: $CA $03 $6B
 

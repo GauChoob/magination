@@ -5,27 +5,27 @@ Battle_CheckTarget_Table::
     ; A bunch of functions that check to see whether a potential target is valid
     ; These functions return wBattle_CurCreature_ValidBattleCmd,
     ;   where nz = valid and z = invalid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_EmptyCard
-    dw Battle_CheckTarget_EmptyCard
-    dw Battle_CheckTarget_AnyCreature
-    dw Battle_CheckTarget_AllyMagi
-    dw Battle_CheckTarget_EnemyMagi
-    dw Battle_CheckTarget_EnemyMagi
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AllEnemy
-    dw Battle_CheckTarget_AllEnemy
-    dw Battle_CheckTarget_AllAlly
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AllAlly
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_NONE
+    dw Battle_CheckTarget_EmptyCard       ; Battle_TARGET_ALLYEMPTY
+    dw Battle_CheckTarget_EmptyCard       ; Battle_TARGET_ENEMYEMPTY
+    dw Battle_CheckTarget_AnyCreature     ; Battle_TARGET_ANYCREATURE
+    dw Battle_CheckTarget_AllyMagi        ; Battle_TARGET_ALLYMAGI
+    dw Battle_CheckTarget_EnemyMagi       ; Battle_TARGET_ENEMYMAGI
+    dw Battle_CheckTarget_EnemyMagi       ; Battle_TARGET_ENEMYMAGI_EVASION
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ANY
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ANY_EVASION
+    dw Battle_CheckTarget_AllEnemy        ; Battle_TARGET_ALLENEMY
+    dw Battle_CheckTarget_AllEnemy        ; Battle_TARGET_ALLENEMY_MAGI
+    dw Battle_CheckTarget_AllAlly         ; Battle_TARGET_ALLALLY
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALLALLY_ME
+    dw Battle_CheckTarget_AllAlly         ; Battle_TARGET_ALLALLY_MAGI
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALLALLY_MAGI_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_MAGI
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_MAGI_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_DEPENDANT
 
     dw Call_005_5A24
     dw Battle_Target_Crash
@@ -469,16 +469,16 @@ jr_005_42F0:
     ret                                           ; $42F5: $C9
 
 Call_005_42F6::
-    ld a, [$D0D7]                                 ; $42F6: $FA $D7 $D0
+    ld a, [wBattle_DisableLoot]                                 ; $42F6: $FA $D7 $D0
     and a                                         ; $42F9: $A7
     ret nz                                        ; $42FA: $C0
 
     ld a, [$D06C]                                 ; $42FB: $FA $6C $D0
     srl a                                         ; $42FE: $CB $3F
     inc a                                         ; $4300: $3C
-    ld [$C9FE], a                                 ; $4301: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $4301: $EA $FE $C9
     Do_CallForeign Call_007_7368
-    ld a, [$C9FE]                                 ; $430C: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $430C: $FA $FE $C9
     and a                                         ; $430F: $A7
     jr z, jr_005_4353                             ; $4310: $28 $41
 
@@ -515,11 +515,11 @@ jr_005_4353:
     cp $FF                                        ; $435F: $FE $FF
     jr z, jr_005_439C                             ; $4361: $28 $39
 
-    ld [$C9FD], a                                 ; $4363: $EA $FD $C9
+    ld [wInventory_ID], a                                 ; $4363: $EA $FD $C9
     ld a, $01                                     ; $4366: $3E $01
-    ld [$C9FC], a                                 ; $4368: $EA $FC $C9
+    ld [wInventory_Type], a                                 ; $4368: $EA $FC $C9
     ld a, $01                                     ; $436B: $3E $01
-    ld [$C9FE], a                                 ; $436D: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $436D: $EA $FE $C9
     Do_CallForeign Unknown_GetNameAndGiveItem
     ld a, $49                                     ; $4378: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $437A: $EA $3D $C9
@@ -549,11 +549,11 @@ jr_005_439C:
     cp $FF                                        ; $43A9: $FE $FF
     ret z                                         ; $43AB: $C8
 
-    ld [$C9FD], a                                 ; $43AC: $EA $FD $C9
+    ld [wInventory_ID], a                                 ; $43AC: $EA $FD $C9
     ld a, $01                                     ; $43AF: $3E $01
-    ld [$C9FC], a                                 ; $43B1: $EA $FC $C9
+    ld [wInventory_Type], a                                 ; $43B1: $EA $FC $C9
     ld a, $01                                     ; $43B4: $3E $01
-    ld [$C9FE], a                                 ; $43B6: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $43B6: $EA $FE $C9
     Do_CallForeign Unknown_GetNameAndGiveItem
     ld a, $49                                     ; $43C1: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $43C3: $EA $3D $C9
@@ -3075,6 +3075,7 @@ BattleCmd_GetByteFromAddress::
 
     ; $5E4D
 BattleCmd_GetDataFromAddress::
+    ; Copy the BattleCmd into the destination
     ; Inputs:
     ;   wBattle_CopyBuffer_Source = address of the target command in the BattleCmd_Table
     ; Outputs:

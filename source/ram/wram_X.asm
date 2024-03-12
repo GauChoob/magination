@@ -147,6 +147,7 @@ DEF BATTLE_COMMAND_CHANCE RB 1
 DEF BATTLE_COMMAND_NAME RB 7
 DEF BATTLE_COMMAND_SIZE RB 0
 
+
 MACRO Battle_Creature_BattleCmd_Struct
     ; a BattleCmd_Struct copied into a battle creature struct
     .BattleCmd:
@@ -369,7 +370,11 @@ wBattle_CurCreature_FightDef::
     ; z -> Fight; nz -> Defend
     ds 1
 
-    ds $D0D8 - @
+    ds $D0D7 - @
+wBattle_DisableLoot::
+    ; Automatically reset at the start of battle. Set to 1 in Salafy battles to disable loot gains
+    ds 1
+    ;ds $D0D8 - @
 wBattle_NotEnoughEnergy::
     ; Set to 1 when a BattleCmd is rejected by Battle_Helpers_CheckValidTarget because the creature does not have enough energy
     ds 1
@@ -414,6 +419,8 @@ wBattle_Creature_Magi::
     Battle_Creature_Struct
 
     ;ds $D36D - @
+wBattle_Level::
+    ; Difficulty level of the Battle, used in calculating experience gains
     ds 1
 
     ds $D37A - @
@@ -432,20 +439,35 @@ wBattle_MagiCreatureID::
     ds $D392 - @
 UNION
 wBattle_Buffer::
-    ; Data copied from a script frame into a temporary buffer
-    ; At least 5 bytes long
-    ds 5
+    ; Data copied from a ROMX script frame into a temporary buffer
+    ; So we can access the data from a different bank
+    ds $30
 .End
 NEXTU
     ;ds $D392 - @
-wBattle_CreatureSlot::
-    ;0-9 (Hero, Ally1-4, Enemy1-4, EnemyMagi)
+wBattle_Buffer_CreatureSlot::
+    ; Target slot, e.g. BATTLE_SLOT_HERO
     ds 1
     ;ds $D393 - @
-wBattle_ItemSpellAddress::
+wBattle_ItemSpellBattleCmdAddress::
     ds 2
     ;ds $D395 - @
-    ; Some sort of offset to a table of function
+wBattle_TargetAI::
+    ; The desired target
     ds 1
 ENDU
 
+    ;ds $D3C2 - @
+wBattle_ScriptBusy::
+    ; 0 when Cmd_Battle_NextTurn or Cmd_Battle_Auto is called
+    ; 1 when the battle script is running
+    ds 1
+    
+    ds $D3C4 - @
+wBattleAI_Target_CreatureEnergyReport::
+    ; A table of 4 creature's energies, used to compare and find the strongest/weakest
+    ds 4*2
+    ;ds $D3CC - @
+wBattleAI_Target_CurrentBestCreature::
+    ; Temporary variable marking the best target creature id (0-3)
+    ds 1

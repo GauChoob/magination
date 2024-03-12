@@ -223,7 +223,7 @@ jr_01D_40CC:
     ld b, $2A                                     ; $40E0: $06 $2A
     nop                                           ; $40E2: $00
     rrca                                          ; $40E3: $0F
-    ld bc, $C725                                  ; $40E4: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $40E4: $01 $25 $C7
     ld b, $B0                                     ; $40E7: $06 $B0
     nop                                           ; $40E9: $00
     dec e                                         ; $40EA: $1D

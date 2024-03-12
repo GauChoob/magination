@@ -5297,7 +5297,7 @@ jr_02A_5E1D:
 jr_02A_5E30:
     sbc l                                         ; $5E30: $9D
     ld d, e                                       ; $5E31: $53
-    ld [$C725], sp                                ; $5E32: $08 $25 $C7
+    ld [wScript_OverworldItemSpell_CollID], sp                                ; $5E32: $08 $25 $C7
     ld d, e                                       ; $5E35: $53
     nop                                           ; $5E36: $00
     nop                                           ; $5E37: $00

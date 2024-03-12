@@ -592,7 +592,7 @@ Call_004_5926::
     Frame_Init
     call ScreenHide                                    ; $5931: $CD $C3 $07
     ld a, $FF                                     ; $5934: $3E $FF
-    ld [$C726], a                                 ; $5936: $EA $26 $C7
+    ld [wScript_RingMadeID], a                                 ; $5936: $EA $26 $C7
     xor a                                         ; $5939: $AF
     ld [rWY], a                                 ; $593A: $EA $4A $FF
     ld a, $07                                     ; $593D: $3E $07
@@ -837,7 +837,7 @@ jr_004_5D19:
     inc [hl]                                      ; $5D29: $34
     Battery_Off
     ld a, [$CD51]                                 ; $5D2E: $FA $51 $CD
-    ld [$C726], a                                 ; $5D31: $EA $26 $C7
+    ld [wScript_RingMadeID], a                                 ; $5D31: $EA $26 $C7
     ld b, a                                       ; $5D34: $47
     ld c, Creature_Table_SIZE                                     ; $5D35: $0E $2D
     call Math_Mult                                    ; $5D37: $CD $CA $04

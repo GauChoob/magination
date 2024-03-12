@@ -3965,7 +3965,7 @@ jr_007_6787:
     ld a, [hl]                                    ; $6884: $7E
     ld b, a                                       ; $6885: $47
     xor a                                         ; $6886: $AF
-    ld [$C9FD], a                                 ; $6887: $EA $FD $C9
+    ld [wInventory_Success], a                                 ; $6887: $EA $FD $C9
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     pop hl                                        ; $6897: $E1
@@ -3974,7 +3974,7 @@ jr_007_6787:
     cp b                                          ; $689A: $B8
     jr z, jr_007_68AF                             ; $689B: $28 $12
 
-    ld a, [$C9FE]                                 ; $689D: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $689D: $FA $FE $C9
     add c                                         ; $68A0: $81
     jr c, jr_007_68A8                             ; $68A1: $38 $05
 
@@ -3989,7 +3989,7 @@ jr_007_68A8:
 jr_007_68A9:
     ld [hl], a                                    ; $68A9: $77
     ld a, $01                                     ; $68AA: $3E $01
-    ld [$C9FD], a                                 ; $68AC: $EA $FD $C9
+    ld [wInventory_Success], a                                 ; $68AC: $EA $FD $C9
 
 jr_007_68AF:
     Battery_Off
@@ -4159,7 +4159,7 @@ jr_007_72BF:
     ld [hl], a                                    ; $732D: $77
     Battery_Off
     ld a, $01                                     ; $7332: $3E $01
-    ld [$C9FD], a                                 ; $7334: $EA $FD $C9
+    ld [wInventory_Success], a                                 ; $7334: $EA $FD $C9
     ret                                           ; $7337: $C9
 
 
@@ -4176,13 +4176,13 @@ Unknown_GetNameAndGiveItem::
     ld hl, $5D7F                                  ; $7350: $21 $7F $5D
 
 Jump_007_7353:
-    ld a, [$C9FC]                                 ; $7353: $FA $FC $C9
+    ld a, [wInventory_Type]                                 ; $7353: $FA $FC $C9
     add a                                         ; $7356: $87
     ld e, a                                       ; $7357: $5F
     ld d, $00                                     ; $7358: $16 $00
     rlc d                                         ; $735A: $CB $02
     add hl, de                                    ; $735C: $19
-    ld a, [$C9FD]                                 ; $735D: $FA $FD $C9
+    ld a, [wInventory_ID]                                 ; $735D: $FA $FD $C9
     ld e, a                                       ; $7360: $5F
     ld d, $00                                     ; $7361: $16 $00
     DerefHL
@@ -4194,7 +4194,7 @@ Jump_007_7353:
 Call_007_7368::
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$C9FE]                                 ; $7375: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $7375: $FA $FE $C9
     ld e, a                                       ; $7378: $5F
     ld d, $00                                     ; $7379: $16 $00
     FGet16 hl, $A3A5                                  ; $737B: $21 $A5 $A3
@@ -4218,13 +4218,13 @@ jr_007_738E:
     TwosComp bc
     add hl, bc                                    ; $73A2: $09
     ld a, l                                       ; $73A3: $7D
-    ld [$C9FE], a                                 ; $73A4: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $73A4: $EA $FE $C9
     ret                                           ; $73A7: $C9
 
 
     Battery_SetBank "XRAM Creatures"
     Battery_On
-    ld a, [$C9FE]                                 ; $73B5: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $73B5: $FA $FE $C9
     ld c, a                                       ; $73B8: $4F
     ld b, $00                                     ; $73B9: $06 $00
     FGet16_BigEndian de, $A007                                  ; $73BB: $21 $07 $A0                                       ; $73C0: $57
@@ -4249,7 +4249,7 @@ jr_007_73DA:
 
     Battery_SetBank "XRAM Creatures"
     Battery_On
-    ld a, [$C9FE]                                 ; $73F4: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $73F4: $FA $FE $C9
     ld c, a                                       ; $73F7: $4F
     ld b, $00                                     ; $73F8: $06 $00
     FGet16_BigEndian hl, $A007                                  ; $73FA: $21 $07 $A0                                       ; $73FF: $67
@@ -4294,20 +4294,20 @@ Jump_007_743C:
     Battery_On
     ld a, [hl]
     ld c, a
-    ld a, [$C9FE]
+    ld a, [wInventory_Amount]
     add c
     jr nc, jr_007_745A
 
     ld a, $FF
     ld [hl], a
     xor a
-    ld [$C9FD], a
+    ld [wInventory_Success], a
     jr jr_007_7460
 
 jr_007_745A:
     ld [hl], a
     ld a, $01
-    ld [$C9FD], a
+    ld [wInventory_Success], a
 
 jr_007_7460:
     Battery_Off
@@ -4322,7 +4322,7 @@ Call_007_7465::
     add hl, de                                    ; $746E: $19
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$C9FE]                                 ; $747C: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $747C: $FA $FE $C9
     ld e, a                                       ; $747F: $5F
     ld d, $00                                     ; $7480: $16 $00
     TwosComp de
@@ -4347,7 +4347,7 @@ jr_007_7495:
 Jump_007_74A6:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$C9FE]                                 ; $74B3: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $74B3: $FA $FE $C9
     ld c, a                                       ; $74B6: $4F
     ld a, [hl]                                    ; $74B7: $7E
     sub c                                         ; $74B8: $91

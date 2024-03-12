@@ -229,9 +229,31 @@ wScript_Text::
     .BigCounter:
     ds 1
 
+    ;ds $C722 - @
+wBattle_AnimDone::
+    ; TODO
+    ds 1
 
+    ;ds $C723 - @
+wScript_OverworldItemSpell_Type::
+    ; Type, item or spell (saved to, but not checked)
+    ; todo assign values INV_TYPE_ITEM / INV_TYPE_SPELL
+    ds 1
+    ;ds $C724 - @
+wScript_OverworldItemSpell_ID::
+    ; ID of the item or spell Tony uses in overworld
+    ds 1
+    ;ds $C725 - @
+wScript_OverworldItemSpell_CollID::
+    ; Collision ID of the tile Tony is standing on when an item is used in overworld
+    ds 1
 
-    ds $C727 - @
+    ;ds $C726 - @
+wScript_RingMadeID::
+    ; Creature ID of the ring made
+    ds 1
+
+    ;ds $C727 - @
 INCLUDE "source/engine/system/battery/battery_wram.asm"
 
     ;ds $C728 - @
@@ -779,7 +801,22 @@ wFightscene_TileFX_DestroyCount::
     ds 1
 ;wFightscene_FireEffectState (?) TODO
 
-    ds $C9FF - @
+    ;ds $C9FC - @
+wInventory_Type::
+    ; Inventory type TODO
+    ds 1
+    ;ds $C9FD - @
+wInventory_ID::
+    ; ID of Spell, Item, etc TODO
+wInventory_Success::
+    ; Set to 1 if item successfully given, or else 0 in some of the functions
+    ds 1
+    ;ds $C9FE - @
+wInventory_Amount:: ; TODO
+    ; Amount of item to give
+    ds 1
+
+    ;ds $C9FF - @
 wInventory_ItemSpellMapDefaultScript::
     ; When an item/spell has no defined .MapBank and .MapAddress,
     ; the script defined here will be run instead.
@@ -1121,7 +1158,7 @@ wBattle_CopyBuffer_ListIndex::
     ds 1
     ;ds $CD8D - @
 wBattle_CopyBuffer_Source::
-    ; Points to the start of an item in the database of (Item/Relic/Infused)
+    ; Points to the start of an item in the database of (Item/Relic/Infused/BattleCmd)
     ; e.g. Points to Baloo Root
     ds 2
     ;ds $CD8F - @

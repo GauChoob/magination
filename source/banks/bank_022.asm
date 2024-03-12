@@ -15025,7 +15025,7 @@ jr_022_7AD7:
     ld b, $28                                     ; $7AE6: $06 $28
     nop                                           ; $7AE8: $00
     rrca                                          ; $7AE9: $0F
-    ld bc, $C725                                  ; $7AEA: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $7AEA: $01 $25 $C7
     ld b, $B0                                     ; $7AED: $06 $B0
     nop                                           ; $7AEF: $00
     ld [hl+], a                                   ; $7AF0: $22

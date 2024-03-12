@@ -817,11 +817,11 @@ jr_002_455C:
     call Battle00_Actor_SetScript                                    ; $4572: $CD $F0 $38
     Do_CallForeign Call_005_4430
     xor a                                         ; $457D: $AF
-    ld [$C722], a                                 ; $457E: $EA $22 $C7
+    ld [wBattle_AnimDone], a                                 ; $457E: $EA $22 $C7
 
 jr_002_4581:
     call System_UpdateGame                                    ; $4581: $CD $BB $08
-    ld a, [$C722]                                 ; $4584: $FA $22 $C7
+    ld a, [wBattle_AnimDone]                                 ; $4584: $FA $22 $C7
     and a                                         ; $4587: $A7
     jr z, jr_002_4581                             ; $4588: $28 $F7
 
@@ -861,11 +861,11 @@ jr_002_45D0:
     ld [$C9D9], a                                 ; $45EB: $EA $D9 $C9
     Do_CallForeign Cardscene_SpawnCreature
     xor a                                         ; $45F6: $AF
-    ld [$C722], a                                 ; $45F7: $EA $22 $C7
+    ld [wBattle_AnimDone], a                                 ; $45F7: $EA $22 $C7
 
 jr_002_45FA:
     call System_UpdateGame                                    ; $45FA: $CD $BB $08
-    ld a, [$C722]                                 ; $45FD: $FA $22 $C7
+    ld a, [wBattle_AnimDone]                                 ; $45FD: $FA $22 $C7
     and a                                         ; $4600: $A7
     jr z, jr_002_45FA                             ; $4601: $28 $F7
 
@@ -1092,11 +1092,11 @@ System_ActorTonyDefaults::
     ;   None
     ;
     ; Copy xCreature_00_Hero's default state
-    ld bc, Creature_Tony_NewGameStruct
+    ld bc, Battle_TonyCreature_NewGameStruct
     ld hl, xCreature_00_Hero
     Battery_SetBank "XRAM Creatures"
     Battery_On
-    ld d, Creature_Tony_NewGameStruct.End - Creature_Tony_NewGameStruct ;BUG, not the true end
+    ld d, Battle_TonyCreature_NewGameStruct.End - Battle_TonyCreature_NewGameStruct ;BUG, not the true end
     .CopyLoop:
         LdHLIBCI
         dec d
@@ -3101,7 +3101,7 @@ Call_002_55C3:
     add hl, bc                                    ; $55D9: $09
     ld a, [hl]                                    ; $55DA: $7E
     ld b, a                                       ; $55DB: $47
-    ld a, [$D36D]                                 ; $55DC: $FA $6D $D3
+    ld a, [wBattle_Level]                                 ; $55DC: $FA $6D $D3
     inc a                                         ; $55DF: $3C
     sub b                                         ; $55E0: $90
     jr c, jr_002_55FF                             ; $55E1: $38 $1C
@@ -4127,8 +4127,9 @@ jr_002_5BA1:
     Do_BattleCmd_Stat_DecreasePercentCreatureStat Strength, 32*125/1000 ; 12.5%
     ret                                           ; $5BDB: $C9
 
-    ; $5BDC
-Battle_Init_CreatureCopy:
+Battle_Init_CreatureCopy:: ; TODO replace with other 2 function names
+Battle_Init_CreatureOpen::
+Battle_Init_CreatureClose::
     ; Copy a Battle_Creature_Struct from one location to another
     ; Inputs:
     ;   bc = source
@@ -4470,11 +4471,11 @@ Jump_002_5E48:
 
 Call_002_5E5E_RunScripts:
     ld a, $01                                     ; $5E5E: $3E $01
-    ld [$D3C2], a                                 ; $5E60: $EA $C2 $D3
+    ld [wBattle_ScriptBusy], a                                 ; $5E60: $EA $C2 $D3
 
 jr_002_5E63:
     call System_UpdateGame                                    ; $5E63: $CD $BB $08
-    ld a, [$D3C2]                                 ; $5E66: $FA $C2 $D3
+    ld a, [wBattle_ScriptBusy]                                 ; $5E66: $FA $C2 $D3
     and a                                         ; $5E69: $A7
     jr nz, jr_002_5E63                            ; $5E6A: $20 $F7
 
@@ -5799,7 +5800,7 @@ jr_002_6991:
     ld a, [$D0B6]                                 ; $6999: $FA $B6 $D0
     call Battle00_Actor_DisableScript                                    ; $699C: $CD $C7 $38
     xor a                                         ; $699F: $AF
-    ld [$C722], a                                 ; $69A0: $EA $22 $C7
+    ld [wBattle_AnimDone], a                                 ; $69A0: $EA $22 $C7
     ld a, [$D0B6]                                 ; $69A3: $FA $B6 $D0
     ld d, $41                                     ; $69A6: $16 $41
     ld bc, $6F5E                                  ; $69A8: $01 $5E $6F
@@ -5815,7 +5816,7 @@ jr_002_6991:
 
 jr_002_69C4:
     call System_UpdateGame                                    ; $69C4: $CD $BB $08
-    ld a, [$C722]                                 ; $69C7: $FA $22 $C7
+    ld a, [wBattle_AnimDone]                                 ; $69C7: $FA $22 $C7
     and a                                         ; $69CA: $A7
     jr z, jr_002_69C4                             ; $69CB: $28 $F7
 
@@ -6669,349 +6670,409 @@ jr_002_6FCB:
 
     rst $28                                       ; $6FDD: $EF
     ld [hl], c                                    ; $6FDE: $71
-    call z, $B271                                 ; $6FDF: $CC $71 $B2
-    ld [hl], c                                    ; $6FE2: $71
-    cp a                                          ; $6FE3: $BF
-    ld [hl], c                                    ; $6FE4: $71
-    and l                                         ; $6FE5: $A5
-    ld [hl], c                                    ; $6FE6: $71
-    sub c                                         ; $6FE7: $91
-    ld [hl], c                                    ; $6FE8: $71
-    adc d                                         ; $6FE9: $8A
-    ld [hl], c                                    ; $6FEA: $71
-    add b                                         ; $6FEB: $80
-    ld [hl], c                                    ; $6FEC: $71
-    ld l, h                                       ; $6FED: $6C
-    ld [hl], c                                    ; $6FEE: $71
-    halt                                          ; $6FEF: $76
-    ld [hl], c                                    ; $6FF0: $71
-    ld h, d                                       ; $6FF1: $62
-    ld [hl], c                                    ; $6FF2: $71
-    ld c, a                                       ; $6FF3: $4F
-    ld [hl], c                                    ; $6FF4: $71
-    reti                                          ; $6FF5: $D9
-
-
-    ld [hl], c                                    ; $6FF6: $71
-    sbc $71                                       ; $6FF7: $DE $71
-
-Call_002_6FF9:
-    ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $6FF9: $FA $03 $D1
-    and a                                         ; $6FFC: $A7
-    jr z, jr_002_7005                             ; $6FFD: $28 $06
-
-    add $04                                       ; $6FFF: $C6 $04
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $7001: $EA $03 $D1
-    ret                                           ; $7004: $C9
-
-
-jr_002_7005:
-    ld a, $09                                     ; $7005: $3E $09
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $7007: $EA $03 $D1
-    ret                                           ; $700A: $C9
-
-
-Call_002_700B:
-    ld de, $D3C4                                  ; $700B: $11 $C4 $D3
-    ld a, $04                                     ; $700E: $3E $04
-    ld [wBattle_TempCounter], a                                 ; $7010: $EA $74 $D0
-
-jr_002_7013:
-    ld a, [de]                                    ; $7013: $1A
-    inc de                                        ; $7014: $13
-    ld h, a                                       ; $7015: $67
-    ld a, [de]                                    ; $7016: $1A
-    inc de                                        ; $7017: $13
-    ld l, a                                       ; $7018: $6F
-    or h                                          ; $7019: $B4
-    jr nz, jr_002_7027                            ; $701A: $20 $0B
-
-    ld a, [wBattle_TempCounter]                                 ; $701C: $FA $74 $D0
-    dec a                                         ; $701F: $3D
-    ld [wBattle_TempCounter], a                                 ; $7020: $EA $74 $D0
-    jr nz, jr_002_7013                            ; $7023: $20 $EE
-
-    jr jr_002_705A                                ; $7025: $18 $33
-
-jr_002_7027:
-    ld a, [wBattle_TempCounter]                                 ; $7027: $FA $74 $D0
-    ld b, a                                       ; $702A: $47
-    ld a, $05                                     ; $702B: $3E $05
-    sub b                                         ; $702D: $90
-    ld [$D3CC], a                                 ; $702E: $EA $CC $D3
-
-jr_002_7031:
-    ld a, [wBattle_TempCounter]                                 ; $7031: $FA $74 $D0
-    dec a                                         ; $7034: $3D
-    ld [wBattle_TempCounter], a                                 ; $7035: $EA $74 $D0
-    jr z, jr_002_7060                             ; $7038: $28 $26
-
-    ld a, [de]                                    ; $703A: $1A
-    inc de                                        ; $703B: $13
-    ld b, a                                       ; $703C: $47
-    ld a, [de]                                    ; $703D: $1A
-    inc de                                        ; $703E: $13
-    ld c, a                                       ; $703F: $4F
-    or b                                          ; $7040: $B0
-    jr z, jr_002_7031                             ; $7041: $28 $EE
-
-    TwosComp bc
-    push hl                                       ; $704A: $E5
-    add hl, bc                                    ; $704B: $09
-    pop hl                                        ; $704C: $E1
-    jr c, jr_002_7031                             ; $704D: $38 $E2
-
-    TwosComp bc
-    ld h, b                                       ; $7056: $60
-    ld l, c                                       ; $7057: $69
-    jr jr_002_7027                                ; $7058: $18 $CD
-
-jr_002_705A:
-    ld a, $00                                     ; $705A: $3E $00
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $705C: $EA $03 $D1
-    ret                                           ; $705F: $C9
-
-
-jr_002_7060:
-    ld a, [$D3CC]                                 ; $7060: $FA $CC $D3
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $7063: $EA $03 $D1
-    ret                                           ; $7066: $C9
-
-
-Call_002_7067:
-    ld de, $D3C4                                  ; $7067: $11 $C4 $D3
-    ld a, $04                                     ; $706A: $3E $04
-    ld [wBattle_TempCounter], a                                 ; $706C: $EA $74 $D0
-
-jr_002_706F:
-    ld a, [de]                                    ; $706F: $1A
-    inc de                                        ; $7070: $13
-    ld h, a                                       ; $7071: $67
-    ld a, [de]                                    ; $7072: $1A
-    inc de                                        ; $7073: $13
-    ld l, a                                       ; $7074: $6F
-    or h                                          ; $7075: $B4
-    jr nz, jr_002_7083                            ; $7076: $20 $0B
-
-    ld a, [wBattle_TempCounter]                                 ; $7078: $FA $74 $D0
-    dec a                                         ; $707B: $3D
-    ld [wBattle_TempCounter], a                                 ; $707C: $EA $74 $D0
-    jr nz, jr_002_706F                            ; $707F: $20 $EE
-
-    jr jr_002_70B6                                ; $7081: $18 $33
-
-jr_002_7083:
-    ld a, [wBattle_TempCounter]                                 ; $7083: $FA $74 $D0
-    ld b, a                                       ; $7086: $47
-    ld a, $05                                     ; $7087: $3E $05
-    sub b                                         ; $7089: $90
-    ld [$D3CC], a                                 ; $708A: $EA $CC $D3
-
-jr_002_708D:
-    ld a, [wBattle_TempCounter]                                 ; $708D: $FA $74 $D0
-    dec a                                         ; $7090: $3D
-    ld [wBattle_TempCounter], a                                 ; $7091: $EA $74 $D0
-    jr z, jr_002_70BC                             ; $7094: $28 $26
-
-    ld a, [de]                                    ; $7096: $1A
-    inc de                                        ; $7097: $13
-    ld b, a                                       ; $7098: $47
-    ld a, [de]                                    ; $7099: $1A
-    inc de                                        ; $709A: $13
-    ld c, a                                       ; $709B: $4F
-    or b                                          ; $709C: $B0
-    jr z, jr_002_708D                             ; $709D: $28 $EE
-
-    TwosComp bc
-    push hl                                       ; $70A6: $E5
-    add hl, bc                                    ; $70A7: $09
-    pop hl                                        ; $70A8: $E1
-    jr nc, jr_002_708D                            ; $70A9: $30 $E2
-
-    TwosComp bc
-    ld h, b                                       ; $70B2: $60
-    ld l, c                                       ; $70B3: $69
-    jr jr_002_7083                                ; $70B4: $18 $CD
-
-jr_002_70B6:
-    ld a, $00                                     ; $70B6: $3E $00
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $70B8: $EA $03 $D1
-    ret                                           ; $70BB: $C9
-
-
-jr_002_70BC:
-    ld a, [$D3CC]                                 ; $70BC: $FA $CC $D3
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $70BF: $EA $03 $D1
-    ret                                           ; $70C2: $C9
-
-
-Call_002_70C3:
-    call Math_Rand8Inc                                    ; $70C3: $CD $4F $05
-    push af                                       ; $70C6: $F5
-    and $03                                       ; $70C7: $E6 $03
-    ld c, a                                       ; $70C9: $4F
-    ld b, $00                                     ; $70CA: $06 $00
-    ld d, $04                                     ; $70CC: $16 $04
-    pop af                                        ; $70CE: $F1
-    push hl                                       ; $70CF: $E5
-    bit 7, a                                      ; $70D0: $CB $7F
-    jr z, jr_002_70E9                             ; $70D2: $28 $15
-
-jr_002_70D4:
-    pop hl                                        ; $70D4: $E1
-    push hl                                       ; $70D5: $E5
-    add hl, bc                                    ; $70D6: $09
-    ld a, [hl]                                    ; $70D7: $7E
-    and a                                         ; $70D8: $A7
-    jr nz, jr_002_70FE                            ; $70D9: $20 $23
-
-    dec bc                                        ; $70DB: $0B
-    ld a, $FF                                     ; $70DC: $3E $FF
-    cp c                                          ; $70DE: $B9
-    jr nz, jr_002_70E4                            ; $70DF: $20 $03
-
-    ld bc, $0003                                  ; $70E1: $01 $03 $00
-
-jr_002_70E4:
-    dec d                                         ; $70E4: $15
-    jr z, jr_002_70FC                             ; $70E5: $28 $15
-
-    jr jr_002_70D4                                ; $70E7: $18 $EB
-
-jr_002_70E9:
-    pop hl                                        ; $70E9: $E1
-    push hl                                       ; $70EA: $E5
-    add hl, bc                                    ; $70EB: $09
-    ld a, [hl]                                    ; $70EC: $7E
-    and a                                         ; $70ED: $A7
-    jr nz, jr_002_70FE                            ; $70EE: $20 $0E
-
-    inc bc                                        ; $70F0: $03
-    ld a, $04                                     ; $70F1: $3E $04
-    cp c                                          ; $70F3: $B9
-    jr nz, jr_002_70F9                            ; $70F4: $20 $03
-
-    ld bc, $0000                                  ; $70F6: $01 $00 $00
-
-jr_002_70F9:
-    dec d                                         ; $70F9: $15
-    jr nz, jr_002_70E9                            ; $70FA: $20 $ED
-
-jr_002_70FC:
-    ld c, $FF                                     ; $70FC: $0E $FF
-
-jr_002_70FE:
-    ld a, c                                       ; $70FE: $79
-    pop hl                                        ; $70FF: $E1
-    ret                                           ; $7100: $C9
-
-
-Call_002_7101:
-    ld bc, $0007                                  ; $7101: $01 $07 $00
-    add hl, bc                                    ; $7104: $09
-    ld bc, $D3C4                                  ; $7105: $01 $C4 $D3
-    ld a, $04                                     ; $7108: $3E $04
-    ld [wBattle_TempCounter], a                                 ; $710A: $EA $74 $D0
-
-jr_002_710D:
-    push bc                                       ; $710D: $C5
-    ld a, [hl+]                                   ; $710E: $2A
-    ld e, [hl]                                    ; $710F: $5E
-    inc hl                                        ; $7110: $23
-    ld d, a                                       ; $7111: $57
-    ld a, [hl+]                                   ; $7112: $2A
-    ld c, [hl]                                    ; $7113: $4E
-    inc hl                                        ; $7114: $23
-    ld b, a                                       ; $7115: $47
-    push hl                                       ; $7116: $E5
-    call Math_CalcPercent                                    ; $7117: $CD $67 $03
-    pop hl                                        ; $711A: $E1
-    pop bc                                        ; $711B: $C1
-    ld [bc], a                                    ; $711C: $02
-    inc bc                                        ; $711D: $03
-    xor a                                         ; $711E: $AF
-    ld [bc], a                                    ; $711F: $02
-    inc bc                                        ; $7120: $03
-    ld de, $0033                                  ; $7121: $11 $33 $00
-    add hl, de                                    ; $7124: $19
-    ld a, [wBattle_TempCounter]                                 ; $7125: $FA $74 $D0
-    dec a                                         ; $7128: $3D
-    ld [wBattle_TempCounter], a                                 ; $7129: $EA $74 $D0
-    jr nz, jr_002_710D                            ; $712C: $20 $DF
-
-    ret                                           ; $712E: $C9
-
-
-Call_002_712F:
-    ld de, $0035                                  ; $712F: $11 $35 $00
-    ld bc, $0007                                  ; $7132: $01 $07 $00
-    add hl, bc                                    ; $7135: $09
-    ld bc, $D3C4                                  ; $7136: $01 $C4 $D3
-    ld a, $04                                     ; $7139: $3E $04
-    ld [wBattle_TempCounter], a                                 ; $713B: $EA $74 $D0
-
-jr_002_713E:
-    LdBCIHLI                                        ; $7140: $03
-    LdBCIHLI                                        ; $7143: $03
-    add hl, de                                    ; $7144: $19
-    ld a, [wBattle_TempCounter]                                 ; $7145: $FA $74 $D0
-    dec a                                         ; $7148: $3D
-    ld [wBattle_TempCounter], a                                 ; $7149: $EA $74 $D0
-    jr nz, jr_002_713E                            ; $714C: $20 $F0
-
-    ret                                           ; $714E: $C9
-
-
-Call_002_714F:
-Jump_002_714F:
-    ld hl, wBattle_CreatureSlots.Ally0                                  ; $714F: $21 $92 $D0
-    call Call_002_70C3                            ; $7152: $CD $C3 $70
-    cp $FF                                        ; $7155: $FE $FF
-    jr z, jr_002_715D                             ; $7157: $28 $04
-
-    add $01                                       ; $7159: $C6 $01
-    jr jr_002_715E                                ; $715B: $18 $01
-
-jr_002_715D:
-    xor a                                         ; $715D: $AF
-
-jr_002_715E:
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $715E: $EA $03 $D1
-    ret                                           ; $7161: $C9
-
-
-    ld hl, $D17E                                  ; $7162: $21 $7E $D1
-    call Call_002_712F                            ; $7165: $CD $2F $71
-    call Call_002_700B                            ; $7168: $CD $0B $70
-    ret                                           ; $716B: $C9
-
-
-    ld hl, $D17E                                  ; $716C: $21 $7E $D1
-    call Call_002_7101                            ; $716F: $CD $01 $71
-    call Call_002_700B                            ; $7172: $CD $0B $70
-    ret                                           ; $7175: $C9
-
-
-    ld hl, $D17E                                  ; $7176: $21 $7E $D1
-    call Call_002_712F                            ; $7179: $CD $2F $71
-    call Call_002_7067                            ; $717C: $CD $67 $70
-    ret                                           ; $717F: $C9
-
-
-    ld hl, $D17E                                  ; $7180: $21 $7E $D1
-    call Call_002_7101                            ; $7183: $CD $01 $71
-    call Call_002_7067                            ; $7186: $CD $67 $70
-    ret                                           ; $7189: $C9
-
-
-    ld a, [$D392]                                 ; $718A: $FA $92 $D3
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $718D: $EA $03 $D1
-    ret                                           ; $7190: $C9
+
+
+BattleAI_Target_Table::
+    ; Table of functions to determine targets for battle script commands
+    .BattleAI_Target_EnemyWeakPercent:
+        dw BattleAI_Target_EnemyWeakPercent
+    .BattleAI_Target_EnemyStrongPercent:
+        dw BattleAI_Target_EnemyStrongPercent
+    .BattleAI_Target_EnemyWeakAbs:
+        dw BattleAI_Target_EnemyWeakAbs
+    .BattleAI_Target_EnemyStrongAbs:
+        dw BattleAI_Target_EnemyStrongAbs
+    .BattleAI_Target_EnemyRand:
+        dw BattleAI_Target_EnemyRand
+    .BattleAI_Target_Me:
+        dw BattleAI_Target_Me
+    .BattleAI_Target_AllyWeakPercent:
+        dw BattleAI_Target_AllyWeakPercent
+    .BattleAI_Target_AllyStrongPercent:
+        dw BattleAI_Target_AllyStrongPercent
+    .BattleAI_Target_AllyWeakAbs:
+        dw BattleAI_Target_AllyWeakAbs
+    .BattleAI_Target_AllyStrongAbs:
+        dw BattleAI_Target_AllyStrongAbs
+    .BattleAI_Target_AllyRand:
+        dw BattleAI_Target_AllyRand
+    .BattleAI_Target_TonyAlways:
+        dw BattleAI_Target_TonyAlways
+    .BattleAI_Target_TonyIfUnblocked:
+        dw BattleAI_Target_TonyIfUnblocked
+
+BattleAI_Target_AdjustForMyTeam:
+    ld a, [wBattle_Creature_Current.BattleCmd_Target]
+    and a
+    jr z, .Magi
+    .Creature:
+        add $04
+        ld [wBattle_Creature_Current.BattleCmd_Target], a
+        ret
+    .Magi:
+        Set8 wBattle_Creature_Current.BattleCmd_Target, BATTLE_SLOT_MAGI
+        ret
+
+
+BattleAI_Target_FindStrongest:
+    ; Determines the creature with the highest energy, or targets the hero/magi if no creatures exist
+    ; Inputs:
+    ;   wBattleAI_Target_CreatureEnergyReport
+    ; Outputs:
+    ;   wBattle_Creature_Current.BattleCmd_Target (from BATTLE_SLOT_HERO to BATTLE_SLOT_ALLY3, we can change it to the enemy creatures with BattleAI_Target_AdjustForMyTeam)
+
+    ; Loop through the 4 creatures, finding at least 1 with non-zero energy
+    ld de, wBattleAI_Target_CreatureEnergyReport
+    Set8 wBattle_TempCounter, 4
+    .FindFirstCreatureLoop:
+        ld a, [de]
+        inc de
+        ld h, a
+        ld a, [de]
+        inc de
+        ld l, a
+        or h
+        jr nz, .MarkAsBestCreature
+
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr nz, .FindFirstCreatureLoop
+    jr .NoCreatures
+
+    .MarkAsBestCreature:
+    ; Mark the current creature as the current best target
+    Get8 b, wBattle_TempCounter
+    ld a, $05
+    sub b
+    ld [wBattleAI_Target_CurrentBestCreature], a
+
+    ; Now, loop through the rest of the creatures and find the best creature
+    .ComparisonLoop:
+        ; Check if we've iterated through them all
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr z, .Done
+
+        ; Skip 0-energy creatures
+        ld a, [de]
+        inc de
+        ld b, a
+        ld a, [de]
+        inc de
+        ld c, a
+        or b
+        jr z, .ComparisonLoop
+
+        ; hl = best creature
+        ; bc = comparison creature
+        ; if bc < hl, the comparison creature is less desirable, so keep looping
+        TwosComp bc
+        push hl
+        add hl, bc
+        pop hl
+        jr c, .ComparisonLoop
+
+        ; Otherwise, mark the new creature as best creature
+        TwosComp bc
+        ld h, b
+        ld l, c
+        jr .MarkAsBestCreature
+
+    .NoCreatures:
+        ; No creatures exist, so target hero
+        Set8 wBattle_Creature_Current.BattleCmd_Target, BATTLE_SLOT_HERO
+        ret
+
+    .Done:
+        ld a, [wBattleAI_Target_CurrentBestCreature]
+        ld [wBattle_Creature_Current.BattleCmd_Target], a
+        ret
+
+
+BattleAI_Target_FindWeakest:
+    ; Determines the creature with the lowest energy, or targets the hero/magi if no creatures exist
+    ; Inputs:
+    ;   wBattleAI_Target_CreatureEnergyReport
+    ; Outputs:
+    ;   wBattle_Creature_Current.BattleCmd_Target (from BATTLE_SLOT_HERO to BATTLE_SLOT_ALLY3, we can change it to the enemy creatures with BattleAI_Target_AdjustForMyTeam)
+
+    ; Loop through the 4 creatures, finding at least 1 with non-zero energy
+    ld de, wBattleAI_Target_CreatureEnergyReport
+    Set8 wBattle_TempCounter, 4
+    .FindFirstCreatureLoop:
+        ld a, [de]
+        inc de
+        ld h, a
+        ld a, [de]
+        inc de
+        ld l, a
+        or h
+        jr nz, .MarkAsBestCreature
+
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr nz, .FindFirstCreatureLoop
+    jr .NoCreatures
+
+    .MarkAsBestCreature:
+    ; Mark the current creature as the current best target
+    ld a, [wBattle_TempCounter]
+    ld b, a
+    ld a, $05
+    sub b
+    ld [wBattleAI_Target_CurrentBestCreature], a
+
+    ; Now, loop through the rest of the creatures and find the best creature
+    .ComparisonLoop:
+        ; Check if we've iterated through them all
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr z, .Done
+
+        ; Skip 0-energy creatures
+        ld a, [de]
+        inc de
+        ld b, a
+        ld a, [de]
+        inc de
+        ld c, a
+        or b
+        jr z, .ComparisonLoop
+
+        ; hl = best creature
+        ; bc = comparison creature
+        ; if bc >= hl, the comparison creature is less desirable, so keep looping
+        TwosComp bc
+        push hl
+        add hl, bc
+        pop hl
+        jr nc, .ComparisonLoop
+
+        ; Otherwise, mark the new creature as best creature
+        TwosComp bc
+        ld h, b
+        ld l, c
+        jr .MarkAsBestCreature
+
+    .NoCreatures:
+        ld a, $00
+        ld [wBattle_Creature_Current.BattleCmd_Target], a
+        ret
+
+    .Done:
+        ld a, [wBattleAI_Target_CurrentBestCreature]
+        ld [wBattle_Creature_Current.BattleCmd_Target], a
+        ret
+
+
+BattleAI_Target_RandomPick:
+    ; Choose a random target
+    ; Inputs:
+    ;   hl = wBattle_CreatureSlots.Ally0 or wBattle_CreatureSlots.Enemy0
+    ; Outputs:
+    ;   c = 0-3 (representing the 4 creature slots), or $FF if Magi (no creatures available)
+
+    ; Choose a random creature index
+    ; bc = rand(4)
+    call Math_Rand8Inc
+    push af
+    and $03
+    ld c, a
+    ld b, $00
+
+    ; We will start with the random creature index, and if the slot is empty
+    ; We will randomly move up/down over the 4 creatures until we find an enemy
+    ld d, $04
+    pop af
+    push hl
+    bit 7, a
+    jr z, .LoopUpwards
+
+    .LoopDownwards:
+        ; Finish if the slot is occupied
+        pop hl
+        push hl
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr nz, .Done
+
+        ; Or else loop over the 4 creatures
+        dec bc
+        ld a, -1
+        cp c
+        jr nz, .SkipUnderFlow
+        .Underflow:
+            ld bc, 3
+        .SkipUnderFlow:
+        dec d
+        jr z, .NoCreatures
+        jr .LoopDownwards
+
+    .LoopUpwards:
+        ; Finish if the slot is occupied
+        pop hl
+        push hl
+        add hl, bc
+        ld a, [hl]
+        and a
+        jr nz, .Done
+
+        ; Or else loop over the 4 creatures
+        inc bc
+        ld a, 4
+        cp c
+        jr nz, .SkipOverflow
+        .Overflow
+            ld bc, 0
+        .SkipOverflow:
+        dec d
+        jr nz, .LoopUpwards
+        ;jr .NoCreatures
+
+    .NoCreatures:
+        ld c, $FF
+    .Done:
+    ld a, c
+    pop hl
+    ret
+
+
+BattleAI_Target_ReportPercent:
+    ; Will check the 4 creatures and calculate each creature's 32*Energy/MaxEnergy
+    ; Inputs:
+    ;   hl = wBattle_CreatureSlots.Ally0 or wBattle_CreatureSlots.Enemy0
+    ; Outputs:
+    ;   wBattleAI_Target_CreatureEnergyReport populated with the percentage energy of the 4 creatures of the target team (see Math_CalcPercent)
+
+    ; Navigate to CurrentEnergy (MaxEnergy is located right after)
+    ld bc, BATTLE_CREATURE_CURENERGY
+    add hl, bc
+
+    ; Loop over the 4 creatures
+    ld bc, wBattleAI_Target_CreatureEnergyReport
+    Set8 wBattle_TempCounter, 4
+    .Loop:
+        push bc
+
+        ; de = CurEnergy
+        ld a, [hl+]
+        ld e, [hl]
+        inc hl
+        ld d, a
+
+        ; bc = MaxEnergy
+        ld a, [hl+]
+        ld c, [hl]
+        inc hl
+        ld b, a
+        
+        ; a = Percent = 32*Energy/MaxEnergy
+        push hl
+        call Math_CalcPercent
+        pop hl
+        pop bc
+
+        ; Store the Percent
+        ld [bc], a
+        inc bc
+        xor a
+        ld [bc], a
+        inc bc
+
+        ; Move to the next creature
+        ld de, (BATTLE_CREATURE_SIZE - 4)
+        add hl, de
+
+        ; Loop
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr nz, .Loop
+    ret
+
+
+BattleAI_Target_ReportAbs:
+    ; Will check the 4 creatures and get each creature's CurEnergy
+    ; Inputs:
+    ;   hl = wBattle_CreatureSlots.Ally0 or wBattle_CreatureSlots.Enemy0
+    ; Outputs:
+    ;   wBattleAI_Target_CreatureEnergyReport populated with the CurEnergy of the 4 creatures of the target team
+
+    
+    ; Navigate to CurrentEnergy
+    ld de, BATTLE_CREATURE_SIZE - 2
+    ld bc, BATTLE_CREATURE_CURENERGY
+    add hl, bc
+
+    ; Loop over the 4 creatures and grab the CurEnergy from each
+    ld bc, wBattleAI_Target_CreatureEnergyReport
+    Set8 wBattle_TempCounter, 4
+    .Loop:
+        LdBCIHLI
+        LdBCIHLI
+        add hl, de
+        ld a, [wBattle_TempCounter]
+        dec a
+        ld [wBattle_TempCounter], a
+        jr nz, .Loop
+    ret
+
+
+BattleAI_Target_AllyRand::
+    ; Targets a random Ally
+    ; Outputs:
+    ;   wBattle_Creature_Current.BattleCmd_Target set to target
+    ld hl, wBattle_CreatureSlots.Ally0
+    call BattleAI_Target_RandomPick
+    cp $FF
+    jr z, .TargetHero
+    .TargetCreature
+        add $01
+        jr .Finally
+    .TargetHero:
+        xor a
+    .Finally:
+    ld [wBattle_Creature_Current.BattleCmd_Target], a
+    ret
+
+
+    ld hl, $D17E
+    call BattleAI_Target_ReportAbs
+    call BattleAI_Target_FindStrongest
+    ret
+
+
+    ld hl, $D17E
+    call BattleAI_Target_ReportPercent
+    call BattleAI_Target_FindStrongest
+    ret
+
+
+    ld hl, $D17E
+    call BattleAI_Target_ReportAbs
+    call BattleAI_Target_FindWeakest
+    ret
+
+
+    ld hl, $D17E
+    call BattleAI_Target_ReportPercent
+    call BattleAI_Target_FindWeakest
+    ret
+
+
+    ld a, [$D392]
+    ld [wBattle_Creature_Current.BattleCmd_Target], a
+    ret
 
 
 Call_002_7191:
     ld hl, wBattle_CreatureSlots.Enemy0                                  ; $7191: $21 $96 $D0
-    call Call_002_70C3                            ; $7194: $CD $C3 $70
+    call BattleAI_Target_RandomPick                            ; $7194: $CD $C3 $70
     cp $FF                                        ; $7197: $FE $FF
     jr z, jr_002_719F                             ; $7199: $28 $04
 
@@ -7027,30 +7088,30 @@ jr_002_71A1:
 
 
     ld hl, $D25A                                  ; $71A5: $21 $5A $D2
-    call Call_002_712F                            ; $71A8: $CD $2F $71
-    call Call_002_700B                            ; $71AB: $CD $0B $70
-    call Call_002_6FF9                            ; $71AE: $CD $F9 $6F
+    call BattleAI_Target_ReportAbs                            ; $71A8: $CD $2F $71
+    call BattleAI_Target_FindStrongest                            ; $71AB: $CD $0B $70
+    call BattleAI_Target_AdjustForMyTeam                            ; $71AE: $CD $F9 $6F
     ret                                           ; $71B1: $C9
 
 
     ld hl, $D25A                                  ; $71B2: $21 $5A $D2
-    call Call_002_7101                            ; $71B5: $CD $01 $71
-    call Call_002_700B                            ; $71B8: $CD $0B $70
-    call Call_002_6FF9                            ; $71BB: $CD $F9 $6F
+    call BattleAI_Target_ReportPercent                            ; $71B5: $CD $01 $71
+    call BattleAI_Target_FindStrongest                            ; $71B8: $CD $0B $70
+    call BattleAI_Target_AdjustForMyTeam                            ; $71BB: $CD $F9 $6F
     ret                                           ; $71BE: $C9
 
 
     ld hl, $D25A                                  ; $71BF: $21 $5A $D2
-    call Call_002_712F                            ; $71C2: $CD $2F $71
-    call Call_002_7067                            ; $71C5: $CD $67 $70
-    call Call_002_6FF9                            ; $71C8: $CD $F9 $6F
+    call BattleAI_Target_ReportAbs                            ; $71C2: $CD $2F $71
+    call BattleAI_Target_FindWeakest                            ; $71C5: $CD $67 $70
+    call BattleAI_Target_AdjustForMyTeam                            ; $71C8: $CD $F9 $6F
     ret                                           ; $71CB: $C9
 
 
     ld hl, $D25A                                  ; $71CC: $21 $5A $D2
-    call Call_002_7101                            ; $71CF: $CD $01 $71
-    call Call_002_7067                            ; $71D2: $CD $67 $70
-    call Call_002_6FF9                            ; $71D5: $CD $F9 $6F
+    call BattleAI_Target_ReportPercent                            ; $71CF: $CD $01 $71
+    call BattleAI_Target_FindWeakest                            ; $71D2: $CD $67 $70
+    call BattleAI_Target_AdjustForMyTeam                            ; $71D5: $CD $F9 $6F
     ret                                           ; $71D8: $C9
 
 
@@ -7073,7 +7134,7 @@ jr_002_71E4:
     and a                                         ; $71E9: $A7
     jr z, jr_002_71D9                             ; $71EA: $28 $ED
 
-    jp Jump_002_714F                              ; $71EC: $C3 $4F $71
+    jp BattleAI_Target_AllyRand                              ; $71EC: $C3 $4F $71
 
 
     xor a                                         ; $71EF: $AF
@@ -7139,7 +7200,7 @@ jr_002_724F:
     jr nc, jr_002_725A                            ; $7254: $30 $04
 
 jr_002_7256:
-    call Call_002_714F                            ; $7256: $CD $4F $71
+    call BattleAI_Target_AllyRand                            ; $7256: $CD $4F $71
     ret                                           ; $7259: $C9
 
 
@@ -7364,32 +7425,43 @@ jr_002_73A7:
     ld [$D0C9], a                                 ; $73A8: $EA $C9 $D0
     ret                                           ; $73AB: $C9
 
+ASSERT BattleCore_BANK == BANK(@)
 
-    call Call_002_762B                            ; $73AC: $CD $2B $76
-    ld bc, $D393                                  ; $73AF: $01 $93 $D3
-    ld hl, wBattle_CopyBuffer_Source                                  ; $73B2: $21 $8D $CD
-    LdHLIBCI                                        ; $73B7: $03
-    LdHLIBCI                                        ; $73BA: $03
-    ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $73BB: $01 $00 $D1
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $73C3: $70
+BattleScriptXX_Attack::
+
+    ; Load creature into wBattle_Creature_Current
+    call BattleScriptXX_OpenCreatureFromFrame
+
+    ; Get the pointer to the BattleCmd
+    ld bc, wBattle_ItemSpellBattleCmdAddress
+    ld hl, wBattle_CopyBuffer_Source
+    LdHLIBCI
+    LdHLIBCI
+
+    ; Copy the BattleCmd into wBattle_Creature_Current 
+    ld bc, wBattle_Creature_Current.BattleCmd_Function
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign BattleCmd_GetDataFromAddress
-    Do_CallForeign Battle_Helpers_CheckValidTarget
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $73D4: $FA $AF $D0
-    and a                                         ; $73D7: $A7
-    ret z                                         ; $73D8: $C8
 
-    call Call_002_7607                            ; $73D9: $CD $07 $76
-    ret                                           ; $73DC: $C9
+    ; Validate if there is any valid target. Ignore if no valid target
+    Do_CallForeign Battle_Helpers_CheckValidTarget
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    ret z
+
+    ; Choose the target
+    call BattleScriptXX_AITarget
+    ret
 
 
 Call_002_73DD::
-    call Call_002_762B                            ; $73DD: $CD $2B $76
+    call BattleScriptXX_OpenCreatureFromFrame                            ; $73DD: $CD $2B $76
     ld bc, $5EFE                                  ; $73E0: $01 $FE $5E
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $73E8: $70
     ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $73E9: $01 $00 $D1
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $73F1: $70
     Do_CallForeign BattleCmd_GetDataFromAddress
-    FGet16 bc, wBattle_ItemSpellAddress                                  ; $73FA: $21 $93 $D3                                       ; $73FF: $4F
+    FGet16 bc, wBattle_ItemSpellBattleCmdAddress                                  ; $73FA: $21 $93 $D3                                       ; $73FF: $4F
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7405: $70
     FSet16 $D107, bc                                    ; $740B: $70
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $740C: $01 $91 $CD
@@ -7412,14 +7484,14 @@ Call_002_73DD::
     and a                                         ; $7443: $A7
     ret z                                         ; $7444: $C8
 
-    call Call_002_7607                            ; $7445: $CD $07 $76
+    call BattleScriptXX_AITarget                            ; $7445: $CD $07 $76
     ret                                           ; $7448: $C9
 
 
     ret                                           ; $7449: $C9
 
 
-    call Call_002_762B                            ; $744A: $CD $2B $76
+    call BattleScriptXX_OpenCreatureFromFrame                            ; $744A: $CD $2B $76
     ld bc, $5F0E                                  ; $744D: $01 $0E $5F
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7455: $70
     ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $7456: $01 $00 $D1
@@ -7427,7 +7499,7 @@ Call_002_73DD::
     Do_CallForeign BattleCmd_GetDataFromAddress
     ld a, [$D392]                                 ; $7467: $FA $92 $D3
     ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $746A: $EA $03 $D1
-    call Call_002_75FC                            ; $746D: $CD $FC $75
+    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $746D: $CD $FC $75
     ld bc, $D0D9                                  ; $7470: $01 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $7473: $CD $DC $5B
     ret                                           ; $7476: $C9
@@ -7443,7 +7515,7 @@ Call_002_73DD::
 
 
 Call_002_748B:
-    call Call_002_762B                            ; $748B: $CD $2B $76
+    call BattleScriptXX_OpenCreatureFromFrame                            ; $748B: $CD $2B $76
     ld bc, $5ECE                                  ; $748E: $01 $CE $5E
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7496: $70
     ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $7497: $01 $00 $D1
@@ -7514,7 +7586,7 @@ jr_002_7504:
     jr nz, jr_002_7504                            ; $750B: $20 $F7
 
     ld a, [$D392]                                 ; $750D: $FA $92 $D3
-    call Call_002_75FC                            ; $7510: $CD $FC $75
+    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $7510: $CD $FC $75
     ld bc, $D0D9                                  ; $7513: $01 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $7516: $CD $DC $5B
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $7519: $FA $03 $D1
@@ -7561,13 +7633,13 @@ jr_002_7549:
     ld bc, $51C2                                  ; $757F: $01 $C2 $51
     FSet16 wBattle_Creature_Current.BattleCmd_Function, bc                                    ; $7587: $70
     ld a, [$D392]                                 ; $7588: $FA $92 $D3
-    call Call_002_75FC                            ; $758B: $CD $FC $75
+    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $758B: $CD $FC $75
     ld bc, $D0D9                                  ; $758E: $01 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $7591: $CD $DC $5B
     ret                                           ; $7594: $C9
 
 
-    call Call_002_762B                            ; $7595: $CD $2B $76
+    call BattleScriptXX_OpenCreatureFromFrame                            ; $7595: $CD $2B $76
     ld bc, $5EDE                                  ; $7598: $01 $DE $5E
     FSet16 wBattle_CopyBuffer_Source, bc                                    ; $75A0: $70
     ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $75A1: $01 $00 $D1
@@ -7594,20 +7666,25 @@ jr_002_7549:
     and a                                         ; $75F6: $A7
     ret z                                         ; $75F7: $C8
 
-    call Call_002_7607                            ; $75F8: $CD $07 $76
+    call BattleScriptXX_AITarget                            ; $75F8: $CD $07 $76
     ret                                           ; $75FB: $C9
 
 
-Call_002_75FC:
-    ld b, a                                       ; $75FC: $47
-    ld c, $37                                     ; $75FD: $0E $37
-    call Math_Mult                                    ; $75FF: $CD $CA $04
-    ld bc, wBattle_Creature_Hero                                  ; $7602: $01 $47 $D1
-    add hl, bc                                    ; $7605: $09
-    ret                                           ; $7606: $C9
+BattleScriptXX_FindBattleCreatureFromSlot:
+    ; Based on the Creature Slot ID, locate the memory address of the creature
+    ; Input:
+    ;   a = wBattle_Buffer_CreatureSlot
+    ; Output:
+    ;   hl = Pointer to wBattle_Creature_Hero or other similar slot
+    ld b, a
+    ld c, BATTLE_CREATURE_SIZE
+    call Math_Mult
+    ld bc, wBattle_Creature_Hero
+    add hl, bc
+    ret
 
 
-Call_002_7607:
+BattleScriptXX_AITarget:
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $7607: $FA $03 $D1
     cp $14                                        ; $760A: $FE $14
     jr nc, jr_002_761E                            ; $760C: $30 $10
@@ -7620,67 +7697,33 @@ Call_002_7607:
     ECallHL                                    ; $761B: $CD $89 $07
 
 jr_002_761E:
-    ld a, [wBattle_CreatureSlot]                                 ; $761E: $FA $92 $D3
-    call Call_002_75FC                            ; $7621: $CD $FC $75
+    ld a, [wBattle_Buffer_CreatureSlot]                                 ; $761E: $FA $92 $D3
+    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $7621: $CD $FC $75
     ld bc, $D0D9                                  ; $7624: $01 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $7627: $CD $DC $5B
     ret                                           ; $762A: $C9
 
 
-Call_002_762B:
-    ld a, [$D392]                                 ; $762B: $FA $92 $D3
-    call Call_002_75FC                            ; $762E: $CD $FC $75
-    ld b, h                                       ; $7631: $44
-    ld c, l                                       ; $7632: $4D
-    ld hl, $D0D9                                  ; $7633: $21 $D9 $D0
-    call Battle_Init_CreatureCopy                            ; $7636: $CD $DC $5B
-    ld a, $FF                                     ; $7639: $3E $FF
-    ld [wBattle_CurCreature_Slot], a                                 ; $763B: $EA $B1 $D0
-    ret                                           ; $763E: $C9
+BattleScriptXX_OpenCreatureFromFrame:
+    ; Battle00_CopyDataFromFrame stores params into wBattle_Buffer
+    ; Read the creature slot from this buffer
+    ; Inputs:
+    ;   wBattle_Buffer_CreatureSlot
+    ; Outputs:
+    ;   wBattle_Creature_Current primed
+    ;   wBattle_CurCreature_Slot = $FF
 
+    ; Get the pointer to the creature
+    ld a, [wBattle_Buffer_CreatureSlot]
+    call BattleScriptXX_FindBattleCreatureFromSlot
+    ld b, h
+    ld c, l
 
-    jr nz, @+$22                                  ; $763F: $20 $20
+    ; Store in wBattle_Creature_Current
+    ld hl, wBattle_Creature_Current
+    call Battle_Init_CreatureOpen
 
-    jr nz, @+$22                                  ; $7641: $20 $20
+    Set8 wBattle_CurCreature_Slot, $FF ; TODO utility?
+    ret
 
-    jr nz, @+$22                            ; $7643: $20 $20
-
-    db $20                                        ; $7645: $20
-
-    ; $7646
-Creature_Tony_NewGameStruct::
-    ; The default values that should be inserted into xCreature_00_Hero
-    ; upon New Game
-    ; todo - change these to pointers
-    db $58                  ; ID
-    db $0C                  ; Type
-    db $01                  ; Level
-    dw_BigEndian $0000      ; Experience
-    dw_BigEndian 100        ; CurEnergy
-    dw_BigEndian 100        ; MaxEnergy
-    db 50                   ; Strength
-    db 50                   ; Skill
-    db 50                   ; Speed
-    db 25                   ; Defence
-    db 25                   ; Resist
-    db 01                   ; Luck
-    db $00                  ; EnergyUp
-    db $00                  ; ElementResist
-    db $00                  ; ElementWeak
-    db $FF                  ; StatusImmune
-    db $00                  ; StatusActive
-    db $00                  ; StatusPerm
-    db $00                  ; AI
-    dw $5EBE    ; TODO change Ability0 - Summon
-    dw $5EFE    ; addresses   Ability1 - Spell
-    dw $5EDE                ; Ability2 - Item
-    dw $5EEE                ; Ability3 - Run
-    db $FF                  ; AbilityUnlock0
-    .End
-    ; These 6 bytes are not copied (BUG)
-    db $FF                  ; AbilityUnlock1
-    db $FF                  ; AbilityUnlock2
-    db $FF                  ; AbilityUnlock3
-    db $00                  ; Relic0
-    db $00                  ; Relic1
-    db $42                  ; Other - TODO what does this value mean
+INCLUDE "source/game/battle/battle_tony_creature.asm"

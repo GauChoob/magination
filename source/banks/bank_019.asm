@@ -2099,7 +2099,7 @@ jr_019_48E8:
     ld b, $2A                                     ; $48FC: $06 $2A
     nop                                           ; $48FE: $00
     rrca                                          ; $48FF: $0F
-    ld bc, $C725                                  ; $4900: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $4900: $01 $25 $C7
     ld b, $B0                                     ; $4903: $06 $B0
     nop                                           ; $4905: $00
     add hl, de                                    ; $4906: $19
@@ -2799,7 +2799,7 @@ jr_019_4BDE:
     ld b, $2A                                     ; $4BE6: $06 $2A
     nop                                           ; $4BE8: $00
     rrca                                          ; $4BE9: $0F
-    ld bc, $C725                                  ; $4BEA: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $4BEA: $01 $25 $C7
     ld b, $B0                                     ; $4BED: $06 $B0
     nop                                           ; $4BEF: $00
     add hl, de                                    ; $4BF0: $19
@@ -3145,7 +3145,7 @@ jr_019_4D51:
     ld b, $2A                                     ; $4D65: $06 $2A
     nop                                           ; $4D67: $00
     rrca                                          ; $4D68: $0F
-    ld bc, $C725                                  ; $4D69: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $4D69: $01 $25 $C7
     ld b, $B0                                     ; $4D6C: $06 $B0
     nop                                           ; $4D6E: $00
     add hl, de                                    ; $4D6F: $19
@@ -10263,7 +10263,7 @@ jr_019_6920:
     ld b, d                                       ; $6929: $42
     ld b, e                                       ; $692A: $43
     rrca                                          ; $692B: $0F
-    ld bc, $C724                                  ; $692C: $01 $24 $C7
+    ld bc, wScript_OverworldItemSpell_ID                                  ; $692C: $01 $24 $C7
     ld b, $2A                                     ; $692F: $06 $2A
     nop                                           ; $6931: $00
 

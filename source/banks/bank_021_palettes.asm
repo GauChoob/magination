@@ -5105,7 +5105,7 @@ jr_021_5675:
     ld [bc], a                                    ; $5951: $02
     ld bc, $BF24                                  ; $5952: $01 $24 $BF
     ld l, b                                       ; $5955: $68
-    ld bc, $C724                                  ; $5956: $01 $24 $C7
+    ld bc, wScript_OverworldItemSpell_ID                                  ; $5956: $01 $24 $C7
     ld l, b                                       ; $5959: $68
     nop                                           ; $595A: $00
     dec b                                         ; $595B: $05

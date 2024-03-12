@@ -7950,7 +7950,7 @@ jr_020_6E82:
     nop                                           ; $6F82: $00
     xor c                                         ; $6F83: $A9
     ld l, l                                       ; $6F84: $6D
-    jp nz, $D36D                                  ; $6F85: $C2 $6D $D3
+    jp nz, wBattle_Level                                  ; $6F85: $C2 $6D $D3
 
     ld l, l                                       ; $6F88: $6D
     jp nz, Jump_020_466D                          ; $6F89: $C2 $6D $46
@@ -8002,7 +8002,7 @@ jr_020_6E82:
     nop                                           ; $6FC2: $00
     xor c                                         ; $6FC3: $A9
     ld l, l                                       ; $6FC4: $6D
-    jp nz, $D36D                                  ; $6FC5: $C2 $6D $D3
+    jp nz, wBattle_Level                                  ; $6FC5: $C2 $6D $D3
 
     ld l, l                                       ; $6FC8: $6D
     jp nz, Jump_020_466D                          ; $6FC9: $C2 $6D $46

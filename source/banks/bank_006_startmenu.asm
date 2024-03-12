@@ -2999,9 +2999,9 @@ Menu_MainMenu_UseSelected::
     ;   wMenu_CursorID - determines where the cursor was when pressing A
     ;   wMenu_MainMenu_CurrentMenu - used to determine entry type (Spell/Relic/Item)
     ; Outputs:
-    ;   $C723?
-    ;   $C725?
-    ;   wMenu_MainMenu_EquippingRelic and $C724 - index of the selected entry
+    ;   wScript_OverworldItemSpell_Type?
+    ;   wScript_OverworldItemSpell_CollID?
+    ;   wMenu_MainMenu_EquippingRelic and wScript_OverworldItemSpell_ID - index of the selected entry
     ;   If not a relic:
     ;       wText_StringFormatFrame - Name of entry, terminated by <FORMAT>🔊
     ;       Thread2 is set to use the item or spell
@@ -3013,25 +3013,23 @@ Menu_MainMenu_UseSelected::
         .DoSave:
             jp z, Menu_MainMenu_Save
 
-    .CheckGlyph:
-    ; TODO - what is this check for? Need to check the item/spell scripts to see
-    cp Enum_Menu_CursorTable_MainMenu_Glyph
-    jr nz, .NotGlyph
-    .Glyph:
-        ; Unused - Opening the glyph doesn't pass through this function
-        ld a, $00
+    .CheckItemSpell:
+    cp Menu_MainMenu_ID_ITEMS
+    jr nz, .Spell
+    .Item:
+        ld a, $00 ; TODO INV_TYPE_ITEM
         jr Continue
-    .NotGlyph:
-        ; Spell, Item, Relic
-        ld a, $03
+    .Spell:
+        ; Spell (or Relic, but we don't care if it is a Relic)
+        ld a, $03 ; TODO INV_TYPE_SPELL
     Continue:
-    ld [$C723], a ; TODO - what is this for? Need to check the item/spell scripts to see
+    ld [wScript_OverworldItemSpell_Type], a
 
     ; Get the collision tile that the hero is on
     FGet16 hl, wActor_Hero.TileAddress
     PushRAMBank
     SwitchRAMBank BANK(wCollisionMap)
-    Set8 $C725, [hl] ; TODO - possibly this is to determine if we can use the item (e.g. not allowed if not on land?)
+    Set8 wScript_OverworldItemSpell_CollID, [hl] ; TODO - possibly this is to determine if we can use the item (e.g. not allowed if not on land?)
     PopRAMBank
 
     ; Get the inventory quantity address of the selected item
@@ -3051,10 +3049,11 @@ Menu_MainMenu_UseSelected::
     add hl, bc
 
     ; Store the index (just in case it is a relic) into wMenu_MainMenu_EquippingRelic
+    ; And if it is an item or spell, we want to store the ID for overworld use
     ld b, l
     ld a, l
     ld [wMenu_MainMenu_EquippingRelic], a
-    ld [$C724], a ; TODO $C724
+    ld [wScript_OverworldItemSpell_ID], a
 
     ;Copies the data entry into the buffer. Applies to Spells/Items. For relics, this returns garbage data as the table width is not $22
     ld c, ItemSpell_ROWSIZE
