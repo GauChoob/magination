@@ -196,7 +196,7 @@ System_Init::
     Hotspot_Init
     Interrupt_Init
     Frame_Init
-    Do_CallForeign TextboxXX_Init ; This is actually in bank 0 so direct call would have also worked
+    Do_CallForeign TextboxXX_Init ; Inefficiency - This is actually in bank 0 so direct call would have also worked
     XCall ActorList_Init
     Controller_Init
     Battle_Init

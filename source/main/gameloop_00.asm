@@ -1,6 +1,10 @@
 Game_Loop::
     ; Master game loop
     
+    IF DEBUG_SOUNDS == 1
+        XCall Sound_Test
+    ENDC
+
     IF TEST == 1
         call TESTING ;TODO remove this eventually from the source
         nop

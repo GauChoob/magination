@@ -1,5 +1,3 @@
-; todo - assign enums to the vars
-
 ; The Sound_Request macros that can be inserted pretty much anywhere in the code. They will request a sound change which will be processed in the next VBlank
 
 MACRO Sound_Request_StartSong

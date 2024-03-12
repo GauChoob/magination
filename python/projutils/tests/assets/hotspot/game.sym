@@ -36277,7 +36277,7 @@
 00:c920 wSound_CurrentSong
 00:c921 wSound_Control_SFX0
 00:c922 wSound_Control_SFX1
-00:c923 wSound_MapSong
+00:c923 wSound_SceneSongBackupID
 00:c924 wSound_Control_Fanfare
 00:c925 wSound_CurrentFanfare
 00:c926 wSound_SoundTestSong
@@ -36290,7 +36290,7 @@
 00:c92d wX1
 00:c92e wX10
 00:c92f wX100
-00:c930 wPercentCount
+00:c930 wMath_PercentCount
 00:c931 wCnt1
 00:c932 wCntDown
 00:c933 wCntUp

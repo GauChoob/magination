@@ -24,7 +24,7 @@ Frame_ClearAll::
         jr nz, .LoopOAMSprite
     ret
 
-    ; $0583
+
 Frame_Draw::
     ; Draws an actor
     ; First, it disables the actor by setting the ScreenY to $FF

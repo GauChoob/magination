@@ -389,69 +389,11 @@ wTilemap_VBlank_SourceAddress::
 wTilemap_VBlank_DestAddress::
     ds 2
 
-    ; source/engine/system/sound/sound_var.s
 
-INCLUDE "source/engine/system/sound/sound_var.asm"
+INCLUDE "source/engine/system/sound/sound_wram.asm"
+INCLUDE "source/engine/system/math/math_wram.asm"
+INCLUDE "source/engine/system/system_wram.asm"
 
-
-    ; These variables are strangely included in sound_var.s instead of a system_var.s
-
-    ;ds $C92D - @
-wX1::
-    ; Used in Math_ConvertNumberToDigits, which creates 3 digits out of a number
-    ; For example, wX100 = 4, wX10 = 3, wX1 = 9 would represent 439
-    ; This is the singles place
-    ds 1
-    ;ds $C92E - @
-wX10::
-    ; This is the tens place
-    ds 1
-    ;ds $C92F - @
-wX100::
-    ; This is the hundreds place
-    ds 1
-    ;ds $C930 - @
-wPercentCount::
-    ; Temporary variable used exclusively in Math_CalcPercent
-    ds 1
-
-
-
-
-
-    ;ds $C931 - @
-wCnt1::
-    ; Controller buttons currently held down
-    ds 1
-    ;ds $C932 - @
-wCntDown::
-    ; Controller buttons pressed down this frame
-    ds 1
-    ;ds $C933 - @
-wCntUp::
-    ; Controller buttons released this frame
-    ds 1
-    ;ds $C934 - @
-wSCY::
-    ; Mirror of rSCY
-    ds 1
-    ;ds $C935 - @
-wSCX::
-    ; Mirror of rSCX
-    ds 1
-    ;ds $C936 - @
-wScreenVisible::
-    ; Mirror of LCDC
-    ; Used to determine if the LCDC is on, or off ($00)
-    ds 1
-    ;ds $C937 - @
-wRAMBank::
-    ; Mirror of the current RAM bank
-    ds 1
-    ;ds $C938 - @
-wROMBank::
-    ; Mirror of the current ROM bank
-    ds 1
 
     ;source/engine/text/text_var.s
     ds $C939 - @

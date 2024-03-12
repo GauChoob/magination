@@ -18,11 +18,11 @@ Math_CalcPercent::
     ;   bc = Divisor/Max (0-8191)
     ;   de = Dividend/Current (0-8191)
     ; Output:
-    ;   [wPercentCount] = a = (0 = 0%, 32 = 100%) = de/bc
+    ;   [wMath_PercentCount] = a = (0 = 0%, 32 = 100%) = de/bc
     xor a
     ld h, a
     ld l, a
-    ld [wPercentCount], a
+    ld [wMath_PercentCount], a
 
     ; Step 1: Compare if Dividend is 0 or Max
     .CheckZeroLower:
@@ -39,12 +39,12 @@ Math_CalcPercent::
         cp b
         jr c, .StartCalc ;b > d
 
-        Set8 wPercentCount, 32 ; Return max if bc == de, but this check can fail if
+        Set8 wMath_PercentCount, 32 ; Return max if bc == de, but this check can fail if
         ret                   ; de > bc (e.g. bc = $280, de = $301, or bc = $300, de = $400)
 
     .CheckZeroUpper:
         cp d
-        ret z ; If Dividend is 0, return wPercentCount = a = 0, or else fall through to Step 2
+        ret z ; If Dividend is 0, return wMath_PercentCount = a = 0, or else fall through to Step 2
 
     ; Step 2: Calculate the binary percentage
     ; Essentially, multiply the dividend by 32, then see how many times the divisor
@@ -75,13 +75,13 @@ Math_CalcPercent::
         jr nc, .EndLoop ;If hl < de, then the last divisor fit into dividend*32
 
         add hl, bc  ; Put one more divisor in dividend*32.
-        ld a, [wPercentCount]
+        ld a, [wMath_PercentCount]
         inc a       ; Increment by 1
-        ld [wPercentCount], a
+        ld [wMath_PercentCount], a
         jr .Loop
 
     .EndLoop:
-    ld a, [wPercentCount]
+    ld a, [wMath_PercentCount]
     ret
 
 

@@ -10,8 +10,8 @@ wSound_VBlankFunction::
     ds 2
     ;ds $C91D - @
 wSound_SoundInit::
-    ; After SoundInit is called, set to a magic number of $55 to confirm initialized
-    ; Never checked thereafter
+    ; After SoundInit is called, set to a magic number of SOUND_INIT_MAGICNUMBER ($55) to confirm initialized
+    ; Doesn't actually do anything as this var is never subsequently verified
     ds 1
     ;ds $C91E - @
 wSound_Control_StartSong::
@@ -41,10 +41,9 @@ wSound_Control_SFX1::
     ; Otherwise ID of the desired SFX to play -> SoundVB_PlaySFX2
     ds 1
     ;ds $C923 - @
-wSound_MapSong::
-    ; todo - verify that this var's name and function is appropriate
-    ; This song stores the song of the current map, so that a battle song can be played,
-    ; and then the current map's song restored.
+wSound_SceneSongBackupID::
+    ; This song stores the song of the current scene, when a battle song is played,
+    ; so that the current map's song is restored after the battle.
     ds 1
     ;ds $C924 - @
 wSound_Control_Fanfare::
@@ -58,11 +57,11 @@ wSound_CurrentFanfare::
     ds 1
     ;ds $C926 - @
 wSound_SoundTestSong::
-    ; Debug variable unused in normal game. Contains the playing SONGID
+    ; Debug variable, unused in normal game. Contains the playing SONGID
     ds 1
     ;ds $C927 - @
 wSound_SoundTestSFX::
-    ; Debug variable unused in normal game. Contains the playing SFXID
+    ; Debug variable, unused in normal game. Contains the playing SFXID
     ds 1
     ;ds $C928 - @
 wSound_FaderSongCount::

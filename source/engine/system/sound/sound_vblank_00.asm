@@ -6,8 +6,6 @@
 ; None of these VBlank functions set the bank - it is assumed that these functions are called via the macro Do_Sound_VBlank
 ; which sets the banks appropriately
 
-SECTION "Sound VBlank", ROM0
-
 
 SoundVB_SetSongVolume:
     ; private function
