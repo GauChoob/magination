@@ -3,9 +3,7 @@
 ; Sound_SetupSoundVB should be run once per frame before VBlank to determine which Sound VBlank function should be run during VBlank
 ; Sound_Test is an unused function that can be used to test all the songs and sfx
 
-;SECTION "Sound", ROMX, BANK[$07]
 
-    ; $5854
 Sound_Init::
     ; Initializes sound
     ; Inputs:
@@ -37,7 +35,7 @@ Sound_Init::
     Set16_M wSound_VBlankFunction, SoundVB_Init
     ret
 
-    ; $5897
+
 Sound_SetupSoundVB::
     ; Updates wSound_VBlankFunction to the correct function
     ; This is called every cycle
@@ -168,9 +166,9 @@ Sound_SetupSoundVB::
         Set16_M wSound_VBlankFunction, SoundVB_Nop
         ret
 
-    ; $5997
+
 Sound_Test::
-    ; Unused debug function for sound
+    ; Unused debug function for sound - add this at the start of Game_Loop if you want to enable the test
     ; Press A to play the songs in incrementing order by id
     ; Press B to play the sfx in incrementing order by id
     ; Press Start to test SFXID_EarthquakeEnd

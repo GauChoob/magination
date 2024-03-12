@@ -5161,9 +5161,9 @@ jr_002_648C:
 
     call ScreenHide                                    ; $64A8: $CD $C3 $07
     Do_CallForeign Cardscene_RestoreAllBuffers
-    ld a, [wSound_MapSong]                                 ; $64B3: $FA $23 $C9
+    ld a, [wSound_SceneSongBackupID]                                 ; $64B3: $FA $23 $C9
 
-    Sound_Request_StartSong a
+    Sound_Request_StartSong a ; inefficiency - does ld a, a
 
     SwitchRAMBank BANK("WRAM BATTLE")
     ld a, [$D3D0]                                 ; $64D9: $FA $D0 $D3
@@ -5214,7 +5214,7 @@ Jump_002_6527:
 jr_002_6536:
     call ScreenHide                                    ; $6536: $CD $C3 $07
     Do_CallForeign Cardscene_RestoreAllBuffers
-    ld a, [wSound_MapSong]                                 ; $6541: $FA $23 $C9
+    ld a, [wSound_SceneSongBackupID]                                 ; $6541: $FA $23 $C9
 
     Sound_Request_StartSong a
     

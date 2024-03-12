@@ -18,12 +18,14 @@ Cmd_Sound_PlaySFX1::
 
 Cmd_Sound_SongPause_Bugged::
     ; Supposed to pause a song, but due to a bug, stops a song instead
+    ; This is used a few times in the code, but the song is sometimes immediately stopped after, but in any case never resumed
     Sound_Request_PauseSong_Bugged
     jp Script_Start
 
 
 Cmd_Sound_SongResume::
     ; Resumes a song, Not very useful because PauseSong is bugged
+    ; This command is unused
     Sound_Request_ResumeSong
     jp Script_Start
 
@@ -73,6 +75,7 @@ Cmd_Sound_SetSongVolume::
 Cmd_Sound_FanfareStart::
     ; A fanfare will pause the current song, play the song, then resume the old song
     ; This command is bugged so that the song will just stop if a fanfare is already playing (it accidentally gotos Cmd_Sound_SongStop)
+    ; This command is also unused, but probably functional
     ; Arguments:
     ;   db Song ID (for the fanfare)
     Script_ReadByteA

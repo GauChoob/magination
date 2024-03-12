@@ -207,13 +207,13 @@ Cmd_Battle_Swirl::
     ;   dw Graphics_ScreenFX function (should be Graphics_ScreenFX_Swirl_Do) - todo are there any other valid inputs?
     ;   db songid - battle song
     ; Outputs:
-    ;   wSound_MapSong - contains the old song
+    ;   wSound_SceneSongBackupID - contains the old song
 
     ; Store the Graphics_ScreenFX function
     Script_MovWord wGraphics_ScreenFX_Function
 
     ; Back-up the current song, and play the new song if it is not null 
-    Mov8 wSound_MapSong, wSound_CurrentSong
+    Mov8 wSound_SceneSongBackupID, wSound_CurrentSong
     Script_ReadByteA
     push bc
     cp SOUND_NULL
