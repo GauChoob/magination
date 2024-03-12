@@ -1,6 +1,16 @@
-ALIGN 8,0 ;wFrame_OAM needs to be aligned to be copied into OAM
-wFrame_OAM::
-    ; Copied over directly into the OAM
-    ds 40 * $4
-    .End:
-    ASSERT HIGH(wFrame_OAM) == HIGH(wFrame_OAM.End) ; Var has to be aligned so that the upper byte doesn't change
+
+    ;ds $C728 - @
+wFrame_OAMCursor::
+    ; LOW() of the first free address in wFrame_OAM (OAM buffer)
+    ds 1
+    ;ds $C729 - @
+wFrame_OAMTop::
+    ; LOW() of the first free address in OAM, for the previous frame
+    ; wOAMCursor is copied into wOAMTop every frame
+    ; By knowing where the top of the OAM data is, we can erase just the part of the OAM
+    ;   that we actually used, saving time
+    ds 1
+    ;ds $C72A - @
+wFrame_Unused::
+    ; Unused var. Originally FRAME_CULL_FLAG
+    ds 1

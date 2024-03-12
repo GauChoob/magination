@@ -1,5 +1,5 @@
 Interrupt_HBlankFunc_SwitchBackground::
-    ; Todo - unused?
+    ; Unused
     ; Changes the frame + LCDC properties
     Mov8FFFF rLCDC, hInterrupt_HBlank_LCDC
     Mov8FFFF rSCX, hInterrupt_HBlank_SCX
@@ -29,7 +29,7 @@ Interrupt_HBlankFunc_WindowNoSprite::
 
 Interrupt_HBlankFunc_WindowSprite::
     ; Sets the LCDC for standard background and window settings
-    ; Except sprites are turned on. Used when there is a textbox with a sprite cursor
+    ; Except sprites are turned on. Used when there is a textbox with a sprite cursor (in a cardscene)
     Set8FF rLCDC, (LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BG8800 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJON | LCDCF_BGON)
     pop hl
     pop af

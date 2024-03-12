@@ -1,5 +1,6 @@
+; There is only 1 implemented ScreenFX function: Graphics_ScreenFX_Swirl_Do
+; All the other functions are helper functions
 
-    ; $55E5
 Graphics_ScreenFX_Swirl_VBlank::
     ; Copy the 4 tiles (tileid + attr) at the indicated destination
     ; Inputs:
@@ -76,7 +77,7 @@ Graphics_ScreenFX_Swirl_VBlank::
     Set16_M wVBlank_Func, Interrupt_VBlankFunc_Idle
     ret
 
-    ; $564F
+
 Graphics_ScreenFX_ScreenAddressDeltaX:
     ; Take the tilemap address, and displace the X position by c
     ; Wrap the values so that the Y position doesn't change
@@ -105,7 +106,7 @@ Graphics_ScreenFX_ScreenAddressDeltaX:
     ld l, a
     ret
 
-    ; $565A
+
 Graphics_ScreenFX_ScreenAddressDeltaY:
     ; Take the tilemap address, and displace the Y position by c
     ; Wrap the values so that the X position doesn't change
@@ -140,7 +141,7 @@ Graphics_ScreenFX_ScreenAddressDeltaY:
     ld h, a
     ret
 
-    ; $566E
+
 Graphics_ScreenFX_Swirl_SetupVBlank:
     ; Given a tilemap address hl, setup the addresses for the vblank function
     ; and then call the vblank function
@@ -175,7 +176,7 @@ Graphics_ScreenFX_Swirl_SetupVBlank:
     call System_DoVFunc
     ret
 
-    ; $56B1
+
 Graphics_ScreenFX_Swirl_MoveRight:
     ; Move wGraphics_ScreenFX_DestAddr by 1 block (2x2) right
     ; Then draw the 2x2 white tiles
@@ -185,7 +186,7 @@ Graphics_ScreenFX_Swirl_MoveRight:
     call Graphics_ScreenFX_Swirl_SetupVBlank
     ret
 
-    ; $56C0
+
 Graphics_ScreenFX_Swirl_MoveLeft:
     ; Move wGraphics_ScreenFX_DestAddr by 1 block (2x2) left
     ; Then draw the 2x2 white tiles
@@ -195,7 +196,7 @@ Graphics_ScreenFX_Swirl_MoveLeft:
     call Graphics_ScreenFX_Swirl_SetupVBlank
     ret
 
-    ; $56CF
+
 Graphics_ScreenFX_Swirl_MoveDown:
     ; Move wGraphics_ScreenFX_DestAddr by 1 block (2x2) down
     ; Then draw the 2x2 white tiles
@@ -205,7 +206,7 @@ Graphics_ScreenFX_Swirl_MoveDown:
     call Graphics_ScreenFX_Swirl_SetupVBlank
     ret
 
-    ; $56DE
+
 Graphics_ScreenFX_Swirl_MoveUp:
     ; Move wGraphics_ScreenFX_DestAddr by 1 block (2x2) up
     ; Then draw the 2x2 white tiles
@@ -215,7 +216,7 @@ Graphics_ScreenFX_Swirl_MoveUp:
     call Graphics_ScreenFX_Swirl_SetupVBlank
     ret
 
-    ; $56ED
+
 Graphics_ScreenFX_Swirl_Do::
     ; Do a white clockwise swirl - indicates the start of a battle
     ; Every frame, copy 4 white tiles (2x2) in a swirl pattern
@@ -303,10 +304,10 @@ Graphics_ScreenFX_Swirl_Do::
     ENDR
     jp Cmd_System_SceneNew
 
-    ; $584A
+
 Graphics_ScreenFX_Do::
     ; Do a Graphics_ScreenFX
-    ; Todo - I feel like there is only one possible input - Graphics_ScreenFX_Swirl_Do - to verify
+    ; There is only one implemented ScreenFX - Graphics_ScreenFX_Swirl_Do
 
     ; Clear out the currently pending vblank function
     call System_DoVFunc

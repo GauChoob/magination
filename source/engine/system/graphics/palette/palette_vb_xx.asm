@@ -1,6 +1,3 @@
-
-; source/engine/system/graphics/palette/palette_vblank.s
-
 ; This module contains functions to send the WRAM palette buffers to palette memory
 ; These functions can only be called during VBlank or if the LCD is off
 
@@ -13,7 +10,7 @@
 ; PaletteVB_UpdateSpritePalettes - Updates sprite palettes
 ; PaletteVB_UpdatePalettes - Updates both background and sprite palettes
 
-    ; $445F
+
 PaletteVB_UpdateBackgroundPalettes::
     ; Copies the entire background palette from WRAM into palette memory
     ; Copies 0x40 bytes (Full palette data)
@@ -32,7 +29,6 @@ PaletteVB_UpdateBackgroundPalettes::
     ret
 
 
-    ; $44EA
 PaletteVB_UpdateSpritePalettes::
     ; Copies the entire sprite palette from WRAM into palette memory
     ; Copies 0x40 bytes (Full palette data)
@@ -49,7 +45,7 @@ PaletteVB_UpdateSpritePalettes::
     ENDR
     ret
 
-    ; $4575
+
 PaletteVB_UpdatePalettes::
     ; Updates the palettes from the buffers
     ; Sends wPalette_AnimBuffers.Background and wPalette_AnimBuffers.Sprite to palette memory and resets the vblank function

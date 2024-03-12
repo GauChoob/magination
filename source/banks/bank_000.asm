@@ -460,7 +460,7 @@ Fightscene_TileFX_MeltInit:
     ret
 
     ; $1234
-    INCLUDE "source/engine/expression/expression_00.asm"
+INCLUDE "source/engine/expression/expression_00.asm"
 
 ;source/engine/script/modules/script_00_flow.s
 

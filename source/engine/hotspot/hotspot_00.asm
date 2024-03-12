@@ -28,7 +28,7 @@ Hotspot00_SetScript::
     Set8 wScript_System.Frame, [hl+]
     Set8 wScript_System.Frame+1, [hl+]
 
-    ASSERT BANK(HotspotX_CheckHotspot) == BANK(TriggerXX_Start) ; Make sure that all the parent functions share the same bank
+    ASSERT BANK(HotspotX_CheckHotspot) == BANK(TriggerXX_Start) ; Make sure that all the parent functions share the same bank - TODO move this into the right file
     SwitchROMBank BANK(HotspotX_CheckHotspot) ; = BANK(HotspotX_CheckHotspot)
 
     ret
