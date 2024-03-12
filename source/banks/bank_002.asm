@@ -6945,7 +6945,7 @@ BattleAI_Target_RandomPick:
 BattleAI_Target_ReportPercent:
     ; Will check the 4 creatures and calculate each creature's 32*Energy/MaxEnergy
     ; Inputs:
-    ;   hl = wBattle_CreatureSlots.Ally0 or wBattle_CreatureSlots.Enemy0
+    ;   hl = wBattle_Creature_Ally0 or wBattle_Creature_Enemy0
     ; Outputs:
     ;   wBattleAI_Target_CreatureEnergyReport populated with the percentage energy of the 4 creatures of the target team (see Math_CalcPercent)
 
@@ -6999,7 +6999,7 @@ BattleAI_Target_ReportPercent:
 BattleAI_Target_ReportAbs:
     ; Will check the 4 creatures and get each creature's CurEnergy
     ; Inputs:
-    ;   hl = wBattle_CreatureSlots.Ally0 or wBattle_CreatureSlots.Enemy0
+    ;   hl = wBattle_Creature_Ally0 or wBattle_Creature_Enemy0
     ; Outputs:
     ;   wBattleAI_Target_CreatureEnergyReport populated with the CurEnergy of the 4 creatures of the target team
 
@@ -7041,25 +7041,25 @@ BattleAI_Target_AllyRand::
     ret
 
 
-    ld hl, $D17E
+    ld hl, wBattle_Creature_Ally0
     call BattleAI_Target_ReportAbs
     call BattleAI_Target_FindStrongest
     ret
 
 
-    ld hl, $D17E
+    ld hl, wBattle_Creature_Ally0
     call BattleAI_Target_ReportPercent
     call BattleAI_Target_FindStrongest
     ret
 
 
-    ld hl, $D17E
+    ld hl, wBattle_Creature_Ally0
     call BattleAI_Target_ReportAbs
     call BattleAI_Target_FindWeakest
     ret
 
 
-    ld hl, $D17E
+    ld hl, wBattle_Creature_Ally0
     call BattleAI_Target_ReportPercent
     call BattleAI_Target_FindWeakest
     ret
@@ -7087,28 +7087,28 @@ jr_002_71A1:
     ret                                           ; $71A4: $C9
 
 
-    ld hl, $D25A                                  ; $71A5: $21 $5A $D2
+    ld hl, wBattle_Creature_Enemy0                                  ; $71A5: $21 $5A $D2
     call BattleAI_Target_ReportAbs                            ; $71A8: $CD $2F $71
     call BattleAI_Target_FindStrongest                            ; $71AB: $CD $0B $70
     call BattleAI_Target_AdjustForMyTeam                            ; $71AE: $CD $F9 $6F
     ret                                           ; $71B1: $C9
 
 
-    ld hl, $D25A                                  ; $71B2: $21 $5A $D2
+    ld hl, wBattle_Creature_Enemy0                                  ; $71B2: $21 $5A $D2
     call BattleAI_Target_ReportPercent                            ; $71B5: $CD $01 $71
     call BattleAI_Target_FindStrongest                            ; $71B8: $CD $0B $70
     call BattleAI_Target_AdjustForMyTeam                            ; $71BB: $CD $F9 $6F
     ret                                           ; $71BE: $C9
 
 
-    ld hl, $D25A                                  ; $71BF: $21 $5A $D2
+    ld hl, wBattle_Creature_Enemy0                                  ; $71BF: $21 $5A $D2
     call BattleAI_Target_ReportAbs                            ; $71C2: $CD $2F $71
     call BattleAI_Target_FindWeakest                            ; $71C5: $CD $67 $70
     call BattleAI_Target_AdjustForMyTeam                            ; $71C8: $CD $F9 $6F
     ret                                           ; $71CB: $C9
 
 
-    ld hl, $D25A                                  ; $71CC: $21 $5A $D2
+    ld hl, wBattle_Creature_Enemy0                                  ; $71CC: $21 $5A $D2
     call BattleAI_Target_ReportPercent                            ; $71CF: $CD $01 $71
     call BattleAI_Target_FindWeakest                            ; $71D2: $CD $67 $70
     call BattleAI_Target_AdjustForMyTeam                            ; $71D5: $CD $F9 $6F
