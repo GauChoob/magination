@@ -17,9 +17,9 @@
 
 ; In order to access these functions, Expr_GetValue is called from an external function, which reads the script to determine the commands
 ; There is no other function that is accessed externally
-;
-    ; $1234
-Expr_FuncTable::
+
+
+Expr_FuncTable:
     dw Expr_BitMatch            ; 00    Returns a Boolean
     dw Expr_CharAddress         ; 01    Returns a value
     dw Expr_WordAddress         ; 02    Returns a value
@@ -44,8 +44,8 @@ Expr_FuncTable::
     dw Expr_Rand16              ; 15    Returns a value
     dw Expr_Bank                ; 16    N/A (switches the WRAM bank temporarily)
 
-    ; $1262
-Expr_BitMatch::
+
+Expr_BitMatch:
     ; Checks to see if the bits at an address match a bitmap, and returns True or False
     ; Useful for example to check if a specific button is held down
     ; Inputs:
@@ -65,8 +65,8 @@ Expr_BitMatch::
         ld de, Expr_FALSE
         ret
 
-    ; $1277
-Expr_CharAddress::
+
+Expr_CharAddress:
     ; Returns the 8-bit value at specified address
     ; Inputs:
     ;   dw - address
@@ -77,8 +77,8 @@ Expr_CharAddress::
     ld d, $00
     ret
 
-    ; $1281
-Expr_WordAddress::
+
+Expr_WordAddress:
     ; Returns the 16-bit value at specified address
     ; Inputs:
     ;   dw - address
@@ -90,23 +90,23 @@ Expr_WordAddress::
     ld d, [hl]
     ret
 
-    ; $128B
-Expr_GetHeroDirection::
+
+Expr_GetHeroDirection:
     ; Returns the direction an Actor must face to look at the Hero
     ; i.e. returns the complement of the hero's direction
     ; Inputs:
     ;   None
     ; Outputs:
-    ;   de = complement of Hero direction (see Expr_DIRECTION_UP and others in expression_include.asm)
+    ;   de = complement of Hero direction (see Actor_FLAGS_FACENORTH and others in actor_include.asm)
     ld a, [wActor_Hero.Flags]
     cpl
-    and %00000011
+    and Actor_FLAGS_MASK_FACE
     ld e, a
     ld d, $00
     ret
 
-    ; $1295
-Expr_GetGameCount::
+
+Expr_GetGameCount:
     ; Returns the 16-bit value at address xGameCount
     ; Inputs:
     ;   None
@@ -115,8 +115,8 @@ Expr_GetGameCount::
     Get16_V de, xGameCount
     ret
 
-    ; $129E
-Expr_Char::
+
+Expr_Char:
     ; Returns the specified 8-bit value
     ; Inputs:
     ;   db - value
@@ -127,8 +127,8 @@ Expr_Char::
     ld d, $00
     ret
 
-    ; $12A4
-Expr_Word::
+
+Expr_Word:
     ; Returns the specified 16-bit value
     ; Inputs:
     ;   dw - value
@@ -137,8 +137,8 @@ Expr_Word::
     Script_ReadWord_V de
     ret
 
-    ; $12AB
-Expr_BitAnd::
+
+Expr_BitAnd:
     ; Returns EXPR bitwise_and EXPR
     ; Inputs:
     ;   EXPR1
@@ -154,8 +154,8 @@ Expr_BitAnd::
     ld d, a
     ret
 
-    ; $12B5
-Expr_And::
+
+Expr_And:
     ; Returns boolean EXPR and EXPR
     ; Inputs:
     ;   EXPR1
@@ -173,8 +173,8 @@ Expr_And::
     ld de, Expr_TRUE
     ret
 
-    ; $12C5
-Expr_Or::
+
+Expr_Or:
     ; Returns boolean EXPR or EXPR
     ; Inputs:
     ;   EXPR1
@@ -194,8 +194,8 @@ Expr_Or::
         ld de, Expr_TRUE
         ret
 
-    ; $12D8
-Expr_Not::
+
+Expr_Not:
     ; Returns True if EXPR is zero, otherwise returns False
     ; Inputs:
     ;   EXPR
@@ -211,8 +211,8 @@ Expr_Not::
         ld de, Expr_TRUE
         ret
 
-    ; $12E7
-Expr_Add::
+
+Expr_Add:
     ; Returns EXPR + EXPR
     ; Inputs:
     ;   EXPR1
@@ -228,8 +228,8 @@ Expr_Add::
     ld d, a
     ret
 
-    ; $12F1
-Expr_Sub::
+
+Expr_Sub:
     ; Returns EXPR - EXPR
     ; Inputs:
     ;   EXPR1
@@ -245,8 +245,8 @@ Expr_Sub::
     ld d, a
     ret
 
-    ; $12FB
-Expr_Inc::
+
+Expr_Inc:
     ; Returns EXPR + 1
     ; Inputs:
     ;   EXPR
@@ -256,8 +256,8 @@ Expr_Inc::
     inc de
     ret
 
-    ; $1300
-Expr_Dec::
+
+Expr_Dec:
     ; Returns EXPR - 1
     ; Inputs:
     ;   EXPR
@@ -267,8 +267,8 @@ Expr_Dec::
     dec de
     ret
 
-    ; $1305
-Expr_Equals::
+
+Expr_Equals:
     ; Returns True if EXPR == EXPR
     ; Inputs:
     ;   EXPR1
@@ -288,8 +288,8 @@ Expr_Equals::
         ld de, Expr_FALSE
         ret
 
-    ; $1318
-Expr_NotEquals::
+
+Expr_NotEquals:
     ; Returns True if EXPR != EXPR
     ; Inputs:
     ;   EXPR1
@@ -309,8 +309,8 @@ Expr_NotEquals::
         ld de, Expr_TRUE
         ret
 
-    ; $132B
-Expr_Greater::
+
+Expr_Greater:
     ; Returns True if EXPR > EXPR
     ; Inputs:
     ;   EXPR1
@@ -329,8 +329,8 @@ Expr_Greater::
         ld de, Expr_FALSE
         ret
 
-    ; $133C
-Expr_GreaterEquals::
+
+Expr_GreaterEquals:
     ; Returns True if EXPR >= EXPR
     ; Inputs:
     ;   EXPR1
@@ -349,8 +349,8 @@ Expr_GreaterEquals::
         ld de, Expr_TRUE
         ret
 
-    ; $134D
-Expr_Less::
+
+Expr_Less:
     ; Returns True if EXPR < EXPR
     ; Inputs:
     ;   EXPR1
@@ -369,8 +369,8 @@ Expr_Less::
         ld de, Expr_FALSE
         ret
 
-    ; $135E
-Expr_LessEquals::
+
+Expr_LessEquals:
     ; Returns True if EXPR <= EXPR
     ; Inputs:
     ;   EXPR1
@@ -389,8 +389,8 @@ Expr_LessEquals::
         ld de, Expr_TRUE
         ret
 
-    ; $136F
-Expr_Rand16::
+
+Expr_Rand16:
     ; Returns a random value 0-F
     ; Inputs:
     ;   None
@@ -402,8 +402,8 @@ Expr_Rand16::
     ld d, $00
     ret
 
-    ; $1378
-Expr_Bank::
+
+Expr_Bank:
     ; Changes the WRAM bank so that far memory locations can be accessed
     ; Inputs:
     ;   db - Bank
@@ -417,8 +417,8 @@ Expr_Bank::
     PopRAMBank
     ret
 
-    ; $138E
-Expr_GetBranch::
+
+Expr_GetBranch:
     ; Runs some Expr and returns the value in hl
     ; Runs some more Expr and returns the value in de
     ; Inputs:
@@ -433,7 +433,7 @@ Expr_GetBranch::
     pop hl
     ret
 
-    ; $1397
+
 Expr_GetValue::
     ; Runs some Math and returns the value in de
     ; Inputs:

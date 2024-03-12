@@ -108,7 +108,7 @@ Special Commands:
             bitmatch(c[wHeldDownButtons],c%00000001) returns True if button A is held down
             
     GetHeroDirection DIRECTION
-        Returns the direction an Actor needs to face to look at the hero. See Expr_DIRECTION_UP and others
+        Returns the direction an Actor needs to face to look at the hero. See Actor_FLAGS_FACENORTH and others
         e.g.
             DIRECTION == c3
             

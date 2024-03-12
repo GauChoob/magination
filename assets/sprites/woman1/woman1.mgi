@@ -169,10 +169,10 @@ SCRIPT_ANIM_Woman1_FaceDownRight::
 
 SCRIPT_ANIM_Woman1_FaceHero::
     Switch(#DIRECTION#) {
-        Case(Expr_DIRECTION_UP, .FaceUp)
-        Case(Expr_DIRECTION_DOWN, .FaceDown)
-        Case(Expr_DIRECTION_RIGHT, .FaceRight)
-        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
 
 .FaceUp::

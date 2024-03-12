@@ -1479,10 +1479,10 @@ SCRIPT_ANIM_ElderWorm_FaceRight::
 
 SCRIPT_ANIM_ElderWorm_FaceHero::
     Switch(#DIRECTION#) {
-        Case(Expr_DIRECTION_UP, .FaceLeft)
-        Case(Expr_DIRECTION_DOWN, .FaceRight)
-        Case(Expr_DIRECTION_RIGHT, .FaceRight)
-        Case(Expr_DIRECTION_LEFT, .FaceLeft)
+        Case(Actor_FLAGS_FACENORTH, .FaceLeft)
+        Case(Actor_FLAGS_FACESOUTH, .FaceRight)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
 
 .FaceLeft::

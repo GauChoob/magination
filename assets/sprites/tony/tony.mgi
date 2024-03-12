@@ -1911,10 +1911,10 @@ SCRIPT_ANIM_TonyBattle_Defeat::
 
 SCRIPT_ANIM_Tony_FaceHero::
     Switch(#DIRECTION#) {
-        Case(Expr_DIRECTION_UP, .FaceUpOpposite)
-        Case(Expr_DIRECTION_DOWN, .FaceDownOpposite)
-        Case(Expr_DIRECTION_RIGHT, .FaceRightOpposite)
-        Case(Expr_DIRECTION_LEFT, .FaceLeftOpposite)
+        Case(Actor_FLAGS_FACENORTH, .FaceUpOpposite)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDownOpposite)
+        Case(Actor_FLAGS_FACEEAST, .FaceRightOpposite)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeftOpposite)
     }
 
 .FaceUpOpposite::
