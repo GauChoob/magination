@@ -888,7 +888,7 @@ SystemXX_NewGameInit::
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     ; Delete all gamestate system variables
-    Do_MemSet_Optimized xInventory_Relics, xGamestate_RAM_END - xInventory_Relics, $00
+    Do_MemSet_Optimized xGamestate_RAM_NEW_GAME_START, xGamestate_RAM_NEW_GAME_END - xGamestate_RAM_NEW_GAME_START, $00
     ; Delete all selected rings ($FF instead of $00)
     Do_MemSet xInventory_Rings, xInventory_Rings_LENGTH, $FF
     ; Delete all creatures except for xCreature_00_Hero
@@ -907,7 +907,7 @@ SystemXX_NewGamePlusInit::
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     ; Delete all gamestate system variables except for xInventory_Relics and xInventory_Rings
-    Do_MemSet_Optimized xGameCount, xGamestate_RAM_END - xGameCount, $00
+    Do_MemSet_Optimized xGamestate_RAM_NEW_GAME_PLUS_START, xGamestate_RAM_NEW_GAME_END - xGamestate_RAM_NEW_GAME_PLUS_START, $00
     Battery_Off
     ret
 

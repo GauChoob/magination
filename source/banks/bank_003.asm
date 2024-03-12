@@ -2742,7 +2742,7 @@ Call_003_5AAE::
 Jump_003_5B41:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$A122]                                 ; $5B4E: $FA $22 $A1
+    ld a, [xRingCount]                                 ; $5B4E: $FA $22 $A1
     ld [$CD58], a                                 ; $5B51: $EA $58 $CD
     Battery_Off
     ld a, $01                                     ; $5B58: $3E $01
@@ -2903,7 +2903,7 @@ jr_003_5EE1:
     call Call_003_565B                            ; $5EE6: $CD $5B $56
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$A122]                                 ; $5EF6: $FA $22 $A1
+    ld a, [xRingCount]                                 ; $5EF6: $FA $22 $A1
     ld b, a                                       ; $5EF9: $47
     Battery_Off
     ld a, b                                       ; $5EFE: $78
@@ -2973,7 +2973,7 @@ jr_003_61C8:
     jr nz, jr_003_61C8                            ; $61CA: $20 $FC
 
     Battery_SetBank "XRAM Gamestate"
-    ld hl, $A122                                  ; $61D4: $21 $22 $A1
+    ld hl, xRingCount                                  ; $61D4: $21 $22 $A1
     dec [hl]                                      ; $61D7: $35
     ld a, [$CD68]                                 ; $61D8: $FA $68 $CD
     ld b, a                                       ; $61DB: $47
@@ -4645,7 +4645,7 @@ Call_003_7025::
     ld [$CCE4], a                                 ; $7042: $EA $E4 $CC
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$A122]                                 ; $7052: $FA $22 $A1
+    ld a, [xRingCount]                                 ; $7052: $FA $22 $A1
     ld [wMenu_Generic_EntryCount], a                                 ; $7055: $EA $CC $CC
     Battery_Off
     call Call_003_70D4                            ; $705C: $CD $D4 $70
