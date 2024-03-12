@@ -1,3 +1,14 @@
+; General purpose math functions:
+; Math_CalcPercent
+; Math_SquareRoot (unused)
+; Math_ConvertNumberToDigits
+; Math_Div8
+; Math_Div16
+; Math_Mult
+; Math_ScaleNumber8
+; Math_Random
+; Math_Rand8Inc
+
 Math_CalcPercent::
     ; Calculates a binary percentage (/32) (rounded down)
     ; This function is a bit buggy - it produces unreliable results if the Divisor is smaller than the Dividend
