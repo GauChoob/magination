@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      RGBDS_VERSION: 0.6.1
+      RGBDS_VERSION: 0.7.0
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
