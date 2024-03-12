@@ -6,141 +6,141 @@
 ;5DFF = item
 ;6FF4 = spell
 ;Used for items and spells
-itemDataAddress1 EQU $00
-itemDataCombatMagnitude EQU $02
-itemDataCombatSkill EQU $03
-itemDataCombatEnergyCost EQU $04 ;Can also be used for items
-itemDataCombatTarget EQU $05
-itemDataMaximumQuantity EQU $06
-itemDataUnknown3 EQU $07 ;$09 by default. Seems to be $04 when the magnitude is actually a negative number
-itemDataUnknown4 EQU $08 ;Possibly the elemental type of the spell. Unused I think
-itemDataUnknown5 EQU $09 ;1 if temp like Gem, 3 if perm like Rune, 2 if unuseable. But not sure what actually does
-itemDataSellPrice EQU $0A ;16-bit
-itemDataName EQU $0C  ;length $0D
-itemDataCombatBank EQU $19
-itemDataCombatAddress EQU $1A
-itemDataOverworldBank EQU $1C
-itemDataOverworldAddress EQU $1D
-itemDataSpellUnknownBank EQU $1F ;animation?
-itemDataSpellUnknownAddress EQU $20
+DEF itemDataAddress1 EQU $00
+DEF itemDataCombatMagnitude EQU $02
+DEF itemDataCombatSkill EQU $03
+DEF itemDataCombatEnergyCost EQU $04 ;Can also be used for items
+DEF itemDataCombatTarget EQU $05
+DEF itemDataMaximumQuantity EQU $06
+DEF itemDataUnknown3 EQU $07 ;$09 by default. Seems to be $04 when the magnitude is actually a negative number
+DEF itemDataUnknown4 EQU $08 ;Possibly the elemental type of the spell. Unused I think
+DEF itemDataUnknown5 EQU $09 ;1 if temp like Gem, 3 if perm like Rune, 2 if unuseable. But not sure what actually does
+DEF itemDataSellPrice EQU $0A ;16-bit
+DEF itemDataName EQU $0C  ;length $0D
+DEF itemDataCombatBank EQU $19
+DEF itemDataCombatAddress EQU $1A
+DEF itemDataOverworldBank EQU $1C
+DEF itemDataOverworldAddress EQU $1D
+DEF itemDataSpellUnknownBank EQU $1F ;animation?
+DEF itemDataSpellUnknownAddress EQU $20
 
 
 
 
-statEnergy EQU $00
-statStrength EQU $01
-statSkill EQU $02
-statSpeed EQU $03
-statDefence EQU $04
-statResist EQU $05
-statLuck EQU $06
+DEF statEnergy EQU $00
+DEF statStrength EQU $01
+DEF statSkill EQU $02
+DEF statSpeed EQU $03
+DEF statDefence EQU $04
+DEF statResist EQU $05
+DEF statLuck EQU $06
 
 
 
 
-abilityFight     EQU $00
-abilitySummon    EQU $01
-abilitySummonX   EQU $02
-abilityItem      EQU $03
-abilityRun       EQU $04
-abilitySpell     EQU $05
-abilityFocus     EQU $06
-abilityBarrage   EQU $07
-abilityBeam      EQU $08
-abilityBite      EQU $09
-abilityBlast     EQU $0A
-abilityBlaze     EQU $0B
-abilityBoost     EQU $0C
-abilityBramble   EQU $0D
-abilityBurrow    EQU $0E
-abilityCarnage   EQU $0F
-abilityCharge    EQU $10
-abilityChoke     EQU $11
-abilityClaw      EQU $12
-abilityCoil      EQU $13
-abilityConsume   EQU $14
-abilityCrack     EQU $15
-abilityCremate   EQU $16
-abilityCrumble   EQU $17
-abilityCrush     EQU $18
-abilityCurse     EQU $19
-abilityCute      EQU $1A
-abilityCyclone   EQU $1B
-abilityDevour    EQU $1C
-abilityDream     EQU $1D
-abilityDrown     EQU $1E
-abilityFang      EQU $1F
-abilityFlame     EQU $20
-abilityFlash     EQU $21
-abilityFlock     EQU $22
-abilityFortune   EQU $23
-abilityFrenzy    EQU $24
-abilityGale      EQU $25
-abilityGoo       EQU $26
-abilityGravity   EQU $27
-abilityGust      EQU $28
-abilityHaunt     EQU $29
-abilityHeal      EQU $2A
-abilityIgnite    EQU $2B
-abilityImpale    EQU $2C
-abilityInfect    EQU $2D
-abilityInferno   EQU $2E
-abilityInk       EQU $2F
-abilityJiggle    EQU $30
-abilityJolt      EQU $31
-abilityLamp      EQU $32
-abilityLeaf      EQU $33
-abilityMagma     EQU $34
-abilityMaul      EQU $35
-abilityMelody    EQU $36
-abilityMend      EQU $37
-abilityMist      EQU $38
-abilityMunch     EQU $39
-abilityPack      EQU $3A
-abilityPetrify   EQU $3B
-abilityPinch     EQU $3C
-abilityPollen    EQU $3D
-abilityPrism     EQU $3E
-abilityPummel    EQU $3F
-abilityPunch     EQU $40
-abilityQuake     EQU $41
-abilityRoar      EQU $42
-abilityRoots     EQU $43
-abilityScratch   EQU $44
-abilitySever     EQU $45
-abilityShade     EQU $46
-abilityShake     EQU $47
-abilityShield    EQU $48
-abilityShock     EQU $49
-abilityShred     EQU $4A
-abilitySlide     EQU $4B
-abilitySoar      EQU $4C
-abilitySonic     EQU $4D
-abilitySpark     EQU $4E
-abilitySponge    EQU $4F
-abilitySpore     EQU $50
-abilitySquirt    EQU $51
-abilitySting     EQU $52
-abilityStorm     EQU $53
-abilitySwarm     EQU $54
-abilitySwing     EQU $55
-abilitySyphon    EQU $56
-abilityTackle    EQU $57
-abilityTangle    EQU $58
-abilityTempest   EQU $59
-abilityTerror    EQU $5A
-abilityThorns    EQU $5B
-abilityThrust    EQU $5C
-abilityThunder   EQU $5D
-abilityTic_Toc   EQU $5E
-abilityTide      EQU $5F
-abilityTimber    EQU $60
-abilityTsunami   EQU $61
-abilityTurtle    EQU $62
-abilityVampire   EQU $63
-abilityVortex    EQU $64
-abilityWhirl     EQU $65
-abilityWreck     EQU $66
+DEF abilityFight     EQU $00
+DEF abilitySummon    EQU $01
+DEF abilitySummonX   EQU $02
+DEF abilityItem      EQU $03
+DEF abilityRun       EQU $04
+DEF abilitySpell     EQU $05
+DEF abilityFocus     EQU $06
+DEF abilityBarrage   EQU $07
+DEF abilityBeam      EQU $08
+DEF abilityBite      EQU $09
+DEF abilityBlast     EQU $0A
+DEF abilityBlaze     EQU $0B
+DEF abilityBoost     EQU $0C
+DEF abilityBramble   EQU $0D
+DEF abilityBurrow    EQU $0E
+DEF abilityCarnage   EQU $0F
+DEF abilityCharge    EQU $10
+DEF abilityChoke     EQU $11
+DEF abilityClaw      EQU $12
+DEF abilityCoil      EQU $13
+DEF abilityConsume   EQU $14
+DEF abilityCrack     EQU $15
+DEF abilityCremate   EQU $16
+DEF abilityCrumble   EQU $17
+DEF abilityCrush     EQU $18
+DEF abilityCurse     EQU $19
+DEF abilityCute      EQU $1A
+DEF abilityCyclone   EQU $1B
+DEF abilityDevour    EQU $1C
+DEF abilityDream     EQU $1D
+DEF abilityDrown     EQU $1E
+DEF abilityFang      EQU $1F
+DEF abilityFlame     EQU $20
+DEF abilityFlash     EQU $21
+DEF abilityFlock     EQU $22
+DEF abilityFortune   EQU $23
+DEF abilityFrenzy    EQU $24
+DEF abilityGale      EQU $25
+DEF abilityGoo       EQU $26
+DEF abilityGravity   EQU $27
+DEF abilityGust      EQU $28
+DEF abilityHaunt     EQU $29
+DEF abilityHeal      EQU $2A
+DEF abilityIgnite    EQU $2B
+DEF abilityImpale    EQU $2C
+DEF abilityInfect    EQU $2D
+DEF abilityInferno   EQU $2E
+DEF abilityInk       EQU $2F
+DEF abilityJiggle    EQU $30
+DEF abilityJolt      EQU $31
+DEF abilityLamp      EQU $32
+DEF abilityLeaf      EQU $33
+DEF abilityMagma     EQU $34
+DEF abilityMaul      EQU $35
+DEF abilityMelody    EQU $36
+DEF abilityMend      EQU $37
+DEF abilityMist      EQU $38
+DEF abilityMunch     EQU $39
+DEF abilityPack      EQU $3A
+DEF abilityPetrify   EQU $3B
+DEF abilityPinch     EQU $3C
+DEF abilityPollen    EQU $3D
+DEF abilityPrism     EQU $3E
+DEF abilityPummel    EQU $3F
+DEF abilityPunch     EQU $40
+DEF abilityQuake     EQU $41
+DEF abilityRoar      EQU $42
+DEF abilityRoots     EQU $43
+DEF abilityScratch   EQU $44
+DEF abilitySever     EQU $45
+DEF abilityShade     EQU $46
+DEF abilityShake     EQU $47
+DEF abilityShield    EQU $48
+DEF abilityShock     EQU $49
+DEF abilityShred     EQU $4A
+DEF abilitySlide     EQU $4B
+DEF abilitySoar      EQU $4C
+DEF abilitySonic     EQU $4D
+DEF abilitySpark     EQU $4E
+DEF abilitySponge    EQU $4F
+DEF abilitySpore     EQU $50
+DEF abilitySquirt    EQU $51
+DEF abilitySting     EQU $52
+DEF abilityStorm     EQU $53
+DEF abilitySwarm     EQU $54
+DEF abilitySwing     EQU $55
+DEF abilitySyphon    EQU $56
+DEF abilityTackle    EQU $57
+DEF abilityTangle    EQU $58
+DEF abilityTempest   EQU $59
+DEF abilityTerror    EQU $5A
+DEF abilityThorns    EQU $5B
+DEF abilityThrust    EQU $5C
+DEF abilityThunder   EQU $5D
+DEF abilityTic_Toc   EQU $5E
+DEF abilityTide      EQU $5F
+DEF abilityTimber    EQU $60
+DEF abilityTsunami   EQU $61
+DEF abilityTurtle    EQU $62
+DEF abilityVampire   EQU $63
+DEF abilityVortex    EQU $64
+DEF abilityWhirl     EQU $65
+DEF abilityWreck     EQU $66
 
 
 

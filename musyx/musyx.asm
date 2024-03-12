@@ -6141,14 +6141,14 @@ _snd_CheckToPlayNote:
 
     ; $5A79
 snd_ProjectData::
-sdp_ADSRTableAddress            EQU     snd_ProjectData + $0000
-sdp_SFXTableAddress             EQU     snd_ProjectData + $0002
-sdp_NumberOfSFXs                EQU     snd_ProjectData + $0004
-sdp_SampleTableAddress          EQU     snd_ProjectData + $0005
-sdp_NumberOfSamples             EQU     snd_ProjectData + $0007
-sdp_GBSlave_Check               EQU     snd_ProjectData + $0008
-sdp_SampleMapMacro_Address      EQU     snd_ProjectData + $0009
-sdp_NumberOfSampleMapEntries    EQU     snd_ProjectData + $000B
-sdp_SongTableAddress            EQU     snd_ProjectData + $000C
-sdp_NumberOfSongs               EQU     snd_ProjectData + $000E
-sdp_SoundMacroLookupTable       EQU     snd_ProjectData + $000F
+DEF sdp_ADSRTableAddress            EQU     snd_ProjectData + $0000
+DEF sdp_SFXTableAddress             EQU     snd_ProjectData + $0002
+DEF sdp_NumberOfSFXs                EQU     snd_ProjectData + $0004
+DEF sdp_SampleTableAddress          EQU     snd_ProjectData + $0005
+DEF sdp_NumberOfSamples             EQU     snd_ProjectData + $0007
+DEF sdp_GBSlave_Check               EQU     snd_ProjectData + $0008
+DEF sdp_SampleMapMacro_Address      EQU     snd_ProjectData + $0009
+DEF sdp_NumberOfSampleMapEntries    EQU     snd_ProjectData + $000B
+DEF sdp_SongTableAddress            EQU     snd_ProjectData + $000C
+DEF sdp_NumberOfSongs               EQU     snd_ProjectData + $000E
+DEF sdp_SoundMacroLookupTable       EQU     snd_ProjectData + $000F

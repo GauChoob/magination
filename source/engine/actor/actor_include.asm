@@ -8,30 +8,30 @@ ASSERT Actor_COUNT == (wActor_RAM_END - wActor_RAM)/Actor_SIZE
 ; ACTOR STRUCT
 
 RSRESET
-DEF Actor_ENUM_Flags                 RB 1 ;\
-DEF Actor_ENUM_State                 RB 2 ; \
-DEF Actor_ENUM_XOffset               RB 1 ;  \
-DEF Actor_ENUM_YOffset               RB 1 ;   \
-DEF Actor_ENUM_XTile                 RB 1 ;   /  Also referenceable in HRAM
-DEF Actor_ENUM_YTile                 RB 1 ;  /
-DEF Actor_ENUM_TileAddress           RB 2 ; /
-DEF Actor_ENUM_SpriteBase            RB 1 ;/
+DEF Actor_OFFSET_Flags                 RB 1 ;\
+DEF Actor_OFFSET_State                 RB 2 ; \
+DEF Actor_OFFSET_XOffset               RB 1 ;  \
+DEF Actor_OFFSET_YOffset               RB 1 ;   \
+DEF Actor_OFFSET_XTile                 RB 1 ;   /  Also referenceable in HRAM
+DEF Actor_OFFSET_YTile                 RB 1 ;  /
+DEF Actor_OFFSET_TileAddress           RB 2 ; /
+DEF Actor_OFFSET_SpriteBase            RB 1 ;/
 
-DEF Actor_ENUM_Script0               RB 0 ; Script0
-DEF Actor_ENUM_Script0_Bank          RB 1
-DEF Actor_ENUM_Script0_Frame         RB 2
-DEF Actor_ENUM_Script0_State         RB 2
-DEF Actor_ENUM_Script0_SmallCounter  RB 1
-DEF Actor_ENUM_Script0_BigCounter    RB 1
-DEF Actor_ENUM_Script1               RB 0 ; Script1
-DEF Actor_ENUM_Script1_Bank          RB 1
-DEF Actor_ENUM_Script1_Frame         RB 2
-DEF Actor_ENUM_Script1_State         RB 2
-DEF Actor_ENUM_Script1_SmallCounter  RB 1
-DEF Actor_ENUM_Script1_BigCounter    RB 1
-DEF Actor_ENUM_Interrupt             RB 0
-DEF Actor_ENUM_Interrupt_Bank        RB 1
-DEF Actor_ENUM_Interrupt_State       RB 2
+DEF Actor_OFFSET_Script0               RB 0 ; Script0
+DEF Actor_OFFSET_Script0_Bank          RB 1
+DEF Actor_OFFSET_Script0_Frame         RB 2
+DEF Actor_OFFSET_Script0_State         RB 2
+DEF Actor_OFFSET_Script0_SmallCounter  RB 1
+DEF Actor_OFFSET_Script0_BigCounter    RB 1
+DEF Actor_OFFSET_Script1               RB 0 ; Script1
+DEF Actor_OFFSET_Script1_Bank          RB 1
+DEF Actor_OFFSET_Script1_Frame         RB 2
+DEF Actor_OFFSET_Script1_State         RB 2
+DEF Actor_OFFSET_Script1_SmallCounter  RB 1
+DEF Actor_OFFSET_Script1_BigCounter    RB 1
+DEF Actor_OFFSET_Interrupt             RB 0
+DEF Actor_OFFSET_Interrupt_Bank        RB 1
+DEF Actor_OFFSET_Interrupt_State       RB 2
 DEF Actor_SIZE                       RB 0
 
 

@@ -2558,7 +2558,7 @@ Menu_MainMenu_Setup_Rings:
                 .CheckValidRing1:
                 ;If the xth ring is null, check the (x+1)th ring instead
                 ld a, [hl]
-                cp INVENTORY_RINGS_NORING
+                cp xInventory_Rings_NORING
                 jr z, .GetNextRing
             jr .RingIsSelected
         .ChooseUpArrowRing:

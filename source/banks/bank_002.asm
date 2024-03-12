@@ -1105,7 +1105,7 @@ System_ActorTonyDefaults::
     ; Disable all the selected rings
     Battery_SetBank "XRAM Gamestate"
     ld hl, xInventory_Rings
-    ld a, INVENTORY_RINGS_NORING
+    ld a, xInventory_Rings_NORING
     REPT xInventory_Rings_LENGTH
         ld [hl+], a
     ENDR
@@ -4225,7 +4225,7 @@ Battle_Flow_Begin_SummonMagi:
     ld [hl+], a ; EruptMirrorCounter counter
 
     ; Copy all except the Ability unlock levels and relics are irrelevant for Magi
-    ld d, oCreature_Struct_AbilityUnlock0
+    ld d, Creature_Struct_OFFSET_AbilityUnlock0
     .CopyLoop:
         LdHLIBCI
         dec d

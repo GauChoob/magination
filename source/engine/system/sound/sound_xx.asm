@@ -182,7 +182,7 @@ Sound_Test::
         .IncrementSong:
             ld a, [wSound_SoundTestSong]
             inc a
-            cp SOUND_NUM_SONGS
+            cp MUSYX_NUM_SONGS
             jr nz, .Continue1
             .SongOverflow:
                 ; Reset to 0 if at the last song
@@ -213,7 +213,7 @@ Sound_Test::
             Sound_Request_StartSFX0 [wSound_SoundTestSFX]
             ld a, [wSound_SoundTestSFX]
             inc a
-            cp SOUND_NUM_SFX
+            cp MUSYX_NUM_SFX
             jr nz, .Continue2
             .SFXOverflow:
                 ; Reset to 0 if at the last sfx

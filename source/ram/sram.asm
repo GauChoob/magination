@@ -3,8 +3,6 @@ SECTION "XRAM Gamestate", SRAM[$A000], BANK[$00]
 ; Exceptionally, xBattery_SavedSavefileBaseBank, xBattery_Verify0 and xBattery_Verify1 are always read from bank $00 and copied to $02
 ; The rest of the variables are read from bank $00 or $02 depending on the current savefile in use
 
-xInventory_Rings_LENGTH            EQU $0A
-
     ;ds $A000 - @
 xBattery_SavedSavefileBaseBank::
     ; There are 4 banks of XRAM, representing 2 savefile (saved game and current game)
@@ -62,9 +60,10 @@ xInventory_Relics::
     .End
 
     ;ds $A118 - @
+DEF xInventory_Rings_LENGTH EQU $0A
+DEF xInventory_Rings_NORING EQU $FF
 xInventory_Rings::
-    DEF INVENTORY_RINGS_NORING EQU $FF
-    ; INVENTORY_RINGS_NORING if no ring
+    ; xInventory_Rings_NORING if no ring
     ; Otherwise points to a creature id in "XRAM Creatures"
     ds xInventory_Rings_LENGTH
     .End
@@ -84,7 +83,7 @@ xGameCount::
     ; This is used for choosing the start screen background
     ds 2 ; TODO confirm if this is really length 2
 
-xScript_GAMESTATESIZE EQU $7F ; The number of bytes in xScript_SaveBits and xScript_SaveVars that are reset to $00 when xGameCount is updated
+DEF xScript_GAMESTATESIZE EQU $7F ; The number of bytes in xScript_SaveBits and xScript_SaveVars that are reset to $00 when xGameCount is updated
 
     ;ds $A125 - @
 xScript_SaveBits::
@@ -145,44 +144,44 @@ SECTION "XRAM Creatures", SRAM[$A000], BANK[$01]
 ; This represents bank $01 and $03 (two alternate savefiles)
 ; The variables are read from bank $01 or $03 depending on the current savefile in use
 
-oCreature_Struct_ID EQU $00
-oCreature_Struct_Type EQU $01
-oCreature_Struct_Level EQU $02
-oCreature_Struct_Experience EQU $03
-oCreature_Struct_CurEnergy EQU $05
-oCreature_Struct_MaxEnergy EQU $07
-oCreature_Struct_Strength EQU $09
-oCreature_Struct_Skill EQU $0A
-oCreature_Struct_Speed EQU $0B
-oCreature_Struct_Defence EQU $0C
-oCreature_Struct_Resist EQU $0D
-oCreature_Struct_Luck EQU $0E
-oCreature_Struct_EnergyUp EQU $0F
-oCreature_Struct_ElementResist EQU $10
-oCreature_Struct_ElementWeak EQU $11
-oCreature_Struct_StatusImmune EQU $12
-oCreature_Struct_StatusActive EQU $13
-oCreature_Struct_StatusPerm EQU $14
-oCreature_Struct_AI EQU $15
-oCreature_Struct_Ability0 EQU $16
-oCreature_Struct_Ability1 EQU $18
-oCreature_Struct_Ability2 EQU $1A
-oCreature_Struct_Ability3 EQU $1C
-oCreature_Struct_AbilityUnlock0 EQU $1E
-oCreature_Struct_AbilityUnlock1 EQU $1F
-oCreature_Struct_AbilityUnlock2 EQU $20
-oCreature_Struct_AbilityUnlock3 EQU $21
-oCreature_Struct_Relic0 EQU $22
-oCreature_Struct_Relic1 EQU $23
-oCreature_Struct_Other EQU $24
-oCreature_Struct_SIZE EQU $25
-oCreature_Struct_ARRAYLENGTH EQU $D0
+DEF Creature_Struct_OFFSET_ID EQU $00
+DEF Creature_Struct_OFFSET_Type EQU $01
+DEF Creature_Struct_OFFSET_Level EQU $02
+DEF Creature_Struct_OFFSET_Experience EQU $03
+DEF Creature_Struct_OFFSET_CurEnergy EQU $05
+DEF Creature_Struct_OFFSET_MaxEnergy EQU $07
+DEF Creature_Struct_OFFSET_Strength EQU $09
+DEF Creature_Struct_OFFSET_Skill EQU $0A
+DEF Creature_Struct_OFFSET_Speed EQU $0B
+DEF Creature_Struct_OFFSET_Defence EQU $0C
+DEF Creature_Struct_OFFSET_Resist EQU $0D
+DEF Creature_Struct_OFFSET_Luck EQU $0E
+DEF Creature_Struct_OFFSET_EnergyUp EQU $0F
+DEF Creature_Struct_OFFSET_ElementResist EQU $10
+DEF Creature_Struct_OFFSET_ElementWeak EQU $11
+DEF Creature_Struct_OFFSET_StatusImmune EQU $12
+DEF Creature_Struct_OFFSET_StatusActive EQU $13
+DEF Creature_Struct_OFFSET_StatusPerm EQU $14
+DEF Creature_Struct_OFFSET_AI EQU $15
+DEF Creature_Struct_OFFSET_Ability0 EQU $16
+DEF Creature_Struct_OFFSET_Ability1 EQU $18
+DEF Creature_Struct_OFFSET_Ability2 EQU $1A
+DEF Creature_Struct_OFFSET_Ability3 EQU $1C
+DEF Creature_Struct_OFFSET_AbilityUnlock0 EQU $1E
+DEF Creature_Struct_OFFSET_AbilityUnlock1 EQU $1F
+DEF Creature_Struct_OFFSET_AbilityUnlock2 EQU $20
+DEF Creature_Struct_OFFSET_AbilityUnlock3 EQU $21
+DEF Creature_Struct_OFFSET_Relic0 EQU $22
+DEF Creature_Struct_OFFSET_Relic1 EQU $23
+DEF Creature_Struct_OFFSET_Other EQU $24
+DEF Creature_Struct_OFFSET_SIZE EQU $25
+DEF Creature_Struct_OFFSET_ARRAYLENGTH EQU $D0
 
-Creature_SIZE EQU $25
-Creature_Ability_UNLOCKED EQU $FF
-Creature_MAX_MAXENERGY EQU 250
-Creature_MAGI_MAX_MAXENERGY EQU 999
-Creature_MAXRINGS EQU $D0
+DEF Creature_SIZE EQU $25
+DEF Creature_Ability_UNLOCKED EQU $FF
+DEF Creature_MAX_MAXENERGY EQU 250
+DEF Creature_MAGI_MAX_MAXENERGY EQU 999
+DEF Creature_MAXRINGS EQU $D0
 
 MACRO Creature_Struct
     .ID:

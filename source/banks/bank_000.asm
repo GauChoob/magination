@@ -1894,7 +1894,7 @@ Cmd_Scroll_CameraSeekActor::
     ; Arguments:
     ;   dw  Pointer to Actor structure
     Script_ReadWord hl
-    ld de, Actor_ENUM_XTile
+    ld de, Actor_OFFSET_XTile
     add hl, de
     ; X
     ld e, -5

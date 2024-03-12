@@ -106,7 +106,7 @@ Fightscene_GetCreaturePointers::
     ld bc, Creature_Table
     add hl, bc
     Set16_M wTemp_B.Fightscene_CreatureBaseStatsPointer, hl
-    ld bc, oCreature_Table_Graphics
+    ld bc, Creature_Table_Graphics
     add hl, bc
     Set16_M wTemp_C.Fightscene_CreatureGraphicsPointer, hl
     ret

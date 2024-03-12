@@ -1413,7 +1413,7 @@ Battle_Menu_Ring:
         dec b
         jr nz, .Loop2
 
-    ; If the 6th creature is not $FF/INVENTORY_RINGS_NORING,
+    ; If the 6th creature is not $FF/xInventory_Rings_NORING,
     ; Then we are allowed to select the second page of creatures
     ; (Enum_Menu_CursorTable_Battle_Summon_SwapRing)
     Battery_SetBank "XRAM Gamestate"
@@ -1445,13 +1445,13 @@ Battle_Menu_Ring:
         Battery_SetBank "XRAM Creatures"
         Battery_On
         ld a, b
-        cp CreatureID_Null ; == INVENTORY_RINGS_NORING
+        cp CreatureID_Null ; == xInventory_Rings_NORING
         jr z, .SkipRing\@
             ; Valid menu option
             Set8 wBattle_CursorTableValidIDs + loop, $01
             ; Let's write the creature's max energy
             ; First we get the value (big-endian)
-            ld c, (oCreature_Struct_MaxEnergy - oCreature_Struct_ID)
+            ld c, (Creature_Struct_OFFSET_MaxEnergy - Creature_Struct_OFFSET_ID)
             ld b, $00
             add hl, bc
             ld a, [hl+]
@@ -1596,7 +1596,7 @@ Battle_Menu_Ring:
         ; And that there is an empty card to target
 
         ; We can't take the upper byte of the energy because the checking function caps out at 255
-        ld bc, oCreature_Struct_MaxEnergy + 1
+        ld bc, Creature_Struct_OFFSET_MaxEnergy + 1
         add hl, bc
         Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
         call Battle_Helpers_CheckValidTarget
