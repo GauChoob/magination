@@ -17,11 +17,11 @@ INCLUDE "source/engine/actor/actor_00.asm"
 ; System
 INCLUDE "source/engine/system/math/math_00.asm"
 INCLUDE "source/engine/system/graphics/frame/frame_00.asm"
-INCLUDE "source/engine/system/sound/sound_vblank.asm"
+INCLUDE "source/engine/system/sound/sound_vblank_00.asm"
 INCLUDE "source/engine/system/system_00.asm"
 
 ; Engine
-INCLUDE "source/engine/rle_decompress.asm"
+INCLUDE "source/engine/rle_decompress_00.asm"
 INCLUDE "source/engine/hotspot/hotspot_00.asm"
 
 
@@ -3206,10 +3206,10 @@ Script_Open::
 
 
 
-INCLUDE "source/engine/interrupt/interrupt.asm"
+INCLUDE "source/engine/interrupt/interrupt_00.asm"
 INCLUDE "source/engine/text/text_00.asm"
 INCLUDE "source/engine/trigger/trigger_00.asm"
-INCLUDE "source/engine/unpack.asm"
+INCLUDE "source/engine/unpack_00.asm"
 
 
 ; Cardscene
