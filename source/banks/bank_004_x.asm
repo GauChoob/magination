@@ -33,11 +33,11 @@ Call_004_5494::
     ld [$CD1F], a                                 ; $5496: $EA $1F $CD
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld a, [$A122]                                 ; $54A6: $FA $22 $A1
+    ld a, [xRingCount]                                 ; $54A6: $FA $22 $A1
     ld b, a                                       ; $54A9: $47
     Battery_Off
     ld a, b                                       ; $54AE: $78
-    cp $D0                                        ; $54AF: $FE $D0
+    cp Creature_MAXRINGS                                        ; $54AF: $FE $D0
     jr c, jr_004_54B8                             ; $54B1: $38 $05
 
     ld a, $01                                     ; $54B3: $3E $01
@@ -833,7 +833,7 @@ Call_004_5D19::
 jr_004_5D19:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
-    ld hl, $A122                                  ; $5D26: $21 $22 $A1
+    ld hl, xRingCount                                  ; $5D26: $21 $22 $A1
     inc [hl]                                      ; $5D29: $34
     Battery_Off
     ld a, [$CD51]                                 ; $5D2E: $FA $51 $CD

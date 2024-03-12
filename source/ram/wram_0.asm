@@ -235,12 +235,7 @@ wScript_Text::
     ; source/engine/system/battery/battery.s
 
     ds $C727 - @
-wBattery_ActiveSavefileBaseBank::
-    ; There are 4 banks of XRAM, representing 2 savefile (saved game and current game)
-    ; Each savefile takes 2 banks of XRAM
-    ; This function denotes the player's savefile by specifying the base bank ($00 or $02)
-    ; i.e. this is the savefile that will update as you play the game
-    ds 1
+INCLUDE "source/engine/system/battery/battery_wram.asm"
 
     ;source/engine/system/graphics/frame/frame_var.s
 

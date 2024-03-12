@@ -2,7 +2,7 @@ SECTION "ROM Bank $007", ROMX[$4000], BANK[$7]
 
 
     ; $4000
-INCLUDE "source/engine/battery/battery_xx.asm"
+INCLUDE "source/engine/system/battery/battery_xx.asm"
 
 INCLUDE "source/game/fightscene/fightscene_palfx_creature.asm"
 

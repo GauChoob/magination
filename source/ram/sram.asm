@@ -1,6 +1,6 @@
 SECTION "XRAM Gamestate", SRAM[$A000], BANK[$00]
 ; This represents bank $00 and $02 (two alternate savefiles)
-; However, xBattery_SavedSavefileBaseBank, xBattery_Verify0 and xBattery_Verify1 are always read from bank $00 and copied to $02
+; Exceptionally, xBattery_SavedSavefileBaseBank, xBattery_Verify0 and xBattery_Verify1 are always read from bank $00 and copied to $02
 ; The rest of the variables are read from bank $00 or $02 depending on the current savefile in use
 
 xInventory_Rings_LENGTH            EQU $0A
@@ -42,17 +42,20 @@ xLoad_HeroXTile::
 xLoad_HeroYTile::
     ds 1
     ;ds $A017 - @
-    ; UNKNOWN TODO
+xGameSaved::
+    ; Set to 1 upon the first save of the game
+    ; This opens the Continue door and provides a overwrite warning when creating a new game
     ds 1
+
     ;ds $A018 - @
-xStartScreenDoorState::
+xNewGamePlus_State::
     ; 1 -> ?
     ; 2 -> NewGame+ door is open
     ds 1
 
-
 ; NEW GAME PLUS PRESERVED ;
-    ds $A019 - @
+    ;ds $A019 - @
+xGamestate_RAM_NEW_GAME_START:: ; New Game erases starting from here
 xInventory_Relics::
     ; relic id Relic_NULL ($00) is an empty relic. The hero shouldn't be able to have any (the quantity should always be 0), but a creature can have an empty relic slot
     ds $FF
@@ -66,8 +69,16 @@ xInventory_Rings::
     ds xInventory_Rings_LENGTH
     .End
 
+    ;ds $A122 - @
+xRingCount::
+    ; Total number of owned rings.
+    ; Used to make sure we don't pass Creature_MAXRINGS
+    ds 1
+
 ; NEW GAME PLUS PRESERVED END ;
-    ds $A123 - @
+
+    ;ds $A123 - @
+xGamestate_RAM_NEW_GAME_PLUS_START:: ; New Game Plus erases starting from here
 xGameCount::
     ; This is the variable that tracks overall quest progression
     ; This is used for choosing the start screen background
@@ -86,10 +97,13 @@ xScript_SaveBits::
 xScript_SaveVars::
     ; Bytes reserved for use by scripts
     ; The first $7F bytes are reset to $00 when xGameCount is updated
+    ds $FF
 
-    ; Unknown size, but $17F of free space for now
+    ;ds $A323 - @
+xScript_Treasure::
+    ds $80
 
-    ds $A3A3 - @
+    ;ds $A3A3 - @
 xHeroAbilities:: ; 0 = Nothing. 5 = The Eye of the Storm
     ds 1
     ;ds $A3A4 - @
@@ -117,7 +131,7 @@ ASSERT (xInventory_Spells.End - xInventory_Spells) == (xInventory_Infused.End - 
 ASSERT (xInventory_Spells.End - xInventory_Spells) == (xInventory_Items.End - xInventory_Items),"All quantity tables must be the same size"
 ASSERT (xInventory_Spells.End - xInventory_Spells) == (xInventory_Relics.End - xInventory_Relics),"All quantity tables must be the same size"
     ; $A6A4
-xGamestate_RAM_END::
+xGamestate_RAM_NEW_GAME_END::
 
     ; Pad until the very end of the bank
     ds $C000 - @ - Battery_VerificationString_LENGTH
@@ -168,6 +182,7 @@ Creature_SIZE EQU $25
 Creature_Ability_UNLOCKED EQU $FF
 Creature_MAX_MAXENERGY EQU 250
 Creature_MAGI_MAX_MAXENERGY EQU 999
+Creature_MAXRINGS EQU $D0
 
 MACRO Creature_Struct
     .ID:

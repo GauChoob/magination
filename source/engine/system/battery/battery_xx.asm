@@ -15,16 +15,12 @@
 ; Battery_ReadyGame - Copies the data from the saved game (xBattery_SavedSavefileBaseBank) into the other savefile which is used for the current game,
 ;   so that the saved copy won't be modified while playing unless saved at an inn/overworld
 ; Battery_LoadGame - Run on startup. If the savefile is corrupt, runs Battery_EraseGame, or else runs Battery_ReadyGame
-; Battery_NextGameCount - Increments xGameCount by 1 and then runs Battery_SetGameCount
+; Battery_NextGameCount - Increments xGameCount by 1 and then runs Battery_SetGameCount - unused, deprecated in favor of Battery_SetGameCount
 ; Battery_SaveGame - Saves the game by copying the current game into the other savefile
 ; Battery_SetGameCount - Erases parts of xScript_SaveBits and xScript_SaveVars that are meant to be reset every time the xGameCount changes
 ; Battery_EraseGame - Erases all of XRAM and then marks the data as not corrupt by filling in xBattery_Verify0 and xBattery_Verify1. It sets the starting function (xLoad_ScriptBank/xLoad_ScriptFrame) as msMain
 
-    ; Bank $07
 
-    ; source/engine/system/battery/verification_string.s
-    
-    ; $4000
 Battery_VerificationString::
     ; The verification string is a unique string of $10 bytes that is used as a magic number
     ; This magic number is written twice into XRAM to identify the slot as an uncorrupted savefile
@@ -39,7 +35,7 @@ Battery_VerificationString::
     .End:
 ASSERT Battery_VerificationString_LENGTH == Battery_VerificationString.End - Battery_VerificationString,"Length mismatch in Battery_VerificationString!"
 
-    ; $4010
+
 Battery_ReadyGame::
     ; This function copies one savefile into the other savefile slot
     ; Inputs:
@@ -48,21 +44,21 @@ Battery_ReadyGame::
     ;   The source file is copied and stored into the other savefile ($02 or $00)
     ;   wBattery_ActiveSavefileBaseBank points to the other savefile (i.e. the copy that will be used as you progress the game)
 
-        ; Get the value of xBattery_SavedSavefileBaseBank from saveslot 0 (bank $00)
-        ; Verify a valid value of $00 or $02, or else Battery_EraseGame
-        xor a
-        ld [rRAMB], a
-        Battery_On
-        Get8 b, xBattery_SavedSavefileBaseBank
-        and a
-        jr z, .ValidBaseBank
-        cp $02
-        jp nz, Battery_EraseGame
+    ; Get the value of xBattery_SavedSavefileBaseBank from saveslot 0 (bank $00)
+    ; Verify a valid value of $00 or $02, or else Battery_EraseGame
+    xor a
+    ld [rRAMB], a
+    Battery_On
+    Get8 b, xBattery_SavedSavefileBaseBank
+    and a
+    jr z, .ValidBaseBank
+    cp $02
+    jp nz, Battery_EraseGame
 
-        ; xBattery_SavedSavefileBaseBank is confirmed to be a valid bank of $00 or $02
+    ; xBattery_SavedSavefileBaseBank is confirmed to be a valid bank of $00 or $02
     .ValidBaseBank:
-        ; Copy xBattery_SavedSavefileBaseBank into save slot 1 (bank $02)
-        ; This part of the code might be unnecessary as the data is overwritten when the banks are duplicated below
+        ; Copy xBattery_SavedSavefileBaseBank into save slot 1 (bank $02) so that both savefiles have identical values
+        ; Even though we only read the var from save slot 0, if save slot 1 overwrites save slot 0, it overwrites the value
         Set8 rRAMB, $02
         Set8 xBattery_SavedSavefileBaseBank, b
         ld d, a
@@ -81,7 +77,6 @@ Battery_ReadyGame::
         ret
 
 
-    ; $4048
 Battery_CopyBank:
     ; Duplicates the contents of a source XRAM bank to a destination XRAM bank
     ; Inputs:
@@ -121,7 +116,7 @@ Battery_Copy1000Bytes:
         LdHLIBCI
         LdHLIBCI
         ld a, h
-        cp HIGH(wBattery_CopyBuffer+$1000) ; Stop when the buffer is full ($1000 bytes)
+        cp HIGH(wBattery_CopyBuffer + $1000) ; Stop when the buffer is full ($1000 bytes)
         jr nz, .CopyXRAMToWRAMLoop
 
     ; Next, copy the $1000 bytes back from the WRAM buffer into the new destination XRAM bank
@@ -138,7 +133,7 @@ Battery_Copy1000Bytes:
         jr nz, .CopyWRAMToXRAMLoop
     ret
 
-    ; $4087
+
 Battery_LoadGame::
     ; This is the initialization function run when the gameboy is turned on
     ; This function verifies if the XRAM contains uncorrupted save data by verifying that
@@ -179,9 +174,9 @@ Battery_LoadGame::
     jp Battery_ReadyGame
 
 
-    ; $40B7
 Battery_NextGameCount::
     ; Increments xGameCount by 1
+    ; This function is unused and deprecated in favour of Cmd_Ram_SetGameCount
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     FGet16 de, xGameCount
@@ -189,7 +184,7 @@ Battery_NextGameCount::
     FSet16 xGameCount, de
     jp Battery_SetGameCount
 
-    ; $40D4
+
 Battery_SaveGame::
     ; Saves the game
     ; The current target savefile indicated by wBattery_ActiveSavefileBaseBank becomes the base savefile and is copied into the alternate savefile slot
@@ -205,7 +200,7 @@ Battery_SaveGame::
     Mov8 xBattery_SavedSavefileBaseBank, wBattery_ActiveSavefileBaseBank
     jp Battery_ReadyGame
 
-    ; $40E6
+
 Battery_SetGameCount::
     ; When xGameCount is updated, the script bits and vars associated with xGameCount are set to $00 to prep for the next section of the game
     Battery_SetBank "XRAM Gamestate"

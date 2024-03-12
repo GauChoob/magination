@@ -2319,11 +2319,12 @@ Cmd_System_NewGame::
     ; $2108
 Cmd_System_SaveGame::
     ; Saves the game
+    ; Sets xGameSaved to 1, which opens the Continue door and provides a warning when creating a new game
     ; Arguments:
     ;   db  If non-zero (1 is used), Tony will be healed right before saving
     Battery_On
     Battery_SetBank "XRAM Gamestate"
-    Set8 $A017, $01 ; TODO
+    Set8 xGameSaved, $01
     Mov8 xLoad_HeroXTile, wActor_Hero.XTile
     Mov8 xLoad_HeroYTile, wActor_Hero.YTile
 
@@ -3002,8 +3003,11 @@ Cmd_Ram_NextGameCount::
     ; Arguments:
     ;   None
     ;
-    ; BUG - Does not verify that the right bank is loaded when doing the call
-    ; Could this crash somehow - to investigate
+    ; BUG - Does not verify that the right bank is loaded when doing the call, likely crashes the game
+    ; This command is unused and deprecated, it was replaced with Cmd_Ram_SetGameCount
+    IF FIX_BUGS == 1
+        SwitchROMBank BANK(Battery_NextGameCount)
+    ENDC
     call Battery_NextGameCount
     jp Script_Start
 
