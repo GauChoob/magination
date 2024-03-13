@@ -279,7 +279,8 @@ class MagiScriptLine:
             "RestoreActorState",
             "LongJump",
             "Jump",
-            "RandLongJump"
+            "RandLongJump",
+            "BattleAuto"
         ]
 
     def __init__(self):

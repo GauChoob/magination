@@ -84,35 +84,54 @@ Cmd_Battle_New::
     call Script_Close
     XJump Cardscene_Open
 
+
 Cmd_Battle_Attack::
     ; Directs an enemy creature to do the specified attack.
     ; Used only in Salafy's tutorial battle to make the creature Defend
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, e.g. BATTLE_SLOT_ENEMY0
-    ;   dw  Address of an attack in BattleCmd_Table
-    ;   db  Desired target e.g. TODO
+    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
     jp BattleScriptXX_Attack
 
-Call_000_0F39:
-    Set16FF hScript.State, Call_000_0F39
+
+Cmd_Battle_Auto::
+    ; No more script to run ever, permanently reset wBattle_ScriptBusy for the rest of the battle
+    ; Arguments:
+    ;   None
+    Set16FF hScript.State, Cmd_Battle_Auto
     xor a
     ld [wBattle_ScriptBusy], a
     ret
 
-    ; $0F46
+
+Cmd_Battle_Spell::
+    ; Directs an enemy magi to do the specified attack.
+    ; Unclear if there will be a bug if you try and make a creature cast a spell
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
-    jp Call_002_73DD
+    jp BattleScriptXX_Spell
 
 
-    jp $7449
+Cmd_Battle_Evaluate::
+    ; Unimplemented, unused command
+    ; Bug - bank is not set before jumping to function, will probably crash the game
+    jp BattleScriptXX_Evaluate
 
-    ; $0F51
+
+Cmd_Battle_Focus::
+    ; Directs an enemy magi to focus.
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
     ld a, $01
     call Battle00_CopyDataFromFrame
-    jp $744A
+    jp BattleScriptXX_Focus
 
 
 Cmd_Battle_NextTurn::
@@ -134,18 +153,28 @@ Cmd_Battle_NextTurn::
         jp Script_Start
 
 
+Cmd_Battle_ForgeRing::
+    ; Gives a ring to Tony
+    ; Arguments:
+    ;   db  Creature ID
+    ;   db  Creature level
     ld a, $02
     call Battle00_CopyDataFromFrame
-    jp $7477
+    jp BattleScriptXX_ForgeRing
 
 
+Cmd_Battle_SummonFast::
+    ; Deprecated function, equivalent to Cmd_Battle_SummonDelay with a delay of 0
+    ; Unused but functional
+    ; Inputs:
     ld a, $04
     call Battle00_CopyDataFromFrame
     xor a
     ld [$D396], a
     jp $752D
 
-    ; $0F82
+Cmd_Battle_SummonDelay::
+    ; Inputs:
     ld a, $05
     call Battle00_CopyDataFromFrame
     jp $752D

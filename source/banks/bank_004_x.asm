@@ -796,7 +796,7 @@ jr_004_5C9D:
     ld [$CD49], a                                 ; $5CB5: $EA $49 $CD
     ld a, [hl]                                    ; $5CB8: $7E
     ld [wBattle_CopyBuffer_ListIndex], a                                 ; $5CB9: $EA $8C $CD
-    ld [$CD51], a                                 ; $5CBC: $EA $51 $CD
+    ld [wMenu_Ringsmith_CreatureID], a                                 ; $5CBC: $EA $51 $CD
     ld bc, wText_StringBuffer                                  ; $5CBF: $01 $49 $C9
     FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $5CC7: $70
     Do_CallForeign CreatureName_CopyToDest
@@ -836,7 +836,7 @@ jr_004_5D19:
     ld hl, xRingCount                                  ; $5D26: $21 $22 $A1
     inc [hl]                                      ; $5D29: $34
     Battery_Off
-    ld a, [$CD51]                                 ; $5D2E: $FA $51 $CD
+    ld a, [wMenu_Ringsmith_CreatureID]                                 ; $5D2E: $FA $51 $CD
     ld [wScript_RingMadeID], a                                 ; $5D31: $EA $26 $C7
     ld b, a                                       ; $5D34: $47
     ld c, Creature_Table_SIZE                                     ; $5D35: $0E $2D
@@ -873,7 +873,7 @@ jr_004_5D75:
     ld a, l                                       ; $5D7D: $7D
     ld [$CD52], a                                 ; $5D7E: $EA $52 $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5D81: $01 $91 $CD
-    ld a, [$CD51]                                 ; $5D84: $FA $51 $CD
+    ld a, [wMenu_Ringsmith_CreatureID]                                 ; $5D84: $FA $51 $CD
     ld [hl+], a                                   ; $5D87: $22
     LdHLIBCI                                        ; $5D8A: $03
     ld a, $01                                     ; $5D8B: $3E $01
@@ -1220,7 +1220,7 @@ jr_004_60C3:
     ld bc, $0007                                  ; $60C4: $01 $07 $00
     add hl, bc                                    ; $60C7: $09
     ld a, [hl]                                    ; $60C8: $7E
-    ld [$CD50], a                                 ; $60C9: $EA $50 $CD
+    ld [wMenu_Ringsmith_RingLevel], a                                 ; $60C9: $EA $50 $CD
     ld a, $04                                     ; $60CC: $3E $04
     ld [wVBlank_Bank], a                                 ; $60CE: $EA $E6 $C6
     ld a, $DF                                     ; $60D1: $3E $DF

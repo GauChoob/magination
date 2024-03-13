@@ -39,13 +39,13 @@ Script_Table::
     dw Cmd_Sound_FadeOutSong       ; $24
 
     dw Cmd_Battle_New ; $25
-    dw $0F31 ; $26
-    dw $0F39  ;BattleDoneLoading?
-    dw $0F46
-    dw $0F4E
-    dw $0F51
-    dw $0F59
-    dw $0F6E
+    dw Cmd_Battle_Attack ; $26
+    dw Cmd_Battle_Auto ; $27
+    dw Cmd_Battle_Spell ; $28
+    dw Cmd_Battle_Evaluate ; $29
+    dw Cmd_Battle_Focus ; $2A
+    dw Cmd_Battle_NextTurn ; $2B
+    dw Cmd_Battle_ForgeRing ; $2C
     dw $0F76
     dw $0F82 ;This defines a single monster from an encounter
     dw $0F8A

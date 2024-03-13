@@ -455,6 +455,15 @@ wBattle_ItemSpellBattleCmdAddress::
 wBattle_TargetAI::
     ; The desired target
     ds 1
+NEXTU
+    ;ds $D392 - @
+wBattle_Buffer_CreatureID::
+    ; CreatureID to make
+    ds 1
+    ;ds $D393 - @
+wBattle_Buffer_Level::
+    ds 1
+    ; Level of ring to make
 ENDU
 
     ;ds $D3C2 - @
@@ -462,7 +471,7 @@ wBattle_ScriptBusy::
     ; 0 when Cmd_Battle_NextTurn or Cmd_Battle_Auto is called
     ; 1 when the battle script is running
     ds 1
-    
+
     ds $D3C4 - @
 wBattleAI_Target_CreatureEnergyReport::
     ; A table of 4 creature's energies, used to compare and find the strongest/weakest

@@ -4027,7 +4027,7 @@ Call_002_5AFA:
 Call_002_5B35::
     FGet16 bc, $CD52                                  ; $5B35: $21 $52 $CD                                       ; $5B3A: $4F
     ld hl, $D110                                  ; $5B3B: $21 $10 $D1
-    ld a, [$CD50]                                 ; $5B3E: $FA $50 $CD
+    ld a, [wMenu_Ringsmith_RingLevel]                                 ; $5B3E: $FA $50 $CD
     dec a                                         ; $5B41: $3D
     push af                                       ; $5B42: $F5
     SwitchRAMBank BANK("WRAM BATTLE")
@@ -6671,7 +6671,8 @@ jr_002_6FCB:
     rst $28                                       ; $6FDD: $EF
     ld [hl], c                                    ; $6FDE: $71
 
-
+; todo - above is the other table
+INCLUDE "source/game/battle/battleai/battleai_tables.asm"
 INCLUDE "source/game/battle/battleai/battleai_target.asm"
 
 
@@ -6966,6 +6967,12 @@ jr_002_73A7:
 ASSERT BattleCore_BANK == BANK(@)
 
 BattleScriptXX_Attack::
+    ; Directs an enemy creature to do the specified attack.
+    ; Used only in Salafy's tutorial battle to make the creature Defend
+    ; Arguments:
+    ;   wBattle_Buffer_CreatureSlot, e.g. BATTLE_SLOT_ENEMY0
+    ;   wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   wBattle_TargetAI - Desired target e.g. BattleAI_Target_EnemyWeakPercent
 
     ; Load creature into wBattle_Creature_Current
     call BattleScriptXX_OpenCreatureFromFrame
@@ -6992,64 +6999,96 @@ BattleScriptXX_Attack::
     ret
 
 
-Call_002_73DD::
-    call BattleScriptXX_OpenCreatureFromFrame                            ; $73DD: $CD $2B $76
-    ld bc, $5EFE                                  ; $73E0: $01 $FE $5E
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $73E8: $70
-    ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $73E9: $01 $00 $D1
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $73F1: $70
+BattleScriptXX_Spell::
+    ; Directs an enemy magi to do the specified attack.
+    ; Unclear if there will be a bug if you try and make a creature cast a spell
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
+
+    ; Load creature into wBattle_Creature_Current
+    call BattleScriptXX_OpenCreatureFromFrame
+
+    ; Choose Spell
+    ld bc, BattleCmd_Table.BattleCmd_SPELL
+    FSet16 wBattle_CopyBuffer_Source, bc
+    ld bc, wBattle_Creature_Current.BattleCmd_Function
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign BattleCmd_GetDataFromAddress
-    FGet16 bc, wBattle_ItemSpellBattleCmdAddress                                  ; $73FA: $21 $93 $D3                                       ; $73FF: $4F
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7405: $70
-    FSet16 $D107, bc                                    ; $740B: $70
-    ld bc, wMenu_Battle_TableRowBuffer                                  ; $740C: $01 $91 $CD
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $7414: $70
+
+    ; Set wBattle_Creature_Current.BattleCmd_MenuChoice
+    ; Also get the spell data
+    FGet16 bc, wBattle_ItemSpellBattleCmdAddress
+    FSet16 wBattle_CopyBuffer_Source, bc
+    FSet16 wBattle_Creature_Current.BattleCmd_MenuChoice, bc
+    ld bc, wMenu_Battle_TableRowBuffer
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign ItemSpell_GetDataFromAddress
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $741D: $21 $91 $CD
-    ld bc, $0005                                  ; $7420: $01 $05 $00
-    add hl, bc                                    ; $7423: $09
-    ld a, [hl]                                    ; $7424: $7E
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $7425: $EA $03 $D1
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $7428: $21 $91 $CD
-    ld bc, $0004                                  ; $742B: $01 $04 $00
-    add hl, bc                                    ; $742E: $09
-    ld a, [hl]                                    ; $742F: $7E
-    ld [wBattle_Creature_Current.BattleCmd_Cost], a                                 ; $7430: $EA $02 $D1
-    ld a, $09                                     ; $7433: $3E $09
-    ld [wBattle_CurCreature_Slot], a                                 ; $7435: $EA $B1 $D0
+
+    ; From the spell data, get the target
+    ld hl, wMenu_Battle_TableRowBuffer
+    ld bc, wMenu_Battle_TableRowBuffer.ItemSpell_Target - wMenu_Battle_TableRowBuffer
+    add hl, bc  ; inefficiency, could have directly loaded the address
+    Mov8 wBattle_Creature_Current.BattleCmd_Target, hl
+
+    ; From the spell data, get the energy cost
+    ld hl, wMenu_Battle_TableRowBuffer
+    ld bc, wMenu_Battle_TableRowBuffer.ItemSpell_Cost - wMenu_Battle_TableRowBuffer
+    add hl, bc  ; inefficiency, could have directly loaded the address
+    Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
+
+    ; Check if the target is valid
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI
     Do_CallForeign Battle_Helpers_CheckValidTarget
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $7440: $FA $AF $D0
-    and a                                         ; $7443: $A7
-    ret z                                         ; $7444: $C8
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    ret z
 
-    call BattleScriptXX_AITarget                            ; $7445: $CD $07 $76
-    ret                                           ; $7448: $C9
+    ; If the target is valid, choose the best target
+    call BattleScriptXX_AITarget
+    ret
+
+BattleScriptXX_Evaluate::
+    ; Unused, unimplemented command
+    ret
 
 
-    ret                                           ; $7449: $C9
+BattleScriptXX_Focus::
+    ; Directs an enemy magi to focus.
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
 
+    ; Load creature into wBattle_Creature_Current
+    call BattleScriptXX_OpenCreatureFromFrame
 
-    call BattleScriptXX_OpenCreatureFromFrame                            ; $744A: $CD $2B $76
-    ld bc, $5F0E                                  ; $744D: $01 $0E $5F
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7455: $70
-    ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $7456: $01 $00 $D1
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $745E: $70
+    ; Load the Focus command
+    ld bc, BattleCmd_Table.BattleCmd_FOCUS
+    FSet16 wBattle_CopyBuffer_Source, bc
+    ld bc, wBattle_Creature_Current.BattleCmd_Function
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign BattleCmd_GetDataFromAddress
-    ld a, [$D392]                                 ; $7467: $FA $92 $D3
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $746A: $EA $03 $D1
-    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $746D: $CD $FC $75
-    ld bc, $D0D9                                  ; $7470: $01 $D9 $D0
-    call Battle_Init_CreatureCopy                            ; $7473: $CD $DC $5B
-    ret                                           ; $7476: $C9
+
+    ; Target self
+    Mov8 wBattle_Creature_Current.BattleCmd_Target, wBattle_Buffer_CreatureSlot
+
+    ; Close the creature
+    call BattleScriptXX_FindBattleCreatureFromSlot
+    ld bc, wBattle_Creature_Current
+    call Battle_Init_CreatureClose
+    ret
 
 
-    ld hl, $D392                                  ; $7477: $21 $92 $D3
-    ld a, [hl+]                                   ; $747A: $2A
-    ld [$CD51], a                                 ; $747B: $EA $51 $CD
-    ld a, [hl]                                    ; $747E: $7E
-    ld [$CD50], a                                 ; $747F: $EA $50 $CD
-    Do_CallForeign Call_004_5D19
-    ret                                           ; $748A: $C9
+BattleScriptXX_ForgeRing::
+    ; Gives a ring to Tony
+    ; Arguments:
+    ;   wBattle_Buffer_CreatureID  Creature ID
+    ;   wBattle_Buffer_Level  Creature level
+    ld hl, wBattle_Buffer_CreatureID
+    Mov8 wMenu_Ringsmith_CreatureID, hl+
+    Mov8 wMenu_Ringsmith_RingLevel, hl
+    Do_CallForeign Call_004_5D19 ; Hook into Ringsmith code
+    ret
 
 
 Call_002_748B:
@@ -7223,23 +7262,26 @@ BattleScriptXX_FindBattleCreatureFromSlot:
 
 
 BattleScriptXX_AITarget:
-    ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $7607: $FA $03 $D1
-    cp $14                                        ; $760A: $FE $14
-    jr nc, jr_002_761E                            ; $760C: $30 $10
+    ; If the target is a multi-target, keep as is
+    ld a, [wBattle_Creature_Current.BattleCmd_Target]
+    cp Battle_TARGET_MANY_START
+    jr nc, .Finally
 
-    ld a, [$D395]                                 ; $760E: $FA $95 $D3
-    ld c, a                                       ; $7611: $4F
-    ld b, $00                                     ; $7612: $06 $00
-    ld hl, $6FDF                                  ; $7614: $21 $DF $6F
-    add hl, bc                                    ; $7617: $09
-    ECallHL                                    ; $761B: $CD $89 $07
+    ; Or else, determine the best single target
+        ld a, [wBattle_TargetAI]
+        ld c, a
+        ld b, $00
+        ld hl, BattleAI_Target_Table
+        add hl, bc
+        ECallHL
 
-jr_002_761E:
-    ld a, [wBattle_Buffer_CreatureSlot]                                 ; $761E: $FA $92 $D3
-    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $7621: $CD $FC $75
-    ld bc, $D0D9                                  ; $7624: $01 $D9 $D0
-    call Battle_Init_CreatureCopy                            ; $7627: $CD $DC $5B
-    ret                                           ; $762A: $C9
+    .Finally:
+    ; Done! Save the creature
+    ld a, [wBattle_Buffer_CreatureSlot]
+    call BattleScriptXX_FindBattleCreatureFromSlot
+    ld bc, wBattle_Creature_Current
+    call Battle_Init_CreatureClose
+    ret
 
 
 BattleScriptXX_OpenCreatureFromFrame:

@@ -5029,7 +5029,7 @@ Call_003_731C:
     ld a, l                                       ; $7341: $7D
     ld [$CD52], a                                 ; $7342: $EA $52 $CD
     ld a, $02                                     ; $7345: $3E $02
-    ld [$CD50], a                                 ; $7347: $EA $50 $CD
+    ld [wMenu_Ringsmith_RingLevel], a                                 ; $7347: $EA $50 $CD
     PushRAMBank
     Do_CallForeign Call_002_5B35
     PopRAMBank

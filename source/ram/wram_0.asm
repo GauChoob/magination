@@ -1115,6 +1115,15 @@ wMenu_Music_CurrentSong::
     ; Partially implemented variable - not actually used
     ds 1
 
+    ds $CD50 - @
+wMenu_Ringsmith_RingLevel::
+    ; Target level of ring being made
+    ds 1
+    ;ds $CD51 - @
+wMenu_Ringsmith_CreatureID::
+    ; CreatureID of ring being made
+    ds 1
+
     ds $CD7F - @
 wMenuChoice_BlinkFingerTimer::
     ; Keeps track of the blinking timing
