@@ -1124,6 +1124,13 @@ wMenu_Ringsmith_CreatureID::
     ; CreatureID of ring being made
     ds 1
 
+    ;ds $CD59 - @
+wMenu_RingBank_VisibleRings::
+    ; the CreatureID and CreatureLevel for each of the 7 visible creatures
+    ds 7*2
+    ;ds $CD67 - @
+wMenu_RingBank_VisibleRingCount::
+
     ds $CD7F - @
 wMenuChoice_BlinkFingerTimer::
     ; Keeps track of the blinking timing
