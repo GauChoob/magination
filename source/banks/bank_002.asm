@@ -920,96 +920,102 @@ jr_002_4651:
     ret                                           ; $4652: $C9
 
 
-Call_002_4653:
-    ld a, [wBattle_Magi_Summon_CreatureID]                                 ; $4653: $FA $68 $D0
-    ld b, a                                       ; $4656: $47
-    ld c, Creature_Table_SIZE                                     ; $4657: $0E $2D
-    call Math_Mult                                    ; $4659: $CD $CA $04
-    ld bc, Creature_Table                                  ; $465C: $01 $5B $41
-    add hl, bc                                    ; $465F: $09
-    ld a, h                                       ; $4660: $7C
-    ld [wBattle_CopyBuffer_Source + 1], a                                 ; $4661: $EA $8E $CD
-    ld a, l                                       ; $4664: $7D
-    ld [wBattle_CopyBuffer_Source], a                                 ; $4665: $EA $8D $CD
-    ld bc, wMenu_Battle_TableRowBuffer                                  ; $4668: $01 $91 $CD
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $4670: $70
+BattleCmd_Func_CommonSummon::
+    ; Common part of summoning between the scripted summon, and the battlecommand SummonX
+    ; Inputs:
+    ;   wBattle_Magi_Summon_CreatureID
+    ;   wBattle_Magi_Summon_CreatureLevel
+    ;   wBattle_Magi_Summon_CreatureEnergy
+
+    ; Get the Creature into buffer
+    Get8 b, wBattle_Magi_Summon_CreatureID
+    ld c, Creature_Table_SIZE
+    call Math_Mult
+    ld bc, Creature_Table
+    add hl, bc
+
+    Set16 wBattle_CopyBuffer_Source, hl
+    ld bc, wMenu_Battle_TableRowBuffer
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign Creature_Table_CopyStatsToBuffer
-    FGet16 bc, wBattle_CopyBuffer_Destination                                  ; $4679: $21 $8F $CD                                       ; $467E: $4F
-    ld hl, $D110                                  ; $467F: $21 $10 $D1
-    ld a, $01                                     ; $4682: $3E $01
-    ld [hl+], a                                   ; $4684: $22
-    xor a                                         ; $4685: $AF
-    ld [hl+], a                                   ; $4686: $22
-    ld a, [wBattle_Magi_Summon_CreatureID]                                 ; $4687: $FA $68 $D0
-    ld [hl+], a                                   ; $468A: $22
-    LdHLIBCI                                        ; $468D: $03
-    inc bc                                        ; $468E: $03
-    inc bc                                        ; $468F: $03
-    inc bc                                        ; $4690: $03
-    xor a                                         ; $4691: $AF
-    ld [hl+], a                                   ; $4692: $22
-    ld [hl+], a                                   ; $4693: $22
-    ld [hl+], a                                   ; $4694: $22
-    ld [hl+], a                                   ; $4695: $22
-    ld [hl+], a                                   ; $4696: $22
-    ld [hl+], a                                   ; $4697: $22
-    ld [hl+], a                                   ; $4698: $22
-    ld d, $0A                                     ; $4699: $16 $0A
 
-jr_002_469B:
-    LdHLIBCI                                        ; $469D: $03
-    dec d                                         ; $469E: $15
-    jr nz, jr_002_469B                            ; $469F: $20 $FA
+    ; Copy all the stats
+    FGet16 bc, wBattle_CopyBuffer_Destination
+    ld hl, wBattle_Creature_Target
+    Set8 hl+, 1 ; Team
+    xor a
+    ld [hl+], a ; EruptMirrorCounter
+    Mov8 hl+, wBattle_Magi_Summon_CreatureID
+    LdHLIBCI ; Type
+    inc bc ; Energy
+    inc bc ; MaxEnergy
+    inc bc
+    xor a
+    ld [hl+], a ; Level
+    ld [hl+], a ; Experience
+    ld [hl+], a
+    ld [hl+], a ; CurEnergy
+    ld [hl+], a
+    ld [hl+], a ; MaxEnergy
+    ld [hl+], a
 
-    xor a                                         ; $46A1: $AF
-    ld [hl+], a                                   ; $46A2: $22
-    LdHLIBCI                                        ; $46A5: $03
-    LdHLIBCI                                        ; $46A8: $03
-    inc bc                                        ; $46A9: $03
-    inc bc                                        ; $46AA: $03
-    ld d, $0C                                     ; $46AB: $16 $0C
+    ld d, $0A ; 6 stats, EnergyUp, ElementResist, ElementWeak, StatusImmune
+    .Loop1:
+        LdHLIBCI
+        dec d
+        jr nz, .Loop1
 
-jr_002_46AD:
-    LdHLIBCI                                        ; $46AF: $03
-    dec d                                         ; $46B0: $15
-    jr nz, jr_002_46AD                            ; $46B1: $20 $FA
+    xor a
+    ld [hl+], a ; StatusActive
+    LdHLIBCI ; StatusPerm
+    LdHLIBCI ; AI
+    inc bc ; Placeholder/Cost
+    inc bc
 
-    xor a                                         ; $46B3: $AF
-    ld [hl+], a                                   ; $46B4: $22
-    ld [hl+], a                                   ; $46B5: $22
-    ld [hl+], a                                   ; $46B6: $22
-    set 0, a                                      ; $46B7: $CB $C7
-    res 1, a                                      ; $46B9: $CB $8F
-    ld [$D389], a                                 ; $46BB: $EA $89 $D3
-    ld a, [wBattle_Magi_Summon_CreatureLevel]                                 ; $46BE: $FA $69 $D0
+    ld d, $0C ; 4 abilities
+    .Loop2:
+        LdHLIBCI
+        dec d
+        jr nz, .Loop2
 
-jr_002_46C1:
-    ld hl, $D110                                  ; $46C1: $21 $10 $D1
-    push af                                       ; $46C4: $F5
-    call Call_002_57F1                            ; $46C5: $CD $F1 $57
-    pop af                                        ; $46C8: $F1
-    dec a                                         ; $46C9: $3D
-    jr nz, jr_002_46C1                            ; $46CA: $20 $F5
+    xor a
+    ld [hl+], a ; Relic0
+    ld [hl+], a ; Relic1
+    ld [hl+], a ; Other
+    ; We are done copying stats!
 
-    ld a, [wBattle_Magi_Summon_CreatureEnergy]                                 ; $46CC: $FA $6A $D0
-    ld [$D118], a                                 ; $46CF: $EA $18 $D1
-    ld [$D11A], a                                 ; $46D2: $EA $1A $D1
-    ld a, [$D126]                                 ; $46D5: $FA $26 $D1
-    ld b, a                                       ; $46D8: $47
-    ld hl, wBattle_Creature_Target.StatusActive                                  ; $46D9: $21 $25 $D1
-    or [hl]                                       ; $46DC: $B6
-    ld a, [hl]                                    ; $46DD: $7E
-    ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $46DE: $FA $03 $D1
-    ld b, a                                       ; $46E1: $47
-    ld c, $37                                     ; $46E2: $0E $37
-    call Math_Mult                                    ; $46E4: $CD $CA $04
-    ld bc, wBattle_Creature_Hero                                  ; $46E7: $01 $47 $D1
-    add hl, bc                                    ; $46EA: $09
-    ld a, h                                       ; $46EB: $7C
-    ld [$D07C], a                                 ; $46EC: $EA $7C $D0
-    ld a, l                                       ; $46EF: $7D
-    ld [$D07B], a                                 ; $46F0: $EA $7B $D0
-    ret                                           ; $46F3: $C9
+    ; Level up the creature from level 0 to target level
+    set 0, a ; Don't change XP
+    res 1, a ; Don't display level-up
+    ld [wBattle_LevelUp_Flags], a
+    ld a, [wBattle_Magi_Summon_CreatureLevel]
+    .LevelUpLoop:
+        ld hl, wBattle_Creature_Target
+        push af
+        call BattleCmd_LevelUp_DoLevelUp
+        pop af
+        dec a
+        jr nz, .LevelUpLoop
+
+    ld a, [wBattle_Magi_Summon_CreatureEnergy]
+    ld [$D118], a
+    ld [$D11A], a
+    ld a, [$D126]
+    ld b, a
+    ld hl, wBattle_Creature_Target.StatusActive
+    or [hl]
+    ld a, [hl]
+    ld a, [wBattle_Creature_Current.BattleCmd_Target]
+    ld b, a
+    ld c, $37
+    call Math_Mult
+    ld bc, wBattle_Creature_Hero
+    add hl, bc
+    ld a, h
+    ld [$D07C], a
+    ld a, l
+    ld [$D07B], a
+    ret
 
 
 Call_002_46F4:
@@ -2707,7 +2713,7 @@ jr_002_51FC:
     ; SummonX
     SwitchRAMBank BANK("WRAM BATTLE")
     Do_CallForeign Call_005_405C
-    call Call_002_4653                            ; $5340: $CD $53 $46
+    call BattleCmd_Func_CommonSummon                            ; $5340: $CD $53 $46
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5343: $FA $03 $D1
     dec a                                         ; $5346: $3D
     ld b, a                                       ; $5347: $47
@@ -3043,13 +3049,13 @@ Jump_002_54E8:
 
 jr_002_553D:
     Sound_Request_ForceStartSong SONGID_LevelUp1
-    ld hl, $D389                                  ; $5547: $21 $89 $D3
+    ld hl, wBattle_LevelUp_Flags                                  ; $5547: $21 $89 $D3
     ld [hl], $00                                  ; $554A: $36 $00
     set 1, [hl]                                   ; $554C: $CB $CE
     ld hl, $D110                                  ; $554E: $21 $10 $D1
-    call Call_002_57F1                            ; $5551: $CD $F1 $57
+    call BattleCmd_LevelUp_DoLevelUp                            ; $5551: $CD $F1 $57
     xor a                                         ; $5554: $AF
-    ld [$D389], a                                 ; $5555: $EA $89 $D3
+    ld [wBattle_LevelUp_Flags], a                                 ; $5555: $EA $89 $D3
     FGet16_BigEndian hl, $D115                                  ; $5558: $21 $15 $D1                                       ; $555D: $67
     ld bc, $0064                                  ; $555E: $01 $64 $00
     TwosComp bc
@@ -3082,7 +3088,7 @@ Jump_002_5578:
     ld hl, $D110                                  ; $559C: $21 $10 $D1
     call Call_002_5C1E                            ; $559F: $CD $1E $5C
     Sound_Request_ForceStartSong SONGID_LevelUp1
-    ld hl, $D389                                  ; $55AC: $21 $89 $D3
+    ld hl, wBattle_LevelUp_Flags                                  ; $55AC: $21 $89 $D3
     res 0, [hl]                                   ; $55AF: $CB $86
     set 1, [hl]                                   ; $55B1: $CB $CE
     ld hl, $D110                                  ; $55B3: $21 $10 $D1
@@ -3191,7 +3197,7 @@ Call_002_5657:
     cp [hl]                                       ; $565E: $BE
     jr z, jr_002_566F                             ; $565F: $28 $0E
 
-    ld a, [$D38A]                                 ; $5661: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $5661: $FA $8A $D3
     cp [hl]                                       ; $5664: $BE
     jr c, jr_002_56C5                             ; $5665: $38 $5E
 
@@ -3209,7 +3215,7 @@ jr_002_566F:
     cp [hl]                                       ; $5677: $BE
     jr z, jr_002_5688                             ; $5678: $28 $0E
 
-    ld a, [$D38A]                                 ; $567A: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $567A: $FA $8A $D3
     cp [hl]                                       ; $567D: $BE
     jr c, jr_002_56C5                             ; $567E: $38 $45
 
@@ -3227,7 +3233,7 @@ jr_002_5688:
     cp [hl]                                       ; $5690: $BE
     jr z, jr_002_56A1                             ; $5691: $28 $0E
 
-    ld a, [$D38A]                                 ; $5693: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $5693: $FA $8A $D3
     cp [hl]                                       ; $5696: $BE
     jr c, jr_002_56C5                             ; $5697: $38 $2C
 
@@ -3245,7 +3251,7 @@ jr_002_56A1:
     cp [hl]                                       ; $56A9: $BE
     jr z, jr_002_56C5                             ; $56AA: $28 $19
 
-    ld a, [$D38A]                                 ; $56AC: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $56AC: $FA $8A $D3
     cp [hl]                                       ; $56AF: $BE
     jr c, jr_002_56C5                             ; $56B0: $38 $13
 
@@ -3256,9 +3262,9 @@ jr_002_56A1:
 jr_002_56B8:
     pop hl                                        ; $56B8: $E1
     call Call_002_5B71                            ; $56B9: $CD $71 $5B
-    ld a, [$D389]                                 ; $56BC: $FA $89 $D3
+    ld a, [wBattle_LevelUp_Flags]                                 ; $56BC: $FA $89 $D3
     set 7, a                                      ; $56BF: $CB $FF
-    ld [$D389], a                                 ; $56C1: $EA $89 $D3
+    ld [wBattle_LevelUp_Flags], a                                 ; $56C1: $EA $89 $D3
     ret                                           ; $56C4: $C9
 
 
@@ -3427,9 +3433,17 @@ Call_002_57DE:
     ld [$C971], a                                 ; $57ED: $EA $71 $C9
     ret                                           ; $57F0: $C9
 
-    ; LEVEL UP LEVELUP function
-Call_002_57F1:
+
+BattleCmd_LevelUp_DoLevelUp:
+    ; Inputs:
+    ;   hl = wBattle_Creature_Current
+    ;   wBattle_LevelUp_Flags
+    ;       Bit 0 - Set if we don't change XP of creature
+    ;       Bit 1 - Set to display level up text
+    ;       Bit 7 - Set to "use new cmd script" (TODO)
     push hl
+
+    ; wBattle_LevelUp_StatIndex = rand(4)*5
     SwitchRAMBank BANK("WRAM BATTLE")
     ld c, $03
     call Math_Random
@@ -3437,85 +3451,89 @@ Call_002_57F1:
     ld b, $05
     call Math_Mult
     ld a, l
-    ld [$D38B], a ;Random 0-3 lookup table for levelup stats
+    ld [wBattle_LevelUp_StatIndex], a
 
+    ; wBattle_LevelUp_EnergyIndex = 1 + rand(4)
     ld c, $03
     call Math_Random
     inc a
-    ld [$D388], a ; energy increase for level
+    ld [wBattle_LevelUp_EnergyIndex], a
 
+    ; Get Creature Type
     pop hl
     push hl
-
-    ld bc, $0003
+    ld bc, BATTLE_CREATURE_TYPE
     add hl, bc
     ld d, $00
-    ld e, [hl] ;Creature type?
+    ld e, [hl]
 
-    ld a, [$D389]
+    ; Remove 100 XP if the flag bit0 is reset
+    ld a, [wBattle_LevelUp_Flags]
     bit 0, a
-    jr nz, .ChangeLevelStat ; Skip the xp modification if, for example, using a ring levelup at smithy
+    jr nz, .SkipRemoveXP
+    .Subtract100Exp:
+        ; Subtract 100 XP
+        pop hl
+        push hl
+        ld bc, BATTLE_CREATURE_EXPERIENCE
+        add hl, bc
+        push hl
+        ld a, [hl+]
+        ld l, [hl]
+        ld h, a
+        ld bc, 100
+        TwosComp bc
+        add hl, bc
+        ld a, h
+        ld c, l
+        pop hl
+        ld [hl+], a
+        ld [hl], c
+    .SkipRemoveXP:
 
+    ; Check Creature level and skip if level 99
     pop hl
     push hl
-    ld bc, $0005 ;Code not verified yet
-    add hl, bc
-    push hl
-    ld a, [hl+]
-    ld l, [hl]
-    ld h, a
-    ld bc, $0064
-    TwosComp bc
-    add hl, bc
-    ld a, h
-    ld c, l
-    pop hl
-    ld [hl+], a
-    ld [hl], c
-
-.ChangeLevelStat:
-    pop hl
-    push hl
-
-    ld bc, $0004
+    ld bc, BATTLE_CREATURE_LEVEL
     add hl, bc
 
     ld a, [hl]
-    ld [$D38A], a
-    cp $63
-    jr nz, jr_002_584B
-
-    pop hl
-    ret
-
-
-jr_002_584B:
+    ld [wBattle_LevelUp_Level], a
+    cp 99
+    jr nz, .Pass
+    .MaxLevel:
+        pop hl
+        ret
+    .Pass:
+    ; Increment level by 1
     inc a
     ld [hl], a
-    cp $3E
-    jr c, jr_002_5855
 
-    xor a
-    ld [$D38B], a
+    ; Past level 62 (Battle_LevelUp_PenaltyLevel), gain less stats...
+    cp Battle_LevelUp_PenaltyLevel
+    jr c, .NotPenalty
+    .Penalty:
+        xor a
+        ld [wBattle_LevelUp_StatIndex], a
+    .NotPenalty:
 
-jr_002_5855:
-    call Call_002_5AFA                            ; Strength
-    ld [$D38C], a
-    call Call_002_59F2                            ; Skill
-    ld [$D38D], a
-    call Call_002_5A2B                            ; Speed
-    ld [$D38E], a
-    call Call_002_5A64                            ; Defence
-    ld [$D38F], a
-    call Call_002_5AAF                            ; Resist
-    ld [$D390], a
+    ; Calculate stat gains
+    call BattleCmd_LevelUp_StrengthGain
+    ld [wBattle_LevelUp_DeltaStrength], a
+    call BattleCmd_LevelUp_SkillGain
+    ld [wBattle_LevelUp_DeltaSkill], a
+    call BattleCmd_LevelUp_SpeedGain
+    ld [wBattle_LevelUp_DeltaSpeed], a
+    call BattleCmd_LevelUp_DefenceGain
+    ld [wBattle_LevelUp_DeltaDefence], a
+    call BattleCmd_LevelUp_ResistGain
+    ld [wBattle_LevelUp_DeltaResist], a
 
     pop hl
     push hl
-
     ld de, $000B
     add hl, de
-    ld a, [$D38C]
+    ld a, [wBattle_LevelUp_DeltaStrength]
     add [hl]
     cp $63
     jr c, jr_002_5883
@@ -3526,7 +3544,7 @@ jr_002_5883:
     ld [hl], a
 
     inc hl
-    ld a, [$D38D]
+    ld a, [wBattle_LevelUp_DeltaSkill]
     add [hl]
     cp $63
     jr c, jr_002_588F
@@ -3537,7 +3555,7 @@ jr_002_588F:
     ld [hl], a
 
     inc hl
-    ld a, [$D38E]
+    ld a, [wBattle_LevelUp_DeltaSpeed]
     add [hl]
     cp $63
     jr c, jr_002_589B
@@ -3548,7 +3566,7 @@ jr_002_589B:
     ld [hl], a
 
     inc hl
-    ld a, [$D38F]
+    ld a, [wBattle_LevelUp_DeltaDefence]
     add [hl]
     cp $63
     jr c, jr_002_58A7
@@ -3559,7 +3577,7 @@ jr_002_58A7:
     ld [hl], a
 
     inc hl
-    ld a, [$D390]
+    ld a, [wBattle_LevelUp_DeltaResist]
     add [hl]
     cp $63
     jr c, jr_002_58B3
@@ -3578,7 +3596,7 @@ jr_002_58B3:
     ld l, a
     ld h, $00
     ld d, h
-    ld a, [$D388]
+    ld a, [wBattle_LevelUp_EnergyIndex]
     ld e, a
     add hl, de
     ld e, l
@@ -3619,10 +3637,10 @@ jr_002_58DD:
     ld a, $0A                                     ; $58E9: $3E $0A
     call Battle_Cmd_Formula_Luck                            ; $58EB: $CD $FB $53
     ld b, a                                       ; $58EE: $47
-    ld a, [$D38A]                                 ; $58EF: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $58EF: $FA $8A $D3
     inc a                                         ; $58F2: $3C
     add b                                         ; $58F3: $80
-    ld [$D38A], a                                 ; $58F4: $EA $8A $D3
+    ld [wBattle_LevelUp_Level], a                                 ; $58F4: $EA $8A $D3
     pop hl                                        ; $58F7: $E1
     call Call_002_5657                            ; $58F8: $CD $57 $56
     call Call_002_58FF                            ; $58FB: $CD $FF $58
@@ -3630,7 +3648,7 @@ jr_002_58DD:
 
 
 Call_002_58FF:
-    ld a, [$D389]                                 ; $58FF: $FA $89 $D3
+    ld a, [wBattle_LevelUp_Flags]                                 ; $58FF: $FA $89 $D3
     bit 1, a                                      ; $5902: $CB $4F
     ret z                                         ; $5904: $C8
 
@@ -3642,7 +3660,7 @@ Call_002_58FF:
     call Call_002_5778                            ; $5914: $CD $78 $57
     call Call_002_579A                            ; $5917: $CD $9A $57
     call Call_002_57BC                            ; $591A: $CD $BC $57
-    ld a, [$D389]                                 ; $591D: $FA $89 $D3
+    ld a, [wBattle_LevelUp_Flags]                                 ; $591D: $FA $89 $D3
     bit 7, a                                      ; $5920: $CB $7F
     jr nz, jr_002_5942                            ; $5922: $20 $1E
 
@@ -3665,7 +3683,7 @@ Call_002_58FF:
 
 jr_002_5942:
     res 7, a                                      ; $5942: $CB $BF
-    ld [$D389], a                                 ; $5944: $EA $89 $D3
+    ld [wBattle_LevelUp_Flags], a                                 ; $5944: $EA $89 $D3
     call Call_002_57DE                            ; $5947: $CD $DE $57
     ld a, $49                                     ; $594A: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $594C: $EA $3D $C9
@@ -3689,7 +3707,7 @@ jr_002_5966:
 
 
 Call_002_596F:
-    ld a, [$D389]                                 ; $596F: $FA $89 $D3
+    ld a, [wBattle_LevelUp_Flags]                                 ; $596F: $FA $89 $D3
     bit 1, a                                      ; $5972: $CB $4F
     ret z                                         ; $5974: $C8
 
@@ -3718,7 +3736,7 @@ Call_002_596F:
 Call_002_59A3:
     push hl                                       ; $59A3: $E5
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$D389]                                 ; $59AB: $FA $89 $D3
+    ld a, [wBattle_LevelUp_Flags]                                 ; $59AB: $FA $89 $D3
     bit 0, a                                      ; $59AE: $CB $47
     jr nz, jr_002_59BF                            ; $59B0: $20 $0D
 
@@ -3732,7 +3750,7 @@ jr_002_59BF:
     ld bc, $0004                                  ; $59C1: $01 $04 $00
     add hl, bc                                    ; $59C4: $09
     ld a, [hl]                                    ; $59C5: $7E
-    ld [$D38A], a                                 ; $59C6: $EA $8A $D3
+    ld [wBattle_LevelUp_Level], a                                 ; $59C6: $EA $8A $D3
     cp $63                                        ; $59C9: $FE $63
     jr nz, jr_002_59CF                            ; $59CB: $20 $02
 
@@ -3744,7 +3762,7 @@ jr_002_59CF:
     inc a                                         ; $59CF: $3C
     ld [hl], a                                    ; $59D0: $77
     pop hl                                        ; $59D1: $E1
-    ld a, [$D38A]                                 ; $59D2: $FA $8A $D3
+    ld a, [wBattle_LevelUp_Level]                                 ; $59D2: $FA $8A $D3
     inc a                                         ; $59D5: $3C
     cp $20                                        ; $59D6: $FE $20
     jr nc, jr_002_59DF                            ; $59D8: $30 $05
@@ -3768,229 +3786,238 @@ jr_002_59EB:
     ret                                           ; $59F1: $C9
 
 
-Call_002_59F2:
-    call Math_Rand8Inc                                    ; $59F2: $CD $4F $05
-    ld c, a                                       ; $59F5: $4F
-    ld b, $0A                                     ; $59F6: $06 $0A
-    call Math_Div8                                   ; $59F8: $CD $AC $04
-    ld c, l                                       ; $59FB: $4D
-    ld b, $00                                     ; $59FC: $06 $00
-    ld a, [$D113]                                 ; $59FE: $FA $13 $D1
-    cp $00                                        ; $5A01: $FE $00
-    jr nz, jr_002_5A0A                            ; $5A03: $20 $05
+BattleCmd_LevelUp_SkillGain::
+    ; Get a number 0-9
+    call Math_Rand8Inc
+    ld c, a
+    ld b, 10
+    call Math_Div8
+    ld c, l
+    ld b, $00
 
-    ld hl, $5B2B                                  ; $5A05: $21 $2B $5B
-    jr jr_002_5A28                                ; $5A08: $18 $1E
+    ; Choose the lookup table
+    ld a, [wBattle_Creature_Target.Type]
+    cp $00
+    jr nz, jr_002_5A0A
+
+    ld hl, $5B2B
+    jr jr_002_5A28
 
 jr_002_5A0A:
-    cp $04                                        ; $5A0A: $FE $04
-    jr nz, jr_002_5A13                            ; $5A0C: $20 $05
+    cp $04
+    jr nz, jr_002_5A13
 
-    ld hl, $5B17                                  ; $5A0E: $21 $17 $5B
-    jr jr_002_5A28                                ; $5A11: $18 $15
+    ld hl, $5B17
+    jr jr_002_5A28
 
 jr_002_5A13:
-    cp $02                                        ; $5A13: $FE $02
-    jr nz, jr_002_5A1C                            ; $5A15: $20 $05
+    cp $02
+    jr nz, jr_002_5A1C
 
-    ld hl, $5B21                                  ; $5A17: $21 $21 $5B
-    jr jr_002_5A28                                ; $5A1A: $18 $0C
+    ld hl, $5B21
+    jr jr_002_5A28
 
 jr_002_5A1C:
-    cp $06                                        ; $5A1C: $FE $06
-    jr nz, jr_002_5A25                            ; $5A1E: $20 $05
+    cp $06
+    jr nz, jr_002_5A25
 
-    ld hl, $5B17                                  ; $5A20: $21 $17 $5B
-    jr jr_002_5A28                                ; $5A23: $18 $03
+    ld hl, $5B17
+    jr jr_002_5A28
 
 jr_002_5A25:
-    ld hl, $5B2B                                  ; $5A25: $21 $2B $5B
+    ld hl, $5B2B
 
 jr_002_5A28:
-    add hl, bc                                    ; $5A28: $09
-    ld a, [hl]                                    ; $5A29: $7E
-    ret                                           ; $5A2A: $C9
+    add hl, bc
+    ld a, [hl]
+    ret
 
 
-Call_002_5A2B:
-    call Math_Rand8Inc                                    ; $5A2B: $CD $4F $05
-    ld c, a                                       ; $5A2E: $4F
-    ld b, $0A                                     ; $5A2F: $06 $0A
-    call Math_Div8                                   ; $5A31: $CD $AC $04
-    ld c, l                                       ; $5A34: $4D
-    ld b, $00                                     ; $5A35: $06 $00
-    ld a, [$D113]                                 ; $5A37: $FA $13 $D1
-    cp $00                                        ; $5A3A: $FE $00
-    jr nz, jr_002_5A43                            ; $5A3C: $20 $05
+BattleCmd_LevelUp_SpeedGain:
+    call Math_Rand8Inc
+    ld c, a
+    ld b, $0A
+    call Math_Div8
+    ld c, l
+    ld b, $00
+    ld a, [$D113]
+    cp $00
+    jr nz, jr_002_5A43
 
-    ld hl, $5B2B                                  ; $5A3E: $21 $2B $5B
-    jr jr_002_5A61                                ; $5A41: $18 $1E
+    ld hl, $5B2B
+    jr jr_002_5A61
 
 jr_002_5A43:
-    cp $04                                        ; $5A43: $FE $04
-    jr nz, jr_002_5A4C                            ; $5A45: $20 $05
+    cp $04
+    jr nz, jr_002_5A4C
 
-    ld hl, $5B17                                  ; $5A47: $21 $17 $5B
-    jr jr_002_5A61                                ; $5A4A: $18 $15
+    ld hl, $5B17
+    jr jr_002_5A61
 
 jr_002_5A4C:
-    cp $02                                        ; $5A4C: $FE $02
-    jr nz, jr_002_5A55                            ; $5A4E: $20 $05
+    cp $02
+    jr nz, jr_002_5A55
 
-    ld hl, $5B21                                  ; $5A50: $21 $21 $5B
-    jr jr_002_5A61                                ; $5A53: $18 $0C
+    ld hl, $5B21
+    jr jr_002_5A61
 
 jr_002_5A55:
-    cp $06                                        ; $5A55: $FE $06
-    jr nz, jr_002_5A5E                            ; $5A57: $20 $05
+    cp $06
+    jr nz, jr_002_5A5E
 
-    ld hl, $5B17                                  ; $5A59: $21 $17 $5B
-    jr jr_002_5A61                                ; $5A5C: $18 $03
+    ld hl, $5B17
+    jr jr_002_5A61
 
 jr_002_5A5E:
-    ld hl, $5B2B                                  ; $5A5E: $21 $2B $5B
+    ld hl, $5B2B
 
 jr_002_5A61:
-    add hl, bc                                    ; $5A61: $09
-    ld a, [hl]                                    ; $5A62: $7E
-    ret                                           ; $5A63: $C9
+    add hl, bc
+    ld a, [hl]
+    ret
 
 
-Call_002_5A64:
-    call Math_Rand8Inc                                    ; $5A64: $CD $4F $05
-    ld c, a                                       ; $5A67: $4F
-    ld b, $0A                                     ; $5A68: $06 $0A
-    call Math_Div8                                   ; $5A6A: $CD $AC $04
-    ld c, l                                       ; $5A6D: $4D
-    ld b, $00                                     ; $5A6E: $06 $00
-    ld a, [$D113]                                 ; $5A70: $FA $13 $D1
-    cp $00                                        ; $5A73: $FE $00
-    jr nz, jr_002_5A7C                            ; $5A75: $20 $05
+BattleCmd_LevelUp_DefenceGain:
+    call Math_Rand8Inc
+    ld c, a
+    ld b, $0A
+    call Math_Div8
+    ld c, l
+    ld b, $00
+    ld a, [$D113]
+    cp $00
+    jr nz, jr_002_5A7C
 
-    ld hl, $5B17                                  ; $5A77: $21 $17 $5B
-    jr jr_002_5A9A                                ; $5A7A: $18 $1E
+    ld hl, $5B17
+    jr jr_002_5A9A
 
 jr_002_5A7C:
-    cp $04                                        ; $5A7C: $FE $04
-    jr nz, jr_002_5A85                            ; $5A7E: $20 $05
+    cp $04
+    jr nz, jr_002_5A85
 
-    ld hl, $5B2B                                  ; $5A80: $21 $2B $5B
-    jr jr_002_5A9A                                ; $5A83: $18 $15
+    ld hl, $5B2B
+    jr jr_002_5A9A
 
 jr_002_5A85:
-    cp $02                                        ; $5A85: $FE $02
-    jr nz, jr_002_5A8E                            ; $5A87: $20 $05
+    cp $02
+    jr nz, jr_002_5A8E
 
-    ld hl, $5B21                                  ; $5A89: $21 $21 $5B
-    jr jr_002_5A9A                                ; $5A8C: $18 $0C
+    ld hl, $5B21
+    jr jr_002_5A9A
 
 jr_002_5A8E:
-    cp $06                                        ; $5A8E: $FE $06
-    jr nz, jr_002_5A97                            ; $5A90: $20 $05
+    cp $06
+    jr nz, jr_002_5A97
 
-    ld hl, $5B17                                  ; $5A92: $21 $17 $5B
-    jr jr_002_5A9A                                ; $5A95: $18 $03
+    ld hl, $5B17
+    jr jr_002_5A9A
 
 jr_002_5A97:
-    ld hl, $5B2B                                  ; $5A97: $21 $2B $5B
+    ld hl, $5B2B
 
 jr_002_5A9A:
-    add hl, bc                                    ; $5A9A: $09
-    ld a, [hl]                                    ; $5A9B: $7E
-    push af                                       ; $5A9C: $F5
-    call Math_Rand8Inc                                    ; $5A9D: $CD $4F $05
-    ld c, a                                       ; $5AA0: $4F
-    ld b, $03                                     ; $5AA1: $06 $03
-    call Math_Div8                                   ; $5AA3: $CD $AC $04
-    ld a, l                                       ; $5AA6: $7D
-    and $02                                       ; $5AA7: $E6 $02
-    srl a                                         ; $5AA9: $CB $3F
-    ld b, a                                       ; $5AAB: $47
-    pop af                                        ; $5AAC: $F1
-    add b                                         ; $5AAD: $80
-    ret                                           ; $5AAE: $C9
+    add hl, bc
+    ld a, [hl]
+    push af
+    call Math_Rand8Inc
+    ld c, a
+    ld b, $03
+    call Math_Div8
+    ld a, l
+    and $02
+    srl a
+    ld b, a
+    pop af
+    add b
+    ret
 
 
-Call_002_5AAF:
-    call Math_Rand8Inc                                    ; $5AAF: $CD $4F $05
-    ld c, a                                       ; $5AB2: $4F
-    ld b, $0A                                     ; $5AB3: $06 $0A
-    call Math_Div8                                   ; $5AB5: $CD $AC $04
-    ld c, l                                       ; $5AB8: $4D
-    ld b, $00                                     ; $5AB9: $06 $00
-    ld a, [$D113]                                 ; $5ABB: $FA $13 $D1
-    cp $00                                        ; $5ABE: $FE $00
-    jr nz, jr_002_5AC7                            ; $5AC0: $20 $05
+BattleCmd_LevelUp_ResistGain:
+    call Math_Rand8Inc
+    ld c, a
+    ld b, $0A
+    call Math_Div8
+    ld c, l
+    ld b, $00
+    ld a, [$D113]
+    cp $00
+    jr nz, jr_002_5AC7
 
-    ld hl, $5B17                                  ; $5AC2: $21 $17 $5B
-    jr jr_002_5AE5                                ; $5AC5: $18 $1E
+    ld hl, $5B17
+    jr jr_002_5AE5
 
 jr_002_5AC7:
-    cp $04                                        ; $5AC7: $FE $04
-    jr nz, jr_002_5AD0                            ; $5AC9: $20 $05
+    cp $04
+    jr nz, jr_002_5AD0
 
-    ld hl, $5B2B                                  ; $5ACB: $21 $2B $5B
-    jr jr_002_5AE5                                ; $5ACE: $18 $15
+    ld hl, $5B2B
+    jr jr_002_5AE5
 
 jr_002_5AD0:
-    cp $02                                        ; $5AD0: $FE $02
-    jr nz, jr_002_5AD9                            ; $5AD2: $20 $05
+    cp $02
+    jr nz, jr_002_5AD9
 
-    ld hl, $5B21                                  ; $5AD4: $21 $21 $5B
-    jr jr_002_5AE5                                ; $5AD7: $18 $0C
+    ld hl, $5B21
+    jr jr_002_5AE5
 
 jr_002_5AD9:
-    cp $06                                        ; $5AD9: $FE $06
-    jr nz, jr_002_5AE2                            ; $5ADB: $20 $05
+    cp $06
+    jr nz, jr_002_5AE2
 
-    ld hl, $5B17                                  ; $5ADD: $21 $17 $5B
-    jr jr_002_5AE5                                ; $5AE0: $18 $03
+    ld hl, $5B17
+    jr jr_002_5AE5
 
 jr_002_5AE2:
-    ld hl, $5B2B                                  ; $5AE2: $21 $2B $5B
+    ld hl, $5B2B
 
 jr_002_5AE5:
-    add hl, bc                                    ; $5AE5: $09
-    ld a, [hl]                                    ; $5AE6: $7E
-    push af                                       ; $5AE7: $F5
-    call Math_Rand8Inc                                    ; $5AE8: $CD $4F $05
-    ld c, a                                       ; $5AEB: $4F
-    ld b, $03                                     ; $5AEC: $06 $03
-    call Math_Div8                                   ; $5AEE: $CD $AC $04
-    ld a, l                                       ; $5AF1: $7D
-    and $02                                       ; $5AF2: $E6 $02
-    srl a                                         ; $5AF4: $CB $3F
-    ld b, a                                       ; $5AF6: $47
-    pop af                                        ; $5AF7: $F1
-    add b                                         ; $5AF8: $80
-    ret                                           ; $5AF9: $C9
+    add hl, bc
+    ld a, [hl]
+    push af
+    call Math_Rand8Inc
+    ld c, a
+    ld b, $03
+    call Math_Div8
+    ld a, l
+    and $02
+    srl a
+    ld b, a
+    pop af
+    add b
+    ret
 
 
-Call_002_5AFA:
-    call Math_Rand8Inc                                    ; $5AFA: $CD $4F $05
-    ld b, a                                       ; $5AFD: $47
-    call Math_Rand8Inc                                    ; $5AFE: $CD $4F $05
-    swap a                                        ; $5B01: $CB $37
-    and b                                         ; $5B03: $A0
-    and $07                                       ; $5B04: $E6 $07
-    ld c, a                                       ; $5B06: $4F
-    ld b, $00                                     ; $5B07: $06 $00
-    ld hl, $5B0F                                  ; $5B09: $21 $0F $5B
-    add hl, bc                                    ; $5B0C: $09
-    ld a, [hl]                                    ; $5B0D: $7E
-    ret                                           ; $5B0E: $C9
+BattleCmd_LevelUp_StrengthGain:
+    ; Calculates a Strength gain
+    ; Inputs:
+    ;   None
+    ; Outputs:
+    ;   a = 0-3 (averages 1.1875)
 
-    ; $5B0F
-    db $01, $02
+    ; Get a random number from %000-%111, where the 0 digits have 75% chance and 1 digits have 25% chance
+    ; Probably not intentional, given the even distribution of the strength table?
+    call Math_Rand8Inc
+    ld b, a
+    call Math_Rand8Inc
+    swap a
+    and b ; Bug? - should be xor instead?
+    and %00000111
+    ld c, a
+    ld b, $00
 
-    db $01                                        ; $5B11: $01
+    ; Look up the corresponding value in the table
+    ld hl, BattleCmd_LevelUp_StrengthTable
+    add hl, bc
+    ld a, [hl]
+    ret
 
-    db $02
+BattleCmd_LevelUp_StrengthTable::
+    ; 000 001 010 011 100 101 110 111
+    ;  27   9   9   3   9   3   3   1   (chance/64)
+    ; Average stat gain: 1.1875 per level
+    ; If equally distributed, would expect 1.5 per level
+    db 1,  2,  1,  2,  0,  3,  2,  1
 
-    nop                                           ; $5B13: $00
-    inc bc                                        ; $5B14: $03
-    ld [bc], a                                    ; $5B15: $02
-    db $01                                        ; $5B16: $01
     nop                                           ; $5B17: $00
 
     db $00, $01, $01
@@ -4035,7 +4062,7 @@ Call_002_5B35::
     xor a                                         ; $5B4D: $AF
     set 0, a                                      ; $5B4E: $CB $C7
     res 1, a                                      ; $5B50: $CB $8F
-    ld [$D389], a                                 ; $5B52: $EA $89 $D3
+    ld [wBattle_LevelUp_Flags], a                                 ; $5B52: $EA $89 $D3
     pop af                                        ; $5B55: $F1
     and a                                         ; $5B56: $A7
     jr z, jr_002_5B64                             ; $5B57: $28 $0B
@@ -4043,7 +4070,7 @@ Call_002_5B35::
 jr_002_5B59:
     ld hl, $D110                                  ; $5B59: $21 $10 $D1
     push af                                       ; $5B5C: $F5
-    call Call_002_57F1                            ; $5B5D: $CD $F1 $57
+    call BattleCmd_LevelUp_DoLevelUp                            ; $5B5D: $CD $F1 $57
     pop af                                        ; $5B60: $F1
     dec a                                         ; $5B61: $3D
     jr nz, jr_002_5B59                            ; $5B62: $20 $F5
@@ -4144,13 +4171,13 @@ Battle_Init_CreatureClose::
 
 
     set 0, a                                      ; $5BEC: $CB $C7
-    ld [$D389], a                                 ; $5BEE: $EA $89 $D3
+    ld [wBattle_LevelUp_Flags], a                                 ; $5BEE: $EA $89 $D3
     ld a, [wBattle_Magi_Summon_CreatureLevel]                                 ; $5BF1: $FA $69 $D0
 
 jr_002_5BF4:
     ld hl, $D110                                  ; $5BF4: $21 $10 $D1
     push af                                       ; $5BF7: $F5
-    call Call_002_57F1                            ; $5BF8: $CD $F1 $57
+    call BattleCmd_LevelUp_DoLevelUp                            ; $5BF8: $CD $F1 $57
     pop af                                        ; $5BFB: $F1
     dec a                                         ; $5BFC: $3D
     jr nz, jr_002_5BF4                            ; $5BFD: $20 $F5
@@ -4166,7 +4193,7 @@ jr_002_5BF4:
 
     SwitchRAMBank BANK("WRAM BATTLE")
     ld hl, $D110                                  ; $5C15: $21 $10 $D1
-    call Call_002_57F1                            ; $5C18: $CD $F1 $57
+    call BattleCmd_LevelUp_DoLevelUp                            ; $5C18: $CD $F1 $57
     ret                                           ; $5C1B: $C9
 
 
@@ -4732,7 +4759,7 @@ Battle_Flow_ControlCreature:
         ; Otherwise, save the selected target
         Mov8 wBattle_Creature_Current.BattleCmd_Target, wMenu_ReturnValue
         ld [$D0C1], a
-        Do_CallForeign Call_005_579D
+        Do_CallForeign Battle_Helpers_SetActorEffect
         ret
 
     ; $6110
@@ -7174,9 +7201,10 @@ BattleScriptXX_SummonInit:
     ld bc, wBattle_Creature_Current
     call Battle_Init_CreatureClose
 
+    ; Create a battle sparkle at the target location
     Mov8 wBattle_Actor_Target, wBattle_Creature_Current.BattleCmd_Target
     Set8 wBattle_Actor_Effect, Battle_Actor_Effect_SPARKLE
-    Do_CallForeign Call_005_579D
+    Do_CallForeign Battle_Helpers_SetActorEffect
     ret
 
 
@@ -7187,22 +7215,24 @@ BattleScriptXX_SummonDelay::
     call BattleScriptXX_SummonInit
     ld a, [wBattle_CurCreature_ValidBattleCmd]
     and a
-    jr nz, jr_002_7549
+    jr nz, .Valid
+    .Invalid:
+        ; If the reason is because we don't have enough energy, we want to set the Magi's energy to 1 to defeat him faster, but this doesn't work (see next comment)
+        ld a, [wBattle_NotEnoughEnergy]
+        and a
+        ret z
 
-    ld a, [wBattle_NotEnoughEnergy]
-    and a
-    ret z
+        ; Bug - this doesn't actually apply because we don't close the creature! We just ret instead
+        xor a
+        ld [wBattle_Creature_Current.CurEnergy], a
+        Set8 wBattle_Creature_Current.CurEnergy + 1, 1
+        ret
 
-    xor a
-    ld [wBattle_Creature_Current.CurEnergy], a
-    ld a, $01
-    ld [wBattle_Creature_Current.CurEnergy + 1], a
-    ret
-
-
-jr_002_7549:
+    .Valid:
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_SUMMON, BATTLE_ACTOR_MAGI
-    call Call_002_4653
+
+    call BattleCmd_Func_CommonSummon
+
     FGet16 hl, $D07B
     ld bc, $D110
     call Battle_Init_CreatureCopy

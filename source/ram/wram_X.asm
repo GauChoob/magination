@@ -403,7 +403,7 @@ wBattle_CurCreature_CardTileID::
 
     ds $D0C0 - @
 wBattle_Actor_Effect::
-    ; Type of effect to apply to Actor. Only used effect is Battle_Actor_Effect_SPARKLE for summoning creatures, or else MAGIANIM(TODO) for Tony/Magi
+    ; Type of effect to apply to Actor. Only used effect is Battle_Actor_Effect_SPARKLE for summoning creatures, or else MAGIANIM(TODO) for Tony/Magi in Battle_Set_MagiAnim
     ds 1
     ;ds $D0C1 - @
 wBattle_Actor_Target::
@@ -485,6 +485,40 @@ wBattle_UsedRings::
     DEF BATTLE_USEDRINGS_DEAD EQU $01      ; Was summoned but is not longer on the field
     DEF BATTLE_USEDRINGS_ALIVE EQU $02     ; Summoned on the field
     ds xInventory_Rings_LENGTH
+
+    ds $D388 - @
+wBattle_LevelUp_EnergyIndex::
+    ; 1+ rand(4)
+    ds 1
+    ;ds $D389 - @
+wBattle_LevelUp_Flags::
+    ; Bit 0 - Set if we don't change XP of creature
+    ; Bit 1 - Set to display level up text
+    ; Bit 7 - Set to "use new cmd script" (TODO)
+    ds 1
+    ;ds $D38A - @
+wBattle_LevelUp_Level::
+    ; Current level of creature
+    ds 1
+    ;ds $D38B - @
+wBattle_LevelUp_StatIndex::
+    ; rand(4)*5
+    ds 1
+    ;ds $D38C - @
+wBattle_LevelUp_DeltaStrength::
+    ds 1
+    ;ds $D38D - @
+wBattle_LevelUp_DeltaSkill::
+    ds 1
+    ;ds $D38E - @
+wBattle_LevelUp_DeltaSpeed::
+    ds 1
+    ;ds $D38F - @
+wBattle_LevelUp_DeltaDefence::
+    ds 1
+    ;ds $D390 - @
+wBattle_LevelUp_DeltaResist::
+    ds 1
 
     ds $D391 - @
 wBattle_MagiCreatureID::

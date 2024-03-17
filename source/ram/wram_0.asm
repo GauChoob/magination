@@ -1294,7 +1294,7 @@ wMenu_Battle_TableRowBuffer::
         ; big bug! The maximum length that this function uses is $68!
         ; This overwrites the all the remaining variables and the top $21 bytes of the stack!!
         ;ds $68 - todo
-        ds $22
+        ds $40
     ENDU
 
     ; Max space is $40?

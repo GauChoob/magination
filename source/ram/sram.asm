@@ -274,7 +274,7 @@ MACRO Creature_Struct
     .Relic1:
         ds 1
     .Other:
-        ; TODO - I think this is an unused spare byte?
+        ; TODO - I think this is an unused spare byte? Maybe used for Defend?
         ds 1
 ENDM
 

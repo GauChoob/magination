@@ -115,15 +115,15 @@ DEF CreatureID_ShadowMagi6          EQU $68
 DEF CreatureID_ShadowMagi7          EQU $69
 DEF CreatureID_ShadowMagi8          EQU $6A
 DEF CreatureID_Salafy               EQU $6B
-DEF CreatureID_NoMagi               EQU $6C
+DEF CreatureID_NoMagi               EQU $6C ; Explicitly referred to as the last index sometimes, so consider inserting new magi above this one
 DEF CreatureID_End                  EQU $6D
 
 
-DEF CREATURE_TABLE_TYPE_0 EQU $00
-DEF CREATURE_TABLE_TYPE_2 EQU $02
-DEF CREATURE_TABLE_TYPE_4 EQU $04
-DEF CREATURE_TABLE_TYPE_6 EQU $06
-DEF CREATURE_TABLE_TYPE_8 EQU $08
+DEF CREATURE_TABLE_TYPE_SMALL EQU $00
+DEF CREATURE_TABLE_TYPE_MEDIUM EQU $02
+DEF CREATURE_TABLE_TYPE_LARGE EQU $04
+DEF CREATURE_TABLE_TYPE_WEAK EQU $06
+DEF CREATURE_TABLE_TYPE_STRONG EQU $08
 DEF CREATURE_TABLE_TYPE_MAGI EQU $0C
 DEF CREATURE_TABLE_TYPE_NOMAGI EQU $0E
 
@@ -180,7 +180,7 @@ MACRO Creature_Table_Row
 .\1:
     db CREATURE_TABLE_TYPE_\2 ; Type
     db \3 ; Energy
-    db \4 ; UNK
+    db \4 ; UNK - previously upper byte of MaxEnergy
     db \5 ; MaxEnergy
     db \6 ; Strength
     db \7 ; Skill

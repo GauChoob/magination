@@ -1918,27 +1918,33 @@ Battle_Helpers_SelectMenu::
     ECallHL
     ret
 
-Call_005_579D::
+Battle_Helpers_SetActorEffect::
+    ; Sets an Actor to the target script
+    ; Inputs:
+    ;   wBattle_Actor_Effect - only existing effect is Battle_Actor_Effect_SPARKLE
+    ;   wBattle_Actor_Target - ActorID to modify
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [wBattle_Actor_Effect]                                 ; $57A4: $FA $C0 $D0
-    and a                                         ; $57A7: $A7
-    ret z                                         ; $57A8: $C8
+    ld a, [wBattle_Actor_Effect]
+    and a
+    ret z
 
-    cp $01                                        ; $57A9: $FE $01
-    jr nz, jr_005_57B9                            ; $57AB: $20 $0C
+    cp Battle_Actor_Effect_SPARKLE
+    jr nz, .CheckNext
+    .Sparkle:
+        Do_Battle_SetActorScript [wBattle_Actor_Target], SCRIPT_ANIM_ObjectsUNKNOWN8_1
+        ret
+    .CheckNext:
+    ; Nothing else to check, there's only 1 effect!
+    ret
 
-    ld a, [$D0C1]                                 ; $57AD: $FA $C1 $D0
-    ld d, $11                                     ; $57B0: $16 $11
-    ld bc, $7438                                  ; $57B2: $01 $38 $74
-    call Battle00_Actor_SetScript                                    ; $57B5: $CD $F0 $38
-    ret                                           ; $57B8: $C9
 
+Battle_Helpers_SetMagiAnim::
+    ; Set the animation of Tony or the enemy Magi. Called via the Macro Battle_Set_MagiAnim
+    ; Inputs:
+    ;   wBattle_Actor_CreatureID - CreatureID of the magi
+    ;   wBattle_Actor_Effect - Desired animation (e.g. BATTLE_MAGIANIM_IDLE)
+    ;   wBattle_Actor_Target - Actor ID of the magi
 
-jr_005_57B9:
-    ret                                           ; $57B9: $C9
-
-    ; $57BA
-Call_005_57BA::
     ; Abort if index is out of range, i.e. id is >= CreatureID_NoMagi
     ld a, [wBattle_Actor_CreatureID]
     cp CreatureID_NoMagi
@@ -1967,7 +1973,7 @@ Call_005_57BA::
     ld a, [hl+]
     ld b, [hl]
     ld c, a
-    ld a, [$D0C1]
+    ld a, [wBattle_Actor_Target]
     call Battle00_Actor_SetScript
     ret
 
