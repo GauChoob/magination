@@ -1381,7 +1381,7 @@ Battle_Menu_Ring:
     ;   wMenu_ReturnValue
     ;   wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
     SwitchRAMBank BANK("WRAM BATTLE")
-    Set8 $D0C0, $01 ; TODO
+    Set8 wBattle_Actor_Effect, Battle_Actor_Effect_SPARKLE
     Set8 wMenu_CursorID, Enum_Menu_CursorTable_Battle_Summon_Creatur4 ; TODO - this seems useless as we will immediately replace it in Do_Menu_Init?
     ; wMenu_SelectedRingIndex = 0 (first page)
     xor a
@@ -1920,7 +1920,7 @@ Battle_Helpers_SelectMenu::
 
 Call_005_579D::
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$D0C0]                                 ; $57A4: $FA $C0 $D0
+    ld a, [wBattle_Actor_Effect]                                 ; $57A4: $FA $C0 $D0
     and a                                         ; $57A7: $A7
     ret z                                         ; $57A8: $C8
 
@@ -1940,7 +1940,7 @@ jr_005_57B9:
     ; $57BA
 Call_005_57BA::
     ; Abort if index is out of range, i.e. id is >= CreatureID_NoMagi
-    ld a, [$D0C2]
+    ld a, [wBattle_Actor_CreatureID]
     cp CreatureID_NoMagi
     ret nc
 
@@ -1955,7 +1955,7 @@ Call_005_57BA::
 
     ; Navigate to the nth entry of the scripts' table
     push hl
-    Get8 b, $D0C0
+    Get8 b, wBattle_Actor_Effect
     ld c, $03
     call Math_Mult
     pop bc
@@ -1972,7 +1972,7 @@ Call_005_57BA::
     ret
 
 
-    ld a, [$D0C0]                                 ; $57E5: $FA $C0 $D0
+    ld a, [wBattle_Actor_Effect]                                 ; $57E5: $FA $C0 $D0
     ld b, a                                       ; $57E8: $47
     ld c, $03                                     ; $57E9: $0E $03
     call Math_Mult                                    ; $57EB: $CD $CA $04

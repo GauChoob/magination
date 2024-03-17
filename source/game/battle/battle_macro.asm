@@ -79,11 +79,8 @@ MACRO Battle_Set_MagiAnim
     ;   \1  Magi's dream creature id
     ;   \2  BATTLE_MAGIANIM_X
     ;   \3  Target actor id
-    ld a, \1
-    ld [$D0C2], a
-    ld a, \2
-    ld [$D0C0], a
-    ld a, \3
-    ld [$D0C1], a
+    Set8 wBattle_Actor_CreatureID, \1
+    Set8 wBattle_Actor_Effect, \2
+    Set8 wBattle_Actor_Target, \3
     Do_CallForeign Call_005_57BA
 ENDM

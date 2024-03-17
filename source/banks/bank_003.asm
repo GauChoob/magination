@@ -2480,7 +2480,7 @@ jr_003_5767:
 
 Jump_003_5774:
 jr_003_5774:
-    ld hl, $CD59                                  ; $5774: $21 $59 $CD
+    ld hl, wMenu_RingBank_VisibleRings                                  ; $5774: $21 $59 $CD
     ld a, [$CC89]                                 ; $5777: $FA $89 $CC
     ld c, a                                       ; $577A: $4F
     ld b, $00                                     ; $577B: $06 $00
@@ -2539,7 +2539,7 @@ jr_003_57EE:
     ld bc, $9C62                                  ; $57F7: $01 $62 $9C
     add hl, bc                                    ; $57FA: $09
     ld [hl], $90                                  ; $57FB: $36 $90
-    ld a, [$CD57]                                 ; $57FD: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $57FD: $FA $57 $CD
     ld hl, $CC89                                  ; $5800: $21 $89 $CC
     add [hl]                                      ; $5803: $86
     ld b, a                                       ; $5804: $47
@@ -2581,7 +2581,7 @@ jr_003_5831:
     ld bc, $9C71                                  ; $5841: $01 $71 $9C
     add hl, bc                                    ; $5844: $09
     ld [hl], d                                    ; $5845: $72
-    ld hl, $CD59                                  ; $5846: $21 $59 $CD
+    ld hl, wMenu_RingBank_VisibleRings                                  ; $5846: $21 $59 $CD
     ld a, [$CC89]                                 ; $5849: $FA $89 $CC
     ld c, a                                       ; $584C: $4F
     ld b, $00                                     ; $584D: $06 $00
@@ -2743,7 +2743,7 @@ Jump_003_5B41:
     Battery_SetBank "XRAM Gamestate"
     Battery_On
     ld a, [xRingCount]                                 ; $5B4E: $FA $22 $A1
-    ld [$CD58], a                                 ; $5B51: $EA $58 $CD
+    ld [wMenu_RingBank_RingCount], a                                 ; $5B51: $EA $58 $CD
     Battery_Off
     ld a, $01                                     ; $5B58: $3E $01
     ld [$CC4E], a                                 ; $5B5A: $EA $4E $CC
@@ -2773,7 +2773,7 @@ Call_003_5BC3:
     ld [$CD69], a                                 ; $5BC4: $EA $69 $CD
     call Call_003_565B                            ; $5BC7: $CD $5B $56
     ld a, [wMenu_CursorID]                                 ; $5BCA: $FA $81 $CD
-    ld hl, $CD57                                  ; $5BCD: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $5BCD: $21 $57 $CD
     add [hl]                                      ; $5BD0: $86
     ld [$CD68], a                                 ; $5BD1: $EA $68 $CD
     ld a, [wMenu_CursorID]                                 ; $5BD4: $FA $81 $CD
@@ -3147,7 +3147,7 @@ jr_003_6406:
     jr nz, jr_003_6406                            ; $6408: $20 $FC
 
     ld a, $FF                                     ; $640A: $3E $FF
-    ld hl, $CD59                                  ; $640C: $21 $59 $CD
+    ld hl, wMenu_RingBank_VisibleRings                                  ; $640C: $21 $59 $CD
     ld d, $0E                                     ; $640F: $16 $0E
 
 jr_003_6411:
@@ -3163,11 +3163,11 @@ jr_003_6411:
     jr z, jr_003_6491                             ; $641E: $28 $71
 
     xor a                                         ; $6420: $AF
-    ld [$CD57], a                                 ; $6421: $EA $57 $CD
+    ld [wMenu_RingBank_TopVisibleRingIndex], a                                 ; $6421: $EA $57 $CD
     jr jr_003_642D                                ; $6424: $18 $07
 
 jr_003_6426:
-    ld hl, $CD57                                  ; $6426: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $6426: $21 $57 $CD
     ld a, [hl]                                    ; $6429: $7E
     sub $07                                       ; $642A: $D6 $07
     ld [hl], a                                    ; $642C: $77
@@ -3175,15 +3175,15 @@ jr_003_6426:
 jr_003_642D:
     xor a                                         ; $642D: $AF
     ld [$CC89], a                                 ; $642E: $EA $89 $CC
-    ld [$CD67], a                                 ; $6431: $EA $67 $CD
-    ld de, $CD59                                  ; $6434: $11 $59 $CD
+    ld [wMenu_RingBank_VisibleRingCount], a                                 ; $6431: $EA $67 $CD
+    ld de, wMenu_RingBank_VisibleRings                                  ; $6434: $11 $59 $CD
     Battery_SetBank "XRAM Creatures"
     Battery_On
 
 jr_003_6444:
-    ld hl, $CD67                                  ; $6444: $21 $67 $CD
+    ld hl, wMenu_RingBank_VisibleRingCount                                  ; $6444: $21 $67 $CD
     inc [hl]                                      ; $6447: $34
-    ld a, [$CD57]                                 ; $6448: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $6448: $FA $57 $CD
     ld hl, $CC89                                  ; $644B: $21 $89 $CC
     add [hl]                                      ; $644E: $86
     ld b, a                                       ; $644F: $47
@@ -3206,20 +3206,20 @@ jr_003_6444:
     cp $07                                        ; $6467: $FE $07
     jr z, jr_003_6476                             ; $6469: $28 $0B
 
-    ld hl, $CD57                                  ; $646B: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $646B: $21 $57 $CD
     add [hl]                                      ; $646E: $86
     ld b, a                                       ; $646F: $47
-    ld a, [$CD58]                                 ; $6470: $FA $58 $CD
+    ld a, [wMenu_RingBank_RingCount]                                 ; $6470: $FA $58 $CD
     cp b                                          ; $6473: $B8
     jr nz, jr_003_6444                            ; $6474: $20 $CE
 
 jr_003_6476:
-    ld a, [$CD57]                                 ; $6476: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $6476: $FA $57 $CD
     ld [$CC4D], a                                 ; $6479: $EA $4D $CC
-    ld a, [$CD58]                                 ; $647C: $FA $58 $CD
+    ld a, [wMenu_RingBank_RingCount]                                 ; $647C: $FA $58 $CD
     ld b, a                                       ; $647F: $47
-    ld a, [$CD57]                                 ; $6480: $FA $57 $CD
-    ld hl, $CD67                                  ; $6483: $21 $67 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $6480: $FA $57 $CD
+    ld hl, wMenu_RingBank_VisibleRingCount                                  ; $6483: $21 $67 $CD
     add [hl]                                      ; $6486: $86
     cp b                                          ; $6487: $B8
     jr nc, jr_003_649F                            ; $6488: $30 $15
@@ -3229,7 +3229,7 @@ jr_003_6476:
     jr jr_003_649F                                ; $648F: $18 $0E
 
 jr_003_6491:
-    ld hl, $CD57                                  ; $6491: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $6491: $21 $57 $CD
     ld a, [hl]                                    ; $6494: $7E
     add $07                                       ; $6495: $C6 $07
     ld [hl], a                                    ; $6497: $77
@@ -3240,7 +3240,7 @@ jr_003_6491:
 jr_003_649F:
     Battery_Off
     ld hl, $CC4E                                  ; $64A3: $21 $4E $CC
-    ld a, [$CD67]                                 ; $64A6: $FA $67 $CD
+    ld a, [wMenu_RingBank_VisibleRingCount]                                 ; $64A6: $FA $67 $CD
     ld d, a                                       ; $64A9: $57
     ld a, $01                                     ; $64AA: $3E $01
 
@@ -3258,7 +3258,7 @@ Call_003_64B1:
     jr z, jr_003_64EB                             ; $64B6: $28 $33
 
     ld b, a                                       ; $64B8: $47
-    ld a, [$CD57]                                 ; $64B9: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $64B9: $FA $57 $CD
     cp b                                          ; $64BC: $B8
     jr nc, jr_003_64EB                            ; $64BD: $30 $2C
 
@@ -3270,14 +3270,14 @@ Call_003_64B1:
 
 jr_003_64C6:
     ld a, [$CD75]                                 ; $64C6: $FA $75 $CD
-    ld hl, $CD57                                  ; $64C9: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $64C9: $21 $57 $CD
     sub [hl]                                      ; $64CC: $96
     ld c, a                                       ; $64CD: $4F
     ld b, $00                                     ; $64CE: $06 $00
     ld hl, $CC4D                                  ; $64D0: $21 $4D $CC
     add hl, bc                                    ; $64D3: $09
     ld [hl], $01                                  ; $64D4: $36 $01
-    ld a, [$CD57]                                 ; $64D6: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $64D6: $FA $57 $CD
     ld b, a                                       ; $64D9: $47
     ld a, [$CD75]                                 ; $64DA: $FA $75 $CD
     dec a                                         ; $64DD: $3D
@@ -3302,7 +3302,7 @@ jr_003_64EE:
     cp [hl]                                       ; $64FC: $BE
     jr z, jr_003_650C                             ; $64FD: $28 $0D
 
-    ld hl, $CD57                                  ; $64FF: $21 $57 $CD
+    ld hl, wMenu_RingBank_TopVisibleRingIndex                                  ; $64FF: $21 $57 $CD
     sub [hl]                                      ; $6502: $96
     ld c, a                                       ; $6503: $4F
     ld b, $00                                     ; $6504: $06 $00
@@ -3311,7 +3311,7 @@ jr_003_64EE:
     ld [hl], $0A                                  ; $650A: $36 $0A
 
 jr_003_650C:
-    ld a, [$CD57]                                 ; $650C: $FA $57 $CD
+    ld a, [wMenu_RingBank_TopVisibleRingIndex]                                 ; $650C: $FA $57 $CD
     ld b, a                                       ; $650F: $47
     ld a, [$CD68]                                 ; $6510: $FA $68 $CD
     dec a                                         ; $6513: $3D

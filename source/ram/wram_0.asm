@@ -1124,12 +1124,22 @@ wMenu_Ringsmith_CreatureID::
     ; CreatureID of ring being made
     ds 1
 
+    ds $CD57 - @
+wMenu_RingBank_TopVisibleRingIndex::
+    ; Index of the topmost visible ring
+    ds 1
+    ;ds $CD58 - @
+wMenu_RingBank_RingCount::
+    ; Total amount of rings. Copy of xRingCount
+    ds 1
     ;ds $CD59 - @
 wMenu_RingBank_VisibleRings::
     ; the CreatureID and CreatureLevel for each of the 7 visible creatures
     ds 7*2
     ;ds $CD67 - @
 wMenu_RingBank_VisibleRingCount::
+    ; How many rings are visible (1-7)
+    ds 1
 
     ds $CD7F - @
 wMenuChoice_BlinkFingerTimer::

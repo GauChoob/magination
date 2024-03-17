@@ -32,7 +32,7 @@ Script_Table::
     dw Cmd_Sound_SongPause_Bugged  ; $1D
     dw Cmd_Sound_SongResume        ; $1E
     dw Cmd_Sound_SongStart         ; $1F
-    dw Cmd_Sound_FanfareStart      ; $20
+    dw Cmd_Sound_FanfareStart      ; $20, unused
     dw Cmd_Sound_SongStop          ; $21
     dw Cmd_Sound_SetSongVolume      ; $22
     dw Cmd_Sound_FadeInSong        ; $23
@@ -42,12 +42,12 @@ Script_Table::
     dw Cmd_Battle_Attack ; $26
     dw Cmd_Battle_Auto ; $27
     dw Cmd_Battle_Spell ; $28
-    dw Cmd_Battle_Evaluate ; $29
+    dw Cmd_Battle_Evaluate ; $29, unused empty command
     dw Cmd_Battle_Focus ; $2A
     dw Cmd_Battle_NextTurn ; $2B
     dw Cmd_Battle_ForgeRing ; $2C
-    dw $0F76
-    dw $0F82 ;This defines a single monster from an encounter
+    dw Cmd_Battle_SummonFast ; $2D, unused deprecated
+    dw Cmd_Battle_SummonDelay ; $2E
     dw $0F8A
     dw Cmd_Battle_Swirl            ; $30 -todo maybe this should be a graphics function instead
     dw $0FDF

@@ -1,3 +1,8 @@
+; These functions are accessed via the table BattleAI_Target_Table
+; Using a Battle Script command, a type of desired target is assigned
+; These functions select the specific target based on the desired target
+
+
 ASSERT BattleCore_BANK == BANK(@)
 
 BattleAI_Target_AdjustForMyTeam:

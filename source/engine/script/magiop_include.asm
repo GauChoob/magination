@@ -46,7 +46,7 @@ DEF Enum_Cmd_28                 RB 1 ; $28
 DEF Enum_Cmd_29                 RB 1 ; $29
 DEF Enum_Cmd_2A                 RB 1 ; $2A
 DEF Enum_Cmd_2B                 RB 1 ; $2B
-DEF Enum_Cmd_2C                 RB 1 ; $2C
+DEF Enum_Cmd_Battle_ForgeRing                   RB 1 ; $2C
 DEF Enum_Cmd_2D                 RB 1 ; $2D
 DEF Enum_Cmd_2E                 RB 1 ; $2E ;This defines a single monster from an encounter
 DEF Enum_Cmd_2F                 RB 1 ; $2F
@@ -426,7 +426,15 @@ MACRO SongFadeOut
     SongFadeInterval \1       ;Cycle interval from 1 to $10
 ENDM
 
-; 25 - 2F
+; 25 - 2B
+
+MACRO ForgeRing
+    db Enum_Cmd_Battle_ForgeRing
+    db \1       ; CreatureID
+    db \2       ; CreatureLevel
+ENDM
+
+; 2D - 2F
 
 MACRO BattleSwirl
     db Enum_Cmd_Battle_Swirl

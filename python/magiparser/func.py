@@ -257,7 +257,13 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    # 0x25 - 0x2F
+    # 0x25 - 0x2B
+
+    def ForgeRing(self):                    # 0x2C
+        self.size = 3
+        return self.GenerateOutput(*range(2))
+
+    # 0x2D - 0x2F
 
     def BattleSwirl(self):                  # 0x30
         self.size = 4

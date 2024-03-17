@@ -146,6 +146,8 @@ class MagiScriptLine:
 
         0x28: CommandBuilder("func", "BATTLE_UNK", "db", "$dw", "$db"),
 
+        0x2C: CommandBuilder("func", "ForgeRing", "CreatureID", "db"),
+
         0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
 
         0x33: CommandBuilder("func", "BlowAway"),

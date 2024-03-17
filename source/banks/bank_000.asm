@@ -90,8 +90,8 @@ Cmd_Battle_Attack::
     ; Used only in Salafy's tutorial battle to make the creature Defend
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, e.g. BATTLE_SLOT_ENEMY0
-    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
-    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
     jp BattleScriptXX_Attack
@@ -112,8 +112,8 @@ Cmd_Battle_Spell::
     ; Unclear if there will be a bug if you try and make a creature cast a spell
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
-    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
-    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
     jp BattleScriptXX_Spell
@@ -165,26 +165,36 @@ Cmd_Battle_ForgeRing::
 
 Cmd_Battle_SummonFast::
     ; Deprecated function, equivalent to Cmd_Battle_SummonDelay with a delay of 0
-    ; Unused but functional
+    ; Unused but functional, just hooks into same code as Cmd_Battle_SummonDelay
     ; Inputs:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   db  wBattle_Buffer_Summon_CreatureID
+    ;   db  wBattle_Buffer_Summon_CreatureLevel
+    ;   db  wBattle_Buffer_Summon_CreatureEnergy
     ld a, $04
     call Battle00_CopyDataFromFrame
-    xor a
-    ld [$D396], a
-    jp $752D
+    xor a ; Manually define the last param that didn't exist before
+    ld [wBattle_Buffer_Summon_Delay], a
+    jp BattleScriptXX_SummonDelay
 
 Cmd_Battle_SummonDelay::
+    ; Makes the enemy magi summon a creature
     ; Inputs:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   db  wBattle_Buffer_Summon_CreatureID
+    ;   db  wBattle_Buffer_Summon_CreatureLevel
+    ;   db  wBattle_Buffer_Summon_CreatureEnergy
+    ;   db  wBattle_Buffer_Summon_Delay, turns before creature is summoned
     ld a, $05
     call Battle00_CopyDataFromFrame
-    jp $752D
+    jp BattleScriptXX_SummonDelay
 
 
     ld a, $04
     call Battle00_CopyDataFromFrame
     jp $7595
 
-    ; $0F92
+
 Cmd_Battle_Swirl::
     ; Pause the game and do a white swirl, indicating the start of a battle
     ; Also, backup the current song and play a song for the battle

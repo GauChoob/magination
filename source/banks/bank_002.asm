@@ -921,7 +921,7 @@ jr_002_4651:
 
 
 Call_002_4653:
-    ld a, [$D068]                                 ; $4653: $FA $68 $D0
+    ld a, [wBattle_Magi_Summon_CreatureID]                                 ; $4653: $FA $68 $D0
     ld b, a                                       ; $4656: $47
     ld c, Creature_Table_SIZE                                     ; $4657: $0E $2D
     call Math_Mult                                    ; $4659: $CD $CA $04
@@ -940,7 +940,7 @@ Call_002_4653:
     ld [hl+], a                                   ; $4684: $22
     xor a                                         ; $4685: $AF
     ld [hl+], a                                   ; $4686: $22
-    ld a, [$D068]                                 ; $4687: $FA $68 $D0
+    ld a, [wBattle_Magi_Summon_CreatureID]                                 ; $4687: $FA $68 $D0
     ld [hl+], a                                   ; $468A: $22
     LdHLIBCI                                        ; $468D: $03
     inc bc                                        ; $468E: $03
@@ -981,7 +981,7 @@ jr_002_46AD:
     set 0, a                                      ; $46B7: $CB $C7
     res 1, a                                      ; $46B9: $CB $8F
     ld [$D389], a                                 ; $46BB: $EA $89 $D3
-    ld a, [$D069]                                 ; $46BE: $FA $69 $D0
+    ld a, [wBattle_Magi_Summon_CreatureLevel]                                 ; $46BE: $FA $69 $D0
 
 jr_002_46C1:
     ld hl, $D110                                  ; $46C1: $21 $10 $D1
@@ -991,7 +991,7 @@ jr_002_46C1:
     dec a                                         ; $46C9: $3D
     jr nz, jr_002_46C1                            ; $46CA: $20 $F5
 
-    ld a, [$D06A]                                 ; $46CC: $FA $6A $D0
+    ld a, [wBattle_Magi_Summon_CreatureEnergy]                                 ; $46CC: $FA $6A $D0
     ld [$D118], a                                 ; $46CF: $EA $18 $D1
     ld [$D11A], a                                 ; $46D2: $EA $1A $D1
     ld a, [$D126]                                 ; $46D5: $FA $26 $D1
@@ -4145,7 +4145,7 @@ Battle_Init_CreatureClose::
 
     set 0, a                                      ; $5BEC: $CB $C7
     ld [$D389], a                                 ; $5BEE: $EA $89 $D3
-    ld a, [$D069]                                 ; $5BF1: $FA $69 $D0
+    ld a, [wBattle_Magi_Summon_CreatureLevel]                                 ; $5BF1: $FA $69 $D0
 
 jr_002_5BF4:
     ld hl, $D110                                  ; $5BF4: $21 $10 $D1
@@ -4540,7 +4540,7 @@ Battle02_Flow_Begin::
     Do_MemSet wBattle_CreatureSlots.Ally0, (wBattle_CreatureSlots.Enemy3 + 1 - wBattle_CreatureSlots.Ally0), $00
     
     Do_MemSet $D36E, $0018, $00
-    Do_MemSet $D07D, $000A, $00
+    Do_MemSet wBattle_SummonTimer, wBattle_SummonTimer.End - wBattle_SummonTimer, $00
     Do_MemSet $D0B8, $0008, $FF
     ld bc, $51C2
     FSet16 $D35D, bc
@@ -4570,7 +4570,7 @@ Battle_Flow_CommandMenuGetCmdNames:
     ; Hero -> FOCUS
     ld bc, BattleCmd_Table.BattleCmd_FIGHT
     ld a, [wBattle_CurCreature_Slot]
-    cp $00 ; id 0 = hero
+    cp BATTLE_SLOT_HERO
     jr nz, .Continue
     .IsHero:
         ld bc, BattleCmd_Table.BattleCmd_FOCUS
@@ -4650,7 +4650,7 @@ Battle_Flow_CommandMenuGetCmdNames:
 Battle_Flow_ControlCreature:
     ; Shows the Menu options for the current creature (or Tony)
     xor a
-    ld [$D0C0], a ; todo
+    ld [wBattle_Actor_Effect], a ; Remove any Battle sparkles from a Creature Tony was about to summon, then cancelled
 
     ; Allow the user to select an option via the menu
     call Battle_Flow_CreatureCommandMenu
@@ -4699,7 +4699,7 @@ Battle_Flow_ControlCreature:
         ; If unsuccessful, reset the control from the beginning
         .CancelMenu:
             ld a, [wBattle_CurCreature_Slot]
-            cp wBattle_CreatureSlots.Hero - wBattle_CreatureSlots
+            cp BATTLE_SLOT_HERO
             .NotHero:
                 jp nz, Battle_Flow_ControlCreature
             .Hero:
@@ -4716,7 +4716,7 @@ Battle_Flow_ControlCreature:
         .Cancel:
             ; Try again
             ld a, [wBattle_CurCreature_Slot]
-            cp 0
+            cp BATTLE_SLOT_HERO
             jp nz, Battle_Flow_ControlCreature
             ; For Tony we need to refresh the textbox it seems, probably becauses we came here via DoMenu
             Battle_TextboxOpen
@@ -4761,7 +4761,7 @@ Battle_Flow_CreatureCommandMenu:
 
     ; Creature or Hero?
     ld a, [wBattle_CurCreature_Slot]
-    cp 0
+    cp BATTLE_SLOT_HERO
     jr z, .HandleHero
     .HandleCreature:
         ; Determine which menu options are selectable
@@ -4921,7 +4921,7 @@ Battle_Flow_CreatureCommandMenu:
     .DoCancel:
         ; The hero cannot cancel, so ignore
         ld a, [wBattle_CurCreature_Slot]
-        cp 0
+        cp BATTLE_SLOT_HERO
         jr z, .MenuLoop
 
         ; If it's a creature, accept the cancel command and return
@@ -5545,13 +5545,11 @@ jr_002_67BC:
     cp $02                                        ; $67C3: $FE $02
     jr nc, jr_002_67CE                            ; $67C5: $30 $07
 
-    ld a, $00                                     ; $67C7: $3E $00
-    ld [wBattle_CurCreature_Slot], a                                 ; $67C9: $EA $B1 $D0
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_HERO
     jr jr_002_67E1                                ; $67CC: $18 $13
 
 jr_002_67CE:
-    ld a, $01                                     ; $67CE: $3E $01
-    ld [wBattle_CurCreature_Slot], a                                 ; $67D0: $EA $B1 $D0
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_ALLY0
     ld a, [wBattle_Creature_Current.BattleCmd_Rating]                                 ; $67D3: $FA $05 $D1
     res 7, a                                      ; $67D6: $CB $BF
     cp $05                                        ; $67D8: $FE $05
@@ -5854,7 +5852,7 @@ jr_002_69DF:
 
 Call_002_6A01:
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, $04                                     ; $6A08: $3E $04
+    ld a, BATTLE_SLOT_ENEMY0 - 1                                    ; $6A08: $3E $04
     set 7, a                                      ; $6A0A: $CB $FF
     ld [wBattle_CurCreature_Slot], a                                 ; $6A0C: $EA $B1 $D0
     ld de, $D25A                                  ; $6A0F: $11 $5A $D2
@@ -5977,7 +5975,7 @@ Battle_Flow_ProcessHero:
     Battle_TextboxOpen
 
     ; Processing .Hero
-    xor a
+    xor a ; BATTLE_SLOT_HERO
     ld [wBattle_CurCreature_Slot], a
 
     ; Load the Hero
@@ -6023,8 +6021,7 @@ Battle_Flow_ProcessHero:
 
 
 Call_002_6BBA:
-    ld a, $09                                     ; $6BBA: $3E $09
-    ld [wBattle_CurCreature_Slot], a                                 ; $6BBC: $EA $B1 $D0
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI
     ld bc, $D336                                  ; $6BBF: $01 $36 $D3
     ld hl, $D0D9                                  ; $6BC2: $21 $D9 $D0
     call Battle_Init_CreatureCopy                            ; $6BC5: $CD $DC $5B
@@ -6807,11 +6804,11 @@ jr_002_72C0:
     ld [wMenu_ReturnValue], a                                 ; $72C2: $EA $A7 $CC
     Do_CallForeign Battle_Helpers_ChooseBattleCmd
     ld a, $20                                     ; $72CD: $3E $20
-    ld [$D068], a                                 ; $72CF: $EA $68 $D0
+    ld [wBattle_Magi_Summon_CreatureID], a                                 ; $72CF: $EA $68 $D0
     ld a, $01                                     ; $72D2: $3E $01
-    ld [$D069], a                                 ; $72D4: $EA $69 $D0
+    ld [wBattle_Magi_Summon_CreatureLevel], a                                 ; $72D4: $EA $69 $D0
     ld a, $14                                     ; $72D7: $3E $14
-    ld [$D06A], a                                 ; $72D9: $EA $6A $D0
+    ld [wBattle_Magi_Summon_CreatureEnergy], a                                 ; $72D9: $EA $6A $D0
     ld a, $05                                     ; $72DC: $3E $05
     ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $72DE: $EA $03 $D1
 
@@ -6971,14 +6968,14 @@ BattleScriptXX_Attack::
     ; Used only in Salafy's tutorial battle to make the creature Defend
     ; Arguments:
     ;   wBattle_Buffer_CreatureSlot, e.g. BATTLE_SLOT_ENEMY0
-    ;   wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
-    ;   wBattle_TargetAI - Desired target e.g. BattleAI_Target_EnemyWeakPercent
+    ;   wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_EnemyWeakPercent
 
     ; Load creature into wBattle_Creature_Current
     call BattleScriptXX_OpenCreatureFromFrame
 
     ; Get the pointer to the BattleCmd
-    ld bc, wBattle_ItemSpellBattleCmdAddress
+    ld bc, wBattle_Buffer_ItemSpellBattleCmdAddress
     ld hl, wBattle_CopyBuffer_Source
     LdHLIBCI
     LdHLIBCI
@@ -7004,8 +7001,8 @@ BattleScriptXX_Spell::
     ; Unclear if there will be a bug if you try and make a creature cast a spell
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
-    ;   dw  wBattle_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
-    ;   db  wBattle_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
 
     ; Load creature into wBattle_Creature_Current
     call BattleScriptXX_OpenCreatureFromFrame
@@ -7019,7 +7016,7 @@ BattleScriptXX_Spell::
 
     ; Set wBattle_Creature_Current.BattleCmd_MenuChoice
     ; Also get the spell data
-    FGet16 bc, wBattle_ItemSpellBattleCmdAddress
+    FGet16 bc, wBattle_Buffer_ItemSpellBattleCmdAddress
     FSet16 wBattle_CopyBuffer_Source, bc
     FSet16 wBattle_Creature_Current.BattleCmd_MenuChoice, bc
     ld bc, wMenu_Battle_TableRowBuffer
@@ -7039,7 +7036,7 @@ BattleScriptXX_Spell::
     Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
 
     ; Check if the target is valid
-    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI ; Used by Battle_Helpers_CheckValidTarget
     Do_CallForeign Battle_Helpers_CheckValidTarget
     ld a, [wBattle_CurCreature_ValidBattleCmd]
     and a
@@ -7091,129 +7088,139 @@ BattleScriptXX_ForgeRing::
     ret
 
 
-Call_002_748B:
-    call BattleScriptXX_OpenCreatureFromFrame                            ; $748B: $CD $2B $76
-    ld bc, $5ECE                                  ; $748E: $01 $CE $5E
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $7496: $70
-    ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $7497: $01 $00 $D1
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $749F: $70
+BattleScriptXX_SummonInit:
+    ; First, load the creature (magi)
+    call BattleScriptXX_OpenCreatureFromFrame
+
+    ; Select the SummonX command
+    ld bc, BattleCmd_Table.BattleCmd_SUMMONX
+    FSet16 wBattle_CopyBuffer_Source, bc
+    ld bc, wBattle_Creature_Current.BattleCmd_Function
+    FSet16 wBattle_CopyBuffer_Destination, bc
     Do_CallForeign BattleCmd_GetDataFromAddress
-    ld a, $09                                     ; $74A8: $3E $09
-    set 7, a                                      ; $74AA: $CB $FF
-    ld [wBattle_CurCreature_Slot], a                                 ; $74AC: $EA $B1 $D0
-    ld a, $0C                                     ; $74AF: $3E $0C
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $74B1: $EA $03 $D1
-    ld a, [$D395]                                 ; $74B4: $FA $95 $D3
-    ld [wBattle_Creature_Current.BattleCmd_Cost], a                                 ; $74B7: $EA $02 $D1
+
+    ; Set the params and call Battle_Helpers_CheckValidTarget
+    ld a, BATTLE_SLOT_MAGI
+    set 7, a
+    ld [wBattle_CurCreature_Slot], a
+    Set8 wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
+    Mov8 wBattle_Creature_Current.BattleCmd_Cost, wBattle_Buffer_Summon_CreatureEnergy
     Do_CallForeign Battle_Helpers_CheckValidTarget
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $74C2: $FA $AF $D0
-    and a                                         ; $74C5: $A7
-    ret z                                         ; $74C6: $C8
 
-    ld bc, $D068                                  ; $74C7: $01 $68 $D0
-    ld hl, $D393                                  ; $74CA: $21 $93 $D3
-    LdBCIHLI                                        ; $74CF: $03
-    LdBCIHLI                                        ; $74D2: $03
-    LdBCIHLI                                        ; $74D5: $03
-    ld hl, wBattle_CreatureSlots.Enemy0                                  ; $74D6: $21 $96 $D0
-    ld bc, $D082                                  ; $74D9: $01 $82 $D0
-    ld d, $04                                     ; $74DC: $16 $04
+    ; If not valid (not enough energy or no empty slots, ret)
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    ret z
 
-jr_002_74DE:
-    ld a, [bc]                                    ; $74DE: $0A
-    inc bc                                        ; $74DF: $03
-    add [hl]                                      ; $74E0: $86
-    ld [hl+], a                                   ; $74E1: $22
-    dec d                                         ; $74E2: $15
-    jr nz, jr_002_74DE                            ; $74E3: $20 $F9
+    ; Copy from temporary buffer into Magi's Summon vars
+    ; wBattle_Magi_Summon_Delay is not set here
+    ; Not there is a bug here - if doing a DualSummon, only the energy cost of the last creature will be applied, and the first one will be free
+    ld bc, wBattle_Magi_Summon_CreatureID
+    ld hl, wBattle_Buffer_Summon_CreatureID
+    LdBCIHLI
+    LdBCIHLI
+    LdBCIHLI
 
-    ld hl, $D097                                  ; $74E5: $21 $97 $D0
-    ld e, $06                                     ; $74E8: $1E $06
+    ; Choose target summon slot (prioritize slots in order 1, 2, 3, 0)
+    ; This whole section of the function is really inefficient, but hey, don't fix what's not broken...
+    ld hl, wBattle_CreatureSlots.Enemy0
+    ld bc, wBattle_SummonTimer.Enemy0
+    ld d, $04
+    ; Combine wBattle_CreatureSlots and wBattle_SummonTimer as both have to be 0 to be able to summon into the slot
+    .SetupLoop:
+        ld a, [bc]
+        inc bc
+        add [hl]
+        ld [hl+], a
+        dec d
+        jr nz, .SetupLoop
 
-jr_002_74EA:
-    ld a, [hl+]                                   ; $74EA: $2A
-    and a                                         ; $74EB: $A7
-    jr z, jr_002_74F8                             ; $74EC: $28 $0A
+    ; Loop through the slots to find an empty slot
+    ; Find the first empty slot within 1, 2, 3
+    ; If they are all non-empty, select slot 0 (we already know that we have a valid target somewhere, so we don't need to validate slot 0)
+    ld hl, wBattle_CreatureSlots.Enemy1
+    ld e, BATTLE_SLOT_ENEMY1
+    .Loop:
+        ld a, [hl+]
+        and a
+        jr z, .TargetFound
+        inc e
+        ld a, e
+        cp BATTLE_SLOT_ENEMY3 + 1
+        jr z, .TargetEnemy0
+        jr .Loop
+    .TargetEnemy0:
+    ld e, BATTLE_SLOT_ENEMY0
+    .TargetFound:
+    Set8 wBattle_Creature_Current.BattleCmd_Target, e
 
-    inc e                                         ; $74EE: $1C
-    ld a, e                                       ; $74EF: $7B
-    cp $09                                        ; $74F0: $FE $09
-    jr z, jr_002_74F6                             ; $74F2: $28 $02
+    ; In the Setup, we modified wBattle_CreatureSlots, so now we need to restore the original state
+    ld hl, wBattle_CreatureSlots.Enemy0
+    ld bc, wBattle_SummonTimer.Enemy0
+    ld d, $04
+    .RemoveSetup:
+        ld a, [bc]
+        inc bc
+        ld e, a
+        ld a, [hl]
+        sub e
+        ld [hl+], a
+        dec d
+        jr nz, .RemoveSetup
 
-    jr jr_002_74EA                                ; $74F4: $18 $F4
+    ; Close the creature
+    ld a, [wBattle_Buffer_CreatureSlot]
+    call BattleScriptXX_FindBattleCreatureFromSlot
+    ld bc, wBattle_Creature_Current
+    call Battle_Init_CreatureClose
 
-jr_002_74F6:
-    ld e, $05                                     ; $74F6: $1E $05
-
-jr_002_74F8:
-    ld a, e                                       ; $74F8: $7B
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $74F9: $EA $03 $D1
-    ld hl, wBattle_CreatureSlots.Enemy0                                  ; $74FC: $21 $96 $D0
-    ld bc, $D082                                  ; $74FF: $01 $82 $D0
-    ld d, $04                                     ; $7502: $16 $04
-
-jr_002_7504:
-    ld a, [bc]                                    ; $7504: $0A
-    inc bc                                        ; $7505: $03
-    ld e, a                                       ; $7506: $5F
-    ld a, [hl]                                    ; $7507: $7E
-    sub e                                         ; $7508: $93
-    ld [hl+], a                                   ; $7509: $22
-    dec d                                         ; $750A: $15
-    jr nz, jr_002_7504                            ; $750B: $20 $F7
-
-    ld a, [$D392]                                 ; $750D: $FA $92 $D3
-    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $7510: $CD $FC $75
-    ld bc, $D0D9                                  ; $7513: $01 $D9 $D0
-    call Battle_Init_CreatureCopy                            ; $7516: $CD $DC $5B
-    ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $7519: $FA $03 $D1
-    ld [$D0C1], a                                 ; $751C: $EA $C1 $D0
-    ld a, $01                                     ; $751F: $3E $01
-    ld [$D0C0], a                                 ; $7521: $EA $C0 $D0
+    Mov8 wBattle_Actor_Target, wBattle_Creature_Current.BattleCmd_Target
+    Set8 wBattle_Actor_Effect, Battle_Actor_Effect_SPARKLE
     Do_CallForeign Call_005_579D
-    ret                                           ; $752C: $C9
+    ret
 
-    ; $752D
-Call_002_752D::
-    xor a                                         ; $752D: $AF
-    ld [wBattle_NotEnoughEnergy], a                                 ; $752E: $EA $D8 $D0
-    call Call_002_748B                            ; $7531: $CD $8B $74
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $7534: $FA $AF $D0
-    and a                                         ; $7537: $A7
-    jr nz, jr_002_7549                            ; $7538: $20 $0F
 
-    ld a, [wBattle_NotEnoughEnergy]                                 ; $753A: $FA $D8 $D0
-    and a                                         ; $753D: $A7
-    ret z                                         ; $753E: $C8
+BattleScriptXX_SummonDelay::
+    xor a
+    ld [wBattle_NotEnoughEnergy], a
 
-    xor a                                         ; $753F: $AF
-    ld [wBattle_Creature_Current.CurEnergy], a                                 ; $7540: $EA $E0 $D0
-    ld a, $01                                     ; $7543: $3E $01
-    ld [wBattle_Creature_Current.CurEnergy + 1], a                                 ; $7545: $EA $E1 $D0
-    ret                                           ; $7548: $C9
+    call BattleScriptXX_SummonInit
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    jr nz, jr_002_7549
+
+    ld a, [wBattle_NotEnoughEnergy]
+    and a
+    ret z
+
+    xor a
+    ld [wBattle_Creature_Current.CurEnergy], a
+    ld a, $01
+    ld [wBattle_Creature_Current.CurEnergy + 1], a
+    ret
 
 
 jr_002_7549:
     Battle_Set_MagiAnim [wBattle_Creature_Magi.ID], BATTLE_MAGIANIM_SUMMON, BATTLE_ACTOR_MAGI
-    call Call_002_4653                            ; $7561: $CD $53 $46
-    FGet16 hl, $D07B                                  ; $7564: $21 $7B $D0
-    ld bc, $D110                                  ; $756A: $01 $10 $D1
-    call Battle_Init_CreatureCopy                            ; $756D: $CD $DC $5B
-    ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $7570: $FA $03 $D1
-    ld c, a                                       ; $7573: $4F
-    ld b, $00                                     ; $7574: $06 $00
-    ld hl, $D07D                                  ; $7576: $21 $7D $D0
-    add hl, bc                                    ; $7579: $09
-    ld a, [$D396]                                 ; $757A: $FA $96 $D3
-    inc a                                         ; $757D: $3C
-    ld [hl], a                                    ; $757E: $77
-    ld bc, $51C2                                  ; $757F: $01 $C2 $51
-    FSet16 wBattle_Creature_Current.BattleCmd_Function, bc                                    ; $7587: $70
-    ld a, [$D392]                                 ; $7588: $FA $92 $D3
-    call BattleScriptXX_FindBattleCreatureFromSlot                            ; $758B: $CD $FC $75
-    ld bc, $D0D9                                  ; $758E: $01 $D9 $D0
-    call Battle_Init_CreatureCopy                            ; $7591: $CD $DC $5B
-    ret                                           ; $7594: $C9
+    call Call_002_4653
+    FGet16 hl, $D07B
+    ld bc, $D110
+    call Battle_Init_CreatureCopy
+    ld a, [wBattle_Creature_Current.BattleCmd_Target]
+    ld c, a
+    ld b, $00
+    ld hl, wBattle_SummonTimer
+    add hl, bc
+    ld a, [$D396]
+    inc a
+    ld [hl], a
+    ld bc, $51C2
+    FSet16 wBattle_Creature_Current.BattleCmd_Function, bc
+    ld a, [$D392]
+    call BattleScriptXX_FindBattleCreatureFromSlot
+    ld bc, $D0D9
+    call Battle_Init_CreatureCopy
+    ret
 
 
     call BattleScriptXX_OpenCreatureFromFrame                            ; $7595: $CD $2B $76
@@ -7268,7 +7275,7 @@ BattleScriptXX_AITarget:
     jr nc, .Finally
 
     ; Or else, determine the best single target
-        ld a, [wBattle_TargetAI]
+        ld a, [wBattle_Buffer_TargetAI]
         ld c, a
         ld b, $00
         ld hl, BattleAI_Target_Table

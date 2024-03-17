@@ -18,6 +18,7 @@ DEF elementShadow       EQU $20     ;Strong vs Naroom
 DEF elementElectrical   EQU $40     ;No interactions
 DEF elementUNUSED       EQU $80     ;Unused
 
+DEF Battle_Actor_Effect_SPARKLE EQU 1
 
 RSRESET
 DEF BATTLE_SLOT_HERO RB 1

@@ -281,6 +281,23 @@ wBattle_SelectedRingIndex::
     ; Does the same thing as wMenu_SelectedRingIndex
     ds 1
 
+    ds $D068 - @
+wBattle_Magi_Summon_CreatureID::
+    ; Enemy Magi's summon data
+    ds 1
+    ;ds $D069 - @
+wBattle_Magi_Summon_CreatureLevel::
+    ; Enemy Magi's summon data
+    ds 1
+    ;ds $D06A - @
+wBattle_Magi_Summon_CreatureEnergy::
+    ; Enemy Magi's summon data
+    ds 1
+    ;ds $D06B - @
+wBattle_Magi_Summon_Delay::
+    ; Enemy Magi's summon data: Number of turns before summoning
+    ds 1
+
     ds $D06D - @
 wBattle_TurnsElapsed::
     ; Number of turns elapsed from the start of the battle
@@ -308,6 +325,31 @@ wBattle_DamageOverrideMagnitude::
     ; If wBattle_DamageOverrideFlag is $01,
     ; The amount of damage to deal
     ds 1
+
+    ds $D07D - @
+wBattle_SummonTimer::
+    ; Timer for creatures being summoned
+    .Hero:
+        ds 1
+    .Ally0:
+        ds 1
+    .Ally1:
+        ds 1
+    .Ally2:
+        ds 1
+    .Ally3:
+        ds 1
+    .Enemy0:
+        ds 1
+    .Enemy1:
+        ds 1
+    .Enemy2:
+        ds 1
+    .Enemy3:
+        ds 1
+    .Magi:
+        ds 1
+    .End:
 
     ds $D091 - @
 wBattle_CreatureSlots::
@@ -357,6 +399,19 @@ wBattle_CurCreature_Slot::
 wBattle_CurCreature_CardTileID::
     ; The tileid of the creature's card in the tileset
     ; Used for allied creatures only to draw the card in the cmd menu
+    ds 1
+
+    ds $D0C0 - @
+wBattle_Actor_Effect::
+    ; Type of effect to apply to Actor. Only used effect is Battle_Actor_Effect_SPARKLE for summoning creatures, or else MAGIANIM(TODO) for Tony/Magi
+    ds 1
+    ;ds $D0C1 - @
+wBattle_Actor_Target::
+    ; To which Actor to apply the effect
+    ds 1
+    ;ds $D0C2 - @
+wBattle_Actor_CreatureID::
+    ; CreatureID of the actor being targetted (for Tony/Magi)
     ds 1
 
     ds $D0D3 - @
@@ -444,18 +499,40 @@ wBattle_Buffer::
     ds $30
 .End
 NEXTU
+    ; Cmd_Battle_Attack
+    ; Cmd_Battle_Spell
+    ; Cmd_Battle_Focus
+    ; Cmd_Battle_SummonFast
+    ; Cmd_Battle_SummonDelay
     ;ds $D392 - @
 wBattle_Buffer_CreatureSlot::
     ; Target slot, e.g. BATTLE_SLOT_HERO
     ds 1
+    UNION
     ;ds $D393 - @
-wBattle_ItemSpellBattleCmdAddress::
+wBattle_Buffer_ItemSpellBattleCmdAddress::
     ds 2
     ;ds $D395 - @
-wBattle_TargetAI::
+wBattle_Buffer_TargetAI::
     ; The desired target
     ds 1
+    NEXTU
+    ;ds $D393 - @
+wBattle_Buffer_Summon_CreatureID::
+    ds 1
+    ;ds $D394 - @
+wBattle_Buffer_Summon_CreatureLevel::
+    ds 1
+    ;ds $D395 - @
+wBattle_Buffer_Summon_CreatureEnergy::
+    ds 1
+    ;ds $D396 - @
+wBattle_Buffer_Summon_Delay::
+    ; Number of turns before summoning
+    ds 1
+    ENDU
 NEXTU
+    ; Cmd_Battle_ForgeRing
     ;ds $D392 - @
 wBattle_Buffer_CreatureID::
     ; CreatureID to make
