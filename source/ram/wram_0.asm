@@ -1295,6 +1295,10 @@ wMenu_Battle_TableRowBuffer::
         ; This overwrites the all the remaining variables and the top $21 bytes of the stack!!
         ;ds $68 - todo
         ds $40
+    NEXTU
+            ds 33
+        .LevelUp_BattleCmd:
+            ds 0
     ENDU
 
     ; Max space is $40?

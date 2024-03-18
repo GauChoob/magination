@@ -188,7 +188,7 @@ MACRO Creature_Table_Row
     db \9 ; Defense
     db \<10> ; Resist
     db \<11> ; Luck
-    db \<12> ; UNKEnergyUp
+    db \<12> ; EnergyUp (bonus energy gained per level up)
     db \<13> ; Resistance
     db \<14> ; Weakness
     db \<15> ; StatusImmune

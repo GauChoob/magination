@@ -216,8 +216,7 @@ MACRO Creature_Struct
     .Luck:
         ds 1
     .EnergyUp:
-        ; Elem?
-        ; Unknown
+        ; Bonus energy gained per level up
         ds 1
     .ElementResist:
         ; Creature's elemental resistances

@@ -2767,7 +2767,7 @@ Call_002_539D:
     ld a, [$D0E9]                                 ; $539D: $FA $E9 $D0
     ld b, a                                       ; $53A0: $47
     ld a, $0A                                     ; $53A1: $3E $0A
-    call Battle_Cmd_Formula_Luck                            ; $53A3: $CD $FB $53
+    call BattleCmd_Formula_Luck                            ; $53A3: $CD $FB $53
     ld b, a                                       ; $53A6: $47
     ld a, [$D0E4]                                 ; $53A7: $FA $E4 $D0
     add b                                         ; $53AA: $80
@@ -2799,7 +2799,7 @@ Call_002_53CC:
     ld a, [$D0E9]                                 ; $53CC: $FA $E9 $D0
     ld b, a                                       ; $53CF: $47
     ld a, $0A                                     ; $53D0: $3E $0A
-    call Battle_Cmd_Formula_Luck                            ; $53D2: $CD $FB $53
+    call BattleCmd_Formula_Luck                            ; $53D2: $CD $FB $53
     ld b, a                                       ; $53D5: $47
     ld a, [$D0E5]                                 ; $53D6: $FA $E5 $D0
     add b                                         ; $53D9: $80
@@ -2827,7 +2827,7 @@ Call_002_53CC:
     ret                                           ; $53FA: $C9
 
     ; $53FB
-Battle_Cmd_Formula_Luck:
+BattleCmd_Formula_Luck:
     ; Gives a +- delta to value based on Luck
     ; Inputs:
     ;   b = Luck_stat
@@ -3189,88 +3189,56 @@ jr_002_5628:
     ret                                           ; $5656: $C9
 
 
-Call_002_5657:
-    push hl                                       ; $5657: $E5
-    ld de, $0020                                  ; $5658: $11 $20 $00
-    add hl, de                                    ; $565B: $19
-    ld a, $FF                                     ; $565C: $3E $FF
-    cp [hl]                                       ; $565E: $BE
-    jr z, jr_002_566F                             ; $565F: $28 $0E
+BattleCmd_LevelUp_UnlockCommands:
+    ; Checks to see if a new command has been unlocked
+    ; Inputs:
+    ;   hl = wBattle_Creature_Current
+    ;   wBattle_LevelUp_Level = CreatureLevel +- 10*Luck
 
-    ld a, [wBattle_LevelUp_Level]                                 ; $5661: $FA $8A $D3
-    cp [hl]                                       ; $5664: $BE
-    jr c, jr_002_56C5                             ; $5665: $38 $5E
+    DEF i = 0
+    REPT 4
+        ; Loop through all 4 commands and find the first command that is not unlocked
+        push hl
+        ld de, BATTLE_CREATURE_ABILITYUNLOCK0 + i
+        add hl, de
+        ld a, $FF ; Unlocked command
+        cp [hl]
+        IF i != 3
+        jr z, .CheckNextCmd\@
+        ELSE
+        jr z, .NothingUnlocked
+        ENDC
 
-    ld a, $FF                                     ; $5667: $3E $FF
-    ld [hl], a                                    ; $5669: $77
-    ld de, $0018                                  ; $566A: $11 $18 $00
-    jr jr_002_56B8                                ; $566D: $18 $49
+        ; Once we've found the first locked command
+        ; If Level < CmdLevel, then we failed to unlock anything
+        ld a, [wBattle_LevelUp_Level]
+        cp [hl]
+        jr c, .NothingUnlocked
 
-jr_002_566F:
-    pop hl                                        ; $566F: $E1
-    push hl                                       ; $5670: $E5
-    ld de, $0021                                  ; $5671: $11 $21 $00
-    add hl, de                                    ; $5674: $19
-    ld a, $FF                                     ; $5675: $3E $FF
-    cp [hl]                                       ; $5677: $BE
-    jr z, jr_002_5688                             ; $5678: $28 $0E
+        ; Mark the command as unlocked
+        Set8 hl, $FF
+        ld de, BATTLE_CREATURE_ABILITY0 + 2*i
+        if i != 3
+        jr .UnlockNewCmd
 
-    ld a, [wBattle_LevelUp_Level]                                 ; $567A: $FA $8A $D3
-    cp [hl]                                       ; $567D: $BE
-    jr c, jr_002_56C5                             ; $567E: $38 $45
+        .CheckNextCmd\@:
+        pop hl
+        ENDC
+        DEF i += 1
+    ENDR
 
-    ld a, $FF                                     ; $5680: $3E $FF
-    ld [hl], a                                    ; $5682: $77
-    ld de, $001A                                  ; $5683: $11 $1A $00
-    jr jr_002_56B8                                ; $5686: $18 $30
+    .UnlockNewCmd:
+        pop hl
+        call BattleCmd_LevelUp_Format_PrepCommandName
 
-jr_002_5688:
-    pop hl                                        ; $5688: $E1
-    push hl                                       ; $5689: $E5
-    ld de, $0022                                  ; $568A: $11 $22 $00
-    add hl, de                                    ; $568D: $19
-    ld a, $FF                                     ; $568E: $3E $FF
-    cp [hl]                                       ; $5690: $BE
-    jr z, jr_002_56A1                             ; $5691: $28 $0E
-
-    ld a, [wBattle_LevelUp_Level]                                 ; $5693: $FA $8A $D3
-    cp [hl]                                       ; $5696: $BE
-    jr c, jr_002_56C5                             ; $5697: $38 $2C
-
-    ld a, $FF                                     ; $5699: $3E $FF
-    ld [hl], a                                    ; $569B: $77
-    ld de, $001C                                  ; $569C: $11 $1C $00
-    jr jr_002_56B8                                ; $569F: $18 $17
-
-jr_002_56A1:
-    pop hl                                        ; $56A1: $E1
-    push hl                                       ; $56A2: $E5
-    ld de, $0023                                  ; $56A3: $11 $23 $00
-    add hl, de                                    ; $56A6: $19
-    ld a, $FF                                     ; $56A7: $3E $FF
-    cp [hl]                                       ; $56A9: $BE
-    jr z, jr_002_56C5                             ; $56AA: $28 $19
-
-    ld a, [wBattle_LevelUp_Level]                                 ; $56AC: $FA $8A $D3
-    cp [hl]                                       ; $56AF: $BE
-    jr c, jr_002_56C5                             ; $56B0: $38 $13
-
-    ld a, $FF                                     ; $56B2: $3E $FF
-    ld [hl], a                                    ; $56B4: $77
-    ld de, $001E                                  ; $56B5: $11 $1E $00
-
-jr_002_56B8:
-    pop hl                                        ; $56B8: $E1
-    call Call_002_5B71                            ; $56B9: $CD $71 $5B
-    ld a, [wBattle_LevelUp_Flags]                                 ; $56BC: $FA $89 $D3
-    set 7, a                                      ; $56BF: $CB $FF
-    ld [wBattle_LevelUp_Flags], a                                 ; $56C1: $EA $89 $D3
-    ret                                           ; $56C4: $C9
-
-
-jr_002_56C5:
-    pop hl                                        ; $56C5: $E1
-    ret                                           ; $56C6: $C9
+        ; Indicate that a new command was unlocked
+        ld a, [wBattle_LevelUp_Flags]
+        set 7, a
+        ld [wBattle_LevelUp_Flags], a
+        ret
+    .NothingUnlocked:
+        pop hl
+        ret
 
 
 Call_002_56C7:
@@ -3444,6 +3412,7 @@ BattleCmd_LevelUp_DoLevelUp:
     push hl
 
     ; wBattle_LevelUp_StatIndex = rand(4)*5
+    ; This var is now unused to calculate the stat gain
     SwitchRAMBank BANK("WRAM BATTLE")
     ld c, $03
     call Math_Random
@@ -3509,7 +3478,8 @@ BattleCmd_LevelUp_DoLevelUp:
     inc a
     ld [hl], a
 
-    ; Past level 62 (Battle_LevelUp_PenaltyLevel), gain less stats...
+    ; Past level 62 (Battle_LevelUp_PenaltyLevel), supposed to gain less stats...
+    ; But now is unused to calculate the stat gain, so it doesn't matter
     cp Battle_LevelUp_PenaltyLevel
     jr c, .NotPenalty
     .Penalty:
@@ -3519,135 +3489,105 @@ BattleCmd_LevelUp_DoLevelUp:
 
     ; Calculate stat gains
     call BattleCmd_LevelUp_StrengthGain
-    ld [wBattle_LevelUp_DeltaStrength], a
+    ld [wBattle_LevelUp_Stats.Strength], a
     call BattleCmd_LevelUp_SkillGain
-    ld [wBattle_LevelUp_DeltaSkill], a
+    ld [wBattle_LevelUp_Stats.Skill], a
     call BattleCmd_LevelUp_SpeedGain
-    ld [wBattle_LevelUp_DeltaSpeed], a
+    ld [wBattle_LevelUp_Stats.Speed], a
     call BattleCmd_LevelUp_DefenceGain
-    ld [wBattle_LevelUp_DeltaDefence], a
+    ld [wBattle_LevelUp_Stats.Defence], a
     call BattleCmd_LevelUp_ResistGain
-    ld [wBattle_LevelUp_DeltaResist], a
+    ld [wBattle_LevelUp_Stats.Resist], a
 
+    ; Add stat gain to the creature, capping at 99
     pop hl
     push hl
-    ld de, $000B
+    ld de, BATTLE_CREATURE_STRENGTH
     add hl, de
-    ld a, [wBattle_LevelUp_DeltaStrength]
+    DEF i = 0
+    REPT 5
+    ld a, [wBattle_LevelUp_Stats + i]
     add [hl]
-    cp $63
-    jr c, jr_002_5883
-
-    ld a, $63
-
-jr_002_5883:
+    cp 99
+    jr c, .SkipMax\@
+        ld a, 99
+    .SkipMax\@:
     ld [hl], a
-
+    IF i != 4
     inc hl
-    ld a, [wBattle_LevelUp_DeltaSkill]
-    add [hl]
-    cp $63
-    jr c, jr_002_588F
+    ENDC
+    DEF i += 1
+    ENDR
 
-    ld a, $63
-
-jr_002_588F:
-    ld [hl], a
-
-    inc hl
-    ld a, [wBattle_LevelUp_DeltaSpeed]
-    add [hl]
-    cp $63
-    jr c, jr_002_589B
-
-    ld a, $63
-
-jr_002_589B:
-    ld [hl], a
-
-    inc hl
-    ld a, [wBattle_LevelUp_DeltaDefence]
-    add [hl]
-    cp $63
-    jr c, jr_002_58A7
-
-    ld a, $63
-
-jr_002_58A7:
-    ld [hl], a
-
-    inc hl
-    ld a, [wBattle_LevelUp_DeltaResist]
-    add [hl]
-    cp $63
-    jr c, jr_002_58B3
-
-    ld a, $63
-
-jr_002_58B3:
-    ld [hl], a
-
+    ; Calculate energy gain
+    ; EnergyUp + wBattle_LevelUp_EnergyIndex
     pop hl
     push hl
-
-    ld bc, $0011
+    ld bc, BATTLE_CREATURE_ENERGYUP
     add hl, bc
-    ld a, [hl]
-    ld l, a
+    Get8 l, hl
     ld h, $00
+
     ld d, h
-    ld a, [wBattle_LevelUp_EnergyIndex]
-    ld e, a
+    Get8 e, wBattle_LevelUp_EnergyIndex
     add hl, de
     ld e, l
+
+    ; Add the Creature's Max Energy
     pop hl
     push hl
-    ld bc, $0009
+    ld bc, BATTLE_CREATURE_MAXENERGY
     add hl, bc
     push hl
     ld a, [hl+]
     ld l, [hl]
     ld h, a
     add hl, de
-    ld de, $00FA
+
+    ; Cap the energy to 250
+    ld de, 250
     ld a, h
     cp d
-    jr nz, jr_002_58D9
+    jr nz, .CheckRegister
+        ld a, l
+        cp e
+    .CheckRegister:
+    jr c, .Pass2
+        ld h, d
+        ld l, e
+    .Pass2:
 
-    ld a, l
-    cp e
+    ; Store the new energy value
+    ld a, h
+    ld c, l
+    pop hl
+    ld [hl+], a
+    ld [hl], c
 
-jr_002_58D9:
-    jr c, jr_002_58DD
+    ; Calculate the creature's effective new level for abilities:
+    ; Level + Luck(10) (i.e. can learn new skill up to 10 levels earlier!)
+    pop hl
+    push hl
+    ld bc, BATTLE_CREATURE_LUCK
+    add hl, bc
+    ld b, [hl]
+    ld a, 10
+    call BattleCmd_Formula_Luck
+    ld b, a
+    ld a, [wBattle_LevelUp_Level]
+    inc a
+    add b
+    ld [wBattle_LevelUp_Level], a
+    ; Check for new commands learned
+    pop hl
+    call BattleCmd_LevelUp_UnlockCommands
 
-    ld h, d
-    ld l, e
-
-jr_002_58DD:
-    ld a, h                                       ; $58DD: $7C
-    ld c, l                                       ; $58DE: $4D
-    pop hl                                        ; $58DF: $E1
-    ld [hl+], a                                   ; $58E0: $22
-    ld [hl], c                                    ; $58E1: $71
-    pop hl                                        ; $58E2: $E1
-    push hl                                       ; $58E3: $E5
-    ld bc, $0010                                  ; $58E4: $01 $10 $00
-    add hl, bc                                    ; $58E7: $09
-    ld b, [hl]                                    ; $58E8: $46
-    ld a, $0A                                     ; $58E9: $3E $0A
-    call Battle_Cmd_Formula_Luck                            ; $58EB: $CD $FB $53
-    ld b, a                                       ; $58EE: $47
-    ld a, [wBattle_LevelUp_Level]                                 ; $58EF: $FA $8A $D3
-    inc a                                         ; $58F2: $3C
-    add b                                         ; $58F3: $80
-    ld [wBattle_LevelUp_Level], a                                 ; $58F4: $EA $8A $D3
-    pop hl                                        ; $58F7: $E1
-    call Call_002_5657                            ; $58F8: $CD $57 $56
-    call Call_002_58FF                            ; $58FB: $CD $FF $58
-    ret                                           ; $58FE: $C9
+    call BattleCmd_LevelUp_DisplayText
+    ret
 
 
-Call_002_58FF:
+BattleCmd_LevelUp_DisplayText:
+    ; Displays a text box showing a creature's new stats after level up
     ld a, [wBattle_LevelUp_Flags]                                 ; $58FF: $FA $89 $D3
     bit 1, a                                      ; $5902: $CB $4F
     ret z                                         ; $5904: $C8
@@ -3787,6 +3727,15 @@ jr_002_59EB:
 
 
 BattleCmd_LevelUp_SkillGain::
+    ; Calculates the stat gain for a level up
+    ; Inputs:
+    ;   wBattle_Creature_Target.Type
+    ; Outputs:
+    ;   a =
+    ;       SMALL/STRONG = average +1
+    ;       MED = average +0.8
+    ;       LARGE/WEAK = average +0.6
+
     ; Get a number 0-9
     call Math_Rand8Inc
     ld c, a
@@ -3797,134 +3746,133 @@ BattleCmd_LevelUp_SkillGain::
 
     ; Choose the lookup table
     ld a, [wBattle_Creature_Target.Type]
-    cp $00
-    jr nz, jr_002_5A0A
-
-    ld hl, $5B2B
-    jr jr_002_5A28
-
-jr_002_5A0A:
-    cp $04
-    jr nz, jr_002_5A13
-
-    ld hl, $5B17
-    jr jr_002_5A28
-
-jr_002_5A13:
-    cp $02
-    jr nz, jr_002_5A1C
-
-    ld hl, $5B21
-    jr jr_002_5A28
-
-jr_002_5A1C:
-    cp $06
-    jr nz, jr_002_5A25
-
-    ld hl, $5B17
-    jr jr_002_5A28
-
-jr_002_5A25:
-    ld hl, $5B2B
-
-jr_002_5A28:
+    cp CREATURE_TABLE_TYPE_SMALL
+    jr nz, .CheckLarge
+        ld hl, BattleCmd_LevelUp_GoodTable
+        jr .Finally
+    .CheckLarge:
+    cp CREATURE_TABLE_TYPE_LARGE
+    jr nz, .CheckMed
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckMed:
+    cp CREATURE_TABLE_TYPE_MEDIUM
+    jr nz, .CheckWeak
+        ld hl, BattleCmd_LevelUp_OkTable
+        jr .Finally
+    .CheckWeak:
+    cp CREATURE_TABLE_TYPE_WEAK
+    jr nz, .CheckStrong
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckStrong:
+        ld hl, BattleCmd_LevelUp_GoodTable
+    .Finally:
     add hl, bc
     ld a, [hl]
     ret
 
 
 BattleCmd_LevelUp_SpeedGain:
+    ; Calculates the stat gain for a level up
+    ; Inputs:
+    ;   wBattle_Creature_Target.Type
+    ; Outputs:
+    ;   a =
+    ;       SMALL/STRONG = average +1
+    ;       MED = average +0.8
+    ;       LARGE/WEAK = average +0.6
+
+    ; Get a number 0-9
     call Math_Rand8Inc
     ld c, a
-    ld b, $0A
+    ld b, 10
     call Math_Div8
     ld c, l
     ld b, $00
-    ld a, [$D113]
-    cp $00
-    jr nz, jr_002_5A43
 
-    ld hl, $5B2B
-    jr jr_002_5A61
-
-jr_002_5A43:
-    cp $04
-    jr nz, jr_002_5A4C
-
-    ld hl, $5B17
-    jr jr_002_5A61
-
-jr_002_5A4C:
-    cp $02
-    jr nz, jr_002_5A55
-
-    ld hl, $5B21
-    jr jr_002_5A61
-
-jr_002_5A55:
-    cp $06
-    jr nz, jr_002_5A5E
-
-    ld hl, $5B17
-    jr jr_002_5A61
-
-jr_002_5A5E:
-    ld hl, $5B2B
-
-jr_002_5A61:
+    ; Choose the lookup table
+    ld a, [wBattle_Creature_Target.Type]
+    cp CREATURE_TABLE_TYPE_SMALL
+    jr nz, .CheckLarge
+        ld hl, BattleCmd_LevelUp_GoodTable
+        jr .Finally
+    .CheckLarge:
+    cp CREATURE_TABLE_TYPE_LARGE
+    jr nz, .CheckMed
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckMed:
+    cp CREATURE_TABLE_TYPE_MEDIUM
+    jr nz, .CheckWeak
+        ld hl, BattleCmd_LevelUp_OkTable
+        jr .Finally
+    .CheckWeak:
+    cp CREATURE_TABLE_TYPE_WEAK
+    jr nz, .CheckStrong
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckStrong:
+        ld hl, BattleCmd_LevelUp_GoodTable
+    .Finally:
     add hl, bc
     ld a, [hl]
     ret
 
 
 BattleCmd_LevelUp_DefenceGain:
+    ; Calculates the stat gain for a level up
+    ; Inputs:
+    ;   wBattle_Creature_Target.Type
+    ; Outputs:
+    ;   a =
+    ;       LARGE/STRONG = average +1.3333
+    ;       MED = average +1.1333
+    ;       SMALL/WEAK = average +0.9333
+
+    ; Get a number 0-9
     call Math_Rand8Inc
     ld c, a
-    ld b, $0A
+    ld b, 10
     call Math_Div8
     ld c, l
     ld b, $00
-    ld a, [$D113]
-    cp $00
-    jr nz, jr_002_5A7C
 
-    ld hl, $5B17
-    jr jr_002_5A9A
-
-jr_002_5A7C:
-    cp $04
-    jr nz, jr_002_5A85
-
-    ld hl, $5B2B
-    jr jr_002_5A9A
-
-jr_002_5A85:
-    cp $02
-    jr nz, jr_002_5A8E
-
-    ld hl, $5B21
-    jr jr_002_5A9A
-
-jr_002_5A8E:
-    cp $06
-    jr nz, jr_002_5A97
-
-    ld hl, $5B17
-    jr jr_002_5A9A
-
-jr_002_5A97:
-    ld hl, $5B2B
-
-jr_002_5A9A:
+    ; Choose the lookup table
+    ld a, [wBattle_Creature_Target.Type]
+    cp CREATURE_TABLE_TYPE_SMALL
+    jr nz, .CheckLarge
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckLarge:
+    cp CREATURE_TABLE_TYPE_LARGE
+    jr nz, .CheckMed
+        ld hl, BattleCmd_LevelUp_GoodTable
+        jr .Finally
+    .CheckMed:
+    cp CREATURE_TABLE_TYPE_MEDIUM
+    jr nz, .CheckWeak
+        ld hl, BattleCmd_LevelUp_OkTable
+        jr .Finally
+    .CheckWeak:
+    cp CREATURE_TABLE_TYPE_WEAK
+    jr nz, .CheckStrong
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckStrong:
+        ld hl, BattleCmd_LevelUp_GoodTable
+    .Finally:
     add hl, bc
     ld a, [hl]
+
+    ; Add 33% chance +1
     push af
     call Math_Rand8Inc
     ld c, a
     ld b, $03
     call Math_Div8
     ld a, l
-    and $02
+    and %00000010
     srl a
     ld b, a
     pop af
@@ -3933,53 +3881,58 @@ jr_002_5A9A:
 
 
 BattleCmd_LevelUp_ResistGain:
+    ; Calculates the stat gain for a level up
+    ; Inputs:
+    ;   wBattle_Creature_Target.Type
+    ; Outputs:
+    ;   a =
+    ;       LARGE/STRONG = average +1.3333
+    ;       MED = average +1.1333
+    ;       SMALL/WEAK = average +0.9333
+
+    ; Get a number 0-9
     call Math_Rand8Inc
     ld c, a
-    ld b, $0A
+    ld b, 10
     call Math_Div8
     ld c, l
     ld b, $00
-    ld a, [$D113]
-    cp $00
-    jr nz, jr_002_5AC7
 
-    ld hl, $5B17
-    jr jr_002_5AE5
-
-jr_002_5AC7:
-    cp $04
-    jr nz, jr_002_5AD0
-
-    ld hl, $5B2B
-    jr jr_002_5AE5
-
-jr_002_5AD0:
-    cp $02
-    jr nz, jr_002_5AD9
-
-    ld hl, $5B21
-    jr jr_002_5AE5
-
-jr_002_5AD9:
-    cp $06
-    jr nz, jr_002_5AE2
-
-    ld hl, $5B17
-    jr jr_002_5AE5
-
-jr_002_5AE2:
-    ld hl, $5B2B
-
-jr_002_5AE5:
+    ; Choose the lookup table
+    ld a, [wBattle_Creature_Target.Type]
+    cp CREATURE_TABLE_TYPE_SMALL
+    jr nz, .CheckLarge
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckLarge:
+    cp CREATURE_TABLE_TYPE_LARGE
+    jr nz, .CheckMed
+        ld hl, BattleCmd_LevelUp_GoodTable
+        jr .Finally
+    .CheckMed:
+    cp CREATURE_TABLE_TYPE_MEDIUM
+    jr nz, .CheckWeak
+        ld hl, BattleCmd_LevelUp_OkTable
+        jr .Finally
+    .CheckWeak:
+    cp CREATURE_TABLE_TYPE_WEAK
+    jr nz, .CheckStrong
+        ld hl, BattleCmd_LevelUp_BadTable
+        jr .Finally
+    .CheckStrong:
+        ld hl, BattleCmd_LevelUp_GoodTable
+    .Finally:
     add hl, bc
     ld a, [hl]
+
+    ; Add 33% chance +1
     push af
     call Math_Rand8Inc
     ld c, a
     ld b, $03
     call Math_Div8
     ld a, l
-    and $02
+    and %00000010
     srl a
     ld b, a
     pop af
@@ -4018,38 +3971,16 @@ BattleCmd_LevelUp_StrengthTable::
     ; If equally distributed, would expect 1.5 per level
     db 1,  2,  1,  2,  0,  3,  2,  1
 
-    nop                                           ; $5B17: $00
+BattleCmd_LevelUp_BadTable::
+    ; Average = 0.6
+    db 0, 0, 1, 1, 1, 1, 0, 0, 2, 0
+BattleCmd_LevelUp_OkTable::
+    ; Average = 0.8
+    db 0, 2, 1, 1, 1, 1, 0, 0, 2, 0
+BattleCmd_LevelUp_GoodTable::
+    ; Average = 1
+    db 0, 3, 1, 1, 1, 1, 0, 1, 2, 0
 
-    db $00, $01, $01
-
-    db $01                                        ; $5B1B: $01
-
-    db $01, $00
-
-    nop                                           ; $5B1E: $00
-
-    db $02
-
-    nop                                           ; $5B20: $00
-    nop                                           ; $5B21: $00
-    ld [bc], a                                    ; $5B22: $02
-    ld bc, $0101                                  ; $5B23: $01 $01 $01
-    ld bc, $0000                                  ; $5B26: $01 $00 $00
-    ld [bc], a                                    ; $5B29: $02
-    nop                                           ; $5B2A: $00
-
-    db $00
-
-    inc bc                                        ; $5B2C: $03
-
-    db $01
-
-    db $01                                        ; $5B2E: $01
-
-    db $01, $01
-
-    nop                                           ; $5B31: $00
-    ld bc, $0002                                  ; $5B32: $01 $02 $00
 
 Call_002_5B35::
     FGet16 bc, $CD52                                  ; $5B35: $21 $52 $CD                                       ; $5B3A: $4F
@@ -4082,19 +4013,23 @@ jr_002_5B64:
     ret                                           ; $5B70: $C9
 
 
-Call_002_5B71:
-    push hl                                       ; $5B71: $E5
-    add hl, de                                    ; $5B72: $19
-    ld a, [hl+]                                   ; $5B73: $2A
-    ld d, [hl]                                    ; $5B74: $56
-    ld e, a                                       ; $5B75: $5F
-    FSet16 wMenu_BattleCmd_TablePointer, de                                    ; $5B7B: $72
-    ld a, $6A                                     ; $5B7C: $3E $6A
-    ld [wMenu_BattleCmd_DestBuffer], a                                 ; $5B7E: $EA $D3 $CD
-    ld a, $C9                                     ; $5B81: $3E $C9
-    ld [wMenu_BattleCmd_DestBuffer+1], a                                 ; $5B83: $EA $D4 $CD
-    pop hl                                        ; $5B86: $E1
-    ret                                           ; $5B87: $C9
+BattleCmd_LevelUp_Format_PrepCommandName:
+    ; Puts the newly learned command into the relevant variables to later copy the name
+    ; Inputs:
+    ;   hl = wBattle_Creature_Current
+    ;   de = Offset to BattleCmd0,1,2,3 in the Creature's struct
+    ; Outputs:
+    ;   wMenu_BattleCmd_TablePointer = BattleCmd struct
+    ;   wMenu_BattleCmd_DestBuffer = wText_StringBuffer + 33
+    push hl
+    add hl, de
+    ld a, [hl+]
+    ld d, [hl]
+    ld e, a
+    FSet16 wMenu_BattleCmd_TablePointer, de
+    Set16_M wMenu_BattleCmd_DestBuffer, wText_StringBuffer + 33
+    pop hl
+    ret
 
 
     ld hl, $D110                                  ; $5B88: $21 $10 $D1
@@ -5510,7 +5445,7 @@ jr_002_6735:
     ld a, [$D0E9]                                 ; $6748: $FA $E9 $D0
     ld b, a                                       ; $674B: $47
     ld a, $12                                     ; $674C: $3E $12
-    call Battle_Cmd_Formula_Luck                            ; $674E: $CD $FB $53
+    call BattleCmd_Formula_Luck                            ; $674E: $CD $FB $53
     ld b, a                                       ; $6751: $47
     ld c, $20                                     ; $6752: $0E $20
     call Math_Random                                    ; $6754: $CD $3A $05
@@ -6102,7 +6037,7 @@ Battle_Flow_SortCmdOrder:
             ; Apply a Luck effect of +- 10
             ld a, 10
             push bc
-            call Battle_Cmd_Formula_Luck
+            call BattleCmd_Formula_Luck
             pop bc
             ld hl, wBattle_Sort_CurSpeed
             add [hl]
