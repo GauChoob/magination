@@ -308,6 +308,11 @@ wBattle_SummonRingIndex::
     ; The ring that is going to be summoned
     ds 1
 
+    ds $D071 - @
+wBattle_PendingMessage::
+    ; TODO
+    ds 1
+
     ds $D074 - @
 wBattle_TempCounter::
     ; Generic loop counter
@@ -414,6 +419,15 @@ wBattle_Actor_CreatureID::
     ; CreatureID of the actor being targetted (for Tony/Magi)
     ds 1
 
+    ds $D0CF - @
+wBattle_LevelUp_CreatureToGiveXP::
+    ; Pointer to Creature_Struct in SRAM to give xp
+    ds 2
+    ;ds $D0D1 - @
+wBattle_LevelUp_XPGain::
+    ; Temp variable containing XP gain for target creature
+    ds 1
+
     ds $D0D3 - @
 wBattle_RunEnabled::
     ; Set to 1 if Tony is allowed to run from the battle (i.e. there is no enemy magi), else set to 0
@@ -485,6 +499,14 @@ wBattle_UsedRings::
     DEF BATTLE_USEDRINGS_DEAD EQU $01      ; Was summoned but is not longer on the field
     DEF BATTLE_USEDRINGS_ALIVE EQU $02     ; Summoned on the field
     ds xInventory_Rings_LENGTH
+    ;ds $D384 - @
+wBattle_LevelUp_EnemiesSummoned::
+    ; Number of enemy creatures summoned
+    ds 1
+    ;ds $D385 - @
+wBattle_LevelUp_AlliesSummoned::
+    ; Number of allied creatures summoned
+    ds 1
 
     ds $D388 - @
 wBattle_LevelUp_EnergyIndex::

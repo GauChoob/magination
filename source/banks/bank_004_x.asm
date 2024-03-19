@@ -869,9 +869,9 @@ jr_004_5D75:
     ld a, d                                       ; $5D75: $7A
     ld [$CD56], a                                 ; $5D76: $EA $56 $CD
     ld a, h                                       ; $5D79: $7C
-    ld [$CD53], a                                 ; $5D7A: $EA $53 $CD
+    ld [wMenu_Ringsmith_CreatureXramPointer + 1], a                                 ; $5D7A: $EA $53 $CD
     ld a, l                                       ; $5D7D: $7D
-    ld [$CD52], a                                 ; $5D7E: $EA $52 $CD
+    ld [wMenu_Ringsmith_CreatureXramPointer], a                                 ; $5D7E: $EA $52 $CD
     ld bc, wMenu_Battle_TableRowBuffer                                  ; $5D81: $01 $91 $CD
     ld a, [wMenu_Ringsmith_CreatureID]                                 ; $5D84: $FA $51 $CD
     ld [hl+], a                                   ; $5D87: $22
@@ -913,7 +913,7 @@ jr_004_5DAD:
     ld [hl+], a                                   ; $5DB6: $22
     Battery_Off
     PushRAMBank
-    Do_CallForeign Call_002_5B35
+    Do_CallForeign BattleCmd_LevelUp_CreatureLevelFromRingsmith
     PopRAMBank
     ld hl, xInventory_Rings                                  ; $5DCE: $21 $18 $A1
     ld d, $0A                                     ; $5DD1: $16 $0A

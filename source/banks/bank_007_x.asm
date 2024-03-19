@@ -3480,7 +3480,7 @@ jr_007_64E7:
 
 jr_007_64EC:
     ld a, $01                                     ; $64EC: $3E $01
-    ld [$D071], a                                 ; $64EE: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $64EE: $EA $71 $D0
     ld hl, $C71B                                  ; $64F1: $21 $1B $C7
     ld a, [$CDAA]                                 ; $64F4: $FA $AA $CD
     ld [hl+], a                                   ; $64F7: $22
@@ -3579,7 +3579,7 @@ jr_007_657D:
 
 jr_007_658C:
     ld a, $01                                     ; $658C: $3E $01
-    ld [$D071], a                                 ; $658E: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $658E: $EA $71 $D0
     ld hl, $C71B                                  ; $6591: $21 $1B $C7
     ld a, [$CDAA]                                 ; $6594: $FA $AA $CD
     ld [hl+], a                                   ; $6597: $22
@@ -3680,7 +3680,7 @@ jr_007_6637:
     Do_CallForeign Call_005_5575
     call Call_007_68B4                            ; $663F: $CD $B4 $68
     ld a, $01                                     ; $6642: $3E $01
-    ld [$D071], a                                 ; $6644: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $6644: $EA $71 $D0
     ret                                           ; $6647: $C9
 
 
@@ -3689,7 +3689,7 @@ jr_007_6637:
     xor a                                         ; $664D: $AF
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $664E: $EA $77 $D0
     ld a, $01                                     ; $6651: $3E $01
-    ld [$D071], a                                 ; $6653: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $6653: $EA $71 $D0
     ld hl, $C71B                                  ; $6656: $21 $1B $C7
     ld a, [$CDAA]                                 ; $6659: $FA $AA $CD
     ld [hl+], a                                   ; $665C: $22
@@ -3752,7 +3752,7 @@ jr_007_66C1:
     Do_CallForeign Call_005_5575
     call Call_007_68B4                            ; $66C9: $CD $B4 $68
     ld a, $01                                     ; $66CC: $3E $01
-    ld [$D071], a                                 ; $66CE: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $66CE: $EA $71 $D0
     ret                                           ; $66D1: $C9
 
 Call_007_66D2::
@@ -3761,7 +3761,7 @@ Call_007_66D2::
     xor a                                         ; $66D7: $AF
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $66D8: $EA $77 $D0
     ld a, $01                                     ; $66DB: $3E $01
-    ld [$D071], a                                 ; $66DD: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $66DD: $EA $71 $D0
     ld hl, $C71B                                  ; $66E0: $21 $1B $C7
     ld a, $4C                                     ; $66E3: $3E $4C
     ld [hl+], a                                   ; $66E5: $22
@@ -3788,7 +3788,7 @@ Call_007_66D2::
     LdBCIHLI                                        ; $6712: $03
     LdBCIHLI                                        ; $6715: $03
     ld a, $01                                     ; $6716: $3E $01
-    ld [$D071], a                                 ; $6718: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $6718: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld hl, $C71B                                  ; $6723: $21 $1B $C7
     ld a, [$CDAA]                                 ; $6726: $FA $AA $CD
@@ -3899,7 +3899,7 @@ jr_007_6787:
     ld a, $33                                     ; $67FC: $3E $33
     ld [$D111], a                                 ; $67FE: $EA $11 $D1
     ld a, $01                                     ; $6801: $3E $01
-    ld [$D071], a                                 ; $6803: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $6803: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld hl, $C71B                                  ; $680E: $21 $1B $C7
     ld a, [$CDAA]                                 ; $6811: $FA $AA $CD
@@ -3931,7 +3931,7 @@ jr_007_6787:
     ld a, $33                                     ; $683D: $3E $33
     ld [$D111], a                                 ; $683F: $EA $11 $D1
     ld a, $01                                     ; $6842: $3E $01
-    ld [$D071], a                                 ; $6844: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $6844: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld hl, $C71B                                  ; $684F: $21 $1B $C7
     ld a, [$CDAA]                                 ; $6852: $FA $AA $CD
@@ -4113,7 +4113,7 @@ jr_007_72BF:
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $72C2: $EA $77 $D0
     Do_CallForeign Call_005_5575
     ld a, $01                                     ; $72CD: $3E $01
-    ld [$D071], a                                 ; $72CF: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $72CF: $EA $71 $D0
     ld hl, $C71B                                  ; $72D2: $21 $1B $C7
     ld a, [$CDAA]                                 ; $72D5: $FA $AA $CD
     ld [hl+], a                                   ; $72D8: $22

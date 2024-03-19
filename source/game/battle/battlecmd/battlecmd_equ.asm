@@ -9,7 +9,6 @@ DEF abilityDataDamageModifier EQU $07
 DEF abilityDataTargetRelated EQU $08 ;mostly correlates with Combat Target
 DEF abilityDataName EQU $09 ;$C bytes
 
-DEF Battle_LevelUp_PenaltyLevel EQU 62
 
 RSRESET
 DEF BATTLECMD_STRUCT_NAMESIZE EQU $07

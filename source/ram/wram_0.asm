@@ -1123,6 +1123,10 @@ wMenu_Ringsmith_RingLevel::
 wMenu_Ringsmith_CreatureID::
     ; CreatureID of ring being made
     ds 1
+    ;ds $CD52 - @
+wMenu_Ringsmith_CreatureXramPointer::
+    ; Pointer to the created creature in XRAM
+    ds 2
 
     ds $CD57 - @
 wMenu_RingBank_TopVisibleRingIndex::

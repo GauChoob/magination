@@ -5025,13 +5025,13 @@ Call_003_731C:
     ld de, $A025                                  ; $7339: $11 $25 $A0
     add hl, de                                    ; $733C: $19
     ld a, h                                       ; $733D: $7C
-    ld [$CD53], a                                 ; $733E: $EA $53 $CD
+    ld [wMenu_Ringsmith_CreatureXramPointer + 1], a                                 ; $733E: $EA $53 $CD
     ld a, l                                       ; $7341: $7D
-    ld [$CD52], a                                 ; $7342: $EA $52 $CD
+    ld [wMenu_Ringsmith_CreatureXramPointer], a                                 ; $7342: $EA $52 $CD
     ld a, $02                                     ; $7345: $3E $02
     ld [wMenu_Ringsmith_RingLevel], a                                 ; $7347: $EA $50 $CD
     PushRAMBank
-    Do_CallForeign Call_002_5B35
+    Do_CallForeign BattleCmd_LevelUp_CreatureLevelFromRingsmith
     PopRAMBank
     Battery_Off
     ld a, [wMenu_ReturnValue]                                 ; $7361: $FA $A7 $CC

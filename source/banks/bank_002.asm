@@ -229,7 +229,7 @@ Call_002_4140:
     SwitchRAMBank BANK("WRAM BATTLE")
     xor a                                         ; $4147: $AF
     ld [$D073], a                                 ; $4148: $EA $73 $D0
-    ld [$D071], a                                 ; $414B: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $414B: $EA $71 $D0
     ld [$D070], a                                 ; $414E: $EA $70 $D0
     ld [$D0B2], a                                 ; $4151: $EA $B2 $D0
     ld [$D0B4], a                                 ; $4154: $EA $B4 $D0
@@ -317,7 +317,7 @@ jr_002_41D7:
     ld d, $41                                     ; $41EC: $16 $41
     ld bc, $6EC2                                  ; $41EE: $01 $C2 $6E
     call Battle00_Actor_SetScript                                    ; $41F1: $CD $F0 $38
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [$D0B6]                                 ; $41FC: $FA $B6 $D0
     call Battle00_Actor_DisableScript                                    ; $41FF: $CD $C7 $38
 
@@ -437,7 +437,7 @@ jr_002_42C9:
     ld [hl+], a                                   ; $42EA: $22
     ld a, $0A                                     ; $42EB: $3E $0A
     ld [hl+], a                                   ; $42ED: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_002_42F6:
     ld hl, $D073                                  ; $42F6: $21 $73 $D0
@@ -474,7 +474,7 @@ jr_002_430E:
     ld [hl+], a                                   ; $432F: $22
     ld a, $0A                                     ; $4330: $3E $0A
     ld [hl+], a                                   ; $4332: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_002_433B:
     ld hl, $D073                                  ; $433B: $21 $73 $D0
@@ -768,7 +768,7 @@ jr_002_4509:
 
 jr_002_451B:
     ld a, $01                                     ; $451B: $3E $01
-    ld [$D071], a                                 ; $451D: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $451D: $EA $71 $D0
     jr jr_002_452A                                ; $4520: $18 $08
 
 Jump_002_4522:
@@ -779,7 +779,7 @@ Jump_002_4522:
 
 Jump_002_452A:
 jr_002_452A:
-    ld a, [$D071]                                 ; $452A: $FA $71 $D0
+    ld a, [wBattle_PendingMessage]                                 ; $452A: $FA $71 $D0
     and a                                         ; $452D: $A7
     jr nz, jr_002_458C                            ; $452E: $20 $5C
 
@@ -828,12 +828,12 @@ jr_002_4581:
     jr jr_002_459B                                ; $458A: $18 $0F
 
 jr_002_458C:
-    ld a, [$D071]                                 ; $458C: $FA $71 $D0
+    ld a, [wBattle_PendingMessage]                                 ; $458C: $FA $71 $D0
     cp $02                                        ; $458F: $FE $02
     jr z, jr_002_459B                             ; $4591: $28 $08
 
 jr_002_4593:
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_002_459B:
     ld a, [wBattle_ExitCode]                                 ; $459B: $FA $16 $D0
@@ -893,7 +893,7 @@ jr_002_45FA:
     ld [hl+], a                                   ; $4632: $22
     ld a, $0A                                     ; $4633: $3E $0A
     ld [hl+], a                                   ; $4635: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $463E: $C9
 
 
@@ -951,7 +951,7 @@ BattleCmd_Func_CommonSummon::
     inc bc ; MaxEnergy
     inc bc
     xor a
-    ld [hl+], a ; Level
+    ld [hl+], a ; Level - a small bug - the creature is levelled up from level 0 instead of level 1
     ld [hl+], a ; Experience
     ld [hl+], a
     ld [hl+], a ; CurEnergy
@@ -992,9 +992,9 @@ BattleCmd_Func_CommonSummon::
     .LevelUpLoop:
         ld hl, wBattle_Creature_Target
         push af
-        call BattleCmd_LevelUp_DoLevelUp
+        call BattleCmd_LevelUp_CreatureLevelUp
         pop af
-        dec a
+        dec a  ; Level - a small bug - the creature is levelled up from level 0 instead of level 1, leading to 1 extra level-up stat gain
         jr nz, .LevelUpLoop
 
     ld a, [wBattle_Magi_Summon_CreatureEnergy]
@@ -1039,7 +1039,7 @@ Call_002_46F4:
     ld [hl+], a                                   ; $4721: $22
     ld a, $0A                                     ; $4722: $3E $0A
     ld [hl+], a                                   ; $4724: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $472D: $C9
 
 
@@ -1085,7 +1085,7 @@ Call_002_477E:
     ld [wText_StringFormatFrame], a                                 ; $4788: $EA $3D $C9
     ld a, $C9                                     ; $478B: $3E $C9
     ld [wText_StringFormatFrame+1], a                                 ; $478D: $EA $3E $C9
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $4798: $C9
 
     ; $4799
@@ -1162,7 +1162,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4802: $3E $02
-    ld [$D071], a                                 ; $4804: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4804: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Skill, 20                                    ; $4811: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4814: $FA $12 $D1
     cp $58                                        ; $4817: $FE $58
@@ -1200,7 +1200,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4850: $3E $02
-    ld [$D071], a                                 ; $4852: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4852: $EA $71 $D0
     ld a, $10                                     ; $4855: $3E $10
     ld hl, $D110                                  ; $4857: $21 $10 $D1
     call Call_002_463F                            ; $485A: $CD $3F $46
@@ -1221,7 +1221,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $486F: $3E $02
-    ld [$D071], a                                 ; $4871: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4871: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Skill, 20                                    ; $487E: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4881: $FA $12 $D1
     cp $58                                        ; $4884: $FE $58
@@ -1286,7 +1286,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $48ED: $3E $02
-    ld [$D071], a                                 ; $48EF: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $48EF: $EA $71 $D0
     ld a, $4C                                     ; $48F2: $3E $4C
     ld bc, $5320                                  ; $48F4: $01 $20 $53
     call Call_002_472E                            ; $48F7: $CD $2E $47
@@ -1381,7 +1381,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $499F: $3E $02
-    ld [$D071], a                                 ; $49A1: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $49A1: $EA $71 $D0
     ld a, $4C                                     ; $49A4: $3E $4C
     ld bc, $5B77                                  ; $49A6: $01 $77 $5B
     call Call_002_472E                            ; $49A9: $CD $2E $47
@@ -1418,7 +1418,7 @@ System_ActorTonyDefaults::
 
     ; Dream
     ld a, $02                                     ; $49DE: $3E $02
-    ld [$D071], a                                 ; $49E0: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $49E0: $EA $71 $D0
     ld c, $07                                     ; $49E3: $0E $07
     call Math_Random                                    ; $49E5: $CD $3A $05
     inc a                                         ; $49E8: $3C
@@ -1461,7 +1461,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4A23: $3E $02
-    ld [$D071], a                                 ; $4A25: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4A25: $EA $71 $D0
     ld a, $4C                                     ; $4A28: $3E $4C
     ld bc, $4D5C                                  ; $4A2A: $01 $5C $4D
     call Call_002_472E                            ; $4A2D: $CD $2E $47
@@ -1485,7 +1485,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4A4A: $3E $02
-    ld [$D071], a                                 ; $4A4C: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4A4C: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Luck, 50                                    ; $4A59: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4A5C: $FA $12 $D1
     cp $58                                        ; $4A5F: $FE $58
@@ -1526,7 +1526,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4A94: $3E $02
-    ld [$D071], a                                 ; $4A96: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4A96: $EA $71 $D0
     Do_BattleCmd_Stat_DecreaseCreatureStat Speed, 20                                    ; $4AA1: $CD $86 $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4AA4: $FA $12 $D1
     cp $58                                        ; $4AA7: $FE $58
@@ -1645,7 +1645,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4B54: $3E $02
-    ld [$D071], a                                 ; $4B56: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4B56: $EA $71 $D0
     ld a, $80                                     ; $4B59: $3E $80
     ld hl, $D110                                  ; $4B5B: $21 $10 $D1
     call Call_002_463F                            ; $4B5E: $CD $3F $46
@@ -1674,7 +1674,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4B7D: $3E $02
-    ld [$D071], a                                 ; $4B7F: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4B7F: $EA $71 $D0
     ld a, $4C                                     ; $4B82: $3E $4C
     ld bc, $4EE1                                  ; $4B84: $01 $E1 $4E
     call Call_002_472E                            ; $4B87: $CD $2E $47
@@ -1726,7 +1726,7 @@ System_ActorTonyDefaults::
 
 ;Maul ability code
     ld a, $02                                     ; $4BD7: $3E $02
-    ld [$D071], a                                 ; $4BD9: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4BD9: $EA $71 $D0
     ld a, $4C                                     ; $4BDC: $3E $4C
     ld bc, $4B79                                  ; $4BDE: $01 $79 $4B
     call Call_002_472E                            ; $4BE1: $CD $2E $47
@@ -1742,7 +1742,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4BF4: $3E $02
-    ld [$D071], a                                 ; $4BF6: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4BF6: $EA $71 $D0
     ld a, $4C                                     ; $4BF9: $3E $4C
     ld bc, $4D35                                  ; $4BFB: $01 $35 $4D
     call Call_002_472E                            ; $4BFE: $CD $2E $47
@@ -1751,7 +1751,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4C0A: $3E $02
-    ld [$D071], a                                 ; $4C0C: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4C0C: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Defence, 10                                    ; $4C19: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4C1C: $FA $12 $D1
     cp $58                                        ; $4C1F: $FE $58
@@ -1813,7 +1813,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4C76: $3E $02
-    ld [$D071], a                                 ; $4C78: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4C78: $EA $71 $D0
     ld a, $4C                                     ; $4C7B: $3E $4C
     ld bc, $560E                                  ; $4C7D: $01 $0E $56
     call Call_002_472E                            ; $4C80: $CD $2E $47
@@ -1829,7 +1829,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4C93: $3E $02
-    ld [$D071], a                                 ; $4C95: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4C95: $EA $71 $D0
     ld a, $20                                     ; $4C98: $3E $20
     ld hl, $D110                                  ; $4C9A: $21 $10 $D1
     call Call_002_463F                            ; $4C9D: $CD $3F $46
@@ -1866,7 +1866,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4CC6: $3E $02
-    ld [$D071], a                                 ; $4CC8: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4CC8: $EA $71 $D0
     ld a, $4C                                     ; $4CCB: $3E $4C
     ld bc, $4F64                                  ; $4CCD: $01 $64 $4F
     call Call_002_472E                            ; $4CD0: $CD $2E $47
@@ -1939,7 +1939,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4D42: $3E $02
-    ld [$D071], a                                 ; $4D44: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4D44: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Defence, 20                                    ; $4D51: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4D54: $FA $12 $D1
     cp $58                                        ; $4D57: $FE $58
@@ -1985,7 +1985,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4D9A: $3E $02
-    ld [$D071], a                                 ; $4D9C: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4D9C: $EA $71 $D0
     ld a, $80                                     ; $4D9F: $3E $80
     ld hl, $D110                                  ; $4DA1: $21 $10 $D1
     call Call_002_463F                            ; $4DA4: $CD $3F $46
@@ -1998,7 +1998,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4DAF: $3E $02
-    ld [$D071], a                                 ; $4DB1: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4DB1: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Speed, 20                                    ; $4DBE: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4DC1: $FA $12 $D1
     cp $58                                        ; $4DC4: $FE $58
@@ -2059,7 +2059,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4E27: $3E $02
-    ld [$D071], a                                 ; $4E29: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4E29: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Defence, 10                                    ; $4E36: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4E39: $FA $12 $D1
     cp $58                                        ; $4E3C: $FE $58
@@ -2148,7 +2148,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4EB9: $3E $02
-    ld [$D071], a                                 ; $4EBB: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4EBB: $EA $71 $D0
     ld a, $40                                     ; $4EBE: $3E $40
     ld hl, $D110                                  ; $4EC0: $21 $10 $D1
     call Call_002_463F                            ; $4EC3: $CD $3F $46
@@ -2239,7 +2239,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4F4A: $3E $02
-    ld [$D071], a                                 ; $4F4C: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4F4C: $EA $71 $D0
     ld a, $40                                     ; $4F4F: $3E $40
     ld hl, $D110                                  ; $4F51: $21 $10 $D1
     call Call_002_463F                            ; $4F54: $CD $3F $46
@@ -2276,7 +2276,7 @@ System_ActorTonyDefaults::
 
 
     ld a, $02                                     ; $4F7D: $3E $02
-    ld [$D071], a                                 ; $4F7F: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4F7F: $EA $71 $D0
     Do_BattleCmd_Stat_IncreaseCreatureStat Defence, 10                                    ; $4F8C: $CD $7E $38
     ld a, [wBattle_Creature_Target.ID]                                 ; $4F8F: $FA $12 $D1
     cp $58                                        ; $4F92: $FE $58
@@ -2387,7 +2387,7 @@ System_ActorTonyDefaults::
     jr nz, jr_002_505C                            ; $5054: $20 $06
 
     ld a, $02                                     ; $5056: $3E $02
-    ld [$D071], a                                 ; $5058: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $5058: $EA $71 $D0
     ret                                           ; $505B: $C9
 
 
@@ -2452,7 +2452,7 @@ jr_002_50A5:
 
 jr_002_50CE:
     ld a, $01                                     ; $50CE: $3E $01
-    ld [$D071], a                                 ; $50D0: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $50D0: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $50DB: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $50DD: $EA $3D $C9
@@ -2482,7 +2482,7 @@ jr_002_50CE:
     ld [hl+], a                                   ; $5123: $22
     ld a, $0A                                     ; $5124: $3E $0A
     ld [hl+], a                                   ; $5126: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     FGet16 hl, wMenu_Battle_TableRowBuffer                                  ; $512F: $21 $91 $CD
     ld e, $07                                     ; $5135: $1E $07
     call CallForeign                                    ; $5137: $CD $73 $07
@@ -2530,7 +2530,7 @@ jr_002_50CE:
 
 jr_002_5191:
     ld a, $01                                     ; $5191: $3E $01
-    ld [$D071], a                                 ; $5193: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $5193: $EA $71 $D0
     ld [wBattle_DamageOverrideFlag], a                                 ; $5196: $EA $76 $D0
     xor a                                         ; $5199: $AF
     ld [wBattle_DamageOverrideMagnitude], a                                 ; $519A: $EA $77 $D0
@@ -2554,11 +2554,11 @@ jr_002_5191:
 
 
     ld a, $02                                     ; $51C2: $3E $02
-    ld [$D071], a                                 ; $51C4: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $51C4: $EA $71 $D0
     ld a, $02                                     ; $51C7: $3E $02
     ld [wBattle_DamageOverrideFlag], a                                 ; $51C9: $EA $76 $D0
     ld a, $02                                     ; $51CC: $3E $02
-    ld [$D071], a                                 ; $51CE: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $51CE: $EA $71 $D0
     ret                                           ; $51D1: $C9
 
 
@@ -2572,7 +2572,7 @@ jr_002_5191:
     jr nz, jr_002_51FC                            ; $51E2: $20 $18
 
     ld a, $01                                     ; $51E4: $3E $01
-    ld [$D071], a                                 ; $51E6: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $51E6: $EA $71 $D0
     ld hl, $C71B                                  ; $51E9: $21 $1B $C7
     ld a, $4C                                     ; $51EC: $3E $4C
     ld [hl+], a                                   ; $51EE: $22
@@ -2590,7 +2590,7 @@ jr_002_5191:
 jr_002_51FC:
     Set8 wBattle_ExitCode, BATTLE_EXITCODE_RUN
     ld a, $02                                     ; $5201: $3E $02
-    ld [$D071], a                                 ; $5203: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $5203: $EA $71 $D0
     ret                                           ; $5206: $C9
 
     ; Spell
@@ -2615,7 +2615,7 @@ jr_002_51FC:
     ld [hl+], a                                   ; $5244: $22
     ld a, $0A                                     ; $5245: $3E $0A
     ld [hl+], a                                   ; $5247: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     FGet16 bc, $CDB1                                  ; $5250: $21 $B1 $CD                                       ; $5255: $4F
     ld a, [$CDB0]                                 ; $5256: $FA $B0 $CD
     call Call_002_472E                            ; $5259: $CD $2E $47
@@ -2630,11 +2630,11 @@ jr_002_51FC:
 
 
     Do_CallForeign Call_005_405C
-    ld hl, $D385                                  ; $527A: $21 $85 $D3
+    ld hl, wBattle_LevelUp_AlliesSummoned                                  ; $527A: $21 $85 $D3
     inc [hl]                                      ; $527D: $34
     FGet16 bc, $D107                                  ; $527E: $21 $07 $D1                                       ; $5283: $4F
     ld hl, $D110                                  ; $5284: $21 $10 $D1
-    call Call_002_5C1E                            ; $5287: $CD $1E $5C
+    call Battle_Init_SummonCreature                            ; $5287: $CD $1E $5C
     xor a                                         ; $528A: $AF
     ld [wBattle_Creature_Target.StatusActive], a                                 ; $528B: $EA $25 $D1
     Do_CallForeign ApplyRelicsCmd1Stats
@@ -2691,7 +2691,7 @@ jr_002_51FC:
     ld a, l                                       ; $5303: $7D
     ld [$D07B], a                                 ; $5304: $EA $7B $D0
     ld a, $01                                     ; $5307: $3E $01
-    ld [$D071], a                                 ; $5309: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $5309: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $5314: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $5316: $EA $3D $C9
@@ -2723,7 +2723,7 @@ jr_002_51FC:
     ld [$C9D9], a                                 ; $534F: $EA $D9 $C9
     Do_CallForeign Cardscene_SpawnCreature
     ld a, $01                                     ; $535A: $3E $01
-    ld [$D071], a                                 ; $535C: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $535C: $EA $71 $D0
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $5367: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $5369: $EA $3D $C9
@@ -2922,7 +2922,7 @@ jr_002_5441:
     ld [hl+], a                                   ; $5473: $22
     ld a, $0A                                     ; $5474: $3E $0A
     ld [hl+], a                                   ; $5476: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $547F: $FA $03 $D1
     call Battle00_Actor_DisableScript                                    ; $5482: $CD $C7 $38
 
@@ -3003,1033 +3003,8 @@ jr_002_54D5:
     ld a, [hl]                                    ; $54D7: $7E
     ret                                           ; $54D8: $C9
 
+INCLUDE "source/game/battle/battlecmd/levelup/battlecmd_levelup.asm"
 
-Call_002_54D9:
-    SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D383                                  ; $54E0: $21 $83 $D3
-    ld a, $0A                                     ; $54E3: $3E $0A
-    ld [wBattle_TempCounter], a                                 ; $54E5: $EA $74 $D0
-
-Jump_002_54E8:
-    xor a                                         ; $54E8: $AF
-    ld [$D071], a                                 ; $54E9: $EA $71 $D0
-    ld a, [hl-]                                   ; $54EC: $3A
-    and a                                         ; $54ED: $A7
-    jp z, Jump_002_5578                           ; $54EE: $CA $78 $55
-
-    push hl                                       ; $54F1: $E5
-    ld hl, xInventory_Rings                                  ; $54F2: $21 $18 $A1
-    ld a, [wBattle_TempCounter]                                 ; $54F5: $FA $74 $D0
-    dec a                                         ; $54F8: $3D
-    ld c, a                                       ; $54F9: $4F
-    ld b, $00                                     ; $54FA: $06 $00
-    add hl, bc                                    ; $54FC: $09
-    Battery_On
-    Battery_SetBank "XRAM Gamestate"
-    ld a, [hl]                                    ; $550A: $7E
-    ld c, a                                       ; $550B: $4F
-    Battery_Off
-    ld b, $25                                     ; $5510: $06 $25
-    call Math_Mult                                    ; $5512: $CD $CA $04
-    ld bc, $A000                                  ; $5515: $01 $00 $A0
-    add hl, bc                                    ; $5518: $09
-    ld a, h                                       ; $5519: $7C
-    ld [$D0D0], a                                 ; $551A: $EA $D0 $D0
-    ld a, l                                       ; $551D: $7D
-    ld [$D0CF], a                                 ; $551E: $EA $CF $D0
-    call Call_002_55C3                            ; $5521: $CD $C3 $55
-    ld bc, $0064                                  ; $5524: $01 $64 $00
-    TwosComp bc
-    add hl, bc                                    ; $552E: $09
-    FGet16 bc, $D0CF                                  ; $552F: $21 $CF $D0                                       ; $5534: $4F
-    jr nc, jr_002_5577                            ; $5535: $30 $40
-
-    ld hl, $D110                                  ; $5537: $21 $10 $D1
-    call Call_002_5C1E                            ; $553A: $CD $1E $5C
-
-jr_002_553D:
-    Sound_Request_ForceStartSong SONGID_LevelUp1
-    ld hl, wBattle_LevelUp_Flags                                  ; $5547: $21 $89 $D3
-    ld [hl], $00                                  ; $554A: $36 $00
-    set 1, [hl]                                   ; $554C: $CB $CE
-    ld hl, $D110                                  ; $554E: $21 $10 $D1
-    call BattleCmd_LevelUp_DoLevelUp                            ; $5551: $CD $F1 $57
-    xor a                                         ; $5554: $AF
-    ld [wBattle_LevelUp_Flags], a                                 ; $5555: $EA $89 $D3
-    FGet16_BigEndian hl, $D115                                  ; $5558: $21 $15 $D1                                       ; $555D: $67
-    ld bc, $0064                                  ; $555E: $01 $64 $00
-    TwosComp bc
-    add hl, bc                                    ; $5568: $09
-    jr c, jr_002_553D                             ; $5569: $38 $D2
-
-    FGet16 bc, $D0CF                                  ; $556B: $21 $CF $D0                                       ; $5570: $4F
-    ld hl, $D110                                  ; $5571: $21 $10 $D1
-    call Call_002_5C93                            ; $5574: $CD $93 $5C
-
-jr_002_5577:
-    pop hl                                        ; $5577: $E1
-
-Jump_002_5578:
-    push hl                                       ; $5578: $E5
-    ld hl, wBattle_TempCounter                                  ; $5579: $21 $74 $D0
-    dec [hl]                                      ; $557C: $35
-    pop hl                                        ; $557D: $E1
-    jp nz, Jump_002_54E8                          ; $557E: $C2 $E8 $54
-
-    ld bc, $A000                                  ; $5581: $01 $00 $A0
-    FSet16 $D0CF, bc                                    ; $5589: $70
-    call Call_002_55C3                            ; $558A: $CD $C3 $55
-    ld bc, $0064                                  ; $558D: $01 $64 $00
-    TwosComp bc
-    add hl, bc                                    ; $5597: $09
-    ret nc                                        ; $5598: $D0
-
-    ld bc, $A000                                  ; $5599: $01 $00 $A0
-    ld hl, $D110                                  ; $559C: $21 $10 $D1
-    call Call_002_5C1E                            ; $559F: $CD $1E $5C
-    Sound_Request_ForceStartSong SONGID_LevelUp1
-    ld hl, wBattle_LevelUp_Flags                                  ; $55AC: $21 $89 $D3
-    res 0, [hl]                                   ; $55AF: $CB $86
-    set 1, [hl]                                   ; $55B1: $CB $CE
-    ld hl, $D110                                  ; $55B3: $21 $10 $D1
-    call Call_002_59A3                            ; $55B6: $CD $A3 $59
-    ld hl, $D110                                  ; $55B9: $21 $10 $D1
-    ld bc, $A000                                  ; $55BC: $01 $00 $A0
-    call Call_002_5C93                            ; $55BF: $CD $93 $5C
-    ret                                           ; $55C2: $C9
-
-
-Call_002_55C3:
-    Battery_On
-    Battery_SetBank "XRAM Creatures"
-    ld bc, $0002                                  ; $55D0: $01 $02 $00
-    FGet16 hl, $D0CF                                  ; $55D3: $21 $CF $D0
-    add hl, bc                                    ; $55D9: $09
-    ld a, [hl]                                    ; $55DA: $7E
-    ld b, a                                       ; $55DB: $47
-    ld a, [wBattle_Level]                                 ; $55DC: $FA $6D $D3
-    inc a                                         ; $55DF: $3C
-    sub b                                         ; $55E0: $90
-    jr c, jr_002_55FF                             ; $55E1: $38 $1C
-
-    ld b, $14                                     ; $55E3: $06 $14
-    cp $08                                        ; $55E5: $FE $08
-    jr c, jr_002_561B                             ; $55E7: $38 $32
-
-    ld b, $0A                                     ; $55E9: $06 $0A
-    cp $0C                                        ; $55EB: $FE $0C
-    jr c, jr_002_561B                             ; $55ED: $38 $2C
-
-    ld b, $05                                     ; $55EF: $06 $05
-    cp $12                                        ; $55F1: $FE $12
-    jr c, jr_002_561B                             ; $55F3: $38 $26
-
-    ld b, $02                                     ; $55F5: $06 $02
-    cp $18                                        ; $55F7: $FE $18
-    jr c, jr_002_561B                             ; $55F9: $38 $20
-
-    ld b, $01                                     ; $55FB: $06 $01
-    jr jr_002_561B                                ; $55FD: $18 $1C
-
-jr_002_55FF:
-    NegativeA
-    ld b, $14                                     ; $5601: $06 $14
-    cp $03                                        ; $5603: $FE $03
-    jr c, jr_002_561B                             ; $5605: $38 $14
-
-    ld b, $0A                                     ; $5607: $06 $0A
-    cp $05                                        ; $5609: $FE $05
-    jr c, jr_002_561B                             ; $560B: $38 $0E
-
-    ld b, $05                                     ; $560D: $06 $05
-    cp $07                                        ; $560F: $FE $07
-    jr c, jr_002_561B                             ; $5611: $38 $08
-
-    ld b, $02                                     ; $5613: $06 $02
-    cp $0C                                        ; $5615: $FE $0C
-    jr c, jr_002_561B                             ; $5617: $38 $02
-
-    ld b, $01                                     ; $5619: $06 $01
-
-jr_002_561B:
-    ld a, b                                       ; $561B: $78
-    ld hl, $D384                                  ; $561C: $21 $84 $D3
-    add [hl]                                      ; $561F: $86
-    ld hl, $D385                                  ; $5620: $21 $85 $D3
-    sub [hl]                                      ; $5623: $96
-    jr nc, jr_002_5628                            ; $5624: $30 $02
-
-    ld a, $01                                     ; $5626: $3E $01
-
-jr_002_5628:
-    inc a                                         ; $5628: $3C
-    ld [$D0D1], a                                 ; $5629: $EA $D1 $D0
-    FGet16 hl, $D0CF                                  ; $562C: $21 $CF $D0
-    ld bc, $0003                                  ; $5632: $01 $03 $00
-    add hl, bc                                    ; $5635: $09
-    ld a, [hl+]                                   ; $5636: $2A
-    ld l, [hl]                                    ; $5637: $6E
-    ld h, a                                       ; $5638: $67
-    ld a, [$D0D1]                                 ; $5639: $FA $D1 $D0
-    ld c, a                                       ; $563C: $4F
-    ld b, $00                                     ; $563D: $06 $00
-    add hl, bc                                    ; $563F: $09
-    push hl                                       ; $5640: $E5
-    ld b, h                                       ; $5641: $44
-    ld c, l                                       ; $5642: $4D
-    FGet16 hl, $D0CF                                  ; $5643: $21 $CF $D0
-    ld de, $0003                                  ; $5649: $11 $03 $00
-    add hl, de                                    ; $564C: $19
-    ld a, b                                       ; $564D: $78
-    ld [hl+], a                                   ; $564E: $22
-    ld a, c                                       ; $564F: $79
-    ld [hl], a                                    ; $5650: $77
-    Battery_Off
-    pop hl                                        ; $5655: $E1
-    ret                                           ; $5656: $C9
-
-
-BattleCmd_LevelUp_UnlockCommands:
-    ; Checks to see if a new command has been unlocked
-    ; Inputs:
-    ;   hl = wBattle_Creature_Current
-    ;   wBattle_LevelUp_Level = CreatureLevel +- 10*Luck
-
-    DEF i = 0
-    REPT 4
-        ; Loop through all 4 commands and find the first command that is not unlocked
-        push hl
-        ld de, BATTLE_CREATURE_ABILITYUNLOCK0 + i
-        add hl, de
-        ld a, $FF ; Unlocked command
-        cp [hl]
-        IF i != 3
-        jr z, .CheckNextCmd\@
-        ELSE
-        jr z, .NothingUnlocked
-        ENDC
-
-        ; Once we've found the first locked command
-        ; If Level < CmdLevel, then we failed to unlock anything
-        ld a, [wBattle_LevelUp_Level]
-        cp [hl]
-        jr c, .NothingUnlocked
-
-        ; Mark the command as unlocked
-        Set8 hl, $FF
-        ld de, BATTLE_CREATURE_ABILITY0 + 2*i
-        if i != 3
-        jr .UnlockNewCmd
-
-        .CheckNextCmd\@:
-        pop hl
-        ENDC
-        DEF i += 1
-    ENDR
-
-    .UnlockNewCmd:
-        pop hl
-        call BattleCmd_LevelUp_Format_PrepCommandName
-
-        ; Indicate that a new command was unlocked
-        ld a, [wBattle_LevelUp_Flags]
-        set 7, a
-        ld [wBattle_LevelUp_Flags], a
-        ret
-    .NothingUnlocked:
-        pop hl
-        ret
-
-
-Call_002_56C7:
-    push hl                                       ; $56C7: $E5
-    ld bc, $0002                                  ; $56C8: $01 $02 $00
-    add hl, bc                                    ; $56CB: $09
-    ld a, [hl]                                    ; $56CC: $7E
-    ld [wBattle_CopyBuffer_ListIndex], a                                 ; $56CD: $EA $8C $CD
-    ld bc, wText_StringBuffer                                  ; $56D0: $01 $49 $C9
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $56D8: $70
-    Do_CallForeign CreatureName_CopyToDest
-    ld a, $FC                                     ; $56E1: $3E $FC
-    ld [$C953], a                                 ; $56E3: $EA $53 $C9
-    pop hl                                        ; $56E6: $E1
-    ret                                           ; $56E7: $C9
-
-
-Call_002_56E8:
-    push hl                                       ; $56E8: $E5
-    ld bc, $0004                                  ; $56E9: $01 $04 $00
-    add hl, bc                                    ; $56EC: $09
-    ld e, [hl]                                    ; $56ED: $5E
-    ld d, $00                                     ; $56EE: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $56F0: $CD $1A $04
-    ld a, [wX10]                                 ; $56F3: $FA $2E $C9
-    add $30                                       ; $56F6: $C6 $30
-    ld [$C954], a                                 ; $56F8: $EA $54 $C9
-    ld a, [wX1]                                 ; $56FB: $FA $2D $C9
-    add $30                                       ; $56FE: $C6 $30
-    ld [$C955], a                                 ; $5700: $EA $55 $C9
-    ld a, $FC                                     ; $5703: $3E $FC
-    ld [$C956], a                                 ; $5705: $EA $56 $C9
-    pop hl                                        ; $5708: $E1
-    ret                                           ; $5709: $C9
-
-
-Call_002_570A:
-    push hl                                       ; $570A: $E5
-    ld bc, $0009                                  ; $570B: $01 $09 $00
-    add hl, bc                                    ; $570E: $09
-    ld a, [hl+]                                   ; $570F: $2A
-    ld e, [hl]                                    ; $5710: $5E
-    ld d, a                                       ; $5711: $57
-    call Math_ConvertNumberToDigits                                    ; $5712: $CD $1A $04
-    ld a, [wX100]                                 ; $5715: $FA $2F $C9
-    add $30                                       ; $5718: $C6 $30
-    ld [$C957], a                                 ; $571A: $EA $57 $C9
-    ld a, [wX10]                                 ; $571D: $FA $2E $C9
-    add $30                                       ; $5720: $C6 $30
-    ld [$C958], a                                 ; $5722: $EA $58 $C9
-    ld a, [wX1]                                 ; $5725: $FA $2D $C9
-    add $30                                       ; $5728: $C6 $30
-    ld [$C959], a                                 ; $572A: $EA $59 $C9
-    ld a, $FC                                     ; $572D: $3E $FC
-    ld [$C95A], a                                 ; $572F: $EA $5A $C9
-    pop hl                                        ; $5732: $E1
-    ret                                           ; $5733: $C9
-
-
-Call_002_5734:
-    push hl                                       ; $5734: $E5
-    ld bc, $000B                                  ; $5735: $01 $0B $00
-    add hl, bc                                    ; $5738: $09
-    ld e, [hl]                                    ; $5739: $5E
-    ld d, $00                                     ; $573A: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $573C: $CD $1A $04
-    ld a, [wX10]                                 ; $573F: $FA $2E $C9
-    add $30                                       ; $5742: $C6 $30
-    ld [$C95B], a                                 ; $5744: $EA $5B $C9
-    ld a, [wX1]                                 ; $5747: $FA $2D $C9
-    add $30                                       ; $574A: $C6 $30
-    ld [$C95C], a                                 ; $574C: $EA $5C $C9
-    ld a, $FC                                     ; $574F: $3E $FC
-    ld [$C95D], a                                 ; $5751: $EA $5D $C9
-    pop hl                                        ; $5754: $E1
-    ret                                           ; $5755: $C9
-
-
-Call_002_5756:
-    push hl                                       ; $5756: $E5
-    ld bc, $000C                                  ; $5757: $01 $0C $00
-    add hl, bc                                    ; $575A: $09
-    ld e, [hl]                                    ; $575B: $5E
-    ld d, $00                                     ; $575C: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $575E: $CD $1A $04
-    ld a, [wX10]                                 ; $5761: $FA $2E $C9
-    add $30                                       ; $5764: $C6 $30
-    ld [$C95E], a                                 ; $5766: $EA $5E $C9
-    ld a, [wX1]                                 ; $5769: $FA $2D $C9
-    add $30                                       ; $576C: $C6 $30
-    ld [$C95F], a                                 ; $576E: $EA $5F $C9
-    ld a, $FC                                     ; $5771: $3E $FC
-    ld [$C960], a                                 ; $5773: $EA $60 $C9
-    pop hl                                        ; $5776: $E1
-    ret                                           ; $5777: $C9
-
-
-Call_002_5778:
-    push hl                                       ; $5778: $E5
-    ld bc, $000D                                  ; $5779: $01 $0D $00
-    add hl, bc                                    ; $577C: $09
-    ld e, [hl]                                    ; $577D: $5E
-    ld d, $00                                     ; $577E: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $5780: $CD $1A $04
-    ld a, [wX10]                                 ; $5783: $FA $2E $C9
-    add $30                                       ; $5786: $C6 $30
-    ld [$C961], a                                 ; $5788: $EA $61 $C9
-    ld a, [wX1]                                 ; $578B: $FA $2D $C9
-    add $30                                       ; $578E: $C6 $30
-    ld [$C962], a                                 ; $5790: $EA $62 $C9
-    ld a, $FC                                     ; $5793: $3E $FC
-    ld [$C963], a                                 ; $5795: $EA $63 $C9
-    pop hl                                        ; $5798: $E1
-    ret                                           ; $5799: $C9
-
-
-Call_002_579A:
-    push hl                                       ; $579A: $E5
-    ld bc, $000E                                  ; $579B: $01 $0E $00
-    add hl, bc                                    ; $579E: $09
-    ld e, [hl]                                    ; $579F: $5E
-    ld d, $00                                     ; $57A0: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $57A2: $CD $1A $04
-    ld a, [wX10]                                 ; $57A5: $FA $2E $C9
-    add $30                                       ; $57A8: $C6 $30
-    ld [$C964], a                                 ; $57AA: $EA $64 $C9
-    ld a, [wX1]                                 ; $57AD: $FA $2D $C9
-    add $30                                       ; $57B0: $C6 $30
-    ld [$C965], a                                 ; $57B2: $EA $65 $C9
-    ld a, $FC                                     ; $57B5: $3E $FC
-    ld [$C966], a                                 ; $57B7: $EA $66 $C9
-    pop hl                                        ; $57BA: $E1
-    ret                                           ; $57BB: $C9
-
-
-Call_002_57BC:
-    push hl                                       ; $57BC: $E5
-    ld bc, $000F                                  ; $57BD: $01 $0F $00
-    add hl, bc                                    ; $57C0: $09
-    ld e, [hl]                                    ; $57C1: $5E
-    ld d, $00                                     ; $57C2: $16 $00
-    call Math_ConvertNumberToDigits                                    ; $57C4: $CD $1A $04
-    ld a, [wX10]                                 ; $57C7: $FA $2E $C9
-    add $30                                       ; $57CA: $C6 $30
-    ld [$C967], a                                 ; $57CC: $EA $67 $C9
-    ld a, [wX1]                                 ; $57CF: $FA $2D $C9
-    add $30                                       ; $57D2: $C6 $30
-    ld [$C968], a                                 ; $57D4: $EA $68 $C9
-    ld a, $FC                                     ; $57D7: $3E $FC
-    ld [$C969], a                                 ; $57D9: $EA $69 $C9
-    pop hl                                        ; $57DC: $E1
-    ret                                           ; $57DD: $C9
-
-
-Call_002_57DE:
-    ld a, Menu_GetAbility_GETENERGY_TRUE                                     ; $57DE: $3E $01
-    ld [wMenu_BattleCmd_GetEnergyFlag], a                                 ; $57E0: $EA $D5 $CD
-    Do_CallForeign BattleCmd_GetNameAndEnergy
-    ld a, $FC                                     ; $57EB: $3E $FC
-    ld [$C971], a                                 ; $57ED: $EA $71 $C9
-    ret                                           ; $57F0: $C9
-
-
-BattleCmd_LevelUp_DoLevelUp:
-    ; Inputs:
-    ;   hl = wBattle_Creature_Current
-    ;   wBattle_LevelUp_Flags
-    ;       Bit 0 - Set if we don't change XP of creature
-    ;       Bit 1 - Set to display level up text
-    ;       Bit 7 - Set to "use new cmd script" (TODO)
-    push hl
-
-    ; wBattle_LevelUp_StatIndex = rand(4)*5
-    ; This var is now unused to calculate the stat gain
-    SwitchRAMBank BANK("WRAM BATTLE")
-    ld c, $03
-    call Math_Random
-    ld c, a
-    ld b, $05
-    call Math_Mult
-    ld a, l
-    ld [wBattle_LevelUp_StatIndex], a
-
-    ; wBattle_LevelUp_EnergyIndex = 1 + rand(4)
-    ld c, $03
-    call Math_Random
-    inc a
-    ld [wBattle_LevelUp_EnergyIndex], a
-
-    ; Get Creature Type
-    pop hl
-    push hl
-    ld bc, BATTLE_CREATURE_TYPE
-    add hl, bc
-    ld d, $00
-    ld e, [hl]
-
-    ; Remove 100 XP if the flag bit0 is reset
-    ld a, [wBattle_LevelUp_Flags]
-    bit 0, a
-    jr nz, .SkipRemoveXP
-    .Subtract100Exp:
-        ; Subtract 100 XP
-        pop hl
-        push hl
-        ld bc, BATTLE_CREATURE_EXPERIENCE
-        add hl, bc
-        push hl
-        ld a, [hl+]
-        ld l, [hl]
-        ld h, a
-        ld bc, 100
-        TwosComp bc
-        add hl, bc
-        ld a, h
-        ld c, l
-        pop hl
-        ld [hl+], a
-        ld [hl], c
-    .SkipRemoveXP:
-
-    ; Check Creature level and skip if level 99
-    pop hl
-    push hl
-    ld bc, BATTLE_CREATURE_LEVEL
-    add hl, bc
-
-    ld a, [hl]
-    ld [wBattle_LevelUp_Level], a
-    cp 99
-    jr nz, .Pass
-    .MaxLevel:
-        pop hl
-        ret
-    .Pass:
-    ; Increment level by 1
-    inc a
-    ld [hl], a
-
-    ; Past level 62 (Battle_LevelUp_PenaltyLevel), supposed to gain less stats...
-    ; But now is unused to calculate the stat gain, so it doesn't matter
-    cp Battle_LevelUp_PenaltyLevel
-    jr c, .NotPenalty
-    .Penalty:
-        xor a
-        ld [wBattle_LevelUp_StatIndex], a
-    .NotPenalty:
-
-    ; Calculate stat gains
-    call BattleCmd_LevelUp_StrengthGain
-    ld [wBattle_LevelUp_Stats.Strength], a
-    call BattleCmd_LevelUp_SkillGain
-    ld [wBattle_LevelUp_Stats.Skill], a
-    call BattleCmd_LevelUp_SpeedGain
-    ld [wBattle_LevelUp_Stats.Speed], a
-    call BattleCmd_LevelUp_DefenceGain
-    ld [wBattle_LevelUp_Stats.Defence], a
-    call BattleCmd_LevelUp_ResistGain
-    ld [wBattle_LevelUp_Stats.Resist], a
-
-    ; Add stat gain to the creature, capping at 99
-    pop hl
-    push hl
-    ld de, BATTLE_CREATURE_STRENGTH
-    add hl, de
-    DEF i = 0
-    REPT 5
-    ld a, [wBattle_LevelUp_Stats + i]
-    add [hl]
-    cp 99
-    jr c, .SkipMax\@
-        ld a, 99
-    .SkipMax\@:
-    ld [hl], a
-    IF i != 4
-    inc hl
-    ENDC
-    DEF i += 1
-    ENDR
-
-    ; Calculate energy gain
-    ; EnergyUp + wBattle_LevelUp_EnergyIndex
-    pop hl
-    push hl
-    ld bc, BATTLE_CREATURE_ENERGYUP
-    add hl, bc
-    Get8 l, hl
-    ld h, $00
-
-    ld d, h
-    Get8 e, wBattle_LevelUp_EnergyIndex
-    add hl, de
-    ld e, l
-
-    ; Add the Creature's Max Energy
-    pop hl
-    push hl
-    ld bc, BATTLE_CREATURE_MAXENERGY
-    add hl, bc
-    push hl
-    ld a, [hl+]
-    ld l, [hl]
-    ld h, a
-    add hl, de
-
-    ; Cap the energy to 250
-    ld de, 250
-    ld a, h
-    cp d
-    jr nz, .CheckRegister
-        ld a, l
-        cp e
-    .CheckRegister:
-    jr c, .Pass2
-        ld h, d
-        ld l, e
-    .Pass2:
-
-    ; Store the new energy value
-    ld a, h
-    ld c, l
-    pop hl
-    ld [hl+], a
-    ld [hl], c
-
-    ; Calculate the creature's effective new level for abilities:
-    ; Level + Luck(10) (i.e. can learn new skill up to 10 levels earlier!)
-    pop hl
-    push hl
-    ld bc, BATTLE_CREATURE_LUCK
-    add hl, bc
-    ld b, [hl]
-    ld a, 10
-    call BattleCmd_Formula_Luck
-    ld b, a
-    ld a, [wBattle_LevelUp_Level]
-    inc a
-    add b
-    ld [wBattle_LevelUp_Level], a
-    ; Check for new commands learned
-    pop hl
-    call BattleCmd_LevelUp_UnlockCommands
-
-    call BattleCmd_LevelUp_DisplayText
-    ret
-
-
-BattleCmd_LevelUp_DisplayText:
-    ; Displays a text box showing a creature's new stats after level up
-    ld a, [wBattle_LevelUp_Flags]                                 ; $58FF: $FA $89 $D3
-    bit 1, a                                      ; $5902: $CB $4F
-    ret z                                         ; $5904: $C8
-
-    call Call_002_56C7                            ; $5905: $CD $C7 $56
-    call Call_002_56E8                            ; $5908: $CD $E8 $56
-    call Call_002_570A                            ; $590B: $CD $0A $57
-    call Call_002_5734                            ; $590E: $CD $34 $57
-    call Call_002_5756                            ; $5911: $CD $56 $57
-    call Call_002_5778                            ; $5914: $CD $78 $57
-    call Call_002_579A                            ; $5917: $CD $9A $57
-    call Call_002_57BC                            ; $591A: $CD $BC $57
-    ld a, [wBattle_LevelUp_Flags]                                 ; $591D: $FA $89 $D3
-    bit 7, a                                      ; $5920: $CB $7F
-    jr nz, jr_002_5942                            ; $5922: $20 $1E
-
-    ld a, $49                                     ; $5924: $3E $49
-    ld [wText_StringFormatFrame], a                                 ; $5926: $EA $3D $C9
-    ld a, $C9                                     ; $5929: $3E $C9
-    ld [wText_StringFormatFrame+1], a                                 ; $592B: $EA $3E $C9
-    ld hl, $C71B                                  ; $592E: $21 $1B $C7
-    ld a, $4C                                     ; $5931: $3E $4C
-    ld [hl+], a                                   ; $5933: $22
-    ld a, $84                                     ; $5934: $3E $84
-    ld [hl+], a                                   ; $5936: $22
-    ld a, $46                                     ; $5937: $3E $46
-    ld [hl+], a                                   ; $5939: $22
-    ld a, $66                                     ; $593A: $3E $66
-    ld [hl+], a                                   ; $593C: $22
-    ld a, $0A                                     ; $593D: $3E $0A
-    ld [hl+], a                                   ; $593F: $22
-    jr jr_002_5966                                ; $5940: $18 $24
-
-jr_002_5942:
-    res 7, a                                      ; $5942: $CB $BF
-    ld [wBattle_LevelUp_Flags], a                                 ; $5944: $EA $89 $D3
-    call Call_002_57DE                            ; $5947: $CD $DE $57
-    ld a, $49                                     ; $594A: $3E $49
-    ld [wText_StringFormatFrame], a                                 ; $594C: $EA $3D $C9
-    ld a, $C9                                     ; $594F: $3E $C9
-    ld [wText_StringFormatFrame+1], a                                 ; $5951: $EA $3E $C9
-    ld hl, $C71B                                  ; $5954: $21 $1B $C7
-    ld a, $4C                                     ; $5957: $3E $4C
-    ld [hl+], a                                   ; $5959: $22
-    ld a, $FC                                     ; $595A: $3E $FC
-    ld [hl+], a                                   ; $595C: $22
-    ld a, $46                                     ; $595D: $3E $46
-    ld [hl+], a                                   ; $595F: $22
-    ld a, $66                                     ; $5960: $3E $66
-    ld [hl+], a                                   ; $5962: $22
-    ld a, $0A                                     ; $5963: $3E $0A
-    ld [hl+], a                                   ; $5965: $22
-
-jr_002_5966:
-    Do_CallForeign UNK_AwaitTextEnd
-    ret                                           ; $596E: $C9
-
-
-Call_002_596F:
-    ld a, [wBattle_LevelUp_Flags]                                 ; $596F: $FA $89 $D3
-    bit 1, a                                      ; $5972: $CB $4F
-    ret z                                         ; $5974: $C8
-
-    call Call_002_56C7                            ; $5975: $CD $C7 $56
-    call Call_002_56E8                            ; $5978: $CD $E8 $56
-    call Call_002_570A                            ; $597B: $CD $0A $57
-    ld a, $49                                     ; $597E: $3E $49
-    ld [wText_StringFormatFrame], a                                 ; $5980: $EA $3D $C9
-    ld a, $C9                                     ; $5983: $3E $C9
-    ld [wText_StringFormatFrame+1], a                                 ; $5985: $EA $3E $C9
-    ld hl, $C71B                                  ; $5988: $21 $1B $C7
-    ld a, $4C                                     ; $598B: $3E $4C
-    ld [hl+], a                                   ; $598D: $22
-    ld a, $8D                                     ; $598E: $3E $8D
-    ld [hl+], a                                   ; $5990: $22
-    ld a, $47                                     ; $5991: $3E $47
-    ld [hl+], a                                   ; $5993: $22
-    ld a, $66                                     ; $5994: $3E $66
-    ld [hl+], a                                   ; $5996: $22
-    ld a, $0A                                     ; $5997: $3E $0A
-    ld [hl+], a                                   ; $5999: $22
-    Do_CallForeign UNK_AwaitTextEnd
-    ret                                           ; $59A2: $C9
-
-
-Call_002_59A3:
-    push hl                                       ; $59A3: $E5
-    SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [wBattle_LevelUp_Flags]                                 ; $59AB: $FA $89 $D3
-    bit 0, a                                      ; $59AE: $CB $47
-    jr nz, jr_002_59BF                            ; $59B0: $20 $0D
-
-    ld bc, $0064                                  ; $59B2: $01 $64 $00
-    TwosComp bc
-    call BattleCmd_Stat_IncreaseCreatureExp                                    ; $59BC: $CD $12 $38
-
-jr_002_59BF:
-    pop hl                                        ; $59BF: $E1
-    push hl                                       ; $59C0: $E5
-    ld bc, $0004                                  ; $59C1: $01 $04 $00
-    add hl, bc                                    ; $59C4: $09
-    ld a, [hl]                                    ; $59C5: $7E
-    ld [wBattle_LevelUp_Level], a                                 ; $59C6: $EA $8A $D3
-    cp $63                                        ; $59C9: $FE $63
-    jr nz, jr_002_59CF                            ; $59CB: $20 $02
-
-    pop hl                                        ; $59CD: $E1
-    ret                                           ; $59CE: $C9
-
-
-jr_002_59CF:
-    inc a                                         ; $59CF: $3C
-    ld [hl], a                                    ; $59D0: $77
-    pop hl                                        ; $59D1: $E1
-    ld a, [wBattle_LevelUp_Level]                                 ; $59D2: $FA $8A $D3
-    inc a                                         ; $59D5: $3C
-    cp $20                                        ; $59D6: $FE $20
-    jr nc, jr_002_59DF                            ; $59D8: $30 $05
-
-    ld de, $000A                                  ; $59DA: $11 $0A $00
-    jr jr_002_59EB                                ; $59DD: $18 $0C
-
-jr_002_59DF:
-    cp $3C                                        ; $59DF: $FE $3C
-    jr nc, jr_002_59E8                            ; $59E1: $30 $05
-
-    ld de, $0010                                  ; $59E3: $11 $10 $00
-    jr jr_002_59EB                                ; $59E6: $18 $03
-
-jr_002_59E8:
-    ld de, $0001                                  ; $59E8: $11 $01 $00
-
-jr_002_59EB:
-    call BattleCmd_Stat_IncreaseMagiEnergy                                    ; $59EB: $CD $21 $38
-    call Call_002_596F                            ; $59EE: $CD $6F $59
-    ret                                           ; $59F1: $C9
-
-
-BattleCmd_LevelUp_SkillGain::
-    ; Calculates the stat gain for a level up
-    ; Inputs:
-    ;   wBattle_Creature_Target.Type
-    ; Outputs:
-    ;   a =
-    ;       SMALL/STRONG = average +1
-    ;       MED = average +0.8
-    ;       LARGE/WEAK = average +0.6
-
-    ; Get a number 0-9
-    call Math_Rand8Inc
-    ld c, a
-    ld b, 10
-    call Math_Div8
-    ld c, l
-    ld b, $00
-
-    ; Choose the lookup table
-    ld a, [wBattle_Creature_Target.Type]
-    cp CREATURE_TABLE_TYPE_SMALL
-    jr nz, .CheckLarge
-        ld hl, BattleCmd_LevelUp_GoodTable
-        jr .Finally
-    .CheckLarge:
-    cp CREATURE_TABLE_TYPE_LARGE
-    jr nz, .CheckMed
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckMed:
-    cp CREATURE_TABLE_TYPE_MEDIUM
-    jr nz, .CheckWeak
-        ld hl, BattleCmd_LevelUp_OkTable
-        jr .Finally
-    .CheckWeak:
-    cp CREATURE_TABLE_TYPE_WEAK
-    jr nz, .CheckStrong
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckStrong:
-        ld hl, BattleCmd_LevelUp_GoodTable
-    .Finally:
-    add hl, bc
-    ld a, [hl]
-    ret
-
-
-BattleCmd_LevelUp_SpeedGain:
-    ; Calculates the stat gain for a level up
-    ; Inputs:
-    ;   wBattle_Creature_Target.Type
-    ; Outputs:
-    ;   a =
-    ;       SMALL/STRONG = average +1
-    ;       MED = average +0.8
-    ;       LARGE/WEAK = average +0.6
-
-    ; Get a number 0-9
-    call Math_Rand8Inc
-    ld c, a
-    ld b, 10
-    call Math_Div8
-    ld c, l
-    ld b, $00
-
-    ; Choose the lookup table
-    ld a, [wBattle_Creature_Target.Type]
-    cp CREATURE_TABLE_TYPE_SMALL
-    jr nz, .CheckLarge
-        ld hl, BattleCmd_LevelUp_GoodTable
-        jr .Finally
-    .CheckLarge:
-    cp CREATURE_TABLE_TYPE_LARGE
-    jr nz, .CheckMed
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckMed:
-    cp CREATURE_TABLE_TYPE_MEDIUM
-    jr nz, .CheckWeak
-        ld hl, BattleCmd_LevelUp_OkTable
-        jr .Finally
-    .CheckWeak:
-    cp CREATURE_TABLE_TYPE_WEAK
-    jr nz, .CheckStrong
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckStrong:
-        ld hl, BattleCmd_LevelUp_GoodTable
-    .Finally:
-    add hl, bc
-    ld a, [hl]
-    ret
-
-
-BattleCmd_LevelUp_DefenceGain:
-    ; Calculates the stat gain for a level up
-    ; Inputs:
-    ;   wBattle_Creature_Target.Type
-    ; Outputs:
-    ;   a =
-    ;       LARGE/STRONG = average +1.3333
-    ;       MED = average +1.1333
-    ;       SMALL/WEAK = average +0.9333
-
-    ; Get a number 0-9
-    call Math_Rand8Inc
-    ld c, a
-    ld b, 10
-    call Math_Div8
-    ld c, l
-    ld b, $00
-
-    ; Choose the lookup table
-    ld a, [wBattle_Creature_Target.Type]
-    cp CREATURE_TABLE_TYPE_SMALL
-    jr nz, .CheckLarge
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckLarge:
-    cp CREATURE_TABLE_TYPE_LARGE
-    jr nz, .CheckMed
-        ld hl, BattleCmd_LevelUp_GoodTable
-        jr .Finally
-    .CheckMed:
-    cp CREATURE_TABLE_TYPE_MEDIUM
-    jr nz, .CheckWeak
-        ld hl, BattleCmd_LevelUp_OkTable
-        jr .Finally
-    .CheckWeak:
-    cp CREATURE_TABLE_TYPE_WEAK
-    jr nz, .CheckStrong
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckStrong:
-        ld hl, BattleCmd_LevelUp_GoodTable
-    .Finally:
-    add hl, bc
-    ld a, [hl]
-
-    ; Add 33% chance +1
-    push af
-    call Math_Rand8Inc
-    ld c, a
-    ld b, $03
-    call Math_Div8
-    ld a, l
-    and %00000010
-    srl a
-    ld b, a
-    pop af
-    add b
-    ret
-
-
-BattleCmd_LevelUp_ResistGain:
-    ; Calculates the stat gain for a level up
-    ; Inputs:
-    ;   wBattle_Creature_Target.Type
-    ; Outputs:
-    ;   a =
-    ;       LARGE/STRONG = average +1.3333
-    ;       MED = average +1.1333
-    ;       SMALL/WEAK = average +0.9333
-
-    ; Get a number 0-9
-    call Math_Rand8Inc
-    ld c, a
-    ld b, 10
-    call Math_Div8
-    ld c, l
-    ld b, $00
-
-    ; Choose the lookup table
-    ld a, [wBattle_Creature_Target.Type]
-    cp CREATURE_TABLE_TYPE_SMALL
-    jr nz, .CheckLarge
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckLarge:
-    cp CREATURE_TABLE_TYPE_LARGE
-    jr nz, .CheckMed
-        ld hl, BattleCmd_LevelUp_GoodTable
-        jr .Finally
-    .CheckMed:
-    cp CREATURE_TABLE_TYPE_MEDIUM
-    jr nz, .CheckWeak
-        ld hl, BattleCmd_LevelUp_OkTable
-        jr .Finally
-    .CheckWeak:
-    cp CREATURE_TABLE_TYPE_WEAK
-    jr nz, .CheckStrong
-        ld hl, BattleCmd_LevelUp_BadTable
-        jr .Finally
-    .CheckStrong:
-        ld hl, BattleCmd_LevelUp_GoodTable
-    .Finally:
-    add hl, bc
-    ld a, [hl]
-
-    ; Add 33% chance +1
-    push af
-    call Math_Rand8Inc
-    ld c, a
-    ld b, $03
-    call Math_Div8
-    ld a, l
-    and %00000010
-    srl a
-    ld b, a
-    pop af
-    add b
-    ret
-
-
-BattleCmd_LevelUp_StrengthGain:
-    ; Calculates a Strength gain
-    ; Inputs:
-    ;   None
-    ; Outputs:
-    ;   a = 0-3 (averages 1.1875)
-
-    ; Get a random number from %000-%111, where the 0 digits have 75% chance and 1 digits have 25% chance
-    ; Probably not intentional, given the even distribution of the strength table?
-    call Math_Rand8Inc
-    ld b, a
-    call Math_Rand8Inc
-    swap a
-    and b ; Bug? - should be xor instead?
-    and %00000111
-    ld c, a
-    ld b, $00
-
-    ; Look up the corresponding value in the table
-    ld hl, BattleCmd_LevelUp_StrengthTable
-    add hl, bc
-    ld a, [hl]
-    ret
-
-BattleCmd_LevelUp_StrengthTable::
-    ; 000 001 010 011 100 101 110 111
-    ;  27   9   9   3   9   3   3   1   (chance/64)
-    ; Average stat gain: 1.1875 per level
-    ; If equally distributed, would expect 1.5 per level
-    db 1,  2,  1,  2,  0,  3,  2,  1
-
-BattleCmd_LevelUp_BadTable::
-    ; Average = 0.6
-    db 0, 0, 1, 1, 1, 1, 0, 0, 2, 0
-BattleCmd_LevelUp_OkTable::
-    ; Average = 0.8
-    db 0, 2, 1, 1, 1, 1, 0, 0, 2, 0
-BattleCmd_LevelUp_GoodTable::
-    ; Average = 1
-    db 0, 3, 1, 1, 1, 1, 0, 1, 2, 0
-
-
-Call_002_5B35::
-    FGet16 bc, $CD52                                  ; $5B35: $21 $52 $CD                                       ; $5B3A: $4F
-    ld hl, $D110                                  ; $5B3B: $21 $10 $D1
-    ld a, [wMenu_Ringsmith_RingLevel]                                 ; $5B3E: $FA $50 $CD
-    dec a                                         ; $5B41: $3D
-    push af                                       ; $5B42: $F5
-    SwitchRAMBank BANK("WRAM BATTLE")
-    call Call_002_5C1E                            ; $5B4A: $CD $1E $5C
-    xor a                                         ; $5B4D: $AF
-    set 0, a                                      ; $5B4E: $CB $C7
-    res 1, a                                      ; $5B50: $CB $8F
-    ld [wBattle_LevelUp_Flags], a                                 ; $5B52: $EA $89 $D3
-    pop af                                        ; $5B55: $F1
-    and a                                         ; $5B56: $A7
-    jr z, jr_002_5B64                             ; $5B57: $28 $0B
-
-jr_002_5B59:
-    ld hl, $D110                                  ; $5B59: $21 $10 $D1
-    push af                                       ; $5B5C: $F5
-    call BattleCmd_LevelUp_DoLevelUp                            ; $5B5D: $CD $F1 $57
-    pop af                                        ; $5B60: $F1
-    dec a                                         ; $5B61: $3D
-    jr nz, jr_002_5B59                            ; $5B62: $20 $F5
-
-jr_002_5B64:
-    FGet16 bc, $CD52                                  ; $5B64: $21 $52 $CD                                       ; $5B69: $4F
-    ld hl, $D110                                  ; $5B6A: $21 $10 $D1
-    call Call_002_5C93                            ; $5B6D: $CD $93 $5C
-    ret                                           ; $5B70: $C9
-
-
-BattleCmd_LevelUp_Format_PrepCommandName:
-    ; Puts the newly learned command into the relevant variables to later copy the name
-    ; Inputs:
-    ;   hl = wBattle_Creature_Current
-    ;   de = Offset to BattleCmd0,1,2,3 in the Creature's struct
-    ; Outputs:
-    ;   wMenu_BattleCmd_TablePointer = BattleCmd struct
-    ;   wMenu_BattleCmd_DestBuffer = wText_StringBuffer + 33
-    push hl
-    add hl, de
-    ld a, [hl+]
-    ld d, [hl]
-    ld e, a
-    FSet16 wMenu_BattleCmd_TablePointer, de
-    Set16_M wMenu_BattleCmd_DestBuffer, wText_StringBuffer + 33
-    pop hl
-    ret
 
 
     ld hl, $D110                                  ; $5B88: $21 $10 $D1
@@ -4112,7 +3087,7 @@ Battle_Init_CreatureClose::
 jr_002_5BF4:
     ld hl, $D110                                  ; $5BF4: $21 $10 $D1
     push af                                       ; $5BF7: $F5
-    call BattleCmd_LevelUp_DoLevelUp                            ; $5BF8: $CD $F1 $57
+    call BattleCmd_LevelUp_CreatureLevelUp                            ; $5BF8: $CD $F1 $57
     pop af                                        ; $5BFB: $F1
     dec a                                         ; $5BFC: $3D
     jr nz, jr_002_5BF4                            ; $5BFD: $20 $F5
@@ -4122,13 +3097,13 @@ jr_002_5BF4:
 
     SwitchRAMBank BANK("WRAM BATTLE")
     ld hl, $D110                                  ; $5C07: $21 $10 $D1
-    call Call_002_59A3                            ; $5C0A: $CD $A3 $59
+    call BattleCmd_LevelUp_MagiLevelUp                            ; $5C0A: $CD $A3 $59
     ret                                           ; $5C0D: $C9
 
 
     SwitchRAMBank BANK("WRAM BATTLE")
     ld hl, $D110                                  ; $5C15: $21 $10 $D1
-    call BattleCmd_LevelUp_DoLevelUp                            ; $5C18: $CD $F1 $57
+    call BattleCmd_LevelUp_CreatureLevelUp                            ; $5C18: $CD $F1 $57
     ret                                           ; $5C1B: $C9
 
 
@@ -4139,7 +3114,7 @@ Call_002_5C1D:
     ret                                           ; $5C1D: $C9
 
 
-Call_002_5C1E:
+Battle_Init_SummonCreature::
     SwitchRAMBank BANK("WRAM BATTLE")
     Battery_SetBank "XRAM Creatures"
     Battery_On
@@ -4219,7 +3194,7 @@ Battle_Flow_Begin_SummonMagi:
     ret
 
 
-Call_002_5C93:
+Battle_Init_UnsummonCreature:
     ld de, $0002                                  ; $5C93: $11 $02 $00
     add hl, de                                    ; $5C96: $19
     SwitchRAMBank BANK("WRAM BATTLE")
@@ -4259,7 +3234,7 @@ jr_002_5CBC:
     ld [hl+], a                                   ; $5CCF: $22
     ld a, $0A                                     ; $5CD0: $3E $0A
     ld [hl+], a                                   ; $5CD2: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     jr jr_002_5CBC                                ; $5CDB: $18 $DF
 
 Call_002_5CDD::
@@ -4348,7 +3323,7 @@ jr_002_5D21:
     ld [hl+], a                                   ; $5D83: $22
     ld a, $0A                                     ; $5D84: $3E $0A
     ld [hl+], a                                   ; $5D86: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [wBattle_Creature_Current.BattleCmd_Target]                                 ; $5D8F: $FA $03 $D1
     call Battle00_Actor_DisableScript                                    ; $5D92: $CD $C7 $38
     ld a, $01                                     ; $5D95: $3E $01
@@ -4397,7 +3372,7 @@ jr_002_5DBD:
     ld [hl+], a                                   ; $5E04: $22
     ld a, $0A                                     ; $5E05: $3E $0A
     ld [hl+], a                                   ; $5E07: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld hl, $D110                                  ; $5E10: $21 $10 $D1
     ld a, $01                                     ; $5E13: $3E $01
     call Call_002_6F30                            ; $5E15: $CD $30 $6F
@@ -5009,7 +3984,7 @@ jr_002_6371:
     add hl, de                                    ; $6388: $19
     push hl                                       ; $6389: $E5
     ld de, $0005                                  ; $638A: $11 $05 $00
-    TwosComp de
+    TwosComp de ; Inefficiency, could just ld de, -5
     add hl, de                                    ; $6394: $19
     ld de, $0007                                  ; $6395: $11 $07 $00
     add hl, de                                    ; $6398: $19
@@ -5068,7 +4043,7 @@ jr_002_63E0:
     LdHLIBCI                                        ; $63F8: $03
     Battery_Off
     Do_CallForeign Call_005_42F6
-    call Call_002_54D9                            ; $6405: $CD $D9 $54
+    call Battle_LevelUp_XPAndLevelUp                            ; $6405: $CD $D9 $54
     ld hl, $C71B                                  ; $6408: $21 $1B $C7
     ld a, $4C                                     ; $640B: $3E $4C
     ld [hl+], a                                   ; $640D: $22
@@ -5100,7 +4075,7 @@ Jump_002_641DCheckLose:
     ld [hl+], a                                   ; $645F: $22
     ld a, $0A                                     ; $6460: $3E $0A
     ld [hl+], a                                   ; $6462: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, $20                                     ; $646B: $3E $20
     ld [$C9DE], a                                 ; $646D: $EA $DE $C9
     ld a, $0F                                     ; $6470: $3E $0F
@@ -5172,7 +4147,7 @@ Jump_002_6527:
     cp BATTLE_EXITCODE_TODO ;todo ?? what is this
     jr z, jr_002_6536                             ; $652C: $28 $08
 
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_002_6536:
     call ScreenHide                                    ; $6536: $CD $C3 $07
@@ -5275,7 +4250,7 @@ Jump_002_65CC:
     ld [hl+], a                                   ; $6618: $22
     ld a, $0A                                     ; $6619: $3E $0A
     ld [hl+], a                                   ; $661B: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [wBattle_CurCreature_Slot]                                 ; $6624: $FA $B1 $D0
     call Battle00_Actor_DisableScript                                    ; $6627: $CD $C7 $38
     jp Jump_002_66B5                              ; $662A: $C3 $B5 $66
@@ -5330,7 +4305,7 @@ jr_002_664B:
     ld [hl+], a                                   ; $668F: $22
     ld a, $0A                                     ; $6690: $3E $0A
     ld [hl+], a                                   ; $6692: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [wBattle_CurCreature_Slot]                                 ; $669B: $FA $B1 $D0
     call Battle00_Actor_DisableScript                                    ; $669E: $CD $C7 $38
     jr jr_002_66B5                                ; $66A1: $18 $12
@@ -5476,7 +4451,7 @@ jr_002_6735:
     ld [hl+], a                                   ; $678B: $22
     ld a, $0A                                     ; $678C: $3E $0A
     ld [hl+], a                                   ; $678E: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [$D0B6]                                 ; $6797: $FA $B6 $D0
     call Battle00_Actor_DisableScript                                    ; $679A: $CD $C7 $38
     jp Jump_002_68E8                              ; $679D: $C3 $E8 $68
@@ -5606,7 +4581,7 @@ jr_002_6842:
     ld d, $41                                     ; $687C: $16 $41
     ld bc, $6EC2                                  ; $687E: $01 $C2 $6E
     call Battle00_Actor_SetScript                                    ; $6881: $CD $F0 $38
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [$D0B6]                                 ; $688C: $FA $B6 $D0
     call Battle00_Actor_DisableScript                                    ; $688F: $CD $C7 $38
 
@@ -5756,7 +4731,7 @@ jr_002_6966:
     ld [hl+], a                                   ; $6990: $22
 
 jr_002_6991:
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [$D0B6]                                 ; $6999: $FA $B6 $D0
     call Battle00_Actor_DisableScript                                    ; $699C: $CD $C7 $38
     xor a                                         ; $699F: $AF
@@ -5884,7 +4859,7 @@ jr_002_6A51:
     ld [hl+], a                                   ; $6A98: $22
     ld a, $0A                                     ; $6A99: $3E $0A
     ld [hl+], a                                   ; $6A9B: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [wBattle_CurCreature_Slot]                                 ; $6AA4: $FA $B1 $D0
     res 7, a                                      ; $6AA7: $CB $BF
     ld a, a                                       ; $6AA9: $7F
@@ -6185,7 +5160,7 @@ Battle_Flow_StatusAilments::
             ld [hl+], a
             ld a, $0A
             ld [hl+], a
-            Do_CallForeign UNK_AwaitTextEnd
+            Do_CallForeign Battle_Helpers_AwaitTextEnd
             ld a, [$D0B6]
             call Battle00_Actor_DisableScript
             jr .CheckErupt
@@ -6255,7 +5230,7 @@ jr_002_6D12:
     ld [hl+], a
     ld a, $0A
     ld [hl+], a
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ld a, [$D0B6]
     call Battle00_Actor_DisableScript
     jr jr_002_6DC7
@@ -6448,7 +5423,7 @@ Battle_Flow_StatusCombos:
 
                 Script_Set wScript_Text, SCRIPT_Battle_Text_PlagueCured
 
-                Do_CallForeign UNK_AwaitTextEnd
+                Do_CallForeign Battle_Helpers_AwaitTextEnd
                 ld a, [wBattle_Creature_Current.BattleCmd_Target]
                 call Battle00_Actor_DisableScript
                 ld a, [wBattle_Creature_Target.StatusActive]
@@ -6472,7 +5447,7 @@ Battle_Flow_StatusCombos:
                 ; because the "🔊" char should already be written into the right place in wText_StringBuffer due to previous interactions during the battle
                 Battle_FormatCreatureName_Bugged [wBattle_Creature_Target.ID]
                 Script_Set wScript_Text, SCRIPT_Battle_Text_HiccupsCured
-                Do_CallForeign UNK_AwaitTextEnd
+                Do_CallForeign Battle_Helpers_AwaitTextEnd
                 ; Cure hiccups
                 ld a, [wBattle_Creature_Target.StatusActive]
                 xor Status_HICCUPS
@@ -6580,7 +5555,7 @@ jr_002_6F80:
     ld [wText_StringFormatFrame], a                                 ; $6FA1: $EA $3D $C9
     ld a, $C9                                     ; $6FA4: $3E $C9
     ld [wText_StringFormatFrame+1], a                                 ; $6FA6: $EA $3E $C9
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $6FB1: $C9
 
 

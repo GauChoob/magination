@@ -503,7 +503,7 @@ Call_005_42F6::
     ld [hl+], a                                   ; $4347: $22
     ld a, $0A                                     ; $4348: $3E $0A
     ld [hl+], a                                   ; $434A: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_005_4353:
     call Math_Rand8Inc                                    ; $4353: $CD $4F $05
@@ -536,7 +536,7 @@ jr_005_4353:
     ld [hl+], a                                   ; $4390: $22
     ld a, $0A                                     ; $4391: $3E $0A
     ld [hl+], a                                   ; $4393: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_005_439C:
     call Math_Rand8Inc                                    ; $439C: $CD $4F $05
@@ -570,7 +570,7 @@ jr_005_439C:
     ld [hl+], a                                   ; $43D9: $22
     ld a, $0A                                     ; $43DA: $3E $0A
     ld [hl+], a                                   ; $43DC: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $43E5: $C9
 
     ; $43E6
@@ -833,7 +833,7 @@ jr_005_4580:
 
 Call_005_4595::
     ld a, $01                                     ; $4595: $3E $01
-    ld [$D071], a                                 ; $4597: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4597: $EA $71 $D0
     ld hl, $C71B                                  ; $459A: $21 $1B $C7
     ld a, $4C                                     ; $459D: $3E $4C
     ld [hl+], a                                   ; $459F: $22
@@ -2365,8 +2365,8 @@ jr_005_5A10:
     ld d, $03                                     ; $5A17: $16 $03
     ret                                           ; $5A19: $C9
 
-    ; $5A1A
-UNK_AwaitTextEnd::
+
+Battle_Helpers_AwaitTextEnd::
     ; Loops until wScript_Text is done
     .Loop:
         call System_UpdateGame
@@ -2441,7 +2441,7 @@ Jump_005_5A4D:
     pop af                                        ; $5AA0: $F1
     ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $5AA1: $EA $03 $D1
     call Call_005_405C                            ; $5AA4: $CD $5C $40
-    ld hl, $D384                                  ; $5AA7: $21 $84 $D3
+    ld hl, wBattle_LevelUp_EnemiesSummoned                                  ; $5AA7: $21 $84 $D3
     inc [hl]                                      ; $5AAA: $34
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $5AB3: $3E $49
@@ -2479,7 +2479,7 @@ jr_005_5AD7:
     ld [hl+], a                                   ; $5AE8: $22
 
 jr_005_5AE9:
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     pop hl                                        ; $5AF1: $E1
 
 Jump_005_5AF2:
