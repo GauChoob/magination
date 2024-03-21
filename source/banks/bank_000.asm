@@ -112,7 +112,7 @@ Cmd_Battle_Spell::
     ; Unclear if there will be a bug if you try and make a creature cast a spell
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
-    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in Spell_Table
     ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
@@ -190,9 +190,16 @@ Cmd_Battle_SummonDelay::
     jp BattleScriptXX_SummonDelay
 
 
+Cmd_Battle_Item::
+    ; Directs an enemy magi to use the specified item
+    ; Unclear if there will be a bug if you try and make a creature use an item
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an item in Item_Table
+    ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
     ld a, $04
     call Battle00_CopyDataFromFrame
-    jp $7595
+    jp BattleScriptXX_Item
 
 
 Cmd_Battle_Swirl::

@@ -48,8 +48,8 @@ Script_Table::
     dw Cmd_Battle_ForgeRing ; $2C
     dw Cmd_Battle_SummonFast ; $2D, unused deprecated
     dw Cmd_Battle_SummonDelay ; $2E
-    dw $0F8A
-    dw Cmd_Battle_Swirl            ; $30 -todo maybe this should be a graphics function instead
+    dw Cmd_Battle_Item ; $2F
+    dw Cmd_Battle_Swirl       ; $30
     dw $0FDF
     dw $0FFE
 

@@ -5938,7 +5938,7 @@ BattleScriptXX_Spell::
     ; Unclear if there will be a bug if you try and make a creature cast a spell
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
-    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in Spell_Table
     ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
 
     ; Load creature into wBattle_Creature_Current
@@ -5973,7 +5973,7 @@ BattleScriptXX_Spell::
     Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
 
     ; Check if the target is valid
-    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI ; Used by Battle_Helpers_CheckValidTarget
+    Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI ; Used by Battle_Helpers_CheckValidTarget?
     Do_CallForeign Battle_Helpers_CheckValidTarget
     ld a, [wBattle_CurCreature_ValidBattleCmd]
     and a
@@ -6163,35 +6163,54 @@ BattleScriptXX_SummonDelay::
     ret
 
 
-    call BattleScriptXX_OpenCreatureFromFrame                            ; $7595: $CD $2B $76
-    ld bc, $5EDE                                  ; $7598: $01 $DE $5E
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $75A0: $70
-    ld bc, wBattle_Creature_Current.BattleCmd_Function                                  ; $75A1: $01 $00 $D1
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $75A9: $70
-    Do_CallForeign BattleCmd_GetDataFromAddress
-    FGet16 bc, $D393                                  ; $75B2: $21 $93 $D3                                       ; $75B7: $4F
-    FSet16 wBattle_CopyBuffer_Source, bc                                    ; $75BD: $70
-    FSet16 $D107, bc                                    ; $75C3: $70
-    ld bc, wMenu_Battle_TableRowBuffer                                  ; $75C4: $01 $91 $CD
-    FSet16 wBattle_CopyBuffer_Destination, bc                                    ; $75CC: $70
-    Do_CallForeign ItemSpell_GetDataFromAddress
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $75D5: $21 $91 $CD
-    ld bc, $0005                                  ; $75D8: $01 $05 $00
-    add hl, bc                                    ; $75DB: $09
-    ld a, [hl]                                    ; $75DC: $7E
-    ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $75DD: $EA $03 $D1
-    ld hl, wMenu_Battle_TableRowBuffer                                  ; $75E0: $21 $91 $CD
-    ld bc, $0004                                  ; $75E3: $01 $04 $00
-    add hl, bc                                    ; $75E6: $09
-    ld a, [hl]                                    ; $75E7: $7E
-    ld [wBattle_Creature_Current.BattleCmd_Cost], a                                 ; $75E8: $EA $02 $D1
-    Do_CallForeign Battle_Helpers_CheckValidTarget
-    ld a, [wBattle_CurCreature_ValidBattleCmd]                                 ; $75F3: $FA $AF $D0
-    and a                                         ; $75F6: $A7
-    ret z                                         ; $75F7: $C8
+BattleScriptXX_Item::
+    ; Directs an enemy magi to use the specified item
+    ; Unclear if there will be a bug if you try and make a creature use an item
+    ; Arguments:
+    ;   db  wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an item in Item_Table
+    ;   db  wBattle_Buffer_TargetAI - Desired target e.g. BattleAI_Target_AllyWeakPercent
 
-    call BattleScriptXX_AITarget                            ; $75F8: $CD $07 $76
-    ret                                           ; $75FB: $C9
+    ; Load creature into wBattle_Creature_Current
+    call BattleScriptXX_OpenCreatureFromFrame
+
+    ; Choose Item
+    ld bc, BattleCmd_Table.BattleCmd_ITEM
+    FSet16 wBattle_CopyBuffer_Source, bc
+    ld bc, wBattle_Creature_Current.BattleCmd_Function
+    FSet16 wBattle_CopyBuffer_Destination, bc
+    Do_CallForeign BattleCmd_GetDataFromAddress
+
+    ; Set wBattle_Creature_Current.BattleCmd_MenuChoice
+    ; Also get the item data
+    FGet16 bc, wBattle_Buffer_ItemSpellBattleCmdAddress
+    FSet16 wBattle_CopyBuffer_Source, bc
+    FSet16 wBattle_Creature_Current.BattleCmd_MenuChoice, bc
+    ld bc, wMenu_Battle_TableRowBuffer
+    FSet16 wBattle_CopyBuffer_Destination, bc
+    Do_CallForeign ItemSpell_GetDataFromAddress
+
+    ld hl, wMenu_Battle_TableRowBuffer
+    ld bc, wMenu_Battle_TableRowBuffer.ItemSpell_Target - wMenu_Battle_TableRowBuffer
+    add hl, bc ; inefficiency, could have directly loaded the address
+    Mov8 wBattle_Creature_Current.BattleCmd_Target, hl
+
+    ; From the item data, get the energy cost
+    ld hl, wMenu_Battle_TableRowBuffer
+    ld bc, wMenu_Battle_TableRowBuffer.ItemSpell_Cost - wMenu_Battle_TableRowBuffer
+    add hl, bc  ; inefficiency, could have directly loaded the address
+    Mov8 wBattle_Creature_Current.BattleCmd_Cost, hl
+
+    ; Check if the target is valid
+    ; Set8 wBattle_CurCreature_Slot, BATTLE_SLOT_MAGI - this line is added for BattleScriptXX_Spell - todo is it an unnecessary line?
+    Do_CallForeign Battle_Helpers_CheckValidTarget
+    ld a, [wBattle_CurCreature_ValidBattleCmd]
+    and a
+    ret z
+
+    ; If the target is valid, choose the best target
+    call BattleScriptXX_AITarget
+    ret
 
 
 BattleScriptXX_FindBattleCreatureFromSlot:
