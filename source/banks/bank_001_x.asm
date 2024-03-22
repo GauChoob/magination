@@ -17,78 +17,29 @@ INCLUDE "source/engine/actor/actor_list_xx.asm"
 INCLUDE "source/engine/actor/actor_xx.asm"
 
 
-    ; $415D
-    db $11                                        ; $415D: $11
-
-    db $04
-
-    ld b, $03                                     ; $415F: $06 $03
-    add hl, bc                                    ; $4161: $09
-    db $10                                        ; $4162: $10
-    ld a, [bc]                                    ; $4163: $0A
-    dec bc                                        ; $4164: $0B
-    ld c, $0C                                     ; $4165: $0E $0C
-    ld [$0907], sp                                ; $4167: $08 $07 $09
-    inc c                                         ; $416A: $0C
-    inc bc                                        ; $416B: $03
-    inc b                                         ; $416C: $04
-    ld c, b                                       ; $416D: $48
-    ld e, $43                                     ; $416E: $1E $43
-    ld c, b                                       ; $4170: $48
-    ld l, c                                       ; $4171: $69
-    inc [hl]                                      ; $4172: $34
-    ld [hl], b                                    ; $4173: $70
-    sub [hl]                                      ; $4174: $96
-    sub [hl]                                      ; $4175: $96
-    cp e                                          ; $4176: $BB
-    ld b, e                                       ; $4177: $43
-    ld l, c                                       ; $4178: $69
-    ld b, e                                       ; $4179: $43
-    cp e                                          ; $417A: $BB
-    inc a                                         ; $417B: $3C
-    ld d, $48                                     ; $417C: $16 $48
-    pop hl                                        ; $417E: $E1
-    ld b, e                                       ; $417F: $43
-    ld c, b                                       ; $4180: $48
-    ld l, c                                       ; $4181: $69
-    ld c, b                                       ; $4182: $48
-    ld d, $70                                     ; $4183: $16 $70
-    or h                                          ; $4185: $B4
-    sub [hl]                                      ; $4186: $96
-    cp e                                          ; $4187: $BB
-    ld c, b                                       ; $4188: $48
-    ld l, c                                       ; $4189: $69
-    jp $3CBB                                      ; $418A: $C3 $BB $3C
+; Encounter table values are written in frames (the values are divided by 4 by the Macro)
+Encounter_RandomDelayTable_VeryFast::
+    ; Average delay: 0.62667 seconds
+    Encounter_RandomDelayTable 68, 16, 24, 12, 36, 64, 40, 44, 56, 48, 32, 28, 36, 48, 12, 16
+Encounter_RandomDelayTable_Fast::
+    ; Average delay: 6.59111 seconds
+    Encounter_RandomDelayTable 288, 120, 268, 288, 420, 208, 448, 600, 600, 748, 268, 420, 268, 748, 240, 88
+Encounter_RandomDelayTable_Normal::
+    ; Average delay: 8.10222 seconds
+    Encounter_RandomDelayTable 288, 900, 268, 288, 420, 288, 88, 448, 720, 600, 748, 288, 420, 780, 748, 240
+Encounter_RandomDelayTable_Slow::
+    ; Average delay: 9.70833 seconds (taking into account the bugs)
+    ; Bug: There are only 15 values in this table, so the first entry of the next table is also used
+    Encounter_RandomDelayTable 720, 240, 840, 900, 216, 900, 208, 448, 720, 208, 1016, 288, 216, 780, 900
+Encounter_RandomDelayTable_VerySlow::
+    ; Average delay: 13.7378 seconds (taking into account the bugs)
+    ; Bug: There are only 15 values in this table, so the first byte after the table is used ($FA = 1000 frames)
+    ; Bug - one value is skipped and rerolled because it converts to $FF, which is interpreted as Encounter_Countdown_UNINITIALIZED
+    ;                                                                                         v This one
+    Encounter_RandomDelayTable 720, 688, 840, 900, 1020, 900, 656, 768, 720, 656, 1016, 800, 1020, 780, 900
 
 
-    or h                                          ; $418D: $B4
-    inc a                                         ; $418E: $3C
-    jp nc, $36E1                                  ; $418F: $D2 $E1 $36
-
-    pop hl                                        ; $4192: $E1
-    inc [hl]                                      ; $4193: $34
-    ld [hl], b                                    ; $4194: $70
-    or h                                          ; $4195: $B4
-    inc [hl]                                      ; $4196: $34
-    cp $48                                        ; $4197: $FE $48
-    ld [hl], $C3                                  ; $4199: $36 $C3
-    pop hl                                        ; $419B: $E1
-    or h                                          ; $419C: $B4
-    xor h                                         ; $419D: $AC
-    jp nc, $FFE1                                  ; $419E: $D2 $E1 $FF
-
-    pop hl                                        ; $41A1: $E1
-    and h                                         ; $41A2: $A4
-    ret nz                                        ; $41A3: $C0
-
-    or h                                          ; $41A4: $B4
-    and h                                         ; $41A5: $A4
-    cp $C8                                        ; $41A6: $FE $C8
-    rst $38                                       ; $41A8: $FF
-    jp $FAE1                                      ; $41A9: $C3 $E1 $FA
-
-
-    ld d, $C7                                     ; $41AC: $16 $C7
+    ld a, [wScript_System.Frame + 1] ; $FA, $16, $C7
     and a                                         ; $41AE: $A7
     ret nz                                        ; $41AF: $C0
 
@@ -96,13 +47,13 @@ INCLUDE "source/engine/actor/actor_xx.asm"
     cp $00                                        ; $41B3: $FE $00
     ret nz                                        ; $41B5: $C0
 
-    ld a, $FF                                     ; $41B6: $3E $FF
-    ld [$C6D7], a                                 ; $41B8: $EA $D7 $C6
-    ld a, [$C6DB]                                 ; $41BB: $FA $DB $C6
+    ld a, Encounter_Countdown_UNINITIALIZED                                     ; $41B6: $3E $FF
+    ld [wEncounter_Countdown], a                                 ; $41B8: $EA $D7 $C6
+    ld a, [wEncounter_Script.Bank]                                 ; $41BB: $FA $DB $C6
     ld [wScript_System.Bank], a                                 ; $41BE: $EA $14 $C7
-    ld a, [$C6DC]                                 ; $41C1: $FA $DC $C6
+    ld a, [wEncounter_Script.Address]                                 ; $41C1: $FA $DC $C6
     ld [$C715], a                                 ; $41C4: $EA $15 $C7
-    ld a, [$C6DD]                                 ; $41C7: $FA $DD $C6
+    ld a, [wEncounter_Script.Address + 1]                                 ; $41C7: $FA $DD $C6
     ld [$C716], a                                 ; $41CA: $EA $16 $C7
     ld a, $66                                     ; $41CD: $3E $66
     ld [$C717], a                                 ; $41CF: $EA $17 $C7
@@ -125,27 +76,27 @@ Jump_001_41D8:
     and a                                         ; $41EC: $A7
     ret nz                                        ; $41ED: $C0
 
-    ld a, [$C6D7]                                 ; $41EE: $FA $D7 $C6
+    ld a, [wEncounter_Countdown]                                 ; $41EE: $FA $D7 $C6
     and a                                         ; $41F1: $A7
     jp z, $41AB                                   ; $41F2: $CA $AB $41
 
-    cp $FF                                        ; $41F5: $FE $FF
+    cp Encounter_Countdown_UNINITIALIZED                                        ; $41F5: $FE $FF
     jr z, jr_001_41FE                             ; $41F7: $28 $05
 
     dec a                                         ; $41F9: $3D
-    ld [$C6D7], a                                 ; $41FA: $EA $D7 $C6
+    ld [wEncounter_Countdown], a                                 ; $41FA: $EA $D7 $C6
     ret                                           ; $41FD: $C9
 
 
 jr_001_41FE:
-    FGet16 hl, $C6D9                                  ; $41FE: $21 $D9 $C6
+    FGet16 hl, wEncounter_LookupTable                                  ; $41FE: $21 $D9 $C6
     call Math_Rand8Inc                                    ; $4204: $CD $4F $05
     and $0F                                       ; $4207: $E6 $0F
     ld e, a                                       ; $4209: $5F
     ld d, $00                                     ; $420A: $16 $00
     add hl, de                                    ; $420C: $19
     ld a, [hl]                                    ; $420D: $7E
-    ld [$C6D7], a                                 ; $420E: $EA $D7 $C6
+    ld [wEncounter_Countdown], a                                 ; $420E: $EA $D7 $C6
     ret                                           ; $4211: $C9
 
 

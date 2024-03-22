@@ -614,3 +614,14 @@ wBattleAI_Target_CreatureEnergyReport::
 wBattleAI_Target_CurrentBestCreature::
     ; Temporary variable marking the best target creature id (0-3)
     ds 1
+    ;ds $D3CD - @
+wBattle_Return::
+    ; Script to run at end of battle
+    .Win_Bank:
+        ds 1
+    .Win_Address:
+        ds 2
+    .Lose_Bank:
+        ds 1
+    .Lose_Address:
+        ds 2

@@ -44,12 +44,30 @@ wColl_XMove::
 wColl_YMove::
     ds 1
 
-    ds $C6D8 - @
-wEncounter_Enabled::
-    ; ?
+    ds $C6D7 - @
+wEncounter_Countdown::
+    ; Countdown to the next random battle
+    ; Decreases by 1 every 4 frames
+    ; Set to Encounter_Countdown_UNINITIALIZED when you want to pick a new random time
+    ; from the encounter table (wEncounter_LookupTable)
     ds 1
+    ;ds $C6D8 - @
+wEncounter_Enabled::
+    ; Set when random encounter are enabled (via Cmd_Battle_SetEncounter)
+    ds 1
+    ;ds $C6D9 - @
+wEncounter_LookupTable::
+    ; A table containing $10 random delay values, in the encounter bank, the time to the next encounter (populates wEncounter_Countdown)
+    ds 2
+    ;ds $C6DB - @
+wEncounter_Script::
+    ; A script to run when the encounter is triggered (i.e. a battle script)
+    .Bank:
+        ds 1
+    .Address:
+        ds 2
 
-    ds $C6DE - @
+    ;ds $C6DE - @
 wHotspotCurrent::
     ; ?
     ds 1

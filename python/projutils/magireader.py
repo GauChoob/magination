@@ -148,7 +148,7 @@ class MagiScriptLine:
 
         0x2C: CommandBuilder("func", "ForgeRing", "CreatureID", "db"),
 
-        0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
+        0x30: CommandBuilder("func", "BattleScreenWipe", "07Address", "SONGID"),
 
         0x33: CommandBuilder("func", "BlowAway"),
         0x34: CommandBuilder("func", "LoadArena", "LoadSideScroller_Scene"),

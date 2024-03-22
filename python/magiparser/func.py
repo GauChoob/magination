@@ -265,7 +265,7 @@ class FuncHandler(ResultsHandler):
 
     # 0x2D - 0x2F
 
-    def BattleSwirl(self):                  # 0x30
+    def BattleScreenWipe(self):                  # 0x30
         self.size = 4
         return self.GenerateOutput(*range(2))
 

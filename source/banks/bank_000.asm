@@ -202,7 +202,7 @@ Cmd_Battle_Item::
     jp BattleScriptXX_Item
 
 
-Cmd_Battle_Swirl::
+Cmd_Battle_ScreenWipe::
     ; Pause the game and do a white swirl, indicating the start of a battle
     ; Also, backup the current song and play a song for the battle
     ; Arguments:
@@ -227,9 +227,13 @@ Cmd_Battle_Swirl::
     Set16FF hScript.State, Script_Start
     XJump Graphics_ScreenFX_Do
 
-    ; $0FDF
+Cmd_Battle_SetReturn::
+    ; Sets the scripts to run at the end of the battle
+    ; Arguments:
+    ;   BankAddress     Win Script
+    ;   BankAddress     Lose Script
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D3CD
+    ld hl, wBattle_Return
     LdHLIBCI
     LdHLIBCI
     LdHLIBCI
@@ -238,16 +242,18 @@ Cmd_Battle_Swirl::
     LdHLIBCI
     jp Script_Start
 
-    ; $0FFE
-    ld a, $01
-    ld [wEncounter_Enabled], a
-    ld a, $FF
-    ld [$C6D7], a
-    ld hl, $C6DB
+Cmd_Battle_SetEncounter::
+    ; Sets up random encounters, like those in shadow geysers
+    ; Arguments:
+    ;   BankAddress     wEncounter_Script = Script to run when encounter triggered
+    ;   Address         wEncounter_LookupTable = Table containing $10 values of random time to wait until triggering next battle
+    Set8 wEncounter_Enabled, $01
+    Set8 wEncounter_Countdown, Encounter_Countdown_UNINITIALIZED
+    ld hl, wEncounter_Script
     LdHLIBCI
     LdHLIBCI
     LdHLIBCI
-    ld hl, $C6D9
+    ld hl, wEncounter_LookupTable
     LdHLIBCI
     LdHLIBCI
     jp Script_Start

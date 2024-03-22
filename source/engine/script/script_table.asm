@@ -49,9 +49,9 @@ Script_Table::
     dw Cmd_Battle_SummonFast ; $2D, unused deprecated
     dw Cmd_Battle_SummonDelay ; $2E
     dw Cmd_Battle_Item ; $2F
-    dw Cmd_Battle_Swirl       ; $30
-    dw $0FDF
-    dw $0FFE
+    dw Cmd_Battle_ScreenWipe       ; $30
+    dw Cmd_Battle_SetReturn ; $31
+    dw Cmd_Battle_SetEncounter ; $32
 
     dw Cmd_Fightscene_FightFX_BlowAway ; $33
     dw Cmd_Fightscene_LoadArena        ; $34

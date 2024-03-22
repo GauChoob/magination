@@ -4104,9 +4104,9 @@ jr_002_648C:
     Sound_Request_StartSong a ; inefficiency - does ld a, a
 
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$D3D0]                                 ; $64D9: $FA $D0 $D3
+    ld a, [wBattle_Return.Lose_Bank]                                 ; $64D9: $FA $D0 $D3
     ldh [hScript.Bank], a                                  ; $64DC: $E0 $A1
-    FGet16 bc, $D3D1                                  ; $64DE: $21 $D1 $D3
+    FGet16 bc, wBattle_Return.Lose_Address                                  ; $64DE: $21 $D1 $D3
     FSet16 hScript.Frame, bc                                    ; $64E9: $70
     jp $2158                                      ; $64EA: $C3 $58 $21
 
@@ -4157,11 +4157,11 @@ jr_002_6536:
     Sound_Request_StartSong a
     
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$D3CD]                                 ; $6567: $FA $CD $D3
+    ld a, [wBattle_Return.Win_Bank]                                 ; $6567: $FA $CD $D3
     ldh [hScript.Bank], a                                  ; $656A: $E0 $A1
-    FGet16 bc, $D3CE                                  ; $656C: $21 $CE $D3                                       ; $6571: $4F
+    FGet16 bc, wBattle_Return.Win_Address                                  ; $656C: $21 $CE $D3                                       ; $6571: $4F
     FSet16 hScript.Frame, bc                                    ; $6577: $70
-    jp $2158                                      ; $6578: $C3 $58 $21
+    jp Cmd_System_SceneNew                                      ; $6578: $C3 $58 $21
 
 
 Call_002_657B:

@@ -30,6 +30,7 @@ INCLUDE "source/macros/lookuptables.asm"
 
 INCLUDE "source/engine/actor/actor_include.asm"
 INCLUDE "source/engine/collision/collision_include.asm"
+INCLUDE "source/engine/encounter/encounter_include.asm"
 INCLUDE "source/engine/expression/expression_include.asm"
 INCLUDE "source/engine/hotspot/hotspot_include.asm"
 INCLUDE "source/engine/interrupt/interrupt_equ.asm"
