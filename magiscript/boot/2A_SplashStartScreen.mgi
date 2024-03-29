@@ -64,23 +64,23 @@ msSplashStartScreen::
                 ; $73FE
             .SwitchArderial:
                 ; Do this by default if nothing is found on the switch
-                LoadArena(FIGHTSCENE_ARENA_Arderial)
+                LoadArena(Arderial)
                 Jump(.StartScreen)
                 ; $7303
             .SwitchNaroom:
-                LoadArena(FIGHTSCENE_ARENA_Naroom)
+                LoadArena(Naroom)
                 Jump(.StartScreen)
                 ; $7308
             .SwitchUnderneath:
-                LoadArena(FIGHTSCENE_ARENA_Underneath)
+                LoadArena(Underneath)
                 Jump(.StartScreen)
                 ; $730D
             .SwitchCald:
-                LoadArena(FIGHTSCENE_ARENA_Cald)
+                LoadArena(Cald)
                 Jump(.StartScreen)
                 ; $7312
             .SwitchOrothe:
-                LoadArena(FIGHTSCENE_ARENA_Orothe)
+                LoadArena(Orothe)
 
         ; $7314
     .StartScreen:

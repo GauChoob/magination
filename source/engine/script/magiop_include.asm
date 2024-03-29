@@ -428,7 +428,7 @@ ENDM
 
 MACRO BattleNew
     db Enum_Cmd_Battle_New
-    db FIGHTSCENE_ARENA_\1           ; wFightscene_ArenaIndex
+    db FIGHTSCENE_ARENA_\1           ; ArenaIndex
     db \2           ; wBattle_MagiCreatureID
     db \3           ; wBattle_Level
     BankAddress \4  ; Script setting up cardscene: TODOBattle_Fade_In
@@ -436,9 +436,9 @@ ENDM
 
 MACRO BattleAttack
     db Enum_Cmd_Battle_Attack
-    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
-    dw \2       ; Address of an attack in BattleCmd_Table
-    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+    db BATTLE_SLOT_\1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw BattleCmd_Table.\2       ; Address of an attack in BattleCmd_Table
+    db BattleAI_Target_Table.BattleAI_Target_\3 - BattleAI_Target_Table  ; Desired target e.g. BattleAI_Target_AllyWeakPercent
 ENDM
 
 MACRO BattleAuto
@@ -447,9 +447,9 @@ ENDM
 
 MACRO BattleSpell
     db Enum_Cmd_Battle_Spell
-    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
-    dw \2       ; Address of a spell in Spell_Table
-    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+    db BATTLE_SLOT_\1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw Spell_Table.\2       ; Address of a spell in Spell_Table
+    db BattleAI_Target_Table.BattleAI_Target_\3 - BattleAI_Target_Table       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
 ENDM
 
 MACRO BattleEvaluate
@@ -475,7 +475,7 @@ ENDM
 MACRO BattleSummonFast
     ; Deprecated command - not used anymore, but functional
     db Enum_Cmd_Battle_SummonFast
-    db \1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    db BATTLE_SLOT_\1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
     db \2       ; CreatureID
     db \3       ; CreatureLevel
     db \4       ; CreatureEnergy
@@ -483,7 +483,7 @@ ENDM
 
 MACRO BattleSummon
     db Enum_Cmd_Battle_SummonDelay
-    db \1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    db BATTLE_SLOT_\1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
     db \2       ; CreatureID
     db \3       ; CreatureLevel
     db \4       ; CreatureEnergy
@@ -492,9 +492,9 @@ ENDM
 
 MACRO BattleItem
     db Enum_Cmd_Battle_Item
-    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
-    dw \2       ; Address of an item in Item_Table
-    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+    db BATTLE_SLOT_\1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw Item_Table.\2       ; Address of an item in Item_Table
+    db BattleAI_Target_Table.BattleAI_Target_\3 - BattleAI_Target_Table       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
 ENDM
 
 MACRO BattleScreenWipe
@@ -521,7 +521,7 @@ ENDM
 
 MACRO LoadArena
     db Enum_Cmd_Fightscene_LoadArena
-    db \1       ; ArenaIndex
+    db FIGHTSCENE_ARENA_\1       ; ArenaIndex
 ENDM
 
 MACRO LoadCreatureLeft
@@ -539,7 +539,7 @@ ENDM
 
 MACRO FightsceneNew
     db Enum_Cmd_Fightscene_New
-    db \1       ; ArenaIndex
+    db FIGHTSCENE_ARENA_\1       ; ArenaIndex
     db \2       ; CreatureLeft ID
     db \3       ; CreatureRight ID
 ENDM

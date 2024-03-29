@@ -3,13 +3,13 @@ RSRESET
 DEF FIGHTSCENE_ARENA_Arderial            RB 1   ; $00
 DEF FIGHTSCENE_ARENA_ArderialGeyser      RB 1   ; $01
 DEF FIGHTSCENE_ARENA_Cald                RB 1   ; $02
-DEF FIGHTSCENE_ARENA_UnderneathTunnels   RB 1   ; $03
+DEF FIGHTSCENE_ARENA_UnderneathTunnels   RB 1   ; $03 - "Caverns" (alphabetical order)
 DEF FIGHTSCENE_ARENA_CaldGeyser          RB 1   ; $04
-DEF FIGHTSCENE_ARENA_Core        RB 1   ; $05
+DEF FIGHTSCENE_ARENA_Core                RB 1   ; $05
 DEF FIGHTSCENE_ARENA_Naroom              RB 1   ; $06
 DEF FIGHTSCENE_ARENA_NaroomUnderneathGeysers    RB 1   ; $07
-DEF FIGHTSCENE_ARENA_OrotheGeyser      RB 1   ; $08
-DEF FIGHTSCENE_ARENA_OrotheWarrada        RB 1   ; $09
+DEF FIGHTSCENE_ARENA_OrotheGeyser        RB 1   ; $08
+DEF FIGHTSCENE_ARENA_OrotheWarrada       RB 1   ; $09
 DEF FIGHTSCENE_ARENA_Orothe              RB 1   ; $0A
 DEF FIGHTSCENE_ARENA_OrotheTunnels       RB 1   ; $0B
 DEF FIGHTSCENE_ARENA_Shadowhold          RB 1   ; $0C
