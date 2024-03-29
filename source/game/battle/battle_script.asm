@@ -52,7 +52,7 @@ Cmd_Battle_New::
 
 Cmd_Battle_Attack::
     ; Directs an enemy creature to do the specified attack.
-    ; Used only in Salafy's tutorial battle to make the creature Defend
+    ; Used only in Salafy's tutorial battle to make her creature Defend
     ; Arguments:
     ;   db  wBattle_Buffer_CreatureSlot, e.g. BATTLE_SLOT_ENEMY0
     ;   dw  wBattle_Buffer_ItemSpellBattleCmdAddress, Address of an attack in BattleCmd_Table
