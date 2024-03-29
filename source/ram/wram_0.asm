@@ -64,7 +64,7 @@ wEncounter_Script::
     ; A script to run when the encounter is triggered (i.e. a battle script)
     .Bank:
         ds 1
-    .Address:
+    .Frame:
         ds 2
 
     ;ds $C6DE - @
