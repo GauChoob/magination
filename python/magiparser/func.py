@@ -257,13 +257,65 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    # 0x25 - 0x2F
+    def BattleNew(self):                    # 0x25
+        self.size = 7
+        return self.GenerateOutput(*range(4))
 
-    def BattleSwirl(self):                  # 0x30
+    def BattleAttack(self):                 # 0x26
+        self.size = 5
+        return self.GenerateOutput(*range(3))
+
+    def BattleAuto(self):                   # 0x27
+        self.size = 1
+        return self.GenerateOutput()
+
+    def BattleSpell(self):                  # 0x28
+        self.size = 5
+        return self.GenerateOutput(*range(3))
+
+    def BattleEvaluate(self):               # 0x29
+        # Function is inherently broken and crashes the game
+        print('Warning - BattleEvaluate detected - this command crashes the game!')
+        self.size = 1
+        return self.GenerateOutput()
+
+    def BattleFocus(self):                  # 0x2A
+        self.size = 2
+        return self.GenerateOutput(*range(1))
+
+    def BattleNextTurn(self):               # 0x2B
+        self.size = 1
+        return self.GenerateOutput()
+
+    def ForgeRing(self):                    # 0x2C
+        self.size = 3
+        return self.GenerateOutput(*range(2))
+
+    def BattleSummonFast(self):             # 0x2D
+        # Function is deprecated
+        print('Warning - BattleSummonFast is deprecated, use BattleSummon instead!')
+        self.size = 5
+        return self.GenerateOutput(*range(4))
+
+    def BattleSummon(self):                 # 0x2E
+        self.size = 6
+        return self.GenerateOutput(*range(5))
+
+    def BattleItem(self):                   # 0x2F
+        self.size = 5
+        return self.GenerateOutput(*range(3))
+
+    def BattleScreenWipe(self):             # 0x30
         self.size = 4
         return self.GenerateOutput(*range(2))
 
-    # 0x31 - 0x32
+    def BattleSetReturn(self):              # 0x31
+        self.size = 7
+        return self.GenerateOutput(*range(2))
+
+    def BattleSetEncounter(self):           # 0x32
+        self.size = 6
+        return self.GenerateOutput(*range(2))
 
     def BlowAway(self):                     # 0x33
         self.size = 1
@@ -502,11 +554,11 @@ class FuncHandler(ResultsHandler):
         self.size = 3
         return self.GenerateOutput(*range(3))
 
-    def PalCreatureFadeToColor(self):      # 0x71
+    def PalCreatureFadeToColor(self):       # 0x71
         self.size = 5
         return self.GenerateOutput(*range(7))
 
-    def PalCreatureFadeToBase(self):    # 0x72
+    def PalCreatureFadeToBase(self):        # 0x72
         self.size = 3
         return self.GenerateOutput(*range(3))
 
@@ -687,6 +739,8 @@ class FuncHandler(ResultsHandler):
         return self.GenerateOutput(*range(2))
 
     def NextGameCount(self):                # 0xA8
+        # Function is deprecated
+        print('Warning - NextGameCount is deprecated, use SetGameCount instead!')
         self.size = 1
         return self.GenerateOutput()
 

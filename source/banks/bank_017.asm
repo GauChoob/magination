@@ -4320,7 +4320,7 @@ jr_017_5126:
     ld b, $2A                                     ; $516B: $06 $2A
     nop                                           ; $516D: $00
     rrca                                          ; $516E: $0F
-    ld bc, $C725                                  ; $516F: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $516F: $01 $25 $C7
     ld b, $B0                                     ; $5172: $06 $B0
     nop                                           ; $5174: $00
     rla                                           ; $5175: $17
@@ -4333,7 +4333,7 @@ jr_017_5126:
     ld b, $2A                                     ; $517E: $06 $2A
     nop                                           ; $5180: $00
     rrca                                          ; $5181: $0F
-    ld bc, $C725                                  ; $5182: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $5182: $01 $25 $C7
     ld b, $B1                                     ; $5185: $06 $B1
 
 jr_017_5187:
@@ -5706,7 +5706,7 @@ jr_017_56EB:
 
 jr_017_56F4:
     rrca                                          ; $56F4: $0F
-    ld bc, $C725                                  ; $56F5: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $56F5: $01 $25 $C7
     ld b, $B0                                     ; $56F8: $06 $B0
     nop                                           ; $56FA: $00
     rla                                           ; $56FB: $17
@@ -6027,7 +6027,7 @@ jr_017_5849:
 
 jr_017_5852:
     rrca                                          ; $5852: $0F
-    ld bc, $C725                                  ; $5853: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $5853: $01 $25 $C7
     ld b, $B0                                     ; $5856: $06 $B0
     nop                                           ; $5858: $00
     rla                                           ; $5859: $17

@@ -216,8 +216,7 @@ MACRO Creature_Struct
     .Luck:
         ds 1
     .EnergyUp:
-        ; Elem?
-        ; Unknown
+        ; Bonus energy gained per level up
         ds 1
     .ElementResist:
         ; Creature's elemental resistances
@@ -274,19 +273,19 @@ MACRO Creature_Struct
     .Relic1:
         ds 1
     .Other:
-        ; TODO - I think this is an unused spare byte?
+        ; TODO - I think this is an unused spare byte? Maybe used for Defend?
         ds 1
 ENDM
 
     ; ds $A000 - @
 xCreature_RAM::
-    ; $D1 sequential Creature_Structs
+    ; Creature_MAXRINGS + 1 sequential Creature_Structs
     ; ID $00 = Hero
-    ; ID $01 - $D0 = Dream Creatures that the hero can have
+    ; ID $01 - $D0(Creature_MAXRINGS) = Dream Creatures that the hero can have
 xCreature_00_Hero::
     Creature_Struct
     ; ds $A025 - @
-FOR i, $01, $D1
+FOR i, 1, Creature_MAXRINGS + 1
 xCreature_{02X:i}::
     Creature_Struct
 ENDR

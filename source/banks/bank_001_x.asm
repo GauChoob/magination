@@ -16,162 +16,8 @@ INCLUDE "source/engine/actor/actor_list_xx.asm"
     ; $410A
 INCLUDE "source/engine/actor/actor_xx.asm"
 
+INCLUDE "source/engine/encounter/encounter_xx.asm"
 
-    ; $415D
-    db $11                                        ; $415D: $11
-
-    db $04
-
-    ld b, $03                                     ; $415F: $06 $03
-    add hl, bc                                    ; $4161: $09
-    db $10                                        ; $4162: $10
-    ld a, [bc]                                    ; $4163: $0A
-    dec bc                                        ; $4164: $0B
-    ld c, $0C                                     ; $4165: $0E $0C
-    ld [$0907], sp                                ; $4167: $08 $07 $09
-    inc c                                         ; $416A: $0C
-    inc bc                                        ; $416B: $03
-    inc b                                         ; $416C: $04
-    ld c, b                                       ; $416D: $48
-    ld e, $43                                     ; $416E: $1E $43
-    ld c, b                                       ; $4170: $48
-    ld l, c                                       ; $4171: $69
-    inc [hl]                                      ; $4172: $34
-    ld [hl], b                                    ; $4173: $70
-    sub [hl]                                      ; $4174: $96
-    sub [hl]                                      ; $4175: $96
-    cp e                                          ; $4176: $BB
-    ld b, e                                       ; $4177: $43
-    ld l, c                                       ; $4178: $69
-    ld b, e                                       ; $4179: $43
-    cp e                                          ; $417A: $BB
-    inc a                                         ; $417B: $3C
-    ld d, $48                                     ; $417C: $16 $48
-    pop hl                                        ; $417E: $E1
-    ld b, e                                       ; $417F: $43
-    ld c, b                                       ; $4180: $48
-    ld l, c                                       ; $4181: $69
-    ld c, b                                       ; $4182: $48
-    ld d, $70                                     ; $4183: $16 $70
-    or h                                          ; $4185: $B4
-    sub [hl]                                      ; $4186: $96
-    cp e                                          ; $4187: $BB
-    ld c, b                                       ; $4188: $48
-    ld l, c                                       ; $4189: $69
-    jp $3CBB                                      ; $418A: $C3 $BB $3C
-
-
-    or h                                          ; $418D: $B4
-    inc a                                         ; $418E: $3C
-    jp nc, $36E1                                  ; $418F: $D2 $E1 $36
-
-    pop hl                                        ; $4192: $E1
-    inc [hl]                                      ; $4193: $34
-    ld [hl], b                                    ; $4194: $70
-    or h                                          ; $4195: $B4
-    inc [hl]                                      ; $4196: $34
-    cp $48                                        ; $4197: $FE $48
-    ld [hl], $C3                                  ; $4199: $36 $C3
-    pop hl                                        ; $419B: $E1
-    or h                                          ; $419C: $B4
-    xor h                                         ; $419D: $AC
-    jp nc, $FFE1                                  ; $419E: $D2 $E1 $FF
-
-    pop hl                                        ; $41A1: $E1
-    and h                                         ; $41A2: $A4
-    ret nz                                        ; $41A3: $C0
-
-    or h                                          ; $41A4: $B4
-    and h                                         ; $41A5: $A4
-    cp $C8                                        ; $41A6: $FE $C8
-    rst $38                                       ; $41A8: $FF
-    jp $FAE1                                      ; $41A9: $C3 $E1 $FA
-
-
-    ld d, $C7                                     ; $41AC: $16 $C7
-    and a                                         ; $41AE: $A7
-    ret nz                                        ; $41AF: $C0
-
-    ld a, [wTextbox_Position]                                 ; $41B0: $FA $EE $C6
-    cp $00                                        ; $41B3: $FE $00
-    ret nz                                        ; $41B5: $C0
-
-    ld a, $FF                                     ; $41B6: $3E $FF
-    ld [$C6D7], a                                 ; $41B8: $EA $D7 $C6
-    ld a, [$C6DB]                                 ; $41BB: $FA $DB $C6
-    ld [wScript_System.Bank], a                                 ; $41BE: $EA $14 $C7
-    ld a, [$C6DC]                                 ; $41C1: $FA $DC $C6
-    ld [$C715], a                                 ; $41C4: $EA $15 $C7
-    ld a, [$C6DD]                                 ; $41C7: $FA $DD $C6
-    ld [$C716], a                                 ; $41CA: $EA $16 $C7
-    ld a, $66                                     ; $41CD: $3E $66
-    ld [$C717], a                                 ; $41CF: $EA $17 $C7
-    ld a, $0A                                     ; $41D2: $3E $0A
-    ld [$C718], a                                 ; $41D4: $EA $18 $C7
-    ret                                           ; $41D7: $C9
-
-
-Jump_001_41D8:
-    ldh a, [hActor.TileAddress+1]                                  ; $41D8: $F0 $94
-    ld h, a                                       ; $41DA: $67
-    ldh a, [hActor.TileAddress]                                  ; $41DB: $F0 $93
-    ld l, a                                       ; $41DD: $6F
-    SwitchRAMBank $05
-    ld a, [hl]                                    ; $41E5: $7E
-    cp $82                                        ; $41E6: $FE $82
-    ret nz                                        ; $41E8: $C0
-
-    ld a, [$C716]                                 ; $41E9: $FA $16 $C7
-    and a                                         ; $41EC: $A7
-    ret nz                                        ; $41ED: $C0
-
-    ld a, [$C6D7]                                 ; $41EE: $FA $D7 $C6
-    and a                                         ; $41F1: $A7
-    jp z, $41AB                                   ; $41F2: $CA $AB $41
-
-    cp $FF                                        ; $41F5: $FE $FF
-    jr z, jr_001_41FE                             ; $41F7: $28 $05
-
-    dec a                                         ; $41F9: $3D
-    ld [$C6D7], a                                 ; $41FA: $EA $D7 $C6
-    ret                                           ; $41FD: $C9
-
-
-jr_001_41FE:
-    FGet16 hl, $C6D9                                  ; $41FE: $21 $D9 $C6
-    call Math_Rand8Inc                                    ; $4204: $CD $4F $05
-    and $0F                                       ; $4207: $E6 $0F
-    ld e, a                                       ; $4209: $5F
-    ld d, $00                                     ; $420A: $16 $00
-    add hl, de                                    ; $420C: $19
-    ld a, [hl]                                    ; $420D: $7E
-    ld [$C6D7], a                                 ; $420E: $EA $D7 $C6
-    ret                                           ; $4211: $C9
-
-
-Call_001_4212:
-    ld a, [wEncounter_Enabled]                                 ; $4212: $FA $D8 $C6
-    and a                                         ; $4215: $A7
-    ret z                                         ; $4216: $C8
-
-    ldh a, [$FFA8]                                  ; $4217: $F0 $A8
-    and $03                                       ; $4219: $E6 $03
-    cp $03                                        ; $421B: $FE $03
-    ret nz                                        ; $421D: $C0
-
-    jp Jump_001_41D8                              ; $421E: $C3 $D8 $41
-
-
-Call_001_4221:
-    ld a, [wEncounter_Enabled]                                 ; $4221: $FA $D8 $C6
-    and a                                         ; $4224: $A7
-    ret z                                         ; $4225: $C8
-
-    ldh a, [$FFA8]                                  ; $4226: $F0 $A8
-    and $01                                       ; $4228: $E6 $01
-    ret nz                                        ; $422A: $C0
-
-    jp Jump_001_41D8                              ; $422B: $C3 $D8 $41
 
     ; source/engine/hotspot/hotspot.s
 
@@ -181,7 +27,6 @@ HotspotX_CheckHotspot::
     ; if all activation conditions are passed
     ;
     ; Inputs:
-    ;   $C716 ?TODO
     ;   wColl_XMove + wColl_XDelta
     ;   wColl_YMove + wColl_YDelta
     ;   wHotspot_Table, wHotspot_TableSize
@@ -300,11 +145,8 @@ HotspotX_CheckHotspot::
         ; Valid, new hotspot, with the hero walking in the right direction
         Set8 wHotspotCurrent, d
         call Hotspot00_SetScript
-        ld a, $66                                     ; $42B2: $3E $66
-        ld [$C717], a                                 ; $42B4: $EA $17 $C7
-        ld a, $0A                                     ; $42B7: $3E $0A
-        ld [$C718], a                                 ; $42B9: $EA $18 $C7
-        ret                                           ; $42BC: $C9
+        Set16_M wScript_System.State, Script_Start
+        ret
 
 
     .NotHotspot:
@@ -312,203 +154,8 @@ HotspotX_CheckHotspot::
         Set8 wHotspotCurrent, HOTSPOT_NULL
         ret
 
-ASSERT ScriptXX_BANK == BANK(@)
 
-    ; $42C3
-Script_Table::
-    dw Cmd_Actor_HeroFromDoor            ; $00
-    dw Cmd_Actor_HeroToDoor ; $01
-    dw Cmd_Actor_HeroToRelativeDoor            ; $02
-    dw Cmd_Actor_ThatActorDrawTile ; $03
-    dw Cmd_Actor_ThatActorDrawMaskTile ; $04
-    dw Cmd_Actor_ThatActorInit ; $05
-    dw Cmd_Actor_ThatActorTeleportToThatActor ; $06
-    dw Cmd_Actor_ThatActorSetAI ; $07
-    dw Cmd_Actor_ThatActorSetLoc ; $08
-    dw Cmd_Actor_ThatActorSetScript ; $09
-    dw Cmd_Actor_ThatActorSetSpriteBase ; $0A
-    dw Cmd_Actor_ThatActorStart ; $0B
-    dw Cmd_Actor_ThatActorDelete ; $0C
-    dw Cmd_Actor_ThisActorDrawTile ; $0D
-    dw Cmd_Actor_ThisActorDrawMaskTile ; $0E
-    dw Cmd_Actor_ThisActorTeleportToThatActor ; $0F
-    dw Cmd_Actor_ThisActorNewState ;$10
-    dw Cmd_Actor_ThisActorRaindrop ; $11
-    dw Cmd_Actor_RestoreActorState ; $12
-    dw Cmd_Actor_ThisActorSetAI ; $13
-    dw Cmd_Actor_ThisActorSetAnimSingle ; $14
-    dw Cmd_Actor_ThisActorSetAnimDelay ; $15
-    dw Cmd_Actor_ThisActorSetAnimScroll ; $16
-    dw Cmd_Actor_ThisActorSetLoc ; $17
-    dw Cmd_Actor_ThisActorSetSpriteBase ; $18
-    dw Cmd_Actor_ThisActorDelete ; $19
-    dw Cmd_Actor_ThisActorWaitTile  ; $1A
-
-    dw Cmd_Sound_PlaySFX0      ; $1B
-    dw Cmd_Sound_PlaySFX1      ; $1C
-    dw Cmd_Sound_SongPause_Bugged  ; $1D
-    dw Cmd_Sound_SongResume        ; $1E
-    dw Cmd_Sound_SongStart         ; $1F
-    dw Cmd_Sound_FanfareStart      ; $20
-    dw Cmd_Sound_SongStop          ; $21
-    dw Cmd_Sound_SetSongVolume      ; $22
-    dw Cmd_Sound_FadeInSong        ; $23
-    dw Cmd_Sound_FadeOutSong       ; $24
-
-    dw Cmd_Battle_New ; $25
-    dw $0F31
-    dw $0F39  ;BattleDoneLoading?
-    dw $0F46
-    dw $0F4E
-    dw $0F51
-    dw $0F59
-    dw $0F6E
-    dw $0F76
-    dw $0F82 ;This defines a single monster from an encounter
-    dw $0F8A
-    dw Cmd_Battle_Swirl            ; $30 -todo maybe this should be a graphics function instead
-    dw $0FDF
-    dw $0FFE
-
-    dw Cmd_Fightscene_FightFX_BlowAway ; $33
-    dw Cmd_Fightscene_LoadArena        ; $34
-    dw Cmd_Fightscene_LoadCreatureLeft ; $35
-    dw Cmd_Fightscene_TileFX_DissolveFast ; $36
-    dw Cmd_Fightscene_TileFX_DissolveSlow ; $37
-    dw Cmd_Fightscene_New      ; $38
-    dw Cmd_Fightscene_FightFX_PanFromTable      ; $39
-    dw Cmd_Fightscene_FightFX_Recoil   ; $3A
-    dw Cmd_Fightscene_FightFX_UNKTODO  ; $3B
-    dw Cmd_Fightscene_FightFX_PanConstant ; $3C
-    dw Cmd_Fightscene_FightFX_Shake    ; $3D
-    dw Cmd_Fightscene_FightFX_Sink     ; $3E
-    dw Cmd_Fightscene_FightFX_Tremble  ; $3F
-
-    dw Cmd_Flow_Delay     ; $40
-    dw Cmd_Flow_RandDelay                         ; $41
-    dw Cmd_Flow_End       ; $42
-    dw Cmd_Flow_LongJumpIf  ; $43
-    dw Cmd_Flow_InitSkip         ; $44
-    dw Cmd_Flow_LongJump          ; $45
-    dw Cmd_Flow_LocalJump     ; $46
-    dw Cmd_Flow_RandLongJump  ; $47
-    dw Cmd_Flow_Pass          ; $48
-    dw Cmd_Flow_SwitchRange   ; $49
-    dw Cmd_Flow_ResetScript    ; $4A
-    dw Cmd_Flow_Switch        ; $4B
-
-    dw Cmd_Frame_SpriteDraw  ; $4C
-    dw Cmd_Frame_SpriteBlock ; $4D
-    dw Cmd_Frame_SpriteInvisible  ; $4E
-    dw Cmd_Frame_OverlayDraw  ; $4F
-    dw Cmd_Frame_OverlayInit            ; $50
-    dw Cmd_Frame_OverlayInvisible    ; $51
-
-    dw Cmd_Global_ClearSync   ; $52
-    dw Cmd_Global_SetAnyEventMaster ; $53
-    dw Cmd_Global_SetAnyEventScroll ; $54
-    dw Cmd_Global_SetAnyEventText ; $55
-    dw Cmd_Global_SetEventMaster  ; $56
-    dw Cmd_Global_SetEventScroll  ; $57
-    dw Cmd_Global_SetEventText  ; $58
-    dw Cmd_Global_SetScriptMaster  ; $59
-    dw Cmd_Global_SetScriptScroll  ; $5A
-    dw Cmd_Global_SetScriptText ; $5B
-    dw Cmd_Global_Sync  ; $5C
-    dw Cmd_Global_WaitAnyEventMaster ; $5D
-    dw Cmd_Global_WaitAnyEventScroll ; $5E
-    dw Cmd_Global_WaitAnyEventText ; $5F
-    dw Cmd_Global_WaitEventMaster            ; $60
-    dw Cmd_Global_WaitEventScroll  ; $61
-    dw Cmd_Global_WaitEventText  ; $62
-
-    dw Cmd_Load_LargeStaticTilemap  ; $63
-    dw Cmd_Load_Hotspots       ; $64
-    dw Cmd_Load_Scene ; $65
-    dw Cmd_Load_SpritePalette ; $66
-    dw Cmd_Load_Map ; $67
-    dw Cmd_Load_MapMask ; $68
-    dw Cmd_Load_Triggers ; $69
-    dw Cmd_Load_BitmapSet ;$6A
-    dw Cmd_Load_Bitmap ; $6B
-
-    dw Cmd_Palette_ArenaFadeToColor ; $6C
-    dw Cmd_Palette_ArenaFadeToBase  ; $6D
-    dw Cmd_Palette_ClearBase        ; $6E
-    dw Cmd_Palette_ClearAnim        ; $6F
-    dw Cmd_Palette_CreatureCycle    ; $70
-    dw Cmd_Palette_CreatureFadeToColor ; $71
-    dw Cmd_Palette_CreatureFadeToBase ; $72
-    dw Cmd_Palette_CreatureLoad     ; $73
-    dw Cmd_Palette_CreatureFlash    ; $74
-    dw Cmd_Palette_CreatureInvert   ; $75
-    dw Cmd_Palette_FadeAnimToBase   ; $76
-    dw Cmd_Palette_FadeAnimToColor  ; $77
-    dw Cmd_Palette_Load             ; $78
-    dw Cmd_Palette_Refresh          ; $79
-    dw Cmd_Palette_Cycle            ; $7A
-    dw Cmd_Palette_Invert           ; $7B
-
-    dw Cmd_Scroll_CameraSeekPos         ; $7C
-    dw Cmd_Scroll_CameraSeekActor ; $7D
-    dw Cmd_Scroll_TransplantMap ; $7E
-    dw Cmd_Scroll_TransplantMapMask ; $7F
-
-    dw Cmd_Scroll_TransplantTile            ; $80
-    dw $1DE1
-    dw Cmd_Scroll_HeroSetCamera  ;$82
-    dw Cmd_Scroll_ScrollMap  ;$83
-    dw Cmd_Scroll_SetCamera  ; $84
-    
-    dw $1EE7
-    dw Cmd_System_SceneUnknownNew  ; $86
-    dw $1FAF
-    dw $1FD4
-    dw Cmd_System_LoadGame ; $89
-    dw Cmd_System_CopyLoadGame ; $8A
-    dw $2045
-    dw Cmd_System_MusicMenu ; $8C
-    dw $2070
-    dw $2089
-    dw $20C8
-
-    dw $20DA            ; $90
-    dw Cmd_System_NewGame  ; $91
-    dw Cmd_System_SaveGame ; $92
-    dw Cmd_System_SceneNew ; $93
-    dw Cmd_System_SceneReady ; $94
-    dw Cmd_System_SetItemSpellMapError ; $95
-    dw Cmd_System_SaveLocation ; $96
-    dw Cmd_System_Reboot ; $97
-
-    dw Cmd_Textbox_FormatChar ; $98
-    dw Cmd_Textbox_Clear ; $99
-    dw Cmd_Textbox_Close ; $9A
-    dw Cmd_Textbox_Icon  ; $9B
-    dw Cmd_Textbox_Menu ; $9C
-    dw Cmd_Textbox_Open ; $9D
-    dw Cmd_Textbox_FormatWord ;$9E
-    dw Cmd_Textbox_Write ; $9F
-
-    dw Cmd_Trigger_ToggleAlways  ; $A0
-    dw Cmd_Trigger_ToggleOnce ; $A1
-    dw Cmd_Trigger_TriggerAlways ; $A2
-    dw Cmd_Trigger_TriggerOnce ; $A3
-    dw Cmd_Trigger_Treasure    ; $A4
-
-    dw Cmd_Ram_VarBitExpr    ; $A5
-    dw Cmd_Ram_VarByteExpr    ; $A6
-    dw Cmd_Ram_VarWordExpr    ; $A7
-    dw Cmd_Ram_NextGameCount    ; $A8
-    dw Cmd_Ram_SetGameCount    ; $A9
-    dw Cmd_Ram_SetWramByte    ; $AA
-    dw Cmd_Ram_SetWramWord    ; $AB
-    dw Cmd_Ram_SetXramByte    ; $AC
-    dw Cmd_Ram_SetXramWord    ; $AD
-    dw Cmd_Ram_AndXramByte    ; $AE
-    dw Cmd_Ram_OrXramByte    ; $AF
-
-
+INCLUDE "source/engine/script/script_table.asm"
 INCLUDE "source/engine/actor/actor_script_xx.asm"
 
 
@@ -2255,7 +1902,7 @@ jr_001_52DC:
     jr jr_001_5308                                ; $5303: $18 $03
 
 jr_001_5305:
-    call Call_001_4221                            ; $5305: $CD $21 $42
+    call Encounter_Run                            ; $5305: $CD $21 $42
 
 jr_001_5308:
     ld a, [wAI_Cnt1]                                 ; $5308: $FA $A3 $C9
@@ -2344,7 +1991,7 @@ jr_001_5378:
     jr jr_001_539A                                ; $5395: $18 $03
 
 jr_001_5397:
-    call Call_001_4221                            ; $5397: $CD $21 $42
+    call Encounter_Run                            ; $5397: $CD $21 $42
 
 jr_001_539A:
     ld a, [wAI_Cnt1]                                 ; $539A: $FA $A3 $C9
@@ -2433,7 +2080,7 @@ jr_001_540A:
     jr jr_001_542C                                ; $5427: $18 $03
 
 jr_001_5429:
-    call Call_001_4221                            ; $5429: $CD $21 $42
+    call Encounter_Run                            ; $5429: $CD $21 $42
 
 jr_001_542C:
     ld a, [wAI_Cnt1]                                 ; $542C: $FA $A3 $C9
@@ -2493,7 +2140,7 @@ jr_001_546D:
     jr jr_001_5499                                ; $5494: $18 $03
 
 jr_001_5496:
-    call Call_001_4221                            ; $5496: $CD $21 $42
+    call Encounter_Run                            ; $5496: $CD $21 $42
 
 jr_001_5499:
     ld a, [wAI_Cnt1]                                 ; $5499: $FA $A3 $C9
@@ -2521,7 +2168,7 @@ Jump_001_54A4:
     jp Jump_001_5D9B                              ; $54C0: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $54C3: $CD $12 $42
+    call Encounter_Walk                            ; $54C3: $CD $12 $42
     call Call_001_5DE1                            ; $54C6: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $54C9: $FA $A3 $C9
     bit 7, a                                      ; $54CC: $CB $7F
@@ -2560,7 +2207,7 @@ jr_001_54EC:
     and a                                         ; $5505: $A7
     jr z, jr_001_550B                             ; $5506: $28 $03
 
-    call Call_001_4212                            ; $5508: $CD $12 $42
+    call Encounter_Walk                            ; $5508: $CD $12 $42
 
 jr_001_550B:
     ld a, [wColl_YMove]                                 ; $550B: $FA $D3 $C6
@@ -2587,7 +2234,7 @@ Jump_001_5515:
     jp Jump_001_5D9B                              ; $5531: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5534: $CD $12 $42
+    call Encounter_Walk                            ; $5534: $CD $12 $42
     call Call_001_5DE1                            ; $5537: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $553A: $FA $A3 $C9
     bit 5, a                                      ; $553D: $CB $6F
@@ -2601,7 +2248,7 @@ Jump_001_5515:
 
 
 jr_001_554E:
-    ldh a, [$FFA8]                                  ; $554E: $F0 $A8
+    ldh a, [hTicker]                                  ; $554E: $F0 $A8
     and $01                                       ; $5550: $E6 $01
     jp z, Jump_001_5574                           ; $5552: $CA $74 $55
 
@@ -2651,7 +2298,7 @@ jr_001_558D:
     and a                                         ; $559E: $A7
     jr z, jr_001_55A4                             ; $559F: $28 $03
 
-    call Call_001_4212                            ; $55A1: $CD $12 $42
+    call Encounter_Walk                            ; $55A1: $CD $12 $42
 
 jr_001_55A4:
     ld a, [wColl_XMove]                                 ; $55A4: $FA $D2 $C6
@@ -2678,7 +2325,7 @@ Jump_001_55AE:
     jp Jump_001_5D9B                              ; $55CA: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $55CD: $CD $12 $42
+    call Encounter_Walk                            ; $55CD: $CD $12 $42
     call Call_001_5DE1                            ; $55D0: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $55D3: $FA $A3 $C9
     bit 4, a                                      ; $55D6: $CB $67
@@ -2692,7 +2339,7 @@ Jump_001_55AE:
 
 
 jr_001_55E7:
-    ldh a, [$FFA8]                                  ; $55E7: $F0 $A8
+    ldh a, [hTicker]                                  ; $55E7: $F0 $A8
     and $01                                       ; $55E9: $E6 $01
     jp z, Jump_001_560D                           ; $55EB: $CA $0D $56
 
@@ -2742,7 +2389,7 @@ jr_001_5626:
     and a                                         ; $5637: $A7
     jr z, jr_001_563D                             ; $5638: $28 $03
 
-    call Call_001_4212                            ; $563A: $CD $12 $42
+    call Encounter_Walk                            ; $563A: $CD $12 $42
 
 jr_001_563D:
     ld a, [wColl_XMove]                                 ; $563D: $FA $D2 $C6
@@ -2769,7 +2416,7 @@ Jump_001_5647:
     jp Jump_001_5D9B                              ; $5663: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5666: $CD $12 $42
+    call Encounter_Walk                            ; $5666: $CD $12 $42
     call Call_001_5DE1                            ; $5669: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $566C: $FA $A3 $C9
     bit 6, a                                      ; $566F: $CB $77
@@ -2808,7 +2455,7 @@ jr_001_568E:
     and a                                         ; $56A7: $A7
     jr z, jr_001_56AD                             ; $56A8: $28 $03
 
-    call Call_001_4212                            ; $56AA: $CD $12 $42
+    call Encounter_Walk                            ; $56AA: $CD $12 $42
 
 jr_001_56AD:
     ld a, [wColl_YMove]                                 ; $56AD: $FA $D3 $C6
@@ -3044,7 +2691,7 @@ Jump_001_57F9:
 
 
 jr_001_5832:
-    ldh a, [$FFA8]                                  ; $5832: $F0 $A8
+    ldh a, [hTicker]                                  ; $5832: $F0 $A8
     and $01                                       ; $5834: $E6 $01
     jp z, Jump_001_5850                           ; $5836: $CA $50 $58
 
@@ -3122,7 +2769,7 @@ Jump_001_5888:
 
 
 jr_001_58C1:
-    ldh a, [$FFA8]                                  ; $58C1: $F0 $A8
+    ldh a, [hTicker]                                  ; $58C1: $F0 $A8
     and $01                                       ; $58C3: $E6 $01
     jp z, Jump_001_58DF                           ; $58C5: $CA $DF $58
 
@@ -3258,7 +2905,7 @@ Jump_001_5996:
 
 
     call Call_001_5DE1                            ; $59B5: $CD $E1 $5D
-    ldh a, [$FFA8]                                  ; $59B8: $F0 $A8
+    ldh a, [hTicker]                                  ; $59B8: $F0 $A8
     and $01                                       ; $59BA: $E6 $01
     jr z, jr_001_59DC                             ; $59BC: $28 $1E
 
@@ -3291,7 +2938,7 @@ jr_001_59DC:
     Do_CallForeign Call_005_682D
     call HotspotX_CheckHotspot                            ; $59E4: $CD $2E $42
     call Call_001_4AF0                            ; $59E7: $CD $F0 $4A
-    call Call_001_4212                            ; $59EA: $CD $12 $42
+    call Encounter_Walk                            ; $59EA: $CD $12 $42
     call Call_001_4B7B                            ; $59ED: $CD $7B $4B
     jp Jump_001_5D9B                              ; $59F0: $C3 $9B $5D
 
@@ -3315,7 +2962,7 @@ Jump_001_59F3:
 
 
     call Call_001_5DE1                            ; $5A12: $CD $E1 $5D
-    ldh a, [$FFA8]                                  ; $5A15: $F0 $A8
+    ldh a, [hTicker]                                  ; $5A15: $F0 $A8
     and $01                                       ; $5A17: $E6 $01
     jr z, jr_001_5A3E                             ; $5A19: $28 $23
 
@@ -3350,7 +2997,7 @@ jr_001_5A3E:
     Do_CallForeign Call_005_682D
     call HotspotX_CheckHotspot                            ; $5A46: $CD $2E $42
     call Call_001_4AF0                            ; $5A49: $CD $F0 $4A
-    call Call_001_4212                            ; $5A4C: $CD $12 $42
+    call Encounter_Walk                            ; $5A4C: $CD $12 $42
     call Call_001_4BCC                            ; $5A4F: $CD $CC $4B
     jp Jump_001_5D9B                              ; $5A52: $C3 $9B $5D
 
@@ -3374,7 +3021,7 @@ Jump_001_5A55:
 
 
     call Call_001_5DE1                            ; $5A74: $CD $E1 $5D
-    ldh a, [$FFA8]                                  ; $5A77: $F0 $A8
+    ldh a, [hTicker]                                  ; $5A77: $F0 $A8
     and $01                                       ; $5A79: $E6 $01
     jr z, jr_001_5AA0                             ; $5A7B: $28 $23
 
@@ -3409,7 +3056,7 @@ jr_001_5AA0:
     Do_CallForeign Call_005_682D
     call HotspotX_CheckHotspot                            ; $5AA8: $CD $2E $42
     call Call_001_4AF0                            ; $5AAB: $CD $F0 $4A
-    call Call_001_4212                            ; $5AAE: $CD $12 $42
+    call Encounter_Walk                            ; $5AAE: $CD $12 $42
     call Call_001_4C1D                            ; $5AB1: $CD $1D $4C
     jp Jump_001_5D9B                              ; $5AB4: $C3 $9B $5D
 
@@ -3433,7 +3080,7 @@ Jump_001_5AB7:
 
 
     call Call_001_5DE1                            ; $5AD6: $CD $E1 $5D
-    ldh a, [$FFA8]                                  ; $5AD9: $F0 $A8
+    ldh a, [hTicker]                                  ; $5AD9: $F0 $A8
     and $01                                       ; $5ADB: $E6 $01
     jr z, jr_001_5AFC                             ; $5ADD: $28 $1D
 
@@ -3466,7 +3113,7 @@ jr_001_5AFC:
     Do_CallForeign Call_005_682D
     call HotspotX_CheckHotspot                            ; $5B04: $CD $2E $42
     call Call_001_4AF0                            ; $5B07: $CD $F0 $4A
-    call Call_001_4212                            ; $5B0A: $CD $12 $42
+    call Encounter_Walk                            ; $5B0A: $CD $12 $42
     call Call_001_4C6E                            ; $5B0D: $CD $6E $4C
     jp Jump_001_5D9B                              ; $5B10: $C3 $9B $5D
 
@@ -3519,7 +3166,7 @@ Jump_001_5B5B:
 
 
 Jump_001_5B6E:
-    call Call_001_4212                            ; $5B6E: $CD $12 $42
+    call Encounter_Walk                            ; $5B6E: $CD $12 $42
     call Call_001_5DE1                            ; $5B71: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5B74: $FA $A3 $C9
     bit 4, a                                      ; $5B77: $CB $67
@@ -3598,7 +3245,7 @@ Jump_001_5BC8:
     jp Jump_001_5D9B                              ; $5BE8: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5BEB: $CD $12 $42
+    call Encounter_Walk                            ; $5BEB: $CD $12 $42
     call Call_001_5DE1                            ; $5BEE: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5BF1: $FA $A3 $C9
     bit 7, a                                      ; $5BF4: $CB $7F
@@ -3656,7 +3303,7 @@ Jump_001_5C2F:
     jp Jump_001_5D9B                              ; $5C4F: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5C52: $CD $12 $42
+    call Encounter_Walk                            ; $5C52: $CD $12 $42
     call Call_001_5DE1                            ; $5C55: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5C58: $FA $A3 $C9
     bit 5, a                                      ; $5C5B: $CB $6F
@@ -3670,7 +3317,7 @@ Jump_001_5C2F:
 
 
 jr_001_5C6C:
-    ldh a, [$FFA8]                                  ; $5C6C: $F0 $A8
+    ldh a, [hTicker]                                  ; $5C6C: $F0 $A8
     and $01                                       ; $5C6E: $E6 $01
     jp z, Jump_001_5C8A                           ; $5C70: $CA $8A $5C
 
@@ -3721,7 +3368,7 @@ Jump_001_5CA5:
     jp Jump_001_5D9B                              ; $5CC5: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5CC8: $CD $12 $42
+    call Encounter_Walk                            ; $5CC8: $CD $12 $42
     call Call_001_5DE1                            ; $5CCB: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5CCE: $FA $A3 $C9
     bit 4, a                                      ; $5CD1: $CB $67
@@ -3735,7 +3382,7 @@ Jump_001_5CA5:
 
 
 jr_001_5CE2:
-    ldh a, [$FFA8]                                  ; $5CE2: $F0 $A8
+    ldh a, [hTicker]                                  ; $5CE2: $F0 $A8
     and $01                                       ; $5CE4: $E6 $01
     jp z, Jump_001_5D00                           ; $5CE6: $CA $00 $5D
 
@@ -3786,7 +3433,7 @@ Jump_001_5D1B:
     jp Jump_001_5D9B                              ; $5D3B: $C3 $9B $5D
 
 
-    call Call_001_4212                            ; $5D3E: $CD $12 $42
+    call Encounter_Walk                            ; $5D3E: $CD $12 $42
     call Call_001_5DE1                            ; $5D41: $CD $E1 $5D
     ld a, [wAI_Cnt1]                                 ; $5D44: $FA $A3 $C9
     bit 6, a                                      ; $5D47: $CB $77
@@ -4589,7 +4236,7 @@ Jump_001_621C:
 
 
 jr_001_6256:
-    ldh a, [$FFA8]                                  ; $6256: $F0 $A8
+    ldh a, [hTicker]                                  ; $6256: $F0 $A8
     and $01                                       ; $6258: $E6 $01
     jp z, Jump_001_6274                           ; $625A: $CA $74 $62
 
@@ -4652,7 +4299,7 @@ Jump_001_628C:
 
 
 jr_001_62C6:
-    ldh a, [$FFA8]                                  ; $62C6: $F0 $A8
+    ldh a, [hTicker]                                  ; $62C6: $F0 $A8
     and $01                                       ; $62C8: $E6 $01
     jp z, Jump_001_62E4                           ; $62CA: $CA $E4 $62
 
@@ -4864,7 +4511,7 @@ Call_001_641D:
     jp nz, Jump_001_64CF
 
     ld a, [wTextbox_Position]                                 ; $642C: $FA $EE $C6
-    cp $00                                        ; $642F: $FE $00
+    cp Textbox_CLOSED                                        ; $642F: $FE $00
     jp nz, Jump_001_64CF                          ; $6431: $C2 $CF $64
 
     ld a, [$C716]                                 ; $6434: $FA $16 $C7
@@ -5116,7 +4763,7 @@ AI_Idle::
     ret nz                                        ; $65AB: $C0
 
     ld a, [wTextbox_Position]                                 ; $65AC: $FA $EE $C6
-    cp $00                                        ; $65AF: $FE $00
+    cp Textbox_CLOSED                                        ; $65AF: $FE $00
     ret nz                                        ; $65B1: $C0
 
     ldh a, [hAI_HeroFlags_Current]                                  ; $65B2: $F0 $AB

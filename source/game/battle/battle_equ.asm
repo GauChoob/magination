@@ -18,8 +18,22 @@ DEF elementShadow       EQU $20     ;Strong vs Naroom
 DEF elementElectrical   EQU $40     ;No interactions
 DEF elementUNUSED       EQU $80     ;Unused
 
+DEF Battle_Actor_Effect_SPARKLE EQU 1
 
 
+RSRESET
+DEF BATTLE_SLOT_HERO RB 1
+DEF BATTLE_SLOT_ALLY0 RB 1
+DEF BATTLE_SLOT_ALLY1 RB 1
+DEF BATTLE_SLOT_ALLY2 RB 1
+DEF BATTLE_SLOT_ALLY3 RB 1
+DEF BATTLE_SLOT_ENEMY0 RB 1
+DEF BATTLE_SLOT_ENEMY1 RB 1
+DEF BATTLE_SLOT_ENEMY2 RB 1
+DEF BATTLE_SLOT_ENEMY3 RB 1
+DEF BATTLE_SLOT_MAGI RB 1
+
+; TODO - change to RB (don't need to RSRESET!)
 
 ; The list starts at $0A to avoid confusion with 0-9 which refer to the hero, 8 cards and enemy magi respectively
 DEF Battle_TARGET_START EQU $0A ; start of the list
@@ -66,6 +80,10 @@ DEF BATTLE_EXITCODE_TODO RB 1 ;todo ???
 DEF BATTLE_RATING_HEAL EQU $05
 ;HEAL 1-4
 ;NONE
+
+
+; Battle Script AI targets
+
 
 ; Menu options for Tony/Creature
 DEF BATTLE_MENU_TILEMAP_CARD EQU WINDOW_COORD_00_00

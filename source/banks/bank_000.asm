@@ -24,250 +24,13 @@ INCLUDE "source/engine/system/system_00.asm"
 INCLUDE "source/engine/rle_decompress_00.asm"
 INCLUDE "source/engine/hotspot/hotspot_00.asm"
 
-
-
-
-
-
-    ; source/engine/script/script_play.s
-
-
-Script_Play::
-    ; Used to start a script thread that reads Magi Nation Opcodes. Enters at [hScript.State] - most commonly Script_Start
-    ;
-    ; Inputs:
-    ;   [hScript.Bank] - bank of data
-    ;   [hScript.Frame] - address of data
-    ;   [hScript.State] - function to run to interpret data
-    PushROMBank
-    ldh a, [hScript.Bank]
-    bit 7, a
-    jr z, .ScriptBank
-        ld a, ScriptXX_BANK ; Valid banks only go to 127. Bit 7 specifies the secondary script bank
-    .ScriptBank:
-    SwitchROMBank a
-    FGet16 bc, hScript.Frame
-    Get16 hl, hScript.State
-    call CallHL
-    PopROMBank
-    ret
-
-
-Script_Start::
-    ; Reads the opcode at the current frame
-    ; and executes that opcode
-    ; The frame is shifted forward by 1 (since the opcode is read)
-    ; Inputs:
-    ;   bc - from hScript.Frame
-    ;   hScript.Bank - bank of the frame
-    ; Outputs:
-    ;   pc = hScript.State = Script_Table + 2*[bc] (opcode jump table)
-    ;   hScript.Frame = bc = bc+1
-    Script_ReadByteA
-
-    add a   ;de = 2*a
-    ld e, a
-    ld d, $00
-    rl d
-
-    FSet16 hScript.Frame, bc ; Update frame
-
-    ld hl, Script_Table
-    add hl, de      ;hl = Script_Table + 2*a
-
-    SwitchROMBank BANK(Script_Table)
-    DerefHL
-    SwitchROMBank [hScript.Bank]
-    Set16 hScript.State, hl
-
-    jp hl
-
-
+; Script
+INCLUDE "source/engine/script/script_00_play.asm"
 
 INCLUDE "source/engine/actor/actor_script.asm"
 INCLUDE "source/engine/system/sound/sound_script.asm"
+INCLUDE "source/game/battle/battle_script.asm"
 
-    ; source/engine/script/modules/script_00_battle.s
-
-    ; $0EC5
-Cmd_Battle_New::
-    ; Starts a battle
-    ; wScript_System - will continue running the script at the end of the battle (TODO to confirm)
-    ; Arguments:
-    ;   db          Arena index
-    ;   db          wBattle_MagiCreatureID
-    ;   db          TODO
-    ;   BankAddress Script that sets up or runs the battle - TODO
-    Mov8 wHero_DoorX, wActor_Hero.XTile
-    Mov8 wHero_DoorY, wActor_Hero.YTile
-
-    SwitchRAMBank BANK("WRAM BATTLE")
-
-    Script_ReadByte_V [wFightscene_ArenaIndex]
-
-    ; Store the enemy magi ID
-    Script_ReadByteA
-    ld [wBattle_MagiCreatureID], a
-    ; Set whether Tony can run from the battle (yes if no enemy magi)
-    cp CreatureID_NoMagi
-    jr z, .NoMagi
-    .HasMagi:
-        xor a
-        jr .Finally
-    .NoMagi:
-        ld a, $01
-    .Finally:
-    ld [wBattle_RunEnabled], a
-
-    Script_ReadByte_V [$D36D]
-
-    ld hl, wScript_Master.Bank
-    LdHLIBCI
-    LdHLIBCI ; wScript_Master.Frame
-    LdHLIBCI
-
-    xor a
-    ld [$D0D7], a   ; TODO
-
-    ; TODO
-    Set16_M wScript_Master.State, Script_Start
-    Set16FF_V hScript.Frame, bc
-    Set16FF hScript.State, Call_000_0F59
-    Set16FF hScript_CurrentAddress, wScript_System
-    call Script_Close
-    XJump Cardscene_Open
-
-
-    ld a, $04
-    call Battle02_00_CopyFromFrame
-    jp $73AC
-
-Call_000_0F39:
-    Set16FF hScript.State, Call_000_0F39
-    xor a
-    ld [$D3C2], a
-    ret
-
-    ; $0F46
-    ld a, $04
-    call Battle02_00_CopyFromFrame
-    jp Call_002_73DD
-
-
-    jp $7449
-
-    ; $0F51
-    ld a, $01
-    call Battle02_00_CopyFromFrame
-    jp $744A
-
-    ; $0F59
-Call_000_0F59:
-    ; TODO - probably holds wScript_System until $D3C2 is set (?battle is over perhaps), and then will run wScript_System
-    xor a
-    ld [$D3C2], a
-    Set16FF hScript.State, Call_000_0F66
-    ret
-
-    ; $0F66
-Call_000_0F66:
-    ld a, [$D3C2]
-    and a
-    ret z
-
-    jp Script_Start
-
-
-    ld a, $02
-    call Battle02_00_CopyFromFrame
-    jp $7477
-
-
-    ld a, $04
-    call Battle02_00_CopyFromFrame
-    xor a
-    ld [$D396], a
-    jp $752D
-
-    ; $0F82
-    ld a, $05
-    call Battle02_00_CopyFromFrame
-    jp $752D
-
-
-    ld a, $04
-    call Battle02_00_CopyFromFrame
-    jp $7595
-
-    ; $0F92
-Cmd_Battle_Swirl::
-    ; Pause the game and do a white swirl, indicating the start of a battle
-    ; Also, backup the current song and play a song for the battle
-    ; Arguments:
-    ;   dw Graphics_ScreenFX function (should be Graphics_ScreenFX_Swirl_Do) - todo are there any other valid inputs?
-    ;   db songid - battle song
-    ; Outputs:
-    ;   wSound_SceneSongBackupID - contains the old song
-
-    ; Store the Graphics_ScreenFX function
-    Script_MovWord wGraphics_ScreenFX_Function
-
-    ; Back-up the current song, and play the new song if it is not null 
-    Mov8 wSound_SceneSongBackupID, wSound_CurrentSong
-    Script_ReadByteA
-    push bc
-    cp SOUND_NULL
-    jr z, .Skip
-        Sound_Request_StartSong a
-    .Skip:
-    pop bc
-    Set16FF_V hScript.Frame, bc
-    Set16FF hScript.State, Script_Start
-    XJump Graphics_ScreenFX_Do
-
-    ; $0FDF
-    SwitchRAMBank BANK("WRAM BATTLE")
-    ld hl, $D3CD
-    LdHLIBCI
-    LdHLIBCI
-    LdHLIBCI
-    LdHLIBCI
-    LdHLIBCI
-    LdHLIBCI
-    jp Script_Start
-
-    ; $0FFE
-    ld a, $01
-    ld [wEncounter_Enabled], a
-    ld a, $FF
-    ld [$C6D7], a
-    ld hl, $C6DB
-    LdHLIBCI
-    LdHLIBCI
-    LdHLIBCI
-    ld hl, $C6D9
-    LdHLIBCI
-    LdHLIBCI
-    jp Script_Start
-
-
-Battle02_00_CopyFromFrame:
-    ; Copies "a" bytes from the reading frame into the buffer
-    ; Then saves the updated frame
-    ; Arguments:
-    ;   a = number of bytes to copy
-    ;   bc = reading frame
-    ld l, c
-    ld h, b
-    ld de, wBattle_Buffer
-    ld c, a
-    ld b, $00
-    SwitchRAMBank BANK("WRAM BATTLE")
-    call MemMov
-    Set16FF_V hScript.Frame, hl
-    Set16FF hScript.State, Script_Start
-    SwitchROMBank BANK(Battle_Attack_Table) ; TODO change to file
-    ret
 
 
     ; $1049
@@ -487,10 +250,10 @@ Cmd_Flow_RandDelay::
     ; A random byte from the table will be selected
     ; The delay is val*4 frames
     ; Arguments:
-    ;   dw  pointer to table of size $10 in bank TODO
+    ;   dw  pointer to table of size $10 in encounter.asm (Encounter_RandomDelayTable_XX)
     .Init:
         Script_ReadWord hl
-        SwitchROMBank $01 ;TODO LongRandDelay lookup table to locate
+        SwitchROMBank BANK(Encounter_RandomDelayTable_VeryFast)
         call Math_Rand8Inc
         and %00001111       ;Random-ish number from 0 to F
         ld e, a
@@ -2155,7 +1918,7 @@ Cmd_System_SceneUnknownNew::
     jp Game_Loop
 
     ; $1FAF
-    ld hl, $C9FC
+    ld hl, wInventory_Type
     LdHLIBCI
     LdHLIBCI
     LdHLIBCI
@@ -2166,7 +1929,7 @@ Cmd_System_SceneUnknownNew::
     jp Script_Start
 
     ; $1FD4
-    ld hl, $C9FC
+    ld hl, wInventory_Type
     LdHLIBCI
     LdHLIBCI
     LdHLIBCI
@@ -2686,17 +2449,17 @@ Cmd_Trigger_Treasure::
             push de
             Sound_Request_StartSFX0 SFXID_TreasureChest
             ld a, [hl+] ;2 ;func   TODO
-            ld [$C9FC], a
+            ld [wInventory_Type], a
             ld a, [hl+] ;3 ;param
-            ld [$C9FD], a
+            ld [wInventory_ID], a
             ld a, $01   ;quantity of item
-            ld [$C9FE], a
+            ld [wInventory_Amount], a
             push hl
             XCall Unknown_GetNameAndGiveItem
             SwitchROMBank [hScript.Bank]
             pop hl
             Set16_M wText_StringFormatFrame, wText_StringBuffer
-            ld a, [$C9FD] ;success or fail (inventory full)
+            ld a, [wInventory_Success] ;success or fail (inventory full)
             and a
             jr z, .InventoryFull
             .GetTreasure:

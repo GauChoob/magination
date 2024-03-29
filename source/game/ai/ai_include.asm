@@ -2,7 +2,7 @@ MACRO AI_UpdateController
     ; Will copy the joypad buttons presses from wCnt1 to wAI_Cnt1 etc
     ; Only if the Textbox is closed
     ld a, [wTextbox_Position]
-    and a
+    and a ; Textbox_CLOSED = 0
     jr z, .TextboxClosed\@
     .TextboxOpen\@:
         ; Copy empty button presses to the AI

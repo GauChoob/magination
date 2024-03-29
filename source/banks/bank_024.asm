@@ -5046,7 +5046,7 @@ jr_024_7086:
     nop                                           ; $70B6: $00
     dec h                                         ; $70B7: $25
     and c                                         ; $70B8: $A1
-    ld [$C724], sp                                ; $70B9: $08 $24 $C7
+    ld [wScript_OverworldItemSpell_ID], sp                                ; $70B9: $08 $24 $C7
     ld [hl], d                                    ; $70BC: $72
     ld b, l                                       ; $70BD: $45
     inc h                                         ; $70BE: $24

@@ -44,12 +44,30 @@ wColl_XMove::
 wColl_YMove::
     ds 1
 
-    ds $C6D8 - @
-wEncounter_Enabled::
-    ; ?
+    ds $C6D7 - @
+wEncounter_Countdown::
+    ; Countdown to the next random battle
+    ; Decreases by 1 every 4 frames
+    ; Set to Encounter_Countdown_UNINITIALIZED when you want to pick a new random time
+    ; from the encounter table (wEncounter_LookupTable)
     ds 1
+    ;ds $C6D8 - @
+wEncounter_Enabled::
+    ; Set when random encounter are enabled (via Cmd_Battle_SetEncounter)
+    ds 1
+    ;ds $C6D9 - @
+wEncounter_LookupTable::
+    ; A table containing $10 random delay values, in the encounter bank, the time to the next encounter (populates wEncounter_Countdown)
+    ds 2
+    ;ds $C6DB - @
+wEncounter_Script::
+    ; A script to run when the encounter is triggered (i.e. a battle script)
+    .Bank:
+        ds 1
+    .Frame:
+        ds 2
 
-    ds $C6DE - @
+    ;ds $C6DE - @
 wHotspotCurrent::
     ; ?
     ds 1
@@ -229,9 +247,31 @@ wScript_Text::
     .BigCounter:
     ds 1
 
+    ;ds $C722 - @
+wBattle_AnimDone::
+    ; TODO
+    ds 1
 
+    ;ds $C723 - @
+wScript_OverworldItemSpell_Type::
+    ; Type, item or spell (saved to, but not checked)
+    ; todo assign values INV_TYPE_ITEM / INV_TYPE_SPELL
+    ds 1
+    ;ds $C724 - @
+wScript_OverworldItemSpell_ID::
+    ; ID of the item or spell Tony uses in overworld
+    ds 1
+    ;ds $C725 - @
+wScript_OverworldItemSpell_CollID::
+    ; Collision ID of the tile Tony is standing on when an item is used in overworld
+    ds 1
 
-    ds $C727 - @
+    ;ds $C726 - @
+wScript_RingMadeID::
+    ; Creature ID of the ring made
+    ds 1
+
+    ;ds $C727 - @
 INCLUDE "source/engine/system/battery/battery_wram.asm"
 
     ;ds $C728 - @
@@ -779,7 +819,22 @@ wFightscene_TileFX_DestroyCount::
     ds 1
 ;wFightscene_FireEffectState (?) TODO
 
-    ds $C9FF - @
+    ;ds $C9FC - @
+wInventory_Type::
+    ; Inventory type TODO
+    ds 1
+    ;ds $C9FD - @
+wInventory_ID::
+    ; ID of Spell, Item, etc TODO
+wInventory_Success::
+    ; Set to 1 if item successfully given, or else 0 in some of the functions
+    ds 1
+    ;ds $C9FE - @
+wInventory_Amount:: ; TODO
+    ; Amount of item to give
+    ds 1
+
+    ;ds $C9FF - @
 wInventory_ItemSpellMapDefaultScript::
     ; When an item/spell has no defined .MapBank and .MapAddress,
     ; the script defined here will be run instead.
@@ -1078,6 +1133,36 @@ wMenu_Music_CurrentSong::
     ; Partially implemented variable - not actually used
     ds 1
 
+    ds $CD50 - @
+wMenu_Ringsmith_RingLevel::
+    ; Target level of ring being made
+    ds 1
+    ;ds $CD51 - @
+wMenu_Ringsmith_CreatureID::
+    ; CreatureID of ring being made
+    ds 1
+    ;ds $CD52 - @
+wMenu_Ringsmith_CreatureXramPointer::
+    ; Pointer to the created creature in XRAM
+    ds 2
+
+    ds $CD57 - @
+wMenu_RingBank_TopVisibleRingIndex::
+    ; Index of the topmost visible ring
+    ds 1
+    ;ds $CD58 - @
+wMenu_RingBank_RingCount::
+    ; Total amount of rings. Copy of xRingCount
+    ds 1
+    ;ds $CD59 - @
+wMenu_RingBank_VisibleRings::
+    ; the CreatureID and CreatureLevel for each of the 7 visible creatures
+    ds 7*2
+    ;ds $CD67 - @
+wMenu_RingBank_VisibleRingCount::
+    ; How many rings are visible (1-7)
+    ds 1
+
     ds $CD7F - @
 wMenuChoice_BlinkFingerTimer::
     ; Keeps track of the blinking timing
@@ -1121,7 +1206,7 @@ wBattle_CopyBuffer_ListIndex::
     ds 1
     ;ds $CD8D - @
 wBattle_CopyBuffer_Source::
-    ; Points to the start of an item in the database of (Item/Relic/Infused)
+    ; Points to the start of an item in the database of (Item/Relic/Infused/BattleCmd)
     ; e.g. Points to Baloo Root
     ds 2
     ;ds $CD8F - @
@@ -1231,7 +1316,11 @@ wMenu_Battle_TableRowBuffer::
         ; big bug! The maximum length that this function uses is $68!
         ; This overwrites the all the remaining variables and the top $21 bytes of the stack!!
         ;ds $68 - todo
-        ds $22
+        ds $40
+    NEXTU
+            ds 33
+        .LevelUp_BattleCmd:
+            ds 0
     ENDU
 
     ; Max space is $40?

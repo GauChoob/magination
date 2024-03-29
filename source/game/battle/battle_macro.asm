@@ -1,4 +1,4 @@
-MACRO Do_Battle_SetActorScript
+MACRO Do_Battle_SetActorScript ; TODO - set for all
     ; Sets the Script0 of a target actor
     ; Inputs:
     ;   \1 = Actor target (wActorXX)
@@ -74,16 +74,13 @@ DEF BATTLE_MAGIANIM_FOCUS RB 1
 DEF BATTLE_MAGIANIM_CHOOSE RB 1
 
 MACRO Battle_Set_MagiAnim
-    ; TODO
+    ; Set Tony or enemy Magi's actor animation script
     ; Arguments
     ;   \1  Magi's dream creature id
     ;   \2  BATTLE_MAGIANIM_X
     ;   \3  Target actor id
-    ld a, \1
-    ld [$D0C2], a
-    ld a, \2
-    ld [$D0C0], a
-    ld a, \3
-    ld [$D0C1], a
-    Do_CallForeign Call_005_57BA
+    Set8 wBattle_Actor_CreatureID, \1
+    Set8 wBattle_Actor_Effect, \2
+    Set8 wBattle_Actor_Target, \3
+    Do_CallForeign Battle_Helpers_SetMagiAnim
 ENDM

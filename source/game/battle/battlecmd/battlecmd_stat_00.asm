@@ -7,7 +7,7 @@ BattleCmd_Stat_IncreaseCreatureExp::
     ;   Preserves hl
 
     ; Get experience
-    ld de, (wBattle_Creature_Target.Experience - wBattle_Creature_Target)
+    ld de, BATTLE_CREATURE_EXPERIENCE
     add hl, de
     push hl
     ld a, [hl+]
@@ -35,7 +35,7 @@ BattleCmd_Stat_IncreaseMagiEnergy::
 
     ; Get max energy
     push hl
-    ld bc, (wBattle_Creature_Target.MaxEnergy - wBattle_Creature_Target)
+    ld bc, BATTLE_CREATURE_MAXENERGY
     add hl, bc
     push hl
     ld a, [hl+]
@@ -67,7 +67,7 @@ BattleCmd_Stat_IncreaseMagiEnergy::
     ; Store the max energy value into the current energy as well
     pop hl
     push hl
-    ld de, (wBattle_Creature_Target.CurEnergy - wBattle_Creature_Target)
+    ld de, BATTLE_CREATURE_CURENERGY
     add hl, de
     ld [hl+], a
     ld [hl], c
@@ -84,7 +84,7 @@ BattleCmd_Stat_IncreaseCreatureEnergy::
     ;   de = delta
 
     ; Get max energy
-    ld bc, (wBattle_Creature_Target.MaxEnergy - wBattle_Creature_Target)
+    ld bc, BATTLE_CREATURE_MAXENERGY
     add hl, bc
     push hl
     ld a, [hl+]
@@ -126,7 +126,7 @@ BattleCmd_Stat_DecreaseCreatureEnergy::
     ;   de = delta
 
     ; Get max energy
-    ld bc, (wBattle_Creature_Target.MaxEnergy - wBattle_Creature_Target)
+    ld bc, BATTLE_CREATURE_MAXENERGY
     add hl, bc
     push hl
     ld a, [hl+]

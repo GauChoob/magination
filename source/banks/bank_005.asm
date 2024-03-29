@@ -5,27 +5,27 @@ Battle_CheckTarget_Table::
     ; A bunch of functions that check to see whether a potential target is valid
     ; These functions return wBattle_CurCreature_ValidBattleCmd,
     ;   where nz = valid and z = invalid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_EmptyCard
-    dw Battle_CheckTarget_EmptyCard
-    dw Battle_CheckTarget_AnyCreature
-    dw Battle_CheckTarget_AllyMagi
-    dw Battle_CheckTarget_EnemyMagi
-    dw Battle_CheckTarget_EnemyMagi
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AllEnemy
-    dw Battle_CheckTarget_AllEnemy
-    dw Battle_CheckTarget_AllAlly
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AllAlly
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
-    dw Battle_CheckTarget_AlwaysValid
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_NONE
+    dw Battle_CheckTarget_EmptyCard       ; Battle_TARGET_ALLYEMPTY
+    dw Battle_CheckTarget_EmptyCard       ; Battle_TARGET_ENEMYEMPTY
+    dw Battle_CheckTarget_AnyCreature     ; Battle_TARGET_ANYCREATURE
+    dw Battle_CheckTarget_AllyMagi        ; Battle_TARGET_ALLYMAGI
+    dw Battle_CheckTarget_EnemyMagi       ; Battle_TARGET_ENEMYMAGI
+    dw Battle_CheckTarget_EnemyMagi       ; Battle_TARGET_ENEMYMAGI_EVASION
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ANY
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ANY_EVASION
+    dw Battle_CheckTarget_AllEnemy        ; Battle_TARGET_ALLENEMY
+    dw Battle_CheckTarget_AllEnemy        ; Battle_TARGET_ALLENEMY_MAGI
+    dw Battle_CheckTarget_AllAlly         ; Battle_TARGET_ALLALLY
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALLALLY_ME
+    dw Battle_CheckTarget_AllAlly         ; Battle_TARGET_ALLALLY_MAGI
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALLALLY_MAGI_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_MAGI
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_ALL_MAGI_ME
+    dw Battle_CheckTarget_AlwaysValid     ; Battle_TARGET_DEPENDANT
 
     dw Call_005_5A24
     dw Battle_Target_Crash
@@ -469,16 +469,16 @@ jr_005_42F0:
     ret                                           ; $42F5: $C9
 
 Call_005_42F6::
-    ld a, [$D0D7]                                 ; $42F6: $FA $D7 $D0
+    ld a, [wBattle_DisableLoot]                                 ; $42F6: $FA $D7 $D0
     and a                                         ; $42F9: $A7
     ret nz                                        ; $42FA: $C0
 
     ld a, [$D06C]                                 ; $42FB: $FA $6C $D0
     srl a                                         ; $42FE: $CB $3F
     inc a                                         ; $4300: $3C
-    ld [$C9FE], a                                 ; $4301: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $4301: $EA $FE $C9
     Do_CallForeign Call_007_7368
-    ld a, [$C9FE]                                 ; $430C: $FA $FE $C9
+    ld a, [wInventory_Amount]                                 ; $430C: $FA $FE $C9
     and a                                         ; $430F: $A7
     jr z, jr_005_4353                             ; $4310: $28 $41
 
@@ -503,7 +503,7 @@ Call_005_42F6::
     ld [hl+], a                                   ; $4347: $22
     ld a, $0A                                     ; $4348: $3E $0A
     ld [hl+], a                                   ; $434A: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_005_4353:
     call Math_Rand8Inc                                    ; $4353: $CD $4F $05
@@ -515,11 +515,11 @@ jr_005_4353:
     cp $FF                                        ; $435F: $FE $FF
     jr z, jr_005_439C                             ; $4361: $28 $39
 
-    ld [$C9FD], a                                 ; $4363: $EA $FD $C9
+    ld [wInventory_ID], a                                 ; $4363: $EA $FD $C9
     ld a, $01                                     ; $4366: $3E $01
-    ld [$C9FC], a                                 ; $4368: $EA $FC $C9
+    ld [wInventory_Type], a                                 ; $4368: $EA $FC $C9
     ld a, $01                                     ; $436B: $3E $01
-    ld [$C9FE], a                                 ; $436D: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $436D: $EA $FE $C9
     Do_CallForeign Unknown_GetNameAndGiveItem
     ld a, $49                                     ; $4378: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $437A: $EA $3D $C9
@@ -536,7 +536,7 @@ jr_005_4353:
     ld [hl+], a                                   ; $4390: $22
     ld a, $0A                                     ; $4391: $3E $0A
     ld [hl+], a                                   ; $4393: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
 
 jr_005_439C:
     call Math_Rand8Inc                                    ; $439C: $CD $4F $05
@@ -549,11 +549,11 @@ jr_005_439C:
     cp $FF                                        ; $43A9: $FE $FF
     ret z                                         ; $43AB: $C8
 
-    ld [$C9FD], a                                 ; $43AC: $EA $FD $C9
+    ld [wInventory_ID], a                                 ; $43AC: $EA $FD $C9
     ld a, $01                                     ; $43AF: $3E $01
-    ld [$C9FC], a                                 ; $43B1: $EA $FC $C9
+    ld [wInventory_Type], a                                 ; $43B1: $EA $FC $C9
     ld a, $01                                     ; $43B4: $3E $01
-    ld [$C9FE], a                                 ; $43B6: $EA $FE $C9
+    ld [wInventory_Amount], a                                 ; $43B6: $EA $FE $C9
     Do_CallForeign Unknown_GetNameAndGiveItem
     ld a, $49                                     ; $43C1: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $43C3: $EA $3D $C9
@@ -570,7 +570,7 @@ jr_005_439C:
     ld [hl+], a                                   ; $43D9: $22
     ld a, $0A                                     ; $43DA: $3E $0A
     ld [hl+], a                                   ; $43DC: $22
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     ret                                           ; $43E5: $C9
 
     ; $43E6
@@ -833,7 +833,7 @@ jr_005_4580:
 
 Call_005_4595::
     ld a, $01                                     ; $4595: $3E $01
-    ld [$D071], a                                 ; $4597: $EA $71 $D0
+    ld [wBattle_PendingMessage], a                                 ; $4597: $EA $71 $D0
     ld hl, $C71B                                  ; $459A: $21 $1B $C7
     ld a, $4C                                     ; $459D: $3E $4C
     ld [hl+], a                                   ; $459F: $22
@@ -1381,7 +1381,7 @@ Battle_Menu_Ring:
     ;   wMenu_ReturnValue
     ;   wBattle_Creature_Current.BattleCmd_Target, Battle_TARGET_ALLYEMPTY
     SwitchRAMBank BANK("WRAM BATTLE")
-    Set8 $D0C0, $01 ; TODO
+    Set8 wBattle_Actor_Effect, Battle_Actor_Effect_SPARKLE
     Set8 wMenu_CursorID, Enum_Menu_CursorTable_Battle_Summon_Creatur4 ; TODO - this seems useless as we will immediately replace it in Do_Menu_Init?
     ; wMenu_SelectedRingIndex = 0 (first page)
     xor a
@@ -1918,29 +1918,35 @@ Battle_Helpers_SelectMenu::
     ECallHL
     ret
 
-Call_005_579D::
+Battle_Helpers_SetActorEffect::
+    ; Sets an Actor to the target script
+    ; Inputs:
+    ;   wBattle_Actor_Effect - only existing effect is Battle_Actor_Effect_SPARKLE
+    ;   wBattle_Actor_Target - ActorID to modify
     SwitchRAMBank BANK("WRAM BATTLE")
-    ld a, [$D0C0]                                 ; $57A4: $FA $C0 $D0
-    and a                                         ; $57A7: $A7
-    ret z                                         ; $57A8: $C8
+    ld a, [wBattle_Actor_Effect]
+    and a
+    ret z
 
-    cp $01                                        ; $57A9: $FE $01
-    jr nz, jr_005_57B9                            ; $57AB: $20 $0C
+    cp Battle_Actor_Effect_SPARKLE
+    jr nz, .CheckNext
+    .Sparkle:
+        Do_Battle_SetActorScript [wBattle_Actor_Target], SCRIPT_ANIM_ObjectsUNKNOWN8_1
+        ret
+    .CheckNext:
+    ; Nothing else to check, there's only 1 effect!
+    ret
 
-    ld a, [$D0C1]                                 ; $57AD: $FA $C1 $D0
-    ld d, $11                                     ; $57B0: $16 $11
-    ld bc, $7438                                  ; $57B2: $01 $38 $74
-    call Battle00_Actor_SetScript                                    ; $57B5: $CD $F0 $38
-    ret                                           ; $57B8: $C9
 
+Battle_Helpers_SetMagiAnim::
+    ; Set the animation of Tony or the enemy Magi. Called via the Macro Battle_Set_MagiAnim
+    ; Inputs:
+    ;   wBattle_Actor_CreatureID - CreatureID of the magi
+    ;   wBattle_Actor_Effect - Desired animation (e.g. BATTLE_MAGIANIM_IDLE)
+    ;   wBattle_Actor_Target - Actor ID of the magi
 
-jr_005_57B9:
-    ret                                           ; $57B9: $C9
-
-    ; $57BA
-Call_005_57BA::
     ; Abort if index is out of range, i.e. id is >= CreatureID_NoMagi
-    ld a, [$D0C2]
+    ld a, [wBattle_Actor_CreatureID]
     cp CreatureID_NoMagi
     ret nc
 
@@ -1955,7 +1961,7 @@ Call_005_57BA::
 
     ; Navigate to the nth entry of the scripts' table
     push hl
-    Get8 b, $D0C0
+    Get8 b, wBattle_Actor_Effect
     ld c, $03
     call Math_Mult
     pop bc
@@ -1967,12 +1973,12 @@ Call_005_57BA::
     ld a, [hl+]
     ld b, [hl]
     ld c, a
-    ld a, [$D0C1]
+    ld a, [wBattle_Actor_Target]
     call Battle00_Actor_SetScript
     ret
 
 
-    ld a, [$D0C0]                                 ; $57E5: $FA $C0 $D0
+    ld a, [wBattle_Actor_Effect]                                 ; $57E5: $FA $C0 $D0
     ld b, a                                       ; $57E8: $47
     ld c, $03                                     ; $57E9: $0E $03
     call Math_Mult                                    ; $57EB: $CD $CA $04
@@ -2359,8 +2365,8 @@ jr_005_5A10:
     ld d, $03                                     ; $5A17: $16 $03
     ret                                           ; $5A19: $C9
 
-    ; $5A1A
-UNK_AwaitTextEnd::
+
+Battle_Helpers_AwaitTextEnd::
     ; Loops until wScript_Text is done
     .Loop:
         call System_UpdateGame
@@ -2435,7 +2441,7 @@ Jump_005_5A4D:
     pop af                                        ; $5AA0: $F1
     ld [wBattle_Creature_Current.BattleCmd_Target], a                                 ; $5AA1: $EA $03 $D1
     call Call_005_405C                            ; $5AA4: $CD $5C $40
-    ld hl, $D384                                  ; $5AA7: $21 $84 $D3
+    ld hl, wBattle_LevelUp_EnemiesSummoned                                  ; $5AA7: $21 $84 $D3
     inc [hl]                                      ; $5AAA: $34
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $5AB3: $3E $49
@@ -2473,7 +2479,7 @@ jr_005_5AD7:
     ld [hl+], a                                   ; $5AE8: $22
 
 jr_005_5AE9:
-    Do_CallForeign UNK_AwaitTextEnd
+    Do_CallForeign Battle_Helpers_AwaitTextEnd
     pop hl                                        ; $5AF1: $E1
 
 Jump_005_5AF2:
@@ -3075,6 +3081,7 @@ BattleCmd_GetByteFromAddress::
 
     ; $5E4D
 BattleCmd_GetDataFromAddress::
+    ; Copy the BattleCmd into the destination
     ; Inputs:
     ;   wBattle_CopyBuffer_Source = address of the target command in the BattleCmd_Table
     ; Outputs:

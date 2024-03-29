@@ -13994,7 +13994,7 @@ jr_01E_75BB:
     halt                                          ; $75F1: $76
     ld b, e                                       ; $75F2: $43
     db $10                                        ; $75F3: $10
-    ld bc, $C726                                  ; $75F4: $01 $26 $C7
+    ld bc, wScript_RingMadeID                                  ; $75F4: $01 $26 $C7
     ld b, $2A                                     ; $75F7: $06 $2A
     nop                                           ; $75F9: $00
     ld e, $4B                                     ; $75FA: $1E $4B

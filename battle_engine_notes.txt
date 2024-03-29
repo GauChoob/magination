@@ -1,0 +1,32 @@
+XP gain - for Tony and all summoned creatures, even if dead
+
+BaseXP =
+    Switch (CreatureLvl - BattleLvl)
+        Delta > 12: 1
+        Delta > 7: 2
+        Delta > 5: 5
+        Delta > 3: 10
+        Delta > -7: 20
+        Delta > -11: 10
+        Delta > -17: 5
+        Delta > -23: 2
+        Delta <= -24: 1
+
+XP gain = min(2, BaseXP + EnemyDCSummoned# - AllyDCSummoned# + 1)
+
+
+LevelUp Gain:
+    Energy capped to 250 (999) for magi
+    Creature Energy gain (1-4)
+    Magi Energy gain: 0-31: 10, 32-59: 16, 60+: 1
+    Creature stats:
+        Skill/Speed:
+            SMALL/STRONG = average +1
+            MED = average +0.8
+            LARGE/WEAK = average +0.6
+        Defence/Resist:
+            LARGE/STRONG = average +1.3333
+            MED = average +1.1333
+            SMALL/WEAK = average +0.9333
+        Strength:
+            average 1.1875

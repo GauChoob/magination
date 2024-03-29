@@ -2422,7 +2422,7 @@ jr_025_6869:
     ld b, $2A                                     ; $687D: $06 $2A
     nop                                           ; $687F: $00
     rrca                                          ; $6880: $0F
-    ld bc, $C725                                  ; $6881: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $6881: $01 $25 $C7
     ld b, $B0                                     ; $6884: $06 $B0
     nop                                           ; $6886: $00
     dec h                                         ; $6887: $25
@@ -5733,13 +5733,13 @@ jr_025_7576:
     ld b, d                                       ; $7589: $42
     ld b, e                                       ; $758A: $43
     db $10                                        ; $758B: $10
-    ld bc, $C725                                  ; $758C: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $758C: $01 $25 $C7
     ld b, $B0                                     ; $758F: $06 $B0
     nop                                           ; $7591: $00
     ld [hl+], a                                   ; $7592: $22
     ld b, $40                                     ; $7593: $06 $40
     ld c, e                                       ; $7595: $4B
-    ld bc, $C724                                  ; $7596: $01 $24 $C7
+    ld bc, wScript_OverworldItemSpell_ID                                  ; $7596: $01 $24 $C7
     dec h                                         ; $7599: $25
     inc b                                         ; $759A: $04
     nop                                           ; $759B: $00

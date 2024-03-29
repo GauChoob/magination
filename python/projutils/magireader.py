@@ -38,23 +38,35 @@ _shorthands_color = {
 # }
 
 # Lookup table for LoadArena argument
-_shorthands_loadsidescroller_scene = {
+_shorthands_arena = {
     0x00: "Arderial",
-    0x01: "Core",
+    0x01: "ArderialGeyser",
     0x02: "Cald",
     0x03: "UnderneathTunnels",
     0x04: "CaldGeyser",
-    0x05: "NaroomGeyser",
+    0x05: "Core",
     0x06: "Naroom",
-    0x07: "UnderneathGeyser",
-    0x08: "OrotheStarfish",
-    0x09: "OrotheGeyser",
+    0x07: "NaroomUnderneathGeysers",
+    0x08: "OrotheGeyser",
+    0x09: "OrotheWarrada",
     0x0A: "Orothe",
     0x0B: "OrotheTunnels",
     0x0C: "Shadowhold",
     0x0D: "Underneath",
 }
 
+_battle_slot = {
+    0x00: 'HERO',
+    0x01: 'ALLY0',
+    0x02: 'ALLY1',
+    0x03: 'ALLY2',
+    0x04: 'ALLY3',
+    0x05: 'ENEMY0',
+    0x06: 'ENEMY1',
+    0x07: 'ENEMY2',
+    0x08: 'ENEMY3',
+    0x09: 'MAGI',
+}
 
 class DepthTracker:
     defaultdepth = 4
@@ -143,17 +155,26 @@ class MagiScriptLine:
         0x22: CommandBuilder("func", "SetSongVolume", "$db"),
         0x23: CommandBuilder("func", "SongFadeIn", "SongFadeInterval"),
         0x24: CommandBuilder("func", "SongFadeOut", "SongFadeInterval"),
-
-        0x28: CommandBuilder("func", "BATTLE_UNK", "db", "$dw", "$db"),
-
-        0x30: CommandBuilder("func", "BattleSwirl", "07Address", "SONGID"),
-
+        0x25: CommandBuilder("func", "BattleNew", "Arena", "CreatureID", "db", "BankAddress_CARDSCENESCRIPT"),
+        0x26: CommandBuilder("func", "BattleAttack", "BattleSlot", "BattleCmd_Table", "BattleAI_Target"),
+        0x27: CommandBuilder("func", "BattleAuto"),
+        0x28: CommandBuilder("func", "BattleSpell", "BattleSlot", "ItemSpell_Table", "BattleAI_Target"),
+        0x29: CommandBuilder("func", "BattleEvaluate"),
+        0x2A: CommandBuilder("func", "BattleFocus", "BattleSlot"),
+        0x2B: CommandBuilder("func", "BattleNextTurn"),
+        0x2C: CommandBuilder("func", "ForgeRing", "CreatureID", "db"),
+        0x2D: CommandBuilder("func", "BattleSummonFast", "BattleSlot", "CreatureID", "db", "db"),
+        0x2E: CommandBuilder("func", "BattleSummon", "BattleSlot", "CreatureID", "db", "db", "db"),
+        0x2F: CommandBuilder("func", "BattleItem", "BattleSlot", "ItemSpell_Table", "BattleAI_Target"),
+        0x30: CommandBuilder("func", "BattleScreenWipe", "07Address", "SONGID"),
+        0x31: CommandBuilder("func", "BattleSetReturn", "BankAddress_SCRIPT", "BankAddress_SCRIPT"),
+        0x32: CommandBuilder("func", "BattleSetEncounter", "BankAddress_BATSCRIPT", "RandDelayAddress"),
         0x33: CommandBuilder("func", "BlowAway"),
-        0x34: CommandBuilder("func", "LoadArena", "LoadSideScroller_Scene"),
+        0x34: CommandBuilder("func", "LoadArena", "Arena"),
         0x35: CommandBuilder("func", "LoadCreatureLeft", "CreatureID"),
         0x36: CommandBuilder("func", "DissolveFast"),
         0x37: CommandBuilder("func", "DissolveSlow"),
-        0x38: CommandBuilder("func", "FightsceneNew", "LoadSideScroller_Scene", "CreatureID", "CreatureID"),
+        0x38: CommandBuilder("func", "FightsceneNew", "Arena", "CreatureID", "CreatureID"),
         0x39: CommandBuilder("func", "PanTable", "CreatureSide", "PanAddress"),  # Technically it is pan left vs pan right, not CreatureSide, but the reference is the same
         0x3A: CommandBuilder("func", "Recoil"),
 
@@ -279,7 +300,9 @@ class MagiScriptLine:
             "RestoreActorState",
             "LongJump",
             "Jump",
-            "RandLongJump"
+            "RandLongJump",
+            "BattleAuto",
+            "Treasure",
         ]
 
     def __init__(self):
@@ -461,9 +484,9 @@ class MagiScriptLine:
             elif(instruction == "ActorStateAddress"):
                 address = getWord()
                 return [interpretBankAddress(0x01, address, "AI")]  # Actor bank = $01
-            elif(instruction == "07Address"):  # TODO - what is bank 07?
+            elif(instruction == "07Address"): 
                 address = getWord()
-                return [interpretBankAddress(0x07, address, "BANK07")]  # Actor bank = $01
+                return [interpretBankAddress(0x07, address, "BANK07")]
             elif(instruction == "HotspotTableAddress"):
                 address = getWord()
                 hotspots.add(address)  # store a copy of all the unique hotspot addresses
@@ -487,6 +510,25 @@ class MagiScriptLine:
             elif(instruction == "PanAddress"):
                 address = getWord()
                 return [interpretBankAddress(0x04, address, "FIGHTSCENEPAN")]  # Fightscene bank = $04
+            elif(instruction == "BattleCmd_Table"):
+                address = getWord()
+                labels = sym.getSymbol(0x05, address, 'BATTLECMDUNK') # BattleCmd_Table bank $05
+                label = min(labels, key=len) # Get BattleCmd_Table.BattleCmd_FIGHT instead of BattleCmd_Table.BattleCmd_FIGHT_Function
+                label = label[label.find('.') + 1:] # Remove BattleCmd_Table.
+                return [label]
+            elif(instruction == "ItemSpell_Table"):
+                address = getWord()
+                labels = sym.getSymbol(0x07, address, 'ITEMSPELLUNK') # Item_Table/Spell_Table bank $07
+                label = min(labels, key=len) # Get Spell_Table.Spell_LEAFCUT instead of Spell_Table.Spell_LEAFCUT_LocalAddress1
+                label = label[label.find('.') + 1:] # Remove Spell_Table.
+                return [label]
+            elif(instruction == "BattleAI_Target"):
+                val = getByte()
+                address = 0x6FDF + val
+                labels = sym.getSymbol(0x02, address, 'BATTLEAI_TARGET') # BattleAI_Target_Table bank $02
+                label = max(labels, key=len) # Get sublabel
+                label = label[label.rfind('_') + 1:] # Remove everything except the end of the label
+                return [label]
 
             # VARBIT
             elif(instruction == "Varbit"):
@@ -539,10 +581,15 @@ class MagiScriptLine:
                 return [str(bank)]
 
             # ENUMS
-            elif(instruction == "LoadSideScroller_Scene"):
+            elif(instruction == "Arena"):
                 val = getByte()
-                if(val in _shorthands_loadsidescroller_scene):
-                    return ["FIGHTSCENE_ARENA_"+_shorthands_loadsidescroller_scene[val]]
+                if(val in _shorthands_arena):
+                    return [_shorthands_arena[val]]
+                raise KeyError(val)
+            elif(instruction == "BattleSlot"):
+                val = getByte()
+                if(val in _battle_slot):
+                    return [_battle_slot[val]]
                 raise KeyError(val)
             elif(instruction == "CreatureID"):
                 val = getByte()
@@ -566,6 +613,7 @@ class MagiScriptLine:
             elif(instruction == "CollID"):
                 val = getByte()
                 return [collision_ids.ids[val]]
+
 
             # Map tileaddresses
             elif instruction == "YXTileaddress":

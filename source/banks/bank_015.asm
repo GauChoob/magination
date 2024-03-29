@@ -1608,7 +1608,7 @@ jr_015_4652:
     rrca                                          ; $469D: $0F
 
 jr_015_469E:
-    ld bc, $C725                                  ; $469E: $01 $25 $C7
+    ld bc, wScript_OverworldItemSpell_CollID                                  ; $469E: $01 $25 $C7
     ld b, $B0                                     ; $46A1: $06 $B0
     nop                                           ; $46A3: $00
     dec d                                         ; $46A4: $15
