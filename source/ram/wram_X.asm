@@ -553,6 +553,8 @@ UNION
 wBattle_Buffer::
     ; Data copied from a ROMX script frame into a temporary buffer
     ; So we can access the data from a different bank
+    ; inefficiency - we never use more than 5 bytes here (data only copied via Battle00_CopyDataFromFrame)
+    ; so we could technically reduce the buffer size if we are short on space
     ds $30
 .End
 NEXTU

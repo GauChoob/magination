@@ -40,15 +40,15 @@ _shorthands_color = {
 # Lookup table for LoadArena argument
 _shorthands_loadsidescroller_scene = {
     0x00: "Arderial",
-    0x01: "Core",
+    0x01: "ArderialGeyser",
     0x02: "Cald",
     0x03: "UnderneathTunnels",
     0x04: "CaldGeyser",
-    0x05: "NaroomGeyser",
+    0x05: "Core",
     0x06: "Naroom",
-    0x07: "UnderneathGeyser",
-    0x08: "OrotheStarfish",
-    0x09: "OrotheGeyser",
+    0x07: "NaroomUnderneathGeysers",
+    0x08: "OrotheGeyser",
+    0x09: "OrotheWarrada",
     0x0A: "Orothe",
     0x0B: "OrotheTunnels",
     0x0C: "Shadowhold",
@@ -143,6 +143,7 @@ class MagiScriptLine:
         0x22: CommandBuilder("func", "SetSongVolume", "$db"),
         0x23: CommandBuilder("func", "SongFadeIn", "SongFadeInterval"),
         0x24: CommandBuilder("func", "SongFadeOut", "SongFadeInterval"),
+        0x25: CommandBuilder("func", "BattleNew", "LoadSideScroller_Scene"),
 
         0x28: CommandBuilder("func", "BATTLE_UNK", "db", "$dw", "$db"),
 
@@ -282,7 +283,8 @@ class MagiScriptLine:
             "LongJump",
             "Jump",
             "RandLongJump",
-            "BattleAuto"
+            "BattleAuto",
+            "Treasure",
         ]
 
     def __init__(self):

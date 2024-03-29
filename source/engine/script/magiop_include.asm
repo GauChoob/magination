@@ -40,20 +40,20 @@ DEF Enum_Cmd_Sound_FadeInSong                   RB 1 ; $23
 DEF Enum_Cmd_Sound_FadeOutSong                  RB 1 ; $24
 
 DEF Enum_Cmd_Battle_New                         RB 1 ; $25
-DEF Enum_Cmd_26                 RB 1 ; $26
-DEF Enum_Cmd_27                 RB 1 ; $27  ;BattleDoneLoading?
-DEF Enum_Cmd_28                 RB 1 ; $28
-DEF Enum_Cmd_29                 RB 1 ; $29
-DEF Enum_Cmd_2A                 RB 1 ; $2A
-DEF Enum_Cmd_2B                 RB 1 ; $2B
+DEF Enum_Cmd_Battle_Attack                      RB 1 ; $26
+DEF Enum_Cmd_Battle_Auto                        RB 1 ; $27
+DEF Enum_Cmd_Battle_Spell                       RB 1 ; $28
+DEF Enum_Cmd_Battle_Evaluate                    RB 1 ; $29 - not implemented
+DEF Enum_Cmd_Battle_Focus                       RB 1 ; $2A
+DEF Enum_Cmd_Battle_NextTurn                    RB 1 ; $2B
 DEF Enum_Cmd_Battle_ForgeRing                   RB 1 ; $2C
-DEF Enum_Cmd_2D                 RB 1 ; $2D
-DEF Enum_Cmd_2E                 RB 1 ; $2E ;This defines a single monster from an encounter
-DEF Enum_Cmd_2F                 RB 1 ; $2F
-
-DEF Enum_Cmd_Battle_Swirl                       RB 1 ; $30 -todo maybe this should be a graphics function instead
-DEF Enum_Cmd_31                 RB 1 ; $31
-DEF Enum_Cmd_32                 RB 1 ; $32
+DEF Enum_Cmd_Battle_SummonFast                  RB 1 ; $2D - deprecated
+DEF Enum_Cmd_Battle_SummonDelay                 RB 1 ; $2E
+DEF Enum_Cmd_Battle_Item                        RB 1 ; $2F
+DEF Enum_Cmd_Battle_ScreenWipe                  RB 1 ; $30
+DEF Enum_Cmd_Battle_SetReturn                   RB 1 ; $31
+DEF Enum_Cmd_Battle_SetEncounter                RB 1 ; $32
+   
 DEF Enum_Cmd_Fightscene_FightFX_BlowAway        RB 1 ; $33
 DEF Enum_Cmd_Fightscene_LoadArena               RB 1 ; $34
 DEF Enum_Cmd_Fightscene_LoadCreatureLeft        RB 1 ; $35
@@ -182,7 +182,7 @@ DEF Enum_Cmd_Trigger_Treasure                   RB 1 ; $A4
 DEF Enum_Cmd_Ram_VarBitExpr                     RB 1 ; $A5
 DEF Enum_Cmd_Ram_VarByteExpr                    RB 1 ; $A6
 DEF Enum_Cmd_Ram_VarWordExpr                    RB 1 ; $A7
-DEF Enum_Cmd_Ram_NextGameCount                  RB 1 ; $A8
+DEF Enum_Cmd_Ram_NextGameCount                  RB 1 ; $A8 - deprecated
 DEF Enum_Cmd_Ram_SetGameCount                   RB 1 ; $A9
 DEF Enum_Cmd_Ram_SetWramByte                    RB 1 ; $AA
 DEF Enum_Cmd_Ram_SetWramWord                    RB 1 ; $AB
@@ -426,7 +426,45 @@ MACRO SongFadeOut
     SongFadeInterval \1       ;Cycle interval from 1 to $10
 ENDM
 
-; 25 - 2B
+MACRO BattleNew
+    db Enum_Cmd_Battle_New
+    db FIGHTSCENE_ARENA_\1           ; wFightscene_ArenaIndex
+    db \2           ; wBattle_MagiCreatureID
+    db \3           ; wBattle_Level
+    BankAddress \4  ; Script setting up cardscene: TODOBattle_Fade_In
+ENDM
+
+MACRO BattleAttack
+    db Enum_Cmd_Battle_Attack
+    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw \2       ; Address of an attack in BattleCmd_Table
+    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+ENDM
+
+MACRO BattleAuto
+    db Enum_Cmd_Battle_Auto
+ENDM
+
+MACRO BattleSpell
+    db Enum_Cmd_Battle_Spell
+    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw \2       ; Address of a spell in Spell_Table
+    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+ENDM
+
+MACRO BattleEvaluate
+    db Enum_Cmd_Battle_Evaluate
+    ; Command is NOT implemented, does nothing, crashes game
+ENDM
+
+MACRO BattleFocus
+    db Enum_Cmd_Battle_Focus
+    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+ENDM
+
+MACRO BattleNextTurn
+    db Enum_Cmd_Battle_NextTurn
+ENDM
 
 MACRO ForgeRing
     db Enum_Cmd_Battle_ForgeRing
@@ -434,15 +472,48 @@ MACRO ForgeRing
     db \2       ; CreatureLevel
 ENDM
 
-; 2D - 2F
+MACRO BattleSummonFast
+    ; Deprecated command - not used anymore, but functional
+    db Enum_Cmd_Battle_SummonFast
+    db \1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    db \2       ; CreatureID
+    db \3       ; CreatureLevel
+    db \4       ; CreatureEnergy
+ENDM
 
-MACRO BattleSwirl
-    db Enum_Cmd_Battle_Swirl
+MACRO BattleSummon
+    db Enum_Cmd_Battle_SummonDelay
+    db \1       ; wBattle_Buffer_CreatureSlot, i.e. BATTLE_SLOT_MAGI
+    db \2       ; CreatureID
+    db \3       ; CreatureLevel
+    db \4       ; CreatureEnergy
+    db \5       ; Delay - turns before creature is summoned
+ENDM
+
+MACRO BattleItem
+    db Enum_Cmd_Battle_Item
+    db \1       ; wBattle_Buffer_CreatureSlot e.g. BATTLE_SLOT_ENEMY0
+    dw \2       ; Address of an item in Item_Table
+    db \3       ; Desired target e.g. BattleAI_Target_AllyWeakPercent
+ENDM
+
+MACRO BattleScreenWipe
+    db Enum_Cmd_Battle_ScreenWipe
     dw \1       ; Graphics_ScreenFX function e.g. Graphics_ScreenFX_Swirl_Do
     db \2       ; SONGID
 ENDM
 
-; 31 - 32
+MACRO BattleSetReturn
+    db Enum_Cmd_Battle_SetReturn
+    BankAddress \1  ; Win script
+    BankAddress \2  ; Lose script
+ENDM
+
+MACRO BattleSetEncounter
+    db Enum_Cmd_Battle_SetEncounter
+    BankAddress \1  ; Script to run when encounter triggers
+    dw \2           ; Encounter_RandomDelayTable_XX
+ENDM
 
 MACRO BlowAway
     db Enum_Cmd_Fightscene_FightFX_BlowAway
@@ -1109,6 +1180,7 @@ MACRO VarWordExpr
 ENDM
 
 MACRO NextGameCount
+    ; Deprecated command - not used anymore, but functional
     db Enum_Cmd_Ram_NextGameCount
 ENDM
 
