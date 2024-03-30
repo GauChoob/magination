@@ -3,4 +3,4 @@
     AddressBank BITSET_Arderial_Geyser
     AddressBank PATTERN_Arderial_GeyserRLE
     AddressBank METAMAP_Arderial_Geyser_Pipes2_PipeAnalysis_Mask
-    AddressBank COLLMAP_Arderial_Geyser_Pipes2_PipeAnalysis
+    AddressBank COLLMAP_Arderial_Geyser_Pipes2_PipeAnalysis_Mask
