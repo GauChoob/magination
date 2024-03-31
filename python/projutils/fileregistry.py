@@ -128,6 +128,8 @@ class LabelFileRegister:
             original_filename = filepath_reverser.reverse(processed_filename)
             while asmfile.lines[i].address == line.address:
                 i -= 1
+                if i < 0:
+                    break
                 compare_line = asmfile.lines[i]
                 if not isinstance(compare_line, asm.LabelLine):
                     continue
