@@ -21,7 +21,7 @@ def check():
             for file in files:
                 full_path = os.path.join(header, file)
                 file_time = utils.get_last_modified(full_path)
-                if auto_musyx_time < file_time:
+                if auto_musyx_time <= file_time:
                     return True
     return False
 
