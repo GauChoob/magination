@@ -15,7 +15,7 @@ if True:
 # It converts
 #   tileset.png                 to      .tileset (2bpp)
 #   pal.png                     to      .pal (list of Colors)
-#   mtiledef.tilemap/attrmap    to      .mtiledef (metatile definition)
+#   pattern.tilemap/attrmap    to      .pattern (metatile definition)
 #   RLEx.extension  to      .extension.rle (run-length-encoded file)
 
 folders = [
