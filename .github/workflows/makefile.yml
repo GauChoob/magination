@@ -22,8 +22,7 @@ jobs:
 
       - name: Install Dependancies
         run: |
-          py -0
-          py -m pip install -r python/requirements.txt
+          pip install -r python/requirements.txt
 
       - name: Cache RGBDS
         id: cache-rgbds

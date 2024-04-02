@@ -11,32 +11,32 @@ clean:
 	rm game.o game.gbc game.sym game.map -f
 
 files:
-	py python\\make main
+	python python\\make main
 
 preview:
-	py python\\make preview $(scene)
+	python python\\make preview $(scene)
 
 tests:
-	py -m unittest python\\projutils\\tests\\test_asm.py
-	py -m unittest python\\projutils\\tests\\test_autopack.py
-	py -m unittest python\\projutils\\tests\\test_battle.py
-	py -m unittest python\\projutils\\tests\\test_collision.py
-	py -m unittest python\\projutils\\tests\\test_color.py
-	py -m unittest python\\projutils\\tests\\test_encoding.py
-	py -m unittest python\\projutils\\tests\\test_fileregistry.py
-	py -m unittest python\\projutils\\tests\\test_hotspot.py
-	py -m unittest python\\projutils\\tests\\test_lbm.py
-	py -m unittest python\\projutils\\tests\\test_magireader.py
-	py -m unittest python\\projutils\\tests\\test_pattern.py
-	py -m unittest python\\projutils\\tests\\test_preview.py
-	py -m unittest python\\projutils\\tests\\test_preview_sprite.py
-	py -m unittest python\\projutils\\tests\\test_rle.py
-	py -m unittest python\\projutils\\tests\\test_sprite.py
-	py -m unittest python\\projutils\\tests\\test_textreplace.py
-	py -m unittest python\\projutils\\tests\\test_tilemap.py
-	py -m unittest python\\projutils\\tests\\test_tileset.py
-	py -m unittest python\\projutils\\tests\\test_utils.py
-	py -m unittest python\\magiparser\\tests\\test_magiparser.py
+	python -m unittest python\\projutils\\tests\\test_asm.py
+	python -m unittest python\\projutils\\tests\\test_autopack.py
+	python -m unittest python\\projutils\\tests\\test_battle.py
+	python -m unittest python\\projutils\\tests\\test_collision.py
+	python -m unittest python\\projutils\\tests\\test_color.py
+	python -m unittest python\\projutils\\tests\\test_encoding.py
+	python -m unittest python\\projutils\\tests\\test_fileregistry.py
+	python -m unittest python\\projutils\\tests\\test_hotspot.py
+	python -m unittest python\\projutils\\tests\\test_lbm.py
+	python -m unittest python\\projutils\\tests\\test_magireader.py
+	python -m unittest python\\projutils\\tests\\test_pattern.py
+	python -m unittest python\\projutils\\tests\\test_preview.py
+	python -m unittest python\\projutils\\tests\\test_preview_sprite.py
+	python -m unittest python\\projutils\\tests\\test_rle.py
+	python -m unittest python\\projutils\\tests\\test_sprite.py
+	python -m unittest python\\projutils\\tests\\test_textreplace.py
+	python -m unittest python\\projutils\\tests\\test_tilemap.py
+	python -m unittest python\\projutils\\tests\\test_tileset.py
+	python -m unittest python\\projutils\\tests\\test_utils.py
+	python -m unittest python\\magiparser\\tests\\test_magiparser.py
 
 help:
 	$(info make -> generate game files)
