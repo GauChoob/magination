@@ -22,7 +22,7 @@ class ResultsHandler(object):
     def updateAddress(self, address: int, indentation: int) -> int:
         """Updates the current address and indentation of the object"""
         raise NotImplementedError  # Defined in the subclasses
-    
+
     def getOutput(self):
         """Returns the .asm data used to build the rom"""
         raise NotImplementedError  # Defined in the subclasses

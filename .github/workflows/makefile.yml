@@ -57,3 +57,8 @@ jobs:
         shell: pwsh
         run: |
           make tests
+
+      - name: Lint with flake8
+        shell: pwsh
+        run: |
+          flake8 python/magiparser python/make python/projutils
