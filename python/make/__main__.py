@@ -4,6 +4,11 @@ sys.path.append('python/')
 import make.musyx as musyx  # noqa: E402
 import make.assets as assets  # noqa: E402
 import make.autopack as autopack  # noqa: E402
+import make.preview as previeww  # noqa: E402
+
+
+def preview():
+    previeww.do()
 
 
 def delete():
