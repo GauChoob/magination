@@ -53,11 +53,6 @@ jobs:
         run: |
           $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
           make
-
-      - name: Test make tests
-        shell: pwsh
-        run: |
-          make tests
   
       - name: Verify checksum
         shell: pwsh
@@ -67,3 +62,8 @@ jobs:
               Write-Output "ROM Checksum Incorrect!"
               exit 1
           }
+
+      - name: Test make tests
+        shell: pwsh
+        run: |
+          make tests
