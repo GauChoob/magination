@@ -24,7 +24,7 @@ class BlockHandler(FuncHandler):
         self.size = 1
         return self.GenerateOutput()
 
-    def EndThisSetAnimDelay(self):               # 0xFF
+    def EndThisSetAnimScroll(self):               # 0xFF
         self.post_size = 1
         return self.GenerateEndOutput()
 
