@@ -88,7 +88,7 @@ class BlockHandler(FuncHandler):
 
     def post_init(self):
         if len(self.tokens.fparams) == 0:
-            self.tokens.fparams = [[]]
+            self.tokens['fparams'] = [[]]
         self.parent = ""
         self.params = []
         for param in self.tokens.fparams[0]:
