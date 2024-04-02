@@ -8,8 +8,8 @@ if True:
 
 
 def main():
-    musyx.do()
     assets.do()
+    musyx.do()
     autopack.do()
 
 
