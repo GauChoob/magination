@@ -10,9 +10,9 @@ This explains how to get the tools required to build Magi-Nation.
 
 2. If using Windows, you need to install [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm). You can skip this step for Linux/Mac.
 
-3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.6.1).
+3. Install [RGBDS](https://rgbds.gbdev.io/install) (version 0.7.0).
 
-4. Install [Python](https://www.python.org/downloads/) (version 3.11.4).
+4. Install [Python](https://www.python.org/downloads/) (version 3.11).
 
 5. Install the required Python packages:
 
@@ -23,7 +23,6 @@ This explains how to get the tools required to build Magi-Nation.
 6. Build the ROM:
 
         cd C:/MagiNationFolder/
-        make extras
         make
 
 7. The checksum should be displayed and evaluate to `1624f857098ca278b15629914f48352b`.
