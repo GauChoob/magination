@@ -12,13 +12,17 @@ jobs:
       RGBDS_VERSION: 0.7.0
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependancies
+        run: |
+          pip install -r python/requirements.txt
 
       - name: Cache RGBDS
         id: cache-rgbds
@@ -33,20 +37,6 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://github.com/gbdev/rgbds/releases/download/v$env:RGBDS_VERSION/rgbds-$env:RGBDS_VERSION-win64.zip -OutFile rgbds-$env:RGBDS_VERSION-win64.zip
           Expand-Archive -Path rgbds-$env:RGBDS_VERSION-win64.zip -DestinationPath rgbds/
-
-      - name: Cache Python Pip
-        id: cache-pip
-        uses: actions/cache@v3
-        with:
-          path: ~\AppData\Local\pip\Cache
-          key: ${{ runner.os }}-pip-${{ hashFiles('python/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            
-      - name: Python Pip Install
-        shell: cmd
-        run: |
-          pip install -r python/requirements.txt
 
       - name: Test make file
         shell: pwsh
