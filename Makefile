@@ -38,6 +38,9 @@ tests:
 	python -m unittest python\\projutils\\tests\\test_utils.py
 	python -m unittest python\\magiparser\\tests\\test_magiparser.py
 
+flake:
+	flake8 python\\magiparser python\\make python\\projutils
+
 help:
 	$(info make -> generate game files)
 	$(info )
@@ -48,5 +51,7 @@ help:
 	$(info .             can be useful if you rename files and the script gets confused)
 	$(info )
 	$(info make tests -> run python tests)
+	$(info )
+	$(info make flake -> run flake8 verification)
 	$(info )
 	

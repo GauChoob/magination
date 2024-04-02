@@ -6,7 +6,7 @@ assetsfolder = os.path.dirname(__file__) + "/assets/hotspot/"
 
 
 class TestMagireader(unittest.TestCase):
-    #TODO
+    # TODO
     pass
 
 

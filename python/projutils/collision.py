@@ -1,6 +1,5 @@
 
 
-
 class CollisionIDs:
     """A helper object that gets the Collision IDs"""
     def __init__(self, file: str = "source/engine/collision/collision_include.asm"):

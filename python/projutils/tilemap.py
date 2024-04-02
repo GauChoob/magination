@@ -115,7 +115,7 @@ class MetaMap(filecontents.FileContentsSerializer):
         ret.append('    db {: <10}; wTilemap_VStop'.format(self.vstop))
         ret.append('    dw ${:04X}     ; Uncompressed file size (excluding header)'.format(self.approx_size))
         real_size = len(self.map.contents.map)
-        if(real_size == self.approx_size + 7):
+        if real_size == self.approx_size + 7:
             ret.append('    ; The imported file size was actually ${:04X} because 7 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error'.format(real_size))
         ret.append('    INCBIN "{}"'.format(self.map.processed_path))
         return '\n'.join(ret)
@@ -188,7 +188,7 @@ class CollMap(filecontents.FileContentsSerializer):
         ret.append('    db {: <10}; wTilemap_Width'.format(self.width))
         ret.append('    dw ${:04X}     ; Uncompressed file size (excluding header)'.format(self.approx_size))
         real_size = len(self.map.contents.map)
-        if(real_size == self.approx_size + 3):
+        if real_size == self.approx_size + 3:
             ret.append('    ; The imported file size was actually ${:04X} because 3 extra (unused) $00 bytes (equal to the size of the header) were appended to the end in error'.format(real_size))
         ret.append('    INCBIN "{}"'.format(self.map.processed_path))
         return '\n'.join(ret)

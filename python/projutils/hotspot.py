@@ -24,7 +24,7 @@ class Hotspot:
         params = []
         for line in lines:
             line = line.lstrip().rstrip()
-            if(len(line) == 0):
+            if len(line) == 0:
                 continue
             condition, label = line.split(",")
             condition = condition.lstrip().rstrip()
@@ -79,7 +79,7 @@ class Trigger:
         params = []
         for line in lines:
             line = line.lstrip().rstrip()
-            if(len(line) == 0):
+            if len(line) == 0:
                 continue
             condition, label = line.split(",")
             condition = condition.lstrip().rstrip()

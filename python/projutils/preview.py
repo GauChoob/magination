@@ -30,6 +30,7 @@ def GetCollisionDataPixel(collid: int, xoffset: int, yoffset: int, rgboffset: in
     basey = collid//0x10
     return cdfpixels[basey*0x10+yoffset][(basex*0x10+xoffset)*cdfmeta["planes"]+rgboffset]  # use planes so that the format can be rgb or rgba (3 or 4)
 
+
 def DrawMetatile(vramtiles: vram.VRAMTiles, pat: pattern.Pattern, pixels: list, patternid: int, x: int, y: int) -> list:
     """Paints the Metatile into the canvas "pixels"
     vram: List of VRAMTiles

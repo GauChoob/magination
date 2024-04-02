@@ -58,9 +58,9 @@ class TestTilemap(unittest.TestCase):
                 adr = test[2]
                 cmp = test[3]
                 size = test[4]
-                if(adr):
+                if adr:
                     rom_f = tilemap.Tilemap.init_from_rom(None, rom, adr, cmp, size)
-                    if(size):
+                    if size:
                         self.assertEqual(rom_f.size(), size)
                     rom_f.save_original_file(ori_out)
                     rom_f.save_processed_file(pro_out)

@@ -6,7 +6,7 @@ assetsfolder = os.path.dirname(__file__) + "/assets/hotspot/"
 
 
 class TestHotspot(unittest.TestCase):
-    #TODO
+    # TODO
     pass
 
 

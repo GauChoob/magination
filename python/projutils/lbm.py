@@ -73,7 +73,7 @@ class LBM:
                     for n in range(num_planes - 1 - mask, -1, -1):
                         pixel = pixel << 1
                         pixel += 1 if data[width_padded*num_planes*i + width_padded*n + j//8] & (1 << (7 - (j % 8))) else 0
-                    if(mask):
+                    if mask:
                         n = num_planes - 1
                         if data[width_padded*num_planes*i + width_padded*n + j//8] & ((7 - width) % 8) == 0:
                             pass  # Let's preserve the bytes of data instead of masking them out like we should
@@ -128,7 +128,7 @@ class LBM:
             if chunk.name == 'BMHD':
                 self.image_width = uint16()
                 self.image_height = uint16()
-                if(self.filename[-4:].lower() == '.bbm'):
+                if self.filename[-4:].lower() == '.bbm':
                     # Brush file. For some unknown reason we need to correct the image dimensions:
                     self.image_width += 1
                     self.image_height -= 1

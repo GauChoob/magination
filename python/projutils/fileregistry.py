@@ -8,7 +8,7 @@ import projutils.filereference as filereference
 
 
 def fix_backslash(path: str, shallow: bool) -> str:
-    """
+    r"""
     Change \ to /
     """
     return path.replace('\\', '/')
