@@ -125,7 +125,7 @@ class FuncHandler(ResultsHandler):
     def HeroToRelativeDoor(self):           # 0x02
         self.size = 5
         return self.GenerateOutput(*range(4))
-    
+
     def ThatDrawTile(self):            # 0x03
         self.size = 8
         return self.GenerateOutput(*range(6))

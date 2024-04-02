@@ -16,18 +16,18 @@ class TestColor(unittest.TestCase):
         self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 255), color.Color(0x4F5F).get_RGBA())
         self.assertEqual((0x1F*8, 0x1A*8, 0x13*8), color.Color(0x4F5F).get_RGB())
         self.assertEqual((0x1F*8, 0x1A*8, 0x13*8, 0), color.Color(0xCF5F).get_RGBA(allow_alpha=True))
-        with(self.assertRaises(ValueError)):
+        with self.assertRaises(ValueError):
             color.Color(0xCF5F).get_RGBA(allow_alpha=False)
         self.assertEqual(0x4F5F, color.Color(0x1F*8, 0x1A*8, 0x13*8).get_word())
         self.assertEqual(0x4F5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 255).get_word())
         self.assertEqual(0xCF5F, color.Color(0x1F*8, 0x1A*8, 0x13*8, 0).get_word(allow_alpha=True))
-        with(self.assertRaises(ValueError)):
+        with self.assertRaises(ValueError):
             color.Color(0x1F*8, 0x1A*8, 0x13*8, 0).get_word(allow_alpha=False)
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             color.Color(0x10*8 + 1, 0x10*8, 0x10*8, 255)
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             color.Color(0x10*8, 0x10*8 + 1, 0x10*8, 255)
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             color.Color(0x10*8, 0x10*8, 0x10*8 + 1, 255)
 
 

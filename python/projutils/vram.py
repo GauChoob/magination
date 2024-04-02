@@ -1,6 +1,7 @@
 import projutils.tilemap as tilemap
 import projutils.sprite as sprite
 
+
 class VRAMTile:
     def __init__(self):
         """Contains a 8x8 VRAM tile (both bank 0 and 1)"""
@@ -41,6 +42,7 @@ class VRAMTile:
                     pixelcanvas[targety][targetx] = pixel + attr.pal*4
 
         return pixelcanvas
+
 
 class VRAMTiles:
     def __init__(self):

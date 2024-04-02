@@ -68,6 +68,7 @@ _battle_slot = {
     0x09: 'MAGI',
 }
 
+
 class DepthTracker:
     defaultdepth = 4
     defaultdepthdelta = 4
@@ -327,12 +328,12 @@ class MagiScriptLine:
             for instruction in self.commandbuilder.instructions:
                 self.args.extend(self._interpretInstruction(instruction))
 
-            if(self.type == "block"):
+            if self.type == "block":
                 self.lines = []
                 depthtracker.indent()
                 while True:
                     line = self._interpretInstruction("func_"+self.name)
-                    if(line):
+                    if line:
                         self.lines.extend(line)
                     else:
                         break
@@ -356,7 +357,7 @@ class MagiScriptLine:
         out = ""
         bank = self.pos.getBank()
         address = self.pos.getAddress()
-        if(address in sym.symbols[bank]):
+        if address in sym.symbols[bank]:
             out = "\n" + "\n".join([(label+"::") for label in sym.symbols[bank][address]])+"\n"
         return out + self.whitespace + getattr(self, self.type)()
 
@@ -369,7 +370,7 @@ class MagiScriptLine:
                 raise NotImplementedError("VRAM not-implemented")
             if 0xE000 <= address < 0xFE00:
                 raise KeyError("Address is Echo RAM!")
-            if(0x0000 <= address < 0x4000) or (0xC000 <= address < 0xD000) or (0xFE00 <= address < 0x10000):
+            if (0x0000 <= address < 0x4000) or (0xC000 <= address < 0xD000) or (0xFE00 <= address < 0x10000):
                 if bank == -1:  # Unknown bank
                     bank = 0
                 if bank != 0:
@@ -419,19 +420,19 @@ class MagiScriptLine:
         # This code is a bit of a trainwreck, but it works and doesn't need to be pretty
         try:
             # DB
-            if(instruction == "db"):
+            if instruction == "db":
                 val = getByte()
                 return [str(val)]
-            elif(instruction == "-db"):
+            elif instruction == "-db":
                 val = getSignedByte()
                 return [str(val)]
-            elif(instruction == "%db"):
+            elif instruction == "%db":
                 val = getByte()
                 return ["%{:08b}".format(val)]
-            elif(instruction == "$db"):
+            elif instruction == "$db":
                 val = getByte()
                 return ["${:02X}".format(val)]
-            elif(instruction == "-$db"):
+            elif instruction == "-$db":
                 val = getSignedByte()
                 sign = " "
                 if val < 0:
@@ -439,15 +440,15 @@ class MagiScriptLine:
                 return ["{}${:02X}".format(sign, abs(val))]
 
             # DW
-            elif(instruction == "dw"):
+            elif instruction == "dw":
                 val = getWord()
                 return [str(val)]
-            elif(instruction == "$dw"):
+            elif instruction == "$dw":
                 val = getWord()
                 return ["${:04X}".format(val)]
 
             # Strings
-            elif(instruction == "String🛑"):
+            elif instruction == "String🛑":
                 start = curpos
                 end = curpos
                 endchar = encoding.encode("🛑")
@@ -459,161 +460,160 @@ class MagiScriptLine:
 
                 text = getString((end-start)-1)  # Remove the EOF 🛑 character since by definition the string is EOF-terminated
                 curpos = end
-                return[text]
+                return [text]
 
             # BankAddress
-            elif(instruction[:12] == "AddressBank_"):
+            elif instruction[:12] == "AddressBank_":
                 address = getWord()
                 bank = getByte()
                 label = instruction[12:]
                 return [interpretBankAddress(bank, address, label)]
-            elif(instruction[:12] == "BankAddress_"):
+            elif instruction[:12] == "BankAddress_":
                 bank = getByte()
                 address = getWord()
                 label = instruction[12:]
                 return [interpretBankAddress(bank, address, label)]
 
             # Naked Address
-            elif(instruction == "RAMAddress"):
+            elif instruction == "RAMAddress":
                 address = getWord()
                 return [interpretBankAddress(0, address, "RAM")]  # Assume it is bank 0 of WRAM or XRAM
-            elif(instruction == "LocalAddress"):
+            elif instruction == "LocalAddress":
                 curbank = curpos.getBank()
                 address = getWord()
                 return [interpretBankAddress(curbank, address, "SCRIPT")]  # Stay in same bank
-            elif(instruction == "ActorStateAddress"):
+            elif instruction == "ActorStateAddress":
                 address = getWord()
                 return [interpretBankAddress(0x01, address, "AI")]  # Actor bank = $01
-            elif(instruction == "07Address"): 
+            elif instruction == "07Address":
                 address = getWord()
                 return [interpretBankAddress(0x07, address, "BANK07")]
-            elif(instruction == "HotspotTableAddress"):
+            elif instruction == "HotspotTableAddress":
                 address = getWord()
                 hotspots.add(address)  # store a copy of all the unique hotspot addresses
                 return [interpretBankAddress(0x21, address, "HOTSPOTX")]  # Hotspots are in 0x21
-            elif(instruction == "TriggerTableAddress"):
+            elif instruction == "TriggerTableAddress":
                 address = getWord()
                 triggers.add(address)  # store a copy of all the unique triggers addresses
                 return [interpretBankAddress(0x21, address, "TRIGGERX")]  # Triggers are in 0x21
-            elif(instruction == "RandDelayAddress"):
+            elif instruction == "RandDelayAddress":
                 address = getWord()
                 return [interpretBankAddress(0x01, address, "RANDDELAYTABLE")]  # RandDelay lookup tables are in 0x01
-            elif(instruction[:8] == "Address_"):
+            elif instruction[:8] == "Address_":
                 label = instruction[8:]
                 address = getWord()
                 return [interpretBankAddress(-1, address, label)]  # Bank 0/undefined
-            elif(instruction == "SpriteTableAddress"):
+            elif instruction == "SpriteTableAddress":
                 curbank = curpos.getBank()
                 address = getWord()
                 sprites.add(utils.BankAddress(curbank, address))  # store a copy of all the unique sprite addresses
                 return [interpretBankAddress(curbank, address, "OAMX")]  # Stay in same bank
-            elif(instruction == "PanAddress"):
+            elif instruction == "PanAddress":
                 address = getWord()
                 return [interpretBankAddress(0x04, address, "FIGHTSCENEPAN")]  # Fightscene bank = $04
-            elif(instruction == "BattleCmd_Table"):
+            elif instruction == "BattleCmd_Table":
                 address = getWord()
-                labels = sym.getSymbol(0x05, address, 'BATTLECMDUNK') # BattleCmd_Table bank $05
-                label = min(labels, key=len) # Get BattleCmd_Table.BattleCmd_FIGHT instead of BattleCmd_Table.BattleCmd_FIGHT_Function
-                label = label[label.find('.') + 1:] # Remove BattleCmd_Table.
+                labels = sym.getSymbol(0x05, address, 'BATTLECMDUNK')  # BattleCmd_Table bank $05
+                label = min(labels, key=len)  # Get BattleCmd_Table.BattleCmd_FIGHT instead of BattleCmd_Table.BattleCmd_FIGHT_Function
+                label = label[label.find('.') + 1:]  # Remove BattleCmd_Table.
                 return [label]
-            elif(instruction == "ItemSpell_Table"):
+            elif instruction == "ItemSpell_Table":
                 address = getWord()
-                labels = sym.getSymbol(0x07, address, 'ITEMSPELLUNK') # Item_Table/Spell_Table bank $07
-                label = min(labels, key=len) # Get Spell_Table.Spell_LEAFCUT instead of Spell_Table.Spell_LEAFCUT_LocalAddress1
-                label = label[label.find('.') + 1:] # Remove Spell_Table.
+                labels = sym.getSymbol(0x07, address, 'ITEMSPELLUNK')  # Item_Table/Spell_Table bank $07
+                label = min(labels, key=len)  # Get Spell_Table.Spell_LEAFCUT instead of Spell_Table.Spell_LEAFCUT_LocalAddress1
+                label = label[label.find('.') + 1:]  # Remove Spell_Table.
                 return [label]
-            elif(instruction == "BattleAI_Target"):
+            elif instruction == "BattleAI_Target":
                 val = getByte()
                 address = 0x6FDF + val
-                labels = sym.getSymbol(0x02, address, 'BATTLEAI_TARGET') # BattleAI_Target_Table bank $02
-                label = max(labels, key=len) # Get sublabel
-                label = label[label.rfind('_') + 1:] # Remove everything except the end of the label
+                labels = sym.getSymbol(0x02, address, 'BATTLEAI_TARGET')  # BattleAI_Target_Table bank $02
+                label = max(labels, key=len)  # Get sublabel
+                label = label[label.rfind('_') + 1:]  # Remove everything except the end of the label
                 return [label]
 
             # VARBIT
-            elif(instruction == "Varbit"):
+            elif instruction == "Varbit":
                 address = getWord()
                 mask = getByte()
                 bit = mask.bit_length()-1  # Get a number 0-7
                 assert 2**bit == mask  # Make sure the mask only refers to a single bit
-                return["/".join(sym.getVarbit(address, bit))]
+                return ["/".join(sym.getVarbit(address, bit))]
 
             # Packed Objects: Palette, Color, Palette_PackedLoop, SongFadeInterval, PortraitAddressBank
-            elif(instruction == "Palette_PackedInterval"):
+            elif instruction == "Palette_PackedInterval":
                 packed = getByte()
                 index = (packed & 0b11110000) >> 4
                 number = (packed & 0b00001111) + 1
                 return [str(index), str(number)]
-            elif(instruction == "Color"):
+            elif instruction == "Color":
                 packed = getWord()
-                if(packed in _shorthands_color):
+                if packed in _shorthands_color:
                     return [_shorthands_color[packed]]
                 else:
                     r, g, b, a = color.Color(packed).get_RGBA()
                     return ["${:02X}".format(r), "${:02X}".format(g), "${:02X}".format(b), str(a)]
-            elif(instruction == "Palette_PackedLoop"):
+            elif instruction == "Palette_PackedLoop":
                 packed = getByte()
                 framedelay = ((packed & (0b11000000)) >> 6) + 1
                 totaliterations = packed & (0b00111111)
                 return [str(framedelay), "${:02X}".format(totaliterations)]
-            elif(instruction == "SongFadeInterval"):
+            elif instruction == "SongFadeInterval":
                 val = getByte()
                 return [str((val >> 4) + 1)]
-            elif(instruction == "PortraitAddressBank"):
+            elif instruction == "PortraitAddressBank":
                 val = getWord()
-                bank    = val & 0b0000000000001111  # noqa
+                bank    = val & 0b0000000000001111  # noqa E221
                 address = val & 0b1111111111110000
                 return [interpretBankAddress(bank, address, "PORTRAITBITMAP")]
 
             # MATH
-            elif(instruction == "MATH"):
+            elif instruction == "MATH":
                 math = MagiScriptMath()
                 return ["#{}#".format(math)]
-            elif(instruction == "math"):
+            elif instruction == "math":
                 math = MagiScriptMath()
                 return ["{}".format(math)]
-            elif(instruction == "math_address"):
+            elif instruction == "math_address":
                 address = getWord()
                 return [interpretBankAddress(-1, address, "MATHADDRESS")]  # Unknown bank
-            elif(instruction == "math_bank"):
+            elif instruction == "math_bank":
                 bank = getByte()
                 rambank = bank  # Update the current WRAM bank
                 return [str(bank)]
 
             # ENUMS
-            elif(instruction == "Arena"):
+            elif instruction == "Arena":
                 val = getByte()
-                if(val in _shorthands_arena):
+                if val in _shorthands_arena:
                     return [_shorthands_arena[val]]
                 raise KeyError(val)
-            elif(instruction == "BattleSlot"):
+            elif instruction == "BattleSlot":
                 val = getByte()
-                if(val in _battle_slot):
+                if val in _battle_slot:
                     return [_battle_slot[val]]
                 raise KeyError(val)
-            elif(instruction == "CreatureID"):
+            elif instruction == "CreatureID":
                 val = getByte()
-                if(val in creature.CREATURE_NAMES):
+                if val in creature.CREATURE_NAMES:
                     return ["CreatureID_"+creature.CREATURE_NAMES[val]]
                 raise KeyError(val)
-            elif(instruction == "SFXID"):
+            elif instruction == "SFXID":
                 val = getByte()
                 return [musyx.sfxid[val]]
-            elif(instruction == "SONGID"):
+            elif instruction == "SONGID":
                 val = getByte()
                 return [musyx.songid[val]]
-            elif(instruction == "CreatureSide"):
+            elif instruction == "CreatureSide":
                 val = getByte()
                 return [["LEFT", "RIGHT"][val]]
-            elif(instruction == "Palette_SwapType"):
+            elif instruction == "Palette_SwapType":
                 val = getByte()
                 if val == 0:
                     raise NotImplementedError  # 0 ->"RGB" but it's supposed to be accessed as 4 instead
                 return [[None, "RB", "BG", "RG_Bugged", "RGB"][val]]
-            elif(instruction == "CollID"):
+            elif instruction == "CollID":
                 val = getByte()
                 return [collision_ids.ids[val]]
-
 
             # Map tileaddresses
             elif instruction == "YXTileaddress":
@@ -629,10 +629,10 @@ class MagiScriptLine:
                 return [[x, y, width]]
             elif instruction == "Tileaddress":
                 offset = getSignedWord()
-                return [[offset, 0, 0]] # TODO - we can't predict width unfortunately with the limited data
+                return [[offset, 0, 0]]  # TODO - we can't predict width unfortunately with the limited data
 
             # Special Objects
-            elif(instruction == "TextMenu"):
+            elif instruction == "TextMenu":
                 size = getByte()
                 assert 4 >= size >= 2
 
@@ -640,7 +640,7 @@ class MagiScriptLine:
                 for _ in range(size):
                     out.extend(self._interpretInstruction("BankAddress_SCRIPT"))
                 return out
-            elif(instruction == "MusicMenu"):
+            elif instruction == "MusicMenu":
                 size = getWord()
                 songcount = getByte()
                 assert size == 1 + songcount*0x0E
@@ -651,7 +651,7 @@ class MagiScriptLine:
                     songlist.extend([songid, name])
                 print(songlist)
                 return songlist
-            elif(instruction == "RANDLONGJUMP"):
+            elif instruction == "RANDLONGJUMP":
                 size = getByte()
                 addresslist = []
                 for _ in range(size):
@@ -659,23 +659,23 @@ class MagiScriptLine:
                     address = getWord()
                     addresslist.append(interpretBankAddress(bank, address, "SCRIPT"))
                 return addresslist
-            elif(instruction == "silent_byte"):
+            elif instruction == "silent_byte":
                 # Save the value but don't add it to args, so it can be modified by functions within a block
                 self.param = getByte()
                 return []
 
             # FUNC HANDLERS
-            elif(instruction == "func_ThisSetAnimDelay"):
+            elif instruction == "func_ThisSetAnimDelay":
                 bank = getByte()
-                if(bank == 0x00):
+                if bank == 0x00:
                     return []  # End
                 address = getWord()
                 bankaddress = interpretBankAddress(bank, address, "SCRIPT")
                 frames = str(getByte())
                 return ["{}ScriptDelay({})".format(depthtracker.getWhitespace(), ", ".join([bankaddress, frames]))]
-            elif(instruction == "func_ThisSetAnimScroll"):
+            elif instruction == "func_ThisSetAnimScroll":
                 bank = getByte()
-                if(bank == 0x00):
+                if bank == 0x00:
                     return []  # End
                 address = getWord()
                 bankaddress = interpretBankAddress(bank, address, "SCRIPT")
@@ -683,9 +683,9 @@ class MagiScriptLine:
                 deltax = str(getSignedByte())
                 deltay = str(getSignedByte())
                 return ["{}ScriptScroll({})".format(depthtracker.getWhitespace(), ", ".join([bankaddress, frames, deltax, deltay]))]
-            elif(instruction == "func_Switch"):
+            elif instruction == "func_Switch":
                 bank = getByte()
-                if(bank == 0xFF):
+                if bank == 0xFF:
                     return []  # End
 
                 val = getWord()
@@ -697,9 +697,9 @@ class MagiScriptLine:
 
                 address = getWord()
                 return ["{}Case({})".format(depthtracker.getWhitespace(), ", ".join([val, interpretBankAddress(bank, address, "SCRIPT")]))]
-            elif(instruction == "func_SwitchRange"):
+            elif instruction == "func_SwitchRange":
                 bank = getByte()
-                if(bank == 0xFF):
+                if bank == 0xFF:
                     return []  # End
 
                 low = str(getWord())
@@ -707,24 +707,24 @@ class MagiScriptLine:
                 address = getWord()
 
                 return ["{}CaseRange({})".format(depthtracker.getWhitespace(), ", ".join([low, high, interpretBankAddress(bank, address, "SCRIPT")]))]
-            elif(instruction in ["func_OverlayDraw", "func_SpriteDraw"]):
+            elif instruction in ["func_OverlayDraw", "func_SpriteDraw"]:
                 frameN = getByte()
-                if(frameN == 0x00):
+                if frameN == 0x00:
                     return []  # End
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]
                 sprite_data = self._interpretInstruction("SpriteTableAddress")[0]
                 return ["{}MoveDraw({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY, sprite_data]))]
-            elif(instruction in ["func_ScrollMap"]):
+            elif instruction in ["func_ScrollMap"]:
                 frameN = getByte()
-                if(frameN == 0x00):
+                if frameN == 0x00:
                     return []  # End
                 frameN = str(frameN)
                 deltaX = self._interpretInstruction("-db")[0]
                 deltaY = self._interpretInstruction("-db")[0]
                 return ["{}Move({})".format(depthtracker.getWhitespace(), ", ".join([frameN, deltaX, deltaY]))]
-            elif(instruction == "func_SpriteBlock"):
+            elif instruction == "func_SpriteBlock":
                 if self.param < 0:
                     raise ValueError('Size is an odd number')
                 if self.param == 0:
@@ -1013,7 +1013,7 @@ def buildHotspots() -> None:
     for address in hotspots:
         label = "_".join(sym.getSymbol(0x21, address, "HOTSPOTX"))
         print(label)
-        if(label[:8] == "HOTSPOTX"):  # Unlabelled hotspot to process
+        if label[:8] == "HOTSPOTX":  # Unlabelled hotspot to process
             hotspot.Hotspot.rom_to_file(rom, address, label[9:], sym)
             # TODO: rom_replace the hotspot files
 
@@ -1026,6 +1026,6 @@ def buildTriggers() -> None:
     for address in triggers:
         label = "_".join(sym.getSymbol(0x21, address, "TRIGGERX"))
         print(label)
-        if(label[:8] == "TRIGGERX"):  # Unlabelled trigger to process
+        if label[:8] == "TRIGGERX":  # Unlabelled trigger to process
             hotspot.Trigger.rom_to_file(rom, address, label[9:], sym)
             # TODO: rom_replace the trigger files?

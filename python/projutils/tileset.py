@@ -198,7 +198,7 @@ class Bitmap(filecontents.FileContentsSerializer):
             f.write(data)
 
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
-        if(self.compression_mode and self.discarded_tiles):
+        if self.compression_mode and self.discarded_tiles:
             return '    INCBIN "{}", 0, ${:04X}'.format(filename, self.size())
         return '    INCBIN "{}"'.format(filename)
 

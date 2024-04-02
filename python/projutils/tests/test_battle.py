@@ -9,9 +9,9 @@ class TestBattle(unittest.TestCase):
         self.assertEqual(len(battle.targets), 0x1F)
 
         # Check out of bounds
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             battle.battletarget_num_to_enum(-1)
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             battle.battletarget_num_to_enum(0x1F)
 
         # Make sure none of the Symbol names have changed
@@ -45,9 +45,9 @@ class TestBattle(unittest.TestCase):
         self.assertEqual(battle.relic_num_to_enum(36), "Relic_WISHBONE")
 
         # Check out of bounds
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             battle.relic_num_to_enum(-1)
-        with(self.assertRaises(AssertionError)):
+        with self.assertRaises(AssertionError):
             battle.relic_num_to_enum(len(battle.relics))
 
         # Make sure none of the Symbol names have changed

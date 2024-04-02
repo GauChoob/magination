@@ -153,7 +153,7 @@ class Rom:
                 self._offset = 0
         elif isinstance(args[0], (bytes, bytearray)):
             self._rawdata = args[0]
-            if(len(args) == 2):
+            if len(args) == 2:
                 self._offset = Rom._determinePosition(args[1])
             else:
                 self._offset = 0

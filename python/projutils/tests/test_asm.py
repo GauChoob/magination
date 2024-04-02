@@ -70,7 +70,7 @@ lines = [
     [asm.AddressBankLine, '    AddressBank LABELHERE ; comment', 0x4000, 3, {'label_name': 'LABELHERE'}],
     [asm.BankAddressLine, '    BankAddress LABELHERE ; comment', 0x4000, 3, {'label_name': 'LABELHERE'}],
 
-    [asm.LoadBitmapLine, '        LoadBitmap $9000,BITMAP_Cald_Ashyn_Building,$10,$08;comment', 0x4000, 7, {'destination': 0x9000, 'source_label': 'BITMAP_Cald_Ashyn_Building', 'width': 0x10, 'height': 0x08}],
+    [asm.LoadBitmapLine, '        LoadBitmap $9000,BITMAP_Cald_Ashyn_Building,$10,$08;comment', 0x4000, 7, {'destination': 0x9000, 'source_label': 'BITMAP_Cald_Ashyn_Building', 'width': 0x10, 'height': 0x08}],  # noqa E501
 
     [asm.UnknownLine, '    ld a, 4', 0x4000, asm.IncludeLine.UNKNOWN_SIZE, {}],
 ]

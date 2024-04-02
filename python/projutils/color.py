@@ -2,7 +2,6 @@ from PIL import Image, ImageDraw
 import pathlib
 from typing import Self
 import projutils.utils as utils
-import projutils.png as png
 import projutils.filecontents as filecontents
 
 
@@ -24,7 +23,7 @@ class Color:
         int (16-bit GBC Color) or
         r (0-248), g (0-248), b (0-248), Optional[a (0 or 255)]"""
         if len(arg) == 1:
-            if(isinstance(arg[0], int)):
+            if isinstance(arg[0], int):
                 self.r, self.g, self.b, self.a = Color._word_to_rgba(arg[0])
                 return
             raise ValueError("If passing 1 argument, it must be a 16-bit GBC Color")

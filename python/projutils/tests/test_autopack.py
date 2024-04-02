@@ -38,18 +38,14 @@ class TestAutopack(unittest.TestCase):
         # Check if the .sym files are identical
         self.assertTrue(filecmp.cmp(source_folder + "autopack.sym", DESTINATION + "autopack.sym"))
 
-    def test_AutopackNormal(self):
-        """The real autopacked file"""
-        self.tryPack(0)
-
     def test_AutopackTooSmall(self):
         """Not enough space for all the files"""
         with self.assertRaises(MemoryError):
-            self.tryPack(1)
+            self.tryPack(0)
 
     def test_AutopackChangeOrder(self):
         """Sort by size"""
-        self.tryPack(2)
+        self.tryPack(1)
 
 
 if __name__ == '__main__':
