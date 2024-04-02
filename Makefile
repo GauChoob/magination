@@ -43,9 +43,13 @@ tests:
 	python -m unittest python\\magiparser\\tests\\test_magiparser.py
 
 help:
-	$(info -> generate game files)
+	$(info make -> generate game files)
 	$(info )
-	$(info preview -> generate scene previews (python/out/preview/))
+	$(info make preview -> generate scene previews (python/out/preview/))
 	$(info )
-	$(info delfiles -> delete generated assets, musyx, mgi, autopack)
+	$(info make delfiles -> delete generated assets, musyx, mgi, autopack)
+	$(info .           can be useful if you rename files and the script gets confused)
+	$(info )
+	$(info make tests -> run python tests)
+	$(info )
 	

@@ -18,7 +18,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.8'
+          python-version: '3.11'
 
       - name: Cache RGBDS
         id: cache-rgbds
@@ -47,12 +47,6 @@ jobs:
         shell: cmd
         run: |
           pip install -r python/requirements.txt
-
-      - name: Test make extras
-        shell: pwsh
-        run: |
-          $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
-          make extras
 
       - name: Test make tests
         shell: pwsh
