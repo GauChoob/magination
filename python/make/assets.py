@@ -122,7 +122,7 @@ def build():
 
                 # Make the processed file
                 logging.debug(file_path_processed_rle)
-                os.makedirs(os.path.dirname(file_path_processed, exist_ok=True))
+                os.makedirs(os.path.dirname(file_path_processed), exist_ok=True)
                 if file_path.endswith('.tileset.png'):
                     tileset.Bitmap.init_from_original_file(file_path).save_processed_file(file_path_processed)
                 elif file_path.endswith('.pal.png'):
@@ -149,4 +149,5 @@ def build():
 
 
 def do():
+    logging.info('Processing asset and magiscript files...')
     build()
