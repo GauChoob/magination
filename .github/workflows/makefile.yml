@@ -48,16 +48,16 @@ jobs:
         run: |
           pip install -r python/requirements.txt
 
-      - name: Test make tests
-        shell: pwsh
-        run: |
-          make tests
-
       - name: Test make file
         shell: pwsh
         run: |
           $env:Path += ";" + (Get-Item .).FullName + "\rgbds"
           make
+
+      - name: Test make tests
+        shell: pwsh
+        run: |
+          make tests
   
       - name: Verify checksum
         shell: pwsh
