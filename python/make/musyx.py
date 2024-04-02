@@ -79,6 +79,7 @@ def build():
         [0x7A00, "muconv_output.txt.dat"],
     ]
     if ghost_data:
+        logging.debug('Adding ghost data to musyx pool file')
         with open("musyx\\project\\Output\\bank_{:03X}_musyx_pool_{}.dat".format(MUSYX_BANK + 1, "sampledata"), "r+b") as f:
             for fragment in FRAGMENTS:
                 f.seek(fragment[0] - 0x4000)
