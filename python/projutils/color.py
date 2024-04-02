@@ -2,7 +2,6 @@ from PIL import Image, ImageDraw
 import pathlib
 from typing import Self
 import projutils.utils as utils
-import projutils.png as png
 import projutils.filecontents as filecontents
 
 
