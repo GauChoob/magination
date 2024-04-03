@@ -53,8 +53,6 @@ def convert_to_processed_name(filename: str | pathlib.Path):
             return filename + '.asm'
         elif filename.endswith('.trig'):
             return filename + '.asm'
-        elif filename.endswith('.asm'):  # TODO - remove this line as we don't need to copy .asm files
-            return filename
         return False
 
     def parse_rle(filename: str | pathlib.Path):
@@ -139,8 +137,8 @@ def build():
                     hotspot.Hotspot.file_to_hotspot(file_path, file_path_processed)
                 elif file_path.endswith('.trig'):
                     hotspot.Trigger.file_to_trigger(file_path, file_path_processed)
-                elif file_path.endswith('.asm'):  # TODO - remove this line as we don't need to copy .asm files
-                    shutil.copyfile(file_path, file_path_processed)
+                else:
+                    raise KeyError
 
     # The processed files that were never checked don't have a corresponding original file anymore, so we delete them
     for file in processed_files:
