@@ -44,7 +44,10 @@ class AutopackFile:
                     elif arg == "INCBIN":
                         rem = re.search(r'"([^"]*)"', line)
                         incpath = rem.group(1)
-                        size += os.path.getsize(incpath)
+                        try:
+                            size += os.path.getsize(incpath)
+                        except FileNotFoundError:
+                            raise FileNotFoundError('Binary file not found: ' + incpath + '\nAsm file was ' + path)
                     else:
                         raise KeyError("Unknown line in file {}: {}".format(path, line))
             else:

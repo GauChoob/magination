@@ -45,7 +45,7 @@ def remove_rle(path: str, shallow: bool) -> str:
     matches = glob.glob(search)
     # We only accept a single match, except in the special case of patterns
     if len(matches) > 2 or len(matches) == 0:
-        raise KeyError(matches)
+        raise KeyError(path + '\n' + '\n'.join(matches))
     if len(matches) == 2:
         # Handle pattern special case
         def findPattern(matches: str):
