@@ -125,11 +125,9 @@ class Bitmap(filecontents.FileContentsSerializer):
                         low = low | colorlow
                         high = high | colorhigh
                     data.extend([low, high])
-        if self.compression_mode and self.discarded_tiles:
-            # If there is compression, we must discard the unused tiles
+        if self.discarded_tiles:
+            # Discard the unused tiles
             data = data[:-self.discarded_tiles*0x10]
-        if self.compression_mode is None and self.discarded_tiles:
-            data[-self.discarded_tiles*0x10:] = self.DISCARDED_TILE*self.discarded_tiles
         return bytes(data)
 
     def _to_original_data(self) -> list[list[int]]:
@@ -176,7 +174,7 @@ class Bitmap(filecontents.FileContentsSerializer):
         # If size is too big, we need to insert discarded tiles
         if tilewidth is not None and tileheight is not None and len(data) < tilewidth*tileheight*0x10:
             self.discarded_tiles = tilewidth*tileheight - len(data)//0x10
-            data.extend(self.DISCARDED_TILE*self.discarded_tiles)
+            data = data + bytes(self.DISCARDED_TILE)*self.discarded_tiles
         self._load_processed(data, tilewidth, tileheight)
         return self
 
