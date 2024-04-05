@@ -47,8 +47,9 @@ SPRITE_Gia_FaceLeft::
 SPRITE_Gia_WalkLeft2::
     INCSPRITE("assets/sprites/gia/Gia_WalkLeft2.spr")
 
-SPRITE_Gia_UNKNOWN::
-    INCSPRITE("assets/sprites/gia/Gia_UNKNOWN.spr")
+SPRITE_Gia_FaceDownTopHalf::
+    ; Just the top half of the sprite. Probably to resolve some graphical glitch?
+    INCSPRITE("assets/sprites/gia/Gia_FaceDownTopHalf.spr")
 
 SCRIPT_ANIM_Gia_WalkUp::
     SpriteBlock(8, 0, -1) {
@@ -170,11 +171,11 @@ SCRIPT_ANIM_Gia_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_Gia_FaceDownRight)
 
-SCRIPT_ANIM_Gia_UNKNOWN::
+SCRIPT_ANIM_Gia_FaceDownTopHalf::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Gia_UNKNOWN)
+        MoveDraw(255, 0, 0, SPRITE_Gia_FaceDownTopHalf)
     }
-    Jump(SCRIPT_ANIM_Gia_UNKNOWN)
+    Jump(SCRIPT_ANIM_Gia_FaceDownTopHalf)
 
 SCRIPT_ANIM_Gia_FaceHero::
     Switch(#DIRECTION#) {
@@ -183,23 +184,19 @@ SCRIPT_ANIM_Gia_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Gia_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
