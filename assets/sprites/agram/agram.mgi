@@ -1,9 +1,9 @@
 
-SPRITE_Agram_FaceUNKNOWNDIAGONAL2::
-    INCSPRITE("assets/sprites/agram/Agram_FaceUNKNOWNDIAGONAL2.spr")
+SPRITE_Agram_FaceDownRight::
+    INCSPRITE("assets/sprites/agram/Agram_FaceDownRight.spr")
 
-SPRITE_Agram_FaceUNKNOWNDIAGONAL1::
-    INCSPRITE("assets/sprites/agram/Agram_FaceUNKNOWNDIAGONAL1.spr")
+SPRITE_Agram_FaceDownLeft::
+    INCSPRITE("assets/sprites/agram/Agram_FaceDownLeft.spr")
 
 SPRITE_Agram_WalkDown1::
     INCSPRITE("assets/sprites/agram/Agram_WalkDown1.spr")
@@ -110,17 +110,17 @@ SCRIPT_ANIM_Agram_FaceRight::
     }
     Jump(SCRIPT_ANIM_Agram_FaceRight)
 
-SCRIPT_ANIM_Agram_FaceUNKNOWNDIAGONAL1::
+SCRIPT_ANIM_Agram_FaceDownLeft::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Agram_FaceUNKNOWNDIAGONAL1)
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceDownLeft)
     }
-    Jump(SCRIPT_ANIM_Agram_FaceUNKNOWNDIAGONAL1)
+    Jump(SCRIPT_ANIM_Agram_FaceDownLeft)
 
-SCRIPT_ANIM_Agram_FaceUNKNOWNDIAGONAL2::
+SCRIPT_ANIM_Agram_FaceDownRight::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Agram_FaceUNKNOWNDIAGONAL2)
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceDownRight)
     }
-    Jump(SCRIPT_ANIM_Agram_FaceUNKNOWNDIAGONAL2)
+    Jump(SCRIPT_ANIM_Agram_FaceDownRight)
 
 SCRIPT_ANIM_Agram_WalkUp::
     SpriteBlock(8, 0, -1) {
@@ -171,15 +171,14 @@ SCRIPT_ANIM_AgramBattle_Taunt::
         MoveDraw(8, 0, 0, SPRITE_AgramBattle_Taunt3)
         MoveDraw(8, 0, 0, SPRITE_AgramBattle_Taunt4)
     }
-
-.Loop::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_AgramBattle_Taunt5)
-        Draw(SPRITE_AgramBattle_Taunt6)
-        Draw(SPRITE_AgramBattle_Taunt7)
-        Draw(SPRITE_AgramBattle_Taunt6)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_AgramBattle_Taunt5)
+            Draw(SPRITE_AgramBattle_Taunt6)
+            Draw(SPRITE_AgramBattle_Taunt7)
+            Draw(SPRITE_AgramBattle_Taunt6)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_AgramBattle_Summon::
     SpriteBlock(4, 0, 0) {
@@ -210,13 +209,12 @@ SCRIPT_ANIM_AgramBattle_Victory::
         MoveDraw(8, 0, 0, SPRITE_AgramBattle_HandsUp1)
         MoveDraw(64, 0, 0, SPRITE_AgramBattle_Victory)
     }
-
-.Loop::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_AgramBattle_HandsUp2)
-        Draw(SPRITE_AgramBattle_Victory)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_AgramBattle_HandsUp2)
+            Draw(SPRITE_AgramBattle_Victory)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_AgramBattle_Defeat::
     SpriteDraw() {
@@ -229,12 +227,11 @@ SCRIPT_ANIM_AgramBattle_Anguish::
         MoveDraw(128, 0, 0, SPRITE_AgramBattle_Idle)
         MoveDraw(32, 0, 0, SPRITE_AgramBattle_HandsUp1)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_AgramBattle_HandsUp2)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_AgramBattle_HandsUp2)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_AgramBattle_FadeOut::
     SpriteDraw() {
