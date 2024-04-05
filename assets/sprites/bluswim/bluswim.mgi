@@ -23,32 +23,32 @@ SPRITE_BluSwim_SwimLeft1::
 SPRITE_BluSwim_SwimLeft2::
     INCSPRITE("assets/sprites/bluswim/BluSwim_SwimLeft2.spr")
 
-SPRITE_BluSwim_UNKNOWN1_1::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN1_1.spr")
+SPRITE_BluAqua_FloatLeft1::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatLeft1.spr")
 
-SPRITE_BluSwim_UNKNOWN1_2::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN1_2.spr")
+SPRITE_BluAqua_FloatLeft2::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatLeft2.spr")
 
-SPRITE_BluSwim_UNKNOWN1_3::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN1_3.spr")
+SPRITE_BluAqua_FloatLeft3::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatLeft3.spr")
 
-SPRITE_BluSwim_UNKNOWN2_1::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN2_1.spr")
+SPRITE_BluAqua_FloatRight1::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatRight1.spr")
 
-SPRITE_BluSwim_UNKNOWN2_2::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN2_2.spr")
+SPRITE_BluAqua_FloatRight2::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatRight2.spr")
 
-SPRITE_BluSwim_UNKNOWN2_3::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWN2_3.spr")
+SPRITE_BluAqua_FloatRight3::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_FloatRight3.spr")
 
-SPRITE_BluSwim_UNKNOWNDown_1::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWNDown_1.spr")
+SPRITE_BluAqua_StrokeUp1::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_StrokeUp1.spr")
 
-SPRITE_BluSwim_UNKNOWNDown_2::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWNDown_2.spr")
+SPRITE_BluAqua_StrokeUp2::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_StrokeUp2.spr")
 
-SPRITE_BluSwim_UNKNOWNDown_3::
-    INCSPRITE("assets/sprites/bluswim/BluSwim_UNKNOWNDown_3.spr")
+SPRITE_BluAqua_StrokeUp3::
+    INCSPRITE("assets/sprites/bluswim/BluAqua_StrokeUp3.spr")
 
 SCRIPT_ANIM_BluSwim_FloatUp::
     SpriteBlock(8, 0, 0) {
@@ -194,41 +194,41 @@ SCRIPT_ANIM_BluSwim_SwimRight::
     }
     Jump(SCRIPT_ANIM_BluSwim_SwimRight)
 
-SCRIPT_ANIM_BluSwim_UNKNOWNLeft::
+SCRIPT_ANIM_BluSqim_DiveLeft::
     SpriteDraw() {
         MoveDraw(4, 0, 0, SPRITE_BluSwim_SwimLeft1)
     }
     End()
 
-SCRIPT_ANIM_BluSwim_UNKNOWNRight::
+SCRIPT_ANIM_BluSqim_DiveRight::
     SpriteDraw() {
         MoveDraw(4, 0, 0, SPRITE_BluSwim_SwimRight1)
     }
     End()
 
-SCRIPT_ANIM_BluSwim_UNKNOWN1::
+SCRIPT_ANIM_BluAqua_FloatRight::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_BluSwim_UNKNOWN1_1)
-        Draw(SPRITE_BluSwim_UNKNOWN1_2)
-        Draw(SPRITE_BluSwim_UNKNOWN1_3)
-        Draw(SPRITE_BluSwim_UNKNOWN1_2)
+        Draw(SPRITE_BluAqua_FloatLeft1)
+        Draw(SPRITE_BluAqua_FloatLeft2)
+        Draw(SPRITE_BluAqua_FloatLeft3)
+        Draw(SPRITE_BluAqua_FloatLeft2)
     }
-    Jump(SCRIPT_ANIM_BluSwim_UNKNOWN1)
+    Jump(SCRIPT_ANIM_BluAqua_FloatRight)
 
-SCRIPT_ANIM_BluSwim_UNKNOWN2::
+SCRIPT_ANIM_BluAqua_FloatLeft::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_BluSwim_UNKNOWN2_1)
-        Draw(SPRITE_BluSwim_UNKNOWN2_2)
-        Draw(SPRITE_BluSwim_UNKNOWN2_3)
-        Draw(SPRITE_BluSwim_UNKNOWN2_2)
+        Draw(SPRITE_BluAqua_FloatRight1)
+        Draw(SPRITE_BluAqua_FloatRight2)
+        Draw(SPRITE_BluAqua_FloatRight3)
+        Draw(SPRITE_BluAqua_FloatRight2)
     }
-    Jump(SCRIPT_ANIM_BluSwim_UNKNOWN2)
+    Jump(SCRIPT_ANIM_BluAqua_FloatLeft)
 
-SCRIPT_ANIM_BluSwim_UNKNOWNDown::
+SCRIPT_ANIM_BluAqua_StrokeUp::
     SpriteBlock(8, 0, -2) {
-        Draw(SPRITE_BluSwim_UNKNOWNDown_1)
-        Draw(SPRITE_BluSwim_UNKNOWNDown_2)
-        Draw(SPRITE_BluSwim_UNKNOWNDown_3)
-        Draw(SPRITE_BluSwim_UNKNOWNDown_2)
+        Draw(SPRITE_BluAqua_StrokeUp1)
+        Draw(SPRITE_BluAqua_StrokeUp2)
+        Draw(SPRITE_BluAqua_StrokeUp3)
+        Draw(SPRITE_BluAqua_StrokeUp2)
     }
-    Jump(SCRIPT_ANIM_BluSwim_UNKNOWNDown)
+    Jump(SCRIPT_ANIM_BluAqua_StrokeUp)
