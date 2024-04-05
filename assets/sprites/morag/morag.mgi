@@ -53,26 +53,26 @@ SPRITE_Morag_FloatUp2::
 SPRITE_Morag_FloatUp3::
     INCSPRITE("assets/sprites/morag/Morag_FloatUp3.spr")
 
-SPRITE_MoragThrow_Throw1_1::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_1.spr")
+SPRITE_MoragThrow_CarryTony1::
+    INCSPRITE("assets/sprites/morag/MoragThrow_CarryTony1.spr")
 
-SPRITE_MoragThrow_Throw1_2::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_2.spr")
+SPRITE_MoragThrow_CarryTony2::
+    INCSPRITE("assets/sprites/morag/MoragThrow_CarryTony2.spr")
 
-SPRITE_MoragThrow_Throw1_3::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw1_3.spr")
+SPRITE_MoragThrow_CarryTony3::
+    INCSPRITE("assets/sprites/morag/MoragThrow_CarryTony3.spr")
 
-SPRITE_MoragThrow_Throw2_1::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_1.spr")
+SPRITE_MoragThrow_HoldTony1::
+    INCSPRITE("assets/sprites/morag/MoragThrow_HoldTony1.spr")
 
-SPRITE_MoragThrow_Throw2_2::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_2.spr")
+SPRITE_MoragThrow_HoldTony2::
+    INCSPRITE("assets/sprites/morag/MoragThrow_HoldTony2.spr")
 
-SPRITE_MoragThrow_Throw2_3::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw2_3.spr")
+SPRITE_MoragThrow_HoldTony3::
+    INCSPRITE("assets/sprites/morag/MoragThrow_HoldTony3.spr")
 
-SPRITE_MoragThrow_Throw3::
-    INCSPRITE("assets/sprites/morag/MoragThrow_Throw3.spr")
+SPRITE_MoragThrow_TossTony::
+    INCSPRITE("assets/sprites/morag/MoragThrow_TossTony.spr")
 
 SPRITE_MoragHurt_HurtRight::
     INCSPRITE("assets/sprites/morag/MoragHurt_HurtRight.spr")
@@ -95,23 +95,23 @@ SPRITE_MoragBattle_Taunt3::
 SPRITE_MoragBattle_Defeat::
     INCSPRITE("assets/sprites/morag/MoragBattle_Defeat.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_1.spr")
+SPRITE_MoragBattle_IdleDownRight1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownRight1.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_2.spr")
+SPRITE_MoragBattle_IdleDownRight2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownRight2.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_2_3.spr")
+SPRITE_MoragBattle_IdleDownRight3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownRight3.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_1.spr")
+SPRITE_MoragBattle_IdleDownLeft1::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLeft1.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_2.spr")
+SPRITE_MoragBattle_IdleDownLeft2::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLeft2.spr")
 
-SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3::
-    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLEFTORRIGHT_1_3.spr")
+SPRITE_MoragBattle_IdleDownLeft3::
+    INCSPRITE("assets/sprites/morag/MoragBattle_IdleDownLeft3.spr")
 
 SPRITE_MoragBattle_Summon1::
     INCSPRITE("assets/sprites/morag/MoragBattle_Summon1.spr")
@@ -146,11 +146,11 @@ SCRIPT_ANIM_Morag_FaceDown::
     }
     Jump(SCRIPT_ANIM_Morag_FaceDown)
 
-SCRIPT_ANIM_Morag_UNKNOWN_FrozenDown::
+SCRIPT_ANIM_Morag_FaceDownFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_Morag_FloatDown1)
     }
-    Jump(SCRIPT_ANIM_Morag_UNKNOWN_FrozenDown)
+    Jump(SCRIPT_ANIM_Morag_FaceDownFrozen)
 
 SCRIPT_ANIM_Morag_FaceUp::
     SpriteBlock(8, 0, 0) {
@@ -271,42 +271,42 @@ SCRIPT_ANIM_Morag_WalkUpRight::
 
 SCRIPT_ANIM_MoragThrow_Throw1_Still::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_MoragThrow_Throw1_1)
-        Draw(SPRITE_MoragThrow_Throw1_2)
-        Draw(SPRITE_MoragThrow_Throw1_3)
-        Draw(SPRITE_MoragThrow_Throw1_2)
+        Draw(SPRITE_MoragThrow_CarryTony1)
+        Draw(SPRITE_MoragThrow_CarryTony2)
+        Draw(SPRITE_MoragThrow_CarryTony3)
+        Draw(SPRITE_MoragThrow_CarryTony2)
     }
     Jump(SCRIPT_ANIM_MoragThrow_Throw1_Still)
 
-SCRIPT_ANIM_MoragThrow_Throw1_Up::
+SCRIPT_ANIM_MoragThrow_CarryTony::
     SpriteBlock(8, 0, -1) {
-        Draw(SPRITE_MoragThrow_Throw1_1)
-        Draw(SPRITE_MoragThrow_Throw1_2)
-        Draw(SPRITE_MoragThrow_Throw1_3)
-        Draw(SPRITE_MoragThrow_Throw1_2)
+        Draw(SPRITE_MoragThrow_CarryTony1)
+        Draw(SPRITE_MoragThrow_CarryTony2)
+        Draw(SPRITE_MoragThrow_CarryTony3)
+        Draw(SPRITE_MoragThrow_CarryTony2)
     }
-    Jump(SCRIPT_ANIM_MoragThrow_Throw1_Up)
+    Jump(SCRIPT_ANIM_MoragThrow_CarryTony)
 
-SCRIPT_ANIM_MoragThrow_Throw2::
+SCRIPT_ANIM_MoragThrow_HoldTony::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_MoragThrow_Throw2_1)
-        Draw(SPRITE_MoragThrow_Throw2_2)
-        Draw(SPRITE_MoragThrow_Throw2_3)
-        Draw(SPRITE_MoragThrow_Throw2_2)
+        Draw(SPRITE_MoragThrow_HoldTony1)
+        Draw(SPRITE_MoragThrow_HoldTony2)
+        Draw(SPRITE_MoragThrow_HoldTony3)
+        Draw(SPRITE_MoragThrow_HoldTony2)
     }
-    Jump(SCRIPT_ANIM_MoragThrow_Throw2)
+    Jump(SCRIPT_ANIM_MoragThrow_HoldTony)
 
-SCRIPT_ANIM_MoragThrow_Throw2_UNKNOWN::
+SCRIPT_ANIM_MoragThrow_HoldTonyFrozen::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_MoragThrow_Throw2_2)
+        MoveDraw(255, 0, 0, SPRITE_MoragThrow_HoldTony2)
     }
-    Jump(SCRIPT_ANIM_MoragThrow_Throw2_UNKNOWN)
+    Jump(SCRIPT_ANIM_MoragThrow_HoldTonyFrozen)
 
-SCRIPT_ANIM_MoragThrow_Throw3::
+SCRIPT_ANIM_MoragThrow_TossTony::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_MoragThrow_Throw3)
+        MoveDraw(255, 0, 0, SPRITE_MoragThrow_TossTony)
     }
-    Jump(SCRIPT_ANIM_MoragThrow_Throw3)
+    Jump(SCRIPT_ANIM_MoragThrow_TossTony)
 
 SCRIPT_ANIM_MoragHurt_Flicker::
     SpriteDraw() {
@@ -326,12 +326,11 @@ SCRIPT_ANIM_MoragHurt_HurtLeft::
         MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtLeft)
         MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtLeft)
     }
-
-.Loop::
+SCRIPT_ANIM_MoragHurt_HurtingLeft::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_MoragHurt_HurtLeft)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_MoragHurt_HurtingLeft)
 
 SCRIPT_ANIM_MoragHurt_HurtRight::
     SpriteDraw() {
@@ -344,12 +343,11 @@ SCRIPT_ANIM_MoragHurt_HurtRight::
         MoveDraw(1, 0, 0, SPRITE_MoragHurt_HurtRight)
         MoveDraw(1, 0, 1, SPRITE_MoragHurt_HurtRight)
     }
-
-.Loop::
+SCRIPT_ANIM_MoragHurt_HurtingRight::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_MoragHurt_HurtRight)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_MoragHurt_HurtingRight)
 
 SCRIPT_ANIM_MoragBattle_Idle::
     SpriteBlock(8, 0, 0) {
@@ -366,41 +364,39 @@ SCRIPT_ANIM_MoragBattle_Idle::
         Draw(SPRITE_MoragBattle_IdleDown1)
         Draw(SPRITE_MoragBattle_IdleDown2)
     }
-    RandLongJump(.DownLEFTORRIGHT_1, .DownLEFTORRIGHT_2)
-
-.DownLEFTORRIGHT_1::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_1_2)
-    }
-    Jump(SCRIPT_ANIM_MoragBattle_Idle)
-
-.DownLEFTORRIGHT_2::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_1)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_3)
-        Draw(SPRITE_MoragBattle_IdleDownLEFTORRIGHT_2_2)
-    }
-    Jump(SCRIPT_ANIM_MoragBattle_Idle)
+    RandLongJump(.IdleLeft, .IdleRight)
+    .IdleLeft:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_MoragBattle_IdleDownLeft1)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+            Draw(SPRITE_MoragBattle_IdleDownLeft3)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+            Draw(SPRITE_MoragBattle_IdleDownLeft1)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+            Draw(SPRITE_MoragBattle_IdleDownLeft3)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+            Draw(SPRITE_MoragBattle_IdleDownLeft1)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+            Draw(SPRITE_MoragBattle_IdleDownLeft3)
+            Draw(SPRITE_MoragBattle_IdleDownLeft2)
+        }
+        Jump(SCRIPT_ANIM_MoragBattle_Idle)
+    .IdleRight:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_MoragBattle_IdleDownRight1)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+            Draw(SPRITE_MoragBattle_IdleDownRight3)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+            Draw(SPRITE_MoragBattle_IdleDownRight1)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+            Draw(SPRITE_MoragBattle_IdleDownRight3)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+            Draw(SPRITE_MoragBattle_IdleDownRight1)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+            Draw(SPRITE_MoragBattle_IdleDownRight3)
+            Draw(SPRITE_MoragBattle_IdleDownRight2)
+        }
+        Jump(SCRIPT_ANIM_MoragBattle_Idle)
 
 SCRIPT_ANIM_MoragBattle_Taunt::
     SpriteDraw() {
@@ -446,13 +442,12 @@ SCRIPT_ANIM_MoragBattle_Victory::
         MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory2)
         MoveDraw(8, 0, 0, SPRITE_MoragBattle_Victory1)
     }
-
-.Loop::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_MoragBattle_Victory3)
-        Draw(SPRITE_MoragBattle_Victory1)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_MoragBattle_Victory3)
+            Draw(SPRITE_MoragBattle_Victory1)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_MoragBattle_Defeat::
     SpriteDraw() {
