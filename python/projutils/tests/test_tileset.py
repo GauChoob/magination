@@ -26,7 +26,7 @@ class TestTileset(unittest.TestCase):
 
     def test_tileset(self):
         rom = utils.Rom()
-        musyx1 = tileset.Bitmap.init_from_rom(None, rom, utils.BankAddress(0x27, 0x6515), False, 10, 3)
+        musyx1 = tileset.Bitmap.init_from_rom(None, rom, utils.BankAddress(0x27, 0x6515), False, 10, 3, None)
         musyx2 = tileset.Bitmap.init_from_original_file(ASSETSFOLDER + 'MusyX.tileset.png')
         musyx3 = tileset.Bitmap.init_from_processed_file(ASSETSFOLDER + 'MusyX.tileset', 10, 3)
         musyx4 = tileset.Bitmap.init_from_processed_file(ASSETSFOLDER + 'MusyX.tileset', 10, None)
@@ -102,7 +102,7 @@ class TestTileset(unittest.TestCase):
         _ASSETSFOLDER = ASSETSFOLDER + 'sprite/'
         ALL_SPRITES = _ASSETSFOLDER + 'AllSprites.pal.png'
         TONY_ADDR = utils.BankAddress(0x24, 0x5990)
-        tony = tileset.Bitmap.init_from_rom(utils.SymFile(None), utils.Rom(), TONY_ADDR, False, 0x10, 0x04)
+        tony = tileset.Bitmap.init_from_rom(utils.SymFile(None), utils.Rom(), TONY_ADDR, False, 0x10, 0x04, 0x380)
         search_term = _ASSETSFOLDER + 'TonyBattle_*.spr'
         tony.colorize_from_sprite(
             search_term,
@@ -113,7 +113,6 @@ class TestTileset(unittest.TestCase):
             True,
             0
             )
-        tony.discarded_tiles = 8
         tony.save_original_file(config.TEMPFOLDER + 'Battle_Tony.tileset.png')
         tony.save_processed_file(config.TEMPFOLDER + 'Battle_Tony.tileset')
         helper.assert_png_cmp(self, _ASSETSFOLDER + "Battle_Tony.tileset.png", config.TEMPFOLDER + "Battle_Tony.tileset.png")

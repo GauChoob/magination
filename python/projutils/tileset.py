@@ -488,7 +488,7 @@ class BitSet(filecontents.FileContentsSerializer):
     def load_references_from_rom(self) -> None:
         for vram in range(2):
             for bitmap in self.bitmaps[vram]:
-                bitmap.load_contents_from_rom(False, bitmap.width, bitmap.height)
+                bitmap.load_contents_from_rom(False, bitmap.width, bitmap.height, None)
 
     def load_references_from_original_file(self) -> None:
         for vram in range(2):
