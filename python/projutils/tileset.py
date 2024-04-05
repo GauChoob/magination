@@ -150,10 +150,16 @@ class Bitmap(filecontents.FileContentsSerializer):
         return pixels
 
     @classmethod
-    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None, size: int | None) -> Self:
         self = cls()
         if compressed:
             data = self._handle_rle_from_rom(rom, address, compressed, None)
+        elif size is not None:
+            self._size = size
+            data = rom.getRawSection(address, self._size)
+            if tilewidth is not None and tileheight is not None and self._size < tilewidth*tileheight*0x10:
+                self.discarded_tiles = tilewidth*tileheight - self._size//0x10
+                data = data + bytes(self.DISCARDED_TILE)*self.discarded_tiles
         else:
             self._size = tilewidth*tileheight*0x10
             data = rom.getRawSection(address, self._size)
