@@ -232,12 +232,11 @@ SCRIPT_ANIM_FossikRing_MakeRing::
         MoveDraw(8, 0, 0, SPRITE_FossikRing_04)
         MoveDraw(8, 0, 0, SPRITE_FossikRing_03)
     }
-
-.Loop::
+SCRIPT_ANIM_FossikRing_DoneRing::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_FossikRing_11)
     }
-    LongJump(.Loop)
+    LongJump(SCRIPT_ANIM_FossikRing_DoneRing)
 
 SCRIPT_ANIM_FossikRing_Idle::
     SpriteDraw() {

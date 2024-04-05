@@ -234,11 +234,11 @@ SCRIPT_ANIM_OrlonRing_MakeRing::
         MoveDraw(8, 0, 0, SPRITE_OrlonRing_03)
         MoveDraw(4, 0, 0, SPRITE_OrlonRing_01)
     }
-    .Loop::
-        SpriteDraw() {
-            MoveDraw(255, 0, 0, SPRITE_OrlonRing_02)
-        }
-        Jump(.Loop)
+SCRIPT_ANIM_OrlonRing_DoneRing::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OrlonRing_02)
+    }
+    Jump(SCRIPT_ANIM_OrlonRing_DoneRing)
 
 SCRIPT_ANIM_OrlonRing_Idle::
     SpriteDraw() {

@@ -229,25 +229,24 @@ SCRIPT_ANIM_PruittRing_MakeRing::
         MoveDraw(4, 0, 0, SPRITE_PruittRing_06)
         MoveDraw(8, 0, 0, SPRITE_PruittRing_04)
     }
-
-.Loop::
+SCRIPT_ANIM_PruittRing_DoneRing::
     SpriteDraw() {
         MoveDraw(16, 0, 0, SPRITE_PruittRing_01)
         MoveDraw(16, 0, 0, SPRITE_PruittRing_02)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_PruittRing_DoneRing)
 
-SCRIPT_ANIM_PruittRing_UNKNOWN1::
+SCRIPT_ANIM_PruittRing_MakeRingFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_PruittRing_08)
     }
-    Jump(SCRIPT_ANIM_PruittRing_UNKNOWN1)
+    Jump(SCRIPT_ANIM_PruittRing_MakeRingFrozen)
 
-SCRIPT_ANIM_PruittRing_UNKNOWN2::
+SCRIPT_ANIM_PruittRing_Idle::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_PruittRing_01)
     }
-    Jump(SCRIPT_ANIM_PruittRing_UNKNOWN2)
+    Jump(SCRIPT_ANIM_PruittRing_Idle)
 
 SCRIPT_ANIM_PruittRing_ScreenShake::
     ScrollMap() {
@@ -266,23 +265,19 @@ SCRIPT_ANIM_Pruitt_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Pruitt_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
