@@ -41,14 +41,14 @@ SPRITE_Orwin_WalkLeft::
 SPRITE_Orwin_FaceLeft::
     INCSPRITE("assets/sprites/orwin/Orwin_FaceLeft.spr")
 
-SPRITE_Orwin_Bedridden1::
-    INCSPRITE("assets/sprites/orwin/Orwin_Bedridden1.spr")
+SPRITE_Orwin_BedriddenDown::
+    INCSPRITE("assets/sprites/orwin/Orwin_BedriddenDown.spr")
 
-SPRITE_Orwin_Bedridden2::
-    INCSPRITE("assets/sprites/orwin/Orwin_Bedridden2.spr")
+SPRITE_Orwin_BedriddenRight::
+    INCSPRITE("assets/sprites/orwin/Orwin_BedriddenRight.spr")
 
-SPRITE_Orwin_Bedridden3::
-    INCSPRITE("assets/sprites/orwin/Orwin_Bedridden3.spr")
+SPRITE_Orwin_BedriddenLeft::
+    INCSPRITE("assets/sprites/orwin/Orwin_BedriddenLeft.spr")
 
 SPRITE_OrwinDie_HurtRight::
     INCSPRITE("assets/sprites/orwin/OrwinDie_HurtRight.spr")
@@ -176,17 +176,17 @@ SCRIPT_ANIM_Orwin_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_Orwin_FaceDownRight)
 
-SCRIPT_ANIM_Orwin_HurtLeft::
+SCRIPT_ANIM_OrwinDie_HurtLeft::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_OrwinDie_HurtLeft)
     }
-    Jump(SCRIPT_ANIM_Orwin_HurtLeft)
+    Jump(SCRIPT_ANIM_OrwinDie_HurtLeft)
 
-SCRIPT_ANIM_Orwin_HurtRight::
+SCRIPT_ANIM_OrwinDie_HurtRight::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_OrwinDie_HurtRight)
     }
-    Jump(SCRIPT_ANIM_Orwin_HurtRight)
+    Jump(SCRIPT_ANIM_OrwinDie_HurtRight)
 
 SCRIPT_ANIM_Orwin_Flicker::
     SpriteDraw() {
@@ -213,23 +213,23 @@ SCRIPT_ANIM_Orwin_Spin2::
     }
     Jump(SCRIPT_ANIM_Orwin_Spin2)
 
-SCRIPT_ANIM_Orwin_Bedridden1::
+SCRIPT_ANIM_Orwin_BedriddenDown::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Orwin_Bedridden1)
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenDown)
     }
-    Jump(SCRIPT_ANIM_Orwin_Bedridden1)
+    Jump(SCRIPT_ANIM_Orwin_BedriddenDown)
 
-SCRIPT_ANIM_Orwin_Bedridden2::
+SCRIPT_ANIM_Orwin_BedriddenRight::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Orwin_Bedridden2)
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenRight)
     }
-    Jump(SCRIPT_ANIM_Orwin_Bedridden2)
+    Jump(SCRIPT_ANIM_Orwin_BedriddenRight)
 
-SCRIPT_ANIM_Orwin_Bedridden3::
+SCRIPT_ANIM_Orwin_BedriddenLeft::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Orwin_Bedridden3)
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenLeft)
     }
-    Jump(SCRIPT_ANIM_Orwin_Bedridden3)
+    Jump(SCRIPT_ANIM_Orwin_BedriddenLeft)
 
 SCRIPT_ANIM_Orwin_FaceHero::
     Switch(#DIRECTION#) {
@@ -238,23 +238,19 @@ SCRIPT_ANIM_Orwin_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

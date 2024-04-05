@@ -234,12 +234,11 @@ SCRIPT_ANIM_OrlonRing_MakeRing::
         MoveDraw(8, 0, 0, SPRITE_OrlonRing_03)
         MoveDraw(4, 0, 0, SPRITE_OrlonRing_01)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_OrlonRing_02)
-    }
-    Jump(.Loop)
+    .Loop::
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_OrlonRing_02)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_OrlonRing_Idle::
     SpriteDraw() {
@@ -277,23 +276,19 @@ SCRIPT_ANIM_Orlon_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orlon_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
