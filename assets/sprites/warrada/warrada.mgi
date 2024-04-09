@@ -47,11 +47,11 @@ SPRITE_Warrada_FaceLeft::
 SPRITE_Warrada_WalkLeft2::
     INCSPRITE("assets/sprites/warrada/Warrada_WalkLeft2.spr")
 
-SPRITE_WarradaBattle_Idle::
-    INCSPRITE("assets/sprites/warrada/WarradaBattle_Idle.spr")
+SPRITE_WarradaBattle_IdleRight::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_IdleRight.spr")
 
-SPRITE_WarradaBattle_UNUSED::
-    INCSPRITE("assets/sprites/warrada/WarradaBattle_UNUSED.spr")
+SPRITE_WarradaBattle_IdleLeft::
+    INCSPRITE("assets/sprites/warrada/WarradaBattle_IdleLeft.spr")
 
 SPRITE_WarradaBattle_Taunt1::
     INCSPRITE("assets/sprites/warrada/WarradaBattle_Taunt1.spr")
@@ -193,8 +193,8 @@ SCRIPT_ANIM_Warrada_FaceDownRight::
 
 SCRIPT_ANIM_WarradaBattle_Idle::
     SpriteDraw() {
-        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_Idle)
-        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_Idle)
+        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_IdleRight)
+        MoveDraw(160, 0, 0, SPRITE_WarradaBattle_IdleRight) ; TODO - bug? either supposed to be SPRITE_WarradaBattle_IdleLeft, or it was intentionally changed
     }
     Jump(SCRIPT_ANIM_WarradaBattle_Idle)
 
@@ -259,23 +259,19 @@ SCRIPT_ANIM_Warrada_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Warrada_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

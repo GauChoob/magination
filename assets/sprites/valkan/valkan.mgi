@@ -179,40 +179,38 @@ SCRIPT_ANIM_Valkan_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_Valkan_FaceDownRight)
 
-SCRIPT_ANIM_Valkan_Flicker::
+SCRIPT_ANIM_Valkan_Die::
     SpriteDraw() {
         MoveDraw(1, 0, 0, SPRITE_Valkan_FaceUp)
     }
     Pass()
-    Jump(SCRIPT_ANIM_Valkan_Flicker)
+    Jump(SCRIPT_ANIM_Valkan_Die)
 
-SCRIPT_ANIM_Valkan_UNKNOWNDown::
+SCRIPT_ANIM_Valkan_SlideOffWall::
     SpriteDraw() {
         MoveDraw(1, 0, 1, SPRITE_Valkan_FaceUp)
     }
-    Jump(SCRIPT_ANIM_Valkan_UNKNOWNDown)
+    Jump(SCRIPT_ANIM_Valkan_SlideOffWall)
 
 SCRIPT_ANIM_ValkanSpear_SpearLeft::
     SpriteDraw() {
         MoveDraw(4, 0, 0, SPRITE_ValkanSpear_SpearLeft1)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(1, -2, 0, SPRITE_ValkanSpear_SpearLeft2)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(1, -2, 0, SPRITE_ValkanSpear_SpearLeft2)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ValkanSpear_SpearRight::
     SpriteDraw() {
         MoveDraw(4, 0, 0, SPRITE_ValkanSpear_SpearRight1)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(1, 2, 0, SPRITE_ValkanSpear_SpearRight2)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(1, 2, 0, SPRITE_ValkanSpear_SpearRight2)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_Valkan_FaceHero::
     Switch(#DIRECTION#) {
@@ -221,23 +219,19 @@ SCRIPT_ANIM_Valkan_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Valkan_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
