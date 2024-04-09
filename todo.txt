@@ -1,6 +1,6 @@
 Change tests to not rely on compiled files (i.e. autopack test)
 Compile package so location of packages doesn't matter
 
-Rename all sprites
+Rename all sprites 11, 20, 25
 
 
