@@ -1,0 +1,203 @@
+
+SPRITE_KaEryn_FaceDownRight::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceDownRight.spr")
+
+SPRITE_KaEryn_FaceDownLeft::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceDownLeft.spr")
+
+SPRITE_KaEryn_FaceUpRight::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceUpRight.spr")
+
+SPRITE_KaEryn_FaceUpLeft::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceUpLeft.spr")
+
+SPRITE_KaEryn_WalkDown1::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkDown1.spr")
+
+SPRITE_KaEryn_FaceDown::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceDown.spr")
+
+SPRITE_KaEryn_WalkDown2::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkDown2.spr")
+
+SPRITE_KaEryn_WalkUp1::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkUp1.spr")
+
+SPRITE_KaEryn_FaceUp::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceUp.spr")
+
+SPRITE_KaEryn_WalkUp2::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkUp2.spr")
+
+SPRITE_KaEryn_WalkRight1::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkRight1.spr")
+
+SPRITE_KaEryn_FaceRight::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceRight.spr")
+
+SPRITE_KaEryn_WalkRight2::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkRight2.spr")
+
+SPRITE_KaEryn_WalkLeft1::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkLeft1.spr")
+
+SPRITE_KaEryn_FaceLeft::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_FaceLeft.spr")
+
+SPRITE_KaEryn_WalkLeft2::
+    INCSPRITE("assets/sprites/kaeryn/KaEryn_WalkLeft2.spr")
+
+SCRIPT_ANIM_KaEryn_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_KaEryn_WalkUp1)
+        Draw(SPRITE_KaEryn_FaceUp)
+        Draw(SPRITE_KaEryn_WalkUp2)
+        Draw(SPRITE_KaEryn_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_WalkUp)
+
+SCRIPT_ANIM_KaEryn_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_KaEryn_WalkDown1)
+        Draw(SPRITE_KaEryn_FaceDown)
+        Draw(SPRITE_KaEryn_WalkDown2)
+        Draw(SPRITE_KaEryn_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_WalkDown)
+
+SCRIPT_ANIM_KaEryn_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_KaEryn_WalkLeft1)
+        Draw(SPRITE_KaEryn_FaceLeft)
+        Draw(SPRITE_KaEryn_WalkLeft2)
+        Draw(SPRITE_KaEryn_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_WalkLeft)
+
+SCRIPT_ANIM_KaEryn_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_KaEryn_WalkRight1)
+        Draw(SPRITE_KaEryn_FaceRight)
+        Draw(SPRITE_KaEryn_WalkRight2)
+        Draw(SPRITE_KaEryn_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_WalkRight)
+
+SCRIPT_ANIM_KaEryn_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_KaEryn_WalkUp1)
+        Draw(SPRITE_KaEryn_FaceUp)
+        Draw(SPRITE_KaEryn_WalkUp2)
+        Draw(SPRITE_KaEryn_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_RunUp)
+
+SCRIPT_ANIM_KaEryn_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_KaEryn_WalkDown1)
+        Draw(SPRITE_KaEryn_FaceDown)
+        Draw(SPRITE_KaEryn_WalkDown2)
+        Draw(SPRITE_KaEryn_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_RunDown)
+
+SCRIPT_ANIM_KaEryn_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_KaEryn_WalkLeft1)
+        Draw(SPRITE_KaEryn_FaceLeft)
+        Draw(SPRITE_KaEryn_WalkLeft2)
+        Draw(SPRITE_KaEryn_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_RunLeft)
+
+SCRIPT_ANIM_KaEryn_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_KaEryn_WalkRight1)
+        Draw(SPRITE_KaEryn_FaceRight)
+        Draw(SPRITE_KaEryn_WalkRight2)
+        Draw(SPRITE_KaEryn_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_RunRight)
+
+SCRIPT_ANIM_KaEryn_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceUp)
+
+SCRIPT_ANIM_KaEryn_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceDown)
+
+SCRIPT_ANIM_KaEryn_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceLeft)
+
+SCRIPT_ANIM_KaEryn_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceRight)
+
+SCRIPT_ANIM_KaEryn_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceUpLeft)
+
+SCRIPT_ANIM_KaEryn_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceUpRight)
+
+SCRIPT_ANIM_KaEryn_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceDownLeft)
+
+SCRIPT_ANIM_KaEryn_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_KaEryn_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_KaEryn_FaceDownRight)
+
+SCRIPT_ANIM_KaEryn_Flicker::
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_KaEryn_FaceUp)
+    }
+    Pass()
+    Jump(SCRIPT_ANIM_KaEryn_Flicker)
+
+SCRIPT_ANIM_KaEryn_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+
+.FaceUp::
+    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceUp)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceDown::
+    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceDown)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceLeft::
+    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceLeft)
+    WaitEventText(1)
+    RestoreActorState()
+
+.FaceRight::
+    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceRight)
+    WaitEventText(1)
+    RestoreActorState()
