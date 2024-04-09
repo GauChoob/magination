@@ -241,13 +241,12 @@ SCRIPT_ANIM_ShadowMagi6Battle_Victory::
         MoveDraw(2, 0, 3, SPRITE_ShadowMagi6Battle_Victory1)
         MoveDraw(2, 0, 4, SPRITE_ShadowMagi6Battle_Victory1)
     }
-
-.Loop::
-    SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ShadowMagi6Battle_Victory1)
-        Draw(SPRITE_ShadowMagi6Battle_Victory2)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_ShadowMagi6Battle_Victory1)
+            Draw(SPRITE_ShadowMagi6Battle_Victory2)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ShadowMagi6Battle_Defeat::
     SpriteDraw() {
@@ -273,12 +272,11 @@ SCRIPT_ANIM_ShadowMagi6Battle_Defeat::
         MoveDraw(1, -1, 0, SPRITE_ShadowMagi6Battle_Defeat2)
         MoveDraw(1, -1, 1, SPRITE_ShadowMagi6Battle_Defeat2)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ShadowMagi6Battle_Defeat1)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_ShadowMagi6Battle_Defeat1)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ShadowMagi6_FaceHero::
     Switch(#DIRECTION#) {
@@ -287,23 +285,19 @@ SCRIPT_ANIM_ShadowMagi6_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi6_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
