@@ -64,12 +64,11 @@ SCRIPT_ANIM_MagamRing_MakeRing::
         MoveDraw(4, 0, 0, SPRITE_MagamRing_04)
         MoveDraw(4, 0, 0, SPRITE_MagamRing_02)
     }
-
-.Loop::
+SCRIPT_ANIM_MagamRing_DoneRing::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_MagamRing_10)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_MagamRing_DoneRing)
 
 SCRIPT_ANIM_MagamRing_Idle::
     SpriteDraw() {
