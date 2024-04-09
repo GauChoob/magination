@@ -167,12 +167,12 @@ SCRIPT_ANIM_KaEryn_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_KaEryn_FaceDownRight)
 
-SCRIPT_ANIM_KaEryn_Flicker::
+SCRIPT_ANIM_KaEryn_Die::
     SpriteDraw() {
         MoveDraw(1, 0, 0, SPRITE_KaEryn_FaceUp)
     }
     Pass()
-    Jump(SCRIPT_ANIM_KaEryn_Flicker)
+    Jump(SCRIPT_ANIM_KaEryn_Die)
 
 SCRIPT_ANIM_KaEryn_FaceHero::
     Switch(#DIRECTION#) {
@@ -181,23 +181,19 @@ SCRIPT_ANIM_KaEryn_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_KaEryn_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
