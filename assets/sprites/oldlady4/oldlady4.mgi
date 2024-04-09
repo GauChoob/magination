@@ -174,23 +174,19 @@ SCRIPT_ANIM_OldLady4_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
+.FaceUp:
     ThisSetAnimSingle(SCRIPT_ANIM_OldLady4_FaceUp)
     WaitEventText(1)
     RestoreActorState()
-
-.FaceDown::
+.FaceDown:
     ThisSetAnimSingle(SCRIPT_ANIM_OldLady4_FaceDown)
     WaitEventText(1)
     RestoreActorState()
-
-.FaceLeft::
+.FaceLeft:
     ThisSetAnimSingle(SCRIPT_ANIM_OldLady4_FaceLeft)
     WaitEventText(1)
     RestoreActorState()
-
-.FaceRight::
+.FaceRight:
     ThisSetAnimSingle(SCRIPT_ANIM_OldLady4_FaceRight)
     WaitEventText(1)
     RestoreActorState()
