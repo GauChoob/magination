@@ -284,41 +284,41 @@ SPRITE_FallingRocks_09::
 SPRITE_FallingRocks_10::
     INCSPRITE("assets/sprites/objects/fallingrocks/FallingRocks_10.spr")
 
-SPRITE_ObjectsUNKNOWN11_01::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_01.spr")
+SPRITE_Flamey_1::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_1.spr")
 
-SPRITE_ObjectsUNKNOWN11_02::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_02.spr")
+SPRITE_Flamey_2::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_2.spr")
 
-SPRITE_ObjectsUNKNOWN11_03::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_03.spr")
+SPRITE_Flamey_3::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_3.spr")
 
-SPRITE_ObjectsUNKNOWN11_04::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_04.spr")
+SPRITE_Flamey_4::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_4.spr")
 
-SPRITE_ObjectsUNKNOWN11_05::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_05.spr")
+SPRITE_Flamey_5::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_5.spr")
 
-SPRITE_ObjectsUNKNOWN11_06::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_06.spr")
+SPRITE_Flamey_6::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_6.spr")
 
-SPRITE_ObjectsUNKNOWN11_07::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_07.spr")
+SPRITE_Flamey_7::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_7.spr")
 
-SPRITE_ObjectsUNKNOWN11_08::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_08.spr")
+SPRITE_Flamey_8::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_8.spr")
 
-SPRITE_ObjectsUNKNOWN11_09::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_09.spr")
+SPRITE_Forcefield_1::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_1.spr")
 
-SPRITE_ObjectsUNKNOWN11_10::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_10.spr")
+SPRITE_Forcefield_2::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_2.spr")
 
-SPRITE_ObjectsUNKNOWN11_11::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_11.spr")
+SPRITE_Forcefield_3::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_3.spr")
 
-SPRITE_ObjectsUNKNOWN11_12::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/ObjectsUNKNOWN11_12.spr")
+SPRITE_Forcefield_4::
+    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_4.spr")
 
 SPRITE_ObjectsUNKNOWN14_1::
     INCSPRITE("assets/sprites/objects/objectsunknown14/ObjectsUNKNOWN14_1.spr")
@@ -1579,37 +1579,37 @@ SCRIPT_ANIM_Feather_Idle::
     }
     Jump(SCRIPT_ANIM_Feather_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN11_1::
+SCRIPT_ANIM_Flamey_Idle::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN11_01)
-        Draw(SPRITE_ObjectsUNKNOWN11_02)
-        Draw(SPRITE_ObjectsUNKNOWN11_03)
-        Draw(SPRITE_ObjectsUNKNOWN11_04)
-        Draw(SPRITE_ObjectsUNKNOWN11_05)
-        Draw(SPRITE_ObjectsUNKNOWN11_06)
-        Draw(SPRITE_ObjectsUNKNOWN11_07)
-        Draw(SPRITE_ObjectsUNKNOWN11_08)
+        Draw(SPRITE_Flamey_1)
+        Draw(SPRITE_Flamey_2)
+        Draw(SPRITE_Flamey_3)
+        Draw(SPRITE_Flamey_4)
+        Draw(SPRITE_Flamey_5)
+        Draw(SPRITE_Flamey_6)
+        Draw(SPRITE_Flamey_7)
+        Draw(SPRITE_Flamey_8)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN11_1)
+    Jump(SCRIPT_ANIM_Flamey_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN11_2::
+SCRIPT_ANIM_Forcefield_Idle::
     SpriteDraw() {
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN11_09)
+        MoveDraw(4, 0, 0, SPRITE_Forcefield_1)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN11_10)
+        MoveDraw(4, 0, 0, SPRITE_Forcefield_2)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN11_11)
+        MoveDraw(4, 0, 0, SPRITE_Forcefield_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN11_12)
+        MoveDraw(4, 0, 0, SPRITE_Forcefield_4)
     }
     Pass()
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN11_2)
+    Jump(SCRIPT_ANIM_Forcefield_Idle)
 
 SCRIPT_ANIM_ObjectsUNKNOWN12_Main::
     SpriteDraw() {
