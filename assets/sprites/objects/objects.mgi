@@ -170,8 +170,8 @@ SPRITE_Boat_Left2::
 SPRITE_Boat_Left3::
     INCSPRITE("assets/sprites/objects/boat/Boat_Left3.spr")
 
-SPRITE_Bone_Main::
-    INCSPRITE("assets/sprites/objects/bone/Bone_Main.spr")
+SPRITE_Bone::
+    INCSPRITE("assets/sprites/objects/bone/Bone.spr")
 
 SPRITE_BrubBlue_1::
     INCSPRITE("assets/sprites/objects/brubblue/BrubBlue_1.spr")
@@ -203,8 +203,8 @@ SPRITE_BrubRed_4::
 SPRITE_Brubred_Splat::
     INCSPRITE("assets/sprites/objects/brubred/Brubred_Splat.spr")
 
-SPRITE_OrwinCoffin_Main::
-    INCSPRITE("assets/sprites/objects/orwincoffin/OrwinCoffin_Main.spr")
+SPRITE_OrwinCoffin::
+    INCSPRITE("assets/sprites/objects/orwincoffin/OrwinCoffin.spr")
 
 SPRITE_CoreStone_1::
     INCSPRITE("assets/sprites/objects/corestone/CoreStone_1.spr")
@@ -251,8 +251,8 @@ SPRITE_ElderWorm_WalkLeft2::
 SPRITE_ElderWorm_FaceLeft::
     INCSPRITE("assets/sprites/objects/elderworm/ElderWorm_FaceLeft.spr")
 
-SPRITE_Feather_Main::
-    INCSPRITE("assets/sprites/objects/feather/Feather_Main.spr")
+SPRITE_Feather::
+    INCSPRITE("assets/sprites/objects/feather/Feather.spr")
 
 SPRITE_FallingRocks_01::
     INCSPRITE("assets/sprites/objects/fallingrocks/FallingRocks_01.spr")
@@ -791,8 +791,8 @@ SPRITE_ExplodingShroom_5::
 SPRITE_ExplodingShroom_6::
     INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_6.spr")
 
-SPRITE_BirdSeed_Main::
-    INCSPRITE("assets/sprites/objects/birdseed/BirdSeed_Main.spr")
+SPRITE_BirdSeed::
+    INCSPRITE("assets/sprites/objects/birdseed/BirdSeed.spr")
 
 SPRITE_ObjectsUNKNOWN25_1::
     INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_1.spr")
@@ -1130,9 +1130,9 @@ SCRIPT_ANIM_Arrow_StopLeft::
     }
     Jump(SCRIPT_ANIM_Arrow_StopLeft)
 
-SCRIPT_ANIM_BirdSeed_Idle::
+SCRIPT_ANIM_BirdSeed::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_BirdSeed_Main)
+        MoveDraw(255, 0, 0, SPRITE_BirdSeed)
     }
     Jump(SCRIPT_ANIM_BirdSeed_Idle)
 
@@ -1183,11 +1183,11 @@ SCRIPT_ANIM_Boat_Dead::
     }
     Jump(SCRIPT_ANIM_Boat_Dead)
 
-SCRIPT_ANIM_Bone_Main::
+SCRIPT_ANIM_Bone::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Bone_Main)
+        MoveDraw(255, 0, 0, SPRITE_Bone)
     }
-    Jump(SCRIPT_ANIM_Bone_Main)
+    Jump(SCRIPT_ANIM_Bone)
 
 SCRIPT_ANIM_BrubBlue_PopUp::
     SpriteDraw() {
@@ -1295,28 +1295,28 @@ SCRIPT_ANIM_BrubRed_Squashed::
 
 SCRIPT_ANIM_OrwinCoffin_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_OrwinCoffin_Main)
+        MoveDraw(255, 0, 0, SPRITE_OrwinCoffin)
     }
     Jump(SCRIPT_ANIM_OrwinCoffin_Idle)
 
 SCRIPT_ANIM_OrwinCoffin_Down::
     SpriteDraw() {
-        MoveDraw(1, 0, 1, SPRITE_OrwinCoffin_Main)
-        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, 0, 1, SPRITE_OrwinCoffin)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin)
     }
     Jump(SCRIPT_ANIM_OrwinCoffin_Down)
 
 SCRIPT_ANIM_OrwinCoffin_DownRight::
     SpriteDraw() {
-        MoveDraw(1, 1, 1, SPRITE_OrwinCoffin_Main)
-        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, 1, 1, SPRITE_OrwinCoffin)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin)
     }
     Jump(SCRIPT_ANIM_OrwinCoffin_DownRight)
 
 SCRIPT_ANIM_OrwinCoffin_DownLeft::
     SpriteDraw() {
-        MoveDraw(1, -1, 1, SPRITE_OrwinCoffin_Main)
-        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, -1, 1, SPRITE_OrwinCoffin)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin)
     }
     Jump(SCRIPT_ANIM_OrwinCoffin_DownLeft)
 
@@ -1569,11 +1569,11 @@ SCRIPT_ANIM_TonyFat_Idle::
     }
     LongJump(SCRIPT_ANIM_TonyFat_Idle)
 
-SCRIPT_ANIM_Feather_Idle::
+SCRIPT_ANIM_Feather::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Feather_Main)
+        MoveDraw(255, 0, 0, SPRITE_Feather)
     }
-    Jump(SCRIPT_ANIM_Feather_Idle)
+    Jump(SCRIPT_ANIM_Feather)
 
 SCRIPT_ANIM_Flamey_Idle::
     SpriteBlock(8, 0, 0) {
