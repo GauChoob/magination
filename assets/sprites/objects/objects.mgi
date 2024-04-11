@@ -143,35 +143,35 @@ SPRITE_BluOverworld_Left1::
 SPRITE_BluOverworld_Left2::
     INCSPRITE("assets/sprites/objects/bluoverworld/BluOverworld_Left2.spr")
 
-SPRITE_Boat_Right_1::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Right_1.spr")
+SPRITE_Boat_Right1::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Right1.spr")
 
-SPRITE_Boat_Right_2::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Right_2.spr")
+SPRITE_Boat_Right2::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Right2.spr")
 
-SPRITE_Boat_Right_3::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Right_3.spr")
+SPRITE_Boat_Right3::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Right3.spr")
 
-SPRITE_Boat_Crash_1::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Crash_1.spr")
+SPRITE_Boat_Crash1::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Crash1.spr")
 
-SPRITE_Boat_Crash_2::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Crash_2.spr")
+SPRITE_Boat_Crash2::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Crash2.spr")
 
-SPRITE_Boat_Crash_3::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Crash_3.spr")
+SPRITE_Boat_Crash3::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Crash3.spr")
 
-SPRITE_Boat_Left_1::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Left_1.spr")
+SPRITE_Boat_Left1::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Left1.spr")
 
-SPRITE_Boat_Left_2::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Left_2.spr")
+SPRITE_Boat_Left2::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Left2.spr")
 
-SPRITE_Boat_Left_3::
-    INCSPRITE("assets/sprites/objects/boat/Boat_Left_3.spr")
+SPRITE_Boat_Left3::
+    INCSPRITE("assets/sprites/objects/boat/Boat_Left3.spr")
 
-SPRITE_ObjectsUNKNOWN6_Main::
-    INCSPRITE("assets/sprites/objects/objectsunknown6/ObjectsUNKNOWN6_Main.spr")
+SPRITE_Bone_Main::
+    INCSPRITE("assets/sprites/objects/bone/Bone_Main.spr")
 
 SPRITE_BrubBlue_1::
     INCSPRITE("assets/sprites/objects/brubblue/BrubBlue_1.spr")
@@ -185,8 +185,8 @@ SPRITE_BrubBlue_3::
 SPRITE_BrubBlue_4::
     INCSPRITE("assets/sprites/objects/brubblue/BrubBlue_4.spr")
 
-SPRITE_BrubBlue_5::
-    INCSPRITE("assets/sprites/objects/brubblue/BrubBlue_5.spr")
+SPRITE_BrubBlue_Splat::
+    INCSPRITE("assets/sprites/objects/brubblue/BrubBlue_Splat.spr")
 
 SPRITE_BrubRed_1::
     INCSPRITE("assets/sprites/objects/brubred/BrubRed_1.spr")
@@ -200,11 +200,11 @@ SPRITE_BrubRed_3::
 SPRITE_BrubRed_4::
     INCSPRITE("assets/sprites/objects/brubred/BrubRed_4.spr")
 
-SPRITE_BrubRed_5::
-    INCSPRITE("assets/sprites/objects/brubred/BrubRed_5.spr")
+SPRITE_Brubred_Splat::
+    INCSPRITE("assets/sprites/objects/brubred/Brubred_Splat.spr")
 
-SPRITE_ObjectsUNKNOWN7_Main::
-    INCSPRITE("assets/sprites/objects/objectsunknown7/ObjectsUNKNOWN7_Main.spr")
+SPRITE_OrwinCoffin_Main::
+    INCSPRITE("assets/sprites/objects/orwincoffin/OrwinCoffin_Main.spr")
 
 SPRITE_CoreStone_1::
     INCSPRITE("assets/sprites/objects/corestone/CoreStone_1.spr")
@@ -251,8 +251,8 @@ SPRITE_ElderWorm_WalkLeft2::
 SPRITE_ElderWorm_FaceLeft::
     INCSPRITE("assets/sprites/objects/elderworm/ElderWorm_FaceLeft.spr")
 
-SPRITE_ObjectsUNKNOWN10_Main::
-    INCSPRITE("assets/sprites/objects/objectsunknown10/ObjectsUNKNOWN10_Main.spr")
+SPRITE_Feather_Main::
+    INCSPRITE("assets/sprites/objects/feather/Feather_Main.spr")
 
 SPRITE_FallingRocks_01::
     INCSPRITE("assets/sprites/objects/fallingrocks/FallingRocks_01.spr")
@@ -1138,57 +1138,56 @@ SCRIPT_ANIM_Boots_Main::
 
 SCRIPT_ANIM_Boat_FloatRight::
     SpriteBlock(16, 0, 0) {
-        Draw(SPRITE_Boat_Right_1)
-        Draw(SPRITE_Boat_Right_2)
-        Draw(SPRITE_Boat_Right_1)
-        Draw(SPRITE_Boat_Right_3)
+        Draw(SPRITE_Boat_Right1)
+        Draw(SPRITE_Boat_Right2)
+        Draw(SPRITE_Boat_Right1)
+        Draw(SPRITE_Boat_Right3)
     }
     Jump(SCRIPT_ANIM_Boat_FloatRight)
 
 SCRIPT_ANIM_Boat_FloatLeft::
     SpriteBlock(16, 0, 0) {
-        Draw(SPRITE_Boat_Left_1)
-        Draw(SPRITE_Boat_Left_2)
-        Draw(SPRITE_Boat_Left_1)
-        Draw(SPRITE_Boat_Left_3)
+        Draw(SPRITE_Boat_Left1)
+        Draw(SPRITE_Boat_Left2)
+        Draw(SPRITE_Boat_Left1)
+        Draw(SPRITE_Boat_Left3)
     }
     Jump(SCRIPT_ANIM_Boat_FloatLeft)
 
 SCRIPT_ANIM_Boat_SwimRight::
     SpriteBlock(16, 1, 0) {
-        Draw(SPRITE_Boat_Right_1)
-        Draw(SPRITE_Boat_Right_2)
-        Draw(SPRITE_Boat_Right_1)
-        Draw(SPRITE_Boat_Right_3)
+        Draw(SPRITE_Boat_Right1)
+        Draw(SPRITE_Boat_Right2)
+        Draw(SPRITE_Boat_Right1)
+        Draw(SPRITE_Boat_Right3)
     }
     Jump(SCRIPT_ANIM_Boat_SwimRight)
 
 SCRIPT_ANIM_Boat_SwimLeft::
     SpriteBlock(16, -1, 0) {
-        Draw(SPRITE_Boat_Left_1)
-        Draw(SPRITE_Boat_Left_2)
-        Draw(SPRITE_Boat_Left_1)
-        Draw(SPRITE_Boat_Left_3)
+        Draw(SPRITE_Boat_Left1)
+        Draw(SPRITE_Boat_Left2)
+        Draw(SPRITE_Boat_Left1)
+        Draw(SPRITE_Boat_Left3)
     }
     Jump(SCRIPT_ANIM_Boat_SwimLeft)
 
 SCRIPT_ANIM_Boat_Crash::
     SpriteDraw() {
-        MoveDraw(32, 0, 0, SPRITE_Boat_Crash_1)
-        MoveDraw(48, 0, 0, SPRITE_Boat_Crash_2)
+        MoveDraw(32, 0, 0, SPRITE_Boat_Crash1)
+        MoveDraw(48, 0, 0, SPRITE_Boat_Crash2)
     }
-
-.Loop::
+SCRIPT_ANIM_Boat_Dead::
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_Boat_Crash_3)
+        MoveDraw(1, 0, 0, SPRITE_Boat_Crash3)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_Boat_Dead)
 
-SCRIPT_ANIM_ObjectsUNKNOWN6_Main::
+SCRIPT_ANIM_Bone_Main::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN6_Main)
+        MoveDraw(255, 0, 0, SPRITE_Bone_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN6_Main)
+    Jump(SCRIPT_ANIM_Bone_Main)
 
 SCRIPT_ANIM_BrubBlue_PopUp::
     SpriteDraw() {
@@ -1206,39 +1205,39 @@ SCRIPT_ANIM_BrubBlue_PopUp::
 
 SCRIPT_ANIM_BrubBlue_Squashed::
     SpriteDraw() {
-        MoveDraw(32, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(32, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubBlue_5)
+        MoveDraw(1, 0, 0, SPRITE_BrubBlue_Splat)
     }
     End()
 
@@ -1258,68 +1257,68 @@ SCRIPT_ANIM_BrubRed_PopUp::
 
 SCRIPT_ANIM_BrubRed_Squashed::
     SpriteDraw() {
-        MoveDraw(32, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(32, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_BrubRed_5)
+        MoveDraw(1, 0, 0, SPRITE_Brubred_Splat)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN7_1::
+SCRIPT_ANIM_OrwinCoffin_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN7_Main)
+        MoveDraw(255, 0, 0, SPRITE_OrwinCoffin_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN7_1)
+    Jump(SCRIPT_ANIM_OrwinCoffin_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN7_2::
+SCRIPT_ANIM_OrwinCoffin_Down::
     SpriteDraw() {
-        MoveDraw(1, 0, 1, SPRITE_ObjectsUNKNOWN7_Main)
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN7_Main)
+        MoveDraw(1, 0, 1, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN7_2)
+    Jump(SCRIPT_ANIM_OrwinCoffin_Down)
 
-SCRIPT_ANIM_ObjectsUNKNOWN7_3::
+SCRIPT_ANIM_OrwinCoffin_DownRight::
     SpriteDraw() {
-        MoveDraw(1, 1, 1, SPRITE_ObjectsUNKNOWN7_Main)
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN7_Main)
+        MoveDraw(1, 1, 1, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN7_3)
+    Jump(SCRIPT_ANIM_OrwinCoffin_DownRight)
 
-SCRIPT_ANIM_ObjectsUNKNOWN7_4::
+SCRIPT_ANIM_OrwinCoffin_DownLeft::
     SpriteDraw() {
-        MoveDraw(1, -1, 1, SPRITE_ObjectsUNKNOWN7_Main)
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN7_Main)
+        MoveDraw(1, -1, 1, SPRITE_OrwinCoffin_Main)
+        MoveDraw(1, 0, 0, SPRITE_OrwinCoffin_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN7_4)
+    Jump(SCRIPT_ANIM_OrwinCoffin_DownLeft)
 
 SCRIPT_ANIM_CoreStone_Idle::
     SpriteDraw() {
@@ -1574,11 +1573,11 @@ SCRIPT_ANIM_ObjectsUNKNOWN9_1::
     }
     LongJump(SCRIPT_ANIM_ObjectsUNKNOWN9_1)
 
-SCRIPT_ANIM_ObjectsUNKNOWN10_Main::
+SCRIPT_ANIM_Feather_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN10_Main)
+        MoveDraw(255, 0, 0, SPRITE_Feather_Main)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN10_Main)
+    Jump(SCRIPT_ANIM_Feather_Idle)
 
 SCRIPT_ANIM_ObjectsUNKNOWN11_1::
     SpriteBlock(8, 0, 0) {
