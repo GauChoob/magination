@@ -1931,7 +1931,7 @@ Battle_Helpers_SetActorEffect::
     cp Battle_Actor_Effect_SPARKLE
     jr nz, .CheckNext
     .Sparkle:
-        Do_Battle_SetActorScript [wBattle_Actor_Target], SCRIPT_ANIM_ObjectsUNKNOWN8_1
+        Do_Battle_SetActorScript [wBattle_Actor_Target], SCRIPT_ANIM_Sparkle_Start
         ret
     .CheckNext:
     ; Nothing else to check, there's only 1 effect!
