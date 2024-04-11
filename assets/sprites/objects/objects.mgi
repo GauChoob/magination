@@ -737,62 +737,62 @@ SPRITE_BluOverworld_FaceLeft::
 SPRITE_BluOverworld_WalkLeft2::
     INCSPRITE("assets/sprites/objects/bluoverworld/BluOverworld_WalkLeft2.spr")
 
-SPRITE_ObjectsUNKNOWN26_01::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_01.spr")
+SPRITE_BlastUrn_Idle::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Idle.spr")
 
-SPRITE_ObjectsUNKNOWN26_02::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_02.spr")
+SPRITE_BlastUrn_Explode1::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode1.spr")
 
-SPRITE_ObjectsUNKNOWN26_03::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_03.spr")
+SPRITE_BlastUrn_Explode2::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode2.spr")
 
-SPRITE_ObjectsUNKNOWN26_04::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_04.spr")
+SPRITE_BlastUrn_Explode3::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode3.spr")
 
-SPRITE_ObjectsUNKNOWN26_05::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_05.spr")
+SPRITE_BlastUrn_Explode4::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode4.spr")
 
-SPRITE_ObjectsUNKNOWN26_06::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_06.spr")
+SPRITE_BlastUrn_Explode5::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode5.spr")
 
-SPRITE_ObjectsUNKNOWN26_07::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_07.spr")
+SPRITE_BlastUrn_Explode6::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode6.spr")
 
-SPRITE_ObjectsUNKNOWN26_08::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_08.spr")
+SPRITE_BlastUrn_Explode7::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode7.spr")
 
-SPRITE_ObjectsUNKNOWN26_09::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_09.spr")
+SPRITE_BlastUrn_Explode8::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode8.spr")
 
-SPRITE_ObjectsUNKNOWN26_10::
-    INCSPRITE("assets/sprites/objects/objectsunknown26/ObjectsUNKNOWN26_10.spr")
+SPRITE_BlastUrn_Explode9::
+    INCSPRITE("assets/sprites/objects/blasturn/BlastUrn_Explode9.spr")
 
-SPRITE_ObjectsUNKNOWN9_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown9/ObjectsUNKNOWN9_1.spr")
+SPRITE_TonyFat_1::
+    INCSPRITE("assets/sprites/objects/tonyfat/TonyFat_1.spr")
 
-SPRITE_ObjectsUNKNOWN9_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown9/ObjectsUNKNOWN9_2.spr")
+SPRITE_TonyFat_2::
+    INCSPRITE("assets/sprites/objects/tonyfat/TonyFat_2.spr")
 
-SPRITE_ObjectsUNKNOWN23_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_1.spr")
+SPRITE_ExplodingShroom_1::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_1.spr")
 
-SPRITE_ObjectsUNKNOWN23_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_2.spr")
+SPRITE_ExplodingShroom_2::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_2.spr")
 
-SPRITE_ObjectsUNKNOWN23_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_3.spr")
+SPRITE_ExplodingShroom_3::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_3.spr")
 
-SPRITE_ObjectsUNKNOWN23_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_4.spr")
+SPRITE_ExplodingShroom_4::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_4.spr")
 
-SPRITE_ObjectsUNKNOWN23_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_5.spr")
+SPRITE_ExplodingShroom_5::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_5.spr")
 
-SPRITE_ObjectsUNKNOWN23_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown23/ObjectsUNKNOWN23_6.spr")
+SPRITE_ExplodingShroom_6::
+    INCSPRITE("assets/sprites/objects/explodingshroom/ExplodingShroom_6.spr")
 
-SPRITE_Boots_Main::
-    INCSPRITE("assets/sprites/objects/boots/Boots_Main.spr")
+SPRITE_BirdSeed_Main::
+    INCSPRITE("assets/sprites/objects/birdseed/BirdSeed_Main.spr")
 
 SPRITE_ObjectsUNKNOWN25_1::
     INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_1.spr")
@@ -1130,11 +1130,11 @@ SCRIPT_ANIM_Arrow_StopLeft::
     }
     Jump(SCRIPT_ANIM_Arrow_StopLeft)
 
-SCRIPT_ANIM_Boots_Main::
+SCRIPT_ANIM_BirdSeed_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Boots_Main)
+        MoveDraw(255, 0, 0, SPRITE_BirdSeed_Main)
     }
-    Jump(SCRIPT_ANIM_Boots_Main)
+    Jump(SCRIPT_ANIM_BirdSeed_Idle)
 
 SCRIPT_ANIM_Boat_FloatRight::
     SpriteBlock(16, 0, 0) {
@@ -1562,12 +1562,12 @@ SCRIPT_ANIM_FallingRocks_9::
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN9_1::
+SCRIPT_ANIM_TonyFat_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN9_1)
-        MoveDraw(16, 0, 0, SPRITE_ObjectsUNKNOWN9_2)
+        MoveDraw(255, 0, 0, SPRITE_TonyFat_1)
+        MoveDraw(16, 0, 0, SPRITE_TonyFat_2)
     }
-    LongJump(SCRIPT_ANIM_ObjectsUNKNOWN9_1)
+    LongJump(SCRIPT_ANIM_TonyFat_Idle)
 
 SCRIPT_ANIM_Feather_Idle::
     SpriteDraw() {
@@ -2003,20 +2003,20 @@ SCRIPT_ANIM_Ripple_Main::
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN23_1::
+SCRIPT_ANIM_ExplodingShroom_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN23_1)
+        MoveDraw(255, 0, 0, SPRITE_ExplodingShroom_1)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN23_1)
+    Jump(SCRIPT_ANIM_ExplodingShroom_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN23_2::
+SCRIPT_ANIM_ExplodingShroom_Explode::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN23_1)
-        Draw(SPRITE_ObjectsUNKNOWN23_2)
-        Draw(SPRITE_ObjectsUNKNOWN23_3)
-        Draw(SPRITE_ObjectsUNKNOWN23_4)
-        Draw(SPRITE_ObjectsUNKNOWN23_5)
-        Draw(SPRITE_ObjectsUNKNOWN23_6)
+        Draw(SPRITE_ExplodingShroom_1)
+        Draw(SPRITE_ExplodingShroom_2)
+        Draw(SPRITE_ExplodingShroom_3)
+        Draw(SPRITE_ExplodingShroom_4)
+        Draw(SPRITE_ExplodingShroom_5)
+        Draw(SPRITE_ExplodingShroom_6)
     }
     End()
 
@@ -2053,25 +2053,25 @@ SCRIPT_ANIM_ObjectsUNKNOWN25_4::
     }
     Jump(SCRIPT_ANIM_ObjectsUNKNOWN25_4)
 
-SCRIPT_ANIM_ObjectsUNKNOWN26_1::
+SCRIPT_ANIM_BlastUrn_Idle::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN26_01)
+        MoveDraw(255, 0, 0, SPRITE_BlastUrn_Idle)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN26_1)
+    Jump(SCRIPT_ANIM_BlastUrn_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN26_2::
+SCRIPT_ANIM_BlastUrn_Explode::
     SpriteDraw() {
-        MoveDraw(32, 0, 0, SPRITE_ObjectsUNKNOWN26_02)
+        MoveDraw(32, 0, 0, SPRITE_BlastUrn_Explode1)
     }
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN26_03)
-        Draw(SPRITE_ObjectsUNKNOWN26_04)
-        Draw(SPRITE_ObjectsUNKNOWN26_05)
-        Draw(SPRITE_ObjectsUNKNOWN26_06)
-        Draw(SPRITE_ObjectsUNKNOWN26_07)
-        Draw(SPRITE_ObjectsUNKNOWN26_08)
-        Draw(SPRITE_ObjectsUNKNOWN26_09)
-        Draw(SPRITE_ObjectsUNKNOWN26_10)
+        Draw(SPRITE_BlastUrn_Explode2)
+        Draw(SPRITE_BlastUrn_Explode3)
+        Draw(SPRITE_BlastUrn_Explode4)
+        Draw(SPRITE_BlastUrn_Explode5)
+        Draw(SPRITE_BlastUrn_Explode6)
+        Draw(SPRITE_BlastUrn_Explode7)
+        Draw(SPRITE_BlastUrn_Explode8)
+        Draw(SPRITE_BlastUrn_Explode9)
     }
     End()
 
