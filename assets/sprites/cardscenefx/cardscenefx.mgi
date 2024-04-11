@@ -1,174 +1,174 @@
 
-SPRITE_Box::
-    INCSPRITE("assets/sprites/cardscenefx/Box.spr")
+SPRITE_CardsceneFX_Box::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Box.spr")
 
-SPRITE_Confused::
-    INCSPRITE("assets/sprites/cardscenefx/Confused.spr")
+SPRITE_CardsceneFX_Confused::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Confused.spr")
 
-SPRITE_Divert_1::
-    INCSPRITE("assets/sprites/cardscenefx/Divert_1.spr")
+SPRITE_CardsceneFX_Divert_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Divert_1.spr")
 
-SPRITE_Divert_2::
-    INCSPRITE("assets/sprites/cardscenefx/Divert_2.spr")
+SPRITE_CardsceneFX_Divert_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Divert_2.spr")
 
-SPRITE_Divert_3::
-    INCSPRITE("assets/sprites/cardscenefx/Divert_3.spr")
+SPRITE_CardsceneFX_Divert_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Divert_3.spr")
 
-SPRITE_Erupt_1::
-    INCSPRITE("assets/sprites/cardscenefx/Erupt_1.spr")
+SPRITE_CardsceneFX_Erupt_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Erupt_1.spr")
 
-SPRITE_Erupt_2::
-    INCSPRITE("assets/sprites/cardscenefx/Erupt_2.spr")
+SPRITE_CardsceneFX_Erupt_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Erupt_2.spr")
 
-SPRITE_Erupt_3::
-    INCSPRITE("assets/sprites/cardscenefx/Erupt_3.spr")
+SPRITE_CardsceneFX_Erupt_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Erupt_3.spr")
 
-SPRITE_Flame_01::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_01.spr")
+SPRITE_CardsceneFX_Flame_01::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_01.spr")
 
-SPRITE_Flame_02::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_02.spr")
+SPRITE_CardsceneFX_Flame_02::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_02.spr")
 
-SPRITE_Flame_03::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_03.spr")
+SPRITE_CardsceneFX_Flame_03::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_03.spr")
 
-SPRITE_Flame_04::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_04.spr")
+SPRITE_CardsceneFX_Flame_04::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_04.spr")
 
-SPRITE_Flame_05::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_05.spr")
+SPRITE_CardsceneFX_Flame_05::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_05.spr")
 
-SPRITE_Flame_06::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_06.spr")
+SPRITE_CardsceneFX_Flame_06::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_06.spr")
 
-SPRITE_Flame_07::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_07.spr")
+SPRITE_CardsceneFX_Flame_07::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_07.spr")
 
-SPRITE_Flame_08::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_08.spr")
+SPRITE_CardsceneFX_Flame_08::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_08.spr")
 
-SPRITE_Flame_09::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_09.spr")
+SPRITE_CardsceneFX_Flame_09::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_09.spr")
 
-SPRITE_Flame_10::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_10.spr")
+SPRITE_CardsceneFX_Flame_10::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_10.spr")
 
-SPRITE_Flame_11::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_11.spr")
+SPRITE_CardsceneFX_Flame_11::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_11.spr")
 
-SPRITE_Flame_12::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_12.spr")
+SPRITE_CardsceneFX_Flame_12::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_12.spr")
 
-SPRITE_Flame_13::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_13.spr")
+SPRITE_CardsceneFX_Flame_13::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_13.spr")
 
-SPRITE_Flame_14::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_14.spr")
+SPRITE_CardsceneFX_Flame_14::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_14.spr")
 
-SPRITE_Flame_15::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_15.spr")
+SPRITE_CardsceneFX_Flame_15::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_15.spr")
 
-SPRITE_Flame_16::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_16.spr")
+SPRITE_CardsceneFX_Flame_16::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_16.spr")
 
-SPRITE_Flame_17::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_17.spr")
+SPRITE_CardsceneFX_Flame_17::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_17.spr")
 
-SPRITE_Flame_18::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_18.spr")
+SPRITE_CardsceneFX_Flame_18::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_18.spr")
 
-SPRITE_Flame_19::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_19.spr")
+SPRITE_CardsceneFX_Flame_19::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_19.spr")
 
-SPRITE_Flame_20::
-    INCSPRITE("assets/sprites/cardscenefx/Flame_20.spr")
+SPRITE_CardsceneFX_Flame_20::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Flame_20.spr")
 
-SPRITE_Hand_1::
-    INCSPRITE("assets/sprites/cardscenefx/Hand_1.spr")
+SPRITE_CardsceneFX_Hand_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hand_1.spr")
 
-SPRITE_Hand_2::
-    INCSPRITE("assets/sprites/cardscenefx/Hand_2.spr")
+SPRITE_CardsceneFX_Hand_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hand_2.spr")
 
-SPRITE_Healing_01::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_01.spr")
+SPRITE_CardsceneFX_Healing_01::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_01.spr")
 
-SPRITE_Healing_02::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_02.spr")
+SPRITE_CardsceneFX_Healing_02::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_02.spr")
 
-SPRITE_Healing_03::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_03.spr")
+SPRITE_CardsceneFX_Healing_03::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_03.spr")
 
-SPRITE_Healing_04::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_04.spr")
+SPRITE_CardsceneFX_Healing_04::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_04.spr")
 
-SPRITE_Healing_05::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_05.spr")
+SPRITE_CardsceneFX_Healing_05::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_05.spr")
 
-SPRITE_Healing_06::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_06.spr")
+SPRITE_CardsceneFX_Healing_06::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_06.spr")
 
-SPRITE_Healing_07::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_07.spr")
+SPRITE_CardsceneFX_Healing_07::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_07.spr")
 
-SPRITE_Healing_08::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_08.spr")
+SPRITE_CardsceneFX_Healing_08::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_08.spr")
 
-SPRITE_Healing_09::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_09.spr")
+SPRITE_CardsceneFX_Healing_09::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_09.spr")
 
-SPRITE_Healing_10::
-    INCSPRITE("assets/sprites/cardscenefx/Healing_10.spr")
+SPRITE_CardsceneFX_Healing_10::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Healing_10.spr")
 
-SPRITE_Hiccup_1::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_1.spr")
+SPRITE_CardsceneFX_Hiccup_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_1.spr")
 
-SPRITE_Hiccup_2::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_2.spr")
+SPRITE_CardsceneFX_Hiccup_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_2.spr")
 
-SPRITE_Hiccup_3::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_3.spr")
+SPRITE_CardsceneFX_Hiccup_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_3.spr")
 
-SPRITE_Hiccup_4::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_4.spr")
+SPRITE_CardsceneFX_Hiccup_4::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_4.spr")
 
-SPRITE_Hiccup_5::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_5.spr")
+SPRITE_CardsceneFX_Hiccup_5::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_5.spr")
 
-SPRITE_Hiccup_6::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_6.spr")
+SPRITE_CardsceneFX_Hiccup_6::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_6.spr")
 
-SPRITE_Hiccup_7::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_7.spr")
+SPRITE_CardsceneFX_Hiccup_7::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_7.spr")
 
-SPRITE_Hiccup_8::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_8.spr")
+SPRITE_CardsceneFX_Hiccup_8::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_8.spr")
 
-SPRITE_Hiccup_9::
-    INCSPRITE("assets/sprites/cardscenefx/Hiccup_9.spr")
+SPRITE_CardsceneFX_Hiccup_9::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hiccup_9.spr")
 
-SPRITE_Hidden_1::
-    INCSPRITE("assets/sprites/cardscenefx/Hidden_1.spr")
+SPRITE_CardsceneFX_Hidden_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hidden_1.spr")
 
-SPRITE_Hidden_2::
-    INCSPRITE("assets/sprites/cardscenefx/Hidden_2.spr")
+SPRITE_CardsceneFX_Hidden_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hidden_2.spr")
 
-SPRITE_Hidden_3::
-    INCSPRITE("assets/sprites/cardscenefx/Hidden_3.spr")
+SPRITE_CardsceneFX_Hidden_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hidden_3.spr")
 
-SPRITE_Hidden_4::
-    INCSPRITE("assets/sprites/cardscenefx/Hidden_4.spr")
+SPRITE_CardsceneFX_Hidden_4::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Hidden_4.spr")
 
-SPRITE_Mirror_1::
-    INCSPRITE("assets/sprites/cardscenefx/Mirror_1.spr")
+SPRITE_CardsceneFX_Mirror_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Mirror_1.spr")
 
-SPRITE_Mirror_2::
-    INCSPRITE("assets/sprites/cardscenefx/Mirror_2.spr")
+SPRITE_CardsceneFX_Mirror_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Mirror_2.spr")
 
-SPRITE_Mirror_3::
-    INCSPRITE("assets/sprites/cardscenefx/Mirror_3.spr")
+SPRITE_CardsceneFX_Mirror_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Mirror_3.spr")
 
-SPRITE_Mirror_4::
-    INCSPRITE("assets/sprites/cardscenefx/Mirror_4.spr")
+SPRITE_CardsceneFX_Mirror_4::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Mirror_4.spr")
 
 SPRITE_NumberBounce_01::
     INCSPRITE("assets/sprites/cardscenefx/NumberBounce_01.spr")
@@ -218,165 +218,165 @@ SPRITE_NumberBounce_15::
 SPRITE_NumberBounce_16::
     INCSPRITE("assets/sprites/cardscenefx/NumberBounce_16.spr")
 
-SPRITE_Plague::
-    INCSPRITE("assets/sprites/cardscenefx/Plague.spr")
+SPRITE_CardsceneFX_Plague::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Plague.spr")
 
-SPRITE_Stone_1::
-    INCSPRITE("assets/sprites/cardscenefx/Stone_1.spr")
+SPRITE_CardsceneFX_Stone_1::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Stone_1.spr")
 
-SPRITE_Stone_2::
-    INCSPRITE("assets/sprites/cardscenefx/Stone_2.spr")
+SPRITE_CardsceneFX_Stone_2::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Stone_2.spr")
 
-SPRITE_Stone_3::
-    INCSPRITE("assets/sprites/cardscenefx/Stone_3.spr")
+SPRITE_CardsceneFX_Stone_3::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Stone_3.spr")
 
-SPRITE_Stone_4::
-    INCSPRITE("assets/sprites/cardscenefx/Stone_4.spr")
+SPRITE_CardsceneFX_Stone_4::
+    INCSPRITE("assets/sprites/cardscenefx/CardsceneFX_Stone_4.spr")
 
-SCRIPT_ANIM_Box::
+SCRIPT_ANIM_CardsceneFX_Box::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Box)
+        MoveDraw(255, 0, 0, SPRITE_CardsceneFX_Box)
     }
-    Jump(SCRIPT_ANIM_Box)
+    Jump(SCRIPT_ANIM_CardsceneFX_Box)
 
-SCRIPT_ANIM_Confused::
+SCRIPT_ANIM_CardsceneFX_Confused::
     SpriteDraw() {
-        MoveDraw(15, 0, 0, SPRITE_Confused)
-        MoveDraw(1, 0, 1, SPRITE_Confused)
-        MoveDraw(15, 0, 0, SPRITE_Confused)
-        MoveDraw(1, 0, -1, SPRITE_Confused)
+        MoveDraw(15, 0, 0, SPRITE_CardsceneFX_Confused)
+        MoveDraw(1, 0, 1, SPRITE_CardsceneFX_Confused)
+        MoveDraw(15, 0, 0, SPRITE_CardsceneFX_Confused)
+        MoveDraw(1, 0, -1, SPRITE_CardsceneFX_Confused)
     }
-    Jump(SCRIPT_ANIM_Confused)
+    Jump(SCRIPT_ANIM_CardsceneFX_Confused)
 
-SCRIPT_ANIM_Divert::
+SCRIPT_ANIM_CardsceneFX_Divert::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_Divert_1)
-        Draw(SPRITE_Divert_2)
-        Draw(SPRITE_Divert_3)
-        Draw(SPRITE_Divert_2)
+        Draw(SPRITE_CardsceneFX_Divert_1)
+        Draw(SPRITE_CardsceneFX_Divert_2)
+        Draw(SPRITE_CardsceneFX_Divert_3)
+        Draw(SPRITE_CardsceneFX_Divert_2)
     }
-    Jump(SCRIPT_ANIM_Divert)
+    Jump(SCRIPT_ANIM_CardsceneFX_Divert)
 
-SCRIPT_ANIM_Erupt::
+SCRIPT_ANIM_CardsceneFX_Erupt::
     SpriteDraw() {
-        MoveDraw(16, 0, 0, SPRITE_Erupt_1)
-        MoveDraw(4, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_2)
-        MoveDraw(1, 0, 0, SPRITE_Erupt_3)
-        MoveDraw(4, 0, 0, SPRITE_Erupt_2)
+        MoveDraw(16, 0, 0, SPRITE_CardsceneFX_Erupt_1)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_2)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Erupt_3)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Erupt_2)
     }
-    Jump(SCRIPT_ANIM_Erupt)
+    Jump(SCRIPT_ANIM_CardsceneFX_Erupt)
 
-SCRIPT_ANIM_Flame::
+SCRIPT_ANIM_CardsceneFX_Flame::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_Flame_01)
-        Draw(SPRITE_Flame_02)
-        Draw(SPRITE_Flame_03)
-        Draw(SPRITE_Flame_04)
-        Draw(SPRITE_Flame_05)
-        Draw(SPRITE_Flame_06)
-        Draw(SPRITE_Flame_07)
-        Draw(SPRITE_Flame_08)
-        Draw(SPRITE_Flame_09)
-        Draw(SPRITE_Flame_10)
-        Draw(SPRITE_Flame_11)
-        Draw(SPRITE_Flame_12)
-        Draw(SPRITE_Flame_13)
-        Draw(SPRITE_Flame_14)
-        Draw(SPRITE_Flame_15)
-        Draw(SPRITE_Flame_16)
+        Draw(SPRITE_CardsceneFX_Flame_01)
+        Draw(SPRITE_CardsceneFX_Flame_02)
+        Draw(SPRITE_CardsceneFX_Flame_03)
+        Draw(SPRITE_CardsceneFX_Flame_04)
+        Draw(SPRITE_CardsceneFX_Flame_05)
+        Draw(SPRITE_CardsceneFX_Flame_06)
+        Draw(SPRITE_CardsceneFX_Flame_07)
+        Draw(SPRITE_CardsceneFX_Flame_08)
+        Draw(SPRITE_CardsceneFX_Flame_09)
+        Draw(SPRITE_CardsceneFX_Flame_10)
+        Draw(SPRITE_CardsceneFX_Flame_11)
+        Draw(SPRITE_CardsceneFX_Flame_12)
+        Draw(SPRITE_CardsceneFX_Flame_13)
+        Draw(SPRITE_CardsceneFX_Flame_14)
+        Draw(SPRITE_CardsceneFX_Flame_15)
+        Draw(SPRITE_CardsceneFX_Flame_16)
     }
     SetByte(wBattle_AnimDone, $01)
     End()
 
-SCRIPT_ANIM_Hand::
+SCRIPT_ANIM_CardsceneFX_Hand::
     OverlayDraw() {
-        MoveDraw(1, 0, -4, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, -3, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, -2, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, -1, SPRITE_Hand_1)
-        MoveDraw(3, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, 1, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, 2, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, 3, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
-        MoveDraw(1, 0, 4, SPRITE_Hand_1)
-        MoveDraw(1, 0, 0, SPRITE_Hand_1)
+        MoveDraw(1, 0, -4, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, -3, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, -2, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, -1, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(3, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 1, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 2, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 3, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 4, SPRITE_CardsceneFX_Hand_1)
+        MoveDraw(1, 0, 0, SPRITE_CardsceneFX_Hand_1)
     }
-    Jump(SCRIPT_ANIM_Hand)
+    Jump(SCRIPT_ANIM_CardsceneFX_Hand)
 
-SCRIPT_ANIM_Healing::
+SCRIPT_ANIM_CardsceneFX_Healing::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_Healing_01)
-        Draw(SPRITE_Healing_02)
-        Draw(SPRITE_Healing_03)
-        Draw(SPRITE_Healing_04)
-        Draw(SPRITE_Healing_05)
-        Draw(SPRITE_Healing_06)
-        Draw(SPRITE_Healing_07)
-        Draw(SPRITE_Healing_08)
-        Draw(SPRITE_Healing_09)
-        Draw(SPRITE_Healing_10)
+        Draw(SPRITE_CardsceneFX_Healing_01)
+        Draw(SPRITE_CardsceneFX_Healing_02)
+        Draw(SPRITE_CardsceneFX_Healing_03)
+        Draw(SPRITE_CardsceneFX_Healing_04)
+        Draw(SPRITE_CardsceneFX_Healing_05)
+        Draw(SPRITE_CardsceneFX_Healing_06)
+        Draw(SPRITE_CardsceneFX_Healing_07)
+        Draw(SPRITE_CardsceneFX_Healing_08)
+        Draw(SPRITE_CardsceneFX_Healing_09)
+        Draw(SPRITE_CardsceneFX_Healing_10)
     }
     End()
 
-SCRIPT_ANIM_Hiccup::
+SCRIPT_ANIM_CardsceneFX_Hiccup::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_Hiccup_1)
-        Draw(SPRITE_Hiccup_2)
-        Draw(SPRITE_Hiccup_3)
-        Draw(SPRITE_Hiccup_4)
-        Draw(SPRITE_Hiccup_5)
-        Draw(SPRITE_Hiccup_6)
-        Draw(SPRITE_Hiccup_7)
+        Draw(SPRITE_CardsceneFX_Hiccup_1)
+        Draw(SPRITE_CardsceneFX_Hiccup_2)
+        Draw(SPRITE_CardsceneFX_Hiccup_3)
+        Draw(SPRITE_CardsceneFX_Hiccup_4)
+        Draw(SPRITE_CardsceneFX_Hiccup_5)
+        Draw(SPRITE_CardsceneFX_Hiccup_6)
+        Draw(SPRITE_CardsceneFX_Hiccup_7)
     }
     SpriteDraw() {
-        MoveDraw(16, 0, 0, SPRITE_Hiccup_8)
-        MoveDraw(4, 0, 0, SPRITE_Hiccup_9)
+        MoveDraw(16, 0, 0, SPRITE_CardsceneFX_Hiccup_8)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Hiccup_9)
     }
     Pass()
     Delay(64)
-    Jump(SCRIPT_ANIM_Hiccup)
+    Jump(SCRIPT_ANIM_CardsceneFX_Hiccup)
 
-SCRIPT_ANIM_Hidden::
+SCRIPT_ANIM_CardsceneFX_Hidden::
     SpriteDraw() {
-        MoveDraw(32, 0, 0, SPRITE_Hidden_1)
-        MoveDraw(8, 0, 0, SPRITE_Hidden_2)
-        MoveDraw(4, 0, 0, SPRITE_Hidden_3)
-        MoveDraw(96, 0, 0, SPRITE_Hidden_4)
+        MoveDraw(32, 0, 0, SPRITE_CardsceneFX_Hidden_1)
+        MoveDraw(8, 0, 0, SPRITE_CardsceneFX_Hidden_2)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Hidden_3)
+        MoveDraw(96, 0, 0, SPRITE_CardsceneFX_Hidden_4)
     }
-    Jump(SCRIPT_ANIM_Hidden)
+    Jump(SCRIPT_ANIM_CardsceneFX_Hidden)
 
-SCRIPT_ANIM_Mirror::
+SCRIPT_ANIM_CardsceneFX_Mirror::
     SpriteDraw() {
-        MoveDraw(80, 0, 0, SPRITE_Mirror_1)
-        MoveDraw(4, 0, 0, SPRITE_Mirror_2)
-        MoveDraw(4, 0, 0, SPRITE_Mirror_3)
-        MoveDraw(16, 0, 0, SPRITE_Mirror_4)
-        MoveDraw(4, 0, 0, SPRITE_Mirror_3)
-        MoveDraw(4, 0, 0, SPRITE_Mirror_2)
+        MoveDraw(80, 0, 0, SPRITE_CardsceneFX_Mirror_1)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Mirror_2)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Mirror_3)
+        MoveDraw(16, 0, 0, SPRITE_CardsceneFX_Mirror_4)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Mirror_3)
+        MoveDraw(4, 0, 0, SPRITE_CardsceneFX_Mirror_2)
     }
-    Jump(SCRIPT_ANIM_Mirror)
+    Jump(SCRIPT_ANIM_CardsceneFX_Mirror)
 
 SCRIPT_ANIM_NumberBounce::
     SpriteBlock(4, 0, 0) {
@@ -403,24 +403,24 @@ SCRIPT_ANIM_NumberBounce::
     SetByte(wBattle_AnimDone, $01)
     End()
 
-SCRIPT_ANIM_Plague::
+SCRIPT_ANIM_CardsceneFX_Plague::
     SpriteDraw() {
-        MoveDraw(7, 0, 0, SPRITE_Plague)
-        MoveDraw(1, 1, 0, SPRITE_Plague)
-        MoveDraw(15, 0, 0, SPRITE_Plague)
-        MoveDraw(1, -1, -1, SPRITE_Plague)
-        MoveDraw(7, 0, 0, SPRITE_Plague)
-        MoveDraw(1, -1, 0, SPRITE_Plague)
-        MoveDraw(15, 0, 0, SPRITE_Plague)
-        MoveDraw(1, 1, 1, SPRITE_Plague)
+        MoveDraw(7, 0, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(1, 1, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(15, 0, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(1, -1, -1, SPRITE_CardsceneFX_Plague)
+        MoveDraw(7, 0, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(1, -1, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(15, 0, 0, SPRITE_CardsceneFX_Plague)
+        MoveDraw(1, 1, 1, SPRITE_CardsceneFX_Plague)
     }
-    Jump(SCRIPT_ANIM_Plague)
+    Jump(SCRIPT_ANIM_CardsceneFX_Plague)
 
-SCRIPT_ANIM_Stone::
+SCRIPT_ANIM_CardsceneFX_Stone::
     SpriteDraw() {
-        MoveDraw(96, 0, 0, SPRITE_Stone_1)
-        MoveDraw(8, 0, 0, SPRITE_Stone_2)
-        MoveDraw(8, 0, 0, SPRITE_Stone_3)
-        MoveDraw(8, 0, 0, SPRITE_Stone_4)
+        MoveDraw(96, 0, 0, SPRITE_CardsceneFX_Stone_1)
+        MoveDraw(8, 0, 0, SPRITE_CardsceneFX_Stone_2)
+        MoveDraw(8, 0, 0, SPRITE_CardsceneFX_Stone_3)
+        MoveDraw(8, 0, 0, SPRITE_CardsceneFX_Stone_4)
     }
-    Jump(SCRIPT_ANIM_Stone)
+    Jump(SCRIPT_ANIM_CardsceneFX_Stone)
