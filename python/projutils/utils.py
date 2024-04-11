@@ -395,12 +395,16 @@ class MusyXIDs:
                 for line in f.readlines():
                     params = line.split("EQU")
                     if len(params) == 2:
-                        var = params[0].lstrip().rstrip()
+                        var = params[0].lstrip().rstrip()[4:]
                         val = int(params[1].lstrip().rstrip())
                         if var[:5] == "SFXID":
                             self.sfxid[val] = var
                         elif var[:6] == "SONGID":
                             self.songid[val] = var
+                        elif var[:13] == "MUSYX_NUM_SFX":
+                            continue
+                        elif var[:15] == "MUSYX_NUM_SONGS":
+                            continue
                         else:
                             raise KeyError("Unknown line in SoundID.asm: {}".format(line))
         except FileNotFoundError:

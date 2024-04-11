@@ -900,7 +900,7 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
     """Interprets raw bytecode of Magi Nation's scripting engine.
     Returns the pre-processed code.
     Some banks are a collection of sprites + scripts containing animation
-    (e.g. Bank 0x0E, 0x0F, ?0x10, ?0x11, 0x20). Specifically seek to parse these ones
+    (e.g. Bank 0x0E, 0x0F, 0x10, 0x11, 0x20, 0x40, 0x41). Specifically seek to parse these ones
 
     debug = True to write output to a single file
     debug = False to generate the files for importation into the main project"""
@@ -984,7 +984,10 @@ def interpretSpriteAnim(startpos: utils.BankAddress, endpos: utils.BankAddress, 
                         endBlock()
                         setupBlock()
                         continue
-                elif lines[-1].isEnd() and isLikelySprite(curbyte):
+                elif (
+                    lines[-1].isEnd() and isLikelySprite(curbyte) and
+                    curpos not in [utils.BankAddress(0x40, 0x7A3F), utils.BankAddress(0x40, 0x7B2A), utils.BankAddress(0x40, 0x7EA6), utils.BankAddress(0x40, 0x7EE1)]
+                ):
                     endBlock()
                     setupBlock()
                     continue
