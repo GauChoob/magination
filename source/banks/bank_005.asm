@@ -3031,7 +3031,7 @@ Battle_MagiAnimTable::
 
     .Tony::
         BankAddress SCRIPT_ANIM_TonyBattle_Idle
-        BankAddress SCRIPT_ANIM_TonyBattle_Taunt
+        BankAddress SCRIPT_ANIM_TonyBattle_Focus ; SCRIPT_ANIM_TonyBattle_Taunt is unused
         BankAddress SCRIPT_ANIM_TonyBattle_Summon
         BankAddress SCRIPT_ANIM_TonyBattle_Victory
         BankAddress SCRIPT_ANIM_TonyBattle_Defeat
