@@ -848,32 +848,32 @@ SPRITE_BowArrow_ArrowBuried::
 SPRITE_Blocker::
     INCSPRITE("assets/sprites/objects/blocker/Blocker.spr")
 
-SPRITE_ObjectsUNKNOWN4_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_1.spr")
+SPRITE_HyrenWhirl_1::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_1.spr")
 
-SPRITE_ObjectsUNKNOWN4_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_2.spr")
+SPRITE_HyrenWhirl_2::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_2.spr")
 
-SPRITE_ObjectsUNKNOWN4_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_3.spr")
+SPRITE_HyrenWhirl_3::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_3.spr")
 
-SPRITE_ObjectsUNKNOWN4_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_4.spr")
+SPRITE_HyrenWhirl_4::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_4.spr")
 
-SPRITE_ObjectsUNKNOWN4_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_5.spr")
+SPRITE_HyrenWhirl_5::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_5.spr")
 
-SPRITE_ObjectsUNKNOWN4_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_6.spr")
+SPRITE_HyrenWhirl_6::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_6.spr")
 
-SPRITE_ObjectsUNKNOWN4_7::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_7.spr")
+SPRITE_HyrenWhirl_7::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_7.spr")
 
-SPRITE_ObjectsUNKNOWN4_8::
-    INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_8.spr")
+SPRITE_HyrenWhirl_8::
+    INCSPRITE("assets/sprites/objects/hyrenwhirl/HyrenWhirl_8.spr")
 
-SPRITE_ObjectsUNKNOWN16_Main::
-    INCSPRITE("assets/sprites/objects/objectsunknown16/ObjectsUNKNOWN16_Main.spr")
+SPRITE_Jukebox::
+    INCSPRITE("assets/sprites/objects/jukebox/Jukebox.spr")
 
 SCRIPT_ANIM_OscentMarBubbles_Random::
     RandLongJump(.Fast, .Medium, .Slow, .Fast, .Medium, .Slow)
@@ -992,61 +992,61 @@ SCRIPT_ANIM_Target_Toppled::
     }
     Jump(SCRIPT_ANIM_Target_Toppled)
 
-SCRIPT_ANIM_ObjectsUNKNOWN4_1::
+SCRIPT_ANIM_HyrenWhirl::
     SpriteDraw() {
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_1)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_2)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_3)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_4)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_5)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_6)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_7)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN4_8)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_1)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_2)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_3)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_4)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_5)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_6)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_7)
+        MoveDraw(4, 0, 0, SPRITE_HyrenWhirl_8)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN4_1)
+    Jump(SCRIPT_ANIM_HyrenWhirl)
 
-SCRIPT_ANIM_CrystalUNKNOWN_WalkRight::
+SCRIPT_ANIM_CrystalSlideBlock_WalkRight::
     SpriteDraw() {
         MoveDraw(16, 1, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_WalkRight)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_WalkRight)
 
-SCRIPT_ANIM_CrystalUNKNOWN_WalkLeft::
+SCRIPT_ANIM_CrystalSlideBlock_WalkLeft::
     SpriteDraw() {
         MoveDraw(16, -1, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_WalkLeft)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_WalkLeft)
 
-SCRIPT_ANIM_CrystalUNKNOWN_RunRight::
+SCRIPT_ANIM_CrystalSlideBlock_RunRight::
     SpriteDraw() {
         MoveDraw(16, 2, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_RunRight)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_RunRight)
 
-SCRIPT_ANIM_CrystalUNKNOWN_RunLeft::
+SCRIPT_ANIM_CrystalSlideBlock_RunLeft::
     SpriteDraw() {
         MoveDraw(16, -2, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_RunLeft)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_RunLeft)
 
-SCRIPT_ANIM_CrystalUNKNOWN_SprintRight::
+SCRIPT_ANIM_CrystalSlideBlock_SprintRight::
     SpriteDraw() {
         MoveDraw(16, 3, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_SprintRight)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_SprintRight)
 
-SCRIPT_ANIM_CrystalUNKNOWN_SprintLeft::
+SCRIPT_ANIM_CrystalSlideBlock_SprintLeft::
     SpriteDraw() {
         MoveDraw(16, -3, 0, SPRITE_Crystal_1)
     }
-    Jump(SCRIPT_ANIM_CrystalUNKNOWN_SprintLeft)
+    Jump(SCRIPT_ANIM_CrystalSlideBlock_SprintLeft)
 
-SCRIPT_ANIM_Algae_1::
+SCRIPT_ANIM_Algae::
     SpriteBlock(96, 0, 0) {
         Draw(SPRITE_Algae_1)
         Draw(SPRITE_Algae_2)
     }
-    Jump(SCRIPT_ANIM_Algae_1)
+    Jump(SCRIPT_ANIM_Algae)
 
 SCRIPT_ANIM_Animite_Idle::
     SpriteDraw() {
@@ -1559,12 +1559,12 @@ SCRIPT_ANIM_FallingRocks_9::
     }
     End()
 
-SCRIPT_ANIM_TonyFat_Idle::
+SCRIPT_ANIM_TonyFat::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_TonyFat_1)
         MoveDraw(16, 0, 0, SPRITE_TonyFat_2)
     }
-    LongJump(SCRIPT_ANIM_TonyFat_Idle)
+    LongJump(SCRIPT_ANIM_TonyFat)
 
 SCRIPT_ANIM_Feather::
     SpriteDraw() {
@@ -1572,7 +1572,7 @@ SCRIPT_ANIM_Feather::
     }
     Jump(SCRIPT_ANIM_Feather)
 
-SCRIPT_ANIM_Flamey_Idle::
+SCRIPT_ANIM_Flamey::
     SpriteBlock(8, 0, 0) {
         Draw(SPRITE_Flamey_1)
         Draw(SPRITE_Flamey_2)
@@ -1583,9 +1583,9 @@ SCRIPT_ANIM_Flamey_Idle::
         Draw(SPRITE_Flamey_7)
         Draw(SPRITE_Flamey_8)
     }
-    Jump(SCRIPT_ANIM_Flamey_Idle)
+    Jump(SCRIPT_ANIM_Flamey)
 
-SCRIPT_ANIM_Forcefield_Idle::
+SCRIPT_ANIM_Forcefield::
     SpriteDraw() {
         MoveDraw(4, 0, 0, SPRITE_Forcefield_1)
     }
@@ -1602,23 +1602,23 @@ SCRIPT_ANIM_Forcefield_Idle::
         MoveDraw(4, 0, 0, SPRITE_Forcefield_4)
     }
     Pass()
-    Jump(SCRIPT_ANIM_Forcefield_Idle)
+    Jump(SCRIPT_ANIM_Forcefield)
 
-SCRIPT_ANIM_Key_Idle::
+SCRIPT_ANIM_Key::
     SpriteDraw() {
         MoveDraw(96, 0, 0, SPRITE_Key_1)
         MoveDraw(4, 0, 0, SPRITE_Key_2)
         MoveDraw(4, 0, 0, SPRITE_Key_3)
         MoveDraw(4, 0, 0, SPRITE_Key_4)
     }
-    Jump(SCRIPT_ANIM_Key_Idle)
+    Jump(SCRIPT_ANIM_Key)
 
-SCRIPT_ANIM_GeyserOverworld_Idle::
+SCRIPT_ANIM_GeyserOverworld::
     SpriteBlock(1, 0, 0) {
         Draw(SPRITE_GeyserOverworld_1)
         Draw(SPRITE_GeyserOverworld_2)
     }
-    Jump(SCRIPT_ANIM_GeyserOverworld_Idle)
+    Jump(SCRIPT_ANIM_GeyserOverworld)
 
 SCRIPT_ANIM_GeyserPlay_Idle::
     SpriteDraw() {
@@ -1685,14 +1685,14 @@ SCRIPT_ANIM_GlyphBox_Full::
     }
     Jump(SCRIPT_ANIM_GlyphBox_Full)
 
-SCRIPT_ANIM_Glyph_Idle::
+SCRIPT_ANIM_Glyph::
     SpriteDraw() {
         MoveDraw(96, 0, 0, SPRITE_Glyph_1)
         MoveDraw(16, 0, 0, SPRITE_Glyph_2)
         MoveDraw(16, 0, 0, SPRITE_Glyph_3)
         MoveDraw(16, 0, 0, SPRITE_Glyph_4)
     }
-    Jump(SCRIPT_ANIM_Glyph_Idle)
+    Jump(SCRIPT_ANIM_Glyph)
 
 SCRIPT_ANIM_GlyphBox_Empty::
     SpriteDraw() {
@@ -1700,11 +1700,11 @@ SCRIPT_ANIM_GlyphBox_Empty::
     }
     Jump(SCRIPT_ANIM_GlyphBox_Empty)
 
-SCRIPT_ANIM_ObjectsUNKNOWN16_Main::
+SCRIPT_ANIM_Jukebox::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN16_Main)
+        MoveDraw(255, 0, 0, SPRITE_Jukebox)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN16_Main)
+    Jump(SCRIPT_ANIM_Jukebox)
 
 SCRIPT_ANIM_LavaBubble_1::
     SpriteDraw() {
@@ -1991,7 +1991,7 @@ SCRIPT_ANIM_PressStart_Blink::
     Delay(10)
     Jump(SCRIPT_ANIM_PressStart_Blink)
 
-SCRIPT_ANIM_Ripple_Main::
+SCRIPT_ANIM_Ripple::
     SpriteBlock(8, 0, 0) {
         Draw(SPRITE_Ripple_1)
         Draw(SPRITE_Ripple_2)
@@ -2017,14 +2017,14 @@ SCRIPT_ANIM_ExplodingShroom_Explode::
     }
     End()
 
-SCRIPT_ANIM_StarSparkle_Main::
+SCRIPT_ANIM_StarSparkle::
     SpriteBlock(8, 0, 0) {
         Draw(SPRITE_StarSparkle_1)
         Draw(SPRITE_StarSparkle_2)
         Draw(SPRITE_StarSparkle_3)
         Draw(SPRITE_StarSparkle_2)
     }
-    Jump(SCRIPT_ANIM_StarSparkle_Main)
+    Jump(SCRIPT_ANIM_StarSparkle)
 
 SCRIPT_ANIM_StoneGogor::
     SpriteDraw() {
@@ -2151,7 +2151,7 @@ SCRIPT_ANIM_Wave_Large::
     }
     End()
 
-SCRIPT_ANIM_Whirlpool_Main::
+SCRIPT_ANIM_Whirlpool::
     SpriteBlock(4, 0, 0) {
         Draw(SPRITE_Whirlpool_1)
         Draw(SPRITE_Whirlpool_2)
@@ -2162,7 +2162,7 @@ SCRIPT_ANIM_Whirlpool_Main::
         Draw(SPRITE_Whirlpool_7)
         Draw(SPRITE_Whirlpool_8)
     }
-    Jump(SCRIPT_ANIM_Whirlpool_Main)
+    Jump(SCRIPT_ANIM_Whirlpool)
 
 SCRIPT_ANIM_BucketOPink::
     SpriteDraw() {
