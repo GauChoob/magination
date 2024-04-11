@@ -285,85 +285,85 @@ SPRITE_FallingRocks_10::
     INCSPRITE("assets/sprites/objects/fallingrocks/FallingRocks_10.spr")
 
 SPRITE_Flamey_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_1.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_1.spr")
 
 SPRITE_Flamey_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_2.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_2.spr")
 
 SPRITE_Flamey_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_3.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_3.spr")
 
 SPRITE_Flamey_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_4.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_4.spr")
 
 SPRITE_Flamey_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_5.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_5.spr")
 
 SPRITE_Flamey_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_6.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_6.spr")
 
 SPRITE_Flamey_7::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_7.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_7.spr")
 
 SPRITE_Flamey_8::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Flamey_8.spr")
+    INCSPRITE("assets/sprites/objects/flamey/Flamey_8.spr")
 
 SPRITE_Forcefield_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_1.spr")
+    INCSPRITE("assets/sprites/objects/forcefield/Forcefield_1.spr")
 
 SPRITE_Forcefield_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_2.spr")
+    INCSPRITE("assets/sprites/objects/forcefield/Forcefield_2.spr")
 
 SPRITE_Forcefield_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_3.spr")
+    INCSPRITE("assets/sprites/objects/forcefield/Forcefield_3.spr")
 
 SPRITE_Forcefield_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown11/Forcefield_4.spr")
+    INCSPRITE("assets/sprites/objects/forcefield/Forcefield_4.spr")
 
-SPRITE_ObjectsUNKNOWN14_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown14/ObjectsUNKNOWN14_1.spr")
+SPRITE_GeyserPlay_1::
+    INCSPRITE("assets/sprites/objects/geyserplay/GeyserPlay_1.spr")
 
-SPRITE_ObjectsUNKNOWN14_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown14/ObjectsUNKNOWN14_2.spr")
+SPRITE_GeyserPlay_2::
+    INCSPRITE("assets/sprites/objects/geyserplay/GeyserPlay_2.spr")
 
-SPRITE_ObjectsUNKNOWN14_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown14/ObjectsUNKNOWN14_3.spr")
+SPRITE_GeyserPlay_3::
+    INCSPRITE("assets/sprites/objects/geyserplay/GeyserPlay_3.spr")
 
-SPRITE_ObjectsUNKNOWN13_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown13/ObjectsUNKNOWN13_1.spr")
+SPRITE_GeyserOverworld_1::
+    INCSPRITE("assets/sprites/objects/geyseroverworld/GeyserOverworld_1.spr")
 
-SPRITE_ObjectsUNKNOWN13_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown13/ObjectsUNKNOWN13_2.spr")
+SPRITE_GeyserOverworld_2::
+    INCSPRITE("assets/sprites/objects/geyseroverworld/GeyserOverworld_2.spr")
 
-SPRITE_ObjectsUNKNOWN15_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_1.spr")
+SPRITE_GlyphBox_Full::
+    INCSPRITE("assets/sprites/objects/glyphbox/GlyphBox_Full.spr")
 
-SPRITE_ObjectsUNKNOWN15_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_2.spr")
+SPRITE_GlyphBox_Empty::
+    INCSPRITE("assets/sprites/objects/glyphbox/GlyphBox_Empty.spr")
 
-SPRITE_ObjectsUNKNOWN15_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_3.spr")
+SPRITE_Glyph_1::
+    INCSPRITE("assets/sprites/objects/glyph/Glyph_1.spr")
 
-SPRITE_ObjectsUNKNOWN15_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_4.spr")
+SPRITE_Glyph_2::
+    INCSPRITE("assets/sprites/objects/glyph/Glyph_2.spr")
 
-SPRITE_ObjectsUNKNOWN15_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_5.spr")
+SPRITE_Glyph_3::
+    INCSPRITE("assets/sprites/objects/glyph/Glyph_3.spr")
 
-SPRITE_ObjectsUNKNOWN15_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown15/ObjectsUNKNOWN15_6.spr")
+SPRITE_Glyph_4::
+    INCSPRITE("assets/sprites/objects/glyph/Glyph_4.spr")
 
-SPRITE_ObjectsUNKNOWN12_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown12/ObjectsUNKNOWN12_1.spr")
+SPRITE_Key_1::
+    INCSPRITE("assets/sprites/objects/key/Key_1.spr")
 
-SPRITE_ObjectsUNKNOWN12_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown12/ObjectsUNKNOWN12_2.spr")
+SPRITE_Key_2::
+    INCSPRITE("assets/sprites/objects/key/Key_2.spr")
 
-SPRITE_ObjectsUNKNOWN12_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown12/ObjectsUNKNOWN12_3.spr")
+SPRITE_Key_3::
+    INCSPRITE("assets/sprites/objects/key/Key_3.spr")
 
-SPRITE_ObjectsUNKNOWN12_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown12/ObjectsUNKNOWN12_4.spr")
+SPRITE_Key_4::
+    INCSPRITE("assets/sprites/objects/key/Key_4.spr")
 
 SPRITE_LavaBubble_1_1::
     INCSPRITE("assets/sprites/objects/lavabubble/LavaBubble_1_1.spr")
@@ -383,41 +383,41 @@ SPRITE_LavaBubble_2_2::
 SPRITE_LavaBubble_2_3::
     INCSPRITE("assets/sprites/objects/lavabubble/LavaBubble_2_3.spr")
 
-SPRITE_ObjectsUNKNOWN19_Right1::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Right1.spr")
+SPRITE_FerryOverworld_Right1::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Right1.spr")
 
-SPRITE_ObjectsUNKNOWN19_Right2::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Right2.spr")
+SPRITE_FerryOverworld_Right2::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Right2.spr")
 
-SPRITE_ObjectsUNKNOWN19_Right3::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Right3.spr")
+SPRITE_FerryOverworld_Right3::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Right3.spr")
 
-SPRITE_ObjectsUNKNOWN19_Left1::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Left1.spr")
+SPRITE_FerryOverworld_Left1::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Left1.spr")
 
-SPRITE_ObjectsUNKNOWN19_Left2::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Left2.spr")
+SPRITE_FerryOverworld_Left2::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Left2.spr")
 
-SPRITE_ObjectsUNKNOWN19_Left3::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Left3.spr")
+SPRITE_FerryOverworld_Left3::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Left3.spr")
 
-SPRITE_ObjectsUNKNOWN19_Down1::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Down1.spr")
+SPRITE_FerryOverworld_Down1::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Down1.spr")
 
-SPRITE_ObjectsUNKNOWN19_Down2::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Down2.spr")
+SPRITE_FerryOverworld_Down2::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Down2.spr")
 
-SPRITE_ObjectsUNKNOWN19_Down3::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Down3.spr")
+SPRITE_FerryOverworld_Down3::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Down3.spr")
 
-SPRITE_ObjectsUNKNOWN19_Up1::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Up1.spr")
+SPRITE_FerryOverworld_Up1::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Up1.spr")
 
-SPRITE_ObjectsUNKNOWN19_Up2::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Up2.spr")
+SPRITE_FerryOverworld_Up2::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Up2.spr")
 
-SPRITE_ObjectsUNKNOWN19_Up3::
-    INCSPRITE("assets/sprites/objects/objectsunknown19/ObjectsUNKNOWN19_Up3.spr")
+SPRITE_FerryOverworld_Up3::
+    INCSPRITE("assets/sprites/objects/ferryoverworld/FerryOverworld_Up3.spr")
 
 SPRITE_ObjectsUNKNOWN20_Left1::
     INCSPRITE("assets/sprites/objects/objectsunknown20/ObjectsUNKNOWN20_Left1.spr")
@@ -1611,101 +1611,101 @@ SCRIPT_ANIM_Forcefield_Idle::
     Pass()
     Jump(SCRIPT_ANIM_Forcefield_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN12_Main::
+SCRIPT_ANIM_Key_Idle::
     SpriteDraw() {
-        MoveDraw(96, 0, 0, SPRITE_ObjectsUNKNOWN12_1)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN12_2)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN12_3)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN12_4)
+        MoveDraw(96, 0, 0, SPRITE_Key_1)
+        MoveDraw(4, 0, 0, SPRITE_Key_2)
+        MoveDraw(4, 0, 0, SPRITE_Key_3)
+        MoveDraw(4, 0, 0, SPRITE_Key_4)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN12_Main)
+    Jump(SCRIPT_ANIM_Key_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN13_Main::
+SCRIPT_ANIM_GeyserOverworld_Idle::
     SpriteBlock(1, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN13_1)
-        Draw(SPRITE_ObjectsUNKNOWN13_2)
+        Draw(SPRITE_GeyserOverworld_1)
+        Draw(SPRITE_GeyserOverworld_2)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN13_Main)
+    Jump(SCRIPT_ANIM_GeyserOverworld_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN14_1::
+SCRIPT_ANIM_GeyserPlay_Idle::
     SpriteDraw() {
-        MoveDraw(16, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN14_2)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN14_2)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
-        MoveDraw(8, 0, 0, SPRITE_ObjectsUNKNOWN14_2)
-        MoveDraw(8, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
-        MoveDraw(8, 0, 0, SPRITE_ObjectsUNKNOWN14_2)
-        MoveDraw(8, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
-        MoveDraw(8, 0, 0, SPRITE_ObjectsUNKNOWN14_2)
+        MoveDraw(16, 0, 0, SPRITE_GeyserPlay_1)
+        MoveDraw(4, 0, 0, SPRITE_GeyserPlay_2)
+        MoveDraw(4, 0, 0, SPRITE_GeyserPlay_1)
+        MoveDraw(4, 0, 0, SPRITE_GeyserPlay_2)
+        MoveDraw(4, 0, 0, SPRITE_GeyserPlay_1)
+        MoveDraw(8, 0, 0, SPRITE_GeyserPlay_2)
+        MoveDraw(8, 0, 0, SPRITE_GeyserPlay_1)
+        MoveDraw(8, 0, 0, SPRITE_GeyserPlay_2)
+        MoveDraw(8, 0, 0, SPRITE_GeyserPlay_1)
+        MoveDraw(8, 0, 0, SPRITE_GeyserPlay_2)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN14_1)
+    Jump(SCRIPT_ANIM_GeyserPlay_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN14_2::
+SCRIPT_ANIM_GeyserPlay_Squished::
     SpriteDraw() {
-        MoveDraw(96, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(96, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     Pass()
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_ObjectsUNKNOWN14_3)
+        MoveDraw(1, 0, 0, SPRITE_GeyserPlay_3)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN14_3::
+SCRIPT_ANIM_GeyserPlay_IdleFrozen::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN14_1)
+        MoveDraw(255, 0, 0, SPRITE_GeyserPlay_1)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN14_3)
+    Jump(SCRIPT_ANIM_GeyserPlay_IdleFrozen)
 
-SCRIPT_ANIM_ObjectsUNKNOWN15_1::
+SCRIPT_ANIM_GlyphBox_Full::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN15_1)
+        MoveDraw(255, 0, 0, SPRITE_GlyphBox_Full)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN15_1)
+    Jump(SCRIPT_ANIM_GlyphBox_Full)
 
-SCRIPT_ANIM_ObjectsUNKNOWN15_2::
+SCRIPT_ANIM_Glyph_Idle::
     SpriteDraw() {
-        MoveDraw(96, 0, 0, SPRITE_ObjectsUNKNOWN15_3)
-        MoveDraw(16, 0, 0, SPRITE_ObjectsUNKNOWN15_4)
-        MoveDraw(16, 0, 0, SPRITE_ObjectsUNKNOWN15_5)
-        MoveDraw(16, 0, 0, SPRITE_ObjectsUNKNOWN15_6)
+        MoveDraw(96, 0, 0, SPRITE_Glyph_1)
+        MoveDraw(16, 0, 0, SPRITE_Glyph_2)
+        MoveDraw(16, 0, 0, SPRITE_Glyph_3)
+        MoveDraw(16, 0, 0, SPRITE_Glyph_4)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN15_2)
+    Jump(SCRIPT_ANIM_Glyph_Idle)
 
-SCRIPT_ANIM_ObjectsUNKNOWN15_3::
+SCRIPT_ANIM_GlyphBox_Empty::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN15_2)
+        MoveDraw(255, 0, 0, SPRITE_GlyphBox_Empty)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN15_3)
+    Jump(SCRIPT_ANIM_GlyphBox_Empty)
 
 SCRIPT_ANIM_ObjectsUNKNOWN16_Main::
     SpriteDraw() {
@@ -1793,69 +1793,69 @@ SCRIPT_ANIM_BluOverworld_FaceRight::
     }
     Jump(SCRIPT_ANIM_BluOverworld_FaceRight)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_WalkLeft::
+SCRIPT_ANIM_FerryOverworld_WalkLeft::
     SpriteBlock(8, -1, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Left1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Left2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Left3)
+        Draw(SPRITE_FerryOverworld_Left1)
+        Draw(SPRITE_FerryOverworld_Left2)
+        Draw(SPRITE_FerryOverworld_Left3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_WalkLeft)
+    Jump(SCRIPT_ANIM_FerryOverworld_WalkLeft)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_WalkRight::
+SCRIPT_ANIM_FerryOverworld_WalkRight::
     SpriteBlock(8, 1, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Right1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Right2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Right3)
+        Draw(SPRITE_FerryOverworld_Right1)
+        Draw(SPRITE_FerryOverworld_Right2)
+        Draw(SPRITE_FerryOverworld_Right3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_WalkRight)
+    Jump(SCRIPT_ANIM_FerryOverworld_WalkRight)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_WalkUp::
+SCRIPT_ANIM_FerryOverworld_WalkUp::
     SpriteBlock(8, 0, -1) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Up1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Up2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Up3)
+        Draw(SPRITE_FerryOverworld_Up1)
+        Draw(SPRITE_FerryOverworld_Up2)
+        Draw(SPRITE_FerryOverworld_Up3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_WalkUp)
+    Jump(SCRIPT_ANIM_FerryOverworld_WalkUp)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_WalkDown::
+SCRIPT_ANIM_FerryOverworld_WalkDown::
     SpriteBlock(8, 0, 1) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Down1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Down2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Down3)
+        Draw(SPRITE_FerryOverworld_Down1)
+        Draw(SPRITE_FerryOverworld_Down2)
+        Draw(SPRITE_FerryOverworld_Down3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_WalkDown)
+    Jump(SCRIPT_ANIM_FerryOverworld_WalkDown)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_FaceLeft::
+SCRIPT_ANIM_FerryOverworld_FaceLeft::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Left1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Left2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Left3)
+        Draw(SPRITE_FerryOverworld_Left1)
+        Draw(SPRITE_FerryOverworld_Left2)
+        Draw(SPRITE_FerryOverworld_Left3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_FaceLeft)
+    Jump(SCRIPT_ANIM_FerryOverworld_FaceLeft)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_FaceRight::
+SCRIPT_ANIM_FerryOverworld_FaceRight::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Right1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Right2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Right3)
+        Draw(SPRITE_FerryOverworld_Right1)
+        Draw(SPRITE_FerryOverworld_Right2)
+        Draw(SPRITE_FerryOverworld_Right3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_FaceRight)
+    Jump(SCRIPT_ANIM_FerryOverworld_FaceRight)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_FaceUp::
+SCRIPT_ANIM_FerryOverworld_FaceUp::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Up1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Up2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Up3)
+        Draw(SPRITE_FerryOverworld_Up1)
+        Draw(SPRITE_FerryOverworld_Up2)
+        Draw(SPRITE_FerryOverworld_Up3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_FaceUp)
+    Jump(SCRIPT_ANIM_FerryOverworld_FaceUp)
 
-SCRIPT_ANIM_ObjectsUNKNOWN19_FaceDown::
+SCRIPT_ANIM_FerryOverworld_FaceDown::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN19_Down1)
-        Draw(SPRITE_ObjectsUNKNOWN19_Down2)
-        Draw(SPRITE_ObjectsUNKNOWN19_Down3)
+        Draw(SPRITE_FerryOverworld_Down1)
+        Draw(SPRITE_FerryOverworld_Down2)
+        Draw(SPRITE_FerryOverworld_Down3)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN19_FaceDown)
+    Jump(SCRIPT_ANIM_FerryOverworld_FaceDown)
 
 SCRIPT_ANIM_ObjectsUNKNOWN20_WalkLeft::
     SpriteBlock(8, 0, -1) {
