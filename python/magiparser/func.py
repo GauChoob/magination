@@ -218,11 +218,11 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    def StartSFX1(self):                    # 0x1B
+    def StartSFX0(self):                    # 0x1B
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    def StartSFX2(self):                    # 0x1C
+    def StartSFX1(self):                    # 0x1C
         self.size = 2
         return self.GenerateOutput(*range(1))
 
