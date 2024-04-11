@@ -178,6 +178,7 @@ SCRIPT_ANIM_Jaela_FaceDownRight::
     Jump(SCRIPT_ANIM_Jaela_FaceDownRight)
 
 SCRIPT_ANIM_JaelaStone::
+    ; Unused - see StoneJaela
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_JaelaStone)
     }

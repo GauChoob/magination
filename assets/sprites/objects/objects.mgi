@@ -794,38 +794,38 @@ SPRITE_ExplodingShroom_6::
 SPRITE_BirdSeed::
     INCSPRITE("assets/sprites/objects/birdseed/BirdSeed.spr")
 
-SPRITE_ObjectsUNKNOWN25_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_1.spr")
+SPRITE_StoneGogor::
+    INCSPRITE("assets/sprites/objects/stonegogor/StoneGogor.spr")
 
-SPRITE_ObjectsUNKNOWN25_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_2.spr")
+SPRITE_StoneValkan::
+    INCSPRITE("assets/sprites/objects/stonevalkan/StoneValkan.spr")
 
-SPRITE_ObjectsUNKNOWN25_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_3.spr")
+SPRITE_StoneKaEryn::
+    INCSPRITE("assets/sprites/objects/stonekaeryn/StoneKaEryn.spr")
 
-SPRITE_ObjectsUNKNOWN25_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown25/ObjectsUNKNOWN25_4.spr")
+SPRITE_StoneJaela::
+    INCSPRITE("assets/sprites/objects/stonejaela/StoneJaela.spr")
 
-SPRITE_ObjectsUNKNOWN30_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_1.spr")
+SPRITE_ThreeHeadedCoin_1::
+    INCSPRITE("assets/sprites/objects/threeheadedcoin/ThreeHeadedCoin_1.spr")
 
-SPRITE_ObjectsUNKNOWN30_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_2.spr")
+SPRITE_ThreeHeadedCoin_2::
+    INCSPRITE("assets/sprites/objects/threeheadedcoin/ThreeHeadedCoin_2.spr")
 
-SPRITE_ObjectsUNKNOWN30_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_3.spr")
+SPRITE_ThreeHeadedCoin_3::
+    INCSPRITE("assets/sprites/objects/threeheadedcoin/ThreeHeadedCoin_3.spr")
 
-SPRITE_ObjectsUNKNOWN30_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_4.spr")
+SPRITE_ThreeHeadedCoin_4::
+    INCSPRITE("assets/sprites/objects/threeheadedcoin/ThreeHeadedCoin_4.spr")
 
-SPRITE_ObjectsUNKNOWN30_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_5.spr")
+SPRITE_BucketOPink::
+    INCSPRITE("assets/sprites/objects/bucketopink/BucketOPink.spr")
 
-SPRITE_ObjectsUNKNOWN30_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_6.spr")
+SPRITE_RabbageFoot::
+    INCSPRITE("assets/sprites/objects/rabbagefoot/RabbageFoot.spr")
 
-SPRITE_ObjectsUNKNOWN30_7::
-    INCSPRITE("assets/sprites/objects/objectsunknown30/ObjectsUNKNOWN30_7.spr")
+SPRITE_BalanceScale::
+    INCSPRITE("assets/sprites/objects/balancescale/BalanceScale.spr")
 
 SPRITE_AimTarget_Upright::
     INCSPRITE("assets/sprites/objects/aimtarget/AimTarget_Upright.spr")
@@ -1134,7 +1134,7 @@ SCRIPT_ANIM_BirdSeed::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_BirdSeed)
     }
-    Jump(SCRIPT_ANIM_BirdSeed_Idle)
+    Jump(SCRIPT_ANIM_BirdSeed)
 
 SCRIPT_ANIM_Boat_FloatRight::
     SpriteBlock(16, 0, 0) {
@@ -1327,11 +1327,11 @@ SCRIPT_ANIM_CoreStone_Idle::
     }
     Jump(SCRIPT_ANIM_CoreStone_Idle)
 
-SCRIPT_ANIM_CoreStone_FrozenUNKNOWN::
+SCRIPT_ANIM_CoreStone_IdleFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_CoreStone_1)
     }
-    Jump(SCRIPT_ANIM_CoreStone_FrozenUNKNOWN)
+    Jump(SCRIPT_ANIM_CoreStone_IdleFrozen)
 
 SCRIPT_ANIM_CoreStone_Thrown::
     SpriteDraw() {
@@ -2029,29 +2029,29 @@ SCRIPT_ANIM_StarSparkle_Main::
     }
     Jump(SCRIPT_ANIM_StarSparkle_Main)
 
-SCRIPT_ANIM_ObjectsUNKNOWN25_1::
+SCRIPT_ANIM_StoneGogor::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN25_1)
+        MoveDraw(255, 0, 0, SPRITE_StoneGogor)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN25_1)
+    Jump(SCRIPT_ANIM_StoneGogor)
 
-SCRIPT_ANIM_ObjectsUNKNOWN25_2::
+SCRIPT_ANIM_StoneValkan::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN25_2)
+        MoveDraw(255, 0, 0, SPRITE_StoneValkan)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN25_2)
+    Jump(SCRIPT_ANIM_StoneValkan)
 
-SCRIPT_ANIM_ObjectsUNKNOWN25_3::
+SCRIPT_ANIM_StoneKaEryn::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN25_3)
+        MoveDraw(255, 0, 0, SPRITE_StoneKaEryn)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN25_3)
+    Jump(SCRIPT_ANIM_StoneKaEryn)
 
-SCRIPT_ANIM_ObjectsUNKNOWN25_4::
+SCRIPT_ANIM_StoneJaela::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN25_4)
+        MoveDraw(255, 0, 0, SPRITE_StoneJaela)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN25_4)
+    Jump(SCRIPT_ANIM_StoneJaela)
 
 SCRIPT_ANIM_BlastUrn_Idle::
     SpriteDraw() {
@@ -2167,29 +2167,30 @@ SCRIPT_ANIM_Whirlpool_Main::
     }
     Jump(SCRIPT_ANIM_Whirlpool_Main)
 
-SCRIPT_ANIM_ObjectsUNKNOWN30_1::
+SCRIPT_ANIM_BucketOPink::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN30_5)
+        MoveDraw(255, 0, 0, SPRITE_BucketOPink)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN30_1)
+    Jump(SCRIPT_ANIM_BucketOPink)
 
-SCRIPT_ANIM_ObjectsUNKNOWN30_2::
+SCRIPT_ANIM_ThreeHeadedCoin::
     SpriteDraw() {
-        MoveDraw(128, 0, 0, SPRITE_ObjectsUNKNOWN30_1)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN30_2)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN30_3)
-        MoveDraw(4, 0, 0, SPRITE_ObjectsUNKNOWN30_4)
+        MoveDraw(128, 0, 0, SPRITE_ThreeHeadedCoin_1)
+        MoveDraw(4, 0, 0, SPRITE_ThreeHeadedCoin_2)
+        MoveDraw(4, 0, 0, SPRITE_ThreeHeadedCoin_3)
+        MoveDraw(4, 0, 0, SPRITE_ThreeHeadedCoin_4)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN30_2)
+    Jump(SCRIPT_ANIM_ThreeHeadedCoin)
 
-SCRIPT_ANIM_ObjectsUNKNOWN30_3::
+SCRIPT_ANIM_BalanceScale::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN30_7)
+        MoveDraw(255, 0, 0, SPRITE_BalanceScale)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN30_3)
+    Jump(SCRIPT_ANIM_BalanceScale)
 
-SCRIPT_ANIM_ObjectsUNKNOWN30_4::
+SCRIPT_ANIM_RabbageFoot::
+    ; Used as Plod Spnew in the game
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN30_6)
+        MoveDraw(255, 0, 0, SPRITE_RabbageFoot)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN30_4)
+    Jump(SCRIPT_ANIM_RabbageFoot)
