@@ -1,0 +1,5 @@
+Change tests to not rely on compiled files (i.e. autopack test)
+Compile package so location of packages doesn't matter
+
+
+Define non-standard tile offsets (e.g. CardsceneFX -> $40)

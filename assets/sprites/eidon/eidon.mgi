@@ -50,8 +50,8 @@ SPRITE_Eidon_WalkLeft2::
 SPRITE_Eidon_Wave::
     INCSPRITE("assets/sprites/eidon/Eidon_Wave.spr")
 
-SPRITE_Eidon_UNKNOWN::
-    INCSPRITE("assets/sprites/eidon/Eidon_UNKNOWN.spr")
+SPRITE_Eidon_FaceDownTopHalf::
+    INCSPRITE("assets/sprites/eidon/Eidon_FaceDownTopHalf.spr")
 
 SPRITE_EidonWork_ChopRight1::
     INCSPRITE("assets/sprites/eidon/EidonWork_ChopRight1.spr")
@@ -71,26 +71,26 @@ SPRITE_EidonWork_ChopLeft2::
 SPRITE_EidonWork_ChopLeft3::
     INCSPRITE("assets/sprites/eidon/EidonWork_ChopLeft3.spr")
 
-SPRITE_EidonWork_UNKNOWN2_1::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWN2_1.spr")
+SPRITE_EidonFall_FallRight::
+    INCSPRITE("assets/sprites/eidon/EidonFall_FallRight.spr")
 
-SPRITE_EidonWork_UNKNOWN2_2::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWN2_2.spr")
+SPRITE_EidonFall_FallenRight::
+    INCSPRITE("assets/sprites/eidon/EidonFall_FallenRight.spr")
 
-SPRITE_EidonWork_UNKNOWN1_1::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWN1_1.spr")
+SPRITE_EidonFall_FallLeft::
+    INCSPRITE("assets/sprites/eidon/EidonFall_FallLeft.spr")
 
-SPRITE_EidonWork_UNKNOWN1_2::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWN1_2.spr")
+SPRITE_EidonFall_FallenLeft::
+    INCSPRITE("assets/sprites/eidon/EidonFall_FallenLeft.spr")
 
-SPRITE_EidonWork_UNKNOWNDown_1::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWNDown_1.spr")
+SPRITE_EidonOrwin_CarryDown1::
+    INCSPRITE("assets/sprites/eidon/EidonOrwin_CarryDown1.spr")
 
-SPRITE_EidonWork_UNKNOWNDown_2_FACEMAYBE::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWNDown_2_FACEMAYBE.spr")
+SPRITE_EidonOrwin_CarryDown2::
+    INCSPRITE("assets/sprites/eidon/EidonOrwin_CarryDown2.spr")
 
-SPRITE_EidonWork_UNKNOWNDown_3::
-    INCSPRITE("assets/sprites/eidon/EidonWork_UNKNOWNDown_3.spr")
+SPRITE_EidonOrwin_CarryDown3::
+    INCSPRITE("assets/sprites/eidon/EidonOrwin_CarryDown3.spr")
 
 SCRIPT_ANIM_Eidon_WalkUp::
     SpriteBlock(8, 0, -1) {
@@ -212,11 +212,12 @@ SCRIPT_ANIM_Eidon_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_Eidon_FaceDownRight)
 
-SCRIPT_ANIM_Eidon_UNKNOWN::
+SCRIPT_ANIM_Eidon_FaceDownTopHalf::
+    ; Just the top half of the sprite. Probably to resolve some graphical glitch?
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Eidon_UNKNOWN)
+        MoveDraw(255, 0, 0, SPRITE_Eidon_FaceDownTopHalf)
     }
-    Jump(SCRIPT_ANIM_Eidon_UNKNOWN)
+    Jump(SCRIPT_ANIM_Eidon_FaceDownTopHalf)
 
 SCRIPT_ANIM_Eidon_Wave::
     SpriteDraw() {
@@ -261,11 +262,11 @@ SCRIPT_ANIM_EidonWork_ChopLeft::
     }
     Jump(SCRIPT_ANIM_EidonWork_ChopLeft)
 
-SCRIPT_ANIM_EidonWork_UNKNOWNChopLeft::
+SCRIPT_ANIM_EidonWork_ChopLeftFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_EidonWork_ChopLeft1)
     }
-    Jump(SCRIPT_ANIM_EidonWork_UNKNOWNChopLeft)
+    Jump(SCRIPT_ANIM_EidonWork_ChopLeftFrozen)
 
 SCRIPT_ANIM_EidonWork_ChopChopRight::
     SpriteDraw() {
@@ -281,42 +282,40 @@ SCRIPT_ANIM_EidonWork_ChopChopLeft::
     }
     Jump(SCRIPT_ANIM_EidonWork_ChopChopLeft)
 
-SCRIPT_ANIM_EidonWork_UNKNOWN1::
+SCRIPT_ANIM_EidonFall_FallLeft::
     SpriteDraw() {
-        MoveDraw(16, 0, 0, SPRITE_EidonWork_UNKNOWN1_1)
+        MoveDraw(16, 0, 0, SPRITE_EidonFall_FallLeft)
     }
-
-.Loop::
+SCRIPT_ANIM_EidonFall_FallenLeft::
     SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_EidonWork_UNKNOWN1_2)
+        MoveDraw(1, 0, 0, SPRITE_EidonFall_FallenLeft)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_EidonFall_FallenLeft)
 
-SCRIPT_ANIM_EidonWork_UNKNOWN2::
+SCRIPT_ANIM_EidonFall_FallRight::
     SpriteDraw() {
-        MoveDraw(16, 0, 0, SPRITE_EidonWork_UNKNOWN2_1)
+        MoveDraw(16, 0, 0, SPRITE_EidonFall_FallRight)
     }
+SCRIPT_ANIM_EidonFall_FallenRight::
+        SpriteDraw() {
+            MoveDraw(1, 0, 0, SPRITE_EidonFall_FallenRight)
+        }
+        Jump(SCRIPT_ANIM_EidonFall_FallenRight)
 
-.Loop::
-    SpriteDraw() {
-        MoveDraw(1, 0, 0, SPRITE_EidonWork_UNKNOWN2_2)
-    }
-    Jump(.Loop)
-
-SCRIPT_ANIM_EidonWork_UNKNOWNDown1::
+SCRIPT_ANIM_EidonOrwin_CarryDown::
     SpriteBlock(8, 0, 1) {
-        Draw(SPRITE_EidonWork_UNKNOWNDown_1)
-        Draw(SPRITE_EidonWork_UNKNOWNDown_2_FACEMAYBE)
-        Draw(SPRITE_EidonWork_UNKNOWNDown_3)
-        Draw(SPRITE_EidonWork_UNKNOWNDown_2_FACEMAYBE)
+        Draw(SPRITE_EidonOrwin_CarryDown1)
+        Draw(SPRITE_EidonOrwin_CarryDown2)
+        Draw(SPRITE_EidonOrwin_CarryDown3)
+        Draw(SPRITE_EidonOrwin_CarryDown2)
     }
-    Jump(SCRIPT_ANIM_EidonWork_UNKNOWNDown1)
+    Jump(SCRIPT_ANIM_EidonOrwin_CarryDown)
 
-SCRIPT_ANIM_EidonWork_UNKNOWNDown2::
+SCRIPT_ANIM_EidonOrwin_CarryFaceDown::
     SpriteDraw() {
-        MoveDraw(8, 0, 0, SPRITE_EidonWork_UNKNOWNDown_1)
+        MoveDraw(8, 0, 0, SPRITE_EidonOrwin_CarryDown1)
     }
-    Jump(SCRIPT_ANIM_EidonWork_UNKNOWNDown2)
+    Jump(SCRIPT_ANIM_EidonOrwin_CarryFaceDown)
 
 SCRIPT_ANIM_Eidon_FaceHero::
     Switch(#DIRECTION#) {
@@ -325,23 +324,19 @@ SCRIPT_ANIM_Eidon_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Eidon_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

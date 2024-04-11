@@ -1,9 +1,9 @@
 
-SPRITE_ArderialGuard_FaceUNKRight::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_FaceUNKRight.spr")
+SPRITE_ArderialGuard_FaceDownRight::
+    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_FaceDownRight.spr")
 
-SPRITE_ArderialGuard_FaceUNKLeft::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_FaceUNKLeft.spr")
+SPRITE_ArderialGuard_FaceDownLeft::
+    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_FaceDownLeft.spr")
 
 SPRITE_ArderialGuard_WalkDown1::
     INCSPRITE("assets/sprites/arderialguard/ArderialGuard_WalkDown1.spr")
@@ -41,8 +41,8 @@ SPRITE_ArderialGuard_FaceLeft::
 SPRITE_ArderialGuard_WalkLeft2::
     INCSPRITE("assets/sprites/arderialguard/ArderialGuard_WalkLeft2.spr")
 
-SPRITE_ArderialGuardFly_1UNK::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_1UNK.spr")
+SPRITE_ArderialGuardFly_FaceDown_UNUSED::
+    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_FaceDown_UNUSED.spr")
 
 SPRITE_ArderialGuardFly_WalkDown1::
     INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_WalkDown1.spr")
@@ -80,161 +80,161 @@ SPRITE_ArderialGuardFly_FaceLeft::
 SPRITE_ArderialGuardFly_WalkLeft2::
     INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_WalkLeft2.spr")
 
-SPRITE_ArderialGuardFly_AttackDownLeft1::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_AttackDownLeft1.spr")
+SPRITE_ArderialGuardFly_AttackLeft1::
+    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_AttackLeft1.spr")
 
-SPRITE_ArderialGuardFly_AttackDownLeft2::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_AttackDownLeft2.spr")
+SPRITE_ArderialGuardFly_AttackLeft2::
+    INCSPRITE("assets/sprites/arderialguard/ArderialGuardFly_AttackLeft2.spr")
 
-SPRITE_ArderialGuard_2UNK_3::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_2UNK_3.spr")
+SPRITE_Cloaked_FaceDownRight::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceDownRight.spr")
 
-SPRITE_ArderialGuard_2UNK_4::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_2UNK_4.spr")
+SPRITE_Cloaked_FaceDownLeft::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceDownLeft.spr")
 
-SPRITE_ArderialGuard_Walk2Down1::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Down1.spr")
+SPRITE_Cloaked_WalkDown1::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkDown1.spr")
 
-SPRITE_ArderialGuard_Face2Down::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Face2Down.spr")
+SPRITE_Cloaked_FaceDown::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceDown.spr")
 
-SPRITE_ArderialGuard_Walk2Down2::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Down2.spr")
+SPRITE_Cloaked_WalkDown2::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkDown2.spr")
 
-SPRITE_ArderialGuard_Walk2Up1::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Up1.spr")
+SPRITE_Cloaked_WalkUp1::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkUp1.spr")
 
-SPRITE_ArderialGuard_Face2Up::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Face2Up.spr")
+SPRITE_Cloaked_FaceUp::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceUp.spr")
 
-SPRITE_ArderialGuard_Walk2Up2::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Up2.spr")
+SPRITE_Cloaked_WalkUp2::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkUp2.spr")
 
-SPRITE_ArderialGuard_Walk2Right1::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Right1.spr")
+SPRITE_Cloaked_WalkRight1::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkRight1.spr")
 
-SPRITE_ArderialGuard_Face2Right::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Face2Right.spr")
+SPRITE_Cloaked_FaceRight::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceRight.spr")
 
-SPRITE_ArderialGuard_Walk2Right2::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Right2.spr")
+SPRITE_Cloaked_WalkRight2::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkRight2.spr")
 
-SPRITE_ArderialGuard_Walk2Left1::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Left1.spr")
+SPRITE_Cloaked_WalkLeft1::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkLeft1.spr")
 
-SPRITE_ArderialGuard_Face2Left::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Face2Left.spr")
+SPRITE_Cloaked_FaceLeft::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_FaceLeft.spr")
 
-SPRITE_ArderialGuard_Walk2Left2::
-    INCSPRITE("assets/sprites/arderialguard/ArderialGuard_Walk2Left2.spr")
+SPRITE_Cloaked_WalkLeft2::
+    INCSPRITE("assets/sprites/arderialguard/Cloaked_WalkLeft2.spr")
 
-SCRIPT_ANIM_ArderialGuard_Walk1Up::
+SCRIPT_ANIM_ArderialGuard_WalkUp::
     SpriteBlock(8, 0, -1) {
         Draw(SPRITE_ArderialGuard_WalkUp1)
         Draw(SPRITE_ArderialGuard_FaceUp)
         Draw(SPRITE_ArderialGuard_WalkUp2)
         Draw(SPRITE_ArderialGuard_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk1Up)
+    Jump(SCRIPT_ANIM_ArderialGuard_WalkUp)
 
-SCRIPT_ANIM_ArderialGuard_Walk1Down::
+SCRIPT_ANIM_ArderialGuard_WalkDown::
     SpriteBlock(8, 0, 1) {
         Draw(SPRITE_ArderialGuard_WalkDown1)
         Draw(SPRITE_ArderialGuard_FaceDown)
         Draw(SPRITE_ArderialGuard_WalkDown2)
         Draw(SPRITE_ArderialGuard_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk1Down)
+    Jump(SCRIPT_ANIM_ArderialGuard_WalkDown)
 
-SCRIPT_ANIM_ArderialGuard_Walk1Left::
+SCRIPT_ANIM_ArderialGuard_WalkLeft::
     SpriteBlock(8, -1, 0) {
         Draw(SPRITE_ArderialGuard_WalkLeft1)
         Draw(SPRITE_ArderialGuard_FaceLeft)
         Draw(SPRITE_ArderialGuard_WalkLeft2)
         Draw(SPRITE_ArderialGuard_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk1Left)
+    Jump(SCRIPT_ANIM_ArderialGuard_WalkLeft)
 
-SCRIPT_ANIM_ArderialGuard_Walk1Right::
+SCRIPT_ANIM_ArderialGuard_WalkRight::
     SpriteBlock(8, 1, 0) {
         Draw(SPRITE_ArderialGuard_WalkRight1)
         Draw(SPRITE_ArderialGuard_FaceRight)
         Draw(SPRITE_ArderialGuard_WalkRight2)
         Draw(SPRITE_ArderialGuard_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk1Right)
+    Jump(SCRIPT_ANIM_ArderialGuard_WalkRight)
 
-SCRIPT_ANIM_ArderialGuard_Walk2Up::
+SCRIPT_ANIM_Cloaked_WalkUp::
     SpriteBlock(8, 0, -1) {
-        Draw(SPRITE_ArderialGuard_Walk2Up1)
-        Draw(SPRITE_ArderialGuard_Face2Up)
-        Draw(SPRITE_ArderialGuard_Walk2Up2)
-        Draw(SPRITE_ArderialGuard_Face2Up)
+        Draw(SPRITE_Cloaked_WalkUp1)
+        Draw(SPRITE_Cloaked_FaceUp)
+        Draw(SPRITE_Cloaked_WalkUp2)
+        Draw(SPRITE_Cloaked_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk2Up)
+    Jump(SCRIPT_ANIM_Cloaked_WalkUp)
 
-SCRIPT_ANIM_ArderialGuard_Walk2Down::
+SCRIPT_ANIM_Cloaked_WalkDown::
     SpriteBlock(8, 0, 1) {
-        Draw(SPRITE_ArderialGuard_Walk2Down1)
-        Draw(SPRITE_ArderialGuard_Face2Down)
-        Draw(SPRITE_ArderialGuard_Walk2Down2)
-        Draw(SPRITE_ArderialGuard_Face2Down)
+        Draw(SPRITE_Cloaked_WalkDown1)
+        Draw(SPRITE_Cloaked_FaceDown)
+        Draw(SPRITE_Cloaked_WalkDown2)
+        Draw(SPRITE_Cloaked_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk2Down)
+    Jump(SCRIPT_ANIM_Cloaked_WalkDown)
 
-SCRIPT_ANIM_ArderialGuard_Walk2Left::
+SCRIPT_ANIM_Cloaked_WalkLeft::
     SpriteBlock(8, -1, 0) {
-        Draw(SPRITE_ArderialGuard_Walk2Left1)
-        Draw(SPRITE_ArderialGuard_Face2Left)
-        Draw(SPRITE_ArderialGuard_Walk2Left2)
-        Draw(SPRITE_ArderialGuard_Face2Left)
+        Draw(SPRITE_Cloaked_WalkLeft1)
+        Draw(SPRITE_Cloaked_FaceLeft)
+        Draw(SPRITE_Cloaked_WalkLeft2)
+        Draw(SPRITE_Cloaked_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk2Left)
+    Jump(SCRIPT_ANIM_Cloaked_WalkLeft)
 
-SCRIPT_ANIM_ArderialGuard_Walk2Right::
+SCRIPT_ANIM_Cloaked_WalkRight::
     SpriteBlock(8, 1, 0) {
-        Draw(SPRITE_ArderialGuard_Walk2Right1)
-        Draw(SPRITE_ArderialGuard_Face2Right)
-        Draw(SPRITE_ArderialGuard_Walk2Right2)
-        Draw(SPRITE_ArderialGuard_Face2Right)
+        Draw(SPRITE_Cloaked_WalkRight1)
+        Draw(SPRITE_Cloaked_FaceRight)
+        Draw(SPRITE_Cloaked_WalkRight2)
+        Draw(SPRITE_Cloaked_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk2Right)
+    Jump(SCRIPT_ANIM_Cloaked_WalkRight)
 
-SCRIPT_ANIM_ArderialGuard_Run2Up::
+SCRIPT_ANIM_Cloaked_RunUp::
     SpriteBlock(8, 0, -2) {
-        Draw(SPRITE_ArderialGuard_Walk2Up1)
-        Draw(SPRITE_ArderialGuard_Face2Up)
-        Draw(SPRITE_ArderialGuard_Walk2Up2)
-        Draw(SPRITE_ArderialGuard_Face2Up)
+        Draw(SPRITE_Cloaked_WalkUp1)
+        Draw(SPRITE_Cloaked_FaceUp)
+        Draw(SPRITE_Cloaked_WalkUp2)
+        Draw(SPRITE_Cloaked_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run2Up)
+    Jump(SCRIPT_ANIM_Cloaked_RunUp)
 
-SCRIPT_ANIM_ArderialGuard_Run2Down::
+SCRIPT_ANIM_Cloaked_RunDown::
     SpriteBlock(8, 0, 2) {
-        Draw(SPRITE_ArderialGuard_Walk2Down1)
-        Draw(SPRITE_ArderialGuard_Face2Down)
-        Draw(SPRITE_ArderialGuard_Walk2Down2)
-        Draw(SPRITE_ArderialGuard_Face2Down)
+        Draw(SPRITE_Cloaked_WalkDown1)
+        Draw(SPRITE_Cloaked_FaceDown)
+        Draw(SPRITE_Cloaked_WalkDown2)
+        Draw(SPRITE_Cloaked_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run2Down)
+    Jump(SCRIPT_ANIM_Cloaked_RunDown)
 
-SCRIPT_ANIM_ArderialGuard_Run2Left::
+SCRIPT_ANIM_Cloaked_RunLeft::
     SpriteBlock(8, -2, 0) {
-        Draw(SPRITE_ArderialGuard_Walk2Left1)
-        Draw(SPRITE_ArderialGuard_Face2Left)
-        Draw(SPRITE_ArderialGuard_Walk2Left2)
-        Draw(SPRITE_ArderialGuard_Face2Left)
+        Draw(SPRITE_Cloaked_WalkLeft1)
+        Draw(SPRITE_Cloaked_FaceLeft)
+        Draw(SPRITE_Cloaked_WalkLeft2)
+        Draw(SPRITE_Cloaked_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run2Left)
+    Jump(SCRIPT_ANIM_Cloaked_RunLeft)
 
-SCRIPT_ANIM_ArderialGuard_Run2Right::
+SCRIPT_ANIM_Cloaked_RunRight::
     SpriteBlock(8, 2, 0) {
-        Draw(SPRITE_ArderialGuard_Walk2Right1)
-        Draw(SPRITE_ArderialGuard_Face2Right)
-        Draw(SPRITE_ArderialGuard_Walk2Right2)
-        Draw(SPRITE_ArderialGuard_Face2Right)
+        Draw(SPRITE_Cloaked_WalkRight1)
+        Draw(SPRITE_Cloaked_FaceRight)
+        Draw(SPRITE_Cloaked_WalkRight2)
+        Draw(SPRITE_Cloaked_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run2Right)
+    Jump(SCRIPT_ANIM_Cloaked_RunRight)
 
 SCRIPT_ANIM_ArderialGuardFly_WalkUp::
     SpriteBlock(8, 0, -1) {
@@ -290,11 +290,11 @@ SCRIPT_ANIM_ArderialGuardFly_FaceDown::
     }
     Jump(SCRIPT_ANIM_ArderialGuardFly_FaceDown)
 
-SCRIPT_ANIM_ArderialGuardFly_FrozenFaceDown::
+SCRIPT_ANIM_ArderialGuardFly_FaceDownFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuardFly_WalkDown2)
     }
-    Jump(SCRIPT_ANIM_ArderialGuardFly_FrozenFaceDown)
+    Jump(SCRIPT_ANIM_ArderialGuardFly_FaceDownFrozen)
 
 SCRIPT_ANIM_ArderialGuardFly_FaceLeft::
     SpriteBlock(8, 0, 0) {
@@ -305,11 +305,11 @@ SCRIPT_ANIM_ArderialGuardFly_FaceLeft::
     }
     Jump(SCRIPT_ANIM_ArderialGuardFly_FaceLeft)
 
-SCRIPT_ANIM_ArderialGuardFly_FrozenFaceLeft::
+SCRIPT_ANIM_ArderialGuardFly_FaceLeftFrozen::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuardFly_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuardFly_FrozenFaceLeft)
+    Jump(SCRIPT_ANIM_ArderialGuardFly_FaceLeftFrozen)
 
 SCRIPT_ANIM_ArderialGuardFly_FaceRight::
     SpriteBlock(8, 0, 0) {
@@ -320,329 +320,321 @@ SCRIPT_ANIM_ArderialGuardFly_FaceRight::
     }
     Jump(SCRIPT_ANIM_ArderialGuardFly_FaceRight)
 
-SCRIPT_ANIM_ArderialGuard_Run1Up::
+SCRIPT_ANIM_ArderialGuard_RunUp::
     SpriteBlock(8, 0, -2) {
         Draw(SPRITE_ArderialGuard_WalkUp1)
         Draw(SPRITE_ArderialGuard_FaceUp)
         Draw(SPRITE_ArderialGuard_WalkUp2)
         Draw(SPRITE_ArderialGuard_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run1Up)
+    Jump(SCRIPT_ANIM_ArderialGuard_RunUp)
 
-SCRIPT_ANIM_ArderialGuard_Run1Down::
+SCRIPT_ANIM_ArderialGuard_RunDown::
     SpriteBlock(8, 0, 2) {
         Draw(SPRITE_ArderialGuard_WalkDown1)
         Draw(SPRITE_ArderialGuard_FaceDown)
         Draw(SPRITE_ArderialGuard_WalkDown2)
         Draw(SPRITE_ArderialGuard_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run1Down)
+    Jump(SCRIPT_ANIM_ArderialGuard_RunDown)
 
-SCRIPT_ANIM_ArderialGuard_Run1Left::
+SCRIPT_ANIM_ArderialGuard_RunLeft::
     SpriteBlock(8, -2, 0) {
         Draw(SPRITE_ArderialGuard_WalkLeft1)
         Draw(SPRITE_ArderialGuard_FaceLeft)
         Draw(SPRITE_ArderialGuard_WalkLeft2)
         Draw(SPRITE_ArderialGuard_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run1Left)
+    Jump(SCRIPT_ANIM_ArderialGuard_RunLeft)
 
-SCRIPT_ANIM_ArderialGuard_Run1Right::
+SCRIPT_ANIM_ArderialGuard_RunRight::
     SpriteBlock(8, 2, 0) {
         Draw(SPRITE_ArderialGuard_WalkRight1)
         Draw(SPRITE_ArderialGuard_FaceRight)
         Draw(SPRITE_ArderialGuard_WalkRight2)
         Draw(SPRITE_ArderialGuard_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Run1Right)
+    Jump(SCRIPT_ANIM_ArderialGuard_RunRight)
 
-SCRIPT_ANIM_ArderialGuard_Face2Up::
+SCRIPT_ANIM_Cloaked_FaceUp::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_Face2Up)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2Up)
+    Jump(SCRIPT_ANIM_Cloaked_FaceUp)
 
-SCRIPT_ANIM_ArderialGuard_Face2Down::
+SCRIPT_ANIM_Cloaked_FaceDown::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_Face2Down)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2Down)
+    Jump(SCRIPT_ANIM_Cloaked_FaceDown)
 
-SCRIPT_ANIM_ArderialGuard_Face2Left::
+SCRIPT_ANIM_Cloaked_FaceLeft::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_Face2Left)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2Left)
+    Jump(SCRIPT_ANIM_Cloaked_FaceLeft)
 
-SCRIPT_ANIM_ArderialGuard_Face2Right::
+SCRIPT_ANIM_Cloaked_FaceRight::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_Face2Right)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2Right)
+    Jump(SCRIPT_ANIM_Cloaked_FaceRight)
 
-SCRIPT_ANIM_ArderialGuard_Face2UNK1::
+SCRIPT_ANIM_Cloaked_FaceDownLeft::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_2UNK_4)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceDownLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2UNK1)
+    Jump(SCRIPT_ANIM_Cloaked_FaceDownLeft)
 
-SCRIPT_ANIM_ArderialGuard_Face2UNK2::
+SCRIPT_ANIM_Cloaked_FaceDownRight::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_2UNK_3)
+        MoveDraw(255, 0, 0, SPRITE_Cloaked_FaceDownRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face2UNK2)
+    Jump(SCRIPT_ANIM_Cloaked_FaceDownRight)
 
-SCRIPT_ANIM_ArderialGuard_Face1Up::
+SCRIPT_ANIM_ArderialGuard_FaceUp::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceUp)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1Up)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceUp)
 
-SCRIPT_ANIM_ArderialGuard_Face1Down::
+SCRIPT_ANIM_ArderialGuard_FaceDown::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1Down)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceDown)
 
-SCRIPT_ANIM_ArderialGuard_Face1UNK1::
+SCRIPT_ANIM_ArderialGuard_FaceDown_UNUSED::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuardFly_1UNK)
+        MoveDraw(255, 0, 0, SPRITE_ArderialGuardFly_FaceDown_UNUSED)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1Down)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceDown)
 
-SCRIPT_ANIM_ArderialGuard_Face1Left::
+SCRIPT_ANIM_ArderialGuard_FaceLeft::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1Left)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceLeft)
 
-SCRIPT_ANIM_ArderialGuard_Face1Right::
+SCRIPT_ANIM_ArderialGuard_FaceRight::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1Right)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceRight)
 
-SCRIPT_ANIM_ArderialGuard_Face1UNK2L::
+SCRIPT_ANIM_ArderialGuard_FaceDownLeft::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceUNKLeft)
+        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceDownLeft)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1UNK2L)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceDownLeft)
 
-SCRIPT_ANIM_ArderialGuard_Face1UNK3R::
+SCRIPT_ANIM_ArderialGuard_FaceDownRight::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceUNKRight)
+        MoveDraw(255, 0, 0, SPRITE_ArderialGuard_FaceDownRight)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Face1UNK3R)
+    Jump(SCRIPT_ANIM_ArderialGuard_FaceDownRight)
 
-SCRIPT_ANIM_ArderialGuardFly_AttackDown::
+SCRIPT_ANIM_ArderialGuardFly_AttackLeft::
     SpriteDraw() {
-        MoveDraw(32, 0, 3, SPRITE_ArderialGuardFly_AttackDownLeft1)
-        MoveDraw(4, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
-        MoveDraw(16, 0, 0, SPRITE_ArderialGuardFly_AttackDownLeft2)
+        MoveDraw(32, 0, 3, SPRITE_ArderialGuardFly_AttackLeft1)
+        MoveDraw(4, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 2, -1, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(2, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(1, 1, 0, SPRITE_ArderialGuardFly_AttackLeft2)
+        MoveDraw(16, 0, 0, SPRITE_ArderialGuardFly_AttackLeft2)
     }
     Jump(SCRIPT_ANIM_ArderialGuardFly_FaceLeft)
 
-SCRIPT_ANIM_ArderialGuard_Crawl2Down::
+SCRIPT_ANIM_Cloaked_CrawlDown::
     SpriteDraw() {
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Crawl2Down)
+    Jump(SCRIPT_ANIM_Cloaked_CrawlDown)
 
-SCRIPT_ANIM_ArderialGuard_Walk2DownLeft::
+SCRIPT_ANIM_Cloaked_CrawlDownLeft::
     SpriteDraw() {
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down1)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Walk2Down2)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, -1, 1, SPRITE_ArderialGuard_Face2Down)
-        MoveDraw(1, 0, 0, SPRITE_ArderialGuard_Face2Down)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown1)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_WalkDown2)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, -1, 1, SPRITE_Cloaked_FaceDown)
+        MoveDraw(1, 0, 0, SPRITE_Cloaked_FaceDown)
     }
-    Jump(SCRIPT_ANIM_ArderialGuard_Walk2DownLeft)
+    Jump(SCRIPT_ANIM_Cloaked_CrawlDownLeft)
 
-SCRIPT_ANIM_ArderialGuard_FaceHero1::
+SCRIPT_ANIM_ArderialGuard_FaceHero::
     Switch(#DIRECTION#) {
         Case(Actor_FLAGS_FACENORTH, .FaceUp)
         Case(Actor_FLAGS_FACESOUTH, .FaceDown)
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
 
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face1Up)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face1Down)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face1Left)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face1Right)
-    WaitEventText(1)
-    RestoreActorState()
-
-SCRIPT_ANIM_ArderialGuard_FaceHero2::
+SCRIPT_ANIM_Cloaked_FaceHero::
     Switch(#DIRECTION#) {
         Case(Actor_FLAGS_FACENORTH, .FaceUp)
         Case(Actor_FLAGS_FACESOUTH, .FaceDown)
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face2Up)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face2Down)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face2Left)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_ArderialGuard_Face2Right)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Cloaked_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Cloaked_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Cloaked_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Cloaked_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

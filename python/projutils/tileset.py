@@ -125,11 +125,9 @@ class Bitmap(filecontents.FileContentsSerializer):
                         low = low | colorlow
                         high = high | colorhigh
                     data.extend([low, high])
-        if self.compression_mode and self.discarded_tiles:
-            # If there is compression, we must discard the unused tiles
+        if self.discarded_tiles:
+            # Discard the unused tiles
             data = data[:-self.discarded_tiles*0x10]
-        if self.compression_mode is None and self.discarded_tiles:
-            data[-self.discarded_tiles*0x10:] = self.DISCARDED_TILE*self.discarded_tiles
         return bytes(data)
 
     def _to_original_data(self) -> list[list[int]]:
@@ -152,10 +150,16 @@ class Bitmap(filecontents.FileContentsSerializer):
         return pixels
 
     @classmethod
-    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None) -> Self:
+    def init_from_rom(cls, sym: utils.SymFile, rom: utils.Rom, address: utils.BankAddress, compressed: bool, tilewidth: int | None, tileheight: int | None, size: int | None) -> Self:
         self = cls()
         if compressed:
             data = self._handle_rle_from_rom(rom, address, compressed, None)
+        elif size is not None:
+            self._size = size
+            data = rom.getRawSection(address, self._size)
+            if tilewidth is not None and tileheight is not None and self._size < tilewidth*tileheight*0x10:
+                self.discarded_tiles = tilewidth*tileheight - self._size//0x10
+                data = data + bytes(self.DISCARDED_TILE)*self.discarded_tiles
         else:
             self._size = tilewidth*tileheight*0x10
             data = rom.getRawSection(address, self._size)
@@ -176,7 +180,7 @@ class Bitmap(filecontents.FileContentsSerializer):
         # If size is too big, we need to insert discarded tiles
         if tilewidth is not None and tileheight is not None and len(data) < tilewidth*tileheight*0x10:
             self.discarded_tiles = tilewidth*tileheight - len(data)//0x10
-            data.extend(self.DISCARDED_TILE*self.discarded_tiles)
+            data = data + bytes(self.DISCARDED_TILE)*self.discarded_tiles
         self._load_processed(data, tilewidth, tileheight)
         return self
 
@@ -484,7 +488,7 @@ class BitSet(filecontents.FileContentsSerializer):
     def load_references_from_rom(self) -> None:
         for vram in range(2):
             for bitmap in self.bitmaps[vram]:
-                bitmap.load_contents_from_rom(False, bitmap.width, bitmap.height)
+                bitmap.load_contents_from_rom(False, bitmap.width, bitmap.height, None)
 
     def load_references_from_original_file(self) -> None:
         for vram in range(2):

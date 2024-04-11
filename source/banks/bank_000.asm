@@ -278,7 +278,7 @@ Cmd_Flow_RandDelay::
     ; $1402
 Cmd_Flow_End::
     ; Idles forever and sets the thread address to null
-    Set8 wScript_Done, $01
+    Set8 wScript_Done, $01 ; Unused removed feature to reset AI_Raindrop
     Set16FF hScript.Frame, $0000
     Set16FF hScript.State, Cmd_Flow_End
     ret
@@ -453,9 +453,11 @@ Cmd_Flow_SwitchRange::
 
     ; $1504
 Cmd_Flow_ResetScript::
-    ; TODO - clarify what this is used for
-    ; Hypothesis is that it marks the end of a script segment (hence Done), but jumps
-    ; Or else it's an internal function for BattleFX for example
+    ; Deprecated function. previously used with AI_Raindrop to indicate that the raindrop could be reset to a new location
+    ; by setting wScript_Done, but this var is no longer used
+    ; Currently equivalent to Pass + LongJump
+    ; Arguments:
+    ;   BankAddress     LongJump destination
     ld a, [bc]
     ldh [hScript.Bank], a
     inc bc
@@ -464,7 +466,7 @@ Cmd_Flow_ResetScript::
     inc bc
     ld a, [bc]
     ldh [hScript.Frame+1], a
-    Set8 wScript_Done, $01
+    Set8 wScript_Done, $01  ; Unused removed feature to reset AI_Raindrop
     Set16_M hScript.State, Script_Start
     ret
 

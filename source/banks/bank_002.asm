@@ -4233,7 +4233,7 @@ Jump_002_65CC:
     and Status_STONE                                       ; $65E9: $E6 $02
     jr z, jr_002_662D                             ; $65EB: $28 $40
 
-    Do_Battle_SetActorScript [wBattle_CurCreature_Slot], SCRIPT_Battle_Actor_Stone
+    Do_Battle_SetActorScript [wBattle_CurCreature_Slot], SCRIPT_ANIM_CardsceneFX_Stone
     Do_CallForeign Call_005_5575
     ld a, $49                                     ; $6600: $3E $49
     ld [wText_StringFormatFrame], a                                 ; $6602: $EA $3D $C9
@@ -5136,7 +5136,7 @@ Battle_Flow_StatusAilments::
     and Status_PLAGUE
     jr z, .CheckErupt
         .Plague:
-            Do_Battle_SetActorScript [$D0B6], SCRIPT_Battle_Actor_Plague
+            Do_Battle_SetActorScript [$D0B6], SCRIPT_ANIM_CardsceneFX_Plague
 
             ; Deal 10 damage
             ; Bug - doesn't check upper energy byte
@@ -5360,14 +5360,14 @@ Battle_Flow_StatusCombos:
                     ; Deal 255 damage
                     ;       bugged! Tends not to kill the target
                     ;       (?todo - perhaps it sees it as a -1 damage instead)
-                    Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_Battle_Actor_Stone
+                    Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_ANIM_CardsceneFX_Stone
                     Set8 wBattle_DamageOverrideFlag, $01
                     Set8 wBattle_DamageOverrideMagnitude, 255
                     ret
                 .StoneNotEarth:
                     ; STONE being attacked by non-EARTH attack
                     ; Deal half damage (minimum 1 damage)
-                    Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_Battle_Actor_Stone
+                    Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_ANIM_CardsceneFX_Stone
                     Set8 wBattle_DamageOverrideFlag, $01
                     ld a, [$D073] ;Todo input damage
                     srl a
@@ -5416,7 +5416,7 @@ Battle_Flow_StatusCombos:
                 ; PLAGUE being attacked by FIRE attack
                 ; where PLAGUE is not a permanent status
                 ; Cure Plague
-                Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_Battle_Actor_Plague
+                Do_Battle_SetActorScript [wBattle_Creature_Current.BattleCmd_Target], SCRIPT_ANIM_CardsceneFX_Plague
                 
                 ; Format the target creature's name
                 Battle_FormatCreatureName [wBattle_Creature_Target.ID]

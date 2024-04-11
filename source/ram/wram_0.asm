@@ -113,7 +113,7 @@ wTextbox_SoundEnabled_UNUSED::
 
     ds $C6F4 - @
 wScript_Done::
-    ; Only used in raindrop AI in alpha... is it used in current version? TODO
+    ; Deprecated feature that was previously a flag to reset AI_Raindrop back to its initial state
     ds 1
     ;ds $C6F5 - @
 wScript_SyncNext::

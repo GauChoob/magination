@@ -51,12 +51,11 @@ SCRIPT_ANIM_LasadaRing_MakeRing::
         MoveDraw(24, 0, 0, SPRITE_LasadaRing_4)
         MoveDraw(4, 0, 0, SPRITE_LasadaRing_3)
     }
-
-.Loop::
+SCRIPT_ANIM_LasadaRing_DoneRing::
     SpriteDraw() {
         MoveDraw(255, 0, 0, SPRITE_LasadaRing_7)
     }
-    Jump(.Loop)
+    Jump(SCRIPT_ANIM_LasadaRing_DoneRing)
 
 SCRIPT_ANIM_LasadaRing_Idle::
     SpriteDraw() {

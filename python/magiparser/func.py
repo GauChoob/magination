@@ -1,4 +1,5 @@
 import os
+import logging
 from pyparsing import ParserElement, MatchFirst, Group, delimitedList, Literal, Optional
 import sys
 from magiparser.primitives import ExplicitRaw, Text, ImplicitRaw, ResultsHandler, FuncName
@@ -217,11 +218,11 @@ class FuncHandler(ResultsHandler):
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    def StartSFX1(self):                    # 0x1B
+    def StartSFX0(self):                    # 0x1B
         self.size = 2
         return self.GenerateOutput(*range(1))
 
-    def StartSFX2(self):                    # 0x1C
+    def StartSFX1(self):                    # 0x1C
         self.size = 2
         return self.GenerateOutput(*range(1))
 
@@ -275,7 +276,7 @@ class FuncHandler(ResultsHandler):
 
     def BattleEvaluate(self):               # 0x29
         # Function is inherently broken and crashes the game
-        print('Warning - BattleEvaluate detected - this command crashes the game!')
+        logging.warning('Warning - BattleEvaluate detected - this command crashes the game!')
         self.size = 1
         return self.GenerateOutput()
 
@@ -293,7 +294,7 @@ class FuncHandler(ResultsHandler):
 
     def BattleSummonFast(self):             # 0x2D
         # Function is deprecated
-        print('Warning - BattleSummonFast is deprecated, use BattleSummon instead!')
+        logging.warning('Warning - BattleSummonFast is deprecated, use BattleSummon instead!')
         self.size = 5
         return self.GenerateOutput(*range(4))
 
@@ -409,6 +410,7 @@ class FuncHandler(ResultsHandler):
     # def SwitchRange BLOCK                      # 0x49
 
     def ResetScript(self):                   # 0x4A
+        logging.warning('Warning - ResetScript is deprecated, equivalent to Pass() then LongJump()!')
         self.size = 4
         return self.GenerateOutput(*range(1))
 
@@ -740,7 +742,7 @@ class FuncHandler(ResultsHandler):
 
     def NextGameCount(self):                # 0xA8
         # Function is deprecated
-        print('Warning - NextGameCount is deprecated, use SetGameCount instead!')
+        logging.warning('Warning - NextGameCount is deprecated, use SetGameCount instead!')
         self.size = 1
         return self.GenerateOutput()
 

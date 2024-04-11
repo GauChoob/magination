@@ -26,11 +26,11 @@ SPRITE_AgovoSmoke_8::
 SPRITE_AgovoSmoke_9::
     INCSPRITE("assets/sprites/effects/agovosmoke/AgovoSmoke_9.spr")
 
-SPRITE_EffectUNKNOWN_1::
-    INCSPRITE("assets/sprites/effects/effectunknown/EffectUNKNOWN_1.spr")
+SPRITE_Headspin_1::
+    INCSPRITE("assets/sprites/effects/headspin/Headspin_1.spr")
 
-SPRITE_EffectUNKNOWN_2::
-    INCSPRITE("assets/sprites/effects/effectunknown/EffectUNKNOWN_2.spr")
+SPRITE_Headspin_2::
+    INCSPRITE("assets/sprites/effects/headspin/Headspin_2.spr")
 
 SPRITE_MoragBlast_WalkDown1::
     INCSPRITE("assets/sprites/effects/moragblast/MoragBlast_WalkDown1.spr")
@@ -104,40 +104,40 @@ SPRITE_Smoke_2_7::
 SPRITE_Smoke_2_8::
     INCSPRITE("assets/sprites/effects/smoke/Smoke_2_8.spr")
 
-SCRIPT_ANIM_EffectUNKNOWN_Idle::
+SCRIPT_ANIM_Headspin_Idle::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_EffectUNKNOWN_1)
-        Draw(SPRITE_EffectUNKNOWN_2)
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
     }
-    Jump(SCRIPT_ANIM_EffectUNKNOWN_Idle)
+    Jump(SCRIPT_ANIM_Headspin_Idle)
 
-SCRIPT_ANIM_EffectUNKNOWN_WalkUp::
+SCRIPT_ANIM_Headspin_RunUp::
     SpriteBlock(4, 0, -2) {
-        Draw(SPRITE_EffectUNKNOWN_1)
-        Draw(SPRITE_EffectUNKNOWN_2)
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
     }
-    Jump(SCRIPT_ANIM_EffectUNKNOWN_WalkUp)
+    Jump(SCRIPT_ANIM_Headspin_RunUp)
 
-SCRIPT_ANIM_EffectUNKNOWN_WalkDown::
+SCRIPT_ANIM_Headspin_RunDown::
     SpriteBlock(4, 0, 2) {
-        Draw(SPRITE_EffectUNKNOWN_1)
-        Draw(SPRITE_EffectUNKNOWN_2)
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
     }
-    Jump(SCRIPT_ANIM_EffectUNKNOWN_WalkDown)
+    Jump(SCRIPT_ANIM_Headspin_RunDown)
 
-SCRIPT_ANIM_EffectUNKNOWN_WalkLeft::
+SCRIPT_ANIM_Headspin_RunLeft::
     SpriteBlock(4, -2, 0) {
-        Draw(SPRITE_EffectUNKNOWN_1)
-        Draw(SPRITE_EffectUNKNOWN_2)
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
     }
-    Jump(SCRIPT_ANIM_EffectUNKNOWN_WalkLeft)
+    Jump(SCRIPT_ANIM_Headspin_RunLeft)
 
-SCRIPT_ANIM_EffectUNKNOWN_WalkRight::
+SCRIPT_ANIM_Headspin_RunRight::
     SpriteBlock(4, 2, 0) {
-        Draw(SPRITE_EffectUNKNOWN_1)
-        Draw(SPRITE_EffectUNKNOWN_2)
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
     }
-    Jump(SCRIPT_ANIM_EffectUNKNOWN_WalkRight)
+    Jump(SCRIPT_ANIM_Headspin_RunRight)
 
 SCRIPT_ANIM_Smoke_1::
     SpriteBlock(8, 0, 0) {
@@ -165,7 +165,7 @@ SCRIPT_ANIM_Smoke_2::
     }
     End()
 
-SCRIPT_ANIM_AgovoSmoke_Anim::
+SCRIPT_ANIM_AgovoSmoke::
     SpriteBlock(8, 0, 0) {
         Draw(SPRITE_AgovoSmoke_1)
         Draw(SPRITE_AgovoSmoke_2)

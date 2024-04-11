@@ -213,15 +213,14 @@ SCRIPT_ANIM_ShadowMagi2Battle_Taunt::
     SpriteDraw() {
         MoveDraw(32, 0, 0, SPRITE_ShadowMagi2Battle_Taunt1)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(8, 0, 0, SPRITE_ShadowMagi2Battle_Taunt2)
-        MoveDraw(8, 0, 0, SPRITE_ShadowMagi2Battle_Taunt3)
-        MoveDraw(16, 0, 0, SPRITE_ShadowMagi2Battle_Taunt4)
-        MoveDraw(16, 0, 0, SPRITE_ShadowMagi2Battle_Taunt1)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(8, 0, 0, SPRITE_ShadowMagi2Battle_Taunt2)
+            MoveDraw(8, 0, 0, SPRITE_ShadowMagi2Battle_Taunt3)
+            MoveDraw(16, 0, 0, SPRITE_ShadowMagi2Battle_Taunt4)
+            MoveDraw(16, 0, 0, SPRITE_ShadowMagi2Battle_Taunt1)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ShadowMagi2Battle_Summon::
     SpriteBlock(4, 0, 0) {
@@ -257,12 +256,11 @@ SCRIPT_ANIM_ShadowMagi2Battle_Victory::
         MoveDraw(4, 0, 0, SPRITE_ShadowMagi2Battle_Taunt3)
         MoveDraw(16, 0, 0, SPRITE_ShadowMagi2Battle_Taunt4)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ShadowMagi2Battle_Victory)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_ShadowMagi2Battle_Victory)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ShadowMagi2Battle_Defeat::
     SpriteDraw() {
@@ -290,12 +288,11 @@ SCRIPT_ANIM_ShadowMagi2Battle_Defeat::
         MoveDraw(1, 0, 1, SPRITE_ShadowMagi2Battle_Defeat)
         MoveDraw(1, 0, 0, SPRITE_ShadowMagi2Battle_Defeat)
     }
-
-.Loop::
-    SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ShadowMagi2Battle_Defeat)
-    }
-    Jump(.Loop)
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_ShadowMagi2Battle_Defeat)
+        }
+        Jump(.Loop)
 
 SCRIPT_ANIM_ShadowMagi2_FaceHero::
     Switch(#DIRECTION#) {
@@ -304,23 +301,19 @@ SCRIPT_ANIM_ShadowMagi2_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi2_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

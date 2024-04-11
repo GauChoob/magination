@@ -47,8 +47,8 @@ SPRITE_Jaela_FaceLeft::
 SPRITE_Jaela_WalkLeft2::
     INCSPRITE("assets/sprites/jaela/Jaela_WalkLeft2.spr")
 
-SPRITE_Jaela_UNKNOWN::
-    INCSPRITE("assets/sprites/jaela/Jaela_UNKNOWN.spr")
+SPRITE_JaelaStone::
+    INCSPRITE("assets/sprites/jaela/JaelaStone.spr")
 
 SCRIPT_ANIM_Jaela_WalkUp::
     SpriteBlock(8, 0, -1) {
@@ -134,12 +134,12 @@ SCRIPT_ANIM_Jaela_FaceDown::
     }
     Jump(SCRIPT_ANIM_Jaela_FaceDown)
 
-SCRIPT_ANIM_Jaela_Flicker::
+SCRIPT_ANIM_Jaela_Die::
     SpriteDraw() {
         MoveDraw(1, 0, 0, SPRITE_Jaela_FaceDown)
     }
     Pass()
-    Jump(SCRIPT_ANIM_Jaela_Flicker)
+    Jump(SCRIPT_ANIM_Jaela_Die)
 
 SCRIPT_ANIM_Jaela_FaceLeft::
     SpriteDraw() {
@@ -177,11 +177,12 @@ SCRIPT_ANIM_Jaela_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_Jaela_FaceDownRight)
 
-SCRIPT_ANIM_Jaela_UNKNOWN::
+SCRIPT_ANIM_JaelaStone::
+    ; Unused - see StoneJaela
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_Jaela_UNKNOWN)
+        MoveDraw(255, 0, 0, SPRITE_JaelaStone)
     }
-    Jump(SCRIPT_ANIM_Jaela_UNKNOWN)
+    Jump(SCRIPT_ANIM_JaelaStone)
 
 SCRIPT_ANIM_Jaela_FaceHero::
     Switch(#DIRECTION#) {
@@ -190,23 +191,19 @@ SCRIPT_ANIM_Jaela_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Jaela_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

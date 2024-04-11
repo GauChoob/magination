@@ -191,7 +191,7 @@ SCRIPT_ANIM_ShadowMagi4_FaceDownRight::
     }
     Jump(SCRIPT_ANIM_ShadowMagi4_FaceDownRight)
 
-SCRIPT_ANIM_ShadowMagi4_UNKNOWNLeft::
+SCRIPT_ANIM_ShadowMagi4_HopLeft::
     SpriteDraw() {
         MoveDraw(2, 0, -4, SPRITE_ShadowMagi4_FaceLeft)
         MoveDraw(2, 0, -3, SPRITE_ShadowMagi4_FaceLeft)
@@ -205,7 +205,7 @@ SCRIPT_ANIM_ShadowMagi4_UNKNOWNLeft::
     }
     Jump(SCRIPT_ANIM_ShadowMagi4_FaceLeft)
 
-SCRIPT_ANIM_ShadowMagi4_UNKNOWNRight::
+SCRIPT_ANIM_ShadowMagi4_HopRight::
     SpriteDraw() {
         MoveDraw(2, 0, -4, SPRITE_ShadowMagi4_FaceRight)
         MoveDraw(2, 0, -3, SPRITE_ShadowMagi4_FaceRight)
@@ -219,14 +219,14 @@ SCRIPT_ANIM_ShadowMagi4_UNKNOWNRight::
     }
     Jump(SCRIPT_ANIM_ShadowMagi4_FaceRight)
 
-SCRIPT_ANIM_ShadowMagi4_SpinUp::
+SCRIPT_ANIM_ShadowMagi4_SpinAway::
     SpriteBlock(2, 1, -4) {
         Draw(SPRITE_ShadowMagi4_FaceDownLeft)
         Draw(SPRITE_ShadowMagi4_FaceDownRight)
         Draw(SPRITE_ShadowMagi4_FaceUpRight)
         Draw(SPRITE_ShadowMagi4_FaceUpLeft)
     }
-    Jump(SCRIPT_ANIM_ShadowMagi4_SpinUp)
+    Jump(SCRIPT_ANIM_ShadowMagi4_SpinAway)
 
 SCRIPT_ANIM_ShadowMagi4Battle_Idle::
     SpriteDraw() {
@@ -283,23 +283,19 @@ SCRIPT_ANIM_ShadowMagi4_FaceHero::
         Case(Actor_FLAGS_FACEEAST, .FaceRight)
         Case(Actor_FLAGS_FACEWEST, .FaceLeft)
     }
-
-.FaceUp::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceUp)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceDown::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceDown)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceLeft::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceLeft)
-    WaitEventText(1)
-    RestoreActorState()
-
-.FaceRight::
-    ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceRight)
-    WaitEventText(1)
-    RestoreActorState()
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi4_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()
