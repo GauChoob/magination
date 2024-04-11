@@ -409,6 +409,7 @@ class FuncHandler(ResultsHandler):
     # def SwitchRange BLOCK                      # 0x49
 
     def ResetScript(self):                   # 0x4A
+        print('Warning - ResetScript is deprecated, equivalent to Pass() then LongJump()!')
         self.size = 4
         return self.GenerateOutput(*range(1))
 

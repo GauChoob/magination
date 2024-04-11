@@ -646,6 +646,7 @@ MACRO EndSwitchRange
 ENDM
 
 MACRO ResetScript
+    ; Deprecated command - equivalent to Pass() then LongJump()
     db Enum_Cmd_Flow_ResetScript
     BankAddress \1 ;Jump to here
 ENDM
