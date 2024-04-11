@@ -827,26 +827,26 @@ SPRITE_RabbageFoot::
 SPRITE_BalanceScale::
     INCSPRITE("assets/sprites/objects/balancescale/BalanceScale.spr")
 
-SPRITE_AimTarget_Upright::
-    INCSPRITE("assets/sprites/objects/aimtarget/AimTarget_Upright.spr")
+SPRITE_Target_Upright::
+    INCSPRITE("assets/sprites/objects/target/Target_Upright.spr")
 
-SPRITE_AimTarget_Toppled::
-    INCSPRITE("assets/sprites/objects/aimtarget/AimTarget_Toppled.spr")
+SPRITE_Target_Toppled::
+    INCSPRITE("assets/sprites/objects/target/Target_Toppled.spr")
 
-SPRITE_ObjectsUNKNOWN2_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown2/ObjectsUNKNOWN2_1.spr")
+SPRITE_BowArrow_BowDrawn::
+    INCSPRITE("assets/sprites/objects/bowarrow/BowArrow_BowDrawn.spr")
 
-SPRITE_ObjectsUNKNOWN2_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown2/ObjectsUNKNOWN2_2.spr")
+SPRITE_BowArrow_BowReleased::
+    INCSPRITE("assets/sprites/objects/bowarrow/BowArrow_BowReleased.spr")
 
-SPRITE_ObjectsUNKNOWN2_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown2/ObjectsUNKNOWN2_3.spr")
+SPRITE_BowArrow_ArrowFly::
+    INCSPRITE("assets/sprites/objects/bowarrow/BowArrow_ArrowFly.spr")
 
-SPRITE_ObjectsUNKNOWN2_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown2/ObjectsUNKNOWN2_4.spr")
+SPRITE_BowArrow_ArrowBuried::
+    INCSPRITE("assets/sprites/objects/bowarrow/BowArrow_ArrowBuried.spr")
 
-SPRITE_ObjectsUNKNOWN2_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown2/ObjectsUNKNOWN2_5.spr")
+SPRITE_Blocker::
+    INCSPRITE("assets/sprites/objects/blocker/Blocker.spr")
 
 SPRITE_ObjectsUNKNOWN4_1::
     INCSPRITE("assets/sprites/objects/objectsunknown4/ObjectsUNKNOWN4_1.spr")
@@ -875,125 +875,122 @@ SPRITE_ObjectsUNKNOWN4_8::
 SPRITE_ObjectsUNKNOWN16_Main::
     INCSPRITE("assets/sprites/objects/objectsunknown16/ObjectsUNKNOWN16_Main.spr")
 
-SCRIPT_ANIM_ObjectsUNKNOWN1_Main::
-    RandLongJump(SCRIPT_ANIM_ObjectsUNKNOWN1_1, SCRIPT_ANIM_ObjectsUNKNOWN1_2, SCRIPT_ANIM_ObjectsUNKNOWN1_3, SCRIPT_ANIM_ObjectsUNKNOWN1_1, SCRIPT_ANIM_ObjectsUNKNOWN1_2, SCRIPT_ANIM_ObjectsUNKNOWN1_3)
+SCRIPT_ANIM_OscentMarBubbles_Random::
+    RandLongJump(.Fast, .Medium, .Slow, .Fast, .Medium, .Slow)
+    .Fast:
+        SpriteBlock(7, 0, 0) {
+            Draw(SPRITE_OscentMarBubbles_01)
+            Draw(SPRITE_OscentMarBubbles_02)
+            Draw(SPRITE_OscentMarBubbles_03)
+            Draw(SPRITE_OscentMarBubbles_04)
+            Draw(SPRITE_OscentMarBubbles_05)
+            Draw(SPRITE_OscentMarBubbles_06)
+            Draw(SPRITE_OscentMarBubbles_07)
+            Draw(SPRITE_OscentMarBubbles_08)
+            Draw(SPRITE_OscentMarBubbles_09)
+            Draw(SPRITE_OscentMarBubbles_10)
+        }
+        Jump(SCRIPT_ANIM_OscentMarBubbles_Random)
+    .Medium:
+        SpriteBlock(9, 0, 0) {
+            Draw(SPRITE_OscentMarBubbles_01)
+            Draw(SPRITE_OscentMarBubbles_02)
+            Draw(SPRITE_OscentMarBubbles_03)
+            Draw(SPRITE_OscentMarBubbles_04)
+            Draw(SPRITE_OscentMarBubbles_05)
+            Draw(SPRITE_OscentMarBubbles_06)
+            Draw(SPRITE_OscentMarBubbles_07)
+            Draw(SPRITE_OscentMarBubbles_08)
+            Draw(SPRITE_OscentMarBubbles_09)
+            Draw(SPRITE_OscentMarBubbles_10)
+        }
+        Jump(SCRIPT_ANIM_OscentMarBubbles_Random)
+    .Slow:
+        SpriteBlock(11, 0, 0) {
+            Draw(SPRITE_OscentMarBubbles_01)
+            Draw(SPRITE_OscentMarBubbles_02)
+            Draw(SPRITE_OscentMarBubbles_03)
+            Draw(SPRITE_OscentMarBubbles_04)
+            Draw(SPRITE_OscentMarBubbles_05)
+            Draw(SPRITE_OscentMarBubbles_06)
+            Draw(SPRITE_OscentMarBubbles_07)
+            Draw(SPRITE_OscentMarBubbles_08)
+            Draw(SPRITE_OscentMarBubbles_09)
+            Draw(SPRITE_OscentMarBubbles_10)
+        }
+        Jump(SCRIPT_ANIM_OscentMarBubbles_Random)
 
-SCRIPT_ANIM_ObjectsUNKNOWN1_1::
-    SpriteBlock(7, 0, 0) {
-        Draw(SPRITE_OscentMarBubbles_01)
-        Draw(SPRITE_OscentMarBubbles_02)
-        Draw(SPRITE_OscentMarBubbles_03)
-        Draw(SPRITE_OscentMarBubbles_04)
-        Draw(SPRITE_OscentMarBubbles_05)
-        Draw(SPRITE_OscentMarBubbles_06)
-        Draw(SPRITE_OscentMarBubbles_07)
-        Draw(SPRITE_OscentMarBubbles_08)
-        Draw(SPRITE_OscentMarBubbles_09)
-        Draw(SPRITE_OscentMarBubbles_10)
-    }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN1_Main)
-
-SCRIPT_ANIM_ObjectsUNKNOWN1_2::
-    SpriteBlock(9, 0, 0) {
-        Draw(SPRITE_OscentMarBubbles_01)
-        Draw(SPRITE_OscentMarBubbles_02)
-        Draw(SPRITE_OscentMarBubbles_03)
-        Draw(SPRITE_OscentMarBubbles_04)
-        Draw(SPRITE_OscentMarBubbles_05)
-        Draw(SPRITE_OscentMarBubbles_06)
-        Draw(SPRITE_OscentMarBubbles_07)
-        Draw(SPRITE_OscentMarBubbles_08)
-        Draw(SPRITE_OscentMarBubbles_09)
-        Draw(SPRITE_OscentMarBubbles_10)
-    }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN1_Main)
-
-SCRIPT_ANIM_ObjectsUNKNOWN1_3::
-    SpriteBlock(11, 0, 0) {
-        Draw(SPRITE_OscentMarBubbles_01)
-        Draw(SPRITE_OscentMarBubbles_02)
-        Draw(SPRITE_OscentMarBubbles_03)
-        Draw(SPRITE_OscentMarBubbles_04)
-        Draw(SPRITE_OscentMarBubbles_05)
-        Draw(SPRITE_OscentMarBubbles_06)
-        Draw(SPRITE_OscentMarBubbles_07)
-        Draw(SPRITE_OscentMarBubbles_08)
-        Draw(SPRITE_OscentMarBubbles_09)
-        Draw(SPRITE_OscentMarBubbles_10)
-    }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN1_Main)
-
-SCRIPT_ANIM_ObjectsUNKNOWN2_1::
+SCRIPT_ANIM_BowArrow_BowDrawn::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN2_1)
+        MoveDraw(255, 0, 0, SPRITE_BowArrow_BowDrawn)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN2_1)
+    Jump(SCRIPT_ANIM_BowArrow_BowDrawn)
 
-SCRIPT_ANIM_ObjectsUNKNOWN2_2::
+SCRIPT_ANIM_BowArrow_BowReleased::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN2_2)
+        MoveDraw(255, 0, 0, SPRITE_BowArrow_BowReleased)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN2_2)
+    Jump(SCRIPT_ANIM_BowArrow_BowReleased)
 
-SCRIPT_ANIM_ObjectsUNKNOWN2_3::
+SCRIPT_ANIM_BowArrow_ArrowFly::
     SpriteDraw() {
-        MoveDraw(16, 0, -3, SPRITE_ObjectsUNKNOWN2_3)
+        MoveDraw(16, 0, -3, SPRITE_BowArrow_ArrowFly)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN2_3)
+    Jump(SCRIPT_ANIM_BowArrow_ArrowFly)
 
-SCRIPT_ANIM_ObjectsUNKNOWN2_4::
+SCRIPT_ANIM_BowArrow_ArrowBuried::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN2_4)
+        MoveDraw(255, 0, 0, SPRITE_BowArrow_ArrowBuried)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN2_4)
+    Jump(SCRIPT_ANIM_BowArrow_ArrowBuried)
 
-SCRIPT_ANIM_ObjectsUNKNOWN2_5::
+SCRIPT_ANIM_Blocker::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_ObjectsUNKNOWN2_5)
+        MoveDraw(255, 0, 0, SPRITE_Blocker)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN2_5)
+    Jump(SCRIPT_ANIM_Blocker)
 
-SCRIPT_ANIM_AimTarget_SlowRight::
+SCRIPT_ANIM_Target_SlowRight::
     SpriteDraw() {
-        MoveDraw(16, 1, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, 1, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_SlowRight)
+    Jump(SCRIPT_ANIM_Target_SlowRight)
 
-SCRIPT_ANIM_AimTarget_MediumRight::
+SCRIPT_ANIM_Target_MediumRight::
     SpriteDraw() {
-        MoveDraw(16, 2, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, 2, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_MediumRight)
+    Jump(SCRIPT_ANIM_Target_MediumRight)
 
-SCRIPT_ANIM_AimTarget_FastRight::
+SCRIPT_ANIM_Target_FastRight::
     SpriteDraw() {
-        MoveDraw(16, 3, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, 3, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_FastRight)
+    Jump(SCRIPT_ANIM_Target_FastRight)
 
-SCRIPT_ANIM_AimTarget_SlowLeft::
+SCRIPT_ANIM_Target_SlowLeft::
     SpriteDraw() {
-        MoveDraw(16, -1, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, -1, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_SlowLeft)
+    Jump(SCRIPT_ANIM_Target_SlowLeft)
 
-SCRIPT_ANIM_AimTarget_MediumLeft::
+SCRIPT_ANIM_Target_MediumLeft::
     SpriteDraw() {
-        MoveDraw(16, -2, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, -2, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_MediumLeft)
+    Jump(SCRIPT_ANIM_Target_MediumLeft)
 
-SCRIPT_ANIM_AimTarget_FastLeft::
+SCRIPT_ANIM_Target_FastLeft::
     SpriteDraw() {
-        MoveDraw(16, -3, 0, SPRITE_AimTarget_Upright)
+        MoveDraw(16, -3, 0, SPRITE_Target_Upright)
     }
-    Jump(SCRIPT_ANIM_AimTarget_FastLeft)
+    Jump(SCRIPT_ANIM_Target_FastLeft)
 
-SCRIPT_ANIM_AimTarget_Toppled::
+SCRIPT_ANIM_Target_Toppled::
     SpriteDraw() {
-        MoveDraw(255, 0, 0, SPRITE_AimTarget_Toppled)
+        MoveDraw(255, 0, 0, SPRITE_Target_Toppled)
     }
-    Jump(SCRIPT_ANIM_AimTarget_Toppled)
+    Jump(SCRIPT_ANIM_Target_Toppled)
 
 SCRIPT_ANIM_ObjectsUNKNOWN4_1::
     SpriteDraw() {
