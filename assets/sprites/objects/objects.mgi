@@ -599,107 +599,107 @@ SPRITE_Sparkle_Small3::
 SPRITE_Sparkle_Small4::
     INCSPRITE("assets/sprites/objects/sparkle/Sparkle_Small4.spr")
 
-SPRITE_ObjectsUNKNOWN24_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown24/ObjectsUNKNOWN24_1.spr")
+SPRITE_StarSparkle_1::
+    INCSPRITE("assets/sprites/objects/starsparkle/StarSparkle_1.spr")
 
-SPRITE_ObjectsUNKNOWN24_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown24/ObjectsUNKNOWN24_2.spr")
+SPRITE_StarSparkle_2::
+    INCSPRITE("assets/sprites/objects/starsparkle/StarSparkle_2.spr")
 
-SPRITE_ObjectsUNKNOWN24_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown24/ObjectsUNKNOWN24_3.spr")
+SPRITE_StarSparkle_3::
+    INCSPRITE("assets/sprites/objects/starsparkle/StarSparkle_3.spr")
 
-SPRITE_ObjectsUNKNOWN27_01::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_01.spr")
+SPRITE_WaterShimmer_01::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_01.spr")
 
-SPRITE_ObjectsUNKNOWN27_02::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_02.spr")
+SPRITE_WaterShimmer_02::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_02.spr")
 
-SPRITE_ObjectsUNKNOWN27_03::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_03.spr")
+SPRITE_WaterShimmer_03::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_03.spr")
 
-SPRITE_ObjectsUNKNOWN27_04::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_04.spr")
+SPRITE_WaterShimmer_04::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_04.spr")
 
-SPRITE_ObjectsUNKNOWN27_05::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_05.spr")
+SPRITE_WaterShimmer_05::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_05.spr")
 
-SPRITE_ObjectsUNKNOWN27_06::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_06.spr")
+SPRITE_WaterShimmer_06::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_06.spr")
 
-SPRITE_ObjectsUNKNOWN27_07::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_07.spr")
+SPRITE_WaterShimmer_07::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_07.spr")
 
-SPRITE_ObjectsUNKNOWN27_08::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_08.spr")
+SPRITE_WaterShimmer_08::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_08.spr")
 
-SPRITE_ObjectsUNKNOWN27_09::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_09.spr")
+SPRITE_WaterShimmer_09::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_09.spr")
 
-SPRITE_ObjectsUNKNOWN27_10::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_10.spr")
+SPRITE_WaterShimmer_10::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_10.spr")
 
-SPRITE_ObjectsUNKNOWN27_11::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_11.spr")
+SPRITE_WaterShimmer_11::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_11.spr")
 
-SPRITE_ObjectsUNKNOWN27_12::
-    INCSPRITE("assets/sprites/objects/objectsunknown27/ObjectsUNKNOWN27_12.spr")
+SPRITE_WaterShimmer_12::
+    INCSPRITE("assets/sprites/objects/watershimmer/WaterShimmer_12.spr")
 
-SPRITE_ObjectsUNKNOWN28_01::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_01.spr")
+SPRITE_Wave_01::
+    INCSPRITE("assets/sprites/objects/wave/Wave_01.spr")
 
-SPRITE_ObjectsUNKNOWN28_02::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_02.spr")
+SPRITE_Wave_02::
+    INCSPRITE("assets/sprites/objects/wave/Wave_02.spr")
 
-SPRITE_ObjectsUNKNOWN28_03::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_03.spr")
+SPRITE_Wave_03::
+    INCSPRITE("assets/sprites/objects/wave/Wave_03.spr")
 
-SPRITE_ObjectsUNKNOWN28_04::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_04.spr")
+SPRITE_Wave_04::
+    INCSPRITE("assets/sprites/objects/wave/Wave_04.spr")
 
-SPRITE_ObjectsUNKNOWN28_05::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_05.spr")
+SPRITE_Wave_05::
+    INCSPRITE("assets/sprites/objects/wave/Wave_05.spr")
 
-SPRITE_ObjectsUNKNOWN28_06::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_06.spr")
+SPRITE_Wave_06::
+    INCSPRITE("assets/sprites/objects/wave/Wave_06.spr")
 
-SPRITE_ObjectsUNKNOWN28_07::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_07.spr")
+SPRITE_Wave_07::
+    INCSPRITE("assets/sprites/objects/wave/Wave_07.spr")
 
-SPRITE_ObjectsUNKNOWN28_08::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_08.spr")
+SPRITE_Wave_08::
+    INCSPRITE("assets/sprites/objects/wave/Wave_08.spr")
 
-SPRITE_ObjectsUNKNOWN28_09::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_09.spr")
+SPRITE_Wave_09::
+    INCSPRITE("assets/sprites/objects/wave/Wave_09.spr")
 
-SPRITE_ObjectsUNKNOWN28_10::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_10.spr")
+SPRITE_Wave_10::
+    INCSPRITE("assets/sprites/objects/wave/Wave_10.spr")
 
-SPRITE_ObjectsUNKNOWN28_11::
-    INCSPRITE("assets/sprites/objects/objectsunknown28/ObjectsUNKNOWN28_11.spr")
+SPRITE_Wave_11::
+    INCSPRITE("assets/sprites/objects/wave/Wave_11.spr")
 
-SPRITE_ObjectsUNKNOWN29_1::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_1.spr")
+SPRITE_Whirlpool_1::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_1.spr")
 
-SPRITE_ObjectsUNKNOWN29_2::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_2.spr")
+SPRITE_Whirlpool_2::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_2.spr")
 
-SPRITE_ObjectsUNKNOWN29_3::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_3.spr")
+SPRITE_Whirlpool_3::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_3.spr")
 
-SPRITE_ObjectsUNKNOWN29_4::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_4.spr")
+SPRITE_Whirlpool_4::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_4.spr")
 
-SPRITE_ObjectsUNKNOWN29_5::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_5.spr")
+SPRITE_Whirlpool_5::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_5.spr")
 
-SPRITE_ObjectsUNKNOWN29_6::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_6.spr")
+SPRITE_Whirlpool_6::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_6.spr")
 
-SPRITE_ObjectsUNKNOWN29_7::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_7.spr")
+SPRITE_Whirlpool_7::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_7.spr")
 
-SPRITE_ObjectsUNKNOWN29_8::
-    INCSPRITE("assets/sprites/objects/objectsunknown29/ObjectsUNKNOWN29_8.spr")
+SPRITE_Whirlpool_8::
+    INCSPRITE("assets/sprites/objects/whirlpool/Whirlpool_8.spr")
 
 SPRITE_ObjectsUNKNOWN17_01::
     INCSPRITE("assets/sprites/objects/objectsunknown17/ObjectsUNKNOWN17_01.spr")
@@ -2020,14 +2020,14 @@ SCRIPT_ANIM_ObjectsUNKNOWN23_2::
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN24_Main::
+SCRIPT_ANIM_StarSparkle_Main::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN24_1)
-        Draw(SPRITE_ObjectsUNKNOWN24_2)
-        Draw(SPRITE_ObjectsUNKNOWN24_3)
-        Draw(SPRITE_ObjectsUNKNOWN24_2)
+        Draw(SPRITE_StarSparkle_1)
+        Draw(SPRITE_StarSparkle_2)
+        Draw(SPRITE_StarSparkle_3)
+        Draw(SPRITE_StarSparkle_2)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN24_Main)
+    Jump(SCRIPT_ANIM_StarSparkle_Main)
 
 SCRIPT_ANIM_ObjectsUNKNOWN25_1::
     SpriteDraw() {
@@ -2075,97 +2075,97 @@ SCRIPT_ANIM_ObjectsUNKNOWN26_2::
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN27_1::
+SCRIPT_ANIM_WaterShimmer_1::
     SpriteBlock(2, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN27_01)
-        Draw(SPRITE_ObjectsUNKNOWN27_02)
-        Draw(SPRITE_ObjectsUNKNOWN27_03)
-        Draw(SPRITE_ObjectsUNKNOWN27_04)
-        Draw(SPRITE_ObjectsUNKNOWN27_05)
-        Draw(SPRITE_ObjectsUNKNOWN27_06)
-        Draw(SPRITE_ObjectsUNKNOWN27_07)
-        Draw(SPRITE_ObjectsUNKNOWN27_08)
-        Draw(SPRITE_ObjectsUNKNOWN27_09)
-        Draw(SPRITE_ObjectsUNKNOWN27_10)
-        Draw(SPRITE_ObjectsUNKNOWN27_11)
-        Draw(SPRITE_ObjectsUNKNOWN27_12)
+        Draw(SPRITE_WaterShimmer_01)
+        Draw(SPRITE_WaterShimmer_02)
+        Draw(SPRITE_WaterShimmer_03)
+        Draw(SPRITE_WaterShimmer_04)
+        Draw(SPRITE_WaterShimmer_05)
+        Draw(SPRITE_WaterShimmer_06)
+        Draw(SPRITE_WaterShimmer_07)
+        Draw(SPRITE_WaterShimmer_08)
+        Draw(SPRITE_WaterShimmer_09)
+        Draw(SPRITE_WaterShimmer_10)
+        Draw(SPRITE_WaterShimmer_11)
+        Draw(SPRITE_WaterShimmer_12)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN27_2::
+SCRIPT_ANIM_WaterShimmer_2::
     SpriteBlock(1, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN27_01)
-        Draw(SPRITE_ObjectsUNKNOWN27_03)
-        Draw(SPRITE_ObjectsUNKNOWN27_02)
-        Draw(SPRITE_ObjectsUNKNOWN27_04)
-        Draw(SPRITE_ObjectsUNKNOWN27_03)
-        Draw(SPRITE_ObjectsUNKNOWN27_05)
-        Draw(SPRITE_ObjectsUNKNOWN27_04)
-        Draw(SPRITE_ObjectsUNKNOWN27_06)
-        Draw(SPRITE_ObjectsUNKNOWN27_05)
-        Draw(SPRITE_ObjectsUNKNOWN27_07)
-        Draw(SPRITE_ObjectsUNKNOWN27_06)
-        Draw(SPRITE_ObjectsUNKNOWN27_08)
-        Draw(SPRITE_ObjectsUNKNOWN27_07)
-        Draw(SPRITE_ObjectsUNKNOWN27_09)
-        Draw(SPRITE_ObjectsUNKNOWN27_08)
-        Draw(SPRITE_ObjectsUNKNOWN27_10)
-        Draw(SPRITE_ObjectsUNKNOWN27_09)
-        Draw(SPRITE_ObjectsUNKNOWN27_11)
-        Draw(SPRITE_ObjectsUNKNOWN27_10)
-        Draw(SPRITE_ObjectsUNKNOWN27_12)
-        Draw(SPRITE_ObjectsUNKNOWN27_11)
+        Draw(SPRITE_WaterShimmer_01)
+        Draw(SPRITE_WaterShimmer_03)
+        Draw(SPRITE_WaterShimmer_02)
+        Draw(SPRITE_WaterShimmer_04)
+        Draw(SPRITE_WaterShimmer_03)
+        Draw(SPRITE_WaterShimmer_05)
+        Draw(SPRITE_WaterShimmer_04)
+        Draw(SPRITE_WaterShimmer_06)
+        Draw(SPRITE_WaterShimmer_05)
+        Draw(SPRITE_WaterShimmer_07)
+        Draw(SPRITE_WaterShimmer_06)
+        Draw(SPRITE_WaterShimmer_08)
+        Draw(SPRITE_WaterShimmer_07)
+        Draw(SPRITE_WaterShimmer_09)
+        Draw(SPRITE_WaterShimmer_08)
+        Draw(SPRITE_WaterShimmer_10)
+        Draw(SPRITE_WaterShimmer_09)
+        Draw(SPRITE_WaterShimmer_11)
+        Draw(SPRITE_WaterShimmer_10)
+        Draw(SPRITE_WaterShimmer_12)
+        Draw(SPRITE_WaterShimmer_11)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN28_1::
+SCRIPT_ANIM_Wave_Small::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN28_01)
-        Draw(SPRITE_ObjectsUNKNOWN28_02)
-        Draw(SPRITE_ObjectsUNKNOWN28_03)
-        Draw(SPRITE_ObjectsUNKNOWN28_07)
-        Draw(SPRITE_ObjectsUNKNOWN28_08)
+        Draw(SPRITE_Wave_01)
+        Draw(SPRITE_Wave_02)
+        Draw(SPRITE_Wave_03)
+        Draw(SPRITE_Wave_07)
+        Draw(SPRITE_Wave_08)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN28_2::
+SCRIPT_ANIM_Wave_Medium::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN28_01)
-        Draw(SPRITE_ObjectsUNKNOWN28_02)
-        Draw(SPRITE_ObjectsUNKNOWN28_03)
-        Draw(SPRITE_ObjectsUNKNOWN28_04)
-        Draw(SPRITE_ObjectsUNKNOWN28_05)
-        Draw(SPRITE_ObjectsUNKNOWN28_06)
-        Draw(SPRITE_ObjectsUNKNOWN28_07)
-        Draw(SPRITE_ObjectsUNKNOWN28_08)
+        Draw(SPRITE_Wave_01)
+        Draw(SPRITE_Wave_02)
+        Draw(SPRITE_Wave_03)
+        Draw(SPRITE_Wave_04)
+        Draw(SPRITE_Wave_05)
+        Draw(SPRITE_Wave_06)
+        Draw(SPRITE_Wave_07)
+        Draw(SPRITE_Wave_08)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN28_3::
+SCRIPT_ANIM_Wave_Large::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN28_01)
-        Draw(SPRITE_ObjectsUNKNOWN28_02)
-        Draw(SPRITE_ObjectsUNKNOWN28_03)
-        Draw(SPRITE_ObjectsUNKNOWN28_09)
-        Draw(SPRITE_ObjectsUNKNOWN28_10)
-        Draw(SPRITE_ObjectsUNKNOWN28_11)
-        Draw(SPRITE_ObjectsUNKNOWN28_07)
-        Draw(SPRITE_ObjectsUNKNOWN28_08)
+        Draw(SPRITE_Wave_01)
+        Draw(SPRITE_Wave_02)
+        Draw(SPRITE_Wave_03)
+        Draw(SPRITE_Wave_09)
+        Draw(SPRITE_Wave_10)
+        Draw(SPRITE_Wave_11)
+        Draw(SPRITE_Wave_07)
+        Draw(SPRITE_Wave_08)
     }
     End()
 
-SCRIPT_ANIM_ObjectsUNKNOWN29_Main::
+SCRIPT_ANIM_Whirlpool_Main::
     SpriteBlock(4, 0, 0) {
-        Draw(SPRITE_ObjectsUNKNOWN29_1)
-        Draw(SPRITE_ObjectsUNKNOWN29_2)
-        Draw(SPRITE_ObjectsUNKNOWN29_3)
-        Draw(SPRITE_ObjectsUNKNOWN29_4)
-        Draw(SPRITE_ObjectsUNKNOWN29_5)
-        Draw(SPRITE_ObjectsUNKNOWN29_6)
-        Draw(SPRITE_ObjectsUNKNOWN29_7)
-        Draw(SPRITE_ObjectsUNKNOWN29_8)
+        Draw(SPRITE_Whirlpool_1)
+        Draw(SPRITE_Whirlpool_2)
+        Draw(SPRITE_Whirlpool_3)
+        Draw(SPRITE_Whirlpool_4)
+        Draw(SPRITE_Whirlpool_5)
+        Draw(SPRITE_Whirlpool_6)
+        Draw(SPRITE_Whirlpool_7)
+        Draw(SPRITE_Whirlpool_8)
     }
-    Jump(SCRIPT_ANIM_ObjectsUNKNOWN29_Main)
+    Jump(SCRIPT_ANIM_Whirlpool_Main)
 
 SCRIPT_ANIM_ObjectsUNKNOWN30_1::
     SpriteDraw() {
