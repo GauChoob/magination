@@ -206,6 +206,14 @@ class Bitmap(filecontents.FileContentsSerializer):
             return '    INCBIN "{}", 0, ${:04X}'.format(filename, self.size())
         return '    INCBIN "{}"'.format(filename)
 
+    @staticmethod
+    def original_extension() -> str:
+        return '.tileset.png'
+
+    @staticmethod
+    def processed_extension() -> str:
+        return '.tileset'
+
     def decolorize(self):
         '''Strip out the palette id data from the pixels'''
         assert self.width == len(self.pixels[0])
@@ -499,3 +507,7 @@ class BitSet(filecontents.FileContentsSerializer):
         for vram in range(2):
             for bitmap in self.bitmaps[vram]:
                 bitmap.load_contents_from_processed_file(bitmap.width, bitmap.height)
+
+    @staticmethod
+    def original_extension() -> str:
+        raise '.bitmapset.asm'

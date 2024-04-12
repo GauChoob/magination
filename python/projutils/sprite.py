@@ -99,6 +99,10 @@ class Sprite(filecontents.FileContentsSerializer):
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCSPRITE "{}"'.format(filename)
 
+    @staticmethod
+    def original_extension() -> str:
+        raise '.spr'
+
     def __str__(self):
         return '\n'.join(str(entry) for entry in self.entries) + '\n    db $80'
 

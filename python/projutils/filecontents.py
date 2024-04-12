@@ -89,3 +89,11 @@ class FileContentsSerializer:
 
     def load_references_from_processed_file(self) -> None:
         raise NotImplementedError
+
+    @staticmethod
+    def original_extension() -> str:
+        raise NotImplementedError
+
+    @staticmethod
+    def processed_extension() -> str:
+        raise NotImplementedError

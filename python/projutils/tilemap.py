@@ -49,6 +49,14 @@ class Tilemap(filecontents.FileContentsSerializer):
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCBIN "{}"'.format(filename)
 
+    @staticmethod
+    def original_extension() -> str:
+        raise '.tilemap'
+
+    @staticmethod
+    def processed_extension() -> str:
+        raise '.tilemap'
+
 
 class MetaMap(filecontents.FileContentsSerializer):
 
@@ -130,6 +138,10 @@ class MetaMap(filecontents.FileContentsSerializer):
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCLUDE "{}"'.format(filename)
 
+    @staticmethod
+    def original_extension() -> str:
+        return '.metatile.asm'
+
     def _set_bin_filenames(self, processed_filename: str | pathlib.PurePath) -> None:
         self.map.processed_path = processed_filename
         self.map.original_path = fileregistry.filepath_reverser.reverse(processed_filename, True)
@@ -202,6 +214,10 @@ class CollMap(filecontents.FileContentsSerializer):
 
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCLUDE "{}"'.format(filename)
+
+    @staticmethod
+    def original_extension() -> str:
+        return '.collision.asm'
 
     def _set_bin_filenames(self, processed_filename: str | pathlib.PurePath) -> None:
         self.map.processed_path = processed_filename
