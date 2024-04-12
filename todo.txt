@@ -1,5 +1,6 @@
 Change tests to not rely on compiled files (i.e. autopack test)
 Compile package so location of packages doesn't matter
 
-
+Get sprite tilesets
 Define non-standard tile offsets (e.g. CardsceneFX -> $40)
+Preview all sprites (both .spr files as well as SCRIPT_ANIMs)
