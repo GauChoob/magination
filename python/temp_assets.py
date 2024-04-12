@@ -107,18 +107,23 @@ def parse_bank(bank):
         identity, label = label.split('_', 1)
         if bank == 0x26:
             if identity == 'ATTRTILE':
-                attr = filereference.FileReference.create_from_address('ATTR', rom, utils.BankAddress(bank, address), sym)
+                attraddr = utils.BankAddress(bank, address)
+                sym.replaceSymbol(bank, attraddr.getAddress(), 'ATTR_' + label)
+                attr = filereference.FileReference.create_from_address('ATTR', rom, attraddr, sym)
                 attr._size = None
                 attr.load_contents_from_rom(*build_args(attr))
                 _, attr.original_path, attr.processed_path = parse_path(attr)
-                tile = filereference.FileReference.create_from_address('TILE', rom, utils.BankAddress(bank, address + attr.contents.size()), sym)
+                tileaddr = utils.BankAddress(bank, address + attr.contents.size())
+                sym.replaceSymbol(bank, tileaddr.getAddress(), 'TILE_' + label)
+                tile = filereference.FileReference.create_from_address('TILE', rom, tileaddr, sym)
                 tile._size = None
                 tile.load_contents_from_rom(*build_args(tile))
                 _, tile.original_path, tile.processed_path = parse_path(tile)
                 out_attr = out + attr.original_path
                 out_tile = out + tile.original_path
                 os.makedirs(os.path.dirname(out_attr), exist_ok=True)
-                attr.contents.save_original_file(out_attr)
+                print(out_attr)
+                attr.contents.save_original_file(out_attr) # TODO fix
                 tile.contents.save_original_file(out_tile)
                 if transmit:
                     attr.contents.save_original_file(attr.original_path)
@@ -143,4 +148,4 @@ def parse_bank(bank):
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x24)
+parse_bank(0x26)
