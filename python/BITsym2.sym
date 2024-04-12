@@ -104,7 +104,7 @@
 0D:5320 BITMAP_Sprite_Feather
 0D:5340 BITMAP_Sprite_Forcefield
 0D:5540 BITMAP_Sprite_Furok
-0D:57C0 BITMAP_Sprite_GeyserPlayer
+0D:57C0 BITMAP_Sprite_GeyserPlay
 0D:5840 BITMAP_Sprite_GeyserOverworld
 0D:58B0 BITMAP_Sprite_GlyphBox
 0D:58E0 BITMAP_Sprite_Glyph
@@ -123,7 +123,7 @@
 0D:6E30 BITMAP_Sprite_JaelaStone
 0D:6E70 BITMAP_Sprite_ZetBattle
 0D:7010 BITMAP_Sprite_Ripple
-0D:7090 BITMAP_Sprite_Coffin
+0D:7090 BITMAP_Sprite_OrwinCoffin
 0D:70C0 BITMAP_Sprite_TonyBlow
 0D:7190 BITMAP_Sprite_TonyFat
 0D:7220 BITMAP_Sprite_Wave
@@ -132,8 +132,8 @@
 0D:73C0 BITMAP_Sprite_StoneValkan
 0D:7410 BITMAP_Sprite_StoneGogor
 0D:7450 BITMAP_Sprite_StoneKaEryn
-0D:7490 PAL_Sprite_StoneMagi
-0D:74D0 PAL_Sprite_StoneAndTony
+0D:7490 PAL_Sprite_StoneAndTony
+0D:74D0 PAL_Sprite_StoneOnly
 0D:7510 END
 21:5D00 PAL_ARDERIAL_TOP
 21:5D10 PAL_ARDGEYSER_TOP

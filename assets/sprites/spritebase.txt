@@ -1,6 +1,8 @@
-; Sprite,HexOffset
+; Sprite,HexOffset (add $100 if VBK 1)
 CardsceneFX,40
 EidonWork,30
+EidonFall,30
+EidonOrwin,30
 KorgSwim,30
 MoragThrow,30
 MoragHurt,30
@@ -9,3 +11,6 @@ WenceBow,29
 FossikRing,30
 OrlonRing,30
 PruittRing,30
+ArderialGuardFly,30
+ValkanSpear,30
+FerryOverworld,100
