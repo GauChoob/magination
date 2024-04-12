@@ -82,7 +82,7 @@ with open("python/out/temp.txt","w") as f:
         tilesets.extend(a)
         x = replace_rom_text.replace_rom_text(pos_to_bank(b[0]),pos_to_address(b[0]),pos_to_address(c[0]),
             "tsStartScreen"+name+"TopRLE::",
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Top.tileset.rle"'.format(i,name,name)
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Top.tileset.rle"'.format(i,name,name)
         )
         f.write(x+"\n")
         
@@ -90,8 +90,8 @@ with open("python/out/temp.txt","w") as f:
         a,b,c = rle.main_decompress("game.gbc",pos[0],pos[1],["StartScreen"+name+"Top.attrmap","StartScreen"+name+"Top.tilemap"])
         x = replace_rom_text.replace_rom_text(pos_to_bank(b[0]),pos_to_address(b[0]),pos_to_address(c[1]),
             "tmStartScreen"+name+"TopRLE::",
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Top.attrmap.rle"\n'.format(i,name,name) +
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Top.tilemap.rle"\n'.format(i,name,name)
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Top.attrmap.rle"\n'.format(i,name,name) +
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Top.tilemap.rle"\n'.format(i,name,name)
         )
         f.write(x+"\n")
         
@@ -101,7 +101,7 @@ with open("python/out/temp.txt","w") as f:
         tilesets.extend(a)
         x = replace_rom_text.replace_rom_text(pos_to_bank(b[0]),pos_to_address(b[0]),pos_to_address(c[0]),
             "tsStartScreen"+name+"BottomRLE::",
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Bottom.tileset.rle"'.format(i,name,name)
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Bottom.tileset.rle"'.format(i,name,name)
         )
         f.write(x+"\n")
         
@@ -109,8 +109,8 @@ with open("python/out/temp.txt","w") as f:
         a,b,c = rle.main_decompress("game.gbc",pos[0],pos[1],["StartScreen"+name+"Bottom.attrmap","StartScreen"+name+"Bottom.tilemap"])
         x = replace_rom_text.replace_rom_text(pos_to_bank(b[0]),pos_to_address(b[0]),pos_to_address(c[1]),
             "tmStartScreen"+name+"BottomRLE::",
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Bottom.attrmap.rle"\n'.format(i,name,name) +
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}Bottom.tilemap.rle"\n'.format(i,name,name)
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Bottom.attrmap.rle"\n'.format(i,name,name) +
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}Bottom.tilemap.rle"\n'.format(i,name,name)
         )
         f.write(x+"\n")
         
@@ -120,7 +120,7 @@ with open("python/out/temp.txt","w") as f:
         palette.rom_to_image("game.gbc",pos[0],pos[1],0x10,["StartScreen"+name+".pal"])
         x = replace_rom_text.replace_rom_text(pos[0],pos[1],pos[1]+0x10,
             "pStartScreen"+name+"::",
-            '    INCBIN "gfx/pressstart/{:X}_{}/StartScreen{}.pal"'.format(i,name,name)
+            '    INCBIN "gfx/startscreen/{:X}_{}/StartScreen{}.pal"'.format(i,name,name)
         )
         f.write(x+"\n")
         

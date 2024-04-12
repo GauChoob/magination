@@ -46,7 +46,7 @@ msSplashStartScreen::
 
     LoadSpritePalette PAL_Sprite_Generic                    ; $7288
 
-    LoadBitmapSet BITSET_PressStartScreen, PAL_StartScreen  ; $728C
+    LoadBitmapSet BITSET_StartScreen, PAL_StartScreen       ; $728C
 
     LoadFullTilemap ATTRTILE_MagiNationLogoRLE              ; $7293
 

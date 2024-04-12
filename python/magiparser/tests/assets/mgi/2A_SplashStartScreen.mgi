@@ -35,7 +35,7 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode()
         LoadSpritePalette(PAL_Sprite_Generic)
-        LoadBitmapSet(BITSET_PressStartScreen,PAL_StartScreen)
+        LoadBitmapSet(BITSET_StartScreen,PAL_StartScreen)
         LoadFullTilemap(ATTRTILE_MagiNationLogoRLE)
         
         Switch(#GAMECOUNT#){

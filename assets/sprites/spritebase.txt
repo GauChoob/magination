@@ -1,4 +1,4 @@
-; Sprite,HexOffset (add $100 if VBK 1)
+; Sprite,$HexOffset (add $100 if VBK 1)
 CardsceneFX,40
 EidonWork,30
 EidonFall,30
@@ -14,4 +14,7 @@ PruittRing,30
 ArderialGuardFly,30
 ValkanSpear,30
 FerryOverworld,100
+Tony,100
+TonyAqua,100
+TonyOverworld,100
 TonyBattle,100
