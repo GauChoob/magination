@@ -158,7 +158,7 @@ ScreenShow::
     ld [rIF], a
     ld [hInterrupt_VBlank_Control], a
 
-    ld a, IEF_LCDC | IEF_VBLANK
+    ld a, IEF_STAT | IEF_VBLANK
     ld [rIE], a     ;Enable V-Blank and STAT interrupts
 
     ld a, LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BG8800 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJON | LCDCF_BGON

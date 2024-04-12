@@ -105,7 +105,7 @@ NotCGB_WriteMessage:
     xor a
     ld [rIF], a
     ld [hInterrupt_VBlank_Control], a
-    Set8 rIE, IEF_LCDC | IEF_VBLANK ; $03
+    Set8 rIE, IEF_STAT | IEF_VBLANK ; $03
     Set8 rLCDC, LCDCF_ON | LCDCF_WIN9C00 | LCDCF_WINON | LCDCF_BG8800 | LCDCF_BG9800 | LCDCF_OBJ8 | LCDCF_OBJOFF | LCDCF_BGON ;$E1
     xor a
     ld [rIE], a
