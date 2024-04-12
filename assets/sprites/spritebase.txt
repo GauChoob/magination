@@ -5,3 +5,4 @@ KorgSwim,30
 MoragThrow,30
 MoragHurt,30
 OrwinDie,27
+WenceBow,29
