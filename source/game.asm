@@ -119,7 +119,6 @@ SECTION "Icons 01", ROMX[$4000], BANK[$09]
 INCLUDE "source/assets/textbox_icons/icons1.asm"
 
 
-INCLUDE "source/banks/bank_00a.asm"
 INCLUDE "source/banks/bank_00b.asm"
 INCLUDE "source/banks/bank_00c.asm"
 INCLUDE "source/banks/bank_00d.asm"
