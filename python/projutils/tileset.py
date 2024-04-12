@@ -160,6 +160,7 @@ class Bitmap(filecontents.FileContentsSerializer):
             if tilewidth is not None and tileheight is not None and self._size < tilewidth*tileheight*0x10:
                 self.discarded_tiles = tilewidth*tileheight - self._size//0x10
                 data = data + bytes(self.DISCARDED_TILE)*self.discarded_tiles
+                self._size = tilewidth*tileheight*0x10
         else:
             self._size = tilewidth*tileheight*0x10
             data = rom.getRawSection(address, self._size)
@@ -410,6 +411,12 @@ class Bitmap(filecontents.FileContentsSerializer):
                     for x2 in range(8):
                         self.pixels[y*8+y2][x*8+x2] += newpaletteid*4
 
+        # If the 0th tile is not coloured, maybe this sprite has an assumed offset, so print it for info
+        first_identified_tile = 0
+        while tile_pal_count[first_identified_tile] == -1:
+            first_identified_tile += 1
+        if first_identified_tile > 0:
+            print(f'First known tile: {first_identified_tile:02X}')
 
 class BitSet(filecontents.FileContentsSerializer):
 

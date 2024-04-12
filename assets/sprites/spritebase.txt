@@ -1,0 +1,7 @@
+; Sprite,HexOffset
+CardsceneFX,40
+EidonWork,30
+KorgSwim,30
+MoragThrow,30
+MoragHurt,30
+OrwinDie,27

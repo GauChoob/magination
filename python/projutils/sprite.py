@@ -108,3 +108,18 @@ class Sprite(filecontents.FileContentsSerializer):
 
     def __bytes__(self):
         return b''.join([bytes(entry) for entry in self.entries])
+
+
+class SpriteOffsets:
+    FOLDER: str = 'assets/sprites/spritebase.txt'
+
+    def __init__(self):
+        self.bases = {}
+        with open(self.FOLDER, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line[0] == ';':
+                    continue
+                label, offset = line.split(',')
+                offset = int(offset, 16)
+                self.bases[label] = offset
