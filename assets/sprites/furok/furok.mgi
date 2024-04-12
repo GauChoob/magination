@@ -1,15 +1,15 @@
 
-SPRITE_Birdie_Right1::
-    INCSPRITE("assets/sprites/furok/Birdie_Right1.spr")
+SPRITE_FurokBirdie_Right1::
+    INCSPRITE("assets/sprites/furok/FurokBirdie_Right1.spr")
 
-SPRITE_Birdie_Right2::
-    INCSPRITE("assets/sprites/furok/Birdie_Right2.spr")
+SPRITE_FurokBirdie_Right2::
+    INCSPRITE("assets/sprites/furok/FurokBirdie_Right2.spr")
 
-SPRITE_Birdie_Left1::
-    INCSPRITE("assets/sprites/furok/Birdie_Left1.spr")
+SPRITE_FurokBirdie_Left1::
+    INCSPRITE("assets/sprites/furok/FurokBirdie_Left1.spr")
 
-SPRITE_Birdie_Left2::
-    INCSPRITE("assets/sprites/furok/Birdie_Left2.spr")
+SPRITE_FurokBirdie_Left2::
+    INCSPRITE("assets/sprites/furok/FurokBirdie_Left2.spr")
 
 SPRITE_Furok_FaceRight1::
     INCSPRITE("assets/sprites/furok/Furok_FaceRight1.spr")
@@ -139,9 +139,9 @@ SCRIPT_ANIM_Furok_DisappearLeft::
     }
     End()
 
-SCRIPT_ANIM_Birdie_Right::
+SCRIPT_ANIM_FurokBirdie_Right::
     SpriteBlock(8, 0, 0) {
-        Draw(SPRITE_Birdie_Right1)
-        Draw(SPRITE_Birdie_Right2)
+        Draw(SPRITE_FurokBirdie_Right1)
+        Draw(SPRITE_FurokBirdie_Right2)
     }
-    Jump(SCRIPT_ANIM_Birdie_Right)
+    Jump(SCRIPT_ANIM_FurokBirdie_Right)

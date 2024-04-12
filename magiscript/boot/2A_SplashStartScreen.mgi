@@ -34,7 +34,7 @@ msSplashStartScreen::
     PalFadeAnimToBase(3,$20,0,8)
 
     ResetThenSingleThreadMode()
-        LoadSpritePalette(PAL_AllSprites)
+        LoadSpritePalette(PAL_Sprite_Generic)
         LoadBitmapSet(BITSET_PressStartScreen,PAL_StartScreen)
         LoadFullTilemap(ATTRTILE_MagiNationLogoRLE)
         
