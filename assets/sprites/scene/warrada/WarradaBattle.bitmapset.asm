@@ -1,7 +1,7 @@
     db 3         ; VRAM0 entries
 
     ; Destination, Source, Width, Height
-        LoadBitmap $8000, BITMAP_Battle_Warrada, $10, $02
+        LoadBitmap $8000, BITMAP_Sprite_WarradaBattle, $10, $02
         LoadBitmap $8400, BITMAP_Sprite_Sparkle, $10, $04
         LoadBitmap $8800, BITMAP_Battle_CardsceneFX, $10, $07
 
