@@ -33,6 +33,7 @@ for dirpath, dirnames, filenames in os.walk('assets\\sprites\\'):
 destinations = {
     0x0A: sprite_list,
     0x0B: sprite_list,
+    0x0C: sprite_list,
 }
 
 
@@ -101,4 +102,4 @@ def parse_bank(bank):
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x0B)
+parse_bank(0x0C)

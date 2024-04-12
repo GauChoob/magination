@@ -6,3 +6,6 @@ MoragThrow,30
 MoragHurt,30
 OrwinDie,27
 WenceBow,29
+FossikRing,30
+OrlonRing,30
+PruittRing,30
