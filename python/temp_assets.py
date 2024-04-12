@@ -107,10 +107,10 @@ def parse_bank(bank):
         ref.contents.save_original_file(outpath)
         if transmit:
             ref.contents.save_original_file(ref.original_path)
-        ref.replace_rom_text()
+        #ref.replace_rom_text()
         bitsprite_list.append(f'    BITMAP_Sprite {ref.label_name}, "{ref.processed_path}"')
     with open('python/out/bitsprite.asm', 'w') as f:
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x21)
+parse_bank(0x24)

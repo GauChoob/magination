@@ -14,3 +14,4 @@ PruittRing,30
 ArderialGuardFly,30
 ValkanSpear,30
 FerryOverworld,100
+TonyBattle,100
