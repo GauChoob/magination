@@ -73,6 +73,7 @@ def get_bank_list(bank):
 
 def parse_bank(bank):
     files = get_bank_list(bank)
+    bitsprite_list = []
     for i, (address, label) in enumerate(files):
         if len(label) > 1:
             raise KeyError
@@ -92,6 +93,9 @@ def parse_bank(bank):
         ref.contents.save_original_file(outpath)
         #ref.contents.save_original_file(ref.original_path)
         ref.replace_rom_text()
+        bitsprite_list.append(f'    BITMAP_Sprite {ref.label_name}, "{ref.processed_path}"')
+    with open('python/out/bitsprite.asm', 'w') as f:
+        f.write('\n'.join(bitsprite_list))
 
 
 parse_bank(0x0A)

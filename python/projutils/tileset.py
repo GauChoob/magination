@@ -418,6 +418,7 @@ class Bitmap(filecontents.FileContentsSerializer):
         if first_identified_tile > 0:
             print(f'First known tile: {first_identified_tile:02X}')
 
+
 class BitSet(filecontents.FileContentsSerializer):
 
     def __init__(self):
