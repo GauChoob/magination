@@ -74,6 +74,7 @@ def get_bank_list(bank):
 def parse_bank(bank):
     files = get_bank_list(bank)
     bitsprite_list = []
+    transmit = input('"Transmit" to save in real folder\n') == 'Transmit'
     for i, (address, label) in enumerate(files):
         if len(label) > 1:
             raise KeyError
@@ -91,7 +92,8 @@ def parse_bank(bank):
         outpath = out + ref.original_path
         os.makedirs(os.path.dirname(outpath), exist_ok=True)
         ref.contents.save_original_file(outpath)
-        #ref.contents.save_original_file(ref.original_path)
+        if transmit:
+            ref.contents.save_original_file(ref.original_path)
         ref.replace_rom_text()
         bitsprite_list.append(f'    BITMAP_Sprite {ref.label_name}, "{ref.processed_path}"')
     with open('python/out/bitsprite.asm', 'w') as f:
