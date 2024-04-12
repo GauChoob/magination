@@ -113,4 +113,4 @@ def parse_bank(bank):
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x0D)
+parse_bank(0x21)
