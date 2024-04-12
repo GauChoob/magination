@@ -1,0 +1,268 @@
+
+SPRITE_ShadowMagi7_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceDownRight.spr")
+
+SPRITE_ShadowMagi7_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceDownLeft.spr")
+
+SPRITE_ShadowMagi7_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceUpRight.spr")
+
+SPRITE_ShadowMagi7_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceUpLeft.spr")
+
+SPRITE_ShadowMagi7_WalkDown1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkDown1.spr")
+
+SPRITE_ShadowMagi7_FaceDown::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceDown.spr")
+
+SPRITE_ShadowMagi7_WalkDown2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkDown2.spr")
+
+SPRITE_ShadowMagi7_WalkUp1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkUp1.spr")
+
+SPRITE_ShadowMagi7_FaceUp::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceUp.spr")
+
+SPRITE_ShadowMagi7_WalkUp2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkUp2.spr")
+
+SPRITE_ShadowMagi7_WalkRight1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkRight1.spr")
+
+SPRITE_ShadowMagi7_FaceRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceRight.spr")
+
+SPRITE_ShadowMagi7_WalkRight2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkRight2.spr")
+
+SPRITE_ShadowMagi7_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkLeft1.spr")
+
+SPRITE_ShadowMagi7_FaceLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_FaceLeft.spr")
+
+SPRITE_ShadowMagi7_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7_WalkLeft2.spr")
+
+SPRITE_ShadowMagi7Battle_Idle::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Idle.spr")
+
+SPRITE_ShadowMagi7Battle_Victory1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Victory1.spr")
+
+SPRITE_ShadowMagi7Battle_Victory2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Victory2.spr")
+
+SPRITE_ShadowMagi7Battle_Victory3::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Victory3.spr")
+
+SPRITE_ShadowMagi7Battle_Defeat::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Defeat.spr")
+
+SPRITE_ShadowMagi7Battle_Summon1::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Summon1.spr")
+
+SPRITE_ShadowMagi7Battle_Summon2::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Summon2.spr")
+
+SPRITE_ShadowMagi7Battle_Summon3::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Summon3.spr")
+
+SPRITE_ShadowMagi7Battle_Taunt::
+    INCSPRITE("assets/sprites/scene/shadowmagi7/ShadowMagi7Battle_Taunt.spr")
+
+SCRIPT_ANIM_ShadowMagi7_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_ShadowMagi7_WalkUp1)
+        Draw(SPRITE_ShadowMagi7_FaceUp)
+        Draw(SPRITE_ShadowMagi7_WalkUp2)
+        Draw(SPRITE_ShadowMagi7_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_WalkUp)
+
+SCRIPT_ANIM_ShadowMagi7_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_ShadowMagi7_WalkDown1)
+        Draw(SPRITE_ShadowMagi7_FaceDown)
+        Draw(SPRITE_ShadowMagi7_WalkDown2)
+        Draw(SPRITE_ShadowMagi7_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_WalkDown)
+
+SCRIPT_ANIM_ShadowMagi7_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_ShadowMagi7_WalkLeft1)
+        Draw(SPRITE_ShadowMagi7_FaceLeft)
+        Draw(SPRITE_ShadowMagi7_WalkLeft2)
+        Draw(SPRITE_ShadowMagi7_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_WalkLeft)
+
+SCRIPT_ANIM_ShadowMagi7_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_ShadowMagi7_WalkRight1)
+        Draw(SPRITE_ShadowMagi7_FaceRight)
+        Draw(SPRITE_ShadowMagi7_WalkRight2)
+        Draw(SPRITE_ShadowMagi7_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_WalkRight)
+
+SCRIPT_ANIM_ShadowMagi7_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_ShadowMagi7_WalkUp1)
+        Draw(SPRITE_ShadowMagi7_FaceUp)
+        Draw(SPRITE_ShadowMagi7_WalkUp2)
+        Draw(SPRITE_ShadowMagi7_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_RunUp)
+
+SCRIPT_ANIM_ShadowMagi7_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_ShadowMagi7_WalkDown1)
+        Draw(SPRITE_ShadowMagi7_FaceDown)
+        Draw(SPRITE_ShadowMagi7_WalkDown2)
+        Draw(SPRITE_ShadowMagi7_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_RunDown)
+
+SCRIPT_ANIM_ShadowMagi7_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_ShadowMagi7_WalkLeft1)
+        Draw(SPRITE_ShadowMagi7_FaceLeft)
+        Draw(SPRITE_ShadowMagi7_WalkLeft2)
+        Draw(SPRITE_ShadowMagi7_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_RunLeft)
+
+SCRIPT_ANIM_ShadowMagi7_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_ShadowMagi7_WalkRight1)
+        Draw(SPRITE_ShadowMagi7_FaceRight)
+        Draw(SPRITE_ShadowMagi7_WalkRight2)
+        Draw(SPRITE_ShadowMagi7_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_RunRight)
+
+SCRIPT_ANIM_ShadowMagi7_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceUp)
+
+SCRIPT_ANIM_ShadowMagi7_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceDown)
+
+SCRIPT_ANIM_ShadowMagi7_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceLeft)
+
+SCRIPT_ANIM_ShadowMagi7_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceRight)
+
+SCRIPT_ANIM_ShadowMagi7_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceUpLeft)
+
+SCRIPT_ANIM_ShadowMagi7_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceUpRight)
+
+SCRIPT_ANIM_ShadowMagi7_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceDownLeft)
+
+SCRIPT_ANIM_ShadowMagi7_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7_FaceDownRight)
+
+SCRIPT_ANIM_ShadowMagi7Battle_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7Battle_Idle)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7Battle_Idle)
+
+SCRIPT_ANIM_ShadowMagi7Battle_Taunt::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_ShadowMagi7Battle_Victory1)
+        Draw(SPRITE_ShadowMagi7Battle_Taunt)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7Battle_Taunt)
+
+SCRIPT_ANIM_ShadowMagi7Battle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_ShadowMagi7Battle_Summon1)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon3)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon1)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon3)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon1)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon3)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon1)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+        Draw(SPRITE_ShadowMagi7Battle_Summon3)
+        Draw(SPRITE_ShadowMagi7Battle_Summon2)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7Battle_Idle)
+
+SCRIPT_ANIM_ShadowMagi7Battle_Victory::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_ShadowMagi7Battle_Victory1)
+        Draw(SPRITE_ShadowMagi7Battle_Victory2)
+        Draw(SPRITE_ShadowMagi7Battle_Victory1)
+        Draw(SPRITE_ShadowMagi7Battle_Victory3)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7Battle_Victory)
+
+SCRIPT_ANIM_ShadowMagi7Battle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi7Battle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi7Battle_Defeat)
+
+SCRIPT_ANIM_ShadowMagi7_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi7_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi7_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi7_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi7_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

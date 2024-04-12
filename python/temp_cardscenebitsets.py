@@ -57,7 +57,7 @@ START = 0x61C3
 OUT = 'python/out/'
 OUT_BITSET = OUT  # + 'bitsets/'
 OUT_BITMAP = OUT  # + 'bitmaps/'
-FROM_SPRITE = 'assets/sprites/'
+FROM_SPRITE = 'assets/sprites/scene/'
 ALL_SPRITES = 'python/projutils/data/AllSprites.pal.png'
 
 for folder in [OUT_BITSET, OUT_BITMAP]:

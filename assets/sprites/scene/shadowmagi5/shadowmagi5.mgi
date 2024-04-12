@@ -1,0 +1,274 @@
+
+SPRITE_ShadowMagi5_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceDownRight.spr")
+
+SPRITE_ShadowMagi5_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceDownLeft.spr")
+
+SPRITE_ShadowMagi5_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceUpRight.spr")
+
+SPRITE_ShadowMagi5_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceUpLeft.spr")
+
+SPRITE_ShadowMagi5_WalkDown1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkDown1.spr")
+
+SPRITE_ShadowMagi5_FaceDown::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceDown.spr")
+
+SPRITE_ShadowMagi5_WalkDown2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkDown2.spr")
+
+SPRITE_ShadowMagi5_WalkUp1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkUp1.spr")
+
+SPRITE_ShadowMagi5_FaceUp::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceUp.spr")
+
+SPRITE_ShadowMagi5_WalkUp2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkUp2.spr")
+
+SPRITE_ShadowMagi5_WalkRight1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkRight1.spr")
+
+SPRITE_ShadowMagi5_FaceRight::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceRight.spr")
+
+SPRITE_ShadowMagi5_WalkRight2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkRight2.spr")
+
+SPRITE_ShadowMagi5_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkLeft1.spr")
+
+SPRITE_ShadowMagi5_FaceLeft::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_FaceLeft.spr")
+
+SPRITE_ShadowMagi5_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5_WalkLeft2.spr")
+
+SPRITE_ShadowMagi5Battle_Idle::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Idle.spr")
+
+SPRITE_ShadowMagi5Battle_Victory::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Victory.spr")
+
+SPRITE_ShadowMagi5Battle_Defeat::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Defeat.spr")
+
+SPRITE_ShadowMagi5Battle_Taunt1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Taunt1.spr")
+
+SPRITE_ShadowMagi5Battle_Taunt2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Taunt2.spr")
+
+SPRITE_ShadowMagi5Battle_Taunt3::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Taunt3.spr")
+
+SPRITE_ShadowMagi5Battle_Taunt4::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Taunt4.spr")
+
+SPRITE_ShadowMagi5Battle_Summon1::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Summon1.spr")
+
+SPRITE_ShadowMagi5Battle_Summon2::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Summon2.spr")
+
+SPRITE_ShadowMagi5Battle_Summon3::
+    INCSPRITE("assets/sprites/scene/shadowmagi5/ShadowMagi5Battle_Summon3.spr")
+
+SCRIPT_ANIM_ShadowMagi5_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_ShadowMagi5_WalkUp1)
+        Draw(SPRITE_ShadowMagi5_FaceUp)
+        Draw(SPRITE_ShadowMagi5_WalkUp2)
+        Draw(SPRITE_ShadowMagi5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_WalkUp)
+
+SCRIPT_ANIM_ShadowMagi5_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_ShadowMagi5_WalkDown1)
+        Draw(SPRITE_ShadowMagi5_FaceDown)
+        Draw(SPRITE_ShadowMagi5_WalkDown2)
+        Draw(SPRITE_ShadowMagi5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_WalkDown)
+
+SCRIPT_ANIM_ShadowMagi5_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_ShadowMagi5_WalkLeft1)
+        Draw(SPRITE_ShadowMagi5_FaceLeft)
+        Draw(SPRITE_ShadowMagi5_WalkLeft2)
+        Draw(SPRITE_ShadowMagi5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_WalkLeft)
+
+SCRIPT_ANIM_ShadowMagi5_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_ShadowMagi5_WalkRight1)
+        Draw(SPRITE_ShadowMagi5_FaceRight)
+        Draw(SPRITE_ShadowMagi5_WalkRight2)
+        Draw(SPRITE_ShadowMagi5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_WalkRight)
+
+SCRIPT_ANIM_ShadowMagi5_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_ShadowMagi5_WalkUp1)
+        Draw(SPRITE_ShadowMagi5_FaceUp)
+        Draw(SPRITE_ShadowMagi5_WalkUp2)
+        Draw(SPRITE_ShadowMagi5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_RunUp)
+
+SCRIPT_ANIM_ShadowMagi5_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_ShadowMagi5_WalkDown1)
+        Draw(SPRITE_ShadowMagi5_FaceDown)
+        Draw(SPRITE_ShadowMagi5_WalkDown2)
+        Draw(SPRITE_ShadowMagi5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_RunDown)
+
+SCRIPT_ANIM_ShadowMagi5_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_ShadowMagi5_WalkLeft1)
+        Draw(SPRITE_ShadowMagi5_FaceLeft)
+        Draw(SPRITE_ShadowMagi5_WalkLeft2)
+        Draw(SPRITE_ShadowMagi5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_RunLeft)
+
+SCRIPT_ANIM_ShadowMagi5_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_ShadowMagi5_WalkRight1)
+        Draw(SPRITE_ShadowMagi5_FaceRight)
+        Draw(SPRITE_ShadowMagi5_WalkRight2)
+        Draw(SPRITE_ShadowMagi5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_RunRight)
+
+SCRIPT_ANIM_ShadowMagi5_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceUp)
+
+SCRIPT_ANIM_ShadowMagi5_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceDown)
+
+SCRIPT_ANIM_ShadowMagi5_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceLeft)
+
+SCRIPT_ANIM_ShadowMagi5_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceRight)
+
+SCRIPT_ANIM_ShadowMagi5_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceUpLeft)
+
+SCRIPT_ANIM_ShadowMagi5_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceUpRight)
+
+SCRIPT_ANIM_ShadowMagi5_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceDownLeft)
+
+SCRIPT_ANIM_ShadowMagi5_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5_FaceDownRight)
+
+SCRIPT_ANIM_ShadowMagi5Battle_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5Battle_Idle)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5Battle_Idle)
+
+SCRIPT_ANIM_ShadowMagi5Battle_Taunt::
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_ShadowMagi5Battle_Idle)
+        MoveDraw(8, 0, 0, SPRITE_ShadowMagi5Battle_Taunt1)
+        MoveDraw(8, 0, 0, SPRITE_ShadowMagi5Battle_Taunt2)
+        MoveDraw(8, 0, 0, SPRITE_ShadowMagi5Battle_Taunt3)
+        MoveDraw(8, 0, 0, SPRITE_ShadowMagi5Battle_Taunt4)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5Battle_Idle)
+
+SCRIPT_ANIM_ShadowMagi5Battle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_ShadowMagi5Battle_Summon1)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon3)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon1)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon3)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon1)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon3)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon1)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+        Draw(SPRITE_ShadowMagi5Battle_Summon3)
+        Draw(SPRITE_ShadowMagi5Battle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_ShadowMagi5Battle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5Battle_Idle)
+
+SCRIPT_ANIM_ShadowMagi5Battle_Victory::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5Battle_Victory)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5Battle_Victory)
+
+SCRIPT_ANIM_ShadowMagi5Battle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_ShadowMagi5Battle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_ShadowMagi5Battle_Defeat)
+
+SCRIPT_ANIM_ShadowMagi5_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi5_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi5_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi5_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_ShadowMagi5_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

@@ -1,0 +1,256 @@
+
+SPRITE_Orwin_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceDownRight.spr")
+
+SPRITE_Orwin_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceDownLeft.spr")
+
+SPRITE_Orwin_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceUpRight.spr")
+
+SPRITE_Orwin_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceUpLeft.spr")
+
+SPRITE_Orwin_WalkDown1::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkDown1.spr")
+
+SPRITE_Orwin_FaceDown::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceDown.spr")
+
+SPRITE_Orwin_WalkDown2::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkDown2.spr")
+
+SPRITE_Orwin_WalkUp1::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkUp1.spr")
+
+SPRITE_Orwin_FaceUp::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceUp.spr")
+
+SPRITE_Orwin_WalkUp2::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkUp2.spr")
+
+SPRITE_Orwin_WalkRight::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkRight.spr")
+
+SPRITE_Orwin_FaceRight::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceRight.spr")
+
+SPRITE_Orwin_WalkLeft::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_WalkLeft.spr")
+
+SPRITE_Orwin_FaceLeft::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_FaceLeft.spr")
+
+SPRITE_Orwin_BedriddenDown::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_BedriddenDown.spr")
+
+SPRITE_Orwin_BedriddenRight::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_BedriddenRight.spr")
+
+SPRITE_Orwin_BedriddenLeft::
+    INCSPRITE("assets/sprites/scene/orwin/Orwin_BedriddenLeft.spr")
+
+SPRITE_OrwinDie_HurtRight::
+    INCSPRITE("assets/sprites/scene/orwin/OrwinDie_HurtRight.spr")
+
+SPRITE_OrwinDie_HurtLeft::
+    INCSPRITE("assets/sprites/scene/orwin/OrwinDie_HurtLeft.spr")
+
+SCRIPT_ANIM_Orwin_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Orwin_WalkUp1)
+        Draw(SPRITE_Orwin_FaceUp)
+        Draw(SPRITE_Orwin_WalkUp2)
+        Draw(SPRITE_Orwin_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Orwin_WalkUp)
+
+SCRIPT_ANIM_Orwin_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Orwin_WalkDown1)
+        Draw(SPRITE_Orwin_FaceDown)
+        Draw(SPRITE_Orwin_WalkDown2)
+        Draw(SPRITE_Orwin_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Orwin_WalkDown)
+
+SCRIPT_ANIM_Orwin_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Orwin_WalkLeft)
+        Draw(SPRITE_Orwin_FaceLeft)
+        Draw(SPRITE_Orwin_WalkLeft)
+        Draw(SPRITE_Orwin_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_WalkLeft)
+
+SCRIPT_ANIM_Orwin_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Orwin_WalkRight)
+        Draw(SPRITE_Orwin_FaceRight)
+        Draw(SPRITE_Orwin_WalkRight)
+        Draw(SPRITE_Orwin_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_WalkRight)
+
+SCRIPT_ANIM_Orwin_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Orwin_WalkUp1)
+        Draw(SPRITE_Orwin_FaceUp)
+        Draw(SPRITE_Orwin_WalkUp2)
+        Draw(SPRITE_Orwin_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Orwin_RunUp)
+
+SCRIPT_ANIM_Orwin_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Orwin_WalkDown1)
+        Draw(SPRITE_Orwin_FaceDown)
+        Draw(SPRITE_Orwin_WalkDown2)
+        Draw(SPRITE_Orwin_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Orwin_RunDown)
+
+SCRIPT_ANIM_Orwin_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Orwin_WalkLeft)
+        Draw(SPRITE_Orwin_FaceLeft)
+        Draw(SPRITE_Orwin_WalkLeft)
+        Draw(SPRITE_Orwin_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_RunLeft)
+
+SCRIPT_ANIM_Orwin_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Orwin_WalkRight)
+        Draw(SPRITE_Orwin_FaceRight)
+        Draw(SPRITE_Orwin_WalkRight)
+        Draw(SPRITE_Orwin_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_RunRight)
+
+SCRIPT_ANIM_Orwin_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceUp)
+
+SCRIPT_ANIM_Orwin_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceDown)
+
+SCRIPT_ANIM_Orwin_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceLeft)
+
+SCRIPT_ANIM_Orwin_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceRight)
+
+SCRIPT_ANIM_Orwin_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceUpLeft)
+
+SCRIPT_ANIM_Orwin_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceUpRight)
+
+SCRIPT_ANIM_Orwin_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceDownLeft)
+
+SCRIPT_ANIM_Orwin_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_FaceDownRight)
+
+SCRIPT_ANIM_OrwinDie_HurtLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OrwinDie_HurtLeft)
+    }
+    Jump(SCRIPT_ANIM_OrwinDie_HurtLeft)
+
+SCRIPT_ANIM_OrwinDie_HurtRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OrwinDie_HurtRight)
+    }
+    Jump(SCRIPT_ANIM_OrwinDie_HurtRight)
+
+SCRIPT_ANIM_Orwin_Flicker::
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_Orwin_FaceDownLeft)
+    }
+    Pass()
+    Jump(SCRIPT_ANIM_Orwin_Flicker)
+
+SCRIPT_ANIM_Orwin_Spin1::
+    SpriteDraw() {
+        MoveDraw(2, -1, -1, SPRITE_Orwin_FaceUp)
+        MoveDraw(2, -1, -1, SPRITE_Orwin_FaceDownLeft)
+        MoveDraw(2, -1, -1, SPRITE_Orwin_FaceDown)
+        MoveDraw(2, -1, -1, SPRITE_Orwin_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_Spin1)
+
+SCRIPT_ANIM_Orwin_Spin2::
+    SpriteDraw() {
+        MoveDraw(2, -1, 2, SPRITE_Orwin_FaceUp)
+        MoveDraw(2, -1, 2, SPRITE_Orwin_FaceDownLeft)
+        MoveDraw(2, -1, 2, SPRITE_Orwin_FaceDown)
+        MoveDraw(2, -1, 2, SPRITE_Orwin_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_Spin2)
+
+SCRIPT_ANIM_Orwin_BedriddenDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenDown)
+    }
+    Jump(SCRIPT_ANIM_Orwin_BedriddenDown)
+
+SCRIPT_ANIM_Orwin_BedriddenRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenRight)
+    }
+    Jump(SCRIPT_ANIM_Orwin_BedriddenRight)
+
+SCRIPT_ANIM_Orwin_BedriddenLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Orwin_BedriddenLeft)
+    }
+    Jump(SCRIPT_ANIM_Orwin_BedriddenLeft)
+
+SCRIPT_ANIM_Orwin_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Orwin_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

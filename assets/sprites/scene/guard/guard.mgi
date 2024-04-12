@@ -1,0 +1,81 @@
+
+SPRITE_Guard_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceDownRight.spr")
+
+SPRITE_Guard_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceDownLeft.spr")
+
+SPRITE_Guard_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceUpRight.spr")
+
+SPRITE_Guard_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceUpLeft.spr")
+
+SPRITE_Guard_FaceDown_1::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceDown_1.spr")
+
+SPRITE_Guard_FaceDown_2_UNUSED::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceDown_2_UNUSED.spr")
+
+SPRITE_Guard_FaceUp::
+    INCSPRITE("assets/sprites/scene/guard/Guard_FaceUp.spr")
+
+SCRIPT_ANIM_Guard_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceUp)
+
+SCRIPT_ANIM_Guard_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceDown_1)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceDown)
+
+SCRIPT_ANIM_Guard_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceUpLeft)
+
+SCRIPT_ANIM_Guard_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceUpRight)
+
+SCRIPT_ANIM_Guard_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceDownLeft)
+
+SCRIPT_ANIM_Guard_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Guard_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Guard_FaceDownRight)
+
+SCRIPT_ANIM_Guard_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Guard_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Guard_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Guard_FaceDownLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Guard_FaceDownRight)
+        WaitEventText(1)
+        RestoreActorState()

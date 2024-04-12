@@ -1,0 +1,229 @@
+
+SPRITE_Man5_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceDownRight.spr")
+
+SPRITE_Man5_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceDownLeft.spr")
+
+SPRITE_Man5_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceUpRight.spr")
+
+SPRITE_Man5_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceUpLeft.spr")
+
+SPRITE_Man5_WalkDown1::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkDown1.spr")
+
+SPRITE_Man5_FaceDown::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceDown.spr")
+
+SPRITE_Man5_WalkDown2::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkDown2.spr")
+
+SPRITE_Man5_WalkUp1::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkUp1.spr")
+
+SPRITE_Man5_FaceUp::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceUp.spr")
+
+SPRITE_Man5_WalkUp2::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkUp2.spr")
+
+SPRITE_Man5_WalkRight1::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkRight1.spr")
+
+SPRITE_Man5_FaceRight::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceRight.spr")
+
+SPRITE_Man5_WalkRight2::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkRight2.spr")
+
+SPRITE_Man5_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkLeft1.spr")
+
+SPRITE_Man5_FaceLeft::
+    INCSPRITE("assets/sprites/scene/man5/Man5_FaceLeft.spr")
+
+SPRITE_Man5_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/man5/Man5_WalkLeft2.spr")
+
+SCRIPT_ANIM_Man5_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Man5_WalkUp1)
+        Draw(SPRITE_Man5_FaceUp)
+        Draw(SPRITE_Man5_WalkUp2)
+        Draw(SPRITE_Man5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man5_WalkUp)
+
+SCRIPT_ANIM_Man5_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Man5_WalkDown1)
+        Draw(SPRITE_Man5_FaceDown)
+        Draw(SPRITE_Man5_WalkDown2)
+        Draw(SPRITE_Man5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man5_WalkDown)
+
+SCRIPT_ANIM_Man5_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Man5_WalkLeft1)
+        Draw(SPRITE_Man5_FaceLeft)
+        Draw(SPRITE_Man5_WalkLeft2)
+        Draw(SPRITE_Man5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_WalkLeft)
+
+SCRIPT_ANIM_Man5_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Man5_WalkRight1)
+        Draw(SPRITE_Man5_FaceRight)
+        Draw(SPRITE_Man5_WalkRight2)
+        Draw(SPRITE_Man5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_WalkRight)
+
+SCRIPT_ANIM_Man5_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Man5_WalkUp1)
+        Draw(SPRITE_Man5_FaceUp)
+        Draw(SPRITE_Man5_WalkUp2)
+        Draw(SPRITE_Man5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man5_RunUp)
+
+SCRIPT_ANIM_Man5_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Man5_WalkDown1)
+        Draw(SPRITE_Man5_FaceDown)
+        Draw(SPRITE_Man5_WalkDown2)
+        Draw(SPRITE_Man5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man5_RunDown)
+
+SCRIPT_ANIM_Man5_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Man5_WalkLeft1)
+        Draw(SPRITE_Man5_FaceLeft)
+        Draw(SPRITE_Man5_WalkLeft2)
+        Draw(SPRITE_Man5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_RunLeft)
+
+SCRIPT_ANIM_Man5_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Man5_WalkRight1)
+        Draw(SPRITE_Man5_FaceRight)
+        Draw(SPRITE_Man5_WalkRight2)
+        Draw(SPRITE_Man5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_RunRight)
+
+SCRIPT_ANIM_Man5_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceUp)
+
+SCRIPT_ANIM_Man5_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceDown)
+
+SCRIPT_ANIM_Man5_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceLeft)
+
+SCRIPT_ANIM_Man5_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceRight)
+
+SCRIPT_ANIM_Man5_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceUpLeft)
+
+SCRIPT_ANIM_Man5_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceUpRight)
+
+SCRIPT_ANIM_Man5_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceDownLeft)
+
+SCRIPT_ANIM_Man5_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Man5_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceDownRight)
+
+SCRIPT_ANIM_Man5_HopLeft::
+    SpriteDraw() {
+        MoveDraw(2, 0, -4, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, -3, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, -2, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, -1, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, 0, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, 1, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, 2, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, 3, SPRITE_Man5_FaceLeft)
+        MoveDraw(2, 0, 4, SPRITE_Man5_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceLeft)
+
+SCRIPT_ANIM_Man5_HopRight::
+    SpriteDraw() {
+        MoveDraw(2, 0, -4, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, -3, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, -2, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, -1, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, 0, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, 1, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, 2, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, 3, SPRITE_Man5_FaceRight)
+        MoveDraw(2, 0, 4, SPRITE_Man5_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Man5_FaceRight)
+
+SCRIPT_ANIM_Man5_BlownAway::
+    SpriteBlock(2, -4, 0) {
+        Draw(SPRITE_Man5_FaceDownRight)
+        Draw(SPRITE_Man5_FaceUpRight)
+        Draw(SPRITE_Man5_FaceUpLeft)
+        Draw(SPRITE_Man5_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Man5_BlownAway)
+
+SCRIPT_ANIM_Man5_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Man5_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Man5_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Man5_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Man5_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

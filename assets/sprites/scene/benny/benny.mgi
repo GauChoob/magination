@@ -1,0 +1,192 @@
+
+SPRITE_Benny_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceDownRight.spr")
+
+SPRITE_Benny_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceDownLeft.spr")
+
+SPRITE_Benny_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceUpRight.spr")
+
+SPRITE_Benny_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceUpLeft.spr")
+
+SPRITE_Benny_WalkDown1::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkDown1.spr")
+
+SPRITE_Benny_FaceDown::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceDown.spr")
+
+SPRITE_Benny_WalkDown2::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkDown2.spr")
+
+SPRITE_Benny_WalkUp1::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkUp1.spr")
+
+SPRITE_Benny_FaceUp::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceUp.spr")
+
+SPRITE_Benny_WalkUp2::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkUp2.spr")
+
+SPRITE_Benny_WalkRight1::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkRight1.spr")
+
+SPRITE_Benny_FaceRight::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceRight.spr")
+
+SPRITE_Benny_WalkRight2::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkRight2.spr")
+
+SPRITE_Benny_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkLeft1.spr")
+
+SPRITE_Benny_FaceLeft::
+    INCSPRITE("assets/sprites/scene/benny/Benny_FaceLeft.spr")
+
+SPRITE_Benny_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/benny/Benny_WalkLeft2.spr")
+
+SCRIPT_ANIM_Benny_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Benny_WalkUp1)
+        Draw(SPRITE_Benny_FaceUp)
+        Draw(SPRITE_Benny_WalkUp2)
+        Draw(SPRITE_Benny_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Benny_WalkUp)
+
+SCRIPT_ANIM_Benny_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Benny_WalkDown1)
+        Draw(SPRITE_Benny_FaceDown)
+        Draw(SPRITE_Benny_WalkDown2)
+        Draw(SPRITE_Benny_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Benny_WalkDown)
+
+SCRIPT_ANIM_Benny_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Benny_WalkLeft1)
+        Draw(SPRITE_Benny_FaceLeft)
+        Draw(SPRITE_Benny_WalkLeft2)
+        Draw(SPRITE_Benny_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Benny_WalkLeft)
+
+SCRIPT_ANIM_Benny_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Benny_WalkRight1)
+        Draw(SPRITE_Benny_FaceRight)
+        Draw(SPRITE_Benny_WalkRight2)
+        Draw(SPRITE_Benny_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Benny_WalkRight)
+
+SCRIPT_ANIM_Benny_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Benny_WalkUp1)
+        Draw(SPRITE_Benny_FaceUp)
+        Draw(SPRITE_Benny_WalkUp2)
+        Draw(SPRITE_Benny_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Benny_RunUp)
+
+SCRIPT_ANIM_Benny_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Benny_WalkDown1)
+        Draw(SPRITE_Benny_FaceDown)
+        Draw(SPRITE_Benny_WalkDown2)
+        Draw(SPRITE_Benny_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Benny_RunDown)
+
+SCRIPT_ANIM_Benny_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Benny_WalkLeft1)
+        Draw(SPRITE_Benny_FaceLeft)
+        Draw(SPRITE_Benny_WalkLeft2)
+        Draw(SPRITE_Benny_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Benny_RunLeft)
+
+SCRIPT_ANIM_Benny_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Benny_WalkRight1)
+        Draw(SPRITE_Benny_FaceRight)
+        Draw(SPRITE_Benny_WalkRight2)
+        Draw(SPRITE_Benny_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Benny_RunRight)
+
+SCRIPT_ANIM_Benny_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceUp)
+
+SCRIPT_ANIM_Benny_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceDown)
+
+SCRIPT_ANIM_Benny_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceLeft)
+
+SCRIPT_ANIM_Benny_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceRight)
+
+SCRIPT_ANIM_Benny_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceUpLeft)
+
+SCRIPT_ANIM_Benny_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceUpRight)
+
+SCRIPT_ANIM_Benny_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceDownLeft)
+
+SCRIPT_ANIM_Benny_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Benny_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Benny_FaceDownRight)
+
+SCRIPT_ANIM_Benny_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp::
+        ThisSetAnimSingle(SCRIPT_ANIM_Benny_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown::
+        ThisSetAnimSingle(SCRIPT_ANIM_Benny_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft::
+        ThisSetAnimSingle(SCRIPT_ANIM_Benny_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight::
+        ThisSetAnimSingle(SCRIPT_ANIM_Benny_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

@@ -1,0 +1,353 @@
+
+SPRITE_Agram_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceDownRight.spr")
+
+SPRITE_Agram_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceDownLeft.spr")
+
+SPRITE_Agram_WalkDown1::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkDown1.spr")
+
+SPRITE_Agram_FaceDown::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceDown.spr")
+
+SPRITE_Agram_WalkDown2::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkDown2.spr")
+
+SPRITE_Agram_WalkUp1::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkUp1.spr")
+
+SPRITE_Agram_FaceUp::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceUp.spr")
+
+SPRITE_Agram_WalkUp2::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkUp2.spr")
+
+SPRITE_Agram_WalkRight1::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkRight1.spr")
+
+SPRITE_Agram_FaceRight::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceRight.spr")
+
+SPRITE_Agram_WalkRight2::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkRight2.spr")
+
+SPRITE_Agram_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkLeft1.spr")
+
+SPRITE_Agram_FaceLeft::
+    INCSPRITE("assets/sprites/scene/agram/Agram_FaceLeft.spr")
+
+SPRITE_Agram_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/agram/Agram_WalkLeft2.spr")
+
+SPRITE_AgramBattle_Idle::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Idle.spr")
+
+SPRITE_AgramBattle_Taunt1::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt1.spr")
+
+SPRITE_AgramBattle_Taunt2::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt2.spr")
+
+SPRITE_AgramBattle_Taunt3::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt3.spr")
+
+SPRITE_AgramBattle_Taunt4::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt4.spr")
+
+SPRITE_AgramBattle_Taunt5::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt5.spr")
+
+SPRITE_AgramBattle_Taunt6::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt6.spr")
+
+SPRITE_AgramBattle_Taunt7::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Taunt7.spr")
+
+SPRITE_AgramBattle_HandsUp1::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_HandsUp1.spr")
+
+SPRITE_AgramBattle_HandsUp2::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_HandsUp2.spr")
+
+SPRITE_AgramBattle_Victory::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Victory.spr")
+
+SPRITE_AgramBattle_Defeat::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Defeat.spr")
+
+SPRITE_AgramBattle_Summon1::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Summon1.spr")
+
+SPRITE_AgramBattle_Summon2::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Summon2.spr")
+
+SPRITE_AgramBattle_Summon3::
+    INCSPRITE("assets/sprites/scene/agram/AgramBattle_Summon3.spr")
+
+SCRIPT_ANIM_Agram_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceDown)
+
+SCRIPT_ANIM_Agram_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceUp)
+
+SCRIPT_ANIM_Agram_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceLeft)
+
+SCRIPT_ANIM_Agram_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceRight)
+
+SCRIPT_ANIM_Agram_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceDownLeft)
+
+SCRIPT_ANIM_Agram_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Agram_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Agram_FaceDownRight)
+
+SCRIPT_ANIM_Agram_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Agram_WalkUp1)
+        Draw(SPRITE_Agram_FaceUp)
+        Draw(SPRITE_Agram_WalkUp2)
+        Draw(SPRITE_Agram_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Agram_WalkUp)
+
+SCRIPT_ANIM_Agram_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Agram_WalkDown1)
+        Draw(SPRITE_Agram_FaceDown)
+        Draw(SPRITE_Agram_WalkDown2)
+        Draw(SPRITE_Agram_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Agram_WalkDown)
+
+SCRIPT_ANIM_Agram_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Agram_WalkRight1)
+        Draw(SPRITE_Agram_FaceRight)
+        Draw(SPRITE_Agram_WalkRight2)
+        Draw(SPRITE_Agram_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Agram_WalkRight)
+
+SCRIPT_ANIM_Agram_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Agram_WalkLeft1)
+        Draw(SPRITE_Agram_FaceLeft)
+        Draw(SPRITE_Agram_WalkLeft2)
+        Draw(SPRITE_Agram_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Agram_WalkLeft)
+
+SCRIPT_ANIM_AgramBattle_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_AgramBattle_Idle)
+    }
+    Jump(SCRIPT_ANIM_AgramBattle_Idle)
+
+SCRIPT_ANIM_AgramBattle_Taunt::
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_AgramBattle_Taunt1)
+        MoveDraw(8, 0, 0, SPRITE_AgramBattle_Taunt2)
+        MoveDraw(8, 0, 0, SPRITE_AgramBattle_Taunt3)
+        MoveDraw(8, 0, 0, SPRITE_AgramBattle_Taunt4)
+    }
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_AgramBattle_Taunt5)
+            Draw(SPRITE_AgramBattle_Taunt6)
+            Draw(SPRITE_AgramBattle_Taunt7)
+            Draw(SPRITE_AgramBattle_Taunt6)
+        }
+        Jump(.Loop)
+
+SCRIPT_ANIM_AgramBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_AgramBattle_Summon1)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon3)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon1)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon3)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon1)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon3)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon1)
+        Draw(SPRITE_AgramBattle_Summon2)
+        Draw(SPRITE_AgramBattle_Summon3)
+        Draw(SPRITE_AgramBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_AgramBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_AgramBattle_Idle)
+
+SCRIPT_ANIM_AgramBattle_Victory::
+    SpriteDraw() {
+        MoveDraw(8, 0, 0, SPRITE_AgramBattle_HandsUp1)
+        MoveDraw(64, 0, 0, SPRITE_AgramBattle_Victory)
+    }
+    .Loop:
+        SpriteBlock(8, 0, 0) {
+            Draw(SPRITE_AgramBattle_HandsUp2)
+            Draw(SPRITE_AgramBattle_Victory)
+        }
+        Jump(.Loop)
+
+SCRIPT_ANIM_AgramBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Jump(SCRIPT_ANIM_AgramBattle_Defeat)
+
+SCRIPT_ANIM_AgramBattle_Anguish::
+    SpriteDraw() {
+        MoveDraw(128, 0, 0, SPRITE_AgramBattle_Idle)
+        MoveDraw(32, 0, 0, SPRITE_AgramBattle_HandsUp1)
+    }
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_AgramBattle_HandsUp2)
+        }
+        Jump(.Loop)
+
+SCRIPT_ANIM_AgramBattle_FadeOut::
+    SpriteDraw() {
+        MoveDraw(64, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(4, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(2, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    SpriteDraw() {
+        MoveDraw(1, 0, 0, SPRITE_AgramBattle_Defeat)
+    }
+    Pass()
+    End()

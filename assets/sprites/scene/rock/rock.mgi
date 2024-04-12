@@ -1,0 +1,71 @@
+
+SPRITE_Rock_1::
+    INCSPRITE("assets/sprites/scene/rock/Rock_1.spr")
+
+SPRITE_Rock_2::
+    INCSPRITE("assets/sprites/scene/rock/Rock_2.spr")
+
+SPRITE_Rock_3::
+    INCSPRITE("assets/sprites/scene/rock/Rock_3.spr")
+
+SCRIPT_ANIM_Rock_Idle::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Rock_1)
+    }
+    Jump(SCRIPT_ANIM_Rock_Idle)
+
+SCRIPT_ANIM_Rock_FallDown::
+    SpriteBlock(2, 0, 4) {
+        Draw(SPRITE_Rock_1)
+        Draw(SPRITE_Rock_2)
+        Draw(SPRITE_Rock_3)
+    }
+    Jump(SCRIPT_ANIM_Rock_FallDown)
+
+SCRIPT_ANIM_Rock_WalkUp::
+    SpriteDraw() {
+        MoveDraw(1, 0, -2, SPRITE_Rock_2)
+    }
+    Jump(SCRIPT_ANIM_Rock_WalkUp)
+
+SCRIPT_ANIM_Rock_WalkDown::
+    SpriteDraw() {
+        MoveDraw(1, 0, 2, SPRITE_Rock_2)
+    }
+    Jump(SCRIPT_ANIM_Rock_WalkDown)
+
+SCRIPT_ANIM_Rock_WalkRight::
+    SpriteDraw() {
+        MoveDraw(1, 2, 0, SPRITE_Rock_3)
+    }
+    Jump(SCRIPT_ANIM_Rock_WalkRight)
+
+SCRIPT_ANIM_Rock_WalkLeft::
+    SpriteDraw() {
+        MoveDraw(1, -2, 0, SPRITE_Rock_3)
+    }
+    Jump(SCRIPT_ANIM_Rock_WalkLeft)
+
+SCRIPT_ANIM_Rock_RunUp::
+    SpriteDraw() {
+        MoveDraw(1, 0, -4, SPRITE_Rock_2)
+    }
+    Jump(SCRIPT_ANIM_Rock_RunUp)
+
+SCRIPT_ANIM_Rock_RunDown::
+    SpriteDraw() {
+        MoveDraw(1, 0, 4, SPRITE_Rock_2)
+    }
+    Jump(SCRIPT_ANIM_Rock_RunDown)
+
+SCRIPT_ANIM_Rock_RunRight::
+    SpriteDraw() {
+        MoveDraw(1, 4, 0, SPRITE_Rock_3)
+    }
+    Jump(SCRIPT_ANIM_Rock_RunRight)
+
+SCRIPT_ANIM_Rock_RunLeft::
+    SpriteDraw() {
+        MoveDraw(1, -4, 0, SPRITE_Rock_3)
+    }
+    Jump(SCRIPT_ANIM_Rock_RunLeft)
