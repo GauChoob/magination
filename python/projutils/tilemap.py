@@ -51,11 +51,22 @@ class Tilemap(filecontents.FileContentsSerializer):
 
     @staticmethod
     def original_extension() -> str:
-        raise '.tilemap'
+        return '.tilemap'
 
     @staticmethod
     def processed_extension() -> str:
-        raise '.tilemap'
+        return '.tilemap'
+
+
+class AttrMap(Tilemap):
+
+    @staticmethod
+    def original_extension() -> str:
+        return '.attrmap'
+
+    @staticmethod
+    def processed_extension() -> str:
+        return '.attrmap'
 
 
 class MetaMap(filecontents.FileContentsSerializer):
