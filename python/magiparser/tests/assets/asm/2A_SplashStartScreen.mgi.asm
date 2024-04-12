@@ -44,7 +44,7 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode                               ; $7287
 
-    LoadSpritePalette PAL_Sprite_Generic                        ; $7288
+    LoadSpritePalette PAL_Sprite_Generic                    ; $7288
 
     LoadBitmapSet BITSET_PressStartScreen, PAL_StartScreen  ; $728C
 
