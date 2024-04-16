@@ -518,4 +518,4 @@ class BitSet(filecontents.FileContentsSerializer):
 
     @staticmethod
     def original_extension() -> str:
-        raise '.bitmapset.asm'
+        return '.bitmapset.asm'

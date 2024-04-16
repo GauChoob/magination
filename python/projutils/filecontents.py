@@ -54,7 +54,7 @@ class FileContentsSerializer:
     def _remove_RLE_from_filename(filename: str | pathlib.PurePath) -> str:
         if filename.endswith('.rle'):
             filename = filename[:-4]
-        filename = re.sub('RLE.', '', filename)
+        filename = re.sub('RLE[A-Z0-9]', '', filename)
         return filename
 
     def _handle_rle_save_original_file(self, filename: str | pathlib.PurePath) -> str:
