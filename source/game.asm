@@ -80,8 +80,9 @@ INCLUDE "source/ram/hram.asm"
 
     ; Sprites - Bank 0E, 0F, 10, 11, 20 - essentially full
     ;           Bank 25 - the first half is reserved for sprites
+    ;           TODO list all banks here?
 INCLUDE "source/assets/sprites.asm"
-
+INCLUDE "assets/boot/boot.asm"
     ; Boot
     ; Monochrome Gameboy
     ; Main engine loop
@@ -143,8 +144,6 @@ INCLUDE "source/banks/bank_023.asm"
 INCLUDE "source/banks/bank_024.asm"
 INCLUDE "source/banks/bank_025.asm"
 INCLUDE "source/banks/bank_026.asm"
-    ; Splash screen assets
-INCLUDE "source/banks/bank_027_x.asm"
 INCLUDE "source/banks/bank_028.asm"
 INCLUDE "source/banks/bank_029.asm"
     ; MagiCode for loading screen
