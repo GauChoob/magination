@@ -20,7 +20,7 @@
     db $02
     db $7C
 
-    ; BITMAP_Sprite_MiniTony_Main
+    ; BITMAP_Sprite_TonyOverworld
     dw $8000
     dw $4A19
     db $10

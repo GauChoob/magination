@@ -9,5 +9,5 @@
     ; Destination, Source, Width, Height
         LoadBitmap $8FA0,BITMAP_Misc_CaldVents_UnderneathTunnels_Chest,$04,$01
         LoadBitmap $9000,BITMAP_Underneath_Tunnels_NaturalWalls,$10,$08
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Main,$10,$08
+        LoadBitmap $8000,BITMAP_Sprite_Tony,$10,$08
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02
