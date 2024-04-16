@@ -1,51 +1,51 @@
 
 BITSET_Battle_Agram::
-    INCLUDE "assets/sprites/agram/AgramBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/agram/AgramBattle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi1::
-    INCLUDE "assets/sprites/shadowmagi1/ShadowMagi1Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi1/ShadowMagi1Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi2::
-    INCLUDE "assets/sprites/shadowmagi2/ShadowMagi2Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi2/ShadowMagi2Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi3::
-    INCLUDE "assets/sprites/shadowmagi3/ShadowMagi3Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi3/ShadowMagi3Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi4::
-    INCLUDE "assets/sprites/shadowmagi4/ShadowMagi4Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi4/ShadowMagi4Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi5::
-    INCLUDE "assets/sprites/shadowmagi5/ShadowMagi5Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi5/ShadowMagi5Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi6::
-    INCLUDE "assets/sprites/shadowmagi6/ShadowMagi6Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi6/ShadowMagi6Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi7::
-    INCLUDE "assets/sprites/shadowmagi7/ShadowMagi7Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi7/ShadowMagi7Battle.bitmapset.asm"
 
 BITSET_Battle_ShadowMagi8::
-    INCLUDE "assets/sprites/shadowmagi8/ShadowMagi8Battle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/shadowmagi8/ShadowMagi8Battle.bitmapset.asm"
 
 BITSET_Battle_Korg::
-    INCLUDE "assets/sprites/korg/KorgBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/korg/KorgBattle.bitmapset.asm"
 
 BITSET_Battle_Korremar::
-    INCLUDE "assets/sprites/korremar/KorremarBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/korremar/KorremarBattle.bitmapset.asm"
 
 BITSET_Battle_Morag::
-    INCLUDE "assets/sprites/morag/MoragBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/morag/MoragBattle.bitmapset.asm"
 
 BITSET_Battle_Ogar::
-    INCLUDE "assets/sprites/ogar/OgarBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/ogar/OgarBattle.bitmapset.asm"
 
 BITSET_Battle_Salafy::
-    INCLUDE "assets/sprites/salafy/SalafyBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/salafy/SalafyBattle.bitmapset.asm"
 
 BITSET_Battle_Togoth::
-    INCLUDE "assets/sprites/togoth/TogothBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/togoth/TogothBattle.bitmapset.asm"
 
 BITSET_Battle_Warrada::
-    INCLUDE "assets/sprites/warrada/WarradaBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/warrada/WarradaBattle.bitmapset.asm"
 
 BITSET_Battle_Zet::
-    INCLUDE "assets/sprites/zet/ZetBattle.bitmapset.asm"
+    INCLUDE "assets/sprites/scene/zet/ZetBattle.bitmapset.asm"

@@ -1,0 +1,299 @@
+
+SPRITE_Ogar_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceDownRight.spr")
+
+SPRITE_Ogar_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceDownLeft.spr")
+
+SPRITE_Ogar_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceUpRight.spr")
+
+SPRITE_Ogar_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceUpLeft.spr")
+
+SPRITE_Ogar_WalkDown1::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkDown1.spr")
+
+SPRITE_Ogar_FaceDown::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceDown.spr")
+
+SPRITE_Ogar_WalkDown2::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkDown2.spr")
+
+SPRITE_Ogar_WalkUp1::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkUp1.spr")
+
+SPRITE_Ogar_FaceUp::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceUp.spr")
+
+SPRITE_Ogar_WalkUp2::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkUp2.spr")
+
+SPRITE_Ogar_WalkRight1::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkRight1.spr")
+
+SPRITE_Ogar_FaceRight::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceRight.spr")
+
+SPRITE_Ogar_WalkRight2::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkRight2.spr")
+
+SPRITE_Ogar_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkLeft1.spr")
+
+SPRITE_Ogar_FaceLeft::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_FaceLeft.spr")
+
+SPRITE_Ogar_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/ogar/Ogar_WalkLeft2.spr")
+
+SPRITE_OgarBattle_Idle1::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Idle1.spr")
+
+SPRITE_OgarBattle_Idle2::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Idle2.spr")
+
+SPRITE_OgarBattle_Victory::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Victory.spr")
+
+SPRITE_OgarBattle_Defeat::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Defeat.spr")
+
+SPRITE_OgarBattle_Taunt1::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Taunt1.spr")
+
+SPRITE_OgarBattle_Taunt2::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Taunt2.spr")
+
+SPRITE_OgarBattle_Taunt3::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Taunt3.spr")
+
+SPRITE_OgarBattle_Idle3::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Idle3.spr")
+
+SPRITE_OgarBattle_Summon1::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Summon1.spr")
+
+SPRITE_OgarBattle_Summon2::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Summon2.spr")
+
+SPRITE_OgarBattle_Summon3::
+    INCSPRITE("assets/sprites/scene/ogar/OgarBattle_Summon3.spr")
+
+SCRIPT_ANIM_Ogar_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Ogar_WalkUp1)
+        Draw(SPRITE_Ogar_FaceUp)
+        Draw(SPRITE_Ogar_WalkUp2)
+        Draw(SPRITE_Ogar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ogar_WalkUp)
+
+SCRIPT_ANIM_Ogar_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Ogar_WalkDown1)
+        Draw(SPRITE_Ogar_FaceDown)
+        Draw(SPRITE_Ogar_WalkDown2)
+        Draw(SPRITE_Ogar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ogar_WalkDown)
+
+SCRIPT_ANIM_Ogar_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Ogar_WalkLeft1)
+        Draw(SPRITE_Ogar_FaceLeft)
+        Draw(SPRITE_Ogar_WalkLeft2)
+        Draw(SPRITE_Ogar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ogar_WalkLeft)
+
+SCRIPT_ANIM_Ogar_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Ogar_WalkRight1)
+        Draw(SPRITE_Ogar_FaceRight)
+        Draw(SPRITE_Ogar_WalkRight2)
+        Draw(SPRITE_Ogar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ogar_WalkRight)
+
+SCRIPT_ANIM_Ogar_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Ogar_WalkUp1)
+        Draw(SPRITE_Ogar_FaceUp)
+        Draw(SPRITE_Ogar_WalkUp2)
+        Draw(SPRITE_Ogar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ogar_RunUp)
+
+SCRIPT_ANIM_Ogar_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Ogar_WalkDown1)
+        Draw(SPRITE_Ogar_FaceDown)
+        Draw(SPRITE_Ogar_WalkDown2)
+        Draw(SPRITE_Ogar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ogar_RunDown)
+
+SCRIPT_ANIM_Ogar_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Ogar_WalkLeft1)
+        Draw(SPRITE_Ogar_FaceLeft)
+        Draw(SPRITE_Ogar_WalkLeft2)
+        Draw(SPRITE_Ogar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ogar_RunLeft)
+
+SCRIPT_ANIM_Ogar_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Ogar_WalkRight1)
+        Draw(SPRITE_Ogar_FaceRight)
+        Draw(SPRITE_Ogar_WalkRight2)
+        Draw(SPRITE_Ogar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ogar_RunRight)
+
+SCRIPT_ANIM_Ogar_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceUp)
+
+SCRIPT_ANIM_Ogar_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceDown)
+
+SCRIPT_ANIM_Ogar_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceLeft)
+
+SCRIPT_ANIM_Ogar_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceRight)
+
+SCRIPT_ANIM_Ogar_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceUpLeft)
+
+SCRIPT_ANIM_Ogar_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceUpRight)
+
+SCRIPT_ANIM_Ogar_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceDownLeft)
+
+SCRIPT_ANIM_Ogar_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ogar_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Ogar_FaceDownRight)
+
+SCRIPT_ANIM_OgarBattle_Idle::
+    SpriteDraw() {
+        MoveDraw(96, 0, 0, SPRITE_OgarBattle_Idle3)
+        MoveDraw(96, 0, 0, SPRITE_OgarBattle_Idle2)
+        MoveDraw(128, 0, 0, SPRITE_OgarBattle_Idle3)
+        MoveDraw(96, 0, 0, SPRITE_OgarBattle_Idle1)
+    }
+    Jump(SCRIPT_ANIM_OgarBattle_Idle)
+
+SCRIPT_ANIM_OgarBattle_Taunt::
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_OgarBattle_Idle3)
+        MoveDraw(8, 0, 0, SPRITE_OgarBattle_Taunt1)
+        MoveDraw(8, 0, 0, SPRITE_OgarBattle_Taunt2)
+        MoveDraw(8, 0, 0, SPRITE_OgarBattle_Taunt3)
+        MoveDraw(32, 0, 0, SPRITE_OgarBattle_Idle3)
+    }
+    Jump(SCRIPT_ANIM_OgarBattle_Idle)
+
+SCRIPT_ANIM_OgarBattle_Summon::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_OgarBattle_Summon1)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon3)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon1)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon3)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon1)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon3)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon1)
+        Draw(SPRITE_OgarBattle_Summon2)
+        Draw(SPRITE_OgarBattle_Summon3)
+        Draw(SPRITE_OgarBattle_Summon2)
+    }
+    SpriteDraw() {
+        MoveDraw(32, 0, 0, SPRITE_OgarBattle_Summon1)
+    }
+    Jump(SCRIPT_ANIM_OgarBattle_Idle)
+
+SCRIPT_ANIM_OgarBattle_Victory::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_OgarBattle_Victory)
+    }
+    Jump(SCRIPT_ANIM_OgarBattle_Victory)
+
+SCRIPT_ANIM_OgarBattle_Defeat::
+    SpriteDraw() {
+        MoveDraw(1, 0, -1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, -1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, -1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, -1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 1, SPRITE_OgarBattle_Defeat)
+        MoveDraw(1, 0, 0, SPRITE_OgarBattle_Defeat)
+    }
+    .Loop:
+        SpriteDraw() {
+            MoveDraw(255, 0, 0, SPRITE_OgarBattle_Defeat)
+        }
+        Jump(.Loop)
+
+SCRIPT_ANIM_Ogar_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ogar_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ogar_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ogar_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ogar_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

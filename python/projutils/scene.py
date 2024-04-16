@@ -86,3 +86,7 @@ class Scene(filecontents.FileContentsSerializer):
         self.pattern.load_references_from_processed_file()
         self.metamap.load_contents_from_original_file()
         self.collmap.load_contents_from_original_file()
+
+    @staticmethod
+    def original_extension() -> str:
+        return '.scene.asm'

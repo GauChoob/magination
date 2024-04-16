@@ -1,0 +1,53 @@
+
+SPRITE_Jellybeans_1::
+    INCSPRITE("assets/sprites/scene/jellybeans/Jellybeans_1.spr")
+
+SPRITE_Jellybeans_2::
+    INCSPRITE("assets/sprites/scene/jellybeans/Jellybeans_2.spr")
+
+SPRITE_Jellybeans_3::
+    INCSPRITE("assets/sprites/scene/jellybeans/Jellybeans_3.spr")
+
+SPRITE_Jellybeans_4::
+    INCSPRITE("assets/sprites/scene/jellybeans/Jellybeans_4.spr")
+
+SPRITE_Jellybeans_5::
+    INCSPRITE("assets/sprites/scene/jellybeans/Jellybeans_5.spr")
+
+SCRIPT_ANIM_Jellybeans_Idle::
+    SpriteDraw() {
+        MoveDraw(96, 0, 0, SPRITE_Jellybeans_1)
+    }
+    SpriteBlock(2, 0, 0) {
+        Draw(SPRITE_Jellybeans_2)
+        Draw(SPRITE_Jellybeans_3)
+        Draw(SPRITE_Jellybeans_4)
+        Draw(SPRITE_Jellybeans_5)
+        Draw(SPRITE_Jellybeans_4)
+        Draw(SPRITE_Jellybeans_3)
+        Draw(SPRITE_Jellybeans_2)
+    }
+    Jump(SCRIPT_ANIM_Jellybeans_Idle)
+
+SCRIPT_ANIM_Jellybeans_FlyUp::
+    SpriteDraw() {
+        MoveDraw(96, 0, -3, SPRITE_Jellybeans_1)
+    }
+    Jump(SCRIPT_ANIM_Jellybeans_FlyUp)
+
+SCRIPT_ANIM_Jellybeans_Throw::
+    SpriteDraw() {
+        MoveDraw(10, -4, 0, SPRITE_Jellybeans_1)
+        MoveDraw(2, -3, 0, SPRITE_Jellybeans_1)
+        MoveDraw(2, -3, 1, SPRITE_Jellybeans_1)
+        MoveDraw(2, -2, 1, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, 1, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, 2, SPRITE_Jellybeans_1)
+        MoveDraw(2, 0, 3, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, -2, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, -1, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, 1, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, 2, SPRITE_Jellybeans_1)
+        MoveDraw(2, -1, 3, SPRITE_Jellybeans_1)
+    }
+    Jump(SCRIPT_ANIM_Jellybeans_Idle)

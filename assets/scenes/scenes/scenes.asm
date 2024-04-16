@@ -1,3 +1,5 @@
+SECTION "Scenes", ROMX[$4000], BANK[$4F]
+
     ; $4000
 SCENE_Naroom_Grove_Pathway::
     INCLUDE "assets/scenes/scenes/naroom/grove/pathway/Naroom_Grove_Pathway.scene.asm"

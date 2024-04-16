@@ -1,0 +1,192 @@
+
+SPRITE_Ulk_FaceDownRight::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceDownRight.spr")
+
+SPRITE_Ulk_FaceDownLeft::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceDownLeft.spr")
+
+SPRITE_Ulk_FaceUpRight::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceUpRight.spr")
+
+SPRITE_Ulk_FaceUpLeft::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceUpLeft.spr")
+
+SPRITE_Ulk_WalkDown1::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkDown1.spr")
+
+SPRITE_Ulk_FaceDown::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceDown.spr")
+
+SPRITE_Ulk_WalkDown2::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkDown2.spr")
+
+SPRITE_Ulk_WalkUp1::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkUp1.spr")
+
+SPRITE_Ulk_FaceUp::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceUp.spr")
+
+SPRITE_Ulk_WalkUp2::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkUp2.spr")
+
+SPRITE_Ulk_WalkRight1::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkRight1.spr")
+
+SPRITE_Ulk_FaceRight::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceRight.spr")
+
+SPRITE_Ulk_WalkRight2::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkRight2.spr")
+
+SPRITE_Ulk_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkLeft1.spr")
+
+SPRITE_Ulk_FaceLeft::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_FaceLeft.spr")
+
+SPRITE_Ulk_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/ulk/Ulk_WalkLeft2.spr")
+
+SCRIPT_ANIM_Ulk_WalkUp::
+    SpriteBlock(8, 0, -1) {
+        Draw(SPRITE_Ulk_WalkUp1)
+        Draw(SPRITE_Ulk_FaceUp)
+        Draw(SPRITE_Ulk_WalkUp2)
+        Draw(SPRITE_Ulk_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ulk_WalkUp)
+
+SCRIPT_ANIM_Ulk_WalkDown::
+    SpriteBlock(8, 0, 1) {
+        Draw(SPRITE_Ulk_WalkDown1)
+        Draw(SPRITE_Ulk_FaceDown)
+        Draw(SPRITE_Ulk_WalkDown2)
+        Draw(SPRITE_Ulk_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ulk_WalkDown)
+
+SCRIPT_ANIM_Ulk_WalkLeft::
+    SpriteBlock(8, -1, 0) {
+        Draw(SPRITE_Ulk_WalkLeft1)
+        Draw(SPRITE_Ulk_FaceLeft)
+        Draw(SPRITE_Ulk_WalkLeft2)
+        Draw(SPRITE_Ulk_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ulk_WalkLeft)
+
+SCRIPT_ANIM_Ulk_WalkRight::
+    SpriteBlock(8, 1, 0) {
+        Draw(SPRITE_Ulk_WalkRight1)
+        Draw(SPRITE_Ulk_FaceRight)
+        Draw(SPRITE_Ulk_WalkRight2)
+        Draw(SPRITE_Ulk_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ulk_WalkRight)
+
+SCRIPT_ANIM_Ulk_RunUp::
+    SpriteBlock(8, 0, -2) {
+        Draw(SPRITE_Ulk_WalkUp1)
+        Draw(SPRITE_Ulk_FaceUp)
+        Draw(SPRITE_Ulk_WalkUp2)
+        Draw(SPRITE_Ulk_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ulk_RunUp)
+
+SCRIPT_ANIM_Ulk_RunDown::
+    SpriteBlock(8, 0, 2) {
+        Draw(SPRITE_Ulk_WalkDown1)
+        Draw(SPRITE_Ulk_FaceDown)
+        Draw(SPRITE_Ulk_WalkDown2)
+        Draw(SPRITE_Ulk_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ulk_RunDown)
+
+SCRIPT_ANIM_Ulk_RunLeft::
+    SpriteBlock(8, -2, 0) {
+        Draw(SPRITE_Ulk_WalkLeft1)
+        Draw(SPRITE_Ulk_FaceLeft)
+        Draw(SPRITE_Ulk_WalkLeft2)
+        Draw(SPRITE_Ulk_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ulk_RunLeft)
+
+SCRIPT_ANIM_Ulk_RunRight::
+    SpriteBlock(8, 2, 0) {
+        Draw(SPRITE_Ulk_WalkRight1)
+        Draw(SPRITE_Ulk_FaceRight)
+        Draw(SPRITE_Ulk_WalkRight2)
+        Draw(SPRITE_Ulk_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ulk_RunRight)
+
+SCRIPT_ANIM_Ulk_FaceUp::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceUp)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceUp)
+
+SCRIPT_ANIM_Ulk_FaceDown::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceDown)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceDown)
+
+SCRIPT_ANIM_Ulk_FaceLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceLeft)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceLeft)
+
+SCRIPT_ANIM_Ulk_FaceRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceRight)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceRight)
+
+SCRIPT_ANIM_Ulk_FaceUpLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceUpLeft)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceUpLeft)
+
+SCRIPT_ANIM_Ulk_FaceUpRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceUpRight)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceUpRight)
+
+SCRIPT_ANIM_Ulk_FaceDownLeft::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceDownLeft)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceDownLeft)
+
+SCRIPT_ANIM_Ulk_FaceDownRight::
+    SpriteDraw() {
+        MoveDraw(255, 0, 0, SPRITE_Ulk_FaceDownRight)
+    }
+    Jump(SCRIPT_ANIM_Ulk_FaceDownRight)
+
+SCRIPT_ANIM_Ulk_FaceHero::
+    Switch(#DIRECTION#) {
+        Case(Actor_FLAGS_FACENORTH, .FaceUp)
+        Case(Actor_FLAGS_FACESOUTH, .FaceDown)
+        Case(Actor_FLAGS_FACEEAST, .FaceRight)
+        Case(Actor_FLAGS_FACEWEST, .FaceLeft)
+    }
+    .FaceUp:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ulk_FaceUp)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceDown:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ulk_FaceDown)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceLeft:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ulk_FaceLeft)
+        WaitEventText(1)
+        RestoreActorState()
+    .FaceRight:
+        ThisSetAnimSingle(SCRIPT_ANIM_Ulk_FaceRight)
+        WaitEventText(1)
+        RestoreActorState()

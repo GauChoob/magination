@@ -1,885 +1,885 @@
 
 SPRITE_Bite_1::
-    INCSPRITE("assets/sprites/battlefx/Bite_1.spr")
+    INCSPRITE("assets/sprites/battlefx/bite/Bite_1.spr")
 
 SPRITE_Bite_2::
-    INCSPRITE("assets/sprites/battlefx/Bite_2.spr")
+    INCSPRITE("assets/sprites/battlefx/bite/Bite_2.spr")
 
 SPRITE_Bite_3::
-    INCSPRITE("assets/sprites/battlefx/Bite_3.spr")
+    INCSPRITE("assets/sprites/battlefx/bite/Bite_3.spr")
 
 SPRITE_Bite_4::
-    INCSPRITE("assets/sprites/battlefx/Bite_4.spr")
+    INCSPRITE("assets/sprites/battlefx/bite/Bite_4.spr")
 
 SPRITE_Bubble_1::
-    INCSPRITE("assets/sprites/battlefx/Bubble_1.spr")
+    INCSPRITE("assets/sprites/battlefx/bubble/Bubble_1.spr")
 
 SPRITE_Bubble_2::
-    INCSPRITE("assets/sprites/battlefx/Bubble_2.spr")
+    INCSPRITE("assets/sprites/battlefx/bubble/Bubble_2.spr")
 
 SPRITE_Bubble_3::
-    INCSPRITE("assets/sprites/battlefx/Bubble_3.spr")
+    INCSPRITE("assets/sprites/battlefx/bubble/Bubble_3.spr")
 
 SPRITE_Bubble_4::
-    INCSPRITE("assets/sprites/battlefx/Bubble_4.spr")
+    INCSPRITE("assets/sprites/battlefx/bubble/Bubble_4.spr")
 
 SPRITE_Bubble_5::
-    INCSPRITE("assets/sprites/battlefx/Bubble_5.spr")
+    INCSPRITE("assets/sprites/battlefx/bubble/Bubble_5.spr")
 
 SPRITE_Claw_Left1::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left1.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left1.spr")
 
 SPRITE_Claw_Left2::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left2.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left2.spr")
 
 SPRITE_Claw_Left3::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left3.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left3.spr")
 
 SPRITE_Claw_Left4::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left4.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left4.spr")
 
 SPRITE_Claw_Left5::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left5.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left5.spr")
 
 SPRITE_Claw_Left6::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left6.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left6.spr")
 
 SPRITE_Claw_Left7::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left7.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left7.spr")
 
 SPRITE_Claw_Left8::
-    INCSPRITE("assets/sprites/battlefx/Claw_Left8.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Left8.spr")
 
 SPRITE_Claw_Right1::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right1.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right1.spr")
 
 SPRITE_Claw_Right2::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right2.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right2.spr")
 
 SPRITE_Claw_Right3::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right3.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right3.spr")
 
 SPRITE_Claw_Right4::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right4.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right4.spr")
 
 SPRITE_Claw_Right5::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right5.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right5.spr")
 
 SPRITE_Claw_Right6::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right6.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right6.spr")
 
 SPRITE_Claw_Right7::
-    INCSPRITE("assets/sprites/battlefx/Claw_Right7.spr")
+    INCSPRITE("assets/sprites/battlefx/claw/Claw_Right7.spr")
 
 SPRITE_Crumble_Fall1::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall1.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall1.spr")
 
 SPRITE_Crumble_Fall2::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall2.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall2.spr")
 
 SPRITE_Crumble_Fall3::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall3.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall3.spr")
 
 SPRITE_Crumble_Fall4::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall4.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall4.spr")
 
 SPRITE_Crumble_Fall5::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall5.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall5.spr")
 
 SPRITE_Crumble_Fall6::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall6.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall6.spr")
 
 SPRITE_Crumble_Fall7::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall7.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall7.spr")
 
 SPRITE_Crumble_Fall8::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Fall8.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Fall8.spr")
 
 SPRITE_Crumble_Explode1::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Explode1.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Explode1.spr")
 
 SPRITE_Crumble_Explode2::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Explode2.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Explode2.spr")
 
 SPRITE_Crumble_Explode3::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Explode3.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Explode3.spr")
 
 SPRITE_Crumble_Explode4::
-    INCSPRITE("assets/sprites/battlefx/Crumble_Explode4.spr")
+    INCSPRITE("assets/sprites/battlefx/crumble/Crumble_Explode4.spr")
 
 SPRITE_Fireball_Right1::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Right1.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Right1.spr")
 
 SPRITE_Fireball_Right2::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Right2.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Right2.spr")
 
 SPRITE_Fireball_Right3::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Right3.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Right3.spr")
 
 SPRITE_Fireball_Left1::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Left1.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Left1.spr")
 
 SPRITE_Fireball_Left2::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Left2.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Left2.spr")
 
 SPRITE_Fireball_Left3::
-    INCSPRITE("assets/sprites/battlefx/Fireball_Left3.spr")
+    INCSPRITE("assets/sprites/battlefx/fireball/Fireball_Left3.spr")
 
 SPRITE_Hit_1::
-    INCSPRITE("assets/sprites/battlefx/Hit_1.spr")
+    INCSPRITE("assets/sprites/battlefx/hit/Hit_1.spr")
 
 SPRITE_Hit_2::
-    INCSPRITE("assets/sprites/battlefx/Hit_2.spr")
+    INCSPRITE("assets/sprites/battlefx/hit/Hit_2.spr")
 
 SPRITE_Hit_3::
-    INCSPRITE("assets/sprites/battlefx/Hit_3.spr")
+    INCSPRITE("assets/sprites/battlefx/hit/Hit_3.spr")
 
 SPRITE_Hit_4::
-    INCSPRITE("assets/sprites/battlefx/Hit_4.spr")
+    INCSPRITE("assets/sprites/battlefx/hit/Hit_4.spr")
 
 SPRITE_Hit_5::
-    INCSPRITE("assets/sprites/battlefx/Hit_5.spr")
+    INCSPRITE("assets/sprites/battlefx/hit/Hit_5.spr")
 
 SPRITE_Impact_Right1::
-    INCSPRITE("assets/sprites/battlefx/Impact_Right1.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Right1.spr")
 
 SPRITE_Impact_Right2::
-    INCSPRITE("assets/sprites/battlefx/Impact_Right2.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Right2.spr")
 
 SPRITE_Impact_Right3::
-    INCSPRITE("assets/sprites/battlefx/Impact_Right3.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Right3.spr")
 
 SPRITE_Impact_Right4::
-    INCSPRITE("assets/sprites/battlefx/Impact_Right4.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Right4.spr")
 
 SPRITE_Impact_Left1::
-    INCSPRITE("assets/sprites/battlefx/Impact_Left1.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Left1.spr")
 
 SPRITE_Impact_Left2::
-    INCSPRITE("assets/sprites/battlefx/Impact_Left2.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Left2.spr")
 
 SPRITE_Impact_Left3::
-    INCSPRITE("assets/sprites/battlefx/Impact_Left3.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Left3.spr")
 
 SPRITE_Impact_Left4::
-    INCSPRITE("assets/sprites/battlefx/Impact_Left4.spr")
+    INCSPRITE("assets/sprites/battlefx/impact/Impact_Left4.spr")
 
-SPRITE_Sonic1::
-    INCSPRITE("assets/sprites/battlefx/Sonic1.spr")
+SPRITE_Sonic_1::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_1.spr")
 
-SPRITE_Sonic2::
-    INCSPRITE("assets/sprites/battlefx/Sonic2.spr")
+SPRITE_Sonic_2::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_2.spr")
 
-SPRITE_Sonic3::
-    INCSPRITE("assets/sprites/battlefx/Sonic3.spr")
+SPRITE_Sonic_3::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_3.spr")
 
-SPRITE_Sonic4::
-    INCSPRITE("assets/sprites/battlefx/Sonic4.spr")
+SPRITE_Sonic_4::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_4.spr")
 
 SPRITE_Cyclone_Huge1::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Huge1.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Huge1.spr")
 
 SPRITE_Cyclone_Huge2::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Huge2.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Huge2.spr")
 
 SPRITE_Cyclone_Huge3::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Huge3.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Huge3.spr")
 
 SPRITE_Cyclone_Huge4::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Huge4.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Huge4.spr")
 
 SPRITE_Cyclone_Large1::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Large1.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Large1.spr")
 
 SPRITE_Cyclone_Large2::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Large2.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Large2.spr")
 
 SPRITE_Cyclone_Large3::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Large3.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Large3.spr")
 
 SPRITE_Cyclone_Large4::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Large4.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Large4.spr")
 
 SPRITE_Cyclone_Medium1::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Medium1.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Medium1.spr")
 
 SPRITE_Cyclone_Medium2::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Medium2.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Medium2.spr")
 
 SPRITE_Cyclone_Medium3::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Medium3.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Medium3.spr")
 
 SPRITE_Cyclone_Medium4::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Medium4.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Medium4.spr")
 
 SPRITE_Cyclone_Small1::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Small1.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Small1.spr")
 
 SPRITE_Cyclone_Small2::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Small2.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Small2.spr")
 
 SPRITE_Cyclone_Small3::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Small3.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Small3.spr")
 
 SPRITE_Cyclone_Small4::
-    INCSPRITE("assets/sprites/battlefx/Cyclone_Small4.spr")
+    INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Small4.spr")
 
 SPRITE_FireBird_1::
-    INCSPRITE("assets/sprites/battlefx/FireBird_1.spr")
+    INCSPRITE("assets/sprites/battlefx/firebird/FireBird_1.spr")
 
 SPRITE_FireBird_2::
-    INCSPRITE("assets/sprites/battlefx/FireBird_2.spr")
+    INCSPRITE("assets/sprites/battlefx/firebird/FireBird_2.spr")
 
 SPRITE_FireBird_3::
-    INCSPRITE("assets/sprites/battlefx/FireBird_3.spr")
+    INCSPRITE("assets/sprites/battlefx/firebird/FireBird_3.spr")
 
 SPRITE_FireBird_4::
-    INCSPRITE("assets/sprites/battlefx/FireBird_4.spr")
+    INCSPRITE("assets/sprites/battlefx/firebird/FireBird_4.spr")
 
 SPRITE_Blast_1::
-    INCSPRITE("assets/sprites/battlefx/Blast_1.spr")
+    INCSPRITE("assets/sprites/battlefx/blast/Blast_1.spr")
 
 SPRITE_Blast_2::
-    INCSPRITE("assets/sprites/battlefx/Blast_2.spr")
+    INCSPRITE("assets/sprites/battlefx/blast/Blast_2.spr")
 
 SPRITE_Blast_3::
-    INCSPRITE("assets/sprites/battlefx/Blast_3.spr")
+    INCSPRITE("assets/sprites/battlefx/blast/Blast_3.spr")
 
 SPRITE_Blast_4::
-    INCSPRITE("assets/sprites/battlefx/Blast_4.spr")
+    INCSPRITE("assets/sprites/battlefx/blast/Blast_4.spr")
 
 SPRITE_Blast_5::
-    INCSPRITE("assets/sprites/battlefx/Blast_5.spr")
+    INCSPRITE("assets/sprites/battlefx/blast/Blast_5.spr")
 
 SPRITE_Lightning_Bolt1::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Bolt1.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Bolt1.spr")
 
 SPRITE_Lightning_Bolt2::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Bolt2.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Bolt2.spr")
 
 SPRITE_Lightning_Bolt3::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Bolt3.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Bolt3.spr")
 
 SPRITE_Lightning_Slinky1::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Slinky1.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Slinky1.spr")
 
 SPRITE_Lightning_Slinky2::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Slinky2.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Slinky2.spr")
 
 SPRITE_Lightning_Slinky3::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Slinky3.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Slinky3.spr")
 
 SPRITE_Lightning_Slinky4::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Slinky4.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Slinky4.spr")
 
 SPRITE_Lightning_Slinky5::
-    INCSPRITE("assets/sprites/battlefx/Lightning_Slinky5.spr")
+    INCSPRITE("assets/sprites/battlefx/lightning/Lightning_Slinky5.spr")
 
 SPRITE_Swirl_1::
-    INCSPRITE("assets/sprites/battlefx/Swirl_1.spr")
+    INCSPRITE("assets/sprites/battlefx/swirl/Swirl_1.spr")
 
 SPRITE_Swirl_2::
-    INCSPRITE("assets/sprites/battlefx/Swirl_2.spr")
+    INCSPRITE("assets/sprites/battlefx/swirl/Swirl_2.spr")
 
 SPRITE_Swirl_3::
-    INCSPRITE("assets/sprites/battlefx/Swirl_3.spr")
+    INCSPRITE("assets/sprites/battlefx/swirl/Swirl_3.spr")
 
 SPRITE_Swirl_4::
-    INCSPRITE("assets/sprites/battlefx/Swirl_4.spr")
+    INCSPRITE("assets/sprites/battlefx/swirl/Swirl_4.spr")
 
 SPRITE_SmokeBlast_1::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_1.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_1.spr")
 
 SPRITE_SmokeBlast_2::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_2.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_2.spr")
 
 SPRITE_SmokeBlast_3::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_3.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_3.spr")
 
 SPRITE_SmokeBlast_4::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_4.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_4.spr")
 
 SPRITE_SmokeBlast_5::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_5.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_5.spr")
 
 SPRITE_SmokeBlast_Null::
-    INCSPRITE("assets/sprites/battlefx/SmokeBlast_Null.spr")
+    INCSPRITE("assets/sprites/battlefx/smokeblast/SmokeBlast_Null.spr")
 
 SPRITE_Wind_1::
-    INCSPRITE("assets/sprites/battlefx/Wind_1.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_1.spr")
 
 SPRITE_Wind_2::
-    INCSPRITE("assets/sprites/battlefx/Wind_2.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_2.spr")
 
 SPRITE_Wind_3::
-    INCSPRITE("assets/sprites/battlefx/Wind_3.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_3.spr")
 
 SPRITE_Wind_4::
-    INCSPRITE("assets/sprites/battlefx/Wind_4.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_4.spr")
 
 SPRITE_Wind_5::
-    INCSPRITE("assets/sprites/battlefx/Wind_5.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_5.spr")
 
 SPRITE_Wind_6::
-    INCSPRITE("assets/sprites/battlefx/Wind_6.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_6.spr")
 
 SPRITE_Wind_7::
-    INCSPRITE("assets/sprites/battlefx/Wind_7.spr")
+    INCSPRITE("assets/sprites/battlefx/wind/Wind_7.spr")
 
 SPRITE_Star_1::
-    INCSPRITE("assets/sprites/battlefx/Star_1.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_1.spr")
 
 SPRITE_Star_2::
-    INCSPRITE("assets/sprites/battlefx/Star_2.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_2.spr")
 
 SPRITE_Star_3::
-    INCSPRITE("assets/sprites/battlefx/Star_3.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_3.spr")
 
 SPRITE_Star_4::
-    INCSPRITE("assets/sprites/battlefx/Star_4.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_4.spr")
 
 SPRITE_Star_5::
-    INCSPRITE("assets/sprites/battlefx/Star_5.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_5.spr")
 
 SPRITE_Star_6::
-    INCSPRITE("assets/sprites/battlefx/Star_6.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_6.spr")
 
 SPRITE_Star_7::
-    INCSPRITE("assets/sprites/battlefx/Star_7.spr")
+    INCSPRITE("assets/sprites/battlefx/star/Star_7.spr")
 
 SPRITE_Ice_IceCube::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceCube.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceCube.spr")
 
 SPRITE_Ice_IceBit1::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceBit1.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceBit1.spr")
 
 SPRITE_Ice_IceBit2::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceBit2.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceBit2.spr")
 
 SPRITE_Ice_IceBit3::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceBit3.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceBit3.spr")
 
 SPRITE_Ice_IceBit4::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceBit4.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceBit4.spr")
 
 SPRITE_Ice_IceCrumb1::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceCrumb1.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceCrumb1.spr")
 
 SPRITE_Ice_IceCrumb2::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceCrumb2.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceCrumb2.spr")
 
 SPRITE_Ice_IceCrumb3::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceCrumb3.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceCrumb3.spr")
 
 SPRITE_Ice_IceCrumb4::
-    INCSPRITE("assets/sprites/battlefx/Ice_IceCrumb4.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_IceCrumb4.spr")
 
 SPRITE_Ice_SnowBit1::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowBit1.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowBit1.spr")
 
 SPRITE_Ice_SnowBit2::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowBit2.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowBit2.spr")
 
 SPRITE_Ice_SnowBit3::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowBit3.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowBit3.spr")
 
 SPRITE_Ice_SnowBit4::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowBit4.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowBit4.spr")
 
 SPRITE_Ice_SnowCrumb1::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowCrumb1.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowCrumb1.spr")
 
 SPRITE_Ice_SnowCrumb2::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowCrumb2.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowCrumb2.spr")
 
 SPRITE_Ice_SnowCrumb3::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowCrumb3.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowCrumb3.spr")
 
 SPRITE_Ice_SnowCrumb4::
-    INCSPRITE("assets/sprites/battlefx/Ice_SnowCrumb4.spr")
+    INCSPRITE("assets/sprites/battlefx/ice/Ice_SnowCrumb4.spr")
 
 SPRITE_Melt_1::
-    INCSPRITE("assets/sprites/battlefx/Melt_1.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_1.spr")
 
 SPRITE_Melt_2::
-    INCSPRITE("assets/sprites/battlefx/Melt_2.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_2.spr")
 
 SPRITE_Melt_3::
-    INCSPRITE("assets/sprites/battlefx/Melt_3.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_3.spr")
 
 SPRITE_Melt_4::
-    INCSPRITE("assets/sprites/battlefx/Melt_4.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_4.spr")
 
 SPRITE_Melt_5::
-    INCSPRITE("assets/sprites/battlefx/Melt_5.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_5.spr")
 
 SPRITE_Melt_6::
-    INCSPRITE("assets/sprites/battlefx/Melt_6.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_6.spr")
 
 SPRITE_Melt_Null::
-    INCSPRITE("assets/sprites/battlefx/Melt_Null.spr")
+    INCSPRITE("assets/sprites/battlefx/melt/Melt_Null.spr")
 
 SPRITE_Bramble_01::
-    INCSPRITE("assets/sprites/battlefx/Bramble_01.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_01.spr")
 
 SPRITE_Bramble_02::
-    INCSPRITE("assets/sprites/battlefx/Bramble_02.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_02.spr")
 
 SPRITE_Bramble_03::
-    INCSPRITE("assets/sprites/battlefx/Bramble_03.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_03.spr")
 
 SPRITE_Bramble_04::
-    INCSPRITE("assets/sprites/battlefx/Bramble_04.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_04.spr")
 
 SPRITE_Bramble_05::
-    INCSPRITE("assets/sprites/battlefx/Bramble_05.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_05.spr")
 
 SPRITE_Bramble_06::
-    INCSPRITE("assets/sprites/battlefx/Bramble_06.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_06.spr")
 
 SPRITE_Bramble_07::
-    INCSPRITE("assets/sprites/battlefx/Bramble_07.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_07.spr")
 
 SPRITE_Bramble_08::
-    INCSPRITE("assets/sprites/battlefx/Bramble_08.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_08.spr")
 
 SPRITE_Bramble_09::
-    INCSPRITE("assets/sprites/battlefx/Bramble_09.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_09.spr")
 
 SPRITE_Bramble_10::
-    INCSPRITE("assets/sprites/battlefx/Bramble_10.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_10.spr")
 
 SPRITE_Bramble_11::
-    INCSPRITE("assets/sprites/battlefx/Bramble_11.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_11.spr")
 
 SPRITE_Bramble_12::
-    INCSPRITE("assets/sprites/battlefx/Bramble_12.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_12.spr")
 
 SPRITE_Bramble_13::
-    INCSPRITE("assets/sprites/battlefx/Bramble_13.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_13.spr")
 
 SPRITE_Bramble_14::
-    INCSPRITE("assets/sprites/battlefx/Bramble_14.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_14.spr")
 
 SPRITE_Bramble_15::
-    INCSPRITE("assets/sprites/battlefx/Bramble_15.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_15.spr")
 
 SPRITE_Bramble_16::
-    INCSPRITE("assets/sprites/battlefx/Bramble_16.spr")
+    INCSPRITE("assets/sprites/battlefx/bramble/Bramble_16.spr")
 
 SPRITE_Crack_1::
-    INCSPRITE("assets/sprites/battlefx/Crack_1.spr")
+    INCSPRITE("assets/sprites/battlefx/crack/Crack_1.spr")
 
 SPRITE_Crack_2::
-    INCSPRITE("assets/sprites/battlefx/Crack_2.spr")
+    INCSPRITE("assets/sprites/battlefx/crack/Crack_2.spr")
 
 SPRITE_Crack_3::
-    INCSPRITE("assets/sprites/battlefx/Crack_3.spr")
+    INCSPRITE("assets/sprites/battlefx/crack/Crack_3.spr")
 
 SPRITE_Crack_4::
-    INCSPRITE("assets/sprites/battlefx/Crack_4.spr")
+    INCSPRITE("assets/sprites/battlefx/crack/Crack_4.spr")
 
 SPRITE_Crack_5::
-    INCSPRITE("assets/sprites/battlefx/Crack_5.spr")
+    INCSPRITE("assets/sprites/battlefx/crack/Crack_5.spr")
 
 SPRITE_Curse_1_1::
-    INCSPRITE("assets/sprites/battlefx/Curse_1_1.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_1_1.spr")
 
 SPRITE_Curse_1_2::
-    INCSPRITE("assets/sprites/battlefx/Curse_1_2.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_1_2.spr")
 
 SPRITE_Curse_1_3::
-    INCSPRITE("assets/sprites/battlefx/Curse_1_3.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_1_3.spr")
 
 SPRITE_Curse_2_1::
-    INCSPRITE("assets/sprites/battlefx/Curse_2_1.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_2_1.spr")
 
 SPRITE_Curse_2_2::
-    INCSPRITE("assets/sprites/battlefx/Curse_2_2.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_2_2.spr")
 
 SPRITE_Curse_2_3::
-    INCSPRITE("assets/sprites/battlefx/Curse_2_3.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_2_3.spr")
 
 SPRITE_Curse_3_1::
-    INCSPRITE("assets/sprites/battlefx/Curse_3_1.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_3_1.spr")
 
 SPRITE_Curse_3_2::
-    INCSPRITE("assets/sprites/battlefx/Curse_3_2.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_3_2.spr")
 
 SPRITE_Curse_3_3::
-    INCSPRITE("assets/sprites/battlefx/Curse_3_3.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_3_3.spr")
 
 SPRITE_Curse_4_1::
-    INCSPRITE("assets/sprites/battlefx/Curse_4_1.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_4_1.spr")
 
 SPRITE_Curse_4_2::
-    INCSPRITE("assets/sprites/battlefx/Curse_4_2.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_4_2.spr")
 
 SPRITE_Curse_4_3::
-    INCSPRITE("assets/sprites/battlefx/Curse_4_3.spr")
+    INCSPRITE("assets/sprites/battlefx/curse/Curse_4_3.spr")
 
 SPRITE_Haunt_1::
-    INCSPRITE("assets/sprites/battlefx/Haunt_1.spr")
+    INCSPRITE("assets/sprites/battlefx/haunt/Haunt_1.spr")
 
 SPRITE_Haunt_2::
-    INCSPRITE("assets/sprites/battlefx/Haunt_2.spr")
+    INCSPRITE("assets/sprites/battlefx/haunt/Haunt_2.spr")
 
 SPRITE_Haunt_3::
-    INCSPRITE("assets/sprites/battlefx/Haunt_3.spr")
+    INCSPRITE("assets/sprites/battlefx/haunt/Haunt_3.spr")
 
 SPRITE_Haunt_4::
-    INCSPRITE("assets/sprites/battlefx/Haunt_4.spr")
+    INCSPRITE("assets/sprites/battlefx/haunt/Haunt_4.spr")
 
 SPRITE_Munch_1::
-    INCSPRITE("assets/sprites/battlefx/Munch_1.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_1.spr")
 
 SPRITE_Munch_2::
-    INCSPRITE("assets/sprites/battlefx/Munch_2.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_2.spr")
 
 SPRITE_Munch_3::
-    INCSPRITE("assets/sprites/battlefx/Munch_3.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_3.spr")
 
 SPRITE_Munch_4::
-    INCSPRITE("assets/sprites/battlefx/Munch_4.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_4.spr")
 
 SPRITE_Munch_5::
-    INCSPRITE("assets/sprites/battlefx/Munch_5.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_5.spr")
 
 SPRITE_Munch_6::
-    INCSPRITE("assets/sprites/battlefx/Munch_6.spr")
+    INCSPRITE("assets/sprites/battlefx/munch/Munch_6.spr")
 
 SPRITE_Roots_01::
-    INCSPRITE("assets/sprites/battlefx/Roots_01.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_01.spr")
 
 SPRITE_Roots_02::
-    INCSPRITE("assets/sprites/battlefx/Roots_02.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_02.spr")
 
 SPRITE_Roots_03::
-    INCSPRITE("assets/sprites/battlefx/Roots_03.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_03.spr")
 
 SPRITE_Roots_04::
-    INCSPRITE("assets/sprites/battlefx/Roots_04.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_04.spr")
 
 SPRITE_Roots_05::
-    INCSPRITE("assets/sprites/battlefx/Roots_05.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_05.spr")
 
 SPRITE_Roots_06::
-    INCSPRITE("assets/sprites/battlefx/Roots_06.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_06.spr")
 
 SPRITE_Roots_07::
-    INCSPRITE("assets/sprites/battlefx/Roots_07.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_07.spr")
 
 SPRITE_Roots_08::
-    INCSPRITE("assets/sprites/battlefx/Roots_08.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_08.spr")
 
 SPRITE_Roots_09::
-    INCSPRITE("assets/sprites/battlefx/Roots_09.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_09.spr")
 
 SPRITE_Roots_10::
-    INCSPRITE("assets/sprites/battlefx/Roots_10.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_10.spr")
 
 SPRITE_Roots_11::
-    INCSPRITE("assets/sprites/battlefx/Roots_11.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_11.spr")
 
 SPRITE_Roots_12::
-    INCSPRITE("assets/sprites/battlefx/Roots_12.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_12.spr")
 
 SPRITE_Roots_13::
-    INCSPRITE("assets/sprites/battlefx/Roots_13.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_13.spr")
 
 SPRITE_Roots_14::
-    INCSPRITE("assets/sprites/battlefx/Roots_14.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_14.spr")
 
 SPRITE_Roots_15::
-    INCSPRITE("assets/sprites/battlefx/Roots_15.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_15.spr")
 
 SPRITE_Roots_16::
-    INCSPRITE("assets/sprites/battlefx/Roots_16.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_16.spr")
 
 SPRITE_Roots_17::
-    INCSPRITE("assets/sprites/battlefx/Roots_17.spr")
+    INCSPRITE("assets/sprites/battlefx/roots/Roots_17.spr")
 
 SPRITE_Squirt_Shoot1::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Shoot1.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Shoot1.spr")
 
 SPRITE_Squirt_Shoot2::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Shoot2.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Shoot2.spr")
 
 SPRITE_Squirt_Splash1::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Splash1.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Splash1.spr")
 
 SPRITE_Squirt_Splash2::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Splash2.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Splash2.spr")
 
 SPRITE_Squirt_Splash3::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Splash3.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Splash3.spr")
 
 SPRITE_Squirt_Splash4::
-    INCSPRITE("assets/sprites/battlefx/Squirt_Splash4.spr")
+    INCSPRITE("assets/sprites/battlefx/squirt/Squirt_Splash4.spr")
 
 SPRITE_Sting_1::
-    INCSPRITE("assets/sprites/battlefx/Sting_1.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_1.spr")
 
 SPRITE_Sting_2::
-    INCSPRITE("assets/sprites/battlefx/Sting_2.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_2.spr")
 
 SPRITE_Sting_3::
-    INCSPRITE("assets/sprites/battlefx/Sting_3.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_3.spr")
 
 SPRITE_Sting_4::
-    INCSPRITE("assets/sprites/battlefx/Sting_4.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_4.spr")
 
 SPRITE_Sting_5::
-    INCSPRITE("assets/sprites/battlefx/Sting_5.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_5.spr")
 
 SPRITE_Sting_Null::
-    INCSPRITE("assets/sprites/battlefx/Sting_Null.spr")
+    INCSPRITE("assets/sprites/battlefx/sting/Sting_Null.spr")
 
 SPRITE_Terror_1::
-    INCSPRITE("assets/sprites/battlefx/Terror_1.spr")
+    INCSPRITE("assets/sprites/battlefx/terror/Terror_1.spr")
 
 SPRITE_Terror_2::
-    INCSPRITE("assets/sprites/battlefx/Terror_2.spr")
+    INCSPRITE("assets/sprites/battlefx/terror/Terror_2.spr")
 
 SPRITE_Terror_3::
-    INCSPRITE("assets/sprites/battlefx/Terror_3.spr")
+    INCSPRITE("assets/sprites/battlefx/terror/Terror_3.spr")
 
 SPRITE_Terror_4::
-    INCSPRITE("assets/sprites/battlefx/Terror_4.spr")
+    INCSPRITE("assets/sprites/battlefx/terror/Terror_4.spr")
 
 SPRITE_Timber_1::
-    INCSPRITE("assets/sprites/battlefx/Timber_1.spr")
+    INCSPRITE("assets/sprites/battlefx/timber/Timber_1.spr")
 
 SPRITE_Timber_2::
-    INCSPRITE("assets/sprites/battlefx/Timber_2.spr")
+    INCSPRITE("assets/sprites/battlefx/timber/Timber_2.spr")
 
 SPRITE_Timber_3::
-    INCSPRITE("assets/sprites/battlefx/Timber_3.spr")
+    INCSPRITE("assets/sprites/battlefx/timber/Timber_3.spr")
 
 SPRITE_Timber_4::
-    INCSPRITE("assets/sprites/battlefx/Timber_4.spr")
+    INCSPRITE("assets/sprites/battlefx/timber/Timber_4.spr")
 
 SPRITE_TinyFire_Flame1::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame1.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame1.spr")
 
 SPRITE_TinyFire_Flame2::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame2.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame2.spr")
 
 SPRITE_TinyFire_Flame3::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame3.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame3.spr")
 
 SPRITE_TinyFire_Flame4::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame4.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame4.spr")
 
 SPRITE_TinyFire_Flame5::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame5.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame5.spr")
 
 SPRITE_TinyFire_Flame6::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame6.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame6.spr")
 
 SPRITE_TinyFire_Flame7::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame7.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame7.spr")
 
 SPRITE_TinyFire_Flame8::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Flame8.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Flame8.spr")
 
 SPRITE_TinyFire_Trail1::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Trail1.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Trail1.spr")
 
 SPRITE_TinyFire_Trail2::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Trail2.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Trail2.spr")
 
 SPRITE_TinyFire_Trail3::
-    INCSPRITE("assets/sprites/battlefx/TinyFire_Trail3.spr")
+    INCSPRITE("assets/sprites/battlefx/tinyfire/TinyFire_Trail3.spr")
 
 SPRITE_Tornado_1::
-    INCSPRITE("assets/sprites/battlefx/Tornado_1.spr")
+    INCSPRITE("assets/sprites/battlefx/tornado/Tornado_1.spr")
 
 SPRITE_Tornado_2::
-    INCSPRITE("assets/sprites/battlefx/Tornado_2.spr")
+    INCSPRITE("assets/sprites/battlefx/tornado/Tornado_2.spr")
 
 SPRITE_Tornado_3::
-    INCSPRITE("assets/sprites/battlefx/Tornado_3.spr")
+    INCSPRITE("assets/sprites/battlefx/tornado/Tornado_3.spr")
 
 SPRITE_Tornado_4::
-    INCSPRITE("assets/sprites/battlefx/Tornado_4.spr")
+    INCSPRITE("assets/sprites/battlefx/tornado/Tornado_4.spr")
 
 SPRITE_Tornado_5::
-    INCSPRITE("assets/sprites/battlefx/Tornado_5.spr")
+    INCSPRITE("assets/sprites/battlefx/tornado/Tornado_5.spr")
 
 SPRITE_Inferno_1::
-    INCSPRITE("assets/sprites/battlefx/Inferno_1.spr")
+    INCSPRITE("assets/sprites/battlefx/inferno/Inferno_1.spr")
 
 SPRITE_Inferno_2::
-    INCSPRITE("assets/sprites/battlefx/Inferno_2.spr")
+    INCSPRITE("assets/sprites/battlefx/inferno/Inferno_2.spr")
 
 SPRITE_Inferno_3::
-    INCSPRITE("assets/sprites/battlefx/Inferno_3.spr")
+    INCSPRITE("assets/sprites/battlefx/inferno/Inferno_3.spr")
 
 SPRITE_Inferno_4::
-    INCSPRITE("assets/sprites/battlefx/Inferno_4.spr")
+    INCSPRITE("assets/sprites/battlefx/inferno/Inferno_4.spr")
 
 SPRITE_Inferno_5::
-    INCSPRITE("assets/sprites/battlefx/Inferno_5.spr")
+    INCSPRITE("assets/sprites/battlefx/inferno/Inferno_5.spr")
 
 SPRITE_Lava_1::
-    INCSPRITE("assets/sprites/battlefx/Lava_1.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_1.spr")
 
 SPRITE_Lava_2::
-    INCSPRITE("assets/sprites/battlefx/Lava_2.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_2.spr")
 
 SPRITE_Lava_3::
-    INCSPRITE("assets/sprites/battlefx/Lava_3.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_3.spr")
 
 SPRITE_Lava_4::
-    INCSPRITE("assets/sprites/battlefx/Lava_4.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_4.spr")
 
 SPRITE_Lava_5::
-    INCSPRITE("assets/sprites/battlefx/Lava_5.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_5.spr")
 
 SPRITE_Lava_6::
-    INCSPRITE("assets/sprites/battlefx/Lava_6.spr")
+    INCSPRITE("assets/sprites/battlefx/lava/Lava_6.spr")
 
 SPRITE_Lamp::
-    INCSPRITE("assets/sprites/battlefx/Lamp.spr")
+    INCSPRITE("assets/sprites/battlefx/lamp/Lamp.spr")
 
 SPRITE_Leaf_1::
-    INCSPRITE("assets/sprites/battlefx/Leaf_1.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_1.spr")
 
 SPRITE_Leaf_2::
-    INCSPRITE("assets/sprites/battlefx/Leaf_2.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_2.spr")
 
 SPRITE_Leaf_3::
-    INCSPRITE("assets/sprites/battlefx/Leaf_3.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_3.spr")
 
 SPRITE_Leaf_4::
-    INCSPRITE("assets/sprites/battlefx/Leaf_4.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_4.spr")
 
 SPRITE_Leaf_5::
-    INCSPRITE("assets/sprites/battlefx/Leaf_5.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_5.spr")
 
 SPRITE_Leaf_6::
-    INCSPRITE("assets/sprites/battlefx/Leaf_6.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_6.spr")
 
 SPRITE_Leaf_7::
-    INCSPRITE("assets/sprites/battlefx/Leaf_7.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_7.spr")
 
 SPRITE_Leaf_8::
-    INCSPRITE("assets/sprites/battlefx/Leaf_8.spr")
+    INCSPRITE("assets/sprites/battlefx/leaf/Leaf_8.spr")
 
 SPRITE_Executioner_1::
-    INCSPRITE("assets/sprites/battlefx/Executioner_1.spr")
+    INCSPRITE("assets/sprites/battlefx/executioner/Executioner_1.spr")
 
 SPRITE_Executioner_2::
-    INCSPRITE("assets/sprites/battlefx/Executioner_2.spr")
+    INCSPRITE("assets/sprites/battlefx/executioner/Executioner_2.spr")
 
 SPRITE_Executioner_3::
-    INCSPRITE("assets/sprites/battlefx/Executioner_3.spr")
+    INCSPRITE("assets/sprites/battlefx/executioner/Executioner_3.spr")
 
 SPRITE_Executioner_4::
-    INCSPRITE("assets/sprites/battlefx/Executioner_4.spr")
+    INCSPRITE("assets/sprites/battlefx/executioner/Executioner_4.spr")
 
 SPRITE_Gale_1::
-    INCSPRITE("assets/sprites/battlefx/Gale_1.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_1.spr")
 
 SPRITE_Gale_2::
-    INCSPRITE("assets/sprites/battlefx/Gale_2.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_2.spr")
 
 SPRITE_Gale_3::
-    INCSPRITE("assets/sprites/battlefx/Gale_3.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_3.spr")
 
 SPRITE_Gale_4::
-    INCSPRITE("assets/sprites/battlefx/Gale_4.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_4.spr")
 
 SPRITE_Gale_5::
-    INCSPRITE("assets/sprites/battlefx/Gale_5.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_5.spr")
 
 SPRITE_Gale_6::
-    INCSPRITE("assets/sprites/battlefx/Gale_6.spr")
+    INCSPRITE("assets/sprites/battlefx/gale/Gale_6.spr")
 
 SPRITE_Hearts_1::
-    INCSPRITE("assets/sprites/battlefx/Hearts_1.spr")
+    INCSPRITE("assets/sprites/battlefx/hearts/Hearts_1.spr")
 
 SPRITE_Hearts_2::
-    INCSPRITE("assets/sprites/battlefx/Hearts_2.spr")
+    INCSPRITE("assets/sprites/battlefx/hearts/Hearts_2.spr")
 
 SPRITE_Maul_1::
-    INCSPRITE("assets/sprites/battlefx/Maul_1.spr")
+    INCSPRITE("assets/sprites/battlefx/maul/Maul_1.spr")
 
 SPRITE_Maul_2::
-    INCSPRITE("assets/sprites/battlefx/Maul_2.spr")
+    INCSPRITE("assets/sprites/battlefx/maul/Maul_2.spr")
 
 SPRITE_Maul_3::
-    INCSPRITE("assets/sprites/battlefx/Maul_3.spr")
+    INCSPRITE("assets/sprites/battlefx/maul/Maul_3.spr")
 
 SPRITE_Maul_4::
-    INCSPRITE("assets/sprites/battlefx/Maul_4.spr")
+    INCSPRITE("assets/sprites/battlefx/maul/Maul_4.spr")
 
 SPRITE_Maul_Null::
-    INCSPRITE("assets/sprites/battlefx/Maul_Null.spr")
+    INCSPRITE("assets/sprites/battlefx/maul/Maul_Null.spr")
 
 SPRITE_Judge_1::
-    INCSPRITE("assets/sprites/battlefx/Judge_1.spr")
+    INCSPRITE("assets/sprites/battlefx/judge/Judge_1.spr")
 
 SPRITE_Judge_2::
-    INCSPRITE("assets/sprites/battlefx/Judge_2.spr")
+    INCSPRITE("assets/sprites/battlefx/judge/Judge_2.spr")
 
 SPRITE_Judge_3::
-    INCSPRITE("assets/sprites/battlefx/Judge_3.spr")
+    INCSPRITE("assets/sprites/battlefx/judge/Judge_3.spr")
 
 SPRITE_Judge_4::
-    INCSPRITE("assets/sprites/battlefx/Judge_4.spr")
+    INCSPRITE("assets/sprites/battlefx/judge/Judge_4.spr")
 
 SPRITE_Melody_8th::
-    INCSPRITE("assets/sprites/battlefx/Melody_8th.spr")
+    INCSPRITE("assets/sprites/battlefx/melody/Melody_8th.spr")
 
 SPRITE_Melody_Sharp::
-    INCSPRITE("assets/sprites/battlefx/Melody_Sharp.spr")
+    INCSPRITE("assets/sprites/battlefx/melody/Melody_Sharp.spr")
 
 SPRITE_Melody_Whole::
-    INCSPRITE("assets/sprites/battlefx/Melody_Whole.spr")
+    INCSPRITE("assets/sprites/battlefx/melody/Melody_Whole.spr")
 
 SPRITE_Pack::
-    INCSPRITE("assets/sprites/battlefx/Pack.spr")
+    INCSPRITE("assets/sprites/battlefx/pack/Pack.spr")
 
 SPRITE_Thunder_1::
-    INCSPRITE("assets/sprites/battlefx/Thunder_1.spr")
+    INCSPRITE("assets/sprites/battlefx/thunder/Thunder_1.spr")
 
 SPRITE_Thunder_2::
-    INCSPRITE("assets/sprites/battlefx/Thunder_2.spr")
+    INCSPRITE("assets/sprites/battlefx/thunder/Thunder_2.spr")
 
 SPRITE_Thunder_3::
-    INCSPRITE("assets/sprites/battlefx/Thunder_3.spr")
+    INCSPRITE("assets/sprites/battlefx/thunder/Thunder_3.spr")
 
 SPRITE_Tsunami_1::
-    INCSPRITE("assets/sprites/battlefx/Tsunami_1.spr")
+    INCSPRITE("assets/sprites/battlefx/tsunami/Tsunami_1.spr")
 
 SPRITE_Tsunami_2::
-    INCSPRITE("assets/sprites/battlefx/Tsunami_2.spr")
+    INCSPRITE("assets/sprites/battlefx/tsunami/Tsunami_2.spr")
 
 SPRITE_Tsunami_3::
-    INCSPRITE("assets/sprites/battlefx/Tsunami_3.spr")
+    INCSPRITE("assets/sprites/battlefx/tsunami/Tsunami_3.spr")
 
 SPRITE_Tsunami_4::
-    INCSPRITE("assets/sprites/battlefx/Tsunami_4.spr")
+    INCSPRITE("assets/sprites/battlefx/tsunami/Tsunami_4.spr")
 
 SPRITE_Tsunami_5::
-    INCSPRITE("assets/sprites/battlefx/Tsunami_5.spr")
+    INCSPRITE("assets/sprites/battlefx/tsunami/Tsunami_5.spr")
 
 SPRITE_Gravity_1::
-    INCSPRITE("assets/sprites/battlefx/Gravity_1.spr")
+    INCSPRITE("assets/sprites/battlefx/gravity/Gravity_1.spr")
 
 SPRITE_Gravity_2::
-    INCSPRITE("assets/sprites/battlefx/Gravity_2.spr")
+    INCSPRITE("assets/sprites/battlefx/gravity/Gravity_2.spr")
 
 SPRITE_Gravity_3::
-    INCSPRITE("assets/sprites/battlefx/Gravity_3.spr")
+    INCSPRITE("assets/sprites/battlefx/gravity/Gravity_3.spr")
 
 SPRITE_Gravity_4::
-    INCSPRITE("assets/sprites/battlefx/Gravity_4.spr")
+    INCSPRITE("assets/sprites/battlefx/gravity/Gravity_4.spr")
 
 SPRITE_Swarm::
-    INCSPRITE("assets/sprites/battlefx/Swarm.spr")
+    INCSPRITE("assets/sprites/battlefx/swarm/Swarm.spr")
 
 SCRIPT_ANIM_Fireball_Left::
     OverlayDraw() {
@@ -981,21 +981,21 @@ SCRIPT_ANIM_Crumble_Explode::
 
 SCRIPT_ANIM_Sonic_Right::
     OverlayDraw() {
-        MoveDraw(10, 1, 0, SPRITE_Sonic1)
-        MoveDraw(10, 2, 0, SPRITE_Sonic2)
-        MoveDraw(10, 3, 0, SPRITE_Sonic3)
+        MoveDraw(10, 1, 0, SPRITE_Sonic_1)
+        MoveDraw(10, 2, 0, SPRITE_Sonic_2)
+        MoveDraw(10, 3, 0, SPRITE_Sonic_3)
     }
     LongJump(SCRIPT_ANIM_Sonic_End)
 
 SCRIPT_ANIM_Sonic_Still::
     OverlayDraw() {
-        MoveDraw(10, 0, 0, SPRITE_Sonic1)
-        MoveDraw(10, 0, 0, SPRITE_Sonic2)
-        MoveDraw(10, 0, 0, SPRITE_Sonic3)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_1)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_2)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_3)
     }
 SCRIPT_ANIM_Sonic_End::
     OverlayDraw() {
-        MoveDraw(255, 4, 0, SPRITE_Sonic4)
+        MoveDraw(255, 4, 0, SPRITE_Sonic_4)
     }
     Jump(SCRIPT_ANIM_Sonic_End)
 

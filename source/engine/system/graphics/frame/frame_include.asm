@@ -7,6 +7,11 @@ MACRO INCSPRITE
     db SPRITE_END
 ENDM
 
+MACRO BITMAP_Sprite
+\1::
+    INCBIN \2
+DEF \1_TILES EQU (@ - \1)/$10
+ENDM
 
 
 MACRO Frame_Init

@@ -1,7 +1,7 @@
 Battle00_VBlank_CopyTile::
-    ; Copies a tile from BITMAP_DamageText into the tileset
+    ; Copies a tile from BITMAP_Sprite_NumberBounce into the tileset
     PushROMBank
-    SwitchROMBank BANK(BITMAP_DamageText)
+    SwitchROMBank BANK(BITMAP_Sprite_NumberBounce)
     call Interrupt_VBlankFunc_CopyTile
     PopROMBank
     ret

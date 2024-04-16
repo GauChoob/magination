@@ -193,6 +193,14 @@ class Palette(filecontents.FileContentsSerializer):
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCBIN "{}"'.format(filename)
 
+    @staticmethod
+    def original_extension() -> str:
+        return '.pal.png'
+
+    @staticmethod
+    def processed_extension() -> str:
+        return '.pal'
+
     def has_no_alpha(self) -> bool:
         """Returns True if no color in the palette is transparent"""
         return all([color[3] == 255 for color in self.palette])

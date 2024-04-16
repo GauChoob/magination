@@ -117,3 +117,11 @@ class Pattern(filecontents.FileContentsSerializer):
 
     def generate_include(self, filename: str | pathlib.PurePath) -> str:
         return '    INCBIN "{}"'.format(filename)
+
+    @staticmethod
+    def original_extension() -> str:
+        return '.pattern.tilemap'
+
+    @staticmethod
+    def processed_extension() -> str:
+        return '.pattern'

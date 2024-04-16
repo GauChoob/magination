@@ -78,10 +78,12 @@ INCLUDE "source/ram/wram_X.asm"
 INCLUDE "source/ram/oam.asm"
 INCLUDE "source/ram/hram.asm"
 
+INCLUDE "assets/scenes/scenes/scenes.asm"
     ; Sprites - Bank 0E, 0F, 10, 11, 20 - essentially full
     ;           Bank 25 - the first half is reserved for sprites
+    ;           TODO list all banks here?
 INCLUDE "source/assets/sprites.asm"
-
+INCLUDE "assets/boot/boot.asm"
     ; Boot
     ; Monochrome Gameboy
     ; Main engine loop
@@ -119,10 +121,6 @@ SECTION "Icons 01", ROMX[$4000], BANK[$09]
 INCLUDE "source/assets/textbox_icons/icons1.asm"
 
 
-INCLUDE "source/banks/bank_00a.asm"
-INCLUDE "source/banks/bank_00b.asm"
-INCLUDE "source/banks/bank_00c.asm"
-INCLUDE "source/banks/bank_00d.asm"
 INCLUDE "source/banks/bank_012.asm"
 INCLUDE "source/banks/bank_013.asm"
 INCLUDE "source/banks/bank_014.asm"
@@ -147,8 +145,6 @@ INCLUDE "source/banks/bank_023.asm"
 INCLUDE "source/banks/bank_024.asm"
 INCLUDE "source/banks/bank_025.asm"
 INCLUDE "source/banks/bank_026.asm"
-    ; Splash screen assets
-INCLUDE "source/banks/bank_027_x.asm"
 INCLUDE "source/banks/bank_028.asm"
 INCLUDE "source/banks/bank_029.asm"
     ; MagiCode for loading screen
@@ -168,8 +164,6 @@ INCLUDE "musyx/musyx_pack.asm"
 
 
 
-INCLUDE "source/banks/bank_040.asm"
-INCLUDE "source/banks/bank_041.asm"
     ; ?
     ; Tilemaps for StartScreen 0-D
 
@@ -214,7 +208,6 @@ INCLUDE "assets/fightscene/fightscene_creature_bitmaps1.asm"
 SECTION "DC Fightscene Bitmaps 2", ROMX[$4000], BANK[$49]
 INCLUDE "assets/fightscene/fightscene_creature_bitmaps2.asm"
     ; Tilesets for fightscene sprites. Only a small amount of room left.
-    ; Contains an extra unused copy of Abaquist's tileset but uncompressed (BUG)
 SECTION "DC Fightscene Bitmaps 3", ROMX[$4000], BANK[$4A]
 INCLUDE "assets/fightscene/fightscene_creature_bitmaps3.asm"
     ; Tilesets for fightscene sprites. Only a small amount of room left.
@@ -232,7 +225,6 @@ INCLUDE "source/banks/bank_04c.asm"
 INCLUDE "source/banks/bank_04e_x.asm"
     ; Scene headers
     ; ? Combat animations?
-INCLUDE "source/banks/bank_04f.asm"
 
 ;
 ;       SCENE DATA AUTOPACKER (MR. YUK)

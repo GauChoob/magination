@@ -1,0 +1,208 @@
+
+SPRITE_AgovoSmoke_1::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_1.spr")
+
+SPRITE_AgovoSmoke_2::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_2.spr")
+
+SPRITE_AgovoSmoke_3::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_3.spr")
+
+SPRITE_AgovoSmoke_4::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_4.spr")
+
+SPRITE_AgovoSmoke_5::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_5.spr")
+
+SPRITE_AgovoSmoke_6::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_6.spr")
+
+SPRITE_AgovoSmoke_7::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_7.spr")
+
+SPRITE_AgovoSmoke_8::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_8.spr")
+
+SPRITE_AgovoSmoke_9::
+    INCSPRITE("assets/sprites/scene/effects/agovosmoke/AgovoSmoke_9.spr")
+
+SPRITE_Headspin_1::
+    INCSPRITE("assets/sprites/scene/effects/headspin/Headspin_1.spr")
+
+SPRITE_Headspin_2::
+    INCSPRITE("assets/sprites/scene/effects/headspin/Headspin_2.spr")
+
+SPRITE_MoragBlast_WalkDown1::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkDown1.spr")
+
+SPRITE_MoragBlast_WalkDown2::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkDown2.spr")
+
+SPRITE_MoragBlast_WalkUp1::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkUp1.spr")
+
+SPRITE_MoragBlast_WalkUp2::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkUp2.spr")
+
+SPRITE_MoragBlast_WalkRight1::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkRight1.spr")
+
+SPRITE_MoragBlast_WalkRight2::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkRight2.spr")
+
+SPRITE_MoragBlast_WalkLeft1::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkLeft1.spr")
+
+SPRITE_MoragBlast_WalkLeft2::
+    INCSPRITE("assets/sprites/scene/effects/moragblast/MoragBlast_WalkLeft2.spr")
+
+SPRITE_Smoke_1_1::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_1.spr")
+
+SPRITE_Smoke_1_2::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_2.spr")
+
+SPRITE_Smoke_1_3::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_3.spr")
+
+SPRITE_Smoke_1_4::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_4.spr")
+
+SPRITE_Smoke_1_5::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_5.spr")
+
+SPRITE_Smoke_1_6::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_6.spr")
+
+SPRITE_Smoke_1_7::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_7.spr")
+
+SPRITE_Smoke_1_8::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_1_8.spr")
+
+SPRITE_Smoke_2_1::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_1.spr")
+
+SPRITE_Smoke_2_2::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_2.spr")
+
+SPRITE_Smoke_2_3::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_3.spr")
+
+SPRITE_Smoke_2_4::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_4.spr")
+
+SPRITE_Smoke_2_5::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_5.spr")
+
+SPRITE_Smoke_2_6::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_6.spr")
+
+SPRITE_Smoke_2_7::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_7.spr")
+
+SPRITE_Smoke_2_8::
+    INCSPRITE("assets/sprites/scene/effects/smoke/Smoke_2_8.spr")
+
+SCRIPT_ANIM_Headspin_Idle::
+    SpriteBlock(4, 0, 0) {
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
+    }
+    Jump(SCRIPT_ANIM_Headspin_Idle)
+
+SCRIPT_ANIM_Headspin_RunUp::
+    SpriteBlock(4, 0, -2) {
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
+    }
+    Jump(SCRIPT_ANIM_Headspin_RunUp)
+
+SCRIPT_ANIM_Headspin_RunDown::
+    SpriteBlock(4, 0, 2) {
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
+    }
+    Jump(SCRIPT_ANIM_Headspin_RunDown)
+
+SCRIPT_ANIM_Headspin_RunLeft::
+    SpriteBlock(4, -2, 0) {
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
+    }
+    Jump(SCRIPT_ANIM_Headspin_RunLeft)
+
+SCRIPT_ANIM_Headspin_RunRight::
+    SpriteBlock(4, 2, 0) {
+        Draw(SPRITE_Headspin_1)
+        Draw(SPRITE_Headspin_2)
+    }
+    Jump(SCRIPT_ANIM_Headspin_RunRight)
+
+SCRIPT_ANIM_Smoke_1::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Smoke_1_1)
+        Draw(SPRITE_Smoke_1_2)
+        Draw(SPRITE_Smoke_1_3)
+        Draw(SPRITE_Smoke_1_4)
+        Draw(SPRITE_Smoke_1_5)
+        Draw(SPRITE_Smoke_1_6)
+        Draw(SPRITE_Smoke_1_7)
+        Draw(SPRITE_Smoke_1_8)
+    }
+    End()
+
+SCRIPT_ANIM_Smoke_2::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_Smoke_2_1)
+        Draw(SPRITE_Smoke_2_2)
+        Draw(SPRITE_Smoke_2_3)
+        Draw(SPRITE_Smoke_2_4)
+        Draw(SPRITE_Smoke_2_5)
+        Draw(SPRITE_Smoke_2_6)
+        Draw(SPRITE_Smoke_2_7)
+        Draw(SPRITE_Smoke_2_8)
+    }
+    End()
+
+SCRIPT_ANIM_AgovoSmoke::
+    SpriteBlock(8, 0, 0) {
+        Draw(SPRITE_AgovoSmoke_1)
+        Draw(SPRITE_AgovoSmoke_2)
+        Draw(SPRITE_AgovoSmoke_3)
+        Draw(SPRITE_AgovoSmoke_4)
+        Draw(SPRITE_AgovoSmoke_5)
+        Draw(SPRITE_AgovoSmoke_6)
+        Draw(SPRITE_AgovoSmoke_7)
+        Draw(SPRITE_AgovoSmoke_8)
+        Draw(SPRITE_AgovoSmoke_9)
+    }
+    End()
+
+SCRIPT_ANIM_MoragBlast_WalkLeft::
+    SpriteBlock(4, -2, 0) {
+        Draw(SPRITE_MoragBlast_WalkLeft1)
+        Draw(SPRITE_MoragBlast_WalkLeft2)
+    }
+    Jump(SCRIPT_ANIM_MoragBlast_WalkLeft)
+
+SCRIPT_ANIM_MoragBlast_WalkRight::
+    SpriteBlock(4, 2, 0) {
+        Draw(SPRITE_MoragBlast_WalkRight1)
+        Draw(SPRITE_MoragBlast_WalkRight2)
+    }
+    Jump(SCRIPT_ANIM_MoragBlast_WalkRight)
+
+SCRIPT_ANIM_MoragBlast_WalkUp::
+    SpriteBlock(4, 0, -2) {
+        Draw(SPRITE_MoragBlast_WalkUp1)
+        Draw(SPRITE_MoragBlast_WalkUp2)
+    }
+    Jump(SCRIPT_ANIM_MoragBlast_WalkUp)
+
+SCRIPT_ANIM_MoragBlast_WalkDown::
+    SpriteBlock(4, 0, 2) {
+        Draw(SPRITE_MoragBlast_WalkDown1)
+        Draw(SPRITE_MoragBlast_WalkDown2)
+    }
+    Jump(SCRIPT_ANIM_MoragBlast_WalkDown)

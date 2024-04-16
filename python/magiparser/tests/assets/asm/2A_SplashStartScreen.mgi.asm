@@ -4,9 +4,9 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode                               ; $7247
 
-    LoadBitmapSet BITSET_SplashScreen, PAL_InteractiveImaginationLogo  ; $7248
+    LoadBitmapSet BITSET_Boot_SplashScreen, PAL_Boot_InteractiveImaginationLogo  ; $7248
 
-    LoadFullTilemap ATTRTILE_InteractiveImaginationLogoRLE  ; $724F
+    LoadFullTilemap ATTRTILE_Boot_InteractiveImaginationLogoRLE  ; $724F
 
     PalClearAnim 0, 8, $1F, $1F, $1F, 0                     ; $7253
 
@@ -24,9 +24,9 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode                               ; $7267
 
-    LoadBitmapSet BITSET_SplashScreen, PAL_MusyX            ; $7268
+    LoadBitmapSet BITSET_Boot_SplashScreen, PAL_Boot_MusyX  ; $7268
 
-    LoadFullTilemap ATTRTILE_MusyXRLE                       ; $726F
+    LoadFullTilemap ATTRTILE_Boot_MusyXRLE                  ; $726F
 
     PalClearAnim 0, 8, $1F, $1F, $1F, 0                     ; $7273
 
@@ -44,11 +44,11 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode                               ; $7287
 
-    LoadSpritePalette PAL_AllSprites                        ; $7288
+    LoadSpritePalette PAL_Sprite_Generic                    ; $7288
 
-    LoadBitmapSet BITSET_PressStartScreen, PAL_StartScreen  ; $728C
+    LoadBitmapSet BITSET_Boot_StartScreen, PAL_Boot_StartScreen  ; $728C
 
-    LoadFullTilemap ATTRTILE_MagiNationLogoRLE              ; $7293
+    LoadFullTilemap ATTRTILE_Boot_MagiNationLogoRLE         ; $7293
 
     Switch                                                  ; $7297
         eGetGameCount                                       ; $7298

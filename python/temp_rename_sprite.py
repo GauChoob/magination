@@ -2,7 +2,7 @@ import os
 import sys
 
 def replace_in_files(folder, search_string, replace_string):
-    for root, dirs, files in os.walk('assets/sprites/' + folder):
+    for root, dirs, files in os.walk('assets/sprites/scene/' + folder):
         for file in files:
             if file.endswith('.mgi'):
                 file_path = os.path.join(root, file)
