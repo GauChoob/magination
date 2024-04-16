@@ -164,17 +164,17 @@ SPRITE_Impact_Left3::
 SPRITE_Impact_Left4::
     INCSPRITE("assets/sprites/battlefx/impact/Impact_Left4.spr")
 
-SPRITE_Sonic1::
-    INCSPRITE("assets/sprites/battlefx/sonic/Sonic1.spr")
+SPRITE_Sonic_1::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_1.spr")
 
-SPRITE_Sonic2::
-    INCSPRITE("assets/sprites/battlefx/sonic/Sonic2.spr")
+SPRITE_Sonic_2::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_2.spr")
 
-SPRITE_Sonic3::
-    INCSPRITE("assets/sprites/battlefx/sonic/Sonic3.spr")
+SPRITE_Sonic_3::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_3.spr")
 
-SPRITE_Sonic4::
-    INCSPRITE("assets/sprites/battlefx/sonic/Sonic4.spr")
+SPRITE_Sonic_4::
+    INCSPRITE("assets/sprites/battlefx/sonic/Sonic_4.spr")
 
 SPRITE_Cyclone_Huge1::
     INCSPRITE("assets/sprites/battlefx/cyclone/Cyclone_Huge1.spr")
@@ -981,21 +981,21 @@ SCRIPT_ANIM_Crumble_Explode::
 
 SCRIPT_ANIM_Sonic_Right::
     OverlayDraw() {
-        MoveDraw(10, 1, 0, SPRITE_Sonic1)
-        MoveDraw(10, 2, 0, SPRITE_Sonic2)
-        MoveDraw(10, 3, 0, SPRITE_Sonic3)
+        MoveDraw(10, 1, 0, SPRITE_Sonic_1)
+        MoveDraw(10, 2, 0, SPRITE_Sonic_2)
+        MoveDraw(10, 3, 0, SPRITE_Sonic_3)
     }
     LongJump(SCRIPT_ANIM_Sonic_End)
 
 SCRIPT_ANIM_Sonic_Still::
     OverlayDraw() {
-        MoveDraw(10, 0, 0, SPRITE_Sonic1)
-        MoveDraw(10, 0, 0, SPRITE_Sonic2)
-        MoveDraw(10, 0, 0, SPRITE_Sonic3)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_1)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_2)
+        MoveDraw(10, 0, 0, SPRITE_Sonic_3)
     }
 SCRIPT_ANIM_Sonic_End::
     OverlayDraw() {
-        MoveDraw(255, 4, 0, SPRITE_Sonic4)
+        MoveDraw(255, 4, 0, SPRITE_Sonic_4)
     }
     Jump(SCRIPT_ANIM_Sonic_End)
 
