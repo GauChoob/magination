@@ -163,7 +163,6 @@ INCLUDE "musyx/musyx_pack.asm"
 
 
 
-INCLUDE "source/banks/bank_041.asm"
     ; ?
     ; Tilemaps for StartScreen 0-D
 
