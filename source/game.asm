@@ -207,7 +207,6 @@ INCLUDE "assets/fightscene/fightscene_creature_bitmaps1.asm"
 SECTION "DC Fightscene Bitmaps 2", ROMX[$4000], BANK[$49]
 INCLUDE "assets/fightscene/fightscene_creature_bitmaps2.asm"
     ; Tilesets for fightscene sprites. Only a small amount of room left.
-    ; Contains an extra unused copy of Abaquist's tileset but uncompressed (BUG)
 SECTION "DC Fightscene Bitmaps 3", ROMX[$4000], BANK[$4A]
 INCLUDE "assets/fightscene/fightscene_creature_bitmaps3.asm"
     ; Tilesets for fightscene sprites. Only a small amount of room left.

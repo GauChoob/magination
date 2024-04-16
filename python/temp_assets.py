@@ -152,4 +152,4 @@ def parse_bank(bank):
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x4E)
+parse_bank(0x4F)
