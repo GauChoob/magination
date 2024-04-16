@@ -1,8 +1,15 @@
 ;*
 ;* Gameboy Hardware definitions
+;* https://github.com/gbdev/hardware.inc
 ;*
 ;* Based on Jones' hardware.inc
 ;* And based on Carsten Sorensen's ideas.
+;*
+;* To the extent possible under law, the authors of this work have
+;* waived all copyright and related or neighboring rights to the work.
+;* See https://creativecommons.org/publicdomain/zero/1.0/ for details.
+;*
+;* SPDX-License-Identifier: CC0-1.0
 ;*
 ;* Rev 1.1 - 15-Jul-97 : Added define check
 ;* Rev 1.2 - 18-Jul-97 : Added revision check macro
@@ -35,6 +42,9 @@
 ;* Rev 4.7.0 - 27-Jun-22 : Added alternate names for some constants
 ;* Rev 4.7.1 - 05-Jul-22 : Added RPB_LED_ON constant
 ;* Rev 4.8.0 - 25-Oct-22 : Changed background addressing constants (zlago)
+;* Rev 4.8.1 - 29-Apr-23 : Added rOPRI (rbong)
+;* Rev 4.9.0 - 24-Jun-23 : Added definitions for interrupt vectors (sukus)
+;* Rev 4.9.1 - 11-Sep-23 : Added repository link and CC0 waiver notice
 
 
 ; NOTE: REVISION NUMBER CHANGES MUST BE REFLECTED
@@ -54,7 +64,7 @@ DEF HARDWARE_INC EQU 1
 ;           rev_Check_hardware_inc 4.1 (equivalent to 4.1.0)
 ;           rev_Check_hardware_inc 4 (equivalent to 4.0.0)
 MACRO rev_Check_hardware_inc
-    DEF CUR_VER equs "4,8,0"    ; ** UPDATE THIS LINE WHEN CHANGING THE REVISION NUMBER **
+    DEF CUR_VER equs "4,9,1"    ; ** UPDATE THIS LINE WHEN CHANGING THE REVISION NUMBER **
 
     DEF MIN_VER equs STRRPL("\1", ".", ",")
     DEF INTERNAL_CHK equs """MACRO ___internal
@@ -796,6 +806,21 @@ DEF rOBPD EQU rOCPD
 
 
 ; --
+; -- OPRI ($FF6C)
+; -- Object Priority Mode (R/W)
+; -- CGB Only
+
+; --
+; -- Priority can be changed only from the boot ROM
+; --
+DEF rOPRI EQU $FF6C
+
+DEF OPRI_OAM   EQU 0 ; Prioritize objects by location in OAM (CGB Mode default)
+DEF OPRI_COORD EQU 1 ; Prioritize objects by x-coordinate (Non-CGB Mode default)
+
+
+
+; --
 ; -- SMBK/SVBK ($FF70)
 ; -- Select Main RAM Bank (R/W)
 ; --
@@ -897,6 +922,19 @@ DEF BOOTUP_A_MGB    EQU $FF ; Mini GameBoy (Pocket GameBoy)
 ; other system running in GBC mode
 DEF BOOTUP_B_CGB    EQU %00000000
 DEF BOOTUP_B_AGB    EQU %00000001   ; GBA, GBA SP, Game Boy Player, or New GBA SP
+
+
+;***************************************************************************
+;*
+;* Interrupt vector addresses
+;*
+;***************************************************************************
+
+DEF INT_HANDLER_VBLANK EQU $0040
+DEF INT_HANDLER_STAT   EQU $0048
+DEF INT_HANDLER_TIMER  EQU $0050
+DEF INT_HANDLER_SERIAL EQU $0058
+DEF INT_HANDLER_JOYPAD EQU $0060
 
 
 ;***************************************************************************
