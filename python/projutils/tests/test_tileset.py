@@ -32,6 +32,9 @@ class TestTileset(unittest.TestCase):
         self.assertListEqual(musyx1.pixels, musyx2.pixels)
         self.assertListEqual(musyx1.pixels, musyx3.pixels)
         self.assertListEqual(musyx1.pixels, musyx4.pixels)
+        self.assertEqual(musyx1.size(), musyx2.size())
+        self.assertEqual(musyx1.size(), musyx3.size())
+        self.assertEqual(musyx1.size(), musyx4.size())
 
         musyx1.save_original_file(DESTINATION + 'musyx1.tileset.png')
         musyx2.save_original_file(DESTINATION + 'musyx2.tileset.png')

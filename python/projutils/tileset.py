@@ -103,6 +103,7 @@ class Bitmap(filecontents.FileContentsSerializer):
         self.palette = color.Palette.init_from_list(meta['palette'])
         png_reader.file.close()
         self._count_discarded_tiles()
+        self._size = self.width*self.height//4
 
     def _to_processed_data(self) -> bytes:
         assert self.width == len(self.pixels[0])

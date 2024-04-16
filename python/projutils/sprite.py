@@ -113,6 +113,16 @@ class Sprite(filecontents.FileContentsSerializer):
 class SpriteOffsets:
     BASE: str = 'assets/sprites/spritebase.txt'
 
+    def get_vbk(self, sprite_name: str) -> int:
+        if sprite_name in self.bases:
+            return int(self.bases[sprite_name] >= 0x100)
+        return 0
+
+    def get_tileoffset(self, sprite_name: str) -> int:
+        if sprite_name in self.bases:
+            return int(self.bases[sprite_name] % 0x100)
+        return 0
+
     def __init__(self, path: str = BASE):
         self.bases = {}
         with open(path, 'r') as f:
@@ -132,7 +142,7 @@ class SpritePalettes:
     DEFAULT_PAL: str = 'Generic'
     BATTLEFX_PAL: str = 'BattleFX'
 
-    def register_battlefx(self):
+    def register_battlefx(self) -> None:
         for dirpath, dirnames, filenames in os.walk(self.BATTLEFX_FOLDER):
             if dirnames:
                 continue
@@ -145,7 +155,7 @@ class SpritePalettes:
                     spritename = filename.split('.', 1)[0]
                 self.sprite_pal_dict[spritename] = self.FOLDER + self.BATTLEFX_PAL + '.pal.png'
 
-    def register_sprites(self):
+    def register_sprites(self) -> None:
         with open(self.PAL, 'r') as f:
             for line in f:
                 line = line.strip()
@@ -154,9 +164,9 @@ class SpritePalettes:
                 spritename, pal = line.split(',')
                 self.sprite_pal_dict[spritename] = self.FOLDER + pal + '.pal.png'
 
-    def get(self, spritename):
-        if spritename in self.sprite_pal_dict:
-            return self.sprite_pal_dict[spritename]
+    def get(self, sprite_name: str) -> str:
+        if sprite_name in self.sprite_pal_dict:
+            return self.sprite_pal_dict[sprite_name]
         return self.FOLDER + self.DEFAULT_PAL + '.pal.png'
 
     def __init__(self):
