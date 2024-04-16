@@ -78,6 +78,7 @@ INCLUDE "source/ram/wram_X.asm"
 INCLUDE "source/ram/oam.asm"
 INCLUDE "source/ram/hram.asm"
 
+INCLUDE "assets/scenes/scenes/scenes.asm"
     ; Sprites - Bank 0E, 0F, 10, 11, 20 - essentially full
     ;           Bank 25 - the first half is reserved for sprites
     ;           TODO list all banks here?
@@ -224,7 +225,6 @@ INCLUDE "source/banks/bank_04c.asm"
 INCLUDE "source/banks/bank_04e_x.asm"
     ; Scene headers
     ; ? Combat animations?
-INCLUDE "source/banks/bank_04f.asm"
 
 ;
 ;       SCENE DATA AUTOPACKER (MR. YUK)
