@@ -1,5 +1,8 @@
 ; Sprite,Palette
-; Defaults to Generic, unless in the battlefx folder, then defaults to BattleFX
+; Only a few sprites use special palettes
+; Scene and CardsceneFX sprites default to Generic
+; BattleFX sprites default to BattleFX
+; Exceptions are defined below:
 StoneGogor,StoneAndTony
 StoneJaela,StoneAndTony
 StoneKaEryn,StoneAndTony
