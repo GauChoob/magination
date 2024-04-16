@@ -1,4 +1,4 @@
-SECTION "ROM Bank $027", ROMX, BANK[$27]
+SECTION "Boot Assets", ROMX, BANK[$27]
 
 BITSET_Boot_SplashScreen::
     INCLUDE "assets/boot/splashscreen/splashscreen.bitmapset.asm"

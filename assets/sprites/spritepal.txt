@@ -1,0 +1,10 @@
+; Sprite,Palette
+; Defaults to Generic, unless in the battlefx folder, then defaults to BattleFX
+StoneGogor,StoneAndTony
+StoneJaela,StoneAndTony
+StoneKaEryn,StoneAndTony
+StoneValkan,StoneAndTony
+FireBird,FireBird
+Judge,Judge
+Swarm,Swarm
+;Pack does not actually use the Pack palette

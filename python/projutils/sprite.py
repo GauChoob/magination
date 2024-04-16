@@ -111,11 +111,11 @@ class Sprite(filecontents.FileContentsSerializer):
 
 
 class SpriteOffsets:
-    FOLDER: str = 'assets/sprites/spritebase.txt'
+    BASE: str = 'assets/sprites/spritebase.txt'
 
-    def __init__(self):
+    def __init__(self, path: str = BASE):
         self.bases = {}
-        with open(self.FOLDER, 'r') as f:
+        with open(path, 'r') as f:
             for line in f:
                 line = line.strip()
                 if line[0] == ';':
@@ -123,3 +123,43 @@ class SpriteOffsets:
                 label, offset = line.split(',')
                 offset = int(offset, 16)
                 self.bases[label] = offset
+
+
+class SpritePalettes:
+    PAL: str = 'assets/sprites/spritepal.txt'
+    FOLDER: str = 'assets/sprites/'
+    BATTLEFX_FOLDER: str = FOLDER + 'battlefx/'
+    DEFAULT_PAL: str = 'Generic'
+    BATTLEFX_PAL: str = 'BattleFX'
+
+    def register_battlefx(self):
+        for dirpath, dirnames, filenames in os.walk(self.BATTLEFX_FOLDER):
+            if dirnames:
+                continue
+            for filename in filenames:
+                if not filename.endswith('.spr'):
+                    continue
+                if '_' in filename:
+                    spritename = filename.split('_', 1)[0]
+                else:
+                    spritename = filename.split('.', 1)[0]
+                self.sprite_pal_dict[spritename] = self.FOLDER + self.BATTLEFX_PAL + '.pal.png'
+
+    def register_sprites(self):
+        with open(self.PAL, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line[0] == ';':
+                    continue
+                spritename, pal = line.split(',')
+                self.sprite_pal_dict[spritename] = self.FOLDER + pal + '.pal.png'
+
+    def get(self, spritename):
+        if spritename in self.sprite_pal_dict:
+            return self.sprite_pal_dict[spritename]
+        return self.FOLDER + self.DEFAULT_PAL + '.pal.png'
+
+    def __init__(self):
+        self.sprite_pal_dict = {}
+        self.register_battlefx()
+        self.register_sprites()

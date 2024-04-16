@@ -14,6 +14,7 @@ rom = utils.Rom()
 out = config.outdir
 sprite_pal = color.Palette.init_from_original_file('python/projutils/data/AllSprites.pal.png')
 sprite_stone_pal = color.Palette.init_from_original_file('python/PAL_Sprite_StoneMagi.pal.png')
+sprite_palettes = sprite.SpritePalettes()
 sprite_offsets = sprite.SpriteOffsets()
 
 
@@ -46,10 +47,11 @@ def colorize(ref: filereference.FileReference):
             vbk = 1
             delta -= 0x100
         offset += sprite_offsets.bases[offset_name]*0x10
-    palette = sprite_pal.palette
+    sprite_name = ref.label_name.rsplit('_', 1)[1]
+    palette = color.Palette.init_from_original_file(sprite_palettes.get(sprite_name))
     if ref.label_name.startswith('BITMAP_Sprite_Stone'):
         palette = sprite_stone_pal.palette
-    ref.contents.colorize_from_sprite(ref._spr_glob, vbk, offset, color.Palette.init_from_list(palette), 0, True, 0)
+    ref.contents.colorize_from_sprite(ref._spr_glob, vbk, offset, palette, 0, True, 0)
     return True
 
 
@@ -154,4 +156,4 @@ def parse_bank(bank):
         f.write('\n'.join(bitsprite_list))
 
 
-parse_bank(0x27)
+parse_bank(0x40)
