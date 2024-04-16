@@ -283,3 +283,11 @@
 4F:7CAF BITMAP_Sprite_Fireball
 4F:7E0F BITMAP_Sprite_Hit
 4F:7EDF END
+60:7000 BITMAP_Sprite_Tony
+60:7800 END
+6c:68af BITMAP_Sprite_TonyAqua
+6c:6caf END
+70:5543 BITMAP_Sprite_ParathinOverworld
+70:5843 END
+79:470b BITMAP_Sprite_TonyOverworld
+79:480b END

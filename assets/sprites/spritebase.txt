@@ -18,6 +18,7 @@ Tony,100
 TonyAqua,100
 TonyOverworld,100
 TonyBattle,100
-; Exceptionally, ParathinTony is used by the same sprites as Parathin.
+; Exceptionally, ParathinTony is used by the same .spr files as Parathin.
 Parathin,100
 ParathinTony,171
+ParathinOverworld,100
