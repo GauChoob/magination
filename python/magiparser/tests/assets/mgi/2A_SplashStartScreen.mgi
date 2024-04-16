@@ -6,8 +6,8 @@ msSplashStartScreen::
     ; Then starts StartMenu and Delays for you to press Start
 
     ResetThenSingleThreadMode()
-        LoadBitmapSet(BITSET_SplashScreen,PAL_InteractiveImaginationLogo)
-        LoadFullTilemap(ATTRTILE_InteractiveImaginationLogoRLE)
+        LoadBitmapSet(BITSET_Boot_SplashScreen,PAL_Boot_InteractiveImaginationLogo)
+        LoadFullTilemap(ATTRTILE_Boot_InteractiveImaginationLogoRLE)
         PalClearAnim(0,8,WHITE_A)
         SetCamera($00, $00)
     SceneReady()
@@ -20,8 +20,8 @@ msSplashStartScreen::
     PalFadeAnimToBase(3,$20,0,8)
 
     ResetThenSingleThreadMode()
-        LoadBitmapSet(BITSET_SplashScreen,PAL_MusyX)
-        LoadFullTilemap(ATTRTILE_MusyXRLE)
+        LoadBitmapSet(BITSET_Boot_SplashScreen,PAL_Boot_MusyX)
+        LoadFullTilemap(ATTRTILE_Boot_MusyXRLE)
         PalClearAnim(0,8,WHITE_A)
         SetCamera($00, $00)
     SceneReady()
@@ -35,8 +35,8 @@ msSplashStartScreen::
 
     ResetThenSingleThreadMode()
         LoadSpritePalette(PAL_Sprite_Generic)
-        LoadBitmapSet(BITSET_StartScreen,PAL_StartScreen)
-        LoadFullTilemap(ATTRTILE_MagiNationLogoRLE)
+        LoadBitmapSet(BITSET_Boot_StartScreen,PAL_Boot_StartScreen)
+        LoadFullTilemap(ATTRTILE_Boot_MagiNationLogoRLE)
         
         Switch(#GAMECOUNT#){
             Case($0000,.SwitchNaroom)
