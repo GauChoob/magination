@@ -50,6 +50,8 @@ help:
 	$(info make preview -> generate all scene previews (located in python/out/preview/))
 	$(info make preview scene=Underneath_Fort_Outside-> generate one scene previews (located in python/out/preview/))
 	$(info )
+	$(info make sprites -> generate all sprite previews (located in python/out/preview/))
+	$(info )
 	$(info make clean -> delete generated assets, musyx, mgi, autopack)
 	$(info .             can be useful if you rename files and the script gets confused)
 	$(info )
