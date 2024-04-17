@@ -16,6 +16,9 @@ files:
 preview:
 	python python\\make preview $(scene)
 
+sprites:
+	python python\\make sprites $(sprite)
+
 tests:
 	python -m unittest python\\projutils\\tests\\test_asm.py
 	python -m unittest python\\projutils\\tests\\test_autopack.py

@@ -13,4 +13,4 @@
         LoadBitmap $8E00,BITMAP_Naroom_Vash_PipesRoom_Unknown,$02,$01
         LoadBitmap $9000,BITMAP_Naroom_Vash_PipesRoom_BigPipes,$10,$08
         LoadBitmap $8EB0,BITMAP_Naroom_Vash_PipesRoom_Unknown,$02,$01
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Main,$10,$08
+        LoadBitmap $8000,BITMAP_Sprite_Tony,$10,$08

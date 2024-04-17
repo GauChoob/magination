@@ -9,4 +9,4 @@
     ; Destination, Source, Width, Height
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02
         LoadBitmap $9000,BITMAP_Orothe_Geyser_Pathway_Wall,$10,$08
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Swimming,$10,$04
+        LoadBitmap $8000,BITMAP_Sprite_TonyAqua,$10,$04

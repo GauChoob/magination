@@ -26,7 +26,7 @@
     db $02
     db $7C
 
-    ; BITMAP_Sprite_Tony_Main
+    ; BITMAP_Sprite_Tony
     dw $8000
     dw $4000
     db $10

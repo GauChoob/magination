@@ -11,4 +11,4 @@
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02
         LoadBitmap $8F00,BITMAP_Underneath_Mushroom_SporeTrail,$0E,$01
         LoadBitmap $8E80,BITMAP_Underneath_Mushroom_Chest,$06,$01
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Main,$10,$08
+        LoadBitmap $8000,BITMAP_Sprite_Tony,$10,$08

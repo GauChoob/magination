@@ -1,5 +1,8 @@
 ; Sprite,$HexOffset (add $100 if VBK 1)
 CardsceneFX,40
+; I think NumberBounce is actually 140, but the numbers are dynamically written in when damage is applied
+; We use 1B7 to preview the image
+NumberBounce,1B7
 EidonWork,30
 EidonFall,30
 EidonOrwin,30
@@ -14,10 +17,12 @@ PruittRing,30
 ArderialGuardFly,30
 ValkanSpear,30
 FerryOverworld,100
+TonyBattle,100
+; Exceptionally, ParathinTony is used by the same .spr files as Parathin. This is a hard-coded exception
+Parathin,100
+ParathinTony,171
+; The next 4 sprites are actually in assets/scenes/sprites as they are autopacked
+ParathinOverworld,100
 Tony,100
 TonyAqua,100
 TonyOverworld,100
-TonyBattle,100
-; Exceptionally, ParathinTony is used by the same sprites as Parathin.
-Parathin,100
-ParathinTony,171

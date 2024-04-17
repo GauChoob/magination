@@ -6,3 +6,4 @@ Preview all sprites (both .spr files as well as SCRIPT_ANIMs)
 Add tests for sprite preview, sprite palettes and sprite non-standard offsets
 
 Don't define banks in game.asm, move them directly into the child .asm files
+Remove source/assets

@@ -9,4 +9,4 @@
     ; Destination, Source, Width, Height
         LoadBitmap $9100,BITMAP_Orothe_Mar_Town_Turtle,$10,$07
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Swimming,$10,$04
+        LoadBitmap $8000,BITMAP_Sprite_TonyAqua,$10,$04

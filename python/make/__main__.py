@@ -5,6 +5,11 @@ import make.musyx as musyx  # noqa: E402
 import make.assets as assets  # noqa: E402
 import make.autopack as autopack  # noqa: E402
 import make.preview as previeww  # noqa: E402
+import make.sprite as sprite  # noqa: E402
+
+
+def sprites():
+    sprite.do()
 
 
 def preview():

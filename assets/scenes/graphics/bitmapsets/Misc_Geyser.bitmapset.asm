@@ -18,5 +18,5 @@
         LoadBitmap $8EE0,BITMAP_Misc_BlankTiles,$02,$02
         LoadBitmap $8EC0,BITMAP_Naroom_Geyser_EmptyChest,$02,$01
         LoadBitmap $8FC0,BITMAP_Naroom_Geyser_FullChest,$02,$01
-        LoadBitmap $8000,BITMAP_Sprite_Tony_Main,$10,$08
+        LoadBitmap $8000,BITMAP_Sprite_Tony,$10,$08
         LoadBitmap $8F80,BITMAP_Underneath_Geyser_WaneMoonButton,$04,$01
