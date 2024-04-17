@@ -1,5 +1,8 @@
 ; Sprite,$HexOffset (add $100 if VBK 1)
 CardsceneFX,40
+; I think NumberBounce is actually 140, but the numbers are dynamically written in when damage is applied
+; We use 1B7 to preview the image
+NumberBounce,1B7
 EidonWork,30
 EidonFall,30
 EidonOrwin,30
